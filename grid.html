@@ -1,0 +1,383 @@
+<div class="tab-base">
+    <!--Nav Tabs-->
+
+    <ul class="nav nav-tabs">
+        <li><a data-toggle="tab" href="#demo-lft-tab-1"><i class="demo-psi-home"></i> Home</a></li>
+
+        <li class="active"><a data-toggle="tab" href="#demo-lft-tab-2"><i class="fa fa-pencil"></i> Un-approved Request Order</a></li>
+		<li><a data-toggle="tab" href="#demo-lft-tab-3"><i class="fa fa-pencil"></i> Approved Request Order</a></li>
+
+        <li><a data-toggle="tab" href="#demo-lft-tab-4"><i class="demo-psi-idea-2"></i> Help</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="demo-lft-tab-1" class="tab-pane fade"></div>
+        <div id="demo-lft-tab-2" class="tab-pane fade active in">
+
+            <div class="panel-body">
+                 
+ 
+                <div class="fixed-table-container">
+                    <div class="fixed-table-toolbar mar-top mar-btm">
+                        <div class="btn-group ">
+                            <button id="demo-bootbox-bounce" class="btn btn-primary btn-labeled fa fa-plus-square btn-sm">Add</button>
+                            <button class="btn btn-warning btn-labeled fa fa-edit btn-sm" onClick="proses_edit();">Edit</button>
+                            <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete();">Delete</button>
+                        </div>
+                    </div>
+                    <div id="myGrid" style="height: 300px;" class="ag-theme-balham"></div>
+                </div>
+
+            </div>
+            <hr class="hr-sm">
+            <div class="panel-body">
+                <div class="fixed-table-container pad-top">
+                    <div class="fixed-table-toolbar">
+                        <div class="btn-group ">
+                            <button id="demo-bootbox-bounce" class="btn btn-primary btn-labeled fa fa-plus-square btn-sm">Add</button>
+                        </div>
+                    </div>
+                    <div id="myGrida" style="height: 300px;" class="ag-theme-balham"></div>
+                </div>
+            </div>
+        </div>
+		
+		<div id="demo-lft-tab-3" class="tab-pane fade">
+
+            <div class="panel-body">
+                <form class="form-inline mar-btm ">
+                    <div class="form-group">
+                        <input placeholder="Nomor RO" id="demo-inline-inputmail" class="form-control" type="email">
+                    </div>
+
+                    <div class="form-group">
+                        <div id="demo-dp-range">
+                            <div class="input-daterange input-group" id="datepicker">
+                                <input placeholder="Tgl Start" class="form-control" name="start" type="text">
+                                <span class="input-group-addon">to</span>
+                                <input placeholder="Tgl End" class="form-control" name="end" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-success" type="submit">Cari</button>
+
+                </form>
+
+                <hr class="hr-sm">
+                <div class="fixed-table-container">
+                    <div class="fixed-table-toolbar mar-top mar-btm">
+                        <div class="btn-group ">
+                            <button id="demo-bootbox-bounce" class="btn btn-primary btn-labeled fa fa-plus-square btn-sm">Add</button>
+                            <button class="btn btn-warning btn-labeled fa fa-edit btn-sm" onClick="proses_edit();">Edit</button>
+                            <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete();">Delete</button>
+                        </div>
+                    </div>
+                    <div id="myGridd" style="height: 300px;" class="ag-theme-balham"></div>
+                </div>
+
+            </div>
+            <hr class="hr-sm">
+            <div class="panel-body">
+                <div class="fixed-table-container pad-top">
+                    <div class="fixed-table-toolbar">
+                        <div class="btn-group ">
+                            <button id="demo-bootbox-bounce" class="btn btn-primary btn-labeled fa fa-plus-square btn-sm">Add</button>
+                        </div>
+                    </div>
+                    <div id="myGride" style="height: 300px;" class="ag-theme-balham"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="demo-lft-tab-4" class="tab-pane fade"></div>
+    </div>
+</div>
+
+
+ 
+
+
+<script type="text/javascript" charset="utf-8">
+    // specify the columns
+    var columnDefs = [
+
+        {
+            headerName: "No PO",
+            field: "id",
+            width: 190,
+            filterParams: {
+                newRowsAction: 'keep'
+            }
+        },
+        {
+            headerName: "Tanggal",
+            field: "tgl",
+            width: 150,
+            filterParams: {
+                newRowsAction: 'keep'
+            }
+        },
+        {
+            headerName: "Deadline",
+            field: "deadline",
+            width: 100,
+            filterParams: {
+                newRowsAction: 'keep'
+            }
+        },
+        {
+            headerName: "Keterangan",
+            field: "keterangan",
+            width: 120,
+            filterParams: {
+                newRowsAction: 'keep'
+            }
+        },
+        {
+            headerName: "Suplier",
+            field: "nama_suplier",
+            width: 100,
+            filterParams: {
+                newRowsAction: 'keep'
+            }
+        },
+        {
+            headerName: "Status PO",
+            field: "status_proses",
+            width: 120,
+            filterParams: {
+                newRowsAction: 'keep'
+            }
+        },
+        {
+            headerName: "Status Approve",
+            field: "status_approve",
+            width: 150,
+            filterParams: {
+                newRowsAction: 'keep'
+            }
+        }
+    ];
+
+    var autoGroupColumnDef = {
+        headerName: "Group",
+        width: 200,
+        field: 'athlete',
+        valueGetter: function(params) {
+            if (params.node.group) {
+                return params.node.key;
+            } else {
+                return params.data[params.colDef.field];
+            }
+        },
+        headerCheckboxSelection: true,
+        // headerCheckboxSelectionFilteredOnly: true,
+        cellRenderer: 'agGroupCellRenderer',
+        cellRendererParams: {
+            checkbox: true
+        }
+    };
+
+    var gridOptions = {
+        enableSorting: true,
+        enableFilter: true,
+        suppressRowClickSelection: false,
+        onRowClicked: bukaDetail,
+        groupSelectsChildren: true,
+        debug: true,
+        rowSelection: 'multiple',
+        enableColResize: true,
+        rowGroupPanelShow: 'always',
+        pivotPanelShow: 'always',
+        enableRangeSelection: true,
+        columnDefs: columnDefs,
+        pagination: true,
+        paginationPageSize: 50,
+        autoGroupColumnDef: autoGroupColumnDef,
+        defaultColDef: {
+            editable: false,
+            enableRowGroup: true,
+            enablePivot: true,
+            enableValue: true
+        }
+    };
+	
+	 var columnDetail = [
+
+        {
+            headerName: "No",
+            field: "no",
+            width: 190,
+            filterParams: {
+                newRowsAction: 'keep'
+            }
+        },
+        {
+            headerName: "Kode Produk",
+            field: "kode",
+            width: 150,
+            filterParams: {
+                newRowsAction: 'keep'
+            }
+        },
+        {
+            headerName: "Nama Produk",
+            field: "nama",
+            width: 100,
+            filterParams: {
+                newRowsAction: 'keep'
+            }
+        },
+        {
+            headerName: "Jumlah",
+            field: "qty",
+            width: 120,
+            filterParams: {
+                newRowsAction: 'keep'
+            }
+        },
+        {
+            headerName: "Satuan",
+            field: "satuan",
+            width: 100,
+            filterParams: {
+                newRowsAction: 'keep'
+            }
+        } 
+    ];
+	 
+	 
+	var gridOptionsDetail = {
+    enableSorting: true,
+    enableFilter: true,
+    suppressRowClickSelection: false, 
+    groupSelectsChildren: true,
+    debug: true,
+    rowSelection: 'single',
+    enableColResize: true,
+    rowGroupPanelShow: 'always',
+    pivotPanelShow: 'always',
+    enableRangeSelection: true,
+    columnDefs: columnDetail,
+    pagination: false ,
+    defaultColDef:{
+        editable: false 
+    }
+};
+
+    // setup the grid after the page has finished loading 
+    var gridDiv = document.querySelector('#myGrid');
+    new agGrid.Grid(gridDiv, gridOptions);
+	
+	var gridDiv2 = document.querySelector('#myGrida');
+    new agGrid.Grid(gridDiv2, gridOptionsDetail);
+
+    // do http request to get our sample data - not using any framework to keep the example self contained.
+    // you will probably use a framework like JQuery, Angular or something else to do your HTTP calls.
+    function loaddata() {
+        $.ajax({
+            url:  BASE_URL +'inventory/list/?status=unapproved',
+            headers: {
+                'Authorization': localStorage.getItem("Token"),
+                'X_CSRF_TOKEN': 'donimaulana',
+                'Content-Type': 'application/json'
+            },
+            dataType: 'json',
+            type: 'get',
+            contentType: 'application/json',
+            processData: false,
+            success: function(data, textStatus, jQxhr) {
+
+
+                gridOptions.api.setRowData(data);
+				gridOptionsDetail.api.setRowData([]);
+            },
+            error: function(jqXhr, textStatus, errorThrown) {
+                alert('error');
+            }
+        });
+
+    }
+	
+	function loaddataApproved() {
+        $.ajax({
+            url:  BASE_URL +'inventory/list/?status=approved',
+            headers: {
+                'Authorization': localStorage.getItem("Token"),
+                'X_CSRF_TOKEN': 'donimaulana',
+                'Content-Type': 'application/json'
+            },
+            dataType: 'json',
+            type: 'get',
+            contentType: 'application/json',
+            processData: false,
+            success: function(data, textStatus, jQxhr) {
+
+
+                gridOptionsApproved.api.setRowData(data);
+				gridOptionsDetailApproved.api.setRowData([]);
+            },
+            error: function(jqXhr, textStatus, errorThrown) {
+                alert('error');
+            }
+        });
+
+    }
+
+    function bukaDetail() {
+        var selectedRows = gridOptions.api.getSelectedRows();
+        var selectedRowsString = '';
+        selectedRows.forEach(function(selectedRow, index) {
+
+            if (index !== 0) {
+                selectedRowsString += ', ';
+            }
+            selectedRowsString += selectedRow.id;
+        });
+
+        $.ajax({
+            url: BASE_URL + 'inventory/loadData_detail_ro/' + selectedRowsString,
+            headers: {
+                'Authorization': localStorage.getItem("Token"),
+                'X_CSRF_TOKEN': 'donimaulana',
+                'Content-Type': 'application/json'
+            },
+            dataType: 'json',
+            type: 'get',
+            contentType: 'application/json',
+            processData: false,
+            success: function(data, textStatus, jQxhr) {
+
+				if(data.status ==='ok'){
+					 
+					 gridOptionsDetail.api.setRowData(data.data);
+						gridOptionsDetail.api.forEachLeafNode(function(node, index) {
+							//node.setExpanded(true);
+							if (node.data.front === '1') {
+								node.setSelected(true, false);
+							}
+		
+						});
+				}else{
+					gridOptionsDetail.api.setRowData([]);
+				}
+               
+
+            },
+            error: function(jqXhr, textStatus, errorThrown) {
+                alert('error');
+            }
+        });
+
+
+    }
+
+    loaddata();
+    $('#demo-dp-range .input-daterange').datepicker({
+        format: "yyyy-mm-dd",
+        todayBtn: "linked",
+        autoclose: true,
+        todayHighlight: true
+    });
+</script>
+<script src="js/login.js"></script>

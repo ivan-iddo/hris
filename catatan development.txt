@@ -1,0 +1,1 @@
+ALTER TABLE `sys_user_access` ADD `tambah` INT(111) NULL DEFAULT '1' , ADD `hapus` INT(111) NULL DEFAULT '1' , ADD `simpan` INT(111) NULL DEFAULT '1' , ADD `setujui` INT(111) NULL DEFAULT '1' ;

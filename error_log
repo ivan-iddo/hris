@@ -1,0 +1,4 @@
+[18-Oct-2018 03:44:13 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /home/gtpayid/public_html/hris/home.php:2) in /home/gtpayid/public_html/hris/connectdb.php on line 2
+[18-Oct-2018 03:44:13 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/gtpayid/public_html/hris/home.php:2) in /home/gtpayid/public_html/hris/connectdb.php on line 2
+[18-Oct-2018 07:07:16 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/gtpayid/public_html/hris/home.php:2) in /home/gtpayid/public_html/hris/connectdb.php on line 2
+[19-Oct-2018 03:18:30 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/gtpayid/public_html/hris/home.php:2) in /home/gtpayid/public_html/hris/connectdb.php on line 2

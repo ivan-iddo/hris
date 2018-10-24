@@ -1,0 +1,372 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title> Log In</title>
+	 
+	
+	  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="admin_endless/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/pace.css" rel="stylesheet">
+    <script src="js/pace.min.js"></script>
+	<!-- Font Awesome -->
+	<link href="admin_endless/css/font-awesome.min.css" rel="stylesheet">
+	
+	<!-- Endless -->
+	<link href="admin_endless/css/endless.min.css" rel="stylesheet">
+	
+	<!-- Place CSS bug fixes for IE 7 in this comment -->
+	<!--[if IE 7]>
+	<style type="text/css" media="screen">
+		#login-logo { margin: 15px auto 15px auto; }
+		.input-email { margin: -24px 0 0 10px;}
+		.input-password { margin: -30px 0 0 14px; }
+		body#login #login-box input { height: 20px; padding: 10px 4px 4px 35px; }
+		body#login{ margin-top: 14%;}
+		
+		
+	</style>
+	<![endif]-->
+<style>
+	$textColor: White;
+$greyColor: #BBB;
+
+* {
+  @include box-sizing(border-box);
+}
+
+ 
+ 
+
+a {
+  color: $greyColor;
+}
+
+.content:before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0; bottom: 0;
+  z-index: -1;
+
+  display: block; 
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
+}
+
+.content {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  width: 440px;
+  height: 540px;
+
+  background-color: rgba(10, 10, 10, 0.5);
+  margin: auto auto;  
+  padding: 40px;
+  
+  @include border-radius(4px);
+  @include box-shadow(0 0 10px rgba(0,0,0,1));
+  
+  .title {
+    
+    text-align: center;
+    font-size: 2.0rem;
+    font-weight: 600;
+    
+    padding-bottom: 30px;
+    
+  } // .title
+  
+  input {
+    width: 100%;
+    font-size: 1.2rem;
+    font-family: "Open Sans";
+    
+    margin: 10px 0px;
+    
+    border: none;
+    padding: 10px;
+    
+    @include border-radius(4px);
+  
+  } // input
+  
+  input[type=checkbox] {
+    display: none;
+  }
+  
+  label {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+
+    cursor: pointer;
+    position: relative;
+
+    margin-left: 5px;
+    margin-right: 10px;
+    top: 5px;
+
+    &:before {
+      content: "";
+      display: inline-block;
+
+      width: 20px;
+      height: 20px;
+      
+      @include border-radius(3px);
+
+      position: absolute;
+      left: 0;
+      bottom: 1px;
+      background-color: #aaa;
+      @include box-shadow(inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8));        
+    }
+  } // label
+  
+  input[type=checkbox]:checked + label:before {
+    content: "\2713";
+    @include text-shadow(1px 1px 1px rgba(0, 0, 0, .2));
+    font-size: 20px;
+    color: Black;
+    text-align: center;
+      line-height: 20px;
+  }  
+  
+  span {
+    font-size: 0.9rem;
+  }
+  
+  button {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 10px;
+    margin: 20px 0px;
+    
+    background-color: #66A756;
+    color: $textColor;
+    border: none;
+    
+    @include border-radius(4px);
+  }
+  
+  .social {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    
+    span {
+      display: inline-block;
+      vertical-align: baseline;
+      padding: 0 20px;
+      
+      &:before, &:after {
+        content: '';
+        display: block;
+        width: 500px;
+        position: absolute;
+        top: 0.9em;
+        border-top: 1px solid $textColor;
+      }
+      
+      &:before {
+        right: 75%;
+      }
+      
+      &:after {
+        left: 75%;
+      }
+    }
+  }
+  
+  .buttons {
+    width: 100%;
+    margin: 30px 0px;
+    
+    button {
+      float: left;
+      width: 30%;
+      margin: 0px 1.5%;
+      
+      i {
+        padding-right: 7px;
+      }
+      
+      &.facebook {
+        background-color: #4464B2;
+      }
+      
+      &.twitter {
+        background-color: #28A9E0;
+      }
+
+      &.google {
+        background-color: #DA4735;
+      }
+      
+    } // button
+    
+    &:after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+    
+  } // .buttons
+  
+  .already {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  
+}  
+
+body#login {
+    background-image: url("bg.jpg");
+    background-size: cover;
+}
+.modal-header{
+		background:#d35400;
+		
+	}
+	
+	.modal-title{
+		color:#fff !important;
+	}
+</style>
+
+ 
+</head>
+
+<body id="login">
+      
+	
+
+
+
+
+
+		<form action="http://login.relawanbaret.online/masuk/login" method="post" accept-charset="utf-8">		<div class="content">
+   
+</div>
+<div class="login-wrapper">
+		<div class="text-center">
+			<div class="user-block clearfix">
+			 
+						<img src="images/logo.png" class="fadeInUp animation-delay8"  alt="User Avatar" style="height:150px;border-radius:0px !important;margin-right:10px">
+
+						 
+					
+			</div><!-- /user-block -->
+			 
+		</div>
+		<div class="login-widget animation-delay1">	
+			<div style="color:#fff">
+				<div class="panel-heading clearfix">
+					<div class="pull-left">
+						<i class="fa fa-lock fa-lg"></i> Login
+					</div>
+ 
+				</div>
+				<div class="panel-body">
+					<form class="form-login">
+						<div class="form-group">
+							<label>Username</label>
+							<input type="text" placeholder="Username" id="username" name="username" class="form-control input-lg bounceIn animation-delay2" >
+						</div>
+						<div class="form-group">
+							<label>Password</label>
+							<input type="password" placeholder="Password" id="password" name="password" class="form-control input-lg bounceIn animation-delay4">
+						</div>
+						<div class="form-group">
+							<label class="label-checkbox inline">
+								<input class="regular-checkbox chk-delete" type="checkbox" name="remember" value="1" />
+								 
+								<span class="custom-checkbox info bounceIn animation-delay4"></span>
+							</label>
+							Remember me		
+						</div>
+		
+						<div class="seperator"></div> 
+							<input class="btn btn-success btn-lg button" type="submit" name="submit" value="Sign in" onClick="login();return false;"/>
+						 </form>
+				</div>
+			</div><!-- /panel -->
+		</div><!-- /login-widget -->
+	</div><!-- /login-wrapper --> 
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <!-- Jquery -->
+	<script src="admin_endless/js/jquery-1.10.2.min.js"></script>
+    
+    <!-- Bootstrap -->
+    <script src="admin_endless/bootstrap/js/bootstrap.min.js"></script>
+   
+	<!-- Modernizr -->
+	<script src='admin_endless/js/modernizr.min.js'></script>
+    
+   
+	<!-- Popup Overlay -->
+	<script src='admin_endless/js/jquery.popupoverlay.min.js'></script>
+   
+    <!-- Slimscroll -->
+	<script src='admin_endless/js/jquery.slimscroll.min.js'></script>
+   
+	<!-- Cookie -->
+	<script src='admin_endless/js/jquery.cookie.min.js'></script>
+
+	<!-- Endless -->
+	<script src="admin_endless/js/endless/endless.js"></script>
+	 <script src="js/login.js"></script>
+	               <script>
+				 
+					 
+					
+					function login(){  
+					 $.ajax({
+							url: BASE_URL+'Auth/login',
+							headers: {
+								'Authorization':'Basic xxxxxxxxxxxxx',
+								'X_CSRF_TOKEN':'xxxxxxxxxxxxxxxxxxxx',
+								'Content-Type':'application/json'
+							},
+							dataType: 'json',
+							type: 'post',
+							contentType: 'application/json',
+							data: JSON.stringify( { "username": $('#username').val(), "password": $('#password').val() } ),
+							processData: false,
+							success: function( data, textStatus, jQxhr ){
+								if(( data.status === 'success' ) ){
+									window.location.href = BASE_URL2+"home.html";
+									localStorage.setItem("Token", data.token);
+								}
+							},
+							error: function( jqXhr, textStatus, errorThrown ){
+								alert('error');
+							}
+						});
+					}
+				   </script>
+</body>
+</html>
+
+
+
+
+
+ 

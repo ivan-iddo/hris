@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+		<link rel="icon" type="image/x-icon" href="ico.png" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title> User Login</title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+        <link rel="stylesheet" href="themes/default3/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="themes/default3/fonts/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="themes/default3/fonts/ionicons/css/ionicons.min.css" />
+
+        <link rel="stylesheet" href="themes/default3/css/AdminLTE.min.css">
+        
+        <link rel="stylesheet" href="themes/default3/css/style.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="themes/default3/js/owl-carousel/owl.carousel.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="themes/default3/js/owl-carousel/owl.theme.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="themes/default3/js/owl-carousel/owl.transitions.css" rel="stylesheet"/>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="hold-transition login-page">
+
+    	<div id="login-slider" class="owl-carousel">
+    		<div class="dm-owl-slide slider1" style="">
+				<div class="dm-owl-caption">
+					<img class="logo" src="" alt="logo" width="200px">
+					<h1 class="judul2"></h1>
+					<h4 class="deskripsi2"></h4>
+					<p class="margin">
+						<a class="btn btn-danger" onclick="showLogin()"><i class="fa fa-lock"></i> &nbsp; Login</a>
+						<a class="btn btn-primary" onclick="showHelp()"><i class="fa fa-question-circle"></i> &nbsp; Help</a>
+					</p>
+				</div>
+			</div>
+			<div class="dm-owl-slide slider2" style="">
+				<div class="dm-owl-caption">
+					<img class="logos" src="" alt="logo" width="200px">
+					<h1 class="judul"></h1>
+					<h4 class="deskripsi"></h4>
+					<p class="margin">
+						<a class="btn btn-danger" onclick="showLogin()"><i class="fa fa-lock"></i> &nbsp; Login</a>
+						<a class="btn btn-primary" onclick="showHelp()"><i class="fa fa-question-circle"></i> &nbsp; Help</a>
+					</p>
+				</div>
+			</div>
+    	</div>
+
+    	<div id="loginModal" class="modal fade" tabindex="-1" role="dialog">
+		    <div class="modal-dialog modal-sm">
+		        <div class="modal-content">
+		            <div class="modal-header red-modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		                <h4 class="modal-title">UserAuth</h4>
+		            </div>
+			        
+			        	<div class="modal-body">
+			        		<div class="form-group has-feedback">
+			                    <input type="text" class="form-control" placeholder="Username" name="username" id="username">
+			                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+			                </div>
+			                <div class="form-group has-feedback">
+			                    <input type="password" class="form-control" placeholder="Password" name="password" id="password" onkeydown="if(event.keyCode=='13'){login();}">
+			                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+			                </div>
+			        	</div>
+			        	<div class="modal-footer">
+	                        <input type="submit" value="Login"   class="btn btn-danger btn-block btn-flat" onClick="login();return false;">
+			        	</div>
+			        
+		        </div>
+		    </div>
+		</div>
+
+		<div id="helpModal" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header red-modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		                <h4 class="modal-title">UserHelp</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<table class="table table-bordered table-striped" id="table-user-help">
+		            		<thead>
+		            			<tr>
+		            				<th width="2%"></th>
+		            				<th>File Name</th>
+		            				<th width="5%">Download</th>
+		            			</tr>
+		            		</thead>
+		            		<tbody>
+		            			
+		            		</tbody>
+		            		<!-- <tbody>
+		            			<tr>
+		            				<td>1</td>
+		            				<td>Manual Book System Manajemen Arsip</td>
+		            				<td align="center"><a href="http://sikumis.binamarga.pu.go.id/docs/sample2.pdf" target="_blank"><i class="fa fa-download"></i></a></td>
+		            			</tr>
+		            		</tbody> -->
+		            	</table>
+		            </div>
+				</div>
+			</div>
+		</div>
+
+    	<!-- JavaScript -->
+        <script src="themes/default3/js/jQuery/jQuery-2.1.4.min.js"></script>
+        <script src="themes/default3/js/bootstrap/bootstrap.min.js"></script>
+        <script src="themes/default3/js/owl-carousel/owl.carousel.min.js"></script>
+        
+		<script>
+		var BASE_URL = 'http://127.0.0.1/hris/';
+
+		$(function () {
+			var time = 11; 
+ 
+			var $progressBar,
+				$bar, 
+				$elem, 
+				isPause, 
+				tick,
+				percentTime;
+
+			$('#login-slider').owlCarousel({
+				singleItem:true,
+				transitionStyle : "fadeUp",
+      			lazyLoad : false,
+				afterInit : progressBar,
+      			afterMove : moved,
+      			startDragging : pauseOnDragging
+			});
+
+			function progressBar(elem){
+				$elem = elem;
+				buildProgressBar();
+				start();
+			}
+ 
+			//create div#progressBar and div#bar then prepend to $("#owl-demo")
+			function buildProgressBar(){
+				$progressBar = $("<div>",{
+					id:"progressBar"
+				});
+
+				$bar = $("<div>",{
+					id:"bar"
+				});
+				
+				$progressBar.append($bar).prependTo($elem);
+			}
+ 
+			function start() {
+				percentTime = 0;
+				isPause = false;
+				tick = setInterval(interval, 10);
+			};
+ 
+			function interval() {
+				if(isPause === false){
+					percentTime += 1 / time;
+					$bar.css({
+						width: percentTime+"%"
+					});
+
+					if(percentTime >= 100){
+						$elem.trigger('owl.next')
+					}
+				}
+			}
+ 
+			function pauseOnDragging(){
+				isPause = true;
+			}
+ 
+			function moved(){
+				clearTimeout(tick);
+				start();
+			}
+
+
+		}); /* end of jquery document ready */
+		
+		function showLogin(){
+			$('#loginModal').modal('toggle');
+		}
+
+		function showHelp(){
+			$('#helpModal').modal('toggle');
+		}
+		
+		function login(){
+			
+					 $.ajax({
+							url: BASE_URL+'api/Auth/login',
+							headers: {
+								'Authorization':'Basic xxxxxxxxxxxxx',
+								'X_CSRF_TOKEN':'xxxxxxxxxxxxxxxxxxxx',
+								'Content-Type':'application/json',
+								'Access-Control-Allow-Origin': 'http://localhost/hris'
+							},
+							dataType: 'json',
+							type: 'post',
+							contentType: 'application/json',
+							data: JSON.stringify( { "username": $('#username').val(), "password": $('#password').val() } ),
+							processData: false,
+							success: function( data, textStatus, jQxhr ){
+								if(( data.status === 'success' ) ){
+									window.location.href = BASE_URL+"home.php?user="+data.userid;
+									localStorage.setItem("Token", data.token);
+									localStorage.setItem("id_user", data.userid);
+									localStorage.setItem("group", data.group);
+								}
+							},
+							error: function( jqXhr, textStatus, errorThrown ){
+								alert('error');
+							}
+						});
+					}
+
+					$.ajax({
+			url: BASE_URL+"api/supplier/get_theme", // Url to which the request is send 
+			type: "get",  // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+			contentType: false,       // The content type used when sending data to the server.
+			cache: false,             // To unable request pages to be cached
+			processData:false,        // To send DOMDocument or non processed data file it is set to false
+			success: function(data)   // A function to be called if request succeeds
+			{
+				 $('.judul').html(data.title);
+				 $('.deskripsi').html(data.description);
+				 $('.judul2').html(data.title);
+				 $('.deskripsi2').html(data.description);
+				 $('.logos').attr('src', BASE_URL+'api/upload/'+data.logo);
+				 $('.logo').attr('src', BASE_URL+'api/upload/'+data.logo); 
+				  $('.slider1').css('background-image', 'url('+BASE_URL+'api/upload/'+data.slider1+')');
+				  $('.slider2').css('background-image', 'url('+BASE_URL+'api/upload/'+data.slider2+')');
+				
+				
+				}
+			});
+		 
+		</script>
+    </body>
+</html>
