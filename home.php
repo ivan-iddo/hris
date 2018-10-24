@@ -25,7 +25,7 @@ require_once('connectdb.php');
        }
        
        if(empty($_SESSION['userdata'])){
-			header("Location: http://localhost/hris/index.html");
+			header("Location: http://gtpay.id/hris/index.html");
 		 }
 ?>
 <html lang="en">

@@ -1,8 +1,8 @@
 <?php
  session_start();  
 $servername = "localhost";
-$username = "root";
-$password = "12345678";
+$username = "gtpayid_admin";
+$password = "digital21*#";
 $dbname = "gtpayid_hris";
 
  

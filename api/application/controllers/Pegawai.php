@@ -228,6 +228,7 @@ class Pegawai extends REST_Controller
 						$this->db->insert('riwayat_kedinasan',$param_rd);
 						
 						
+						
 					 }
 					
 					 if(!empty($saved_id)){
