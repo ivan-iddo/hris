@@ -1,5 +1,5 @@
-  var BASE_URL = 'http://gtpay.id/hris/api/';
-  var BASE_URL2 = 'http://gtpay.id/hris/';
+  var BASE_URL = 'http://localhost/project/hris/api/';
+  var BASE_URL2 = 'http://localhost/project/hris/';
   
    $.idleTimer(3300000);
 	//localStorage.setItem("Token",'');
