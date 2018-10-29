@@ -53,11 +53,13 @@
     // specify the columns
     var columnDefs = [
 
-        {headerName: "Nama", field: "nama", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Devisi", field: "nama_group", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Jabatan", field: "nama_uk", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Username", field: "username", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "E-Mail", field: "email", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "No Disposisi", field: "no_disposisi", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "NIP / NIK", field: "nopeg", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Nama", field: "nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Jabatan", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Created Date", field: "created", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Status", field: "statue", width: 190, filterParams: {newRowsAction: 'keep'}},
 
     ];
 
@@ -116,7 +118,7 @@
             search = $('#search').val();
         }
         $.ajax({
-            url: BASE_URL + 'users/list/' + search + '/' + jml,
+            url: BASE_URL + 'pengembangan_pelatihan/list/' + jml,
             headers: {
                 'Authorization': localStorage.getItem("Token"),
                 'X_CSRF_TOKEN': 'donimaulana',
@@ -127,10 +129,8 @@
             contentType: 'application/json',
             processData: false,
             success: function (data, textStatus, jQxhr) {
-
-
                 gridOptions.api.setRowData(data.result);
-                paging(data.total, 'loaddata');
+                pagingDatatable(data.total, data.limit, 'loaddata');
             },
             error: function (jqXhr, textStatus, errorThrown) {
                 alert('error');

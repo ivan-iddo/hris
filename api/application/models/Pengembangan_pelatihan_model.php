@@ -91,12 +91,11 @@ class Pengembangan_pelatihan_model extends MY_Model
 				$this->db->order_by($key, $value);
 			}
 		}
-
-		if (is_int($offset)) {
+		if (!empty($offset)) {
 			$this->db->offset($offset);
 		}
 
-		if (is_int($limit)) {
+		if (!empty($limit)) {
 			$this->db->limit($limit);
 		}
 

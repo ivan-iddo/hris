@@ -32,9 +32,9 @@ class Users extends REST_Controller
     public function list_get()
     {
         $headers = $this->input->request_headers();
-        if (true) {
-            // $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if (true) {
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
                 //$this->db->limit('100');
                 //$this->db->order_by();
 

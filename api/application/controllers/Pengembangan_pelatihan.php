@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: PUT, GET, POST");
@@ -34,56 +35,18 @@ class Pengembangan_pelatihan extends REST_Controller
         //Do your magic here
         $this->load->model('Pengembangan_pelatihan_model');
     }
-    public function list_get()
+
+    public function list_get($offset = 2)
     {
+        $limit = 2;
         $headers = $this->input->request_headers();
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                //$this->db->limit('100');
-                //$this->db->order_by();
-
-
-                $this->db->join('sys_grup_user', 'sys_user.id_grup = sys_grup_user.id_grup', 'LEFT');
-                $this->db->join('uk_master', 'uk_master.id = sys_user.id_uk', 'LEFT');
-                $this->db->join('sys_user_profile', 'sys_user_profile.id_user = sys_user.id_user', 'LEFT');
-
-                $this->db->where('sys_user.status', '1');
-                if (!empty($this->uri->segment(3))) {
-                    $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)", $this->uri->segment(3));
-                }
-                $total_rows = $this->db->count_all_results('sys_user');
-                $pagination = create_pagination_endless('/user/list/0/', $total_rows, 20, 4);
-
-                $this->db->select('sys_user.*,sys_grup_user.grup,uk_master.nama,sys_user_profile.NIP,sys_user_profile.NIK');
-                $this->db->join('sys_grup_user', 'sys_user.id_grup = sys_grup_user.id_grup', 'LEFT');
-                $this->db->join('uk_master', 'uk_master.id = sys_user.id_uk', 'LEFT');
-                $this->db->join('sys_user_profile', 'sys_user_profile.id_user = sys_user.id_user', 'LEFT');
-                if (!empty($this->uri->segment(3))) {
-                    $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)", $this->uri->segment(3));
-                }
-                $this->db->where('sys_user.status', '1');
-                $this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
-
-                $res = $this->db->get('sys_user')->result();
-                foreach ($res as $d) {
-                    $arr['result'][] = array('nama_uk' => $d->nama,
-                        'id_uk' => $d->id_uk,
-                        'id_grup' => $d->id_grup,
-                        'id' => $d->id_user,
-                        'nama' => $d->name,
-                        'username' => $d->username,
-                        'email' => $d->email,
-                        'nama_group' => $d->grup,
-                        'nip' => $d->NIP,
-                        'nik' => $d->NIK,
-                    );
-                }
-
-                $arr['total'] = $total_rows;
-                $arr['paging'] = $pagination['limit'][1];
-                $this->set_response($arr, REST_Controller::HTTP_OK);
-
+                $results['result'] = $this->Pengembangan_pelatihan_model->get_all(null, null, $offset, $limit);
+                $results['total'] = count($this->Pengembangan_pelatihan_model->get_all());
+                $results['limit'] = $limit;
+                $this->set_response($results, REST_Controller::HTTP_OK);
                 return;
             }
         }
@@ -93,89 +56,47 @@ class Pengembangan_pelatihan extends REST_Controller
 
     public function save_post()
     {
-        $save["no_disposisi"] = $this->input->post("no_disposisi");
-        $save["tanggal"] = $this->input->post("tanggal");
-        $save["jenis_perjalanan"] = $this->input->post("jenis_perjalanan");
-        $save["dalam_negeri"] = $this->input->post("dalam_negeri");
-        $save["surat_tugas_dalam_negeri"] = $this->input->post("surat_tugas_dalam_negeri");
-        $save["surat_tugas_luar_negeri"] = $this->input->post("surat_tugas_luar_negeri");
-        $save["jenis"] = $this->input->post("jenis");
-        $save["nopeg"] = $this->input->post("nopeg");
-        $save["nama_pegawai"] = $this->input->post("nama_pegawai");
-        $save["jabatan"] = $this->input->post("jabatan");
-
-
-
-        $biaya_uraian = $this->input->post("biaya_uraian");
-        $biaya_nominal = $this->input->post("biaya_nominal");
-        if (!empty($biaya_uraian)) {
-            foreach ($biaya_uraian as $key => $value) {
-                $biaya[$key]["biaya_uraian"] = @$value["value"];
-                $biaya[$key]["biaya_nominal"] = @$biaya_nominal[$key]["value"];
-            }
-            $save["biaya"] = json_encode($biaya);
-        }
-
-        $this->Pengembangan_pelatihan_model->create($save);
-        die;
         $headers = $this->input->request_headers();
 
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                $username = $this->input->post('username');
-                $name = $this->input->post('name');
-                $email = $this->input->post('email');
-                $id_aplikasi = 1;
-                $id_group = $this->input->post('id_group');
-                $status = $this->input->post('status');
-                $user_id_klinik = $decodedToken->data->_pnc_kode_klinik;
-                $author = $decodedToken->data->_pnc_username;
-
-                $salt = round(rand() * 1000);
-
-                $password = md5($this->input->post('pass'));
-
-                $this->db->where('username', $username);
-                $cek = $this->db->get('sys_user')->row();
-                if (empty($cek)) {
-                    $param = array(
-                        "username" => $username
-                    , "name" => $name
-                    , "email" => $email
-                    , "id_aplikasi" => $id_aplikasi
-                    , "id_grup" => $id_group
-                    , "author" => $author
-                    , "salt" => $salt
-                    , "status" => $status
-                    , "created" => date('Y-m-d H:i:s')
-                    , "password" => $password
-                    , "kode_klinik" => $user_id_klinik
-                    , 'id_uk' => $this->input->post('f_uk')
-                    );
+                $save["no_disposisi"] = $this->input->post("no_disposisi");
+                $save["tanggal"] = $this->input->post("tanggal");
+                $save["jenis_perjalanan"] = $this->input->post("jenis_perjalanan");
+                $save["dalam_negeri"] = $this->input->post("dalam_negeri");
+                $save["surat_tugas_dalam_negeri"] = $this->input->post("surat_tugas_dalam_negeri");
+                $save["surat_tugas_luar_negeri"] = $this->input->post("surat_tugas_luar_negeri");
+                $save["jenis"] = $this->input->post("jenis");
+                $save["nopeg"] = $this->input->post("nopeg");
+                $save["nama_pegawai"] = $this->input->post("nama_pegawai");
+                $save["jabatan"] = $this->input->post("jabatan");
 
 
-                    $this->db->insert('sys_user', $param);
-
-                    if ($this->db->affected_rows() == '1') {
-                        $arr['hasil'] = 'success';
-                        $arr['message'] = 'Data berhasil ditambah!';
-                    } else {
-                        $arr['hasil'] = 'error';
-                        $arr['message'] = 'Data Gagal Ditambah!';
+                $biaya_uraian = $this->input->post("biaya_uraian");
+                $biaya_nominal = $this->input->post("biaya_nominal");
+                if (!empty($biaya_uraian)) {
+                    foreach ($biaya_uraian as $key => $value) {
+                        $biaya[$key]["biaya_uraian"] = @$value["value"];
+                        $biaya[$key]["biaya_nominal"] = @$biaya_nominal[$key]["value"];
                     }
-                    $this->set_response($arr, REST_Controller::HTTP_OK);
-                } else {
-                    $arr['hasil'] = 'error';
-                    $arr['message'] = 'Data Gagal Ditambah! username sudah pernah digunakan';
-                    $this->set_response($arr, REST_Controller::HTTP_OK);
+                    $save["biaya"] = json_encode($biaya);
                 }
 
-
+                $result = $this->Pengembangan_pelatihan_model->create($save);
+                if ($result){
+                    $response['hasil'] = 'success';
+                    $response['message'] = 'Data berhasil ditambah!';
+                }
+                else{
+                    $response['hasil'] = 'failed';
+                    $response['message'] = 'Data gagal ditambah!';
+                    $this->set_response($response, REST_Controller::HTTP_OK);
+                }
+                $this->set_response($response, REST_Controller::HTTP_OK);
                 return;
             }
         }
-
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
 
@@ -252,7 +173,8 @@ class Pengembangan_pelatihan extends REST_Controller
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
 
-    public function delete_get()
+    public
+    function delete_get()
     {
         $headers = $this->input->request_headers();
 
@@ -281,7 +203,8 @@ class Pengembangan_pelatihan extends REST_Controller
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
 
-    public function getuser_get()
+    public
+    function getuser_get()
     {
         $headers = $this->input->request_headers();
 
