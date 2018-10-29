@@ -220,7 +220,7 @@ public function agama_get(){
 					 
 			  $res = $this->db->get('m_status_pegawai')->result();
 			  foreach($res as $d){
-				$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id);
+				$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id, 'asn' => $d->asn);
 			  }
 			  
 			  $this->set_response($arr, REST_Controller::HTTP_OK);

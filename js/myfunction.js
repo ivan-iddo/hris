@@ -179,7 +179,7 @@ function getOptions(id,url){
                         
                         for( var i = 0; i < e.result.length; i++ ){
                                         
-                            $('#'+id).append('<option value="'+e.result[i].value+'" >'+e.result[i].label+'</option>');
+                            $('#'+id).append('<option value="'+e.result[i].value+'" data-asn="'+e.result[i].asn+'" >'+e.result[i].label+'</option>');
                         }
                         $('#'+id).trigger("chosen:updated");
                 }
