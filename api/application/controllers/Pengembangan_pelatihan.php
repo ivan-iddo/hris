@@ -39,6 +39,14 @@ class Pengembangan_pelatihan extends REST_Controller
     public function list_get($offset = 2)
     {
         $limit = 2;
+         $headers = $this->input->request_headers();
+        foreach ($_SERVER as $name => $value) {
+            /* RFC2616 (HTTP/1.1) defines header fields as case-insensitive entities. */
+            if (strtolower(substr($name, 0, 5)) == 'http_') {
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+            }
+        }
+        print_r($headers);die;
         $headers = $this->input->request_headers();
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
