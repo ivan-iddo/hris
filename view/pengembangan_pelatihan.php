@@ -30,7 +30,7 @@
                     <div class="dataTables_filter" id="demo-dt-addrow_filter">
                         <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
                                              type="search" id="search"
-                                             onkeydown="if(event.keyCode=='13'){loaddata(0);}"></label>
+                                             onkeydown="if(event.keyCode=='13'){loaddata(0, this);}"></label>
                     </div>
                 </div>
                 <div class="bootstrap-table">
@@ -112,13 +112,13 @@
 
     // do http request to get our sample data - not using any framework to keep the example self contained.
     // you will probably use a framework like JQuery, Angular or something else to do your HTTP calls.
-    function loaddata(jml) {
+    function loaddata(jml = 0) {
         var search = 0;
         if ($('#search').val() !== '') {
             search = $('#search').val();
         }
         $.ajax({
-            url: BASE_URL + 'pengembangan_pelatihan/list/' + jml,
+            url: BASE_URL + 'pengembangan_pelatihan/list/' + jml + '/' +search,
             headers: {
                 'Authorization': localStorage.getItem("Token"),
                 'X_CSRF_TOKEN': 'donimaulana',
@@ -143,7 +143,6 @@
 
     function proses_delete() {
         var selectedRows = gridOptions.api.getSelectedRows();
-        // alert('>>'+selectedRows+'<<<');
         if (selectedRows == '') {
             onMessage('Silahkan Pilih Group Terlebih dahulu!');
             return false;
@@ -156,7 +155,7 @@
                 }
                 selectedRowsString += selectedRow.id;
             });
-            submit_get(BASE_URL + 'users/delete/?id=' + selectedRowsString, loaddata);
+            submit_get(BASE_URL + 'pengembangan_pelatihan/delete/?id=' + selectedRowsString, loaddata);
 
 
         }
@@ -164,7 +163,6 @@
 
     function proses_edit() {
         var selectedRows = gridOptions.api.getSelectedRows();
-        // alert('>>'+selectedRows+'<<<');
         if (selectedRows == '') {
             onMessage('Silahkan Pilih Group Terlebih dahulu!');
             return false;
@@ -179,7 +177,7 @@
             });
 
             $.ajax({
-                url: BASE_URL + 'users/getuser/?id=' + selectedRowsString,
+                url: BASE_URL + 'pengembangan_pelatihan/get/?id=' + selectedRowsString,
                 headers: {
                     'Authorization': localStorage.getItem("Token"),
                     'X_CSRF_TOKEN': 'donimaulana',
@@ -190,15 +188,86 @@
                 contentType: 'application/json',
                 processData: false,
                 success: function (res, textStatus, jQxhr) {
-                    $('#f_user_username').val(res[0].username);
-                    $('#f_user_edit').val(res[0].username);
-                    $('#f_id_edit').val(res[0].id);
-                    $('#f_user_name').val(res[0].nama);
-                    $('#f_user_email').val(res[0].email);
-                    getOptionsEdit("f_user_id_group", BASE_URL + "users/getgroup", res[0].id_group);
-                    getOptionsEdit("f_uk", BASE_URL + "uk_index/option", res[0].id_uk);
-                    getOptionsEdit("f_user_status_aktif", BASE_URL + "Appdata/getstatus", res[0].status);
-                    // gridOptions.api.setRowData(data);
+                    // $('#f_user_username').val(res[0].username);
+                    // $('#f_user_edit').val(res[0].username);
+                    $('#id').val(res.data.id);
+                    $('#no_disposisi').val(res.data.no_disposisi);
+                    $('#laporan').val(res.data.laporan);
+                    $("#laporan").trigger("chosen:updated");
+                    $('#monev').val(res.data.monev);
+                    $("#monev").trigger("chosen:updated");
+                    $('#jenis_perjalanan').val(res.data.jenis_perjalanan);
+                    $("#jenis_perjalanan").trigger("chosen:updated");
+                    $('#jenis').val(res.data.jenis);
+                    $("#jenis").trigger("chosen:updated");
+                    $('#jenis_biaya').val(res.data.jenis_biaya);
+                    $("#jenis_biaya").trigger("chosen:updated");
+                    $('#nama_pegawai').val(res.data.nama_pegawai);
+                    $('#jabatan').val(res.data.jabatan);
+                    console.log(res.data.tanggal);
+                    for (var i = 0; i < res.data.tanggal.length; i++) {
+                        if (i == 0){
+                            $("#tanggal").val(res.data.tanggal[i].tanggal);
+                        }
+                        else{
+                            console.log("else" + i);
+                            var row = $(
+                                '<div class="form-group body-remove-calendar">' +
+                                '<label class="col-sm-3 control-label" for="demo-hor-inputemail"></label>' +
+                                '<div class="col-sm-5">' +
+                                '<input type="date" name="tanggal[]" class="form-control tanggal" style="padding: 0 !important;" value='+res.data.tanggal[i].tanggal+' />' +
+                                '</div>' +
+                                '<div class="col-xs-3 pull right">' +
+                                '<div class="btn btn-default btn-sm btn-remove-calendar">' +
+                                '<i class="fa fa-trash-o"></i>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>');
+                            $(".body-content-calendar").append(row);
+                        }
+                    };
+                    for (var i = 0; i < res.data.biaya_uraian.length; i++) {
+                        if (i == 0){
+                            $("#biaya_uraian").val(res.data.biaya_uraian[i].biaya_uraian);
+                            $("#biaya_nominal").val(res.data.biaya_uraian[i].biaya_nominal);
+                        }
+                        else{
+                          var row = $(
+                                     '<div class="form-group body-remove">' +
+                                     '<label class="col-sm-3 control-label"></label>' +
+                                     '<div class="body-detail">' +
+                                     '<div class="col-sm-3">' +
+                                     '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" placeholder="Uraian" value='+res.data.biaya_uraian[i].biaya_uraian+' />' +
+                                     '</div>' +
+                                     '<div class="col-sm-3">' +
+                                     '<input type="text" name="biaya_nominal[]" class="form-control biaya_nominal" placeholder="Biaya" value='+res.data.biaya_uraian[i].biaya_nominal+' />' +
+                                     '</div>' +
+                                     '</div>' +
+                                     '<div class="col-xs-3 pull right">' +
+                                     '<div class="btn btn-default btn-sm btn-remove">' +
+                                     '<i class="fa fa-trash-o"></i>' +
+                                     '</div>' +
+                                     '</div>' +
+                                     '</div>');
+                                 $(".body-content").append(row);
+                        }
+                    };
+
+
+
+                    // $('#nopeg').val(res.data.nopeg);
+                    // $("#nopeg").trigger("chosen:updated");
+                    // $('#no_disposisi').val(res.data.no_disposisi);
+                    // $('#no_disposisi').val(res.no_disposisi);
+                    // $('#no_disposisi').val(res.no_disposisi);
+                    // $('#no_disposisi').val(res.no_disposisi);
+                    // $('#no_disposisi').val(res.no_disposisi);
+                    // $('#no_disposisi').val(res.no_disposisi);
+                    // $('#no_disposisi').val(res.no_disposisi);
+                    // $('#no_disposisi').val(res.no_disposisi);
+                    // $('#no_disposisi').val(res.no_disposisi);
+                    // $('#no_disposisi').val(res.no_disposisi);
+
 
                 },
                 error: function (jqXhr, textStatus, errorThrown) {

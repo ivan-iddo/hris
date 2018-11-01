@@ -20,6 +20,30 @@ class Pengembangan_pelatihan_model extends MY_Model
 		return $this->db->where("id", $id)->get($this->table)->row();
 	}
 
+	function create_detail($table, $data)
+	{
+		$this->db->insert_batch($table, $data);
+		$id = $this->db->insert_id();
+		return $this->db->where("id", $id)->get($table)->row();
+	}
+
+	function delete_detail($table, $id_parent)
+	{
+		$result = $this->db->update($table, array("statue" => 0), array("pengembangan_pelatihan_id" => $id_parent));
+		return $result;
+	}
+
+	function get_detail($table, $id_parent)
+	{
+		$this->db->select("*");
+		$this->db->from($table);
+		$this->db->where("pengembangan_pelatihan_id", $id_parent);
+		$this->db->where("statue", 1);
+		$result = $this->db->get()->result_array();
+		return $result;
+	}
+
+
 	function get_by_id($id, $statue = 1)
 	{
 		$this->db->select("*");
@@ -53,10 +77,10 @@ class Pengembangan_pelatihan_model extends MY_Model
 	}
 
 	function get_all($params_array = array(), $like = array(), $offset = "", $limit = "", $from = "", $to = "", $where_in = "", $order_by = "")
-	{
-		// debug($where_in);
+	{	
 		$this->db->select("*");
 		$this->db->from($this->table);
+		$this->db->where("statue", 1);
 		if (!empty($params_array) && is_array($params_array)) {
 			$this->db->where($params_array);
 		}
