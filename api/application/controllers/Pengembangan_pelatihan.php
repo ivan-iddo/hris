@@ -42,9 +42,9 @@ class Pengembangan_pelatihan extends REST_Controller
         $limit = 2;
         $headers = $this->input->request_headers();
         
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization']) || true) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']) || true;
-            if ($decodedToken != false || true) {
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
                 if (!empty($param_search)) {
                     $search["field"] = array("jenis_perjalanan", "nama_pegawai", "jabatan");
                     $search["search"] = $param_search;
@@ -63,10 +63,13 @@ class Pengembangan_pelatihan extends REST_Controller
                         }
                         $results["result"][$key]["tanggal"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", $value["id"]);
                         $results["result"][$key]["biaya_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_uraian_biaya", $value["id"]);
+                        $results["result"][$key]["biaya_total"] = array_sum(array_column($results["result"][$key]["biaya_uraian"], "biaya_nominal"));
                     }
                 }
                 $results['total'] = count($this->Pengembangan_pelatihan_model->get_all());
                 $results['limit'] = $limit;
+                $results["is_blocked"] = $this->Pengembangan_pelatihan_model->is_blocked($decodedToken->data->NIP);
+                $results["is_monev"] = $this->Pengembangan_pelatihan_model->is_monev($decodedToken->data->NIP);
                 $this->set_response($results, REST_Controller::HTTP_OK);
                 return;
             }
@@ -79,9 +82,9 @@ class Pengembangan_pelatihan extends REST_Controller
     {
         $headers = $this->input->request_headers();
 
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization']) || true) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization'] || true);
-            if ($decodedToken != false || true) {
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
                 $save["no_disposisi"] = $this->input->post("no_disposisi");
                 $save["laporan"] = $this->input->post("laporan");
                 $save["monev"] = $this->input->post("monev");
@@ -116,8 +119,14 @@ class Pengembangan_pelatihan extends REST_Controller
                     }
                     if (!empty($tanggal)) {
                         foreach ($tanggal as $key => $value) {
+                            $tanggal_1 = @$value["value"];
+                            $tanggal_explode = explode(" - ", $tanggal_1);
+                            // dibagi 24jam x 8 jam
+                            $tanggal_diff = (strtotime($tanggal_explode[1]) - strtotime($tanggal_explode[0])) / 86400 * 8;
                             $pengembangan_pelatihan_pelaksanaan[$key]["pengembangan_pelatihan_id"] = $result->id;
-                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal"] = @$value["value"];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_from"] = @$tanggal_explode[0];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_to"] = @$tanggal_explode[1];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["total_jam"] = $tanggal_diff;                            
                         }
                         $this->Pengembangan_pelatihan_model->create_detail("pengembangan_pelatihan_pelaksanaan", $pengembangan_pelatihan_pelaksanaan);
                     }
@@ -179,8 +188,14 @@ class Pengembangan_pelatihan extends REST_Controller
                     }
                     if (!empty($tanggal)) {
                         foreach ($tanggal as $key => $value) {
+                            $tanggal_1 = @$value["value"];
+                            $tanggal_explode = explode(" - ", $tanggal_1);
+                            // dibagi 24jam x 8 jam
+                            $tanggal_diff = (strtotime($tanggal_explode[1]) - strtotime($tanggal_explode[0])) / 86400 * 8;
                             $pengembangan_pelatihan_pelaksanaan[$key]["pengembangan_pelatihan_id"] = $result->id;
-                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal"] = @$value["value"];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_from"] = @$tanggal_explode[0];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_to"] = @$tanggal_explode[1];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["total_jam"] = $tanggal_diff;
                         }
                         $this->Pengembangan_pelatihan_model->create_detail("pengembangan_pelatihan_pelaksanaan", $pengembangan_pelatihan_pelaksanaan);
                     }
@@ -206,9 +221,9 @@ class Pengembangan_pelatihan extends REST_Controller
     {
         $headers = $this->input->request_headers();
 
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization']) || true) {
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false || true) {
+            if ($decodedToken != false) {
                 $id = $this->input->get("id");
                 $this->Pengembangan_pelatihan_model->delete($id);
 
@@ -219,6 +234,25 @@ class Pengembangan_pelatihan extends REST_Controller
             }
         }
 
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
+
+    public function laporan_selesai_get()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+                $id = $this->input->get("id");
+                $this->Pengembangan_pelatihan_model->update($id, array("statue" => 2));
+
+                $response['hasil'] = 'success';
+                $response['message'] = 'Data berhasil diupdate!';
+                $this->set_response($response, REST_Controller::HTTP_OK);
+                return;
+            }
+        }
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
 

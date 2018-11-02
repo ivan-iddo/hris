@@ -162,6 +162,9 @@ require_once('connectdb.php');
 
     <!--Bootstrap Datepicker [ OPTIONAL ]-->
     <script src="plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="themes/default3/js/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="themes/default3/js/daterangepicker/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="themes/default3/js/daterangepicker/daterangepicker.css" />
     <script src="js/AjaxFileUpload-1.0.0.min.js"></script>
 
      <script src="dist/ag-grid-enterprise.noStyle.js"></script>

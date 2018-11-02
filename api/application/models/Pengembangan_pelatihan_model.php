@@ -43,6 +43,37 @@ class Pengembangan_pelatihan_model extends MY_Model
 		return $result;
 	}
 
+	function is_blocked($nopeg)
+	{
+		$data = $this->get_all(array("nopeg" => $nopeg,
+										"statue" => 1,
+										"laporan" => 1));
+		if (!empty($data)){
+			foreach ($data as $key => $value) {
+				// jika ada isLaporan == true && now >= (created+5)
+				if ($value["laporan"] && date("Y-m-d") > date("Y-m-d", strtotime("+5 days", strtotime($value["created"])))) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	function is_monev($nopeg)
+	{
+		$data = $this->get_all(array("nopeg" => $nopeg,
+										"statue" => 1,
+										"monev" => 1));
+		if (!empty($data)){
+			foreach ($data as $key => $value) {
+				// jika monev == 1 && (created+30) >= now
+				if (strtotime("+30 days", strtotime($value["created"])) > date("Y-m-d")) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	function get_by_id($id, $statue = 1)
 	{
@@ -80,7 +111,7 @@ class Pengembangan_pelatihan_model extends MY_Model
 	{	
 		$this->db->select("*");
 		$this->db->from($this->table);
-		$this->db->where("statue", 1);
+		$this->db->where("statue !=", 0);
 		if (!empty($params_array) && is_array($params_array)) {
 			$this->db->where($params_array);
 		}
@@ -135,7 +166,7 @@ class Pengembangan_pelatihan_model extends MY_Model
 
 	function update($id, $item)
 	{
-		// default active = 1
+		// default active = 1, 2 = done
         $this->_update();
         $item["statue"] = $item["statue"] ? $item["statue"] : 1;
         

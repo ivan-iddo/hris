@@ -1,3 +1,8 @@
+<style type="text/css">
+    /*.daterangepicker{
+        position: static !important;
+    }*/
+</style>
 <form class="form-horizontal">
     <div class="panel-body">
         <div class="form-group">
@@ -12,8 +17,8 @@
             <div class="form-group body-remove-calendar">
                 <label class="col-sm-3 control-label" for="demo-hor-inputemail">Tgl Pelaksanaan</label>
                 <div class="col-sm-5">
-                    <input type="date" name="tanggal[]" class="form-control tanggal" id="tanggal" 
-                           style="padding: 0 !important;"/>
+                    <input type="text" name="tanggal[]" class="form-control tanggal daterangepicker" id="tanggal" 
+                           />
                 </div>
                 <div class="col-xs-3 pull right">
                     <div class="btn btn-default btn-sm" id="add-data-calendar">Add</div>
@@ -24,21 +29,13 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">Laporan</label>
             <div class="col-sm-5">
-                <select name="laporan" id="laporan" class="form-control select-chosen">
-                    <option value="">Pilih</option>
-                    <option>Ya</option>
-                    <option>Tidak</option>
-                </select>
+                <input type="checkbox" name="laporan" id="laporan" value="1">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">Monitor & Evaluasi</label>
             <div class="col-sm-5">
-                <select name="monev" id="monev" class="form-control select-chosen">
-                    <option value="">Pilih</option>
-                    <option>Ya</option>
-                    <option>Tidak</option>
-                </select>
+                <input type="checkbox" name="monev" id="monev" value="1" checked="true">
             </div>
         </div>
         <div class="form-group">
@@ -80,7 +77,7 @@
             <label class="col-sm-3 control-label"></label>
             <div class="col-sm-5">
                 <select name="surat_tugas_luar_negeri" id="surat_tugas_luar_negeri" class="form-control select-chosen">
-                    <option>Pilih</option>
+                    <option value="">Pilih</option>
                     <option>Surat Tugas</option>
                     <option>Surat Izin</option>
                     <option>SPPD</option>
@@ -93,7 +90,7 @@
             <label class="col-sm-3 control-label">Tipe</label>
             <div class="col-sm-5">
                 <select name="jenis" id="jenis" class="form-control select-chosen">
-                    <option>Pilih</option>
+                    <option value="">Pilih</option>
                     <option>Individu</option>
                     <option>Kelompok</option>
                 </select>
@@ -156,23 +153,30 @@
 </form>
 
 <script type="text/javascript">
+  
+        $('.daterangepicker').daterangepicker({
+               locale: {
+                 format: 'YYYY-MM-DD'
+               }
+        });
+
     $('.select-chosen').chosen();
     $('.chosen-container').css({"width": "100%"});
-    $(".numeric-only").keydown(function (e) {
-            // Allow: backspace, delete, tab, escape, enter and .
-            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
-                 // Allow: Ctrl+A, Command+A
-                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
-                 // Allow: home, end, left, right, down, up
-                (e.keyCode >= 35 && e.keyCode <= 40)) {
-                     // let it happen, don't do anything
-                     return;
-            }
-            // Ensure that it is a number and stop the keypress
-            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                e.preventDefault();
-            }
-        });
+    $(document).on('keydown',".numeric-only", function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
+             // Allow: Ctrl+A, Command+A
+            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+             // Allow: home, end, left, right, down, up
+            (e.keyCode >= 35 && e.keyCode <= 40)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
 
     $("#add-data").on("click", function () {
 
@@ -184,7 +188,7 @@
             '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" placeholder="Uraian" />' +
             '</div>' +
             '<div class="col-sm-3">' +
-            '<input type="text" name="biaya_nominal[]" class="form-control biaya_nominal" placeholder="Biaya" />' +
+            '<input type="text" name="biaya_nominal[]" class="form-control biaya_nominal numeric-only" placeholder="Biaya" />' +
             '</div>' +
             '</div>' +
             '<div class="col-xs-3 pull right">' +
@@ -206,7 +210,7 @@
             '<div class="form-group body-remove-calendar">' +
             '<label class="col-sm-3 control-label" for="demo-hor-inputemail"></label>' +
             '<div class="col-sm-5">' +
-            '<input type="date" name="tanggal[]" class="form-control tanggal" style="padding: 0 !important;" />' +
+            '<input type="text" name="tanggal[]" class="form-control tanggal daterangepicker"  />' +
             '</div>' +
             '<div class="col-xs-3 pull right">' +
             '<div class="btn btn-default btn-sm btn-remove-calendar">' +
@@ -215,6 +219,11 @@
             '</div>' +
             '</div>');
         $(".body-content-calendar").append(row);
+        $('.daterangepicker').daterangepicker({
+               locale: {
+                 format: 'YYYY-MM-DD'
+               }
+        });
     });
     $(document).on('click', '.btn-remove-calendar', function (event) {
         console.log("remove" + $(this));
@@ -263,7 +272,7 @@
             $(".jenis_perjalanan_dalam_negeri").removeClass('hidden');
             $(".dalam_negeri").removeClass('hidden');
             // reset value
-            $("#surat_tugas_luar_negeri").prop('selectedIndex', 0)
+            $("#surat_tugas_luar_negeri").prop('selectedIndex', 0);
         }
         else {
             $(".jenis_perjalanan_dalam_negeri").addClass('hidden');
@@ -281,8 +290,14 @@
         data.id = $("#id").val();
         data.no_disposisi = $("#no_disposisi").val();
         data.tanggal = $(".tanggal").serializeArray();
-        data.laporan = $("#laporan").val();
-        data.monev = $("#monev").val();
+        data.laporan = 0;
+        data.monev = 0;
+        if ($('#laporan').is(":checked")){
+            data.laporan = 1;
+        };
+        if ($('#monev').is(":checked")){
+            data.monev = 1;
+        };
         data.jenis = $("#jenis").val();
         data.jenis_biaya = $("#jenis_biaya").val();
         data.jenis_perjalanan = $("#jenis_perjalanan").val();

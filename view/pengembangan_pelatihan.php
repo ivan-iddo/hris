@@ -1,6 +1,12 @@
 <div class="tab-base">
     <!--Nav Tabs-->
     <ul class="nav nav-tabs">
+        <div class="alert alert-danger hidden" id="users-blocked" role="alert">
+            Akun anda tidak dapat mengajukan pelatihan! Silahkan selesaikan laporan pada pelatihan sebelumnya.
+        </div>
+        <div class="alert alert-warning hidden" id="users-monev" role="alert">
+            Anda memiliki pelatihan & pengembangan saat ini (Monitoring & Evaluasi).
+        </div>
         <li class="active"><a data-toggle="tab" href="#demo-lft-tab-2">Users</a></li>
     </ul>
     <div class="tab-content">
@@ -23,6 +29,10 @@
                                 <button class=
                                         "btn btn-danger btn-labeled fa fa-close btn-sm" onclick=
                                         "proses_delete();">Delete
+                                </button>
+                                <button class=
+                                        "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
+                                        "laporan_selesai();">Laporan selesai
                                 </button>
                             </div>
                         </div>
@@ -57,6 +67,7 @@
         {headerName: "NIP / NIK", field: "nopeg", width: 190, filterParams: {newRowsAction: 'keep'}},
         {headerName: "Nama", field: "nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
         {headerName: "Jabatan", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Biaya Total", field: "biaya_total", width: 190, filterParams: {newRowsAction: 'keep'}},
         {headerName: "Created Date", field: "created", width: 190, filterParams: {newRowsAction: 'keep'}},
         {headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}},
         {headerName: "Status", field: "statue", width: 190, filterParams: {newRowsAction: 'keep'}},
@@ -129,6 +140,12 @@
             contentType: 'application/json',
             processData: false,
             success: function (data, textStatus, jQxhr) {
+                if (data.is_blocked){
+                    $("#users-blocked").removeClass('hidden');
+                }
+                if (data.is_monev){
+                    $("#users-monev").removeClass('hidden')
+                }
                 gridOptions.api.setRowData(data.result);
                 pagingDatatable(data.total, data.limit, 'loaddata');
             },
@@ -156,8 +173,6 @@
                 selectedRowsString += selectedRow.id;
             });
             submit_get(BASE_URL + 'pengembangan_pelatihan/delete/?id=' + selectedRowsString, loaddata);
-
-
         }
     }
 
@@ -192,22 +207,62 @@
                     // $('#f_user_edit').val(res[0].username);
                     $('#id').val(res.data.id);
                     $('#no_disposisi').val(res.data.no_disposisi);
-                    $('#laporan').val(res.data.laporan);
-                    $("#laporan").trigger("chosen:updated");
-                    $('#monev').val(res.data.monev);
-                    $("#monev").trigger("chosen:updated");
+                    // $('#laporan').val(res.data.laporan);
+                    // $("#laporan").trigger("chosen:updated");
+                    // $('#monev').val(res.data.monev);
+                    // $("#monev").trigger("chosen:updated");
+                    if (res.data.monev == "1"){
+                        $('#monev').prop("checked", true);
+                    }
+                    else{
+                        $('#monev').prop("checked", false);
+                    }
+                    if (res.data.laporan == "1"){
+                        $('#laporan').prop("checked", true);
+                    }
+                    else{
+                        $('#laporan').prop("checked", false);
+                    }
                     $('#jenis_perjalanan').val(res.data.jenis_perjalanan);
                     $("#jenis_perjalanan").trigger("chosen:updated");
+
+                    //
+                    if (res.data.jenis_perjalanan == "Dalam Negeri") {
+                        $("#dalam_negeri").val(res.data.dalam_negeri);
+                        $("#dalam_negeri").trigger("chosen:updated");
+
+                        $("#surat_tugas_dalam_negeri").val(res.data.surat_tugas_dalam_negeri);
+                        $("#dalam_negeri").trigger("chosen:updated");
+                        $("#surat_tugas_dalam_negeri").trigger('chosen:updated');
+
+                        $(".dalam_negeri").removeClass('hidden');
+                        $(".jenis_perjalanan_dalam_negeri").removeClass('hidden');
+                        // hide
+                        $(".jenis_perjalanan_luar_negeri").addClass('hidden');
+                    }
+                    else {
+                        $(".jenis_perjalanan_dalam_negeri").addClass('hidden');
+                        $(".dalam_negeri").addClass('hidden');
+                        // show
+                        $(".jenis_perjalanan_luar_negeri").removeClass('hidden');
+                        // reset value
+                        $("#dalam_negeri").prop('selectedIndex', 0);
+                        $("#surat_tugas_luar_negeri").val(res.data.surat_tugas_luar_negeri);
+                        $("#surat_tugas_luar_negeri").trigger('chosen:updated');
+                    }
+
+
                     $('#jenis').val(res.data.jenis);
                     $("#jenis").trigger("chosen:updated");
                     $('#jenis_biaya').val(res.data.jenis_biaya);
                     $("#jenis_biaya").trigger("chosen:updated");
                     $('#nama_pegawai').val(res.data.nama_pegawai);
+                    getOptionsEdit("nopeg", BASE_URL + "users/list", res.data.nopeg);
                     $('#jabatan').val(res.data.jabatan);
                     console.log(res.data.tanggal);
                     for (var i = 0; i < res.data.tanggal.length; i++) {
                         if (i == 0){
-                            $("#tanggal").val(res.data.tanggal[i].tanggal);
+                            $("#tanggal").val(res.data.tanggal[i].tanggal_from +" - "+ res.data.tanggal[i].tanggal_to);
                         }
                         else{
                             console.log("else" + i);
@@ -215,7 +270,7 @@
                                 '<div class="form-group body-remove-calendar">' +
                                 '<label class="col-sm-3 control-label" for="demo-hor-inputemail"></label>' +
                                 '<div class="col-sm-5">' +
-                                '<input type="date" name="tanggal[]" class="form-control tanggal" style="padding: 0 !important;" value='+res.data.tanggal[i].tanggal+' />' +
+                                '<input type="text" name="tanggal[]" class="form-control tanggal daterangepicker" value="'+ res.data.tanggal[i].tanggal_from +" - "+ res.data.tanggal[i].tanggal_to +'" />' +
                                 '</div>' +
                                 '<div class="col-xs-3 pull right">' +
                                 '<div class="btn btn-default btn-sm btn-remove-calendar">' +
@@ -224,6 +279,11 @@
                                 '</div>' +
                                 '</div>');
                             $(".body-content-calendar").append(row);
+                            $('.daterangepicker').daterangepicker({
+                                   locale: {
+                                     format: 'YYYY-MM-DD'
+                                   }
+                            });
                         }
                     };
                     for (var i = 0; i < res.data.biaya_uraian.length; i++) {
@@ -252,23 +312,6 @@
                                  $(".body-content").append(row);
                         }
                     };
-
-
-
-                    // $('#nopeg').val(res.data.nopeg);
-                    // $("#nopeg").trigger("chosen:updated");
-                    // $('#no_disposisi').val(res.data.no_disposisi);
-                    // $('#no_disposisi').val(res.no_disposisi);
-                    // $('#no_disposisi').val(res.no_disposisi);
-                    // $('#no_disposisi').val(res.no_disposisi);
-                    // $('#no_disposisi').val(res.no_disposisi);
-                    // $('#no_disposisi').val(res.no_disposisi);
-                    // $('#no_disposisi').val(res.no_disposisi);
-                    // $('#no_disposisi').val(res.no_disposisi);
-                    // $('#no_disposisi').val(res.no_disposisi);
-                    // $('#no_disposisi').val(res.no_disposisi);
-
-
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
                     alert('error');
@@ -277,7 +320,7 @@
 
 
             bootbox.dialog({
-                title: "<i class=\"fa fa-users\"><\/i> Edit Group",
+                title: "<i class=\"fa fa-users\"><\/i> Edit Pengembangan & pelatihan",
                 message: $('<div></div>').load('view/pengembangan_pelatihan/add.php'),
                 animateIn: 'bounceIn',
                 animateOut: 'bounceOut',
@@ -314,14 +357,28 @@
 
     }
 
+    function laporan_selesai() {
+        var selectedRows = gridOptions.api.getSelectedRows();
+        if (selectedRows == '') {
+            onMessage('Silahkan Pilih Group Terlebih dahulu!');
+            return false;
+        } else {
+            var selectedRowsString = '';
+            selectedRows.forEach(function (selectedRow, index) {
+
+                if (index !== 0) {
+                    selectedRowsString += ', ';
+                }
+                selectedRowsString += selectedRow.id;
+            });
+            console.log(selectedRowsString);
+            submit_get(BASE_URL + 'pengembangan_pelatihan/laporan_selesai/?id=' + selectedRowsString, loaddata);
+        }
+    }
+
     $('#demo-bootbox-bounce').on('click', function () {
-        getOptions("f_user_id_group", BASE_URL + "users/getgroup");
-        getOptions("f_uk", BASE_URL + "uk_index/option");
-        getOptionsEdit("f_user_status_aktif", BASE_URL + "Appdata/getstatus", 1);
-
-
         bootbox.dialog({
-            title: "<i class=\"fa fa-user\"><\/i> Add New User",
+            title: "<i class=\"fa fa-user\"><\/i> Add New Pengembangan & pelatihan",
             message: $('<div></div>').load('view/pengembangan_pelatihan/add.php'),
             animateIn: 'bounceIn',
             animateOut: 'bounceOut',
