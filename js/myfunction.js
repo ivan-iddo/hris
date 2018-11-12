@@ -442,8 +442,8 @@ function getJson(callback, url) {
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
-        processData: false,
-        async: false,
+        // processData: false,
+        // async: false,
 
         success: callback,
         error: function (jqXhr, textStatus, errorThrown) {

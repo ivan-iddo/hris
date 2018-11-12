@@ -166,7 +166,8 @@ require_once('connectdb.php');
     <script type="text/javascript" src="themes/default3/js/daterangepicker/daterangepicker.js"></script>
     <link rel="stylesheet" type="text/css" href="themes/default3/js/daterangepicker/daterangepicker.css" />
     <script src="js/AjaxFileUpload-1.0.0.min.js"></script>
-
+    <!-- lib numeric only -->
+    <script type="text/javascript" src="themes/default3/js/jquery.jstepper.js"></script>
      <script src="dist/ag-grid-enterprise.noStyle.js"></script>
   <link rel="stylesheet" href="dist/styles/ag-grid.css">
   <link rel="stylesheet" href="dist/styles/ag-theme-balham.css">

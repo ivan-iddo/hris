@@ -4441,6 +4441,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    };
 	    GridApi.prototype.setRowData = function (rowData) {
+	    	console.
 	        if (this.gridOptionsWrapper.isRowModelDefault()) {
 	            if (this.gridOptionsWrapper.isDeltaRowDataMode()) {
 	                var _a = this.immutableService.createTransactionForRowData(rowData), transaction = _a[0], orderIdMap = _a[1];

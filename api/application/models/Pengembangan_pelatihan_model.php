@@ -11,11 +11,11 @@ class Pengembangan_pelatihan_model extends MY_Model
 	function create($item)
 	{
 		$this->_create();
-		$this->data = array_merge(
+		$data = array_merge(
 								$item,
 								$this->data
 							);
-		$this->db->insert($this->table, $this->data);
+		$this->db->insert($this->table, $data);
 		$id = $this->db->insert_id();
 		return $this->db->where("id", $id)->get($this->table)->row();
 	}
@@ -27,17 +27,30 @@ class Pengembangan_pelatihan_model extends MY_Model
 		return $this->db->where("id", $id)->get($table)->row();
 	}
 
-	function delete_detail($table, $id_parent)
+	function create_detail_row($table, $data)
 	{
-		$result = $this->db->update($table, array("statue" => 0), array("pengembangan_pelatihan_id" => $id_parent));
+		$data = array_merge(
+								$data,
+								$this->data
+							);
+		$this->db->insert($table, $data);
+		$id = $this->db->insert_id();
+		return $this->db->where("id", $id)->get($table)->row();
+	}
+
+	function delete_detail($table, $conditions)
+	{
+		$result = $this->db->update($table, array("statue" => 0), $conditions);
 		return $result;
 	}
 
-	function get_detail($table, $id_parent)
+	function get_detail($table, $conditions)
 	{
 		$this->db->select("*");
 		$this->db->from($table);
-		$this->db->where("pengembangan_pelatihan_id", $id_parent);
+		if (!empty($conditions) && is_array($conditions)) {
+			$this->db->where($conditions);
+		}
 		$this->db->where("statue", 1);
 		$result = $this->db->get()->result_array();
 		return $result;
@@ -45,13 +58,18 @@ class Pengembangan_pelatihan_model extends MY_Model
 
 	function is_blocked($nopeg)
 	{
-		$data = $this->get_all(array("nopeg" => $nopeg,
-										"statue" => 1,
-										"laporan" => 1));
+		$data = $this->get_all(array("statue" => 1,
+										"laporan" => 1,
+										"created <=" => date("Y-m-d", strtotime("-5 days", strtotime(date("Y-m-d"))))
+										)
+								);
+		
 		if (!empty($data)){
 			foreach ($data as $key => $value) {
-				// jika ada isLaporan == true && now >= (created+5)
-				if ($value["laporan"] && date("Y-m-d") > date("Y-m-d", strtotime("+5 days", strtotime($value["created"])))) {
+				$check_detail = $this->get_detail("pengembangan_pelatihan_detail", array("nopeg" => $nopeg));
+				// echo $this->db->last_query();die;
+				// jika ada isLaporan == true && now <= (created-5)
+				if ($check_detail) {
 					return true;
 				}
 			}
@@ -61,13 +79,16 @@ class Pengembangan_pelatihan_model extends MY_Model
 
 	function is_monev($nopeg)
 	{
-		$data = $this->get_all(array("nopeg" => $nopeg,
-										"statue" => 1,
-										"monev" => 1));
+		$data = $this->get_all(array("statue" => 1,
+												"laporan" => 1,
+												"created <=" => date("Y-m-d", strtotime("-30 days", strtotime(date("Y-m-d"))))
+												)
+										);
+				
 		if (!empty($data)){
 			foreach ($data as $key => $value) {
-				// jika monev == 1 && (created+30) >= now
-				if (strtotime("+30 days", strtotime($value["created"])) > date("Y-m-d")) {
+				$check_detail = $this->get_detail("pengembangan_pelatihan_detail", array("nopeg" => $nopeg));
+				if ($check_detail) {
 					return true;
 				}
 			}
@@ -170,12 +191,12 @@ class Pengembangan_pelatihan_model extends MY_Model
         $this->_update();
         $item["statue"] = $item["statue"] ? $item["statue"] : 1;
         
-        $this->data = array_merge(
+        $data = array_merge(
             $item, $this->data
         );
 
 		$this->db->where("id", $id);
-		$result = $this->db->update($this->table, $this->data);
+		$result = $this->db->update($this->table, $data);
 
 		if ($result) {
 			$get = $this->get_all(array("id" => $id, "statue" => $item["statue"]));
