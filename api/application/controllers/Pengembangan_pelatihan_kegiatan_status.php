@@ -50,7 +50,18 @@ class Pengembangan_pelatihan_kegiatan_status extends REST_Controller
                     $search["search"] = $param_search;
                 }
                 $results['result'] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_all(null, $search, $offset, $limit);
-                // echo $this->db->last_query();die;
+                if (!empty($results["result"])) {
+                    foreach ($results["result"] as $key => $value) {
+                        $createdby = $this->db->select("username")->where(array("id_user" => $value["createdby"]))->get("sys_user")->result_array();
+                        $updatedby = $this->db->select("username")->where(array("id_user" => $value["updatedby"]))->get("sys_user")->result_array();
+                        if (count($createdby) == 1) {
+                            $results["result"][$key]["createdby"] = $createdby[0]["username"];
+                        }
+                        if (count($updatedby) == 1) {
+                            $results["result"][$key]["updatedby"] = $updatedby[0]["username"];
+                        }
+                    }
+                }
                 $results['total'] = count($this->Pengembangan_pelatihan_kegiatan_status_model->get_all());
                 $results['limit'] = $limit;
                 $this->set_response($results, REST_Controller::HTTP_OK);
@@ -68,53 +79,9 @@ class Pengembangan_pelatihan_kegiatan_status extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                $save["no_disposisi"] = $this->input->post("no_disposisi");
-                $save["laporan"] = $this->input->post("laporan");
-                $save["monev"] = $this->input->post("monev");
-                $save["jenis"] = $this->input->post("jenis");
-                $save["jenis_biaya"] = $this->input->post("jenis_biaya");
-                $save["jenis_perjalanan"] = $this->input->post("jenis_perjalanan");
-                $save["dalam_negeri"] = $this->input->post("dalam_negeri");
-                $save["surat_tugas_dalam_negeri"] = $this->input->post("surat_tugas_dalam_negeri");
-                $save["surat_tugas_luar_negeri"] = $this->input->post("surat_tugas_luar_negeri");
-                $save["nopeg"] = $this->input->post("nopeg");
-                $save["nama_pegawai"] = $this->input->post("nama_pegawai");
-                $save["jabatan"] = $this->input->post("jabatan");
-
-                $tanggal = $this->input->post("tanggal");
-
-                $biaya_uraian = $this->input->post("biaya_uraian");
-                $biaya_nominal = $this->input->post("biaya_nominal");
-
-                // echo "<pre>";
-                // print_r($save);
-                // echo "</pre>";
-                // die;
+                $save["nama"] = $this->input->post("nama");
                 $result = $this->Pengembangan_pelatihan_kegiatan_status_model->create($save);
                 if ($result){
-                    if (!empty($biaya_uraian)) {
-                        foreach ($biaya_uraian as $key => $value) {
-                            $pengembangan_pelatihan_uraian_biaya[$key]["pengembangan_pelatihan_id"] = $result->id;
-                            $pengembangan_pelatihan_uraian_biaya[$key]["biaya_uraian"] = @$value["value"];
-                            $pengembangan_pelatihan_uraian_biaya[$key]["biaya_nominal"] = @$biaya_nominal[$key]["value"];
-                        }
-                        $this->Pengembangan_pelatihan_kegiatan_status_model->create_detail("pengembangan_pelatihan_uraian_biaya", $pengembangan_pelatihan_uraian_biaya);
-                    }
-                    if (!empty($tanggal)) {
-                        foreach ($tanggal as $key => $value) {
-                            $tanggal_1 = @$value["value"];
-                            $tanggal_explode = explode(" - ", $tanggal_1);
-                            // dibagi 24jam x 8 jam
-                            $tanggal_diff = (strtotime($tanggal_explode[1]) - strtotime($tanggal_explode[0])) / 86400 * 8;
-                            $pengembangan_pelatihan_pelaksanaan[$key]["pengembangan_pelatihan_id"] = $result->id;
-                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_from"] = @$tanggal_explode[0];
-                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_to"] = @$tanggal_explode[1];
-                            $pengembangan_pelatihan_pelaksanaan[$key]["total_jam"] = $tanggal_diff;                            
-                        }
-                        $this->Pengembangan_pelatihan_kegiatan_status_model->create_detail("pengembangan_pelatihan_pelaksanaan", $pengembangan_pelatihan_pelaksanaan);
-                    }
-
-
                     $response['hasil'] = 'success';
                     $response['message'] = 'Data berhasil ditambah!';
                 }
@@ -139,51 +106,10 @@ class Pengembangan_pelatihan_kegiatan_status extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
                 $save["id"] = $this->input->post("id");
-                $save["no_disposisi"] = $this->input->post("no_disposisi");
-                $save["laporan"] = $this->input->post("laporan");
-                $save["monev"] = $this->input->post("monev");
-                $save["jenis"] = $this->input->post("jenis");
-                $save["jenis_biaya"] = $this->input->post("jenis_biaya");
-                $save["jenis_perjalanan"] = $this->input->post("jenis_perjalanan");
-                $save["dalam_negeri"] = $this->input->post("dalam_negeri");
-                $save["surat_tugas_dalam_negeri"] = $this->input->post("surat_tugas_dalam_negeri");
-                $save["surat_tugas_luar_negeri"] = $this->input->post("surat_tugas_luar_negeri");
-                $save["nopeg"] = $this->input->post("nopeg");
-                $save["nama_pegawai"] = $this->input->post("nama_pegawai");
-                $save["jabatan"] = $this->input->post("jabatan");
-
-                $tanggal = $this->input->post("tanggal");
-                $biaya_uraian = $this->input->post("biaya_uraian");
-                $biaya_nominal = $this->input->post("biaya_nominal");
+                $save["nama"] = $this->input->post("nama");
 
                 $result = $this->Pengembangan_pelatihan_kegiatan_status_model->update($save["id"], $save);
                 if ($result){
-                    $this->Pengembangan_pelatihan_kegiatan_status_model->delete_detail("pengembangan_pelatihan_uraian_biaya", $save["id"]);
-                    $this->Pengembangan_pelatihan_kegiatan_status_model->delete_detail("pengembangan_pelatihan_pelaksanaan", $save["id"]);
-
-                    if (!empty($biaya_uraian)) {
-                        foreach ($biaya_uraian as $key => $value) {
-                            $pengembangan_pelatihan_uraian_biaya[$key]["pengembangan_pelatihan_id"] = $result->id;
-                            $pengembangan_pelatihan_uraian_biaya[$key]["biaya_uraian"] = @$value["value"];
-                            $pengembangan_pelatihan_uraian_biaya[$key]["biaya_nominal"] = @$biaya_nominal[$key]["value"];
-                        }
-                        $this->Pengembangan_pelatihan_kegiatan_status_model->create_detail("pengembangan_pelatihan_uraian_biaya", $pengembangan_pelatihan_uraian_biaya);
-                    }
-                    if (!empty($tanggal)) {
-                        foreach ($tanggal as $key => $value) {
-                            $tanggal_1 = @$value["value"];
-                            $tanggal_explode = explode(" - ", $tanggal_1);
-                            // dibagi 24jam x 8 jam
-                            $tanggal_diff = (strtotime($tanggal_explode[1]) - strtotime($tanggal_explode[0])) / 86400 * 8;
-                            $pengembangan_pelatihan_pelaksanaan[$key]["pengembangan_pelatihan_id"] = $result->id;
-                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_from"] = @$tanggal_explode[0];
-                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_to"] = @$tanggal_explode[1];
-                            $pengembangan_pelatihan_pelaksanaan[$key]["total_jam"] = $tanggal_diff;
-                        }
-                        $this->Pengembangan_pelatihan_kegiatan_status_model->create_detail("pengembangan_pelatihan_pelaksanaan", $pengembangan_pelatihan_pelaksanaan);
-                    }
-
-
                     $response['hasil'] = 'success';
                     $response['message'] = 'Data berhasil ditambah!';
                 }
@@ -229,10 +155,6 @@ class Pengembangan_pelatihan_kegiatan_status extends REST_Controller
        if (count($result) == 1) {
             $result = $result[0];
             $results["success"] = true;
-            $tanggal = $this->Pengembangan_pelatihan_kegiatan_status_model->get_detail("pengembangan_pelatihan_pelaksanaan", $result["id"]);
-            $biaya_uraian = $this->Pengembangan_pelatihan_kegiatan_status_model->get_detail("pengembangan_pelatihan_uraian_biaya", $result["id"]);
-            $result["tanggal"] = $tanggal;
-            $result["biaya_uraian"] = $biaya_uraian;
             $results["data"] = $result;
        }
 
