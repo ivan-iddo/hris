@@ -1,3 +1,9 @@
+<?php 
+// echo "<pre>";
+// print_r($result);
+// echo "<pre>";
+// die;
+ ?>
 <!doctype html>
 <html>
 <head>
@@ -11,7 +17,7 @@
 </head>
 
 <body>
-<table border="0" class="table-1">
+<table border="0" class="table-1" style="margin:30px">
   <tbody>
     <tr>
       <td colspan="3" align="center"><u><strong>S U R A T   -   T U  G A S</strong></u></td>
@@ -31,33 +37,36 @@
             <td>Nama</td>
             <td>Jabatan / Unit Kerja</td>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>197303041993032001 / 807</td>
-            <td>EKA WARA MARTHIANTI,  SAP</td>
-            <td>Sekretariat Pejabat  Pembuat Komitmen (PPK)</td>
-          </tr>
+          <?php if (!empty($result["detail"])): ?>
+            <?php foreach ($result["detail"] as $key => $value): ?>
+              <tr>
+                <td><?php echo $key+1 ?></td>
+                <td><?php echo $value["nip"] ." / ". $value["nopeg"] ?></td>
+                <td><?php echo $value["nama_pegawai"] ?></td>
+                <td><?php echo $value["jabatan"] ?></td>
+              </tr>
+            <?php endforeach ?>
+          <?php endif ?>
         </tbody>
       </table></td>
     </tr>
     <tr>
-      <td colspan="3">Untuk :</td>
-    </tr>
-    
-    <tr>
       <td colspan="3">
-  <table width="100%" border="0">
-    <tbody>
-      <tr>
-        <td valign="top">1</td>
-        <td>Mengikuti Undangan  Penetapan Peserta dan Pemberitahuan Pelaksanaan Kegiatan Workshop Persiapan  Pengendalian Kontrak Dalam Rangka Peningkatan Kapasitas Ahli Kontrak Pengadaan  Barang/Jasa Pemerintah Tahun 2018, yang akan dilaksanakan pada hari/tanggal <strong>Senin s/d Rabu, 04 s/d 06 Juni 2018</strong>.  Pada pukul 12.00 sd selesai. Bertempat di Morrissey Hotel Jl. KH. Wahid Hasyim  No.70 Kb. Sirih, Menteng, Jakarta Pusat.</td>
-      </tr>
-      <tr>
-        <td valign="top">2</td>
-        <td>Pelaksana Perjalanan  Dinas wajib mempertanggungjawabkan pelaksanaan Perjalanan Dinas berupa : Laporan  Biaya dan Kegiatan Perjalanan  Dinas ke Bendahara dan Khusus Untuk Kegiatan Perjalanan Dinas ke Bagian SDM dan  Organisasi melalui email : <strong><a href="mailto:sdm.latbangharkit@gmail.com">sdm.latbangharkit@gmail.com</a></strong>.  Paling lambat 5 (lima) hari kerja setelah Perjalanan Dinas dilaksanakan.</td>
-      </tr>
-    </tbody>
-  </table>
+      <table width="100%" border="0" style="margin-top : 100px">
+        <tr style="margin-top:100px">
+          <td colspan="3">Untuk :</td>
+        </tr>
+        <tbody>
+          <tr>
+            <td valign="top">1</td>
+            <td>Mengikuti Undangan  Penetapan Peserta dan Pemberitahuan Pelaksanaan Kegiatan Workshop Persiapan  Pengendalian Kontrak Dalam Rangka Peningkatan Kapasitas Ahli Kontrak Pengadaan  Barang/Jasa Pemerintah Tahun 2018, yang akan dilaksanakan pada hari/tanggal <strong>Senin s/d Rabu, 04 s/d 06 Juni 2018</strong>.  Pada pukul 12.00 sd selesai. Bertempat di Morrissey Hotel Jl. KH. Wahid Hasyim  No.70 Kb. Sirih, Menteng, Jakarta Pusat.</td>
+          </tr>
+          <tr>
+            <td valign="top">2</td>
+            <td>Pelaksana Perjalanan  Dinas wajib mempertanggungjawabkan pelaksanaan Perjalanan Dinas berupa : Laporan  Biaya dan Kegiatan Perjalanan  Dinas ke Bendahara dan Khusus Untuk Kegiatan Perjalanan Dinas ke Bagian SDM dan  Organisasi melalui email : <strong><a href="mailto:sdm.latbangharkit@gmail.com">sdm.latbangharkit@gmail.com</a></strong>.  Paling lambat 5 (lima) hari kerja setelah Perjalanan Dinas dilaksanakan.</td>
+          </tr>
+        </tbody>
+      </table>
       </td>
     </tr>
     <tr>

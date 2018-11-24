@@ -1,13 +1,17 @@
 <?php
+// echo "<pre>";
+// print_r($result);
+// echo "<pre>";
+// die;
 error_reporting(0);
-header('Content-Type: application/json');
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: PUT, GET, POST");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+// header('Content-Type: application/json');
+// header("Access-Control-Allow-Origin: *");
+// header("Access-Control-Allow-Methods: PUT, GET, POST");
+// header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
-require APPPATH . '/libraries/REST_Controller.php';
-$rest_json = file_get_contents("php://input");
-$_POST = json_decode($rest_json, true);
+// require APPPATH . '/libraries/REST_Controller.php';
+// $rest_json = file_get_contents("php://input");
+// $_POST = json_decode($rest_json, true);
 
 
 /*
@@ -23,7 +27,7 @@ $_POST = json_decode($rest_json, true);
  *
  */
 
-class Pengembangan_pelatihan extends REST_Controller
+class Pengembangan_pelatihan extends CI_Controller
 {
     /**
      * URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
@@ -40,13 +44,40 @@ class Pengembangan_pelatihan extends REST_Controller
 
     public function debug_get()
     {
+        $id = $this->input->get("id");
+        $id = 1;
+        $result = $this->Pengembangan_pelatihan_model->get_all(array("id" => $id), null, $offset, $limit);
+
+        if (count($result) == 1) {
+            $result = $result[0];
+            $createdby = $this->db->select("username")->where(array("id_user" => $result["createdby"]))->get("sys_user")->result_array();
+            $updatedby = $this->db->select("username")->where(array("id_user" => $result["updatedby"]))->get("sys_user")->result_array();
+            if (count($createdby) == 1) {
+                $result["createdby"] = $createdby[0]["username"];
+            }
+            if (count($updatedby) == 1) {
+                $result["updatedby"] = $updatedby[0]["username"];
+            }
+            $tanggal = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $result["id"]));
+            $result["tanggal"] = $tanggal;
+            // print_r($result);die;
+            $result["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($result["pengembangan_pelatihan_kegiatan"]);
+            $result["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($result["pengembangan_pelatihan_kegiatan_status"]);
+            $result["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $result["id"]));
+            if (!empty($result["detail"])) {
+                foreach ($result["detail"] as $key_detail_biaya => $value_detail_biaya) {
+                    $result["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
+                }
+            }
+        }
+
         $this->load->library("pdf");
         $data = "test";
-        $html = $this->load->view("view_pdf", $data, true);
+        $html = $this->load->view("view_pdf", array("result" => $result), true);
 
 
-        // echo $html;
-        // die;
+        echo $html;
+        die;
 
         $this->pdf->loadHtml($html);
         $this->pdf->setPaper("A4", ($orientation = "P" ));

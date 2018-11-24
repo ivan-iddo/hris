@@ -41,6 +41,10 @@
                             </button>
                             <button class=
                                     "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
+                                    "cetak();">Cetak
+                            </button>
+                            <button class=
+                                    "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
                                     "laporan_selesai();">Laporan selesai
                             </button>
                         </div>
@@ -227,6 +231,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">NIK</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" name="nik" id="nik" class="form-control"
+                                                   readonly="true"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="demo-hor-inputemail">Nama Pegawai</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control"
@@ -322,6 +333,7 @@
 </div>
 
 <script>
+    $('.judul-menu').html('Pengembangan Pelatihan');
     var listPI = [
         {headerName: "NOPEG", field: "nopeg", width: 190, filterParams: {newRowsAction: 'keep'}},
         {headerName: "NAMA", field: "nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
@@ -485,7 +497,7 @@
             dataType: "json",
             success: function (e) {
                 for (var i = 0; i < e.result.length; i++) {
-                    $('#' + id).append('<option ' + (e.result[i].nip == valueEdit ? 'selected' : '') + ' value="' + e.result[i].nip + '" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_group + '" >' + e.result[i].nip + ' - ' + e.result[i].nama + '</option>');
+                    $('#' + id).append('<option ' + (e.result[i].nip == valueEdit ? 'selected' : '') + ' value="' + e.result[i].nip + '" data-nik="' + e.result[i].nik + '" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_group + '" >' + e.result[i].nip + ' - ' + e.result[i].nama + '</option>');
                 }
                 $('#' + id).trigger("chosen:updated");
             }
@@ -600,8 +612,9 @@
         if ($(this).find(':selected').attr("data-nama") != undefined) {
             $("#nama_pegawai").val($(this).find(':selected').attr("data-nama"));
             $("#jabatan").val($(this).find(':selected').attr("data-nama-group"));
+            $("#nik").val($(this).find(':selected').attr("data-nik"));
+            $("#nip").val($(this).find(':selected').val());
         }
-        ;
     });
 
 
@@ -633,6 +646,7 @@
 
         dataRow.uraian_total = uraian_total;
         dataRow.nopeg = $("#nopeg").val();
+        dataRow.nip = $("#nik").val();
         dataRow.nama_pegawai = $("#nama_pegawai").val();
         dataRow.jabatan = $("#jabatan").val();
         dataRow.detail_uraian = detail_uraian;
@@ -654,7 +668,7 @@
     function editRowTable() {
         var selectedRows = gridPI.api.getSelectedRows();
         var selectedRow = selectedRows[0];
-        console.log(selectedRow.nopeg);
+        console.log(selectedRow);
         if (isClickRowTable) {
             if (selectedRows == '') {
                 onMessage('Silahkan Pilih Pegawai Terlebih dahulu!');
@@ -667,6 +681,8 @@
 
                 $('#nama_pegawai').val(selectedRow.nama_pegawai);
                 $('#jabatan').val(selectedRow.jabatan);
+                $('#nip').val(selectedRow.nopeg);
+                $('#nik').val(selectedRow.nip);
                 selectedRow.detail_uraian.forEach(function (item, index) {
                     if (index == 0) {
                         $("#biaya_uraian").val(selectedRow.detail_uraian[index].uraian);
@@ -693,7 +709,6 @@
                         $(".body-content").append(row);
                     }
                 });
-                console.log(selectedRow.nopeg);
                 isClickRowTable = false;
                 btnActionEdit(selectedRow.nopeg);
             }
@@ -742,6 +757,8 @@
         $("#nopeg").trigger("chosen:updated");
         $("#nama_pegawai").val("");
         $("#jabatan").val("");
+        $("#nip").val("");
+        $("#nik").val("");
         $("#biaya_uraian").val("");
         $("#biaya_nominal").val(0);
         $(".btn-pegawai-remove").val("");
@@ -851,6 +868,25 @@
             }
         });
     }
+    
+    function proses_delete() {
+        var selectedRows = gridOptionsList.api.getSelectedRows();
+        if (selectedRows == '') {
+            onMessage('Silahkan Pilih Group Terlebih dahulu!');
+            return false;
+        } else {
+            var selectedRowsString = '';
+            selectedRows.forEach(function (selectedRow, index) {
+
+                if (index !== 0) {
+                    selectedRowsString += ', ';
+                }
+                selectedRowsString += selectedRow.id;
+            });
+            submit_get(BASE_URL + 'pengembangan_pelatihan/delete/?id=' + selectedRowsString, loaddata);
+        }
+    }
+
     loaddata(0);
 
     function proses_edit(){
@@ -987,6 +1023,16 @@
         } 
         else {
             submit_get(BASE_URL + 'pengembangan_pelatihan/laporan_selesai/?id=' + selectedRowsSelesai[0].id, loaddata);
+        }
+    }
+    function cetak() {
+        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } 
+        else {
+            submit_get(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id, loaddata);
         }
     }
 </script>
