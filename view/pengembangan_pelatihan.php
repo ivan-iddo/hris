@@ -40,7 +40,7 @@
                                     "proses_delete();">Delete
                             </button>
                             <button class=
-                                    "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
+                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
                                     "cetak();">Cetak
                             </button>
                             <button class=
@@ -1032,7 +1032,7 @@
             return false;
         } 
         else {
-            submit_get(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id, loaddata);
+            window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id);
         }
     }
 </script>

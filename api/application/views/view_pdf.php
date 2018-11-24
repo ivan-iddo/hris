@@ -33,7 +33,7 @@
         <tbody>
           <tr>
             <td>No</td>
-            <td>NIP/Nopeg</td>
+            <td>NIP / Nopeg</td>
             <td>Nama</td>
             <td>Jabatan / Unit Kerja</td>
           </tr>
@@ -52,19 +52,34 @@
     </tr>
     <tr>
       <td colspan="3">
-      <table width="100%" border="0" style="margin-top : 100px">
+      <table width="100%" border="0" style="margin-top : 130px">
         <tr style="margin-top:100px">
-          <td colspan="3">Untuk :</td>
+          <td colspan="3">Keperluan :
+            <?php if (!empty($result["pengembangan_pelatihan_kegiatan"])): ?>
+            <?php echo $result["pengembangan_pelatihan_kegiatan"]->nama ?>
+            <?php endif ?>
+          </td>
+        </tr>
+<!--         <tbody>
+        </tbody> -->
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+      <table width="100%" border="0">
+        <tr>
+          <td colspan="3">Pada Tanggal :</td>
         </tr>
         <tbody>
-          <tr>
-            <td valign="top">1</td>
-            <td>Mengikuti Undangan  Penetapan Peserta dan Pemberitahuan Pelaksanaan Kegiatan Workshop Persiapan  Pengendalian Kontrak Dalam Rangka Peningkatan Kapasitas Ahli Kontrak Pengadaan  Barang/Jasa Pemerintah Tahun 2018, yang akan dilaksanakan pada hari/tanggal <strong>Senin s/d Rabu, 04 s/d 06 Juni 2018</strong>.  Pada pukul 12.00 sd selesai. Bertempat di Morrissey Hotel Jl. KH. Wahid Hasyim  No.70 Kb. Sirih, Menteng, Jakarta Pusat.</td>
-          </tr>
-          <tr>
-            <td valign="top">2</td>
-            <td>Pelaksana Perjalanan  Dinas wajib mempertanggungjawabkan pelaksanaan Perjalanan Dinas berupa : Laporan  Biaya dan Kegiatan Perjalanan  Dinas ke Bendahara dan Khusus Untuk Kegiatan Perjalanan Dinas ke Bagian SDM dan  Organisasi melalui email : <strong><a href="mailto:sdm.latbangharkit@gmail.com">sdm.latbangharkit@gmail.com</a></strong>.  Paling lambat 5 (lima) hari kerja setelah Perjalanan Dinas dilaksanakan.</td>
-          </tr>
+          <?php if (!empty($result["tanggal"])): ?>
+            <?php foreach ($result["tanggal"] as $key => $value): ?>
+              <tr>
+                <td valign="top" style="width:22px !important"><?php echo $key+1 ?>.</td>
+                <td><?php echo $value["tanggal_from"] ." s/d ". $value["tanggal_to"] ?></td>
+              </tr>
+            <?php endforeach ?>
+          <?php endif ?>
         </tbody>
       </table>
       </td>

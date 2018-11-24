@@ -4,14 +4,14 @@
 // echo "<pre>";
 // die;
 error_reporting(0);
-// header('Content-Type: application/json');
-// header("Access-Control-Allow-Origin: *");
-// header("Access-Control-Allow-Methods: PUT, GET, POST");
-// header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: PUT, GET, POST");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
-// require APPPATH . '/libraries/REST_Controller.php';
-// $rest_json = file_get_contents("php://input");
-// $_POST = json_decode($rest_json, true);
+require APPPATH . '/libraries/REST_Controller.php';
+$rest_json = file_get_contents("php://input");
+$_POST = json_decode($rest_json, true);
 
 
 /*
@@ -27,7 +27,7 @@ error_reporting(0);
  *
  */
 
-class Pengembangan_pelatihan extends CI_Controller
+class Pengembangan_pelatihan extends REST_Controller
 {
     /**
      * URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
@@ -42,7 +42,7 @@ class Pengembangan_pelatihan extends CI_Controller
         $this->load->model('Pengembangan_pelatihan_kegiatan_status_model');
     }
 
-    public function debug_get()
+    public function cetak_get()
     {
         $id = $this->input->get("id");
         $id = 1;
@@ -76,8 +76,8 @@ class Pengembangan_pelatihan extends CI_Controller
         $html = $this->load->view("view_pdf", array("result" => $result), true);
 
 
-        echo $html;
-        die;
+        // echo $html;
+        // die;
 
         $this->pdf->loadHtml($html);
         $this->pdf->setPaper("A4", ($orientation = "P" ));
@@ -85,8 +85,8 @@ class Pengembangan_pelatihan extends CI_Controller
         $this->pdf->set_option("isHtml5ParserEnabled", true);
         $this->pdf->render();
         $name = "download";
-        $this->pdf->stream($name, array("Attachment" => 0));
-        return true;
+        $this->pdf->stream($name, array("Attachment" => 1));
+        // return true;
     }
 
     public function list_get($offset = 0, $param_search = "")
