@@ -1,24 +1,12 @@
-<?php 
-// echo "<pre>";
-// print_r($result);
-// echo "<pre>";
-// die;
- ?>
 <!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Untitled Document</title>
+<html><head></head>
+<body>
 <style type="text/css">
   table{
     width: 100%;
   }
 </style>
-</head>
-
-<body>
 <table border="0" class="table-1" style="margin:30px">
-  <tbody>
     <tr>
       <td colspan="3" align="center"><u><strong>S U R A T   -   T U  G A S</strong></u></td>
     </tr>
@@ -30,7 +18,6 @@
     </tr>
     <tr>
       <td colspan="3"><table width="100%" border="1px solid" align="left" cellpadding="1" cellspacing="1" class="table2">
-        <tbody>
           <tr>
             <td>No</td>
             <td>NIP / Nopeg</td>
@@ -47,7 +34,6 @@
               </tr>
             <?php endforeach ?>
           <?php endif ?>
-        </tbody>
       </table></td>
     </tr>
     <tr>
@@ -60,8 +46,6 @@
             <?php endif ?>
           </td>
         </tr>
-<!--         <tbody>
-        </tbody> -->
       </table>
       </td>
     </tr>
@@ -71,7 +55,6 @@
         <tr>
           <td colspan="3">Pada Tanggal :</td>
         </tr>
-        <tbody>
           <?php if (!empty($result["tanggal"])): ?>
             <?php foreach ($result["tanggal"] as $key => $value): ?>
               <tr>
@@ -80,7 +63,6 @@
               </tr>
             <?php endforeach ?>
           <?php endif ?>
-        </tbody>
       </table>
       </td>
     </tr>
@@ -134,7 +116,5 @@
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
-  </tbody>
 </table>
-</body>
-</html>
+</body></html>
