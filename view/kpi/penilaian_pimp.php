@@ -208,7 +208,8 @@ function downloadKPI(){
             var akhir ='';
             var id_pi='';
             var id_uk='';
-            var nama_group=''
+            var nama_group='';
+            var profesi='';
 
             // alert('>>'+selectedRows+'<<<');
             if(selectedRows == ''){
@@ -228,6 +229,7 @@ function downloadKPI(){
                akhir += selectedRow.akhir;
                id_uk += selectedRow.id_uk;
                nama_group += selectedRow.nama_group;
+               profesi += selectedRow.profesi;
            });
                         }
                         $('#id_pi').val(selectedRowsString);
@@ -239,8 +241,14 @@ function downloadKPI(){
                         $('.buttoenedit').show(); 
                         $('#id_grup').val(id_uk);
                         $('#uk').val(nama_group);
+
+                         if(empty(profesi)){
+                            swal('Perhatian!','KPI Tidak dapat di proses karena pegawai tidak memiliki Profesi SMF/Non-SMF');
+                            return false;
+                        }else{
                         
                         getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=17&pid='+selectedRowsString);
+                        }
            }
 
            function prosesDataPI(result){
@@ -266,8 +274,11 @@ loadDataPI(0);
  {headerName: 'Target Kinerja', field: 'target', width: 120},
  {headerName: 'Capaian', field: 'capaian', width: 120},
  {headerName: 'Capaian (%)', field: 'persen', width: 120},
- {headerName: 'Nilai', field: 'nilai', width: 120},
- {headerName: 'Bobot x Nilai', field: 'bobotnilai', width: 120},
+ {headerName: 'Nilai', field: 'nilai', width: 120},  {
+        headerName: 'Bobot',
+        field: 'total', 
+        width: 200
+    },
  {headerName: 'Keterangan', field: 'keterangan', width: 120},
  {headerName: 'pid', field: 'pid',  hide:true},
  {field: "parent", rowGroup:true, hide:true},
@@ -289,6 +300,9 @@ var gridOptions = {
         enableRangeSelection: true,
         columnDefs: columnDefs,
         pagination: false,
+        onCellValueChanged: function(params) {
+         updateTotal(params);
+    },
         autoGroupColumnDef: {
             headerName:'Group',
             field: 'athlete'
@@ -307,6 +321,29 @@ var gridOptions = {
     }
 };
 
+function updateTotal(params){
+    
+    var itemsToUpdate = [];
+    var jml=0;
+    gridOptions.api.forEachLeafNode( function(node) {
+        var datas = node.data;
+        datas.total = parseFloat((Number(datas.bobot)/100) * Number(datas.nilai)).toFixed(1);
+        jml =  parseFloat(Number(jml) + Number(datas.total)).toFixed(1);
+       
+        if(node.data.id ==='totalsjumlah'){
+          //  datas.bobot=13;
+          
+          datas.total = jml;
+           // datas.total=12;
+            
+        }
+        itemsToUpdate.push(datas);
+      // alert(node.data.id);
+    });
+   // alert(JSON.stringify(itemsToUpdate));
+    var res = gridOptions.api.updateRowData({update: itemsToUpdate});
+}
+
 function getRowData() {
     var rowData = [];
     gridOptions.api.forEachLeafNode( function(node) {
@@ -319,15 +356,17 @@ function getRowData() {
 function tektok(){
     var selectedRows = gridPI.api.getSelectedRows();
     var selectedRowsString = '';
+    var profesi ='';
            selectedRows.forEach( function(selectedRow, index) {
             
                if (index!==0) {
                    selectedRowsString += ', ';
                }
                selectedRowsString += selectedRow.id; 
+               profesi += selectedRow.profesi;
            });
            
-           getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=17&pid='+selectedRowsString);
+           getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=17&pid='+selectedRowsString+'&profesi='+profesi);
 }
  
 function onBtForEachLeafNode() {

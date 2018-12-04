@@ -6,49 +6,11 @@
                                 <div class="box-body">
                                  
                                 <div class="row pad-top"> 
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="inputstatus">Tahun</label>
-                                            <div class="col-sm-4">
-                                                    <select class="form-control select2" id="thnfrm4" name="thnfrm4" style="width: 100%;" >
-                                                    <option value="">--TAHUN--</option>
-                                                     <?php for($i=2010;$i<= date('Y');$i++){?>
-                                                        <option value="<?php echo $i?>"><?php echo $i?></option>
-                                                        <?php }?>
-                                                    </select> 
-                                            </div>
-                                           
-                                    </div> 
-                                    </div>
-                                    <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
-                                    <div class="admininput">
-                                    <div class="row pad-top"> 
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="inputstatus">Unit Kerja</label>
-                                            <div class="col-sm-6">
-                                                    <select class="form-control select-chosen" id="ukfrm4" name="ukfrm4" style="width: 100%;">
-                                                     
-                                                      
-                                                    </select> 
-                                            </div>
-                                           
-                                    </div>
-                                    </div>
-                                     
                                     
-                                                     </div>
-                                    <?php }?>
+                                    </div>
+                                   
                                     
-                                    <div class="row "> 
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="inputstatus"></label>
-                                            <div class="col-sm-6">
-                                             
-                                            <div class="row  text-left">  <button class="btn btn-primary mar-all" onClick="searchfrm5();return false;">Search</button> 
                                   
-                                   </div>
-                                            </div>
-                                    </div>
-                                    </div>
                                     
                                 </div>
                             </div>
@@ -61,7 +23,7 @@
          <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
 					            <div class="row">
 					                <div class="col-sm-6 table-toolbar-left">
-					                    <button id="demo-btn-addrow" class="btn btn-purple" onclick="addfrm4()"><i class="demo-pli-add"></i> Tambah Langkah Kerja</button>
+					                    <button id="demo-btn-addrow" class="btn btn-purple" onclick="addfrm4()"><i class="demo-pli-add"></i> Tambah Faktor Kelonggaran</button>
                                         <button style="margin-left:3px" class="btn btn-mint" onclick="editfrm4()"><i class="fa fa-file-excel-o"></i> Update</button>
                                         <button class="btn btn-danger" onclick="hapusform5()"><i class="fa fa-file-excel-o"></i> Delete</button>
                                                       
@@ -94,7 +56,7 @@
            {headerName: "Frekuensi/thn", field: "frekuensi", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Waktu (menit)", field: "waktu", width: 190, filterParams:{newRowsAction: 'keep'}},
            {
-        headerName: 'Jumlah (menit)',
+        headerName: 'Total (menit)',
         field: 'total',
         valueGetter: 'Number(data.frekuensi) * Number(data.waktu)',
         width: 200

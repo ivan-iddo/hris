@@ -4,9 +4,13 @@
                                         <label class="col-sm-2 control-label" for="inputstatus">Tahun</label>
                                             <div class="col-sm-5">
                                                     <select class="form-control select2" id="thnadd" name="thnadd" style="width: 100%;">
-                                                    <option value="">--TAHUN--</option>
-                                                     <?php for($i=2010;$i<= date('Y');$i++){?>
-                                                        <option value="<?php echo $i?>"><?php echo $i?></option>
+                                                    <?php for($i=2010;$i<= date('Y');$i++){
+                                                             $sele='';
+                                                             if($i== date('Y')){
+                                                                     $sele='selected';
+                                                             }
+                                                             ?>
+                                                        <option value="<?php echo $i?>" <?php echo $sele?>><?php echo $i?></option>
                                                         <?php }?>
                                                     </select> 
                                             </div>

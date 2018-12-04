@@ -208,19 +208,19 @@ public function agama_get(){
 
 					if(!empty($this->input->get('type'))){
 						if($this->input->get('type')=='pns'){
-							$this->db->where('id <=','2');
+							$this->db->where('flagpns','1');
 						}
 
 						if($this->input->get('type')=='nonpns'){
-							$this->db->where('id >','2');
+							$this->db->where('flagpns','0');
 						}
 						
 					}
 					 $this->db->order_by('nama','ASC');
-					 
+					 $this->db->where('tampilkan','1');
 			  $res = $this->db->get('m_status_pegawai')->result();
 			  foreach($res as $d){
-				$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id, 'asn' => $d->asn);
+				$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id);
 			  }
 			  
 			  $this->set_response($arr, REST_Controller::HTTP_OK);
@@ -269,9 +269,14 @@ public function agama_get(){
 					  $this->db->where('child',$id);
 					 }
 			  $res = $this->db->get('sys_grup_user')->result();
+
+			  if(!empty($res)){
 			  foreach($res as $d){
 				$arr['result'][]=array('label'=>$d->grup,'value'=>$d->id_grup);
 			  }
+			}else{
+				$arr['result'][]=array('label'=>'No data','value'=>'');;
+			}
 			  
 			  $this->set_response($arr, REST_Controller::HTTP_OK);
 				
@@ -334,12 +339,35 @@ public function agama_get(){
 			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
 				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
 				if ($decodedToken != false) {
-					 $this->db->order_by('nama','ASC');
+					 $this->db->order_by('gol_angka','ASC');
 					 $this->db->where('tampilkan','1');
 					 
-			  $res = $this->db->get('m_golongan_pegawai')->result();
+			  $res = $this->db->get('m_golongan_peg')->result();
 			  foreach($res as $d){
-				$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id);
+				$arr['result'][]=array('label'=>$d->gol_romawi,'value'=>$d->id);
+			  }
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+
+	public function peringkat_jabatan_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					 $this->db->order_by('no_grade','ASC');
+					 $this->db->where('tampilkan','1');
+					 
+			  $res = $this->db->get('m_grade_jabatan')->result();
+			  foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->ds_grade,'value'=>$d->no_grade);
 			  }
 			  
 			  $this->set_response($arr, REST_Controller::HTTP_OK);
@@ -536,5 +564,7 @@ public function agama_get(){
 			
 			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
+
+	
  
 }

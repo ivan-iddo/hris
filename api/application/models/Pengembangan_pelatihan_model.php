@@ -112,6 +112,22 @@ class Pengembangan_pelatihan_model extends MY_Model
 		}
 	}
 
+	function get_by_uniq_value($uniq_value, $statue = 1)
+	{
+		$this->db->select("*");
+		$this->db->from($this->table);
+		$this->db->where("id_no", $uniq_value);
+		$this->db->where("statue", $statue);
+		$query = $this->db->get();
+
+		if($query->num_rows()<1){
+			return null;
+		}
+		else{
+			return $query->row();
+		}
+	}
+
 	function get_all($params_array = array(), $like = array(), $offset = "", $limit = "", $from = "", $to = "", $where_in = "", $order_by = "")
 	{	
 		$this->db->select("*");

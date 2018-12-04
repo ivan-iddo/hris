@@ -38,7 +38,7 @@
                 <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete();">Delete
                 </button>
               </div>
-              <h4>Indikator Kerja Unit</h4>
+              <h4>Indikator Kerja</h4>
               <div id="myGrid" style="height: 400px;width:100%" class="ag-theme-balham">
               </div>
             </div>
@@ -51,7 +51,7 @@
                 <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete_item();">Delete
                 </button>
               </div>
-              <h4>Sub Indikator Kerja Unit</h4>
+              <h4>Sub Indikator Kerja</h4>
               <div id="myGridDetail" style="height: 400px;width:100%" class="ag-theme-balham">
               </div>
             </div>
@@ -85,7 +85,7 @@
       headerName: "Nama", field: "nama", width: 180, filterParams:{
         newRowsAction: 'keep'}
     } ,{
-      headerName: "Deskripsi", field: "deskripsi", width: 80, filterParams:{
+      headerName: "Profesi", field: "deskripsi", width: 80, filterParams:{
         newRowsAction: 'keep'}
       ,cellStyle: {
         textAlign: "left"}
@@ -144,7 +144,11 @@
     columnDefs: columnDefs,
     pagination: false ,
     defaultColDef:{
-      editable: false 
+      editable: false ,
+      
+      enableRowGroup:true,
+               enablePivot:true,
+               enableValue:true
     }
   };
   
@@ -278,7 +282,7 @@
       }
                           );
       $.ajax({
-        url: BASE_URL+'<?php echo $nama_modul?>/getitem/?id='+selectedRowsString,
+        url: BASE_URL+'<?php echo $nama_modul?>/getitemkpi/?id='+selectedRowsString,
         headers: {
           'Authorization': localStorage.getItem("Token"),
           'X_CSRF_TOKEN':'donimaulana',
@@ -291,8 +295,9 @@
         processData: false,
         success: function( res, textStatus, jQxhr ){
           $('#f_group_group').val(res[0].nama);
-          $('#f_group_ket').val(res[0].deskripsi);
+         // $('#f_group_ket').val(res[0].deskripsi);
           $('#id_group').val(res[0].id);
+          getOptionsEdit('f_group_ket',BASE_URL+'master/getmaster?id=42',res[0].profesi);
           // gridOptions.api.setRowData(data);
         }
         ,
@@ -311,9 +316,9 @@
       input += '</div>';
       input += '</div>';
       input +='<div class="form-group">';
-      input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Bobot (%)</label>';
+      input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail"> Profesi</label>';
       input +='<div class="col-sm-5">';
-      input +='<input placeholder="Kode" id="f_group_ket" class="form-control" type="text"> <span class="text-xs text-danger"></span>';
+      input +='<select  id="f_group_ket" class="form-control" type="text"> </select>';
       input += '</div>';
       input += '</div>';
       input += '</div>';
@@ -570,7 +575,7 @@
   }
 
   function loaddata(){
-    getJson(getdata,BASE_URL+'<?php echo $nama_modul?>/getitem?child=16');
+    getJson(getdata,BASE_URL+'<?php echo $nama_modul?>/getitemkpi?child=16');
   }
 
 
@@ -692,6 +697,7 @@
   }
   
   $('#demo-bootbox-bounce').on('click', function(){
+    getOptions("f_group_ket",BASE_URL+"master/getmaster?id=42");
     var input='<form class="form-horizontal">';
     input += '<div class="panel-body">';
     input +='<div class="form-group">';
@@ -705,9 +711,9 @@
     input += '</div>';
     input += '</div>';
     input +='<div class="form-group">';
-    input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Deskripsi</label>';
+    input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Profesi</label>';
     input +='<div class="col-sm-5">';
-    input +='<input placeholder="" id="f_group_ket" class="form-control" type="text" > <span class="text-xs text-danger"></span>';
+    input +='<select  id="f_group_ket" name="f_group_ket" class="form-control" type="text" ></select>';
     input += '</div>';
     input += '</div>';
     input += '</div>';

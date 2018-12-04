@@ -152,8 +152,7 @@
     </div>
 </form>
 
-<script type="text/javascript">
-  
+<script type="text/javascript"> 
         $('.daterangepicker').daterangepicker({
                locale: {
                  format: 'YYYY-MM-DD'
@@ -244,6 +243,7 @@
             },
             dataType: "json",
             success: function (e) {
+              //  alert(JSON.stringify(e.result));
                 for (var i = 0; i < e.result.length; i++) {
                     $('#' + id).append('<option value="' + e.result[i].nip + '" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_group + '" >' + e.result[i].nip + ' - ' + e.result[i].nama + '</option>');
                 }

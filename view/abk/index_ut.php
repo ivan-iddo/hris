@@ -5,49 +5,7 @@
                             <div class="box box-primary"> 
                                 <div class="box-body">
                                  
-                                <div class="row pad-top"> 
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="inputstatus">Tahun</label>
-                                            <div class="col-sm-3">
-                                                    <select class="form-control select2" id="thnfrm3" name="thnfrm3" style="width: 100%;">
-                                                    <option value="">--TAHUN--</option>
-                                                     <?php for($i=2010;$i<= date('Y');$i++){?>
-                                                        <option value="<?php echo $i?>"><?php echo $i?></option>
-                                                        <?php }?>
-                                                    </select> 
-                                            </div>
-                                           
-                                    </div> 
-                                    </div>
-                                    <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
-                                    <div class="admininput">
-                                    <div class="row pad-top"> 
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="inputstatus">Unit Kerja</label>
-                                            <div class="col-sm-9">
-                                                    <select class="form-control select-chosen" id="ukfrm3" name="ukfrm3" style="width: 100%;">
-                                                     
-                                                      
-                                                    </select> 
-                                            </div>
-                                           
-                                    </div>
-                                    </div>
-                                     
-                                    
-                                                     </div>
-                                    <?php }?>
-                                    <div class="row "> 
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="inputstatus"></label>
-                                            <div class="col-sm-5">
-                                             
-                                            <div class="row  text-left"> 
-                                    <button class="btn btn-primary mar-all" onClick="searchfrm3();return false;">Search</button> 
-                                   </div>
-                                            </div>
-                                    </div>
-                                    </div>
+                                
                                     
                                 </div>
                             </div>
@@ -119,32 +77,33 @@
      $('.chosen-container').css({"width": "100%"});
      var headerform4 = [
             {headerName: "Kode", field: "id_beban_kerja", width: 80,editable:false,   hide: true},
-           {headerName: "Langkah Pelaksanaan Kegiatan ", field: "langkah", width: 280, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Langkah Pelaksanaan Kegiatan ", field: "langkah", width: 280,
+    pinned: 'left', filterParams:{newRowsAction: 'keep'}},
 		   {headerName: "Frekuensi Pelaksanaan Kegiatan", field: "frekuensi", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Waktu (Menit)", field: "waktu", width: 190, filterParams:{newRowsAction: 'keep'}},
-           {headerName: "Ka. Ur ", field: "kaur",editable:true, width: 120},
-           {headerName: "Staf Admin", field: "staff_admin",editable:true, width: 120},
-           {headerName: "Pekarya", field: "pekarya",editable:true, width: 120, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Direktur Utama ", hide: true, field: "dirut",editable:true, width: 120},
+           {headerName: "Direktur ", hide: true, field: "dir",editable:true, width: 120},
+           {headerName: "Ka.Bag ", hide: true, field: "kabag",editable:true, width: 120},
+           {headerName: "Ka.Subag ", hide: true, field: "kasubag",editable:true, width: 120},
+          
+           {headerName: "Ka. Ur ",hide: true, field: "kaur",editable:true, width: 120},
+           {headerName: "Staf Admin", hide: true, field: "sa",editable:true, width: 120},
+           {headerName: "Pekarya", hide: true, field: "pk",editable:true, width: 120, filterParams:{newRowsAction: 'keep'}},
          {
-        headerName: 'Jumlah',
+        headerName: 'Total Pegawai',
         field: 'total',
-        valueGetter: 'Number(data.kaur) + Number(data.staff_admin) + Number(data.pekarya)',
+        valueGetter: 'Number(data.kasubag) +Number(data.kabag) +Number(data.dir) +Number(data.dirut) +Number(data.kaur) + Number(data.sa) + Number(data.pk)',
+        width: 200
+    } , {
+        headerName: 'Total Waktu Kegiatan (Menit)',
+        field: 'total',
+        valueGetter: '((Number(data.frekuensi) * Number(data.waktu))*Number(data.kaur))+((Number(data.frekuensi) * Number(data.waktu))*Number(data.sa))+((Number(data.frekuensi) * Number(data.waktu))*Number(data.pk))+((Number(data.frekuensi) * Number(data.waktu))*Number(data.dirut))+((Number(data.frekuensi) * Number(data.waktu))*Number(data.dir))+((Number(data.frekuensi) * Number(data.waktu))*Number(data.kabag))+((Number(data.frekuensi) * Number(data.waktu))*Number(data.kasubag))',
         width: 200
     } 
            
         ];
 
-        var dataForBottomGrid = [
-                {
-                    langkah: 'Total',
-                    frekuensi: '',
-                    waktu: '',
-                    kaur: '',
-                    staff_admin: '',
-                    pekarya: '' ,
-                   /* jumlah: '' */
-                }
-            ];
+      
             
            
 
@@ -187,38 +146,17 @@
                enableRowGroup:true,
                enablePivot:true,
                enableValue:true
-           },
-    onGridReady: function (params) {
-        params.api.sizeColumnsToFit();
-    }
+           } 
         };
-
-      
-      var gridOptionsBottom = {
-    columnDefs: headerform4,
-    // we are hard coding the data here, it's just for demo purposes
-    rowData: dataForBottomGrid,
-    enableColResize: true,
-    debug: true,
-    rowClass: 'bold-row',
-    // hide the header on the bottom grid
-    headerHeight: 0,
-    alignedGrids: [],
-    onGridReady: function (params) {
-        params.api.sizeColumnsToFit();
-    }
-};
+ 
         // setup the grid after the page has finished loading 
          //  var gridDiv = document.querySelector('#Gridform4');
           // new agGrid.Grid(gridDiv, Gridform4);
 
            var gridDivTop = document.querySelector('#Gridform4');
-        new agGrid.Grid(gridDivTop, Gridform4);
-        var gridDivBottom = document.querySelector('#myGridBottom');
-        new agGrid.Grid(gridDivBottom, gridOptionsBottom);
-
-
-
+        new agGrid.Grid(gridDivTop, Gridform4); 
+        //showtable('false','kaur');
+        
      function listform4(){
               var thn=$('#thnfrm4').val(); 
               if(empty(thn)){
@@ -263,9 +201,13 @@
                     langkah: '',
                     frekuensi: '',
                     waktu: '',
-                    kaur: '',
-                    staff_admin: '',
-                    pekarya: ''
+                    dirut:'0',
+                    dir:'0',
+                    kabag:'0',
+                    kasubag:'0',
+                    kaur: '0',
+                    sa: '0',
+                    pk: '0'
                 }; 
                 return newData;
             }
@@ -349,6 +291,7 @@
 
            function cariLangkahKerja(){
             var selectedRows = Gridform3.api.getSelectedRows(); 
+            var id_uk  =''; 
             if(selectedRows == ''){
                onMessage('Silahkan Pilih Uraian Tugas Terlebih dahulu!');
                return false;
@@ -360,11 +303,28 @@
                             selectedRowsString += ', ';
                         }
                         selectedRowsString += selectedRow.id;
+                        id_uk += selectedRow.id_uk;
                     });
                     $('#tmpId').val(selectedRowsString);
                     getJson(loadform4,BASE_URL+'abk/abk/listform4?id_ut='+selectedRowsString);
+                    getJson(prosestable,BASE_URL+'abk/abk/listpofesi?id_ut='+id_uk);
+                   // showtable('false','kaur');
+                   // showtable('true','kaur');
+                   // Gridform4.columnApi.setColumnVisible('kabag', true);
             }
            }
+          
+           function prosestable(result){
+            $.each(result.result, function( index, value ) {
+                     showtable(true,value.slug);
+                    });
+
+           }
+
+            function showtable(show,name) {
+                 
+           Gridform4.columnApi.setColumnVisible(name, show);
+        }
 
             function listform3(){
               var thn=$('#thnfrm3').val(); 

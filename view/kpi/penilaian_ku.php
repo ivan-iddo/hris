@@ -1,8 +1,7 @@
   
   <div class="row">
   <div class="eq-height">
-					        <div class="col-sm-3 eq-box-sm ">
-					
+					        <div class="col-sm-3 eq-box-sm "> 
 					            <!--Basic Panel-->
 					            <!--===================================================-->
 					            <div class="panel pad-all">
@@ -102,7 +101,8 @@
   </div>
  <button class="btn btn-primary btn-icon mar-all" onclick="getRowData()"><i class="fa fa-folder icon-2x"></i> SAVE KPI</button>
  <button class="btn btn-success btn-icon mar-all" onclick="downloadKPI()"><i class="fa fa-cloud-download icon-2x"></i> Download KPI</button>
-<div id="myGrid"  style="width:100%;height: 900px;" class="ag-theme-balham"></div> 
+<div id="myGrid"  style="width:100%;height: 300px;" class="ag-theme-balham"></div> 
+<div id="myGridBottom" style="height: 40px;" class="ag-theme-balham"></div>
 
 
 
@@ -200,6 +200,9 @@ function downloadKPI(){
            var gridDiv = document.querySelector('#gridPI');
            new agGrid.Grid(gridDiv, gridPI);
 
+
+        
+
            function bukaPI(){
             var selectedRows = gridPI.api.getSelectedRows();
             var nip='';
@@ -208,7 +211,8 @@ function downloadKPI(){
             var akhir ='';
             var id_pi='';
             var id_uk='';
-            var nama_group=''
+            var nama_group='';
+            var profesi='';
 
             // alert('>>'+selectedRows+'<<<');
             if(selectedRows == ''){
@@ -228,6 +232,7 @@ function downloadKPI(){
                akhir += selectedRow.akhir;
                id_uk += selectedRow.id_uk;
                nama_group += selectedRow.nama_group;
+               profesi += selectedRow.profesi;
            });
                         }
                         $('#id_pi').val(selectedRowsString);
@@ -239,8 +244,12 @@ function downloadKPI(){
                         $('.buttoenedit').show(); 
                         $('#id_grup').val(id_uk);
                         $('#uk').val(nama_group);
-                        
-                        getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=16&pid='+selectedRowsString);
+                        if(empty(profesi)){
+                            swal('Perhatian!','KPI Tidak dapat di proses karena pegawai tidak memiliki Profesi SMF/Non-SMF');
+                            return false;
+                        }else{
+                        getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=16&pid='+selectedRowsString+'&profesi='+profesi);
+                        }
            }
 
            function prosesDataPI(result){
@@ -262,12 +271,16 @@ loadDataPI(0);
  var columnDefs = [ 
   
  {headerName: 'Kegiatan', field: 'node', width: 160,editable:false},
- {headerName: 'Bobot (%)', field: 'bobot', width: 160,editable:false},
+ {headerName: 'Bobot (%)', field: 'bobot', width: 160,editable:false, type: 'valueColumn'},
  {headerName: 'Target Kinerja', field: 'target', width: 120},
  {headerName: 'Capaian', field: 'capaian', width: 120},
  {headerName: 'Capaian (%)', field: 'persen', width: 120},
- {headerName: 'Nilai', field: 'nilai', width: 120},
- {headerName: 'Bobot x Nilai', field: 'bobotnilai', width: 120},
+ {headerName: 'Nilai', field: 'nilai', width: 120, type: 'valueColumn'}, 
+  {
+        headerName: 'Bobot',
+        field: 'total', 
+        width: 200
+    } ,
  {headerName: 'Keterangan', field: 'keterangan', width: 120},
  {headerName: 'pid', field: 'pid',  hide:true},
  {field: "parent", rowGroup:true, hide:true},
@@ -287,8 +300,11 @@ var gridOptions = {
         rowGroupPanelShow: 'always',
         pivotPanelShow: 'always',
         enableRangeSelection: true,
-        columnDefs: columnDefs,
+        columnDefs: columnDefs, 
         pagination: false,
+        onCellValueChanged: function(params) {
+         updateTotal(params);
+    },  
         autoGroupColumnDef: {
             headerName:'Group',
             field: 'athlete'
@@ -306,7 +322,31 @@ var gridOptions = {
         console.log('cellEditingStopped');
     }
 };
+function updateTotal(params){
+    
+    var itemsToUpdate = [];
+    var jml=0;
+    gridOptions.api.forEachLeafNode( function(node) {
+        var datas = node.data;
+        datas.total = parseFloat((Number(datas.bobot)/100) * Number(datas.nilai)).toFixed(1);
+        jml =  parseFloat(Number(jml) + Number(datas.total)).toFixed(1);
+       
+        if(node.data.id ==='totalsjumlah'){
+          //  datas.bobot=13;
+          
+          datas.total = jml;
+           // datas.total=12;
+            
+        }
+        itemsToUpdate.push(datas);
+      // alert(node.data.id);
+    });
+   // alert(JSON.stringify(itemsToUpdate));
+    var res = gridOptions.api.updateRowData({update: itemsToUpdate});
+}
 
+
+ 
 function getRowData() {
     var rowData = [];
     gridOptions.api.forEachLeafNode( function(node) {
@@ -316,18 +356,29 @@ function getRowData() {
     save(BASE_URL+'kpi/mpenilaian/savedetail',rowData,tektok);
 }
 
+function coba() {
+    var rowData = [];
+    gridOptions.api.forEachLeafNode( function(node) {
+        alert(node.data.nilai);
+    });
+    //console.log('Row Data:'); 
+   // save(BASE_URL+'kpi/mpenilaian/savedetail',rowData,tektok);
+}
+
 function tektok(){
     var selectedRows = gridPI.api.getSelectedRows();
     var selectedRowsString = '';
+    var profesi ='';
            selectedRows.forEach( function(selectedRow, index) {
             
                if (index!==0) {
                    selectedRowsString += ', ';
                }
                selectedRowsString += selectedRow.id; 
+               profesi += selectedRow.profesi;
            });
            
-           getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=16&pid='+selectedRowsString);
+           getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=16&pid='+selectedRowsString+'&profesi='+profesi);
 }
  
 function onBtForEachLeafNode() {
@@ -358,7 +409,12 @@ function printNode(node, index) {
 
 function prosesData(result){
  gridOptions.api.setRowData(result);
-} 
+
+ 
+}  
+function printdata(node,index){
+    alert('node ' + node.data.nilai + ' is in the grid');
+}
 
 function loadData(){
  getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=16');
@@ -407,4 +463,23 @@ function search(){
                        });
 }
 
+var gridOptionsBottom = {
+    columnDefs: columnDefs,
+    // we are hard coding the data here, it's just for demo purposes
+    rowData: dataForBottomGrid,
+    enableColResize: true,
+    debug: true,
+    rowClass: 'bold-row',
+    // hide the header on the bottom grid
+    headerHeight: 0,
+    alignedGrids: [],
+    onGridReady: function (params) {
+        params.api.sizeColumnsToFit();
+    }
+};
+
+ 
+
+          
+             
 </script>

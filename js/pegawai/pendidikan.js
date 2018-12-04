@@ -100,7 +100,7 @@ obj['id_user'] = id_user;
 
            function addPendidikan(){
                getOptions("txtStatusLulus",BASE_URL+"master/statuslulus");
-                getOptions("txtJPend",BASE_URL+"master/pendidikan");
+                getOptions("txtJPend",BASE_URL+"master/getmaster?id=29");
                
                
                bootbox.dialog({ 
@@ -231,7 +231,7 @@ if(!empty(data.file)){
                
 
                                               
-               getOptionsEdit("txtJPend",BASE_URL+"master/pendidikan",data.pen_code); 
+               getOptionsEdit("txtJPend",BASE_URL+"master/getmaster?id=29",data.pen_code); 
                getOptionsEdit("txtStatusLulus",BASE_URL+"master/statuslulus",data.pen_desc);
                
                                    } 
@@ -261,3 +261,37 @@ function deletPendidikan(){
            
             }
            }
+
+           function setPendidikan(){
+            var selectedRows = gridPendidikanOpt.api.getSelectedRows();
+            var id_user = $('#id_user').val();
+          // alert('>>'+selectedRows+'<<<');
+          if(selectedRows == ''){
+             onMessage('Silahkan Pilih Pendidikan Terlebih dahulu!');
+             return false;
+          }else{
+              var selectedRowsString = '';
+         selectedRows.forEach( function(selectedRow, index) {
+          
+             if (index!==0) {
+                 selectedRowsString += ', ';
+             }
+             selectedRowsString += selectedRow.id;
+         });
+
+         getJson(resedit,BASE_URL+'pegawai/setpendidikan/?id='+selectedRowsString+'&user_id='+id_user)
+       
+         
+         
+          }
+          }
+          
+        function resedit(result){
+            if(result.hasil==='success'){
+              swal('BERHASIL!',result.message,'success');
+            }else{
+              swal('Oops!',result.message);
+            }
+        }
+         
+         

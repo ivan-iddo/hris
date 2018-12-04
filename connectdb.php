@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "gtpayid_hris";
+$dbname = "gtpayid_hrislive";
 
  
 

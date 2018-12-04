@@ -263,7 +263,7 @@ bootbox.dialog({
 
                      
                        
-    getOptions("id_alasan",BASE_URL+"master/getmaster?id=23");
+    getOptions("id_alasan",BASE_URL+"m/kode_keluar/getoption");
    
 //	getOptions("txtjabfung",BASE_URL+"master/jabatan_asn");
 	//getOptions("txtjabatan",BASE_URL+"master/jabatan_struktural");

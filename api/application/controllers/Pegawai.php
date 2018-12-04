@@ -125,7 +125,7 @@ class Pegawai extends REST_Controller
 							$id_bank	= $this->input->post('id_bank');
 							$bpjs_kes	= $this->input->post('bpjs_kes');
 							$bpjs_tk= $this->input->post('bpjs_tk');
-							
+						
 							
 							
 							 
@@ -163,7 +163,8 @@ class Pegawai extends REST_Controller
 							,"created"=>date('Y-m-d H:i:s')
 							,"password"=>$password
 							,"kode_klinik"=>$user_id_klinik
-							,'id_uk' => $txtjabatan
+							,'id_uk' => $txtjabatan 
+							,'id_shift' =>$this->input->post('id_shift') 
 						);
 					
 					  
@@ -201,7 +202,10 @@ class Pegawai extends REST_Controller
 							 'bpjs_kes' => $bpjs_kes,
 							 'bpjs_tk' => $bpjs_tk,
 							 'no_rek' =>$this->input->post('no_rek'),
-							 'kategori_profesi' =>$this->input->post('kategori_profesi')
+							 'kategori_profesi' =>$this->input->post('kategori_profesi'),
+							 'NPWP' => $this->input->post('npwp'),
+							 'id_profesi' =>$this->input->post('id_profesi'),
+							 
 						);
 						$this->db->insert('sys_user_profile',$param_profile);
 						
@@ -214,6 +218,8 @@ class Pegawai extends REST_Controller
 							 'bagian' => $txtbagian,
 							 'sub_bagian' => $unitkerja,
 							 'jabatan_asn' => $txtjabfung,
+							 'subjabasn' => $this->input->post('subjabasn'),
+							 'ketahli' => $this->input->post('ketahli'), 
 							 'tmt_jabatan_asn' => $txttmtjabfung,
 							 'jabatan_struktural' => $txtjabatan,
 							 'tmt_jabatan' =>$txttmtjabatan,
@@ -270,11 +276,15 @@ class Pegawai extends REST_Controller
 							   sys_user.email,
 							   sys_user.id_grup,
 							   sys_user.status,
-							    sys_user.foto,
+								sys_user.foto,
+								sys_user.id_shift,
+								sys_user.kd_keluar,
 							   sys_user_profile.*,
 							   riwayat_kedinasan.status_pegawai,
 							   riwayat_kedinasan.direktorat,
 							   riwayat_kedinasan.jabatan_asn,
+							   riwayat_kedinasan.subjabasn,
+							   riwayat_kedinasan.ketahli,
 							   riwayat_kedinasan.jabatan_struktural,
 							   riwayat_kedinasan.golongan,
 							   riwayat_kedinasan.bagian,
@@ -350,7 +360,14 @@ class Pegawai extends REST_Controller
 								  'id_bank' => $d->id_bank,
 								  'bpjs_kes' => $d->bpjs_kes,
 								  'bpjs_tk' => $d->bpjs_tk,
-								  'no_rek' => $d->no_rek
+								  'no_rek' => $d->no_rek,
+								  'kd_keluar' => $d->kd_keluar,
+								  'id_shift' => $d->id_shift,
+								  'npwp' => $d->NPWP,
+								  'id_profesi' => $d->id_profesi,
+								  'subjabasn' => $d->subjabasn,
+								  'ketahli' => $d->ketahli,
+								  'id_user'  => $d->id_user,
 								  
 								  
 								  );
@@ -472,6 +489,7 @@ class Pegawai extends REST_Controller
 							,"status"=>$f_user_status_aktif 
 							,"kode_klinik"=>$user_id_klinik
 							,'id_uk' => $txtjabatan
+							,'id_shift' =>$this->input->post('id_shift') 
 						);	 
 				 $this->db->where('id_user',$id);
 				 if(!empty($paramss)){
@@ -510,7 +528,9 @@ class Pegawai extends REST_Controller
 							 'bpjs_kes' => $bpjs_kes,
 							 'bpjs_tk' => $bpjs_tk,
 							 'no_rek' =>$this->input->post('no_rek'),
-							 'kategori_profesi' =>$this->input->post('kategori_profesi')
+							 'kategori_profesi' =>$this->input->post('kategori_profesi'), 
+							 'NPWP' => $this->input->post('npwp'),
+							 'id_profesi' =>$this->input->post('id_profesi'),
 						);
 				 
 				 $this->db->where('id_user',$id);
@@ -526,7 +546,9 @@ class Pegawai extends REST_Controller
 							 'direktorat' => $txtdirektorat,
 							 'bagian' => $txtbagian,
 							 'sub_bagian' => $unitkerja,
-							 'jabatan_asn' => $txtjabfung,
+							 'jabatan_asn' => $txtjabfung, 
+							 'subjabasn' => $this->input->post('subjabasn'),
+							 'ketahli' => $this->input->post('ketahli'), 
 							 'tmt_jabatan_asn' => $txttmtjabfung,
 							 'jabatan_struktural' => $txtjabatan,
 							 'tmt_jabatan' =>$txttmtjabatan,
@@ -804,9 +826,9 @@ class Pegawai extends REST_Controller
 				//$this->db->limit('100');
 				//$this->db->order_by();
 		 $arr=array();
-		$this->db->select('his_pendidikan.*,m_pendidikan.nama as namaPendidikan,m_status_lulus.nama as status'); 
+		$this->db->select('his_pendidikan.*,dm_term.nama as namaPendidikan,m_status_lulus.nama as status'); 
 		$this->db->join('m_status_lulus','m_status_lulus.id = his_pendidikan.pen_desc','LEFT');
-		$this->db->join('m_pendidikan','m_pendidikan.id = his_pendidikan.pen_code','LEFT'); 
+		$this->db->join('dm_term','dm_term.id = his_pendidikan.pen_code','LEFT'); 
 		$this->db->where('his_pendidikan.tampilkan','1');
 		if(!empty($id = $this->uri->segment(3))){
 					$this->db->where('his_pendidikan.id_user',$id);
@@ -950,7 +972,260 @@ class Pegawai extends REST_Controller
 			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
 
+	function setpendidikan_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				$arr['hasil']='error';
+					$arr['message']='Data Gagal Ditambah!';
+				if ($decodedToken != false) {
+				 
+			  
+			  
+			  $this->db->where('id',$_GET['id']);
+			  $res = $this->db->get('his_pendidikan')->row();
+			  
+			  $this->db->where('id_user',$this->input->get('user_id'));
+			  $this->db->update('sys_user_profile',array('pendidikan_akhir'=>$res->pen_code));
+
+			  
+			   if($this->db->affected_rows() == '1'){
+					$arr['hasil']='success';
+					$arr['message']='Data berhasil diupdate!';
+				 }else{
+					$arr['hasil']='error';
+					$arr['message']='Data Gagal Dirubah!';
+				 }
+			  
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+
+
 	function savemutasi_post(){
+		$headers = $this->input->request_headers();
+	
+		if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+			$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+			 
+			if ($decodedToken != false) {
+			 
+		  $arrdata=array( 
+			   'tampilkan'=>'0'
+			   );
+		   
+			   //cari dulu diriwayat kedinasan
+			   if(!empty($id=$this->input->post('txtIdUser'))){
+				$this->db->where('id_user',$this->input->post('txtIdUser'));
+				$res = $this->db->get('riwayat_kedinasan')->row();
+
+				$direktorat_asal = '';
+				$bagian_asal = '';
+				$sub_bagian_asal = '';
+				
+				if(!empty($res)){
+					$direktorat_asal = $res->direktorat;
+					$bagian_asal = $res->bagian;
+					$sub_bagian_asal = $res->sub_bagian;
+				}
+ 
+				$this->db->where('user_id',$id); 
+				$this->db->where('status <>','91'); 
+				$cekmutasi = $this->db->get('abk_req_mutasi_jabatan')->row();
+
+				 if(!empty($cekmutasi)){
+					$arr['hasil']='error';
+					$arr['message']='Data gagal disimpan,pegawai sedang dalam proses mutasi juga!';
+				 }else{
+					 
+				 
+					$arrdata = array(
+						'user_id' => $id,
+						'direktorat_asal' => $direktorat_asal,
+						'bagian_asal' => $bagian_asal,
+						'sub_bagian_asal' => $sub_bagian_asal,
+						'direktorat_tujuan' => $this->input->post('txtdirektorat'),
+						'bagian_tujuan' => $this->input->post('txtbagian'),
+						'sub_bagian_tujuan' => $this->input->post('unitkerja'),
+						'tgl_mutasi' => $this->input->post('tgl_mutasi'),
+						'keterangan' => $this->input->post('keterangan'),
+						'tgl_sk'=>$this->input->post('tgl_sk'),
+						'no_sk'=>$this->input->post('no_sk'),
+						'id_satker'=>$this->input->post('satuan_kerja'),
+						'id_kelas'=> $this->input->post('kelas_jabatan'),
+						'jabatan_struktural' => $this->input->post('txtjabatan'),
+						'jenis_mutasi' => $this->input->post('jenis_mutasi'),
+						'status'=>'88',
+						'grup' => $decodedToken->data->_pnc_id_grup,
+						'author' => $decodedToken->data->id
+					);
+	 
+			 	$this->db->insert('abk_req_mutasi_jabatan',$arrdata);
+					 
+	
+						if($this->db->affected_rows() == '1'){
+							$arr['hasil']='success';
+							$arr['message']='Data berhasil ditambah!';
+						}else{
+							$arr['hasil']='error';
+							$arr['message']='Data Gagal Ditambahhhh!';
+						}
+
+				 }
+
+			   }
+			  
+		   
+		  
+		  
+		  $this->set_response($arr, REST_Controller::HTTP_OK);
+			
+				return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+
+
+	function editmutasi_post(){
+		$headers = $this->input->request_headers();
+	
+		if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+			$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+			$arr['hasil']='error';
+				$arr['message']='Data Gagal Ditambah!';
+			if ($decodedToken != false) {
+			 
+		    
+			   //cari dulu diriwayat kedinasan
+			   if(!empty($id=$this->input->post('txtIdUser'))){
+				$this->db->where('id_user',$this->input->post('txtIdUser'));
+				$res = $this->db->get('riwayat_kedinasan')->row();
+
+				$direktorat_asal = '';
+				$bagian_asal = '';
+				$sub_bagian_asal = '';
+				
+				if(!empty($res)){
+					$direktorat_asal = $res->direktorat;
+					$bagian_asal = $res->bagian;
+					$sub_bagian_asal = $res->sub_bagian;
+				}
+
+				//cek dulu kalau ada yg aktif non aktifkan dulu
+				 
+
+					$arrdata = array(
+						'user_id' => $id,
+						'direktorat_asal' => $direktorat_asal,
+						'bagian_asal' => $bagian_asal,
+						'sub_bagian_asal' => $sub_bagian_asal,
+						'direktorat_tujuan' => $this->input->post('txtdirektorat'),
+						'bagian_tujuan' => $this->input->post('txtbagian'),
+						'sub_bagian_tujuan' => $this->input->post('unitkerja'),
+						'tgl_mutasi' => $this->input->post('tgl_mutasi'),
+						'keterangan' => $this->input->post('keterangan'),
+						'tgl_sk'=>$this->input->post('tgl_sk'),
+						'no_sk'=>$this->input->post('no_sk'),
+						'id_satker'=>$this->input->post('satuan_kerja'),
+						'id_kelas'=> $this->input->post('kelas_jabatan'),
+						'jabatan_struktural' => $this->input->post('txtjabatan'),
+						'status'=>$this->input->post('statusproses'),
+						'jenis_mutasi'=>$this->input->post('jenis_mutasi')
+					);
+ 
+					
+					$this->db->where('id',$this->input->post('idtk'));
+					$this->db->where_in('status',array('88','89','101'));
+					$this->db->update('abk_req_mutasi_jabatan',$arrdata);
+					 
+	
+						if($this->db->affected_rows() == '1'){
+							$arr['hasil']='success';
+							$arr['message']='Data berhasil dikirim!';
+						}else{
+							$arr['hasil']='error';
+							$arr['message']='Hanya status baru / ditolak HRD saja yg bisa melakukan kirim ulang!';
+						}
+
+				 
+				 
+				
+
+			   }
+			  
+		   
+		  
+		  
+		  $this->set_response($arr, REST_Controller::HTTP_OK);
+			
+				return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+
+	function updatestatusmutasi_get(){
+		$headers = $this->input->request_headers();
+	
+		if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+			$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+			$arr['hasil']='error';
+				$arr['message']='Data Gagal Ditambah!';
+			if ($decodedToken != false) {
+			 
+		    
+			   
+
+				//cek dulu kalau ada yg aktif non aktifkan dulu
+				 
+
+					$arrdata = array( 
+						'status'=>$this->input->get('status')
+					);
+ 
+					
+					$this->db->where('id',$this->input->get('id'));
+					$this->db->update('abk_req_mutasi_jabatan',$arrdata);
+					 
+	
+						if($this->db->affected_rows() == '1'){
+							$arr['hasil']='success';
+							$arr['message']='Data berhasil dikirim!';
+						}else{
+							$arr['hasil']='error';
+							$arr['message']='Data Gagal dikirim!';
+						}
+
+				 
+				 
+				
+ 
+			   
+			  
+		   
+		  
+		  
+		  $this->set_response($arr, REST_Controller::HTTP_OK);
+			
+				return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+
+
+	function savemutasifinal_post(){
 		$headers = $this->input->request_headers();
 	
 		if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
@@ -1082,7 +1357,7 @@ class Pegawai extends REST_Controller
             if ($decodedToken != false) {
 				//$this->db->limit('100');
 				//$this->db->order_by();
-		 
+				$group = $decodedToken->data->_pnc_id_grup;
 		
 		$this->db->join('sys_user','sys_user.id_user = his_mutasi_jabatan.user_id','LEFT');
 		$this->db->where('sys_user.status','1');
@@ -1092,28 +1367,47 @@ class Pegawai extends REST_Controller
 		$total_rows = $this->db->count_all_results('his_mutasi_jabatan');
 		$pagination = create_pagination_endless('/pegawai/listmutasi/0/', $total_rows,20,4);
 				
-		$this->db->select('sys_user.*,a.grup as dir_asal,his_mutasi_jabatan.tgl_mutasi,his_mutasi_jabatan.keterangan,
+		$this->db->select('sys_user.*,a.grup as dir_asal,abk_req_mutasi_jabatan.tgl_mutasi,abk_req_mutasi_jabatan.keterangan,
+		abk_req_mutasi_jabatan.id as idmutasi,
 		b.grup as bag_asal,
 		c.grup as subbag_asal,
 		d.grup as dir_tujuan,
 		e.grup as bag_tujuan,
-		f.grup as subbag_tujuan');
-		$this->db->join('sys_grup_user as f','f.id_grup = his_mutasi_jabatan.sub_bagian_tujuan','LEFT');
-		$this->db->join('sys_grup_user as e','e.id_grup = his_mutasi_jabatan.bagian_tujuan','LEFT');
-		$this->db->join('sys_grup_user as d','d.id_grup = his_mutasi_jabatan.direktorat_tujuan','LEFT');
-		$this->db->join('sys_grup_user as c','c.id_grup = his_mutasi_jabatan.sub_bagian_asal','LEFT');
-		$this->db->join('sys_grup_user as b','b.id_grup = his_mutasi_jabatan.bagian_asal','LEFT');
-		$this->db->join('sys_grup_user as a','a.id_grup = his_mutasi_jabatan.direktorat_asal','LEFT');
+		f.grup as subbag_tujuan,
+		dt.nama as namastatus,
+		jm.nama as namamutasi');
+		$this->db->join('sys_grup_user as f','f.id_grup = abk_req_mutasi_jabatan.sub_bagian_tujuan','LEFT');
+		$this->db->join('sys_grup_user as e','e.id_grup = abk_req_mutasi_jabatan.bagian_tujuan','LEFT');
+		$this->db->join('sys_grup_user as d','d.id_grup = abk_req_mutasi_jabatan.direktorat_tujuan','LEFT');
+		$this->db->join('sys_grup_user as c','c.id_grup = abk_req_mutasi_jabatan.sub_bagian_asal','LEFT');
+		$this->db->join('sys_grup_user as b','b.id_grup = abk_req_mutasi_jabatan.bagian_asal','LEFT');
+		$this->db->join('sys_grup_user as a','a.id_grup = abk_req_mutasi_jabatan.direktorat_asal','LEFT');
+		$this->db->join('dm_term as dt','dt.id = abk_req_mutasi_jabatan.status','LEFT');
+		$this->db->join('dm_term as jm','abk_req_mutasi_jabatan.jenis_mutasi = jm.id','LEFT');
 		if(!empty($this->uri->segment(3))){
 			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)",$this->uri->segment(3)); 
 		 }
-		 $this->db->join('sys_user','sys_user.id_user = his_mutasi_jabatan.user_id','LEFT');
+
+		 $this->db->join('sys_user','sys_user.id_user = abk_req_mutasi_jabatan.user_id','LEFT');
 		$this->db->where('sys_user.status','1');
-		//$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
+		$this->db->where('YEAR(abk_req_mutasi_jabatan.tgl_mutasi)',date('Y'));
 		
-		  $res = $this->db->get('his_mutasi_jabatan')->result();
+		if(($group <> '1') AND ($group<>'6')){
+			$this->db->where('abk_req_mutasi_jabatan.grup',$group);
+			
+		} 
+
+		if(!empty($this->input->get('status'))){
+			$this->db->where('abk_req_mutasi_jabatan.status',$this->input->get('status'));
+		}
+		
+
+		$this->db->order_by('abk_req_mutasi_jabatan.tgl_mutasi','DESC');
+		
+		  $res = $this->db->get('abk_req_mutasi_jabatan')->result();
 		  foreach($res as $d){
 			$arr['result'][]=array(
+				'id'=>$d->idmutasi,
 								   'nama'=>$d->name, 
 								   'dir_asal' => $d->dir_asal,
 								   'tgl' => $d->tgl_mutasi,
@@ -1123,7 +1417,122 @@ class Pegawai extends REST_Controller
 								   'bag_tujuan' => $d->bag_tujuan,
 								   'subbag_tujuan' => $d->subbag_tujuan,
 								   'keterangan' => $d->keterangan,
+								   'status'=>$d->namastatus,
+								   'jm' => $d->namamutasi
 								   );
+		  }
+		 
+		  $arr['total']=$total_rows;
+		  $arr['paging'] = $pagination['limit'][1];
+		  $this->set_response($arr, REST_Controller::HTTP_OK);
+			
+                return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+
+	public function listmutasidireksi_get(){
+		$headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+				//$this->db->limit('100');
+				//$this->db->order_by();
+				$group = $decodedToken->data->_pnc_id_grup;
+		
+		$this->db->join('sys_user','sys_user.id_user = his_mutasi_jabatan.user_id','LEFT');
+		$this->db->where('sys_user.status','1');
+		 if(!empty($this->uri->segment(3))){
+			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)",$this->uri->segment(3)); 
+		 }
+		$total_rows = $this->db->count_all_results('his_mutasi_jabatan');
+		$pagination = create_pagination_endless('/pegawai/listmutasi/0/', $total_rows,20,4);
+				
+		$this->db->select('sys_user.*,a.grup as dir_asal,abk_req_mutasi_jabatan.tgl_mutasi,abk_req_mutasi_jabatan.keterangan,
+		abk_req_mutasi_jabatan.id as idmutasi,
+		abk_req_mutasi_jabatan.direktorat_tujuan,
+		abk_req_mutasi_jabatan.direktorat_asal,
+		abk_req_mutasi_jabatan.status as stat,
+		b.grup as bag_asal,
+		c.grup as subbag_asal,
+		d.grup as dir_tujuan,
+		e.grup as bag_tujuan,
+		f.grup as subbag_tujuan,
+		dt.nama as namastatus,
+		jm.nama as namamutasi');
+		$this->db->join('sys_grup_user as f','f.id_grup = abk_req_mutasi_jabatan.sub_bagian_tujuan','LEFT');
+		$this->db->join('sys_grup_user as e','e.id_grup = abk_req_mutasi_jabatan.bagian_tujuan','LEFT');
+		$this->db->join('sys_grup_user as d','d.id_grup = abk_req_mutasi_jabatan.direktorat_tujuan','LEFT');
+		$this->db->join('sys_grup_user as c','c.id_grup = abk_req_mutasi_jabatan.sub_bagian_asal','LEFT');
+		$this->db->join('sys_grup_user as b','b.id_grup = abk_req_mutasi_jabatan.bagian_asal','LEFT');
+		$this->db->join('sys_grup_user as a','a.id_grup = abk_req_mutasi_jabatan.direktorat_asal','LEFT');
+		$this->db->join('dm_term as dt','dt.id = abk_req_mutasi_jabatan.status','LEFT');
+		$this->db->join('dm_term as jm','abk_req_mutasi_jabatan.jenis_mutasi = jm.id','LEFT');
+		if(!empty($this->uri->segment(3))){
+			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)",$this->uri->segment(3)); 
+		 }
+
+		 $this->db->join('sys_user','sys_user.id_user = abk_req_mutasi_jabatan.user_id','LEFT');
+		$this->db->where('sys_user.status','1');
+		$this->db->where('YEAR(abk_req_mutasi_jabatan.tgl_mutasi)',date('Y'));
+	 
+		if(($group <> '1') AND ($group<>'6')){
+
+			 $this->db->where('abk_req_mutasi_jabatan.direktorat_asal',$group);
+			 $this->db->or_where('abk_req_mutasi_jabatan.direktorat_tujuan',$group);
+			
+
+			
+		} 
+
+		if(!empty($this->input->get('status'))){
+			//$this->db->where('abk_req_mutasi_jabatan.status',$this->input->get('status'));
+		}
+		
+
+		$this->db->order_by('abk_req_mutasi_jabatan.tgl_mutasi','DESC');
+		
+		  $res = $this->db->get('abk_req_mutasi_jabatan')->result();
+
+		  
+		  foreach($res as $d){
+			// echo $group.' =='. $d->direktorat_tujuan;
+		 
+			$tampil ='false';
+			  if(($group == $d->direktorat_tujuan) AND ($d->stat =='88')) {
+				$tampil ='true';
+			  }
+
+			  if(($group == $d->direktorat_tujuan) AND ($d->stat =='105')) {
+				  
+				$tampil ='true';
+
+				}
+			  
+			  if(($group == $d->direktorat_asal) AND ($d->stat =='88')){
+				$tampil ='true';
+			  }
+
+			  if($tampil=='true'){
+				$arr['result'][]=array(
+					'id'=>$d->idmutasi,
+									   'nama'=>$d->name, 
+									   'dir_asal' => $d->dir_asal,
+									   'tgl' => $d->tgl_mutasi,
+									   'bag_asal' => $d->bag_asal,
+									   'subbag_asal' => $d->subbag_asal,
+									   'dir_tujuan' => $d->dir_tujuan,
+									   'bag_tujuan' => $d->bag_tujuan,
+									   'subbag_tujuan' => $d->subbag_tujuan,
+									   'keterangan' => $d->keterangan,
+									   'status'=>$d->namastatus,
+									   'jm' => $d->namamutasi
+									   );
+			  }
+			
 		  }
 		 
 		  $arr['total']=$total_rows;
@@ -1146,6 +1555,15 @@ class Pegawai extends REST_Controller
 					$id_cuti = $this->input->get('id');
 					$id_user = $this->input->get('id_user');
 					$tahun = date('Y');
+
+					if($id_cuti !=='1'){
+						$arr['message'] ='<div class="alert alert-success">Anda memiliki sisa cuti <strong> 12  Hari</strong></div>';
+						$arr['jumlah'] = 12;
+					   
+			  
+						return  $this->set_response($arr, REST_Controller::HTTP_OK);	
+			  
+					}
 					
 					 $this->db->where('id',$id_cuti);
 					 $this->db->where('tampilkan','1');
@@ -1246,7 +1664,8 @@ class Pegawai extends REST_Controller
 							'tgl_cuti'=> $tgl,
 							'tgl_akhir_cuti' => $sampai,
 							'jenis_cuti' => $id_cuti,
-							'status' => '1'
+							'status' => '1',
+							'keterangan' =>  $this->input->post('keterangan')
 
 						);
 
@@ -1272,6 +1691,9 @@ class Pegawai extends REST_Controller
 			
 			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
+
+
+	
 
 	function listcuti_get(){
 		$headers = $this->input->request_headers();
@@ -1384,6 +1806,9 @@ class Pegawai extends REST_Controller
 					   $da .='</td>';
 					   $da .='<td>';
 					   $da .= $val->namcut;
+					   $da .='</td>';
+					   $da .='<td>';
+					   $da .= $val->keterangan;
 					   $da .='</td>';
 					   $da .='<td>';
 					   $da .= date_format(date_create($val->tgl_cuti),"d-m-Y");
@@ -1513,7 +1938,7 @@ class Pegawai extends REST_Controller
 
 					 $this->db->insert('his_pegawai_resign',$arratdata);
 					 $this->db->where('id_user',$id);
-					 $this->db->update('sys_user',array('status'=>'0'));
+					 $this->db->update('sys_user',array('status'=>'0','kd_keluar'=>$id_alasan));
 
 					if($this->db->affected_rows() == '1'){
 						$arr['hasil']='success';
@@ -1656,6 +2081,93 @@ class Pegawai extends REST_Controller
 		
 		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
+
+
+	function listfile_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+				 
+					$id_user = $this->input->get('id');  
+					$this->db->where('id_user',$id_user); 
+					$this->db->where('kategori_id',$this->input->get('kategori')); 
+					$this->db->where('tampilkan','1');
+					$this->db->order_by('tgl','DESC');
+					$resCek = $this->db->get('his_files')->result();
+
+					$da ='';
+					$no = 0;
+					foreach($resCek as $val){
+						++$no;
+						$text='text-success';
+						
+					   $da .='<tr>';
+					   $da .='<td>';
+					   $da .= $no;
+					   $da .='</td>'; 
+					   $da .='<td class="'.$text.'">';
+					   $da .=  $val->nama_file;
+					   $da .='</td>';
+					   $da .='<td>';
+					   $da .='<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/data/'.$val->url.'\')"><i class="fa fa-eye"></i></a>';
+					   $da .='</td>';
+					   $da .='<td><a class="label label-danger" href="javascript:void(0);" onClick="hapusfile(\''.$val->id.'\')">';
+					   $da .='Hapus';
+					   $da .='</a>';
+					   $da .='</td>';
+					  
+					   $da .='</tr>';
+					}
+				    
+				   $arr['hasil']='success';
+				   $arr['isi']=$da;
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+
+		
+	}
+
+	function deletelistfile_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				$arr['hasil']='error';
+					$arr['message']='Data Gagal Ditambah!';
+				if ($decodedToken != false) {
+				 
+			  $arrdata=array( 
+				   'tampilkan'=>'0'
+				   );
+			  
+			  $this->db->where('id',$_GET['id']);
+			  $this->db->update('his_files',$arrdata);
+			  
+			   if($this->db->affected_rows() == '1'){
+					$arr['hasil']='success';
+					$arr['message']='Data berhasil ditambah!';
+				 }else{
+					$arr['hasil']='error';
+					$arr['message']='Data Gagal Ditambah!';
+				 }
+			  
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+	
 
 
 }

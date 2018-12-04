@@ -1,2 +1,5 @@
-/deploy
-/docs
+/api/application/config/config.php
+/api/application/config/database.php
+/index.html
+/connectdb.php
+/js/login.js

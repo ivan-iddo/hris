@@ -54,92 +54,15 @@
       <div class="tab-content">
         <div class="tab-pane fade active in" id="demo-lft-tab-1">
          
-            <div class="row"> 
-                    <div class="col-md-6"> 
-                            <div class="box box-primary"> 
-                                <div class="box-body">
-                                <div class="row pad-top"> 
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="inputstatus">Kode Unit kerja:</label>
-                                            <div class="col-sm-3">
-                                            <span id="unitkerjakode" class="text-2x text-semibold text-main">75.9</span>
-                                                  
-                                            </div>
-                                           
-                                    </div> 
-                                    </div>
-                                <div class="row pad-top"> 
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="inputstatus">Tahun</label>
-                                            <div class="col-sm-3">
-                                                    <select class="form-control select2" id="thn" name="thn" style="width: 100%;">
-                                                    <option value="">--TAHUN--</option>
-                                                     <?php for($i=2010;$i<= date('Y');$i++){?>
-                                                        <option value="<?php echo $i?>"><?php echo $i?></option>
-                                                        <?php }?>
-                                                    </select> 
-                                            </div>
-                                           
-                                    </div> 
-                                    </div>
-                                    <div class="admininput">
-                                    <div class="row pad-top"> 
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="inputstatus">Unit Kerja</label>
-                                            <div class="col-sm-9">
-                                                    <select class="form-control select-chosen" id="txtdirektorat" name="txtdirektorat" style="width: 100%;">
-                                                     
-                                                      
-                                                    </select> 
-                                            </div>
-                                           
-                                    </div>
-                                    </div>
-                                     
-                                    
-                                                     </div>
-                                    
-          
-                                    <div class="row "> 
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="inputstatus"></label>
-                                            <div class="col-sm-5">
-                                             
-                                            <div class="row  text-left"> 
-                                    <button class="btn btn-primary mar-all" onClick="searchfrm1();return false;">Search</button> 
-                                   </div>
-                                            </div>
-                                    </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-            </div> 
+           
             
              
-                        <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
-					            <div class="row">
-					                <div class="col-sm-6 table-toolbar-left">
-					                    <button id="demo-btn-addrow" class="btn btn-purple" onclick="addnewfrm1()"><i class="demo-pli-add"></i> Tambah Kebutuhan SDM</button>
-                                        <button style="margin-left:3px" class="btn btn-mint" onclick="editfrm1()"><i class="fa fa-file-excel-o"></i> Update</button>
-                                        <button class="btn btn-danger" onclick="hapusform1()"><i class="fa fa-file-excel-o"></i> Delete</button>
-                                                      
-					                     
-					                </div>
-					                <div class="col-sm-6 table-toolbar-right">
-					                   
-					                    <div class="btn-group">
-                                        <button class="btn btn-default" style="border-radius:0px !important" onClick="uploadxls();return false;"><i class="fa fa-file-excel-o"></i> Import dari Excel</button>
-					               
-                                        <button class="btn btn-default"  onCLick="downloadform1();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
-					                    </div>
-					                </div>
-					            </div>
-					        </div>
-                                            
-            <div class="ag-theme-balham" id="Gridform1" style="height: 900px;width:100%;">
+          
+            <div class="dataTables_filter" id="demo-dt-addrow_filter" style="text-align:left">
+             
+             
+						</div>                    
+            <div class="ag-theme-balham" id="Gridform1" style="height: 400px;width:100%;">
         </div>
         </div>
   
@@ -419,12 +342,8 @@ function createNewRowData() {
            {headerName: "D-III", field: "d3", width: 80, filterParams:{newRowsAction: 'keep'}}, 
            {headerName: "S1", field: "s1", width: 80, filterParams:{newRowsAction: 'keep'}},
            {headerName: "S2", field: "s2", width: 80, filterParams:{newRowsAction: 'keep'}},
-           {
-        headerName: 'Jumlah',
-        field: 'total',
-        valueGetter: 'Number(data.slta) + Number(data.d3) + Number(data.s1)+ Number(data.s2)',
-        width: 200
-    } 
+           {headerName: "Jumlah", field: "total", width: 80, filterParams:{newRowsAction: 'keep'}},
+         
            
         ];
 
@@ -455,7 +374,8 @@ function createNewRowData() {
            debug: true,
             rowSelection: 'single', 
     enableColResize: true,
-    onFirstDataRendered: onFirstDataRendered,
+    onFirstDataRendered: onFirstDataRendered, 
+    onRowDoubleClicked: getpegawai,
            rowGroupPanelShow: 'always',
            pivotPanelShow: 'always',
            enableRangeSelection: true,
@@ -480,6 +400,50 @@ function createNewRowData() {
         // setup the grid after the page has finished loading 
            var gridDiv = document.querySelector('#Gridform1');
            new agGrid.Grid(gridDiv, Gridform1);
+
+           function getpegawai(){
+            var selectedRows = Gridform1.api.getSelectedRows();
+            // alert('>>'+selectedRows+'<<<');
+            if(selectedRows == ''){
+               onMessage('Silahkan Pilih Unit kerja Terlebih dahulu!');
+               return false;
+            }else{
+                var selectedRowsString = '';
+                var level = '';
+           selectedRows.forEach( function(selectedRow, index) {
+            
+               if (index!==0) {
+                   selectedRowsString += ', ';
+               }
+               selectedRowsString += selectedRow.id;
+               level += selectedRow.level;
+           });
+
+           bootbox.dialog({ 
+                 message:$('<div></div>').load('view/abk/lispegawai.php?bagian='+selectedRowsString+'&jenjang='+level),
+                   animateIn: 'bounceIn',
+                   animateOut : 'bounceOut',
+									 backdrop: false,
+                   size:'medium',
+                   buttons: {
+                        
+
+                       main: {
+                           label: "Close",
+                           className: "btn-warning",
+                           callback: function() {
+                               
+                           }
+                       }
+                   }
+                       });
+           
+        }
+                
+
+
+
+           }
 
             function listFrom1(){
               var thn=$('#thn').val();

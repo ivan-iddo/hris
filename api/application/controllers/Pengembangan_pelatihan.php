@@ -45,7 +45,6 @@ class Pengembangan_pelatihan extends REST_Controller
     public function cetak_get()
     {
         $id = $this->input->get("id");
-        $id = 1;
         $result = $this->Pengembangan_pelatihan_model->get_all(array("id" => $id), null, $offset, $limit);
 
         if (count($result) == 1) {

@@ -41,7 +41,7 @@ class Abk extends REST_Controller
                 $sta = 6;
                 $pa = 7;
                 $id_shift=50;
-                $user_froup = $decodedToken->data->_pnc_id_grup;
+                $g=$user_froup = $decodedToken->data->_pnc_id_grup;
                 $id_skk = 53;
                 $id_ski = 52;
 
@@ -62,6 +62,8 @@ class Abk extends REST_Controller
                  $this->db->select('sum(frekuensi*waktu) as totska');
                  $this->db->where('id_shift', $id_shift);
                  $this->db->where('id_faktor', $id_skk);
+                 $this->db->where('tampilkan', '1');
+                 $this->db->where('id_uk', $g);
                  if(empty($this->input->get('year'))){
                      $this->db->where('tahun',date('Y'));
                     }else{
@@ -79,6 +81,8 @@ class Abk extends REST_Controller
                   $this->db->where('id_shift', $id_shift);
                   $this->db->where('id_faktor', $id_ski);
                   $this->db->where('kategori_sdm', $kaur);
+                  $this->db->where('tampilkan', '1');
+                  $this->db->where('id_uk', $g);
                   if(empty($this->input->get('year'))){
                       $this->db->where('tahun',date('Y'));
                      }else{
@@ -94,6 +98,8 @@ class Abk extends REST_Controller
                   $this->db->where('id_shift', $id_shift);
                   $this->db->where('id_faktor', $id_ski);
                   $this->db->where('kategori_sdm <>', $kaur);
+                  $this->db->where('tampilkan', '1');
+                  $this->db->where('id_uk', $g);
                   if(empty($this->input->get('year'))){
                       $this->db->where('tahun',date('Y'));
                      }else{
@@ -105,7 +111,7 @@ class Abk extends REST_Controller
                    $SKI_NONKAUR =  $total_SKI_NONKAUR/$waktu;
                   
                  
-                $this->db->select('sum(kaur) as jkaur,sum(staff_admin) as jsa,sum(pekarya)as jpa');
+                $this->db->select('sum(kasubag) as jkasubag,sum(kabag) as jkabag,sum(dirut) as jdirut,sum(dir) as jdir,sum(kaur) as jkaur,sum(sa) as jsa,sum(pk)as jpa');
                 $this->db->where('abk_langkah_kerja.tampilkan','1');
                 $this->db->join('abk_langkah_kerja','abk_langkah_kerja.id_beban_kerja = abk_beban_kerja.id');
                 $this->db->where('abk_beban_kerja.tampilkan','1');
@@ -123,8 +129,8 @@ class Abk extends REST_Controller
                }else{
                 $this->db->where('abk_beban_kerja.tahun',$this->input->get('year'));
                }
-               
                 
+               $this->db->where('abk_beban_kerja.author', $g);
                 $res = $this->db->get('abk_beban_kerja')->row();
 
                
@@ -135,10 +141,11 @@ class Abk extends REST_Controller
                $data[$kaur]['beban']=$res->jkaur;
                $data[$sta]['beban']=$res->jsa;
                $data[$pa]['beban']=$res->jpa;
+               
 
                $data[$kaur]['nama']='Ka.Ur';
                $data[$sta]['nama']='Staff Admin';
-               $data[$pa]['nama']='Pekarya';
+               $data[$pa]['nama']='pk';
 
                $data[$kaur]['waktu']=$waktu;
                $data[$sta]['waktu']=$waktu;
@@ -160,7 +167,11 @@ class Abk extends REST_Controller
                $data[$sta]['sdm']=($data[$sta]['subSDM']*$data[$sta]['skk'])+$data[$sta]['ski'];
                $data[$pa]['sdm']=($data[$pa]['subSDM']*$data[$pa]['skk'])+$data[$pa]['ski'];
                $totsdm=0;
+               
 				 foreach($data as $d){
+                     if(!empty($d['beban'])){
+
+                   
                     $arr['result'][]=array(  
                     'beban'=>$d['beban'],
                     'kategori_sdm'=>$d['nama'],
@@ -171,17 +182,50 @@ class Abk extends REST_Controller
                     'sdm'=>$d['sdm']
 
                 );
+            }
                 $totsdm += $d['sdm'];
                   }
 
                   $arr['result'][]=array(  
                     'beban'=>'',
-                    'kategori_sdm'=>'TOTAL',
+                    'kategori_sdm'=>'JML KEBUTUHAN PEGAWAI',
                     'waktu' => '',
                     'skk' =>'',
                     'ski' =>'',
                     'subSDM'=>'',
                     'sdm'=>round($totsdm)
+
+                );
+
+                $this->load->model('System_auth_model','m'); 
+                   $idgroups = $this->m->getdatachild($g);
+                $this->db->select('count(*) as jml'); 
+                $this->db->where_in('sys_user.id_grup',$idgroups);
+                $this->db->where('sys_user.id_shift','50');
+                $this->db->join('uk_master','uk_master.id = sys_user.id_uk'); 
+                $this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user'); 
+                $this->db->where('sys_user_profile.pendidikan_akhir >','0');
+                $respeg = $this->db->get('sys_user')->row();
+
+
+                $arr['result'][]=array(  
+                    'beban'=>'',
+                    'kategori_sdm'=>'JML PEGAWAI SAAT INI',
+                    'waktu' => '',
+                    'skk' =>'',
+                    'ski' =>'',
+                    'subSDM'=>'',
+                    'sdm'=>$respeg->jml
+
+                );
+                $arr['result'][]=array(  
+                    'beban'=>'',
+                    'kategori_sdm'=>'SELISIH',
+                    'waktu' => '',
+                    'skk' =>'',
+                    'ski' =>'',
+                    'subSDM'=>'',
+                    'sdm'=>round($totsdm-$respeg->jml)
 
                 );
                     
@@ -216,7 +260,7 @@ class Abk extends REST_Controller
                 $sta = 6;
                 $pa = 7;
                 $id_shift=51;
-                $user_froup = $decodedToken->data->_pnc_id_grup;
+                $g=$user_froup = $decodedToken->data->_pnc_id_grup;
                 $id_skk = 53;
                 $id_ski = 52;
 
@@ -280,7 +324,7 @@ class Abk extends REST_Controller
                    $SKI_NONKAUR =  $total_SKI_NONKAUR/$waktu;
                   
                  
-                $this->db->select('sum(kaur) as jkaur,sum(staff_admin) as jsa,sum(pekarya)as jpa');
+                $this->db->select('sum(kaur) as jkaur,sum(sa) as jsa,sum(pk)as jpa');
                 $this->db->where('abk_langkah_kerja.tampilkan','1');
                 $this->db->join('abk_langkah_kerja','abk_langkah_kerja.id_beban_kerja = abk_beban_kerja.id');
                 $this->db->where('abk_beban_kerja.tampilkan','1');
@@ -313,7 +357,7 @@ class Abk extends REST_Controller
 
                $data[$kaur]['nama']='Ka.Ur';
                $data[$sta]['nama']='Staff Admin';
-               $data[$pa]['nama']='Pekarya';
+               $data[$pa]['nama']='pk';
 
                $data[$kaur]['waktu']=$waktu;
                $data[$sta]['waktu']=$waktu;
@@ -336,6 +380,7 @@ class Abk extends REST_Controller
                $data[$pa]['sdm']=($data[$pa]['subSDM']*$data[$pa]['skk'])+$data[$pa]['ski'];
                 $totsdm=0;
 				 foreach($data as $d){
+                    if(!empty($d['beban'])){
                     $arr['result'][]=array(  
                     'beban'=>$d['beban'],
                     'kategori_sdm'=>$d['nama'],
@@ -346,17 +391,50 @@ class Abk extends REST_Controller
                     'sdm'=>$d['sdm']
 
                 );
+            }
                 $totsdm += $d['sdm'];
                   }
 
                   $arr['result'][]=array(  
                     'beban'=>'',
-                    'kategori_sdm'=>'TOTAL',
+                    'kategori_sdm'=>'JML KEBUTUHAN PEGAWAI',
                     'waktu' => '',
                     'skk' =>'',
                     'ski' =>'',
                     'subSDM'=>'',
                     'sdm'=>round($totsdm)
+
+                );
+                 
+                $this->load->model('System_auth_model','m'); 
+                   $idgroups = $this->m->getdatachild($g);
+                $this->db->select('count(*) as jml'); 
+                $this->db->where_in('sys_user.id_grup',$idgroups);
+                $this->db->where('sys_user.id_shift','51');
+                $this->db->join('uk_master','uk_master.id = sys_user.id_uk'); 
+                $this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user'); 
+                $this->db->where('sys_user_profile.pendidikan_akhir >','0');
+                $respeg = $this->db->get('sys_user')->row();
+
+
+                $arr['result'][]=array(  
+                    'beban'=>'',
+                    'kategori_sdm'=>'JML PEGAWAI SAAT INI',
+                    'waktu' => '',
+                    'skk' =>'',
+                    'ski' =>'',
+                    'subSDM'=>'',
+                    'sdm'=>$respeg->jml
+
+                );
+                $arr['result'][]=array(  
+                    'beban'=>'',
+                    'kategori_sdm'=>'SELISIH',
+                    'waktu' => '',
+                    'skk' =>'',
+                    'ski' =>'',
+                    'subSDM'=>'',
+                    'sdm'=>round($totsdm-$respeg->jml)
 
                 );
                     
@@ -531,25 +609,11 @@ class Abk extends REST_Controller
                $this->db->where('tampilkan','1' );
             
                 
-                $res = $this->db->get('abk_langkah_kerja')->result();
+                $res = $this->db->get('abk_langkah_kerja')->result_array();
 				  
 			if(!empty($res)){
                 $i=0;
-				 foreach($res as $d){
-                    $arr['result'][]=array(
-                        'no'=> ++$i,
-                    'id'=>$d->id,
-                    'id_beban_kerja'=>$d->id_beban_kerja,
-                    'langkah' => $d->langkah,
-                    'frekuensi' => $d->frekuensi,
-                    'waktu' => $d->waktu ,
-                    'kaur' => $d->kaur,
-                    'staff_admin'=> $d->staff_admin,
-                    'pekarya'=>$d->pekarya,
-                    'jumlah'=> ($d->kaur+ $d->staff_admin+$d->pekarya)
-
-                );
-                  }
+                $arr['result']=$res;
                     
 					$arr['hasil']='success'; 
 				 
@@ -642,7 +706,9 @@ class Abk extends REST_Controller
     }
 
     public function listform1_get(){
-		$headers = $this->input->request_headers();
+        $this->load->model('System_auth_model','m');
+        $headers = $this->input->request_headers(); 
+      
 
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
@@ -650,53 +716,129 @@ class Abk extends REST_Controller
             if ($decodedToken != false) {
             
                 $user_froup = $decodedToken->data->_pnc_id_grup;
+               
+                if( ($user_froup =='1') OR  ($user_froup=='6')){
+                   // $this->db->where('sys_user.id_grup',$this->input->get('uk'));
+                   $idgroups = $this->m->getdatachild($this->input->get('uk'));
+                }else{
+                    $idgroups = $this->m->getdatachild($user_froup);
+                   
+                  //  $this->db->where('sys_user.id_grup',$user_froup);
+                }
 
                
-                 $this->db->select('abk_kebutuhan_sdm.*,sys_grup_user.grup,uk_master.nama as ketegorinama');
+                 $this->db->select('count(*) as jml,sys_grup_user.id_grup,sys_grup_user.grup as namgroup,uk_master.nama as grup,sys_user_profile.pendidikan_akhir as nama,uk_master.id as idjenis');
                  if( ($user_froup =='1') OR  ($user_froup=='6')){
-                    $this->db->where('id_uk',$this->input->get('uk'));
+                   // $this->db->where('sys_user.id_grup',$this->input->get('uk'));
                 }else{
-                    $this->db->where('abk_kebutuhan_sdm.id_uk',$user_froup);
+                   
+                    //$this->db->where('sys_user.id_grup',$user_froup);
                 }
                 
-                $this->db->where('tahun',$this->input->get('year'));
-                $this->db->where('abk_kebutuhan_sdm.tampilkan','1' );
-			 $this->db->join('uk_master','abk_kebutuhan_sdm.kategori_sdm = uk_master.id');
-				    $this->db->join('sys_grup_user','sys_grup_user.id_grup = abk_kebutuhan_sdm.id_uk');
-				  $res = $this->db->get('abk_kebutuhan_sdm')->result();
+                //$this->db->where('tahun',$this->input->get('year'));
+                //$this->db->where('abk_kebutuhan_sdm.tampilkan','1' );
+
+			       
+                    $this->db->join('sys_grup_user','sys_grup_user.id_grup = sys_user.id_grup','LEFT');
+                    $this->db->where_in('sys_user.id_grup',$idgroups);
+                    $this->db->join('sys_user_profile','sys_user.id_user = sys_user_profile.id_user','LEFT');
+                    $this->db->join('uk_master','sys_user.id_uk = uk_master.id');
+                    
+                    $this->db->group_by('sys_grup_user.id_grup,sys_grup_user.grup,uk_master.nama,sys_user_profile.pendidikan_akhir,uk_master.id');
+                    $res = $this->db->get('sys_user')->result();
+                  //  print_r($res);
 				  
 			if(!empty($res)){
                 $i=0;
-				 foreach($res as $d){
-                    $arr['result'][]=array(
-                        'no'=> ++$i,
-                    'id'=>$d->id,
-                    'unit_kerja'=>$d->grup,
-                    'kategori_sdm' => $d->ketegorinama,
-                    'slta' => $d->slta,
-                    'd3' => $d->d3,
-                    's1' => $d->s1,
-                    's2' => $d->s2 
-
-                );
-                  }
+                $totalsemua=0;
+				 foreach($res as $val){
                     
+                    $datanama[$val->nama]=$val->nama;
+                    $datauk[$val->namgroup][$val->grup]=$val->namgroup;
+                    $jmlbypendidikan[$val->namgroup][$val->grup][$val->nama]=$val->jml;
+                    $id[$val->namgroup]=$val->id_grup;
+                    $jenjang[$val->namgroup][$val->grup]=$val->idjenis;
+                  }
+
+                  $numero =1;  
+                  $nom=0;
+                  $i=0;
+                  foreach($datauk as $datsun=>$hatsun){
+                     
+                   
+                foreach($hatsun as $dat3=>$valsun){
+                    ++$i;
+                    $ids = $id[$datsun];
+                    $id_kategori = $jenjang[$datsun][$dat3];
+                    $arr['result'][$nom]['id']=$ids;
+                    $arr['result'][$nom]['level']=$id_kategori;
+                    $arr['result'][$nom]['no']=$i;
+                    $arr['result'][$nom]['unit_kerja']=$datsun;
+                    $arr['result'][$nom]['kategori_sdm']=$dat3;
+                    $total=0;
+                    
+                              foreach($datanama as $g=>$val3){
+                                   
+                                  if(!empty($jmlbypendidikan[$datsun][$dat3][$g])){
+                                    $jmlh = $jmlbypendidikan[$datsun][$dat3][$g];
+                                    
+                                  }else{
+                                   $jmlh  = 0;
+                                  }
+//echo '<br>'.$g.'='.$jmlh;
+
+                                 
+
+                                  if($g=='54'){
+                                      //slta
+                                    $arr['result'][$nom]['slta']=$jmlh;
+                                //$arr['result'][$nom]+$arrb['result'][$nom];
+                                  }
+                                  if($g=='55'){
+                                      //d3
+                                      $arr['result'][$nom]['d3']=$jmlh;
+                                  }
+                                  if($g=='56'){
+                                    //d3
+                                    $arr['result'][$nom]['s1']=$jmlh;
+                                }
+                                if($g=='57'){
+                                    //d3
+                                    $arr['result'][$nom]['s2']=$jmlh;
+                                }
+
+                                if(!empty($g)){
+
+                              
+                                $total+=$jmlh;
+                                $arr['result'][$nom]['total']=$total;
+                                $totalsemua+=$jmlh;
+                                }
+                                
+                              }
+                             
+                              ++$nom;
+                            }
+           
+                  
+                 
+                  }
+ 
+                  
+                  $arr['result'][$nom]['no']='';
+                  $arr['result'][$nom]['unit_kerja']='TOTAL';
+                  $arr['result'][$nom]['kategori_sdm']='';
+                  $arr['result'][$nom]['slta']='';
+                  $arr['result'][$nom]['d3']='';
+                  $arr['result'][$nom]['s1']='';
+                  $arr['result'][$nom]['s2']='';
+                  $arr['result'][$nom]['total']=$totalsemua;
 					$arr['hasil']='success'; 
 				 
 
 			}else{
-                $arr['result'][]=array(
-                    'no'=> '1',
-                'id'=>'',
-                'unit_kerja'=>'',
-                'kategori_sdm' =>'',
-                'slta' =>'',
-                'd3' => '',
-                's1' =>'',
-                's2' => '' 
-
-            );
-			$arr['hasil']='success';
+                $arr['result']=array();
+			$arr['hasil']='error';
 		  }
 		  $this->set_response($arr, REST_Controller::HTTP_OK);
 			
@@ -1128,8 +1270,12 @@ class Abk extends REST_Controller
                             'frekuensi'=>$dat['frekuensi'],
                             'waktu'=>$dat['waktu'],
                             'kaur'=>$dat['kaur'],
-                            'staff_admin'=>$dat['staff_admin'],
-                            'pekarya'=>$dat['pekarya'] 
+                            'sa'=>$dat['sa'],
+                            'pk'=>$dat['pk'],
+                            'dirut'=>$dat['dirut'],
+                            'dir'=>$dat['dir'],
+                            'kabag'=>$dat['kabag'] ,
+                            'kasubag'=>$dat['kasubag'] ,
                         );
                         $this->db->insert('abk_langkah_kerja',$array);
                     }else{
@@ -1138,8 +1284,12 @@ class Abk extends REST_Controller
                             'frekuensi'=>$dat['frekuensi'],
                             'waktu'=>$dat['waktu'],
                             'kaur'=>$dat['kaur'],
-                            'staff_admin'=>$dat['staff_admin'],
-                            'pekarya'=>$dat['pekarya'] 
+                            'sa'=>$dat['sa'],
+                            'pk'=>$dat['pk'],
+                            'dirut'=>$dat['dirut'],
+                            'dir'=>$dat['dir'],
+                            'kabag'=>$dat['kabag'] ,
+                            'kasubag'=>$dat['kasubag'] , 
                         );
                         $this->db->where('id',$dat['id']);
                         $this->db->update('abk_langkah_kerja',$array);
@@ -1489,7 +1639,10 @@ class Abk extends REST_Controller
                     }
                     
                 }else{
-                    $this->db->where('id_atasan',$user_froup);
+                    if(empty($this->input->get('view'))){
+                        $this->db->where('id_atasan',$user_froup);
+                    }
+                    
                 }
                 
                 if(empty($this->input->get('year'))){
@@ -1867,7 +2020,7 @@ class Abk extends REST_Controller
             );
 
               
-                 $this->db->where('id',$this->input->post('iddettk'));
+                $this->db->where('id',$this->input->post('iddettk'));
                 $this->db->update('abk_pengajuan_det',$array);
                  
                 if($this->db->affected_rows() == '1'){
@@ -1895,7 +2048,7 @@ class Abk extends REST_Controller
             if ($decodedToken != false) {
                  
                
-              
+                $this->db->select('abk_pengajuan_det.*,a.grup,dm_term.nama');
                 $this->db->where('id_pengajuan', $this->input->get('id'));
                 $this->db->join('dm_term','dm_term.id=abk_pengajuan_det.id_kp','LEFT');
                 $this->db->join('sys_grup_user as a','a.id_grup=abk_pengajuan_det.id_uk_det','LEFT');
@@ -2231,6 +2384,7 @@ class Abk extends REST_Controller
                 'tgl'=> date('Y-m-d H:i:s'),
                 'isi'=> $this->input->post('isi'),
                 'id_user'=> $decodedToken->data->id,
+                'kategori' => $this->input->post('kategori_chat')
                 );
 
                 
@@ -2269,7 +2423,7 @@ class Abk extends REST_Controller
                 );
 
                 $this->db->select('sys_user.username,abk_comment.*');
-                $this->db->join('sys_user','abk_comment.id_user = sys_user.id_user');
+                $this->db->join('sys_user','abk_comment.id_user = sys_user.id_user','LEFT');
                 $this->db->where('abk_comment.id_pengajuan_comment',$this->input->get('id'));
                  $this->db->order_by('tgl','DESC');
                  $dat = $this->db->get('abk_comment')->row();
@@ -2314,7 +2468,9 @@ class Abk extends REST_Controller
               
 
                 $this->db->select('abk_comment.*,sys_user.username');
-               
+               if(!empty($this->input->get('kategori'))){
+                $this->db->where('abk_comment.kategori',$this->input->get('kategori'));
+               }
                 $this->db->where('abk_comment.id_pengajuan_comment',$this->input->get('id'));
                  $this->db->order_by('tgl','ASC');
                  $this->db->join('sys_user','abk_comment.id_user = sys_user.id_user','LEFT');
@@ -2351,6 +2507,88 @@ class Abk extends REST_Controller
     }
 
 
+    function getpegawai_get(){
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+           
+            if ($decodedToken != false) {
+                 
+              
+
+                 $user_froup = $this->input->get('bagian');
+                 $iduk = $this->input->get('jejang');
+                 
+                $this->db->select('sys_user.*,uk_master.nama as profesi,sys_grup_user.grup,dm_term.nama as jenjang');
+                $this->db->join('sys_grup_user','sys_grup_user.id_grup = sys_user.id_grup','LEFT');
+                $this->db->where('sys_user.id_grup',$user_froup);
+                $this->db->where('sys_user.id_uk',$iduk);
+                $this->db->join('sys_user_profile','sys_user.id_user = sys_user_profile.id_user','LEFT');
+                $this->db->where('sys_user_profile.pendidikan_akhir > ','0');
+                $this->db->join('dm_term','sys_user_profile.pendidikan_akhir = dm_term.id','LEFT');
+                $this->db->join('uk_master','sys_user.id_uk = uk_master.id'); 
+                $res = $this->db->get('sys_user')->result_array();
+   
+                if(!empty($res)){ 
+                    $arr['result']=$res; 
+                    $arr['hasil']='success';
+					$arr['message']='Pesan berhasil Terkirim!';
+                }else{
+                    $arr['hasil']='error';
+					$arr['message']='Pesan Gagal kirim!';
+                }
+                    
+                
+		  $this->set_response($arr, REST_Controller::HTTP_OK);
+			
+                return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
+
+
+    function listpofesi_get(){
+        $headers = $this->input->request_headers();
+        $this->load->model('System_auth_model','m');
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+           
+            if ($decodedToken != false) {
+                 
+              
+ 
+                 $iduk = $this->input->get('id_ut');
+                   $idgroups = $this->m->getdatachild($iduk);
+                  // print_r($idgroups);
+
+                $this->db->select('id_uk,uk_master.slug'); 
+                $this->db->where_in('sys_user.id_grup',$idgroups);
+                $this->db->join('uk_master','uk_master.id = sys_user.id_uk');
+                $this->db->group_by('id_uk,uk_master.slug');
+                $res = $this->db->get('sys_user')->result_array();
+   
+                if(!empty($res)){ 
+                    $arr['result']=$res; 
+                    $arr['hasil']='success';
+					$arr['message']='Pesan berhasil Terkirim!';
+                }else{
+                    $arr['hasil']='error';
+					$arr['message']='Pesan Gagal kirim!';
+                }
+                    
+                
+		  $this->set_response($arr, REST_Controller::HTTP_OK);
+			
+                return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
 
     
 

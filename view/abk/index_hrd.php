@@ -128,7 +128,7 @@
       
   </div>
   <script>
-  var headerTK = [{headerName: "No", field: "no", width: 90, filterParams:{newRowsAction: "keep"}},
+  var headerTK = [{headerName: "No.Pengajuan", field: "id", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Status", field: "status", width: 190, filterParams:{newRowsAction: "keep"}},
 {headerName: "Tahun", field: "tahun", width: 190, filterParams:{newRowsAction: "keep"}},
 {headerName: "Unit Kerja", field: "id_uk", width: 190, filterParams:{newRowsAction: "keep"}},

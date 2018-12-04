@@ -2,6 +2,13 @@
 <div class="row pad-all">
 <div class="col-lg-5">
 <div class="form-group">
+							<label class="col-sm-4 control-label" for="inputrw">Jenis Mutasi</label>
+							<div class="col-sm-8">
+								<select aria-hidden="true" class="select-chosen" id="jenis_mutasi" name="jenis_mutasi" style="width: 100%;" tabindex="-1">
+								</select>
+							</div>
+						</div>
+<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrt">Direktorat Tujuan</label>
 							<div class="col-sm-8">
               <input id="txtIdUser" name="txtIdUser" style="display:none" type="text">

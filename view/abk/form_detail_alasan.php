@@ -149,7 +149,7 @@
 													</div>
 													<div class="row">
 														<div class="form-group row pad-top">
-															<label class="control-label col-md-3 col-sm-3 col-xs-12" for="BDSEX">Status Pegawai-Tetap </label>
+															<label class="control-label col-md-3 col-sm-3 col-xs-12" for="BDSEX">Status Pegawai-Tetap / non-PNS </label>
 															<div class="col-md-4 col-sm-4 col-xs-12">
 															<select aria-hidden="true" class="form-control select-chosen" id="status_pegawai_tetap" name="status_pegawai_tetap" style="width: 100%;" tabindex="-1">
 									 

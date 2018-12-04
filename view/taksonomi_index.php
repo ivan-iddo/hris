@@ -97,6 +97,13 @@
     }
     ,
     {
+      headerName: "ID", field: "id", width: 250, filterParams:{
+        newRowsAction: 'keep'}
+      ,cellStyle: {
+        textAlign: "left"}
+    }
+    ,
+    {
       headerName: "Deskripsi", field: "deskripsi", width: 250, filterParams:{
         newRowsAction: 'keep'}
       ,cellStyle: {

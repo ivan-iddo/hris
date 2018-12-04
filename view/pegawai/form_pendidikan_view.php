@@ -4,6 +4,10 @@
 		<div class="newtoolbar">
 		  <div class="table-toolbar-left" id="demo-custom-toolbar2">
 		    <div class="btn-group" style="padding-left:10px">
+        <button class="btn btn-mint btn-labeled fa fa-plus-square btn-sm" onClick="addPendidikan();">Add</button>
+          <button class="btn btn-mint btn-labeled fa fa-edit btn-sm" onclick="editPendidikan();">Edit</button>
+          <button class="btn btn-mint btn-labeled fa fa-edit btn-sm" onclick="setPendidikan();">Set sbg Pendidikan Terakhir</button>
+		      <button class="btn btn-warning btn-labeled fa fa-close btn-sm" onclick="deletPendidikan();">Delete</button>
 		       </div>
 		  </div>
 		</div>

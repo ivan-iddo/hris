@@ -129,7 +129,7 @@
       
   </div>
   <script>
-  var headerTK = [{headerName: "No", field: "no", width: 90, filterParams:{newRowsAction: "keep"}},
+  var headerTK = [{headerName: "No.Pengajuan", field: "id", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Status", field: "status", width: 190, filterParams:{newRowsAction: "keep"},
     cellStyle: function(params) {
         if (params.value=='Ditolak') {

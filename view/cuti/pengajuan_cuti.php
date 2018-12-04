@@ -123,6 +123,14 @@ require_once('../../connectdb.php');
                                             <div id="sampai" style="padding-top:7px"></div>
 					                        </div>
 					                    </div>
+
+                                        <div class="form-group">
+					                        <label class="col-sm-3 control-label">Keterangan </label>
+					                        <div class="col-sm-9">
+                                             <textarea class="form-control" type="text" id="keterangan" name="keterangan"  > </textarea>
+					                        </div>
+					                    </div>
+                                       
 					                     
 					                </div>
                                     <div class="form-group pad-all">
@@ -228,6 +236,8 @@ function hitungTanggal(jml){
         var jml = $('#jumlahCuti').val();
         var tgl = $('#tgl_cuti').val();
         var jenis = $('#jenis_cuti').val();
+        var keterangan = $('#keterangan').val();
+
   if(empty(jenis)){
       alert('jenis cuti wajib diisi');
       return false;

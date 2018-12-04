@@ -37,6 +37,7 @@
 					                    <div class="row">
 					                        <div class="col-xs-9">
 											<input type="text" id="idtk" name="idtk" style="display:none">
+											<input type="text" name="kategori_chat" id="kategori_chat" style="display:none" value="1">
 					                            <input placeholder="Enter your text" class="form-control chat-input" type="text" id="isi" name="isi">
 					                        </div>
 					                        <div class="col-xs-3">
@@ -93,7 +94,7 @@
 
 			function getchat(){
 				$('#isi').val('');
-				getJson(listchat,BASE_URL+'abk/abk/getchat?id='+selectedRowsString);
+				getJson(listchat,BASE_URL+'abk/abk/getchat?kategori=2&id='+selectedRowsString);
 			}
 
 			function listchat(obj){

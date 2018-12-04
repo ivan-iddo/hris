@@ -32,8 +32,13 @@
                                             <input type="text" name="id_tk" id="id_tk" style="display:none">
                                                     <select class="form-control select2" id="thnadd" name="thnadd" style="width: 100%;">
                                                     <option value="">--TAHUN--</option>
-                                                     <?php for($i=2010;$i<= date('Y');$i++){?>
-                                                        <option value="<?php echo $i?>"><?php echo $i?></option>
+                                                    <?php for($i=2010;$i<= date('Y');$i++){
+                                                             $sele='';
+                                                             if($i== date('Y')){
+                                                                     $sele='selected';
+                                                             }
+                                                             ?>
+                                                        <option value="<?php echo $i?>" <?php echo $sele?>><?php echo $i?></option>
                                                         <?php }?>
                                                     </select> 
                                             </div>
@@ -372,8 +377,39 @@
             }
 
             function getdata(data){
+                window.setTimeout(function(){
             $('#thnadd').val(data.result.tahun);
             $('#id_tk').val(data.result.id);
+            $('#txtusiamax').val(data.result.max_usia);
+            $('#txtusiamin').val(data.result.min_usia);
+            $('#jurusan1').val(data.result.jurusan_1);
+            $('#jurusan2').val(data.result.jrusan_2);
+            $('#jurusan3').val(data.result.jrusan_3);
+
+             $('#tinggimin').val(data.result.tinggi_b_min);
+             $('#tinggimax').val(data.result.tinggi_b_max);
+             $('#berat_b_min').val(data.result.berat_b_min);
+             $('#berat_b_max').val(data.result.berat_b_max);
+
+              $('#kompetensi').val(data.result.kompetensi);
+             $('#syarat_khusus').val(data.result.syarat_khusus);
+             $('#test_khusus').val(data.result.test_khusus);
+             $('#lainlain').val(data.result.lain_lain);
+
+             
+             
+             
+             
+
+            
+            
+            
+            
+
+            	
+	
+                    
+                    getOptionsEdit("adduk",BASE_URL+"master/direktoratSub",data.result.id_uk);
             getInputTypeOptionsEdit("kelamin",BASE_URL+'dokumen/gettaksonomi?id=34',data.result.kelamin);
             getInputTypeOptionsEdit("level_kompi",BASE_URL+'dokumen/gettaksonomi?id=31',data.result.komputer_level);
             getInputTypeOptionsEdit("level_bahasa",BASE_URL+'dokumen/gettaksonomi?id=31',data.result.bahasa_level);
@@ -385,9 +421,9 @@
             getOptionsEdit("kaca_mata",BASE_URL+'dokumen/gettaksonomi?id=33',data.result.kacamata);
             getOptionsEdit("batas_fisik",BASE_URL+'dokumen/gettaksonomi?id=33',data.result.fisik_lain);
 
-
-          
          getOptionsEdit("katsdmfrm4",BASE_URL+"master/jabatan_struktural",data.result.kategori_sdm);
+
+                },2000);
             }
             
 	   

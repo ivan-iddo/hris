@@ -128,7 +128,7 @@
       
   </div>
   <script>
-  var headerTK = [{headerName: "No", field: "no", width: 90, filterParams:{newRowsAction: "keep"}},
+  var headerTK = [{headerName: "No.Pengajuan", field: "id", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Status", field: "status", width: 190, filterParams:{newRowsAction: "keep"}},
 {headerName: "Tahun", field: "tahun", width: 190, filterParams:{newRowsAction: "keep"}},
 {headerName: "Unit Kerja", field: "id_uk", width: 190, filterParams:{newRowsAction: "keep"}},
@@ -192,7 +192,7 @@
 			groupSelectsChildren: true,
 			debug: true,
 			 rowSelection: 'single', 
-	 enableColResize: true, 
+	       enableColResize: true, 
 			rowGroupPanelShow: 'always',
 			pivotPanelShow: 'always',
 			enableRangeSelection: true,
@@ -216,7 +216,7 @@
 			 function listFromtk(){
 			   var thn= $('#thn').val(); 
 			   var uk =  $('#txtdirektorat').val();
-			   var uri = BASE_URL+'abk/abk/listtkdireksi?year='+thn+'&status=85';
+			   var uri = BASE_URL+'abk/abk/listtkdireksi?view=direktur&year='+thn+'&status=85';
 			   if(empty(thn)){
 				 var d = new Date();
 				 var n = d.getFullYear();
@@ -224,7 +224,7 @@
 			   }
  
 			   if(!empty(thn)){
-				   uri = BASE_URL+'abk/abk/listtkdireksi?year='+thn+'&id_uk='+uk+'&status=85';
+				   uri = BASE_URL+'abk/abk/listtkdireksi?view=direktur&year='+thn+'&id_uk='+uk+'&status=85';
 			   }
  
 			   $('#thn').val(thn);
@@ -250,7 +250,7 @@
 			 var thn=$('#thn').val();
 			 var uk=$('#txtdirektorat').val();
 			 var group = localStorage.getItem('group');
-			 var uri = BASE_URL+'abk/abk/listtkdireksi?year='+thn+'&id_uk='+uk+'&status=85'; 
+			 var uri = BASE_URL+'abk/abk/listtkdireksi?view=direktur&year='+thn+'&id_uk='+uk+'&status=85'; 
 			  if(empty(thn)){
 					 alert('Tahun harus dipilih');
 					 return false;
@@ -431,7 +431,7 @@ return false;
   function gethasil(){
       var thn = $('#thnadd').val();
       var uk = $('#adduk').val();
-      var uri = BASE_URL+'abk/abk/listtkdireksi?year='+thn+'&status=85';
+      var uri = BASE_URL+'abk/abk/listtkdireksi?view=direktur&year='+thn+'&status=85';
 			   if(empty(thn)){
 				 var d = new Date();
 				 var n = d.getFullYear();
@@ -439,7 +439,7 @@ return false;
 			   }
  
 			   if(!empty(thn)){
-				   uri = BASE_URL+'abk/abk/listtkdireksi?year='+thn+'&id_uk='+uk+'&status=85';
+				   uri = BASE_URL+'abk/abk/listtkdireksi?view=direktur&year='+thn+'&id_uk='+uk+'&status=85';
 			   }
  
 			   $('#thn').val(thn);

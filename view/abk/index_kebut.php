@@ -4,7 +4,7 @@
                     <div class="col-md-9"> 
                             <div class="box box-primary"> 
                                 <div class="box-body">
-                                 
+                                <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
                                 <div class="row pad-top"> 
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="inputstatus">Tahun</label>
@@ -19,7 +19,7 @@
                                            
                                     </div> 
                                     </div>
-                                    <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
+                                 
                                     <div class="admininput">
                                     <div class="row pad-top"> 
                                     <div class="form-group">
@@ -36,7 +36,7 @@
                                      
                                     
                                                      </div>
-                                    <?php }?>
+                                   
                                     
                                     <div class="row "> 
                                     <div class="form-group">
@@ -49,7 +49,7 @@
                                             </div>
                                     </div>
                                     </div>
-                                    
+                                    <?php }?>
                                 </div>
                             </div>
                         </div>
@@ -62,12 +62,12 @@
 					           
 					        </div>
                                       <h4>Kebutuhan SDM (Shift)</h4>      
-            <div class="ag-theme-balham" id="gridShift" style="height: 200px;width:100%;">
+            <div class="ag-theme-balham" id="gridShift" style="height: 300px;width:100%;">
             
         </div>
         <div class="row pad-all">
         <h4>Kebutuhan SDM (Non-Shift)</h4>  
-        <div class="ag-theme-balham" id="gridnonShift" style="height: 200px;width:100%;">  
+        <div class="ag-theme-balham" id="gridnonShift" style="height: 300px;width:100%;">  
         </div>
 
         

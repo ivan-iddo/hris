@@ -77,6 +77,7 @@ require_once('../../connectdb.php');
 					                            <tr>
                                                     <th>Nama Pegawai</th>
 					                                <th>Jenis Cuti</th>
+                                                    <th>Keterangan</th>
 					                                <th>Mulai</th>
 					                                <th>Sampai</th>
                                                     <th>Hari</th>

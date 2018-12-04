@@ -83,7 +83,9 @@
                         <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
 					            <div class="row">
 					                <div class="col-sm-6 table-toolbar-left">
-					                     <button style="margin-left:3px" class="btn btn-success" onclick="proses('84')"><i class="fa fa-file-excel-o"></i> Setujui</button>
+					                     
+                                         <button style="margin-left:3px" class="btn btn-success" onclick="tolak()"><i class="fa fa-file-excel-o"></i>
+                                         Setujui & Kirim ke SDM</button>
                                        
                                                       
 					                     
@@ -127,7 +129,7 @@
       
   </div>
   <script>
-  var headerTK = [{headerName: "No", field: "no", width: 90, filterParams:{newRowsAction: "keep"}},
+  var headerTK = [{headerName: "No.Pengajuan", field: "id", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Status", field: "status", width: 190, filterParams:{newRowsAction: "keep"}},
 {headerName: "Tahun", field: "tahun", width: 190, filterParams:{newRowsAction: "keep"}},
 {headerName: "Unit Kerja", field: "id_uk", width: 190, filterParams:{newRowsAction: "keep"}},
@@ -289,7 +291,28 @@
                }
                selectedRowsString += selectedRow.id;
            }); 
-           gopop('view/abk/form_detail_pengajuan_direksi.php',detailaction,'large');
+           gopop('view/abk/form_detail_pengajuan_direksi.php',detailaction,'medium');
+           
+            }
+     
+  }
+
+  function tolak(){
+    var selectedRows = gridTK.api.getSelectedRows();
+            // alert('>>'+selectedRows+'<<<');
+            if(selectedRows == ''){
+               onMessage('Silahkan Pilih Data di Tabel Kebutuhan SDM Terlebih dahulu!');
+               return false;
+            }else{
+                var selectedRowsString = '';
+           selectedRows.forEach( function(selectedRow, index) {
+            
+               if (index!==0) {
+                   selectedRowsString += ', ';
+               }
+               selectedRowsString += selectedRow.id;
+           }); 
+           gopopOnly('view/abk/form_detail_pengajuan_direktur.php',detailaction,'large');
            
             }
      

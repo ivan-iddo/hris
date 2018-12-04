@@ -161,11 +161,13 @@ require_once('connectdb.php');
 
 
     <!--Bootstrap Datepicker [ OPTIONAL ]-->
-    <script src="plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="themes/default3/js/daterangepicker/moment.min.js"></script>
     <script type="text/javascript" src="themes/default3/js/daterangepicker/daterangepicker.js"></script>
     <link rel="stylesheet" type="text/css" href="themes/default3/js/daterangepicker/daterangepicker.css" />
     <script src="js/AjaxFileUpload-1.0.0.min.js"></script>
+    <script type="text/javascript" src="plugins/sweetalert/sweetalert.min.js"></script>
+    <script type="text/javascript" src="plugins/sweetalert/jquery.sweet-alert.custom.js"></script>
     <!-- lib numeric only -->
     <script type="text/javascript" src="themes/default3/js/jquery.jstepper.js"></script>
      <script src="dist/ag-grid-enterprise.noStyle.js"></script>
@@ -812,6 +814,7 @@ if($('#collapse'+e).hasClass("collapse in")) {
     <script src="js/creative.js"></script>
 
     <link rel="stylesheet" href="wow_book/wow_book.css" type="text/css" />
+    <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
 	<style>
 		.wowbook-right .wowbook-gutter-shadow {
 			background-image: url("img/page_right_background.png");
