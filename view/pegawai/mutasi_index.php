@@ -65,7 +65,7 @@
                                         <div class="table-toolbar-left" id="demo-custom-toolbar2">
                                             <div class="btn-group">
                                                 <button class="btn btn-mint btn-labeled fa fa-edit btn-sm"
-                                                        onclick="proses_mutasi();">Proses Mutasi Jabatan
+                                                        onclick="proses_mutasi();">Proses Jenjang Jabatan
                                                 </button>
                                             </div>
                                         </div>
