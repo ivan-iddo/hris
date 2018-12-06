@@ -1621,6 +1621,84 @@ class Pegawai extends REST_Controller
 			
 			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
+	
+	function cekizin_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					$id_izin = $this->input->get('id');
+					$id_user = $this->input->get('id_user');
+					$tgl_izin = $this->input->get('tgl_izin');
+					$tahun = date('Y');
+
+					if($tahun !== $tgl_izin){
+						$arr['message'] ='<div class="alert alert-success">Anda memiliki sisa Izin <strong> 224  Jam</strong></div>';
+						$arr['jumlah'] = 8;
+					   
+			  
+						return  $this->set_response($arr, REST_Controller::HTTP_OK);	
+			  
+					}
+					
+					 $this->db->where('id',$id_izin);
+					 $this->db->where('tampilkan','1');
+
+				   $res = $this->db->get('m_jenis_izin')->row();
+				   
+				   
+				   $this->db->select('sum(total) as total_izin');
+					  $this->db->where('jenis_izin',$id_izin);
+					  $this->db->where('id_user',$id_user);
+					  $this->db->where('YEAR(tgl_izin)',$tahun);
+					  $this->db->where('tampilkan','1');
+
+				   $resCek = $this->db->get('his_izin')->row();
+					
+				    $izin_sudahDiambil = $resCek->total_izin;
+					   $total = $res->jumlah;
+					   
+					   if($total <= $izin_sudahDiambil){
+						   $arr['message'] ='<div class="alert alert-danger">Maaf Izin anda tahun ini <strong>sudah melampaui batas!</strong></div>';
+					   }else{
+						if($id_izin=='1'){
+							$cc = $total-$izin_sudahDiambil;
+							$this->db->select('sum(total) as total_izin');
+							  $this->db->where('jenis_izin','1');
+							  $this->db->where('id_user',$id_user);
+							  $this->db->where('YEAR(tgl_izin)',($tahun-1));
+							  $this->db->where('tampilkan','1');
+							  $resCeklalu = $this->db->get('his_izin')->row();
+							  $izinthnlalu= 224-$resCeklalu->total_cuti;
+							  $jumlahizin = $cc + $izinthnlalu;
+							  
+							  if(!empty($resCeklalu->total_izin)){
+								
+							 
+							  if($jumlahizin > 224){
+								$cc=224;
+							  }else{
+								$cc = $jumlahizin;
+							  }
+							  }
+							  
+						   }
+						   
+						   
+						$arr['message'] ='<div class="alert alert-success">Anda memiliki sisa Izin <strong>'.$cc.' Jam</strong></div>';
+						$arr['jumlah'] = $cc;
+					   }
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+
 
 	function savecuti_post(){
 		$headers = $this->input->request_headers();
@@ -1693,6 +1771,75 @@ class Pegawai extends REST_Controller
 	}
 
 
+	function saveizin_post(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					$tgl = $this->input->post('tgl_izin'); 
+					$jml = $this->input->post('jumlahizin');
+
+					$date=date_create($tgl);
+					date_add($date,date_interval_create_from_date_string($jml." days"));
+					$sampai = date_format($date,"Y-m-d");
+
+					//cek lagi
+					$id_izin = $this->input->post('jenis_izin');
+					$id_user = $this->input->post('id_user');
+					$tahun = date('Y');
+					$this->db->where('id',$id_izin);
+					$this->db->where('tampilkan','1');
+
+				  $res = $this->db->get('m_jenis_izin')->row();
+				  
+				  $this->db->select('sum(total) as total_izin');
+					 $this->db->where('jenis_izin',$id_izin);
+					 $this->db->where('id_user',$id_user);
+					 $this->db->where('YEAR(tgl_izin)',$tahun);
+					 $this->db->where('tampilkan','1');
+
+				    $resCek = $this->db->get('his_izin')->row();
+				   
+				      $izin_sudahDiambil = $resCek->total_izin;
+					  $total = $res->jumlah;
+
+					  $totalizin = $izin_sudahDiambil+$jml;
+					  if($totalizin <= $total){
+					 
+						$dataizin=array(
+							'id_user'=> $id_user,
+							'total' => $jml,
+							'tgl_izin'=> $tgl,
+							'tgl_akhir_izin' => $sampai,
+							'jenis_izin' => $id_izin,
+							'status' => '1',
+							'keterangan' =>  $this->input->post('keterangan')
+
+						);
+
+						$this->db->insert('his_izin',$dataizin);
+						if($this->db->affected_rows() == '1'){
+							$arr['hasil']='success';
+							$arr['message']='Data berhasil ditambah!';
+						}else{
+							$arr['hasil']='error';
+							$arr['message']='Data Gagal Ditambah!';
+						}
+
+					  }
+
+			   
+			 
+ 
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
 	
 
 	function listcuti_get(){
@@ -1751,6 +1898,63 @@ class Pegawai extends REST_Controller
 
 		
 	}
+	
+	function listizin_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+				 
+					$id_user = $this->input->get('id_user'); 
+					$this->db->select('m_jenis_izin.nama as namcut,his_izin.*,m_status_proses.nama as statuspros');
+					$this->db->join('m_jenis_izin','m_jenis_izin.id = his_izin.jenis_izin');
+					$this->db->join('m_status_proses','m_status_proses.id = his_izin.status');
+					$this->db->where('id_user',$id_user); 
+					$this->db->where('his_izin.tampilkan','1');
+					$this->db->order_by('tgl_izin','DESC');
+					$resCek = $this->db->get('his_izin')->result();
+
+					$da ='';
+					foreach($resCek as $val){
+						$text='text-success';
+						if($val->status =='1'){
+							$text='text-danger';
+						}
+					   $da .='<tr>';
+					   $da .='<td>';
+					   $da .= $val->namcut;
+					   $da .='</td>';
+					   $da .='<td>';
+					   $da .= date_format(date_create($val->tgl_izin),"d-m-Y");
+					   $da .='</td>';
+					   $da .='<td>';
+					   $da .= date_format(date_create($val->tgl_akhir_izin),"d-m-Y");
+					   $da .='</td>';
+					   $da .='<td>';
+					   $da .= $val->total;
+					   $da .='</td>';
+					   $da .='<td class="'.$text.'">';
+					   $da .= $val->statuspros;
+					   $da .='</td>';
+					   $da .='<td><a class="label label-danger" href="javascript:void(0);" onClick="prosesizin(\''.$val->id.'\')">';
+					   $da .='Hapus';
+					   $da .='</a></td>';
+					   $da .='</tr>';
+					}
+				    
+				   $arr['hasil']='success';
+				   $arr['isi']=$da;
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+
+		
+	}
 
 	public function beristratuscuti_get(){
 		$headers = $this->input->request_headers();
@@ -1767,6 +1971,31 @@ class Pegawai extends REST_Controller
 						$this->db->where('status','1');
 					}
 					 $this->db->update('his_cuti',$arraycuti);
+			  $arr['hasil']='success';
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+	
+	public function beristratusizin_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					 $id=$this->input->get('id');
+					 $status = $this->input->get('status');
+					 $this->db->where('id',$id);
+					 $arrayizin['status']=$status;
+					if($status=='0'){
+						$arraycuti['tampilkan']='0';
+						$this->db->where('status','1');
+					}
+					 $this->db->update('his_izin',$arrayizin);
 			  $arr['hasil']='success';
 			  $this->set_response($arr, REST_Controller::HTTP_OK);
 				
@@ -1827,6 +2056,75 @@ class Pegawai extends REST_Controller
 					   $da .='Setujui';
 					   $da .='</a>';
 					   $da .='<a class="label label-danger" href="javascript:void(0);" onClick="prosesCuti(\''.$val->id.'\',\'0\')">';
+					   $da .='Tolak';
+					   $da .='</a>';
+					   $da .='</td>';
+					   $da .='</tr>';
+					}
+				    
+				   $arr['hasil']='success';
+				   $arr['isi']=$da;
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+
+		
+	}
+	
+	function listizinall_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+				 
+					$id_user = $this->input->get('id_user'); 
+					$this->db->select('m_jenis_izin.nama as namcut,his_izin.*,m_status_proses.nama as statuspros,sys_user.name as namapegawai');
+					$this->db->join('m_jenis_izin','m_jenis_izin.id = his_izin.jenis_izin');
+					$this->db->join('m_status_proses','m_status_proses.id = his_izin.status'); 
+					$this->db->join('sys_user','sys_user.id_user = his_izin.id_user'); 
+					$this->db->where('his_izin.tampilkan','1');
+					$this->db->where('his_izin.status','1');
+					$this->db->order_by('tgl_izin','DESC');
+					$resCek = $this->db->get('his_izin')->result();
+
+					$da ='';
+					foreach($resCek as $val){
+						$text='text-success';
+						if($val->status =='1'){
+							$text='text-danger';
+						}
+					   $da .='<tr>';
+					   $da .='<td>';
+					   $da .= $val->namapegawai;
+					   $da .='</td>';
+					   $da .='<td>';
+					   $da .= $val->namcut;
+					   $da .='</td>';
+					   $da .='<td>';
+					   $da .= $val->keterangan;
+					   $da .='</td>';
+					   $da .='<td>';
+					   $da .= date_format(date_create($val->tgl_izin),"d-m-Y");
+					   $da .='</td>';
+					   $da .='<td>';
+					   $da .= date_format(date_create($val->tgl_akhir_izin),"d-m-Y");
+					   $da .='</td>';
+					   $da .='<td>';
+					   $da .= $val->total;
+					   $da .='</td>';
+					   $da .='<td class="'.$text.'">';
+					   $da .= $val->statuspros;
+					   $da .='</td>';
+					   $da .='<td>';
+					   $da .='<a class="label label-success" href="javascript:void(0);" onClick="prosesizin(\''.$val->id.'\',\'2\')">';
+					   $da .='Setujui';
+					   $da .='</a>';
+					   $da .='<a class="label label-danger" href="javascript:void(0);" onClick="prosesizin(\''.$val->id.'\',\'0\')">';
 					   $da .='Tolak';
 					   $da .='</a>';
 					   $da .='</td>';

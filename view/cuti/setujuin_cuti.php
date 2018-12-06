@@ -14,7 +14,7 @@ require_once('../../connectdb.php');
 					            <form>
 					                <div class="panel-body">
                                     <div class="row pad-top pad-all">
-                                         <?php 
+                                        <?php 
                                         // print_r($_SESSION['userdata'] );
 
                                          $query= mysqli_query($con,"select count(total)as jml from his_cuti where tampilkan=1
