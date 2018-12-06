@@ -159,6 +159,71 @@ class Mpenilaian extends REST_Controller
 		
 		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
+	
+	public function listpismf_get(){
+		$headers = $this->input->request_headers(); 
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+				//$this->db->limit('100');
+				//$this->db->order_by();
+		 
+		
+			 	
+		$this->db->join('sys_grup_user','his_kpi_smf.id_unitkerja = sys_grup_user.id_grup','LEFT');  
+		$this->db->join('sys_user_profile','his_kpi_smf.no_pegawai = sys_user_profile.NIP','LEFT');
+		$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
+		$this->db->where('his_kpi_smf.tampilkan','1');
+		$this->db->where('his_kpi_smf.id_jenis',$this->uri->segment(4));
+		 if(!empty($this->uri->segment(5))){
+			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)",$this->uri->segment(6)); 
+		 }
+		$total_rows = $this->db->count_all_results('his_kpi_smf');
+		$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,6);
+		 
+				
+		$this->db->select('his_kpi_smf.*,sys_grup_user.grup,sys_grup_user.grup as nama_uk,
+		sys_user_profile.NIP,
+		sys_user_profile.NIK,
+		sys_user.name,sys_user_profile.kategori_profesi as profesi');
+		
+		$this->db->join('sys_grup_user','his_kpi_smf.id_unitkerja = sys_grup_user.id_grup','LEFT');  
+		$this->db->join('sys_user_profile','his_kpi_smf.no_pegawai = sys_user_profile.NIP','LEFT');
+		$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
+		$this->db->where('his_kpi_smf.tampilkan','1');
+		$this->db->where('his_kpi_smf.id_jenis',$this->uri->segment(4));
+		if(!empty($this->uri->segment(5))){
+			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)",$this->uri->segment(5)); 
+		 } 
+
+		$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
+		
+		
+		  $res = $this->db->get('his_kpi_smf')->result();
+		  foreach($res as $d){
+			$arr['result'][]=array('nama_uk'=>$d->nama_uk,
+								   'id_uk'=>$d->id_unitkerja, 
+								   'id'=>$d->id,
+								   'nama'=>$d->name, 
+								   'nama_group'=>$d->grup,
+								   'nip'=>$d->NIP,
+								   'nik'=>$d->NIK,
+								   'awal' => $d->awal,
+								   'akhir'=> $d->akhir,
+								   'profesi' => $d->profesi
+								   );
+		  }
+		 
+		  $arr['total']=$total_rows;
+		  $arr['paging'] = $pagination['limit'][1];
+		  $this->set_response($arr, REST_Controller::HTTP_OK);
+			
+                return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
 
 
 
@@ -635,7 +700,7 @@ public function save_post(){
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 				 
-				 $id    = $this->input->get('id');
+			  $id    = $this->input->get('id');
 			  $pid = $this->input->get('pid');
 
 				 if(!empty($pid)){

@@ -245,7 +245,7 @@ function downloadKPI(){
                         $('#id_grup').val(id_uk);
                         $('#uk').val(nama_group);
                         if(empty(profesi)){
-                            swal('Perhatian!','KPI Tidak dapat di proses karena pegawai tidak memiliki Profesi SMF/Non-SMF');
+                            swal('Perhatian!','KPI Tidak dapat di proses karena pegawai tidak memiliki Profesi SMF/SMF');
                             return false;
                         }else{
                         getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=16&pid='+selectedRowsString+'&profesi='+profesi);
@@ -271,10 +271,10 @@ loadDataPI(0);
  var columnDefs = [ 
   
  {headerName: 'Kegiatan', field: 'node', width: 160,editable:false},
+ {headerName: 'Target (%)', field: 'target', width: 160,editable:false, type: 'valueColumn'},
+ {headerName: 'Capaian Target', field: 'capaian', width: 120},
+ {headerName: 'Penilaian', field: 'penilaian', width: 120},
  {headerName: 'Bobot (%)', field: 'bobot', width: 160,editable:false, type: 'valueColumn'},
- {headerName: 'Target Kinerja', field: 'target', width: 120},
- {headerName: 'Capaian', field: 'capaian', width: 120},
- {headerName: 'Capaian (%)', field: 'persen', width: 120},
  {headerName: 'Nilai', field: 'nilai', width: 120, type: 'valueColumn'}, 
   {
         headerName: 'Bobot',
@@ -417,7 +417,7 @@ function printdata(node,index){
 }
 
 function loadData(){
- getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=16');
+ getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=2');
 }
 
 loadData();

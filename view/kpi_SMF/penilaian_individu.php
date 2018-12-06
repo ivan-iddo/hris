@@ -253,7 +253,7 @@ function loadDataPI(jml){
             if($('#search').val() !==''){
               search = $('#search').val();
             }
- getJson(prosesDataPI,BASE_URL+'kpi/mpenilaian/listpi/5/'+search+'/'+jml);
+ getJson(prosesDataPI,BASE_URL+'kpi/mpenilaian/listpismf/5/'+search+'/'+jml);
 }
 
 loadDataPI(0);
@@ -263,10 +263,9 @@ loadDataPI(0);
  var columnDefs = [ 
   
  {headerName: 'Kegiatan', field: 'node', width: 160,editable:false},
+ {headerName: 'Target', field: 'target', width: 120},
+ {headerName: 'Hasil Kinerja', field: 'target', width: 120},
  {headerName: 'Bobot (%)', field: 'bobot', width: 160,editable:false, type: 'valueColumn'},
- {headerName: 'Target Kinerja', field: 'target', width: 120},
- {headerName: 'Capaian', field: 'capaian', width: 120},
- {headerName: 'Capaian (%)', field: 'persen', width: 120},
  {headerName: 'Nilai', field: 'nilai', width: 120, type: 'valueColumn'},  {
         headerName: 'Bobot',
         field: 'total', 
