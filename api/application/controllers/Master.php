@@ -488,6 +488,28 @@ public function agama_get(){
 			
 			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
+	
+	public function jenis_izin_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					 $this->db->order_by('id','ASC');
+					 $this->db->where('tampilkan','1');
+			  $res = $this->db->get('m_jenis_izin')->result();
+			  foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id);
+			  }
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
 
 	public function getmaster_get(){
 		$headers = $this->input->request_headers();
