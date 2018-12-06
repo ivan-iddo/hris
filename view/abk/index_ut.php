@@ -176,7 +176,6 @@
               console.log(result);
               if(result.hasil ==='success'){
                 result.result.map(function(item, index){
-                  totalFrekuensi = totalFrekuensi + parseInt((item.frekuensi ? item.frekuensi : 0));
                   totalWaktu = totalWaktu + parseInt((item.waktu ? item.waktu : 0));
                   totalDirut = totalDirut + parseInt((item.dirut ? item.dirut : 0));
                   totalDir = totalDir + parseInt((item.dir ? item.dir : 0));
@@ -193,10 +192,10 @@
               }
               console.log(selectedEvent);
               Gridform4Bottom.api.setRowData([
-                {langkah:"Jumlah", frekuensi: totalFrekuensi, waktu: totalWaktu, dirut: totalDirut, dir: totalDir, kabag: totalKabag, kasubag: totalKasubag, kaur: totalKaur, sa: totalSa, pk: totalPk},
-                {langkah:"", frekuensi: 'x', waktu: 'x', dirut:'x', dir:'x',kabag:'x',kasubag:'x',kaur:'x',sa:'x',pk:'x'},
-                {langkah:"Jumlah Produk Per-Tahun", frekuensi: selectedEvent.jumlah, waktu: selectedEvent.jumlah, dirut:selectedEvent.jumlah, dir:selectedEvent.jumlah,kabag:selectedEvent.jumlah,kasubag:selectedEvent.jumlah,kaur:selectedEvent.jumlah,sa:selectedEvent.jumlah,pk:selectedEvent.jumlah},
-                {langkah:"Jumlah Total", frekuensi: totalFrekuensi*selectedEvent.jumlah, waktu: totalWaktu*selectedEvent.jumlah, dirut:totalDirut*selectedEvent.jumlah, dir:totalDir*selectedEvent.jumlah,kabag:totalKabag*selectedEvent.jumlah,kasubag:totalKasubag*selectedEvent.jumlah,kaur:totalKaur*selectedEvent.jumlah,sa:totalSa*selectedEvent.jumlah,pk:totalPk*selectedEvent.jumlah}
+                {langkah:"Jumlah", frekuensi: '', waktu: totalWaktu, dirut: totalDirut, dir: totalDir, kabag: totalKabag, kasubag: totalKasubag, kaur: totalKaur, sa: totalSa, pk: totalPk},
+                {langkah:"", frekuensi: '', waktu: '', dirut:'x', dir:'x',kabag:'x',kasubag:'x',kaur:'x',sa:'x',pk:'x'},
+                {langkah:"Jumlah Produk Per-Tahun", frekuensi: '', waktu: '', dirut:selectedEvent.jumlah, dir:selectedEvent.jumlah,kabag:selectedEvent.jumlah,kasubag:selectedEvent.jumlah,kaur:selectedEvent.jumlah,sa:selectedEvent.jumlah,pk:selectedEvent.jumlah},
+                {langkah:"Jumlah Total", frekuensi: null, waktu: null, dirut:totalDirut*selectedEvent.jumlah, dir:totalDir*selectedEvent.jumlah,kabag:totalKabag*selectedEvent.jumlah,kasubag:totalKasubag*selectedEvent.jumlah,kaur:totalKaur*selectedEvent.jumlah,sa:totalSa*selectedEvent.jumlah,pk:totalPk*selectedEvent.jumlah}
               ]);
           }
 
