@@ -68,44 +68,32 @@
                             <input type="text" id="tmpId" style="display:none">
                             <div class="ag-theme-balham" id="Gridform4" style="height: 300px;width:100%;">
                             </div>
-                            <div id="myGridBottom" style="height: 40px;" class="ag-theme-balham"></div>
+                            <div class="ag-theme-balham" id="Gridform4Bottom" style="height: 125px;width:100%;"></div>
                             </div>
                         </div>
         </div>
     <script>
       $('.select-chosen').chosen();
      $('.chosen-container').css({"width": "100%"});
+     var selectedEvent = null;
      var headerform4 = [
-            {headerName: "Kode", field: "id_beban_kerja", width: 80,editable:false,   hide: true},
-           {headerName: "Langkah Pelaksanaan Kegiatan ", field: "langkah", width: 280,
-    pinned: 'left', filterParams:{newRowsAction: 'keep'}},
-		   {headerName: "Frekuensi Pelaksanaan Kegiatan", field: "frekuensi", width: 190, filterParams:{newRowsAction: 'keep'}},
-           {headerName: "Waktu (Menit)", field: "waktu", width: 190, filterParams:{newRowsAction: 'keep'}},
-           {headerName: "Direktur Utama ", hide: true, field: "dirut",editable:true, width: 120},
-           {headerName: "Direktur ", hide: true, field: "dir",editable:true, width: 120},
-           {headerName: "Ka.Bag ", hide: true, field: "kabag",editable:true, width: 120},
-           {headerName: "Ka.Subag ", hide: true, field: "kasubag",editable:true, width: 120},
-          
-           {headerName: "Ka. Ur ",hide: true, field: "kaur",editable:true, width: 120},
-           {headerName: "Staf Admin", hide: true, field: "sa",editable:true, width: 120},
-           {headerName: "Pekarya", hide: true, field: "pk",editable:true, width: 120, filterParams:{newRowsAction: 'keep'}},
-         {
-        headerName: 'Total Pegawai',
-        field: 'total',
-        valueGetter: 'Number(data.kasubag) +Number(data.kabag) +Number(data.dir) +Number(data.dirut) +Number(data.kaur) + Number(data.sa) + Number(data.pk)',
-        width: 200
-    } , {
-        headerName: 'Total Waktu Kegiatan (Menit)',
-        field: 'total',
-        valueGetter: '((Number(data.frekuensi) * Number(data.waktu))*Number(data.kaur))+((Number(data.frekuensi) * Number(data.waktu))*Number(data.sa))+((Number(data.frekuensi) * Number(data.waktu))*Number(data.pk))+((Number(data.frekuensi) * Number(data.waktu))*Number(data.dirut))+((Number(data.frekuensi) * Number(data.waktu))*Number(data.dir))+((Number(data.frekuensi) * Number(data.waktu))*Number(data.kabag))+((Number(data.frekuensi) * Number(data.waktu))*Number(data.kasubag))',
-        width: 200
-    } 
-           
-        ];
+      {headerName: "Kode", field: "id_beban_kerja", width: 80,editable:false,   hide: true},
+      {headerName: "Langkah Pelaksanaan Kegiatan ", field: "langkah", width: 280, pinned: 'left', filterParams:{newRowsAction: 'keep'}},
+      {headerName: "Frekuensi Pelaksanaan Kegiatan", field: "frekuensi", width: 190, filterParams:{newRowsAction: 'keep'}},
+      {headerName: "Waktu (Menit)", field: "waktu", width: 190, filterParams:{newRowsAction: 'keep'}},
+      {headerName: "Beban Kerja Per Kategori", children:[
+        {headerName: "Direktur Utama ", field: "dirut",editable:true, width: 120},
+        {headerName: "Direktur ", field: "dir",editable:true, width: 120},
+        {headerName: "Ka.Bag ", field: "kabag",editable:true, width: 120},
+        {headerName: "Ka.Subag ", field: "kasubag",editable:true, width: 120},
 
+        {headerName: "Ka. Ur ",field: "kaur",editable:true, width: 120},
+        {headerName: "Staf Admin", field: "sa",editable:true, width: 120},
+        {headerName: "Pekarya", field: "pk",editable:true, width: 120, filterParams:{newRowsAction: 'keep'}}
+      ]}
       
-            
            
+        ];           
 
         var autoGroupColumnDef = {
            headerName: "Group",
@@ -148,13 +136,27 @@
                enableValue:true
            } 
         };
+
+        var Gridform4Bottom = {
+          columnDefs: headerform4,
+          // we are hard coding the data here, it's just for demo purposes
+          enableColResize: true,
+          debug: true,
+          rowClass: 'bold-row',
+          // hide the header on the bottom grid
+          headerHeight: 0,
+          alignedGrids: []
+        };
  
         // setup the grid after the page has finished loading 
          //  var gridDiv = document.querySelector('#Gridform4');
           // new agGrid.Grid(gridDiv, Gridform4);
 
            var gridDivTop = document.querySelector('#Gridform4');
-        new agGrid.Grid(gridDivTop, Gridform4); 
+            new agGrid.Grid(gridDivTop, Gridform4); 
+
+           var gridDivBottom = document.querySelector('#Gridform4Bottom');
+            new agGrid.Grid(gridDivBottom, Gridform4Bottom); 
         //showtable('false','kaur');
         
      function listform4(){
@@ -165,19 +167,38 @@
                   thn = n;
               }
 
-               
                var idpapa=$('#tmpId').val();
             getJson(loadform4,BASE_URL+'abk/abk/listform4?id_ut='+idpapa);
           }
 
           function loadform4(result){
+              let totalFrekuensi = 0, totalWaktu = 0, totalDirut = 0, totalDir = 0, totalKabag = 0, totalKasubag = 0, totalKaur = 0, totalSa = 0, totalPk = 0;
+              console.log(result);
               if(result.hasil ==='success'){
+                result.result.map(function(item, index){
+                  totalFrekuensi = totalFrekuensi + parseInt((item.frekuensi ? item.frekuensi : 0));
+                  totalWaktu = totalWaktu + parseInt((item.waktu ? item.waktu : 0));
+                  totalDirut = totalDirut + parseInt((item.dirut ? item.dirut : 0));
+                  totalDir = totalDir + parseInt((item.dir ? item.dir : 0));
+                  totalKabag = totalKabag + parseInt((item.kabag ? item.kabag : 0));
+                  totalKasubag = totalKasubag + parseInt((item.kasubag ? item.kasubag : 0));
+                  totalKaur = totalKaur + parseInt((item.kaur ? item.kaur : 0));
+                  totalSa = totalSa + parseInt((item.sa ? item.sa : 0));
+                  totalPk = totalPk + parseInt((item.pk ? item.pk : 0));
+                  console.log(totalFrekuensi, totalWaktu, totalDirut, totalDir, totalKabag, totalKasubag, totalKaur, totalSa, totalPk);
+                });
                 Gridform4.api.setRowData(result.result);
               }else{
                 Gridform4.api.setRowData([]);
               }
+              console.log(selectedEvent);
+              Gridform4Bottom.api.setRowData([
+                {langkah:"Jumlah", frekuensi: totalFrekuensi, waktu: totalWaktu, dirut: totalDirut, dir: totalDir, kabag: totalKabag, kasubag: totalKasubag, kaur: totalKaur, sa: totalSa, pk: totalPk},
+                {langkah:"", frekuensi: 'x', waktu: 'x', dirut:'x', dir:'x',kabag:'x',kasubag:'x',kaur:'x',sa:'x',pk:'x'},
+                {langkah:"Jumlah Produk Per-Tahun", frekuensi: selectedEvent.jumlah, waktu: selectedEvent.jumlah, dirut:selectedEvent.jumlah, dir:selectedEvent.jumlah,kabag:selectedEvent.jumlah,kasubag:selectedEvent.jumlah,kaur:selectedEvent.jumlah,sa:selectedEvent.jumlah,pk:selectedEvent.jumlah},
+                {langkah:"Jumlah Total", frekuensi: totalFrekuensi*selectedEvent.jumlah, waktu: totalWaktu*selectedEvent.jumlah, dirut:totalDirut*selectedEvent.jumlah, dir:totalDir*selectedEvent.jumlah,kabag:totalKabag*selectedEvent.jumlah,kasubag:totalKasubag*selectedEvent.jumlah,kaur:totalKaur*selectedEvent.jumlah,sa:totalSa*selectedEvent.jumlah,pk:totalPk*selectedEvent.jumlah}
+              ]);
           }
-
 
           listform4();
 
@@ -291,6 +312,7 @@
 
            function cariLangkahKerja(){
             var selectedRows = Gridform3.api.getSelectedRows(); 
+            selectedEvent = selectedRows[0];
             var id_uk  =''; 
             if(selectedRows == ''){
                onMessage('Silahkan Pilih Uraian Tugas Terlebih dahulu!');
@@ -518,35 +540,33 @@ function downloadform4(){
  
     
 	$.ajax({
-                            url: BASE_URL+"supplier/uploadform4", // Url to which the request is send 
-                            type: "POST", 
-                            data: new FormData(form[0]), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-                            contentType: false,       // The content type used when sending data to the server.
-                            cache: false,             // To unable request pages to be cached
-                            processData:false,        // To send DOMDocument or non processed data file it is set to false
-                            success: function(data)   // A function to be called if request succeeds
-                            {
-                                hasil=data.hasil;
-                               
-                                
-                                                                                                            message=data.message; 
-                                                                                                               if(hasil=="success"){
-                                                                                                                  
-                                                                                                                        
-                                                                                                                           $.niftyNoty({
-                                                                                                                                           type: 'success',
-                                                                                                                                           title: 'Success',
-                                                                                                                                           message: message,
-                                                                                                                                           container: 'floating',
-                                                                                                                                           timer: 5000
-                                                                                                                                       });   
-                                                                                                                                       listform4();   
-                                                                                                                     }else{
-                                                                                                                            alert(message);
-                                                                                                                          return false;	
-                                                                                                                     }
-                            }
-                            });
+    url: BASE_URL+"supplier/uploadform4", // Url to which the request is send 
+    type: "POST", 
+    data: new FormData(form[0]), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+    contentType: false,       // The content type used when sending data to the server.
+    cache: false,             // To unable request pages to be cached
+    processData:false,        // To send DOMDocument or non processed data file it is set to false
+    success: function(data)   // A function to be called if request succeeds
+    {
+        hasil=data.hasil;
+        message=data.message; 
+           if(hasil=="success"){
+              
+                    
+                       $.niftyNoty({
+                                       type: 'success',
+                                       title: 'Success',
+                                       message: message,
+                                       container: 'floating',
+                                       timer: 5000
+                                   });   
+                                   listform4();   
+                 }else{
+                        alert(message);
+                      return false;	
+                 }
+    }
+  });
 	
 	
 	
