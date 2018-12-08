@@ -35,7 +35,7 @@
                                         Medical</a></li>
                                 <li onClick="$('#uploadfile').load('view/pegawai/form_file.php?id=6')"><a
                                             data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">SK</a></li>
-                                <li onClick="$('#uploadfile').load('view/pegawai/form_file.php?id=7')"><a
+                                <li onClick="$('#uploadfile').load('view/pegawai/form_penghargaan.php?id=7')"><a
                                             data-toggle="tab" href="#demo-tabs-box-5"
                                             aria-expanded="false">Penghargaan</a></li>
                                 <li onClick="$('#uploadfile').load('view/pegawai/form_file.php?id=8')"><a
