@@ -344,6 +344,30 @@ public function agama_get(){
 					 
 			  $res = $this->db->get('m_golongan_peg')->result();
 			  foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->pangkat,'value'=>$d->id);
+			  }
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+
+	
+	public function golongan_peg_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					 $this->db->order_by('gol_angka','ASC');
+					 $this->db->where('tampilkan','1');
+					 
+			  $res = $this->db->get('m_golongan_peg')->result();
+			  foreach($res as $d){
 				$arr['result'][]=array('label'=>$d->gol_romawi,'value'=>$d->id);
 			  }
 			  
@@ -356,6 +380,7 @@ public function agama_get(){
 			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
 
+	
 	public function peringkat_jabatan_get(){
 		$headers = $this->input->request_headers();
 	
@@ -368,6 +393,28 @@ public function agama_get(){
 			  $res = $this->db->get('m_grade_jabatan')->result();
 			  foreach($res as $d){
 				$arr['result'][]=array('label'=>$d->ds_grade,'value'=>$d->no_grade);
+			  }
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+	
+	public function getbobot_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					 $this->db->order_by('id','ASC');
+					 
+			  $res = $this->db->get('bobot')->result();
+			  foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->nilai,'value'=>$d->id);
 			  }
 			  
 			  $this->set_response($arr, REST_Controller::HTTP_OK);
@@ -434,6 +481,28 @@ public function agama_get(){
 			  $res = $this->db->get('m_status_lulus')->result();
 			  foreach($res as $d){
 				$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id);
+			  }
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+	
+	public function akreditas_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					 $this->db->order_by('id','ASC');
+					 $this->db->where('tampilkan','1');
+			  $res = $this->db->get('akreditasi')->result();
+			  foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->akreditasi,'value'=>$d->id);
 			  }
 			  
 			  $this->set_response($arr, REST_Controller::HTTP_OK);
@@ -526,10 +595,10 @@ public function agama_get(){
 				  $this->db->where('dm_term.tampilkan','1');
 				  $this->db->join('dm_taxonomy',' dm_taxonomy.id = dm_term.child');
 				  $res = $this->db->get('dm_term')->result();
-				  
+				
 			if(!empty($res)){
 				 foreach($res as $d){
-					$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id);
+					$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id,);
 				  }
 			}else{
 			$arr['result'] ='empty';
@@ -586,7 +655,5 @@ public function agama_get(){
 			
 			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
-
-	
  
 }

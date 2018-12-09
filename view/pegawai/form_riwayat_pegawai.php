@@ -312,6 +312,12 @@ Rekrutmen
 									 
 								</select> 
 							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="inputrt">Kode Pos</label> 
+							<div class="col-sm-8">
+								<input class="form-control" id="inputkpos" name="inputkpos" placeholder="" type="text" value="" onkeyup="copykpos()">
+							</div>
 						</div><!-- End Hori sontal -->
 					</div>
 				</div><!-- /.box -->
@@ -381,6 +387,12 @@ Rekrutmen
 									<option selected="selected">
 									</option>
 								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="inputrt">Kode Pos</label> 
+							<div class="col-sm-8">
+								<input class="form-control" id="inputkposktp" name="inputkposktp" placeholder="" type="text" value="">
 							</div>
 						</div><!-- End Hori sontal -->
 					</div><!-- /.box-header -->
@@ -698,6 +710,11 @@ Rekrutmen
 	alert('Data pegawai harus disimpan terlebih dahulu!');
 	return false;
                 }
+	}
+	
+	function copykpos(){
+	 
+		$("#inputkposktp").val($("#inputkpos").val());
 	}
 	
 	function copyAlamat(){

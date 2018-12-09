@@ -125,6 +125,8 @@ class Pegawai extends REST_Controller
 							$id_bank	= $this->input->post('id_bank');
 							$bpjs_kes	= $this->input->post('bpjs_kes');
 							$bpjs_tk= $this->input->post('bpjs_tk');
+							$inputkpos= $this->input->post('inputkpos');
+							$inputkposktp= $this->input->post('inputkposktp');
 						
 							
 							
@@ -198,6 +200,8 @@ class Pegawai extends REST_Controller
 							 'kota_ktp' => $txtkotaktp,
 							 'kec_ktp' => $txtkecamatanktp,
 							 'kel_ktp' => $txtkelurahanktp,
+							 'kode_pos' => $inputkpos,
+							 'kode_posktp' => $inputkposktp,
 							 'id_bank' => $id_bank,
 							 'bpjs_kes' => $bpjs_kes,
 							 'bpjs_tk' => $bpjs_tk,
@@ -346,6 +350,8 @@ class Pegawai extends REST_Controller
 								  'alamat_ktp' => $d->alamat_ktp,
 								  'NIP' => $d->NIP,
 								  'NIK' => $d->NIK,
+								  'kode_pos' => $d->kode_pos,
+								  'kode_posktp' => $d->kode_posktp,
 								  'gelar_depan'=> $d->gelar_depan,
 								  'kategori_profesi'=> $d->kategori_profesi,
 								  'gelar_belakang' => $d->gelar_belakang,
@@ -448,6 +454,8 @@ class Pegawai extends REST_Controller
 							$id_bank	= $this->input->post('id_bank');
 							$bpjs_kes	= $this->input->post('bpjs_kes');
 							$bpjs_tk= $this->input->post('bpjs_tk');
+							$inputkpos= $this->input->post('inputkpos');
+							$inputkposktp= $this->input->post('inputkposktp');
 							
 							
 							
@@ -527,10 +535,13 @@ class Pegawai extends REST_Controller
 							 'id_bank' => $id_bank,
 							 'bpjs_kes' => $bpjs_kes,
 							 'bpjs_tk' => $bpjs_tk,
+							 'kode_pos' => $inputkpos,
+							 'kode_posktp' => $inputkposktp,
 							 'no_rek' =>$this->input->post('no_rek'),
 							 'kategori_profesi' =>$this->input->post('kategori_profesi'), 
 							 'NPWP' => $this->input->post('npwp'),
 							 'id_profesi' =>$this->input->post('id_profesi'),
+
 						);
 				 
 				 $this->db->where('id_user',$id);
@@ -793,6 +804,9 @@ class Pegawai extends REST_Controller
 				   'pen_desc'=>$this->input->post('txtStatusLulus'),
 				   'pen_lijzh'=>$this->input->post('txtHubungan'),
 				   'pen_code' => $this->input->post('txtJPend'),
+				   'pen_jur' => $this->input->post('txtJjurusan'),
+				   'pen_spe' => $this->input->post('txtJspesialis'),
+				   'pen_akr' => $this->input->post('txtJakreditasi'),
 				   );
 			  
 			  $this->db->insert('his_pendidikan',$arrdata);
@@ -837,6 +851,9 @@ class Pegawai extends REST_Controller
 		  foreach($res as $d){
 			$arr[]=array('id'=>$d->id,
 					   'nama_sekolah'=> $d->	pen_name,
+					   'jurusan'=> $d->pen_jur,
+					   'spesialis'=> $d->pen_spe,
+					   'akreditasi'=> $d->pen_akr,
 					   'jenjang'=> $d->namaPendidikan,
 					   'tahun'=> $d->pen_tahn,
 					   'no_ijazah'=> $d->pen_nijz,
@@ -872,6 +889,9 @@ class Pegawai extends REST_Controller
 				   'pen_desc'=>$this->input->post('txtStatusLulus'),
 				   'pen_lijzh'=>$this->input->post('txtHubungan'),
 				   'pen_code' => $this->input->post('txtJPend'),
+				   'pen_jur' => $this->input->post('txtJjurusan'),
+				   'pen_spe' => $this->input->post('txtJspesialis'),
+				   'pen_akr' => $this->input->post('txtJakreditasi'),
 				   );
 			   
 			  
@@ -924,6 +944,9 @@ class Pegawai extends REST_Controller
 					   'pen_lijzh'=> $d->pen_lijzh,
 					   'pen_code'=> $d->pen_code,
 					   'emp_nopg'=> $d->emp_nopg,
+					   'pen_jur'=> $d->pen_jur,
+					   'pen_spe'=> $d->pen_spe,
+					   'pen_akr'=> $d->pen_akr,
 					   'file' => $d->file_url 
 					   
 					   );
@@ -1558,7 +1581,7 @@ class Pegawai extends REST_Controller
 
 					if($id_cuti !=='1'){
 						$arr['message'] ='<div class="alert alert-success">Anda memiliki sisa cuti <strong> 12  Hari</strong></div>';
-						$arr['jumlah'] = 12;
+						$arr['jumlah'] = 18;
 					   
 			  
 						return  $this->set_response($arr, REST_Controller::HTTP_OK);	

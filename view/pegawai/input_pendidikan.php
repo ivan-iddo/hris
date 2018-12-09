@@ -15,6 +15,26 @@
                 </select>
               </div>
             </div>
+			<div class="form-group">
+              <label class="col-sm-4 control-label" for="inputpropinsi">Jurusan</label>
+              <div class="col-sm-8">
+				<input class="form-control" id="txtJjurusan" name="txtJjurusan"  placeholder="" type="text">
+              </div>
+            </div>
+			<div class="form-group">
+              <label class="col-sm-4 control-label" for="inputpropinsi">Spesialis</label>
+              <div class="col-sm-8">
+				<input class="form-control" id="txtJspesialis" name="txtJspesialis"  placeholder="" type="text">
+              </div>
+            </div>
+			<div class="form-group">
+              <label class="col-sm-4 control-label" for="inputpropinsi">Akreditasi</label>
+              <div class="col-sm-8">
+                <select class="form-control select2" id="txtJakreditasi" name="txtJakreditasi" style="width: 100%;">
+                   
+                </select>
+              </div>
+            </div>
             <div class="form-group">
               <label class="col-sm-4 control-label" for="inputstatus">Nama Sekolah</label>
               <div class="col-sm-8">
@@ -22,7 +42,6 @@
                 <input class="form-control" id="id_pendidikan" name="id_pendidikan"  style="display:none" placeholder="" type="text">
               </div>
             </div>
-            
             <div class="form-group">
               <label class="col-sm-4 control-label" for="inputstatus">Tahun Lulus</label>
               <div class="col-sm-8">

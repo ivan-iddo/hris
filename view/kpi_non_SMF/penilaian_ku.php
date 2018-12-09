@@ -182,7 +182,6 @@ function downloadKPI(){
            debug: true,
             rowSelection: 'multiple',
            enableColResize: true,
-           rowGroupPanelShow: 'always',
            pivotPanelShow: 'always',
            enableRangeSelection: true,
            columnDefs: listPI,
@@ -190,7 +189,6 @@ function downloadKPI(){
            paginationPageSize: 50, 
            defaultColDef:{
                editable: false,
-               enableRowGroup:true,
                enablePivot:true,
                enableValue:true
            }
@@ -269,9 +267,7 @@ loadDataPI(0);
  {headerName: 'Nilai', field: 'nilai', width: 120},
  {headerName: 'Bobot x Nilai', field: 'bobotnilai', width: 120},
  {headerName: 'Keterangan', field: 'keterangan', width: 120},
- {headerName: 'pid', field: 'pid',  hide:true},
- {field: "parent", rowGroup:true, hide:true},
- {field: "child", rowGroup:true, hide:true} 
+ {headerName: 'pid', field: 'pid',  hide:true}
 
 ];
 
@@ -284,15 +280,10 @@ var gridOptions = {
         debug: true,
          rowSelection: 'single',
         enableColResize: true,
-        rowGroupPanelShow: 'always',
         pivotPanelShow: 'always',
         enableRangeSelection: true,
         columnDefs: columnDefs,
         pagination: false,
-        autoGroupColumnDef: {
-            headerName:'Group',
-            field: 'athlete'
-        },
  defaultColDef: {
      editable: true
  },
@@ -361,7 +352,7 @@ function prosesData(result){
 } 
 
 function loadData(){
- getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=16');
+ getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=16&kod=96');
 }
 
 loadData();
