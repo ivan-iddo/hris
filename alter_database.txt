@@ -1,8 +1,0 @@
-1. 
-ALTER TABLE `gtpayid_hrislive`.`his_files` ADD COLUMN `keterangan` TEXT NULL AFTER `kategori_id`, ADD COLUMN `kasus` TEXT NULL AFTER `keterangan`, ADD COLUMN `tindakan` TEXT NULL AFTER `kasus`, ADD COLUMN `date_start` DATE NULL AFTER `tindakan`, ADD COLUMN `date_end` DATE NULL AFTER `date_start`; 
-
-2. 
-CREATE TABLE `gtpayid_hrislive`.`his_penghargaan`( `id` INT(11) NOT NULL AUTO_INCREMENT, `penghargaan` VARCHAR(255), `instansi` VARCHAR(255), `tanggal` DATE, `createdby` VARCHAR(255), `created` DATETIME, `updatedby` VARCHAR(255), `updated` DATETIME, `statue` TINYINT(1) DEFAULT 1, PRIMARY KEY (`id`) );
-
-3.
-ALTER TABLE `gtpayid_hrislive`.`his_penghargaan` ADD COLUMN `url` VARCHAR(255) NULL AFTER `tanggal`;

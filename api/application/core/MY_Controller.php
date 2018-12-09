@@ -9,6 +9,9 @@ class MY_Controller extends CI_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $this->user = AUTHORIZATION::validateToken($headers['Authorization']);
         }
+        else if ($this->input->get("error")) {
+
+        }
         else{
             die;
         }

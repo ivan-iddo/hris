@@ -38,9 +38,15 @@
                                 <li onClick="$('#uploadfile').load('view/pegawai/form_penghargaan.php?id=7')"><a
                                             data-toggle="tab" href="#demo-tabs-box-5"
                                             aria-expanded="false">Penghargaan</a></li>
-                                <li onClick="$('#uploadfile').load('view/pegawai/form_file.php?id=8')"><a
+                                <li onClick="$('#uploadfile').load('view/pegawai/form_punishment.php?id=8')"><a
                                             data-toggle="tab" href="#demo-tabs-box-5"
                                             aria-expanded="false">Punishment</a></li>
+                                <li onClick="$('#uploadfile').load('view/pegawai/form_str.php')"><a
+                                            data-toggle="tab" href="#demo-tabs-box-5"
+                                            aria-expanded="false">STR</a></li>
+                                <li onClick="$('#uploadfile').load('view/pegawai/form_sip.php')"><a
+                                            data-toggle="tab" href="#demo-tabs-box-5"
+                                            aria-expanded="false">SIP</a></li>
                             </ul>
                         </div>
                     </li>

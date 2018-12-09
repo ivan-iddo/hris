@@ -4,11 +4,20 @@
     <list default="true" id="c2b1cf76-343d-4376-96c5-699d647d13d9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alter_database.txt" beforeDir="false" afterPath="$PROJECT_DIR$/alter_database.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/application/config/database.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/application/config/autoload.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/application/config/autoload.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/application/controllers/Pegawai.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/application/controllers/Pegawai.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/myfunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/myfunction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/application/controllers/pegawais/Penghargaan.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/application/controllers/pegawais/Penghargaan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/application/controllers/pegawais/upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/application/controllers/pegawais/upload.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/application/core/MY_Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/application/core/MY_Controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/application/models/His_penghargaan_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/application/models/His_penghargaan_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/application/views/pegawai/view_listfile.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/upload/data/placeholder24.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Hasil Meeting 0612 - Kepegawaian.docx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Hasil Meeting 0612 - Kepegawaian.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/pegawai/riwayat.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/pegawai/riwayat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/pegawai/form_file.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/pegawai/form_file.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/pegawai/form_penghargaan.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/pegawai/form_penghargaan.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/pegawai/form_riwayat_pegawai.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/pegawai/form_riwayat_pegawai.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/pegawai/input_keluarga.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/pegawai/input_keluarga.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,15 +31,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/application/controllers/pegawais/Golongan.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" selection-end-line="222" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/view/pegawai/profile_pegawai.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1173">
@@ -42,17 +42,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/view/pegawai/form_file.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2329">
-              <caret line="137" column="14" selection-end-line="137" selection-end-column="14" />
+            <state relative-caret-position="357">
+              <caret line="21" column="10" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/application/views/pegawai/view_listfile.php">
+        <entry file="file://$PROJECT_DIR$/view/pegawai/input_keluarga.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="14" lean-forward="true" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+            <state relative-caret-position="238">
+              <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/pegawai/riwayat.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="471">
+              <caret line="166" column="1" selection-end-line="166" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -60,17 +69,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/application/controllers/Pegawai.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="1553" lean-forward="true" selection-start-line="1553" selection-end-line="1553" />
+            <state relative-caret-position="233">
+              <caret line="1558" selection-start-line="1558" selection-end-line="1558" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/myfunction.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="768" selection-end-column="1" />
+            <state relative-caret-position="170">
+              <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -97,7 +106,7 @@
         <entry file="file://$PROJECT_DIR$/view/pegawai/form_riwayat_pegawai.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="9911">
-              <caret line="583" column="5" selection-start-line="583" selection-start-column="5" selection-end-line="583" selection-end-column="5" />
+              <caret line="589" column="5" selection-start-line="589" selection-start-column="5" selection-end-line="589" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -132,10 +141,12 @@
         <option value="$PROJECT_DIR$/api/application/controllers/pegawais/upload.php" />
         <option value="$PROJECT_DIR$/home.php" />
         <option value="$PROJECT_DIR$/view/pegawai/form_riwayat_pegawai.php" />
-        <option value="$PROJECT_DIR$/view/pegawai/form_file.php" />
         <option value="$PROJECT_DIR$/api/application/views/pegawai/view_listfile.php" />
-        <option value="$PROJECT_DIR$/api/application/controllers/Pegawai.php" />
         <option value="$PROJECT_DIR$/js/myfunction.js" />
+        <option value="$PROJECT_DIR$/api/application/controllers/Pegawai.php" />
+        <option value="$PROJECT_DIR$/view/pegawai/form_file.php" />
+        <option value="$PROJECT_DIR$/view/pegawai/input_keluarga.php" />
+        <option value="$PROJECT_DIR$/js/pegawai/riwayat.js" />
       </list>
     </option>
   </component>
@@ -150,7 +161,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -173,6 +183,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -208,17 +219,17 @@
       <workItem from="1544175432925" duration="1782000" />
       <workItem from="1544208228987" duration="4587000" />
       <workItem from="1544280788914" duration="3065000" />
+      <workItem from="1544346926639" duration="3478000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12657000" />
+    <option name="totallyTimeSpent" value="16135000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2647504" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2685325" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -271,10 +282,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/pegawai/form_file.php">
+    <entry file="file://$PROJECT_DIR$/api/application/views/pegawai/view_listfile.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2329">
-          <caret line="137" column="14" selection-end-line="137" selection-end-column="14" />
+        <state relative-caret-position="323">
+          <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -295,7 +306,7 @@
     <entry file="file://$PROJECT_DIR$/view/pegawai/form_riwayat_pegawai.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9911">
-          <caret line="583" column="5" selection-start-line="583" selection-start-column="5" selection-end-line="583" selection-end-column="5" />
+          <caret line="589" column="5" selection-start-line="589" selection-start-column="5" selection-end-line="589" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -306,24 +317,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/application/views/pegawai/view_listfile.php">
+    <entry file="file://$PROJECT_DIR$/js/myfunction.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="14" lean-forward="true" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+        <state relative-caret-position="170">
+          <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/api/application/controllers/Pegawai.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="1553" lean-forward="true" selection-start-line="1553" selection-end-line="1553" />
+        <state relative-caret-position="233">
+          <caret line="1558" selection-start-line="1558" selection-end-line="1558" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/myfunction.js">
+    <entry file="file://$PROJECT_DIR$/view/pegawai/form_file.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="768" selection-end-column="1" />
+        <state relative-caret-position="357">
+          <caret line="21" column="10" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/pegawai/input_keluarga.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/pegawai/riwayat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="471">
+          <caret line="166" column="1" selection-end-line="166" selection-end-column="1" />
         </state>
       </provider>
     </entry>

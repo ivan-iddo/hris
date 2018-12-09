@@ -6,7 +6,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
 require APPPATH . '/libraries/REST_Controller.php';
 $rest_json = file_get_contents("php://input");
-$_POST = json_decode($rest_json, true);
+// $_POST = json_decode($rest_json, true);
 
 class Pegawai extends REST_Controller
 {
@@ -565,9 +565,9 @@ class Pegawai extends REST_Controller
     {
         $headers = $this->input->request_headers();
 
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization']) || true) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false) {
+            if ($decodedToken != false || true) {
                 //$this->db->limit('100');
                 //$this->db->order_by();
                 $arr = array();
@@ -575,21 +575,9 @@ class Pegawai extends REST_Controller
                 if (!empty($id = $this->uri->segment(3))) {
                     $this->db->where('his_keluarga.id', $id);
                 }
-                $res = $this->db->get('his_keluarga')->result();
-                foreach ($res as $d) {
-                    $arr = array('id' => $d->id,
-                        'nama' => $d->nama,
-                        'kelamin' => $d->kelamin,
-                        'NIK' => $d->NIK,
-                        'pendidikan' => $d->id_pendidikan,
-                        'hubkel' => $d->id_hubkel,
-                        'pekerjaan' => $d->id_pekerjaan,
-                        'tpt_lahir' => $d->tempat_lahir,
-                        'tgl_lahir' => $d->tgl_lahir,
-                    );
-                }
+                $res = $this->db->get('his_keluarga')->row();
 
-                $this->set_response($arr, REST_Controller::HTTP_OK);
+                $this->set_response($res, REST_Controller::HTTP_OK);
 
                 return;
             }
@@ -601,15 +589,24 @@ class Pegawai extends REST_Controller
     function savekeluarga_post()
     {
         $headers = $this->input->request_headers();
-
+        // echo "<pre>";
+        // print_r($_POST);
+        // echo "</pre>";
+        // echo "<pre>";
+        // print_r($this->input->post());
+        // echo "</pre>";
+        // die;
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            $arr['hasil'] = 'error';
-            $arr['message'] = 'Data Gagal Ditambah!';
             if ($decodedToken != false) {
+                
+                $config['upload_path'] = 'upload/data';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
+                $config['max_size'] = '50000000';
+                $this->load->library('upload', $config);
 
                 $arrdata = array(
-                    'id_user' => $this->input->post('id_user'),
+                    'id_user' => $decodedToken->data->id,
                     'NIK' => $this->input->post('txtNik'),
                     'nama' => $this->input->post('txtNama'),
                     'tempat_lahir' => $this->input->post('txtTptLahir'),
@@ -619,6 +616,14 @@ class Pegawai extends REST_Controller
                     'id_pekerjaan' => $this->input->post('txtPekerjaan'),
                     'id_hubkel' => $this->input->post('txtHubungan'),
                 );
+                if (!$this->upload->do_upload('inputfileupload')) {
+                    $error = array('error' => $this->upload->display_errors());
+                } 
+                else {
+                    $upload = $this->upload->data();
+                    $arrdata["url"] = $upload['file_name'];
+                }
+
                 $this->db->insert('his_keluarga', $arrdata);
 
                 if ($this->db->affected_rows() == '1') {
@@ -668,6 +673,7 @@ class Pegawai extends REST_Controller
                         'pekerjaan' => $d->pekerjaan,
                         'tpt_lahir' => $d->tempat_lahir,
                         'tgl_lahir' => $d->tgl_lahir,
+                        'url' => $d->url
                     );
                 }
 
@@ -687,9 +693,12 @@ class Pegawai extends REST_Controller
 
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            $arr['hasil'] = 'error';
-            $arr['message'] = 'Data Gagal Ditambah!';
             if ($decodedToken != false) {
+                
+                $config['upload_path'] = 'upload/data';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
+                $config['max_size'] = '50000000';
+                $this->load->library('upload', $config);
 
                 $arrdata = array(
                     'NIK' => $this->input->post('txtNik'),
@@ -699,19 +708,27 @@ class Pegawai extends REST_Controller
                     'kelamin' => $this->input->post('txtKelamin'),
                     'id_pendidikan' => $this->input->post('txtPendidikan'),
                     'id_pekerjaan' => $this->input->post('txtPekerjaan'),
-                    'id_hubkel' => $this->input->post('txtHubungan'),
+                    'id_hubkel' => $this->input->post('txtHubungan')
                 );
+                if (!$this->upload->do_upload('inputfileupload')) {
+                    $error = array('error' => $this->upload->display_errors());
+                } 
+                else {
+                    $upload = $this->upload->data();
+                    $arrdata["url"] = $upload['file_name'];
+                }
 
                 $this->db->where('id', $this->uri->segment(3));
-                $this->db->update('his_keluarga', $arrdata);
+                $result = $this->db->update('his_keluarga', $arrdata);
 
-                if ($this->db->affected_rows() == '1') {
+                if ($result) {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil ditambah!';
                 } else {
                     $arr['hasil'] = 'error';
                     $arr['message'] = 'Data Gagal Ditambah!';
                 }
+                $arr["query"] = $this->db->last_query();
 
 
                 $this->set_response($arr, REST_Controller::HTTP_OK);
@@ -2358,18 +2375,43 @@ class Pegawai extends REST_Controller
     {
         $headers = $this->input->request_headers();
 
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization']) || true) {
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false || true) {
+            if ($decodedToken != false) {
 
                 $id_user = $this->input->get('id');
                 $this->db->where('id_user', $id_user);
                 $this->db->where('kategori_id', $this->input->get('kategori'));
                 $this->db->where('tampilkan', '1');
                 $this->db->order_by('tgl', 'DESC');
-                $datas["result"] = $this->db->get('his_files')->result();
+                $resCek = $this->db->get('his_files')->result();
+
+                $da = '';
+                $no = 0;
+                foreach ($resCek as $val) {
+                    ++$no;
+                    $text = 'text-success';
+
+                    $da .= '<tr>';
+                    $da .= '<td>';
+                    $da .= $no;
+                    $da .= '</td>';
+                    $da .= '<td class="' . $text . '">';
+                    $da .= $val->nama_file;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= '<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/data/' . $val->url . '\')"><i class="fa fa-eye"></i></a>';
+                    $da .= '</td>';
+                    $da .= '<td><a class="label label-danger" href="javascript:void(0);" onClick="hapusfile(\'' . $val->id . '\')">';
+                    $da .= 'Hapus';
+                    $da .= '</a>';
+                    $da .= '</td>';
+
+                    $da .= '</tr>';
+                }
+
                 $arr['hasil'] = 'success';
-                $arr['isi'] = $this->load->view('pegawai/view_listfile', $datas, true);
+                $arr['isi'] = $da;
                 $this->set_response($arr, REST_Controller::HTTP_OK);
 
                 return;

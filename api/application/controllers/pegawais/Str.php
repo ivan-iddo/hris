@@ -5,30 +5,30 @@ header("Access-Control-Allow-Methods: PUT, GET, POST");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
 
-class Penghargaan extends MY_Controller
+class Str extends MY_Controller
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->model("His_penghargaan_model");
-	}
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model("His_str_model");
+    }
 
-	public function index($id)
-	{
+    public function index($id)
+    {
         $response['success'] = true;
         $response['data'] = $this->view($id);
 
-	    $this->set_response($response);
-	}
-	private function view($id)
-	{
-		$datas["result"] = $this->His_penghargaan_model->get_all(array("id_user" => $id));
-		$view = $this->load->view('pegawai/view_penghargaan', $datas, true);
-		return $view;
-	}
+        $this->set_response($response);
+    }
+    private function view($id)
+    {
+        $datas["result"] = $this->His_str_model->get_all(array("id_user" => $id));
+        $view = $this->load->view('pegawai/view_str', $datas, true);
+        return $view;
+    }
 
-	public function add()
+    public function add()
     {
         $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
@@ -41,13 +41,14 @@ class Penghargaan extends MY_Controller
             $data = array('inputfileupload' => $this->upload->data());
             $filename = $data['inputfileupload']['file_name'];
         }
+
         $datas["id_user"] = $this->input->post('id_userfile');
-        $datas["penghargaan"] = $this->input->post('penghargaan');
-        $datas["instansi"] = $this->input->post('instansi');
-        $datas["tanggal"] = $this->input->post('tanggal');
+        $datas["str"] = $this->input->post('str');
+        $datas["date_start"] = $this->input->post('date_start');
+        $datas["date_end"] = $this->input->post('date_end');
         $datas["url"] = $filename;
 
-        $create = $this->His_penghargaan_model->create($datas);
+        $create = $this->His_str_model->create($datas);
 
         if ($create) {
             $response['success'] = true;
@@ -64,9 +65,8 @@ class Penghargaan extends MY_Controller
 
     public function delete($id)
     {
-        $check = $this->His_penghargaan_model->delete($id);
+        $check = $this->His_str_model->delete($id);
         $id_user = $this->input->get("id_userfile");
-
         if ($check) {
             $response['success'] = true;
             $response['message'] = 'Berhasil!';

@@ -10,20 +10,20 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="Nama Penghargaan" class="form-control" id="penghargaan"
-                                            required name="penghargaan"></div>
+                <div class="col-sm-6"><input type="text" placeholder="No SIP" class="form-control" id="sip"
+                                            required name="sip"></div>
                 <div class="col-sm-3"></div>
             </div>
             <div class="form-group">
                <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="text" placeholder="Instansi Pemberi" class="form-control" id="instansi"
-                                           required name="instansi"></div>
+               <div class="col-sm-6"><input type="date" placeholder="Tanggal Dikeluarkan" class="form-control" id="date_start"
+                                           required name="date_start"></div>
                <div class="col-sm-3"></div>
             </div>
             <div class="form-group">
                <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="date" placeholder="Tanggal" class="form-control" id="tanggal"
-                                           required name="tanggal"></div>
+               <div class="col-sm-6"><input type="date" placeholder="Tanggal Berakhir" class="form-control" id="date_end"
+                                           required name="date_end"></div>
                <div class="col-sm-3"></div>
             </div>
             <div class="form-group">
@@ -43,9 +43,9 @@
                 <thead>
                 <tr>
                     <th style="width:20px">No.</th>
-                    <th>Nama Penghargaan</th>
-                    <th>Instansi Pemberi</th>
-                    <th>Tanggal</th>
+                    <th>No SIP</th>
+                    <th>Tanggal Dikeluarkan</th>
+                    <th>Tanggal Berakhir</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -64,7 +64,7 @@ $("form").on("submit", function(e){
 
     if (id !== '') {
         $.ajax({
-            url: BASE_URL + "pegawais/penghargaan/add", /* Url to which the request is send*/
+            url: BASE_URL + "pegawais/sip/add", /* Url to which the request is send*/
             type: "POST",
             headers: {
                 'Authorization': localStorage.getItem("Token"),
@@ -95,12 +95,13 @@ function getfileupload(result) {
 }
 
 function loadData() {
-    getJson(getfileupload, BASE_URL + 'pegawais/penghargaan/' + id);
+    getJson(getfileupload, BASE_URL + 'pegawais/sip/' + id);
 }
 
 loadData();
 
 function filedelete(result) {
+    console.log(result);
     if (result.success) {
         swal("Deleted!", "Data berhail dihapus.", "success");
     } else {
@@ -119,7 +120,7 @@ function hapusfile(a) {
         confirmButtonText: "Ya, Hapus saja!",
         closeOnConfirm: false
     }, function () {
-        getJson(filedelete, BASE_URL + 'pegawais/penghargaan/delete/' + a + "?id_userfile=" + id);
+        getJson(filedelete, BASE_URL + 'pegawais/sip/delete/' + a + '?id_userfile=' + id);
     });
 }
 </script>

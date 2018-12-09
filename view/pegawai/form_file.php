@@ -1,50 +1,21 @@
-<form name="form-file" id="form-file">
+<form name="form-file" id="form-file" class="form-inline">
     <div class="panel-body pad-all">
         <div class="row"><input type="text" style="display:none" name="kategorifile" id="kategorifile"
                                 value="<?php echo $_GET['id'] ?>"><input type="text" style="display:none"
                                                                          name="id_userfile" id="id_userfile">
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input required name="inputfileupload" id="inputfileupload" type="file"
-                                             class="btn btn-success btn-sm fileinput-button dz-clickable"></div>
-                <div class="col-sm-3"></div>
+            <div class="col-sm-4" style="padding-right: 7.5px;">
+                <div class="form-group"><input name="inputfileupload" id="inputfileupload" type="file"
+                                               class="btn btn-success btn-sm fileinput-button dz-clickable"></div>
             </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="Keterangan" class="form-control" id="keterangan"
-                                            required name="keterangan"></div>
-                <div class="col-sm-3"></div>
+            <div class="col-sm-3">
+                <div class="form-group"><input type="text" placeholder="nama file" class="form-control" id="namafile"
+                                               name="namafile"></div>
             </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="Kasus" class="form-control" id="kasus"
-                                            required name="kasus"></div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="tindakan" class="form-control" id="tindakan"
-                                            required name="tindakan"></div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="date" placeholder="Tmt Awal" class="form-control" id="Tmt Awal"
-                                            required name="date_start"></div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="date" placeholder="Tmt Akhir" class="form-control" id="Tmt Akhir"
-                                            required name="date_end"></div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6">
-                  <button type="submit" class="btn btn-default">Simpan</button>
+            <div class="col-sm-3">
+                <div class="form-group">&nbsp;<span id="uploadbtn" style="width:80px"
+                                                    class="form-control btn btn-primary btn-md  upload-btn"
+                                                    onclick="upload_file2()"><i class="fa fa-save padd-left"></i> Upload</span>
                 </div>
-                <div class="col-sm-3"></div>
             </div>
         </div>
     </div>
@@ -55,13 +26,10 @@
             <table class="table table-striped table-hover table-vcenter">
                 <thead>
                 <tr>
-                    <th style="width:20px">No.</th>
-                    <th>Keterangan</th>
-                    <th>Kasus</th>
-                    <th>Tidakan</th>
-                    <th>Tmt Awal</th>
-                    <th>Tmt Akhir</th>
-                    <th>Action</th>
+                    <th class="min-width" style="width:20px">No.</th>
+                    <th>Nama File</th>
+                    <th class="min-width" style="width:20px">View</th>
+                    <th class="min-width" style="width:20px">Delete</th>
                 </tr>
                 </thead>
                 <tbody id="fileIjazah"></tbody>
@@ -69,16 +37,17 @@
         </div>
     </div>
 </form>
-<script> 
-$("form").on("submit", function(e){
-        e.preventDefault();
+<script> function upload_file2() {
         var id_pelatihan = $('#f_id_edit').val();
         $('#id_userfile').val(id_pelatihan);
         var form = $("#form-file");
-        // if (empty($('#inputfileupload').val())) {
-        //     swal('PERHATIAN!', 'Anda belum memilih file untuk di upload');
-        //     return false;
-        // }
+        if (empty($('#inputfileupload').val())) {
+            swal('PERHATIAN!', 'Anda belum memilih file untuk di upload');
+            return false;
+        } else if (empty($('#namafile').val())) {
+            swal('PERHATIAN!', 'Anda memasukkan nama file');
+            return false;
+        }
         if (id_pelatihan !== '') {
             $.ajax({
                 url: BASE_URL + "pegawais/upload/upload_file", /* Url to which the request is send*/
@@ -102,7 +71,7 @@ $("form").on("submit", function(e){
         } else {
             swal('PERHATIAN!', 'Anda harus menyimpan data Pegawai Terlebih dahulu sebelum melakukan upload file!');
         }
-    });
+    }
 
     function getfileupload(result) {
         $('#fileIjazah').html(result.isi);

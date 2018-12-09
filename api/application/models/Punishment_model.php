@@ -1,7 +1,7 @@
 <?php
-class His_penghargaan_model extends MY_Model
+class Punishment_model extends MY_Model
 {
-	private $table = "his_penghargaan";
+	private $table = "his_punishment";
 
 	function __construct()
 	{
@@ -79,7 +79,6 @@ class His_penghargaan_model extends MY_Model
 
 	function update($id, $item)
 	{
-		// default active = 1, 2 = done
         $this->_update();
         $item["statue"] = $item["statue"] ? $item["statue"] : 1;
         
@@ -111,4 +110,5 @@ class His_penghargaan_model extends MY_Model
 		$result = $this->db->update($this->table, $data, array("id" => $id));
 		return $result;
 	}
+
 }

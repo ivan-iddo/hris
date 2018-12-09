@@ -33,6 +33,11 @@ var columnKeluarga = [
            {headerName: "Hubungan", field: "hubkel", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Pendidikan", field: "pendidikan", width: 190, filterParams:{newRowsAction: 'keep'}}, 
            {headerName: "Pekerjaan", field: "pekerjaan", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Dokumen", field: "url", 
+              cellRenderer: function(params) {
+                  return '<a href="api/upload/data/'+params.value+'" target="_blank"><i class="fa fa-eye"></i>Lihat Dokumen</a>'
+              }
+            },
         ];
 
 var gridKeluargaOpt = {

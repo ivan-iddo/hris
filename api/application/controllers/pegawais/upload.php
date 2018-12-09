@@ -95,35 +95,42 @@ class Upload extends CI_Controller
     {
         $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
-        $config['max_size'] = '50000000';
+        $config['max_size'] = '50000000'; 
         $this->load->library('upload', $config);
-        $filename = 'logo.png';
-        if (!$this->upload->do_upload('inputfileupload')) {
+        $filename='logo.png';
+
+        if (!$this->upload->do_upload('inputfileupload'))
+        {
             $error = array('error' => $this->upload->display_errors());
-        } else {
+        }
+        else
+        {
             $data = array('inputfileupload' => $this->upload->data());
             $filename = $data['inputfileupload']['file_name'];
         }
-        $datas["id_user"] = $this->input->post('id_userfile');
-        $datas["kategori_id"] = $this->input->post('kategorifile');
-        $datas["keterangan"] = $this->input->post('keterangan');
-        $datas["kasus"] = $this->input->post('kasus');
-        $datas["tindakan"] = $this->input->post('tindakan');
-        $datas["date_start"] = $this->input->post('date_start');
-        $datas["date_end"] = $this->input->post('date_end');
-        $datas["nama_file"] = $this->input->post('namafile');
-        $datas["url"] = $filename;
+
+        $id = $this->input->post('id_userfile');
+        $id_kategori = $this->input->post('kategorifile'); 
+
+        $datas = array(
+                'id_user' => $id,
+                'kategori_id' => $id_kategori,
+                'nama_file' =>$this->input->post('namafile'),
+                'url' => $filename);
 
         $this->db->insert('his_files', $datas);
-        if ($this->db->affected_rows() == 1) {
+
+        if($this->db->affected_rows() == '1'){
             $arr['file'] = $filename;
             $arr['nama'] = $this->input->post('namafile');
-            $arr['hasil'] = 'success';
-            $arr['message'] = 'Data berhasil ditambah!';
-        } else {
-            $arr['hasil'] = 'error';
-            $arr['message'] = 'Data Gagal Ditambah!';
+            $arr['hasil']='success';
+            $arr['message']='Data berhasil ditambah!'; 
         }
-        echo json_encode($arr);
+        else{
+            $arr['hasil']='error';
+            $arr['message']='Data Gagal Ditambah!';
+        }
+
+        echo json_encode($arr);                                           
     }
 }

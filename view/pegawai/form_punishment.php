@@ -1,7 +1,8 @@
 <form name="form-file" id="form-file">
     <div class="panel-body pad-all">
-        <div class="row">
-            <input type="hidden" name="id_userfile" id="id_userfile">
+        <div class="row"><input type="text" style="display:none" name="kategorifile" id="kategorifile"
+                                value="<?php echo $_GET['id'] ?>"><input type="text" style="display:none"
+                                                                         name="id_userfile" id="id_userfile">
             <div class="form-group">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6"><input required name="inputfileupload" id="inputfileupload" type="file"
@@ -10,21 +11,33 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="Nama Penghargaan" class="form-control" id="penghargaan"
-                                            required name="penghargaan"></div>
+                <div class="col-sm-6"><input type="text" placeholder="Keterangan" class="form-control" id="keterangan"
+                                            required name="keterangan"></div>
                 <div class="col-sm-3"></div>
             </div>
             <div class="form-group">
-               <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="text" placeholder="Instansi Pemberi" class="form-control" id="instansi"
-                                           required name="instansi"></div>
-               <div class="col-sm-3"></div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6"><input type="text" placeholder="Kasus" class="form-control" id="kasus"
+                                            required name="kasus"></div>
+                <div class="col-sm-3"></div>
             </div>
             <div class="form-group">
-               <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="date" placeholder="Tanggal" class="form-control" id="tanggal"
-                                           required name="tanggal"></div>
-               <div class="col-sm-3"></div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6"><input type="text" placeholder="tindakan" class="form-control" id="tindakan"
+                                            required name="tindakan"></div>
+                <div class="col-sm-3"></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6"><input type="date" placeholder="Tmt Awal" class="form-control" id="Tmt Awal"
+                                            required name="date_start"></div>
+                <div class="col-sm-3"></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6"><input type="date" placeholder="Tmt Akhir" class="form-control" id="Tmt Akhir"
+                                            required name="date_end"></div>
+                <div class="col-sm-3"></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-3"></div>
@@ -43,9 +56,11 @@
                 <thead>
                 <tr>
                     <th style="width:20px">No.</th>
-                    <th>Nama Penghargaan</th>
-                    <th>Instansi Pemberi</th>
-                    <th>Tanggal</th>
+                    <th>Keterangan</th>
+                    <th>Kasus</th>
+                    <th>Tidakan</th>
+                    <th>Tmt Awal</th>
+                    <th>Tmt Akhir</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -55,7 +70,6 @@
     </div>
 </form>
 <script> 
-// set ID user
 var id = $('#f_id_edit').val();
 $('#id_userfile').val(id);
 $("form").on("submit", function(e){
@@ -64,7 +78,7 @@ $("form").on("submit", function(e){
 
     if (id !== '') {
         $.ajax({
-            url: BASE_URL + "pegawais/penghargaan/add", /* Url to which the request is send*/
+            url: BASE_URL + "pegawais/punishment/add", /* Url to which the request is send*/
             type: "POST",
             headers: {
                 'Authorization': localStorage.getItem("Token"),
@@ -95,12 +109,13 @@ function getfileupload(result) {
 }
 
 function loadData() {
-    getJson(getfileupload, BASE_URL + 'pegawais/penghargaan/' + id);
+    getJson(getfileupload, BASE_URL + 'pegawais/punishment/' + id);
 }
 
 loadData();
 
 function filedelete(result) {
+    console.log(result);
     if (result.success) {
         swal("Deleted!", "Data berhail dihapus.", "success");
     } else {
@@ -119,7 +134,7 @@ function hapusfile(a) {
         confirmButtonText: "Ya, Hapus saja!",
         closeOnConfirm: false
     }, function () {
-        getJson(filedelete, BASE_URL + 'pegawais/penghargaan/delete/' + a + "?id_userfile=" + id);
+        getJson(filedelete, BASE_URL + 'pegawais/punishment/delete/' + a + '?id_userfile=' + id);
     });
 }
 </script>

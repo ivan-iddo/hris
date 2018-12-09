@@ -5,13 +5,13 @@ header("Access-Control-Allow-Methods: PUT, GET, POST");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
 
-class Penghargaan extends MY_Controller
+class Punishment extends MY_Controller
 {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model("His_penghargaan_model");
+		$this->load->model("Punishment_model");
 	}
 
 	public function index($id)
@@ -21,12 +21,13 @@ class Penghargaan extends MY_Controller
 
 	    $this->set_response($response);
 	}
-	private function view($id)
-	{
-		$datas["result"] = $this->His_penghargaan_model->get_all(array("id_user" => $id));
-		$view = $this->load->view('pegawai/view_penghargaan', $datas, true);
-		return $view;
-	}
+
+    private function view($id)
+    {
+        $datas["result"] = $this->Punishment_model->get_all(array("id_user" => $id));
+        $view = $this->load->view('pegawai/view_punishment', $datas, true);
+        return $view;
+    }
 
 	public function add()
     {
@@ -42,12 +43,14 @@ class Penghargaan extends MY_Controller
             $filename = $data['inputfileupload']['file_name'];
         }
         $datas["id_user"] = $this->input->post('id_userfile');
-        $datas["penghargaan"] = $this->input->post('penghargaan');
-        $datas["instansi"] = $this->input->post('instansi');
-        $datas["tanggal"] = $this->input->post('tanggal');
+        $datas["keterangan"] = $this->input->post('keterangan');
+        $datas["kasus"] = $this->input->post('kasus');
+        $datas["tindakan"] = $this->input->post('tindakan');
+        $datas["date_start"] = $this->input->post('date_start');
+        $datas["date_end"] = $this->input->post('date_end');
         $datas["url"] = $filename;
-
-        $create = $this->His_penghargaan_model->create($datas);
+        
+        $create = $this->Punishment_model->create($datas);
 
         if ($create) {
             $response['success'] = true;
@@ -64,9 +67,8 @@ class Penghargaan extends MY_Controller
 
     public function delete($id)
     {
-        $check = $this->His_penghargaan_model->delete($id);
+        $check = $this->Punishment_model->delete($id);
         $id_user = $this->input->get("id_userfile");
-
         if ($check) {
             $response['success'] = true;
             $response['message'] = 'Berhasil!';
