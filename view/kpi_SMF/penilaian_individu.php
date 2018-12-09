@@ -9,9 +9,7 @@
 					                <div class="panel-body">
                                     <form class="form-horizontal  pad-all" name="form-pi" id="form-pi" method="post">
                                     <div class="row">
-                                    <input  id="uk" style="display:none" name="uk" class="form-control" type="text">
-					                           
-                                    <input style="display:none" type="text" id="id_jenis" name="id_jenis" value="5">
+                                    <input style="display:none" type="text" id="id_jenis" name="id_jenis" value="16">
                                     <input  style="display:none" type="text" id="id_pi" name="id_pi">
                                     <input style="display:none" type="text" id="id_grup" name="id_grup">
 					                        <div class="col-sm-4">
@@ -23,7 +21,7 @@
 					                        </div>
 					                        <div class="col-sm-4">
 					                            <div class="form-group">
-					                                <label class="control-label">Nama Pegawai</label>
+					                                <label class="control-label">Nama Pimpinan Unit</label>
                                                     <div class="input-group mar-btm">
                                                     <input disabled style="width:150px" name="nama_pegawai" id="nama_pegawai" placeholder="Search" class="form-control" type="text">
                                                     <span class="input-group-addon" onCLick="search()"><i class="fa fa-search"></i></span>
@@ -34,6 +32,14 @@
 					                    </div>
 
                                         <div class="row">
+                                        <div class="col-sm-9">
+					                            <div class="form-group">
+					                                <label class="control-label">Unit Kerja </label>
+					                                <input  id="uk" name="uk" class="form-control" type="text">
+					                            </div>
+					                        </div>
+                                            </div>
+                                            <div class="row">
 					                        <div class="col-sm-4">
 					                            <div class="form-group">
 					                                <label class="control-label">Periode </label>
@@ -59,7 +65,6 @@
                                                 <a href="javascript:void(0)" class="btn btn-mint" id="simpan" name="simpan" type="submit" onClick="$('#simpan').show('slow');$('.buttoenedit').hide('slow');document.getElementById('form-pi').reset(); return false;">Buat Baru</a> 
 					                        
                                             </div>
-                                             
 					                    </div>
 					                
                                        
@@ -76,7 +81,7 @@
                     <!--===================================================-->
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title">List Data Penilaian Kerja Individu</h3>
+                            <h3 class="panel-title">List Data Penilaian Kerja Unit</h3>
                         </div>
                         <div class="panel-body">
                         <div class="dataTables_filter" id="demo-dt-addrow_filter" style="margin-right:5px">
@@ -102,9 +107,8 @@
 
 
 <script> 
- $('.judul-menu').html('Penilaian Kerja Individu');
+ $('.judul-menu').html('Penilaian Kerja Unit');
 $('.buttoenedit').hide();
-
 function downloadKPI(){
     var params = { 
         fileName: 'kpi',
@@ -178,7 +182,6 @@ function downloadKPI(){
            debug: true,
             rowSelection: 'multiple',
            enableColResize: true,
-           rowGroupPanelShow: 'always',
            pivotPanelShow: 'always',
            enableRangeSelection: true,
            columnDefs: listPI,
@@ -186,7 +189,6 @@ function downloadKPI(){
            paginationPageSize: 50, 
            defaultColDef:{
                editable: false,
-               enableRowGroup:true,
                enablePivot:true,
                enableValue:true
            }
@@ -204,7 +206,7 @@ function downloadKPI(){
             var akhir ='';
             var id_pi='';
             var id_uk='';
-            var profesi='';
+            var nama_group=''
 
             // alert('>>'+selectedRows+'<<<');
             if(selectedRows == ''){
@@ -223,7 +225,7 @@ function downloadKPI(){
                awal += selectedRow.awal;
                akhir += selectedRow.akhir;
                id_uk += selectedRow.id_uk;
-               profesi += selectedRow.profesi;
+               nama_group += selectedRow.nama_group;
            });
                         }
                         $('#id_pi').val(selectedRowsString);
@@ -234,14 +236,9 @@ function downloadKPI(){
                         $('#simpan').hide(); 
                         $('.buttoenedit').show(); 
                         $('#id_grup').val(id_uk);
-                         
-                        if(empty(profesi)){
-                            swal('Perhatian!','KPI Tidak dapat di proses karena pegawai tidak memiliki Profesi SMF/Non-SMF');
-                            return false;
-                        }else{
-                            getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=5&pid='+selectedRowsString+'&profesi='+profesi);
-                        }
-                       
+                        $('#uk').val(nama_group);
+                        
+                        getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=5&pid='+selectedRowsString);
            }
 
            function prosesDataPI(result){
@@ -263,19 +260,14 @@ loadDataPI(0);
  var columnDefs = [ 
   
  {headerName: 'Kegiatan', field: 'node', width: 160,editable:false},
- {headerName: 'Bobot (%)', field: 'bobot', width: 160,editable:false, type: 'valueColumn'},
+ {headerName: 'Bobot (%)', field: 'bobot', width: 160,editable:false},
  {headerName: 'Target Kinerja', field: 'target', width: 120},
  {headerName: 'Capaian', field: 'capaian', width: 120},
  {headerName: 'Capaian (%)', field: 'persen', width: 120},
- {headerName: 'Nilai', field: 'nilai', width: 120, type: 'valueColumn'},  {
-        headerName: 'Bobot',
-        field: 'total', 
-        width: 200
-    } , 
+ {headerName: 'Nilai', field: 'nilai', width: 120},
+ {headerName: 'Bobot x Nilai', field: 'bobotnilai', width: 120},
  {headerName: 'Keterangan', field: 'keterangan', width: 120},
- {headerName: 'pid', field: 'pid',  hide:true},
- {field: "parent", rowGroup:true, hide:true},
- {field: "child", rowGroup:true, hide:true} 
+ {headerName: 'pid', field: 'pid',  hide:true}
 
 ];
 
@@ -288,18 +280,10 @@ var gridOptions = {
         debug: true,
          rowSelection: 'single',
         enableColResize: true,
-        rowGroupPanelShow: 'always',
         pivotPanelShow: 'always',
         enableRangeSelection: true,
         columnDefs: columnDefs,
-        onCellValueChanged: function(params) {
-         updateTotal(params);
-    }, 
         pagination: false,
-        autoGroupColumnDef: {
-            headerName:'Group',
-            field: 'athlete'
-        },
  defaultColDef: {
      editable: true
  },
@@ -313,29 +297,6 @@ var gridOptions = {
         console.log('cellEditingStopped');
     }
 };
- 
-function updateTotal(params){
-    
-    var itemsToUpdate = [];
-    var jml=0;
-    gridOptions.api.forEachLeafNode( function(node) {
-        var datas = node.data;
-        datas.total = parseFloat((Number(datas.bobot)/100) * Number(datas.nilai)).toFixed(1);
-        jml =  parseFloat(Number(jml) + Number(datas.total)).toFixed(1);
-       
-        if(node.data.id ==='totalsjumlah'){
-          //  datas.bobot=13;
-          
-          datas.total = jml;
-           // datas.total=12;
-            
-        }
-        itemsToUpdate.push(datas);
-      // alert(node.data.id);
-    });
-   // alert(JSON.stringify(itemsToUpdate));
-    var res = gridOptions.api.updateRowData({update: itemsToUpdate});
-}
 
 function getRowData() {
     var rowData = [];
@@ -349,17 +310,15 @@ function getRowData() {
 function tektok(){
     var selectedRows = gridPI.api.getSelectedRows();
     var selectedRowsString = '';
-    var profesi ='';
            selectedRows.forEach( function(selectedRow, index) {
             
                if (index!==0) {
                    selectedRowsString += ', ';
                }
                selectedRowsString += selectedRow.id; 
-               profesi += selectedRow.profesi;
            });
            
-           getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=5&pid='+selectedRowsString+'&profesi='+profesi);
+           getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=5&pid='+selectedRowsString);
 }
  
 function onBtForEachLeafNode() {
@@ -393,7 +352,7 @@ function prosesData(result){
 } 
 
 function loadData(){
- getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=5');
+ getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=5&kod=95');
 }
 
 loadData();

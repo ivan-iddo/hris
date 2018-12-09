@@ -100,6 +100,7 @@ obj['id_user'] = id_user;
 
            function addPendidikan(){
                getOptions("txtStatusLulus",BASE_URL+"master/statuslulus");
+               getOptions("txtJakreditasi",BASE_URL+"master/akreditas");
                 getOptions("txtJPend",BASE_URL+"master/getmaster?id=29");
                
                
@@ -211,6 +212,8 @@ function editPendidikan(){
                $('#txtTglIjazah').val(data.pen_dijz);
                $('#txtKepalaSekolah').val(data.pen_nkep);
                $('#id_pendidikan').val(data.id);
+               $('#txtJspesialis').val(data.pen_spe);
+               $('#txtJjurusan').val(data.pen_jur);
 
 if(!empty(data.file)){
     var datafile='';
@@ -231,7 +234,8 @@ if(!empty(data.file)){
                
 
                                               
-               getOptionsEdit("txtJPend",BASE_URL+"master/getmaster?id=29",data.pen_code); 
+               getOptionsEdit("txtJPend",BASE_URL+"master/getmaster?id=29",data.pen_code);
+			   getOptionsEdit("txtJakreditasi",BASE_URL+"master/akreditas",data.pen_akr);
                getOptionsEdit("txtStatusLulus",BASE_URL+"master/statuslulus",data.pen_desc);
                
                                    } 

@@ -7,13 +7,20 @@
                       <!-- /.box-header -->
                       <!-- form start -->
                       <div class="box-body">
+					     <div class="form-group">
+                          <label class="col-sm-4 control-label" for="inputstatus">Pangkat</label>
+                          <div class="col-sm-8">
+                          <select class="form-control select2" id="pangkat_id" name="pangkat_id" style="width: 100%; ">
+                               
+                               </select>
+                          </div>
+                        </div>
                         <div class="form-group">
                           <label class="col-sm-4 control-label" for="inputstatus">Golongan</label>
                           <div class="col-sm-8">
-                          <select class="form-control select2" id="golongan_id" name="golongan_id" style="width: 100%;">
+                          <select class="form-control select2" id="golongan_id" name="golongan_id" style="width: 100%; ">
                                
                                </select>
-                         <input type="text" id="id_golongan" name="id_golongan" style="display:none">
                           </div>
                         </div>
                         <div class="form-group">

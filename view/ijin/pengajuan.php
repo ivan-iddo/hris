@@ -17,7 +17,7 @@ require_once('../../connectdb.php');
                                          <?php 
                                         // print_r($_SESSION['userdata'] );
 
-                                         $query= mysqli_query($con,'select sum(total)as jml from his_izin where tampilkan=1 and status=1 and id_user = '.$_SESSION['userdata']['id'].' order by tgl_izin DESC');
+                                         $query= mysqli_query($con,'select sum(total)as jml from his_izin where tampilkan=1 and id_user = '.$_SESSION['userdata']['id'].' order by tgl_izin DESC');
                                           $rowcount=mysqli_num_rows($query);
                                           $row   = mysqli_fetch_row($query);
                                           $total_izin =0;

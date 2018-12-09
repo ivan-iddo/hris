@@ -81,8 +81,9 @@ class Golongan extends REST_Controller
                 //$this->db->limit('100');
                 //$this->db->order_by();
                 $arr = array();
-                $this->db->select('his_golongan.*,m_golongan_pegawai.nama as nama_p');
+                $this->db->select('his_golongan.*,m_golongan_peg.gol_romawi as nama_p,m_golongan_peg.pangkat,his_golongan.no_sk');
                 $this->db->join('m_golongan_pegawai', 'm_golongan_pegawai.id = his_golongan.golongan_id', 'LEFT');
+                $this->db->join('m_golongan_peg', 'm_golongan_peg.id = his_golongan.golongan_id', 'LEFT');
                 $this->db->where('his_golongan.tampilkan', '1');
                 if (!empty($id = $this->uri->segment(4))) {
                     $this->db->where('his_golongan.id_user', $id);
@@ -92,6 +93,7 @@ class Golongan extends REST_Controller
                     $arr[] = array('id' => $d->id,
                         'id_user' => $d->id_user,
                         'golongan_id' => $d->golongan_id,
+                        'pangkat_id' => $d->pangkat,
                         'tmt_golongan' => $d->tmt_golongan,
                         'no_sk' => $d->no_sk,
                         'tgl_sk' => $d->tgl_sk,

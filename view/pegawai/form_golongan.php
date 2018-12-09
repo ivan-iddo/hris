@@ -25,6 +25,7 @@
 	
 
 var columnGolongan = [ 
+            {headerName: "Pangkat", field: "pangkat_id", width: 100, filterParams:{newRowsAction: 'keep'}},
             {headerName: "Golongan", field: "namaGolongan", width: 100, filterParams:{newRowsAction: 'keep'}},
            {headerName: "TMT Golongan", field: "tmt_golongan", width: 190, filterParams:{newRowsAction: 'keep'}}, 
            {headerName: "No.SK", field: "no_sk", width: 100, filterParams:{newRowsAction: 'keep'}}, 

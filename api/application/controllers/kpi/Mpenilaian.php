@@ -159,6 +159,71 @@ class Mpenilaian extends REST_Controller
 		
 		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
+	
+	public function listpismf_get(){
+		$headers = $this->input->request_headers(); 
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+				//$this->db->limit('100');
+				//$this->db->order_by();
+		 
+		
+			 	
+		$this->db->join('sys_grup_user','his_kpi_smf.id_unitkerja = sys_grup_user.id_grup','LEFT');  
+		$this->db->join('sys_user_profile','his_kpi_smf.no_pegawai = sys_user_profile.NIP','LEFT');
+		$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
+		$this->db->where('his_kpi_smf.tampilkan','1');
+		$this->db->where('his_kpi_smf.id_jenis',$this->uri->segment(4));
+		 if(!empty($this->uri->segment(5))){
+			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)",$this->uri->segment(6)); 
+		 }
+		$total_rows = $this->db->count_all_results('his_kpi_smf');
+		$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,6);
+		 
+				
+		$this->db->select('his_kpi_smf.*,sys_grup_user.grup,sys_grup_user.grup as nama_uk,
+		sys_user_profile.NIP,
+		sys_user_profile.NIK,
+		sys_user.name,sys_user_profile.kategori_profesi as profesi');
+		
+		$this->db->join('sys_grup_user','his_kpi_smf.id_unitkerja = sys_grup_user.id_grup','LEFT');  
+		$this->db->join('sys_user_profile','his_kpi_smf.no_pegawai = sys_user_profile.NIP','LEFT');
+		$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
+		$this->db->where('his_kpi_smf.tampilkan','1');
+		$this->db->where('his_kpi_smf.id_jenis',$this->uri->segment(4));
+		if(!empty($this->uri->segment(5))){
+			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)",$this->uri->segment(5)); 
+		 } 
+
+		$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
+		
+		
+		  $res = $this->db->get('his_kpi_smf')->result();
+		  foreach($res as $d){
+			$arr['result'][]=array('nama_uk'=>$d->nama_uk,
+								   'id_uk'=>$d->id_unitkerja, 
+								   'id'=>$d->id,
+								   'nama'=>$d->name, 
+								   'nama_group'=>$d->grup,
+								   'nip'=>$d->NIP,
+								   'nik'=>$d->NIK,
+								   'awal' => $d->awal,
+								   'akhir'=> $d->akhir,
+								   'profesi' => $d->profesi
+								   );
+		  }
+		 
+		  $arr['total']=$total_rows;
+		  $arr['paging'] = $pagination['limit'][1];
+		  $this->set_response($arr, REST_Controller::HTTP_OK);
+			
+                return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
 
 
 
@@ -307,17 +372,13 @@ class Mpenilaian extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				$id = $this->input->get('id');
-				if(!empty($id)){
-					 $this->db->where('child',$this->input->get('id'));
-				}
-				   
+
 				  $this->db->where('tampilkan','1'); 
 				  $res = $this->db->get('m_penilaian_kpi')->result();
-				  
+
 			if(!empty($res)){
 				 foreach($res as $d){
-					$arr[]=array('nama'=>$d->grup,'id'=>$d->id_grup,'deskripsi'=>$d->kode);
+					$arr[]=array('nama'=>$d->grup,'id'=>$d->id_grup,'deskripsi'=>$d->kode,);
 				  }
 			}else{
 			$arr['result'] ='empty';
@@ -382,20 +443,18 @@ class Mpenilaian extends REST_Controller
 				if(!empty($id)){
 					 $this->db->where('m_penilaian_kpi.id_grup',$this->input->get('id'));
 				}
-
 				if(!empty($child)){
 					$this->db->where('m_penilaian_kpi.child',$child);
-			   }
-				
-				 
-				  
+				}
 				  $this->db->where('m_penilaian_kpi.tampilkan','1');
 
 				  $this->db->join('dm_term','m_penilaian_kpi.kode = dm_term.id','LEFT');
 				  $res = $this->db->get('m_penilaian_kpi')->result(); 
+				  
+				  $a=count($res);
 			if(!empty($res)){
 				 foreach($res as $d){
-					$arr[]=array('id'=>$d->id_grup,'profesi'=>$d->kode,'deskripsi'=>$d->nama,'nama'=>$d->grup);
+					$arr[]=array('id'=>$d->id_grup,'profesi'=>$d->kode,'deskripsi'=>$d->nama,'nama'=>$d->grup, 'jum'=>$a);
 				  }
 			}else{
 			$arr['result'] ='empty';
@@ -408,6 +467,8 @@ class Mpenilaian extends REST_Controller
 		
 		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
+	
+	
 	
 	public function getitemdetail_get(){
 		$headers = $this->input->request_headers();
@@ -635,7 +696,7 @@ public function save_post(){
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 				 
-				 $id    = $this->input->get('id');
+			  $id    = $this->input->get('id');
 			  $pid = $this->input->get('pid');
 
 				 if(!empty($pid)){
@@ -660,14 +721,8 @@ public function save_post(){
 				  $keterangan = '';
 				   
 				$this->db->where('child',$id);
-				if(!empty($this->input->get('profesi'))){
-					$kode_smf = 96;
-					if($this->input->get('profesi')=='2'){
-						$kode_smf='95';
-					}
-					$this->db->where('kode',$kode_smf);
-					
-				}
+				$kode_smf= $this->input->get('kod');
+				$this->db->where('kode',$kode_smf);
 				
 				$res = $this->db->get('m_penilaian_kpi')->result();
 
@@ -765,6 +820,120 @@ public function save_post(){
 				 
 				$this->set_response($arr, REST_Controller::HTTP_OK);
 		 
+			
+                return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+	
+	public function listkpi_get(){
+		$headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+
+				if(!empty($this->input->get('id_grup'))){
+					$this->db->where('id_grup',$this->input->get('id_grup'));
+				 }
+				 if(!empty($kode)){
+					$this->db->where('kode',$kode);
+				 }
+				 if(!empty($id)){
+					$this->db->where('child',$id);
+				 }
+				 $this->db->where('tampilkan','1'); 
+				$res = $this->db->get('m_penilaian_kpi')->result();
+			
+			if(!empty($res)){
+				 foreach($res as $dat){
+					$arr['result'][]= array('id_grup'=> $dat->id_grup,'grup'=> $dat->grup,);
+				  }
+			}else{
+			$arr['result'] ='empty';
+		  }
+		  $this->set_response($arr, REST_Controller::HTTP_OK);
+			
+                return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+	
+		public function deletekpi_get(){
+		$headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+				 
+				 $id    = $this->input->get('id_grup');
+				 $this->db->where('id_grup',$id);
+				 $this->db->update('m_penilaian_kpi',array('tampilkan'=>'0'));
+				  
+				 if($this->db->affected_rows() == '1'){
+					$arr['hasil']='success';
+					$arr['message']='Data berhasil ditambah!';
+				 }else{
+					$arr['hasil']='error';
+					$arr['message']='Data Gagal Ditambah!';
+				 }
+				$this->set_response($arr, REST_Controller::HTTP_OK);
+		 
+			
+                return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+	
+	public function savekpi_post(){
+		$headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+
+				if(!empty($this->input->post('id_grup'))){
+					//edit
+					
+					$id_grup= $this->input->post('id_grup');
+					$arr=array('grup'=> $this->input->post('grup'),);;//array('nama'=>$this->input->post('nama'));
+					$this->db->where('id_grup',$id_grup);
+					$this->db->update(('m_penilaian_kpi'),$arr);
+				}else{
+				
+					$kode=95;
+
+					$this->db->select('count(id_grup) as total');
+					$this->db->where('kode)',$kode);
+					$this->db->where('tampilkan','1');
+
+				   $resCek = $this->db->get('m_penilaian_kpi')->row();
+					
+				   $izin_sudahDiambil = $resCek->total;
+			
+					$arr=array('grup'=> $this->input->post('grup'),'kode'=> $kode,);;//array('nama'=>$this->input->post('nama'));
+					$this->db->insert(('m_penilaian_kpi'),$arr);
+					
+				}
+				
+
+
+				if($this->db->affected_rows() == '1'){
+					$arr['hasil']='success';
+					$arr['message']='Data berhasil ditambah!';
+				 }else{
+					$arr['hasil']='error';
+					$arr['message']='Data Gagal Ditambah!';
+				 }
+
+			  
+		  $this->set_response($arr, REST_Controller::HTTP_OK);
 			
                 return;
 			}
