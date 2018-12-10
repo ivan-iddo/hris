@@ -100,8 +100,9 @@ obj['id_user'] = id_user;
 
            function addPendidikan(){
                getOptions("txtStatusLulus",BASE_URL+"master/statuslulus");
-               getOptions("txtJakreditasi",BASE_URL+"master/akreditas");
-                getOptions("txtJPend",BASE_URL+"master/getmaster?id=29");
+			   getOptions("txtJakreditasi",BASE_URL+"master/akreditas");
+               getOptions("txtJPend",BASE_URL+"master/getmaster?id=29");
+			  
                
                
                bootbox.dialog({ 

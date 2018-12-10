@@ -414,7 +414,7 @@ public function agama_get(){
 					 
 			  $res = $this->db->get('bobot')->result();
 			  foreach($res as $d){
-				$arr['result'][]=array('label'=>$d->nilai,'value'=>$d->id);
+				$arr['result'][]=array('label'=>$d->nilai,'value'=>$d->nilai);
 			  }
 			  
 			  $this->set_response($arr, REST_Controller::HTTP_OK);
