@@ -21,10 +21,10 @@
 				<input class="form-control" id="txtJjurusan" name="txtJjurusan"  placeholder="" type="text">
               </div>
             </div>
-			<div class="form-group">
+			<div class="form-group" style="display:none">
               <label class="col-sm-4 control-label" for="inputpropinsi">Spesialis</label>
               <div class="col-sm-8">
-				<input class="form-control" id="txtJspesialis" name="txtJspesialis"  placeholder="" type="text">
+				<input class="form-control" id="txtJspesialis" name="txtJspesialis"  placeholder="" type="text" >
               </div>
             </div>
 			<div class="form-group">
@@ -60,12 +60,6 @@
                 <input class="form-control" id="txtTglIjazah" name="txtTglIjazah" placeholder="" type="date">
               </div>
             </div><!-- End Hori sontal -->
-            <div class="form-group">
-              <label class="col-sm-4 control-label" for="inputpropinsi">Kepala Sekolah</label>
-              <div class="col-sm-8">
-                <input class="form-control" id="txtKepalaSekolah" name="txtKepalaSekolah" placeholder="" type="text">
-              </div>
-            </div>
             <div class="form-group">
               <label class="col-sm-4 control-label" for="inputpropinsi">Status</label>
               <div class="col-sm-8">
@@ -177,5 +171,5 @@
                     alert('Anda harus menyimpan data pendidikan terlebih dahulu sebelum melakukan upload ijazah!');
                 }
     }
-     
+  
 </script>

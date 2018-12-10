@@ -33,7 +33,6 @@ var columnPendidikan = [
            {headerName: "Tahun Lulus", field: "tahun", width: 100, filterParams:{newRowsAction: 'keep'}}, 
            {headerName: "No.Ijazah", field: "no_ijazah", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Tgl.Ijazah", field: "tgl_ijazah", width: 190, filterParams:{newRowsAction: 'keep'}},
-           {headerName: "Kepala Sekolah", field: "pen_nkep", width: 190, filterParams:{newRowsAction: 'keep'}}, 
         ];
 
 var gridPendidikanOpt = {

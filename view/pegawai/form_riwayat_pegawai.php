@@ -265,7 +265,13 @@
                                                                               id="txtkelurahan" name="txtkelurahan"
                                                                               style="width: 100%;"
                                                                               tabindex="-1"></select></div>
-                                            </div><!-- End Hori sontal --></div>
+                                            </div>
+											<div class="form-group">
+											<label class="col-sm-4 control-label" for="inputrt">Kode Pos</label> 
+											<div class="col-sm-8">
+												<input class="form-control" id="inputkpos" name="inputkpos" placeholder="" type="text" value="" onkeyup="copykpos()">
+											</div>
+											</div><!-- End Hori sontal --></div>
                                     </div><!-- /.box --><!-- Form Element sizes --><!-- /.box --><!-- Input addon -->
                                     <div class="box box-info"><!-- /.box-body --></div><!-- /.box --></div>
                                 <!--/.col (left) --><!-- right column -->
@@ -325,7 +331,13 @@
                                                                               style="width: 100%;" tabindex="-1">
                                                         <option selected="selected"></option>
                                                     </select></div>
-                                            </div><!-- End Hori sontal --></div><!-- /.box-header --><!-- /.box-body -->
+                                            </div><!-- End Hori sontal -->
+											<div class="form-group">
+											<label class="col-sm-4 control-label" for="inputrt">Kode Pos</label> 
+											<div class="col-sm-8">
+												<input class="form-control" id="inputkposktp" name="inputkposktp" placeholder="" type="text" value="">
+											</div>
+										</div></div><!-- /.box-header --><!-- /.box-body -->
                                     </div><!-- /.box --></div><!--/.col (right) --></div><!-- /.row --></section>
                         <!-- end FORM 2 --></div>
                 </div>
@@ -585,6 +597,11 @@
         }
     }
 
+	function copykpos(){
+	 
+		$("#inputkposktp").val($("#inputkpos").val());
+	}
+	
     function copyAlamat() {
         $("#txtAlamatKtp").val($("#txtAlamat").val());
     }

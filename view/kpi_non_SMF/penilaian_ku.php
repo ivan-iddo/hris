@@ -259,13 +259,13 @@ loadDataPI(0);
 
  var columnDefs = [ 
   
- {headerName: 'Kegiatan', field: 'node', width: 160,editable:false},
- {headerName: 'Bobot (%)', field: 'bobot', width: 160,editable:false},
- {headerName: 'Target Kinerja', field: 'target', width: 120},
+ {headerName: 'Kegiatan', field: 'nama', width: 160,editable:false},
+ {headerName: 'Bobot (%)', field: 'no', width: 160,editable:false},
+ {headerName: 'Target Kinerja', field: 'target_kinerja', width: 120},
  {headerName: 'Capaian', field: 'capaian', width: 120},
- {headerName: 'Capaian (%)', field: 'persen', width: 120},
+ {headerName: 'Capaian (%)', field: 'capaian_persen', width: 120},
  {headerName: 'Nilai', field: 'nilai', width: 120},
- {headerName: 'Bobot x Nilai', field: 'bobotnilai', width: 120},
+ {headerName: 'Bobot x Nilai', field: 'nilai_bobot', width: 120},
  {headerName: 'Keterangan', field: 'keterangan', width: 120},
  {headerName: 'pid', field: 'pid',  hide:true}
 
@@ -352,7 +352,7 @@ function prosesData(result){
 } 
 
 function loadData(){
- getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=16&kod=96');
+ getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?child=16&kod=96');
 }
 
 loadData();

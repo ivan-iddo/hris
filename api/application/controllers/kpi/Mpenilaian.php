@@ -447,14 +447,13 @@ class Mpenilaian extends REST_Controller
 					$this->db->where('m_penilaian_kpi.child',$child);
 				}
 				  $this->db->where('m_penilaian_kpi.tampilkan','1');
-
 				  $this->db->join('dm_term','m_penilaian_kpi.kode = dm_term.id','LEFT');
+				  $this->db->join('his_kpi_detail','m_penilaian_kpi.id_grup = his_kpi_detail.id_kegiatan','LEFT');
 				  $res = $this->db->get('m_penilaian_kpi')->result(); 
-				  
-				  $a=count($res);
+
 			if(!empty($res)){
 				 foreach($res as $d){
-					$arr[]=array('id'=>$d->id_grup,'profesi'=>$d->kode,'deskripsi'=>$d->nama,'nama'=>$d->grup, 'jum'=>$a);
+					$arr[]=array('id'=>$d->id_grup,'id_detail'=>$d->id,'profesi'=>$d->kode,'deskripsi'=>$d->nama,'nama'=>$d->grup, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$d->nilai_bobot, 'keterangan'=>$d->keterangan);
 				  }
 			}else{
 			$arr['result'] ='empty';
@@ -467,7 +466,6 @@ class Mpenilaian extends REST_Controller
 		
 		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
-	
 	
 	
 	public function getitemdetail_get(){
@@ -510,33 +508,51 @@ public function save_post(){
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 				 $group_group    = $_POST['group_group'];
-				 $group_ket      = $_POST['group_ket'];
 				 $id_group = $_POST['id_parent'];
+				 $bobot_ambil= $_POST['bobot_ambil'];
 				 	
 				 $data = array(
-							   'grup'=>$group_group,
-							   'kode'=>$group_ket);
+							   'grup'=>$group_group);
 				 
 				  if(!empty($id_group)){
 					$data['child']=$id_group;
 				  }
 				  
 				$this->db->insert('m_penilaian_kpi',$data);
+				if($this->db->affected_rows() == '1'){
+							$arr['hasil']='success';
+							$arr['message']='Data berhasil ditambah!';
+						 }else{
+							$arr['hasil']='error';
+							$arr['message']='Data Gagal Ditambah!';
+						 }
+				 $data_i = array(
+							   'id_kpi'=>$id_group,
+							   'target_kinerja'=>0,
+							   'capaian'=>0,
+							   'capaian_persen'=>0,
+							   'nilai'=>0,
+							   'nilai_bobot'=>0,
+							   'bobot'=>$bobot_ambil,);
+				 
+				  if(!empty($id_group)){
+					$data_i['id_kegiatan']=$id_group;
+				  }
+				  
+				$this->db->insert('his_kpi_detail',$data_i);
 					 
-					//print_r($data);
-				
-				 if($this->db->affected_rows() == '1'){
-					$arr['hasil']='success';
-					$arr['message']='Data berhasil ditambah!';
-				 }else{
-					$arr['hasil']='error';
-					$arr['message']='Data Gagal Ditambah!';
-				 }
+						if($this->db->affected_rows() == '1'){
+							$arr['hasil']='success';
+							$arr['message']='Data berhasil ditambah!';
+						 }else{
+							$arr['hasil']='error';
+							$arr['message']='Data Gagal Ditambah!';
+						 }
+				}
+		  
 				$this->set_response($arr, REST_Controller::HTTP_OK);
-		 
 			
-                return;
-			}
+				return;
 		}
 		
 		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
