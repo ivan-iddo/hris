@@ -1,39 +1,26 @@
-1. 
-ALTER TABLE `gtpayid_hrislive`.`his_files` ADD COLUMN `keterangan` TEXT NULL AFTER `kategori_id`, ADD COLUMN `kasus` TEXT NULL AFTER `keterangan`, ADD COLUMN `tindakan` TEXT NULL AFTER `kasus`, ADD COLUMN `date_start` DATE NULL AFTER `tindakan`, ADD COLUMN `date_end` DATE NULL AFTER `date_start`; 
-
-2. 
-CREATE TABLE `gtpayid_hrislive`.`his_penghargaan`( `id` INT(11) NOT NULL AUTO_INCREMENT, `penghargaan` VARCHAR(255), `instansi` VARCHAR(255), `tanggal` DATE, `createdby` VARCHAR(255), `created` DATETIME, `updatedby` VARCHAR(255), `updated` DATETIME, `statue` TINYINT(1) DEFAULT 1, PRIMARY KEY (`id`) );
-
-3.
-ALTER TABLE `gtpayid_hrislive`.`his_penghargaan` ADD COLUMN `url` VARCHAR(255) NULL AFTER `tanggal`;
-
-4
+1.
 CREATE TABLE `akreditasi` (
   `id` int(11) NOT NULL,
   `akreditasi` varchar(20) DEFAULT NULL,
   `tampilkan` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `akreditasi`
---
 
+
+2. 
 INSERT INTO `akreditasi` (`id`, `akreditasi`, `tampilkan`) VALUES
 (1, 'Akreditasi A', 1),
 (2, 'Akreditasi B', 1),
 (3, 'Akreditasi C', 1),
 (4, 'Akreditasi Ban PT', 1);
 
-5
+3.
 CREATE TABLE `bobot` (
   `id` int(11) NOT NULL,
   `nilai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `bobot`
---
-
+4. 
 INSERT INTO `bobot` (`id`, `nilai`) VALUES
 (1, 5),
 (2, 10),
@@ -56,8 +43,9 @@ INSERT INTO `bobot` (`id`, `nilai`) VALUES
 (19, 95),
 (20, 100);
 
-6
-CREATE TABLE `gtpayid_hrislive`.`sys_user_profile`( `kode_pos` INT(11) NOT NULL, `kode_posktp` INT(11) NOT NULL);
+5
+CREATE TABLE `sys_user_profile`( `kode_pos` INT(11) NOT NULL, `kode_posktp` INT(11) NOT NULL);
 
-7
-CREATE TABLE `gtpayid_hrislive`.`his_pendidikan`( `pen_jur` varchar(60) NOT NULL, `pen_spe` varchar(60) NOT NULL, `pen_akr` varchar(60) NOT NULL);
+6
+CREATE TABLE `his_pendidikan`( `pen_jur` varchar(60) NOT NULL, `pen_spe` varchar(60) NOT NULL, `pen_akr` varchar(60) NOT NULL);
+=============== DONE DEPLOY 20181210
