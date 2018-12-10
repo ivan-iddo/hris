@@ -6,6 +6,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
 require APPPATH . '/libraries/REST_Controller.php';
 $rest_json = file_get_contents("php://input");
+
 // $_POST = json_decode($rest_json, true);
 
 class Pegawai extends REST_Controller
@@ -112,6 +113,8 @@ class Pegawai extends REST_Controller
                 $id_bank = $this->input->post('id_bank');
                 $bpjs_kes = $this->input->post('bpjs_kes');
                 $bpjs_tk = $this->input->post('bpjs_tk');
+                $inputkpos = $this->input->post('inputkpos');
+                $inputkposktp = $this->input->post('inputkposktp');
 
 
                 if (!empty($unitkerja)) {
@@ -181,6 +184,8 @@ class Pegawai extends REST_Controller
                             'kota_ktp' => $txtkotaktp,
                             'kec_ktp' => $txtkecamatanktp,
                             'kel_ktp' => $txtkelurahanktp,
+                            'kode_pos' => $inputkpos,
+                            'kode_posktp' => $inputkposktp,
                             'id_bank' => $id_bank,
                             'bpjs_kes' => $bpjs_kes,
                             'bpjs_tk' => $bpjs_tk,
@@ -284,9 +289,10 @@ class Pegawai extends REST_Controller
                                ');
                 $this->db->where('sys_user.id_user', $id);
                 $this->db->join('sys_user_profile', 'sys_user_profile.id_user = sys_user.id_user', 'LEFT');
-                $this->db->join('riwayat_kedinasan', 'riwayat_kedinasan.id_user = sys_user.id_user AND `riwayat_kedinasan`.`aktif` = 1', 'LEFT');
+                $this->db->join('riwayat_kedinasan', 'riwayat_kedinasan.id_user = sys_user.id_user', 'LEFT');
                 $this->db->join('uk_master', 'uk_master.id = sys_user.id_uk', 'LEFT');
 
+                $this->db->where('riwayat_kedinasan.aktif', '1');
                 $res = $this->db->get('sys_user')->result();
                 if (!empty($res)) {
                     foreach ($res as $d) {
@@ -328,6 +334,8 @@ class Pegawai extends REST_Controller
                             'alamat_ktp' => $d->alamat_ktp,
                             'NIP' => $d->NIP,
                             'NIK' => $d->NIK,
+                            'kode_pos' => $d->kode_pos,
+                            'kode_posktp' => $d->kode_posktp,
                             'gelar_depan' => $d->gelar_depan,
                             'kategori_profesi' => $d->kategori_profesi,
                             'gelar_belakang' => $d->gelar_belakang,
@@ -431,6 +439,8 @@ class Pegawai extends REST_Controller
                 $id_bank = $this->input->post('id_bank');
                 $bpjs_kes = $this->input->post('bpjs_kes');
                 $bpjs_tk = $this->input->post('bpjs_tk');
+                $inputkpos = $this->input->post('inputkpos');
+                $inputkposktp = $this->input->post('inputkposktp');
 
 
                 if (!empty($unitkerja)) {
@@ -508,10 +518,13 @@ class Pegawai extends REST_Controller
                         'id_bank' => $id_bank,
                         'bpjs_kes' => $bpjs_kes,
                         'bpjs_tk' => $bpjs_tk,
+                        'kode_pos' => $inputkpos,
+                        'kode_posktp' => $inputkposktp,
                         'no_rek' => $this->input->post('no_rek'),
                         'kategori_profesi' => $this->input->post('kategori_profesi'),
                         'NPWP' => $this->input->post('npwp'),
                         'id_profesi' => $this->input->post('id_profesi'),
+
                     );
 
                     $this->db->where('id_user', $id);
@@ -599,7 +612,7 @@ class Pegawai extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                
+
                 $config['upload_path'] = 'upload/data';
                 $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
                 $config['max_size'] = '50000000';
@@ -618,8 +631,7 @@ class Pegawai extends REST_Controller
                 );
                 if (!$this->upload->do_upload('inputfileupload')) {
                     $error = array('error' => $this->upload->display_errors());
-                } 
-                else {
+                } else {
                     $upload = $this->upload->data();
                     $arrdata["url"] = $upload['file_name'];
                 }
@@ -694,7 +706,7 @@ class Pegawai extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                
+
                 $config['upload_path'] = 'upload/data';
                 $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
                 $config['max_size'] = '50000000';
@@ -712,8 +724,7 @@ class Pegawai extends REST_Controller
                 );
                 if (!$this->upload->do_upload('inputfileupload')) {
                     $error = array('error' => $this->upload->display_errors());
-                } 
-                else {
+                } else {
                     $upload = $this->upload->data();
                     $arrdata["url"] = $upload['file_name'];
                 }
@@ -775,7 +786,6 @@ class Pegawai extends REST_Controller
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
 
-    ///////////////////////////////////////PENDIDIKAN
     function savependidikan_post()
     {
         $headers = $this->input->request_headers();
@@ -796,6 +806,9 @@ class Pegawai extends REST_Controller
                     'pen_desc' => $this->input->post('txtStatusLulus'),
                     'pen_lijzh' => $this->input->post('txtHubungan'),
                     'pen_code' => $this->input->post('txtJPend'),
+                    'pen_jur' => $this->input->post('txtJjurusan'),
+                    'pen_spe' => $this->input->post('txtJspesialis'),
+                    'pen_akr' => $this->input->post('txtJakreditasi'),
                 );
 
                 $this->db->insert('his_pendidikan', $arrdata);
@@ -841,6 +854,9 @@ class Pegawai extends REST_Controller
                 foreach ($res as $d) {
                     $arr[] = array('id' => $d->id,
                         'nama_sekolah' => $d->pen_name,
+                        'jurusan' => $d->pen_jur,
+                        'spesialis' => $d->pen_spe,
+                        'akreditasi' => $d->pen_akr,
                         'jenjang' => $d->namaPendidikan,
                         'tahun' => $d->pen_tahn,
                         'no_ijazah' => $d->pen_nijz,
@@ -877,6 +893,9 @@ class Pegawai extends REST_Controller
                     'pen_desc' => $this->input->post('txtStatusLulus'),
                     'pen_lijzh' => $this->input->post('txtHubungan'),
                     'pen_code' => $this->input->post('txtJPend'),
+                    'pen_jur' => $this->input->post('txtJjurusan'),
+                    'pen_spe' => $this->input->post('txtJspesialis'),
+                    'pen_akr' => $this->input->post('txtJakreditasi'),
                 );
 
 
@@ -930,6 +949,9 @@ class Pegawai extends REST_Controller
                         'pen_lijzh' => $d->pen_lijzh,
                         'pen_code' => $d->pen_code,
                         'emp_nopg' => $d->emp_nopg,
+                        'pen_jur' => $d->pen_jur,
+                        'pen_spe' => $d->pen_spe,
+                        'pen_akr' => $d->pen_akr,
                         'file' => $d->file_url
 
                     );
@@ -1523,13 +1545,11 @@ class Pegawai extends REST_Controller
                             'jm' => $d->namamutasi
                         );
                     }
-
                 }
 
                 $arr['total'] = $total_rows;
                 $arr['paging'] = $pagination['limit'][1];
                 $this->set_response($arr, REST_Controller::HTTP_OK);
-
                 return;
             }
         }
@@ -1552,16 +1572,12 @@ class Pegawai extends REST_Controller
                     $arr['message'] = '<div class="alert alert-success">Anda memiliki sisa cuti <strong> 12  Hari</strong></div>';
                     $arr['jumlah'] = 12;
 
-
                     return $this->set_response($arr, REST_Controller::HTTP_OK);
-
                 }
 
                 $this->db->where('id', $id_cuti);
                 $this->db->where('tampilkan', '1');
-
                 $res = $this->db->get('m_jenis_cuti')->row();
-
 
                 $this->db->select('sum(total) as total_cuti');
                 $this->db->where('jenis_cuti', $id_cuti);
@@ -1597,9 +1613,7 @@ class Pegawai extends REST_Controller
                                 $cc = $jumlahcuti;
                             }
                         }
-
                     }
-
 
                     $arr['message'] = '<div class="alert alert-success">Anda memiliki sisa cuti <strong>' . $cc . ' Hari</strong></div>';
                     $arr['jumlah'] = $cc;
@@ -1630,17 +1644,13 @@ class Pegawai extends REST_Controller
                     $arr['message'] = '<div class="alert alert-success">Anda memiliki sisa Izin <strong> 224  Jam</strong></div>';
                     $arr['jumlah'] = 8;
 
-
                     return $this->set_response($arr, REST_Controller::HTTP_OK);
-
                 }
 
                 $this->db->where('id', $id_izin);
                 $this->db->where('tampilkan', '1');
 
                 $res = $this->db->get('m_jenis_izin')->row();
-
-
                 $this->db->select('sum(total) as total_izin');
                 $this->db->where('jenis_izin', $id_izin);
                 $this->db->where('id_user', $id_user);
@@ -1667,15 +1677,12 @@ class Pegawai extends REST_Controller
                         $jumlahizin = $cc + $izinthnlalu;
 
                         if (!empty($resCeklalu->total_izin)) {
-
-
                             if ($jumlahizin > 224) {
                                 $cc = 224;
                             } else {
                                 $cc = $jumlahizin;
                             }
                         }
-
                     }
 
 
