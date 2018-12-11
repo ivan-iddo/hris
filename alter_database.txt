@@ -44,8 +44,11 @@ INSERT INTO `bobot` (`id`, `nilai`) VALUES
 (20, 100);
 
 5
-CREATE TABLE `sys_user_profile`( `kode_pos` INT(11) NOT NULL, `kode_posktp` INT(11) NOT NULL);
+ALTER TABLE `sys_user_profile` ADD COLUMN `kode_pos` VARCHAR(255) NULL AFTER `alamat_ktp`; 
 
 6
 CREATE TABLE `his_pendidikan`( `pen_jur` varchar(60) NOT NULL, `pen_spe` varchar(60) NOT NULL, `pen_akr` varchar(60) NOT NULL);
+
+7
+ALTER TABLE `sys_user_profile` CHANGE `kode_pos` `kode_pos` VARCHAR(255) CHARSET latin1 COLLATE latin1_swedish_ci NULL AFTER `kel_tinggal`, CHANGE `alamat_ktp` `alamat_ktp` TEXT CHARSET latin1 COLLATE latin1_swedish_ci NULL AFTER `kode_pos`, CHANGE `rt_ktp` `rt_ktp` INT(11) NULL AFTER `alamat_ktp`, ADD COLUMN `kode_posktp` VARCHAR(255) NULL AFTER `kel_ktp`; 
 =============== DONE DEPLOY 20181210

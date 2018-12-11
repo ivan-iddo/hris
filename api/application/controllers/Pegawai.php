@@ -7,7 +7,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 require APPPATH . '/libraries/REST_Controller.php';
 $rest_json = file_get_contents("php://input");
 
-// $_POST = json_decode($rest_json, true);
+$_POST = json_decode($rest_json, true);
 
 class Pegawai extends REST_Controller
 {
@@ -599,62 +599,62 @@ class Pegawai extends REST_Controller
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
 
-    function savekeluarga_post()
-    {
-        $headers = $this->input->request_headers();
-        // echo "<pre>";
-        // print_r($_POST);
-        // echo "</pre>";
-        // echo "<pre>";
-        // print_r($this->input->post());
-        // echo "</pre>";
-        // die;
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false) {
+    // function savekeluarga_post()
+    // {
+    //     $headers = $this->input->request_headers();
+    //     // echo "<pre>";
+    //     // print_r($_POST);
+    //     // echo "</pre>";
+    //     // echo "<pre>";
+    //     // print_r($this->input->post());
+    //     // echo "</pre>";
+    //     // die;
+    //     if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+    //         $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+    //         if ($decodedToken != false) {
 
-                $config['upload_path'] = 'upload/data';
-                $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
-                $config['max_size'] = '50000000';
-                $this->load->library('upload', $config);
+    //             $config['upload_path'] = 'upload/data';
+    //             $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
+    //             $config['max_size'] = '50000000';
+    //             $this->load->library('upload', $config);
 
-                $arrdata = array(
-                    'id_user' => $decodedToken->data->id,
-                    'NIK' => $this->input->post('txtNik'),
-                    'nama' => $this->input->post('txtNama'),
-                    'tempat_lahir' => $this->input->post('txtTptLahir'),
-                    'tgl_lahir' => $this->input->post('txtTglLahir'),
-                    'kelamin' => $this->input->post('txtKelamin'),
-                    'id_pendidikan' => $this->input->post('txtPendidikan'),
-                    'id_pekerjaan' => $this->input->post('txtPekerjaan'),
-                    'id_hubkel' => $this->input->post('txtHubungan'),
-                );
-                if (!$this->upload->do_upload('inputfileupload')) {
-                    $error = array('error' => $this->upload->display_errors());
-                } else {
-                    $upload = $this->upload->data();
-                    $arrdata["url"] = $upload['file_name'];
-                }
+    //             $arrdata = array(
+    //                 'id_user' => $decodedToken->data->id,
+    //                 'NIK' => $this->input->post('txtNik'),
+    //                 'nama' => $this->input->post('txtNama'),
+    //                 'tempat_lahir' => $this->input->post('txtTptLahir'),
+    //                 'tgl_lahir' => $this->input->post('txtTglLahir'),
+    //                 'kelamin' => $this->input->post('txtKelamin'),
+    //                 'id_pendidikan' => $this->input->post('txtPendidikan'),
+    //                 'id_pekerjaan' => $this->input->post('txtPekerjaan'),
+    //                 'id_hubkel' => $this->input->post('txtHubungan'),
+    //             );
+    //             if (!$this->upload->do_upload('inputfileupload')) {
+    //                 $error = array('error' => $this->upload->display_errors());
+    //             } else {
+    //                 $upload = $this->upload->data();
+    //                 $arrdata["url"] = $upload['file_name'];
+    //             }
 
-                $this->db->insert('his_keluarga', $arrdata);
+    //             $this->db->insert('his_keluarga', $arrdata);
 
-                if ($this->db->affected_rows() == '1') {
-                    $arr['hasil'] = 'success';
-                    $arr['message'] = 'Data berhasil ditambah!';
-                } else {
-                    $arr['hasil'] = 'error';
-                    $arr['message'] = 'Data Gagal Ditambah!';
-                }
+    //             if ($this->db->affected_rows() == '1') {
+    //                 $arr['hasil'] = 'success';
+    //                 $arr['message'] = 'Data berhasil ditambah!';
+    //             } else {
+    //                 $arr['hasil'] = 'error';
+    //                 $arr['message'] = 'Data Gagal Ditambah!';
+    //             }
 
 
-                $this->set_response($arr, REST_Controller::HTTP_OK);
+    //             $this->set_response($arr, REST_Controller::HTTP_OK);
 
-                return;
-            }
-        }
+    //             return;
+    //         }
+    //     }
 
-        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
-    }
+    //     $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    // }
 
     public function listkeluarga_get()
     {
@@ -699,57 +699,57 @@ class Pegawai extends REST_Controller
     }
 
 
-    function editkeluarga_post()
-    {
-        $headers = $this->input->request_headers();
+    // function editkeluarga_post()
+    // {
+    //     $headers = $this->input->request_headers();
 
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false) {
+    //     if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+    //         $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+    //         if ($decodedToken != false) {
 
-                $config['upload_path'] = 'upload/data';
-                $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
-                $config['max_size'] = '50000000';
-                $this->load->library('upload', $config);
+    //             $config['upload_path'] = 'upload/data';
+    //             $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
+    //             $config['max_size'] = '50000000';
+    //             $this->load->library('upload', $config);
 
-                $arrdata = array(
-                    'NIK' => $this->input->post('txtNik'),
-                    'nama' => $this->input->post('txtNama'),
-                    'tempat_lahir' => $this->input->post('txtTptLahir'),
-                    'tgl_lahir' => $this->input->post('txtTglLahir'),
-                    'kelamin' => $this->input->post('txtKelamin'),
-                    'id_pendidikan' => $this->input->post('txtPendidikan'),
-                    'id_pekerjaan' => $this->input->post('txtPekerjaan'),
-                    'id_hubkel' => $this->input->post('txtHubungan')
-                );
-                if (!$this->upload->do_upload('inputfileupload')) {
-                    $error = array('error' => $this->upload->display_errors());
-                } else {
-                    $upload = $this->upload->data();
-                    $arrdata["url"] = $upload['file_name'];
-                }
+    //             $arrdata = array(
+    //                 'NIK' => $this->input->post('txtNik'),
+    //                 'nama' => $this->input->post('txtNama'),
+    //                 'tempat_lahir' => $this->input->post('txtTptLahir'),
+    //                 'tgl_lahir' => $this->input->post('txtTglLahir'),
+    //                 'kelamin' => $this->input->post('txtKelamin'),
+    //                 'id_pendidikan' => $this->input->post('txtPendidikan'),
+    //                 'id_pekerjaan' => $this->input->post('txtPekerjaan'),
+    //                 'id_hubkel' => $this->input->post('txtHubungan')
+    //             );
+    //             if (!$this->upload->do_upload('inputfileupload')) {
+    //                 $error = array('error' => $this->upload->display_errors());
+    //             } else {
+    //                 $upload = $this->upload->data();
+    //                 $arrdata["url"] = $upload['file_name'];
+    //             }
 
-                $this->db->where('id', $this->uri->segment(3));
-                $result = $this->db->update('his_keluarga', $arrdata);
+    //             $this->db->where('id', $this->uri->segment(3));
+    //             $result = $this->db->update('his_keluarga', $arrdata);
 
-                if ($result) {
-                    $arr['hasil'] = 'success';
-                    $arr['message'] = 'Data berhasil ditambah!';
-                } else {
-                    $arr['hasil'] = 'error';
-                    $arr['message'] = 'Data Gagal Ditambah!';
-                }
-                $arr["query"] = $this->db->last_query();
+    //             if ($result) {
+    //                 $arr['hasil'] = 'success';
+    //                 $arr['message'] = 'Data berhasil ditambah!';
+    //             } else {
+    //                 $arr['hasil'] = 'error';
+    //                 $arr['message'] = 'Data Gagal Ditambah!';
+    //             }
+    //             $arr["query"] = $this->db->last_query();
 
 
-                $this->set_response($arr, REST_Controller::HTTP_OK);
+    //             $this->set_response($arr, REST_Controller::HTTP_OK);
 
-                return;
-            }
-        }
+    //             return;
+    //         }
+    //     }
 
-        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
-    }
+    //     $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    // }
 
     function deletekeluarga_get()
     {

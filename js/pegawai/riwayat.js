@@ -11,9 +11,9 @@ function tabKeluargaView() {
 function simpanKeluarga(action) {
   var id_keluarga = $('#id_keluarga').val();
     var form = $("#form-keluarga");
-    var gotourl = 'pegawai/savekeluarga';
+    var gotourl = 'pegawais/upload/savekeluarga';
     if (action === 'edit') {
-        gotourl = 'pegawai/editkeluarga/' + id_keluarga;
+        gotourl = 'pegawais/upload/editkeluarga/' + id_keluarga;
     }
     $.ajax({
         url: BASE_URL + gotourl,
