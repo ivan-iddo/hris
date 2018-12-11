@@ -449,11 +449,16 @@ class Mpenilaian extends REST_Controller
 				  $this->db->where('m_penilaian_kpi.tampilkan','1');
 				  $this->db->join('dm_term','m_penilaian_kpi.kode = dm_term.id','LEFT');
 				  $this->db->join('his_kpi_detail','m_penilaian_kpi.id_grup = his_kpi_detail.id_kegiatan','LEFT');
-				  $res = $this->db->get('m_penilaian_kpi')->result(); 
+				  $res = $this->db->get('m_penilaian_kpi')->result();
+
+					
 
 			if(!empty($res)){
 				 foreach($res as $d){
-					$arr[]=array('id'=>$d->id_grup,'id_detail'=>$d->id,'profesi'=>$d->kode,'deskripsi'=>$d->nama,'nama'=>$d->grup, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$d->nilai_bobot, 'keterangan'=>$d->keterangan);
+					$nilai=$d->nilai;
+					$bobot=$d->bobot;
+					$nilai_bobot=$bobot*$nilai;
+					$arr[]=array('id'=>$d->id_grup,'id_detail'=>$d->id,'profesi'=>$d->kode,'deskripsi'=>$d->nama,'nama'=>$d->grup, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
 				  }
 			}else{
 			$arr['result'] ='empty';
@@ -526,20 +531,6 @@ public function save_post(){
 							$arr['hasil']='error';
 							$arr['message']='Data Gagal Ditambah!';
 						 }
-				 $data_i = array(
-							   'id_kpi'=>$id_group,
-							   'target_kinerja'=>0,
-							   'capaian'=>0,
-							   'capaian_persen'=>0,
-							   'nilai'=>0,
-							   'nilai_bobot'=>0,
-							   'bobot'=>$bobot_ambil,);
-				 
-				  if(!empty($id_group)){
-					$data_i['id_kegiatan']=$id_group;
-				  }
-				  
-				$this->db->insert('his_kpi_detail',$data_i);
 					 
 						if($this->db->affected_rows() == '1'){
 							$arr['hasil']='success';
@@ -567,9 +558,8 @@ public function save_post(){
             if ($decodedToken != false) {
 				 $group_aplikasi = '1';//$this->input->post('group_aplikasi');
 				 $group_group    = $_POST['group_group'];
-				 $group_ket      = $_POST['group_ket'];
 				 
-				 $data = array('grup'=>$group_group,'kode'=>$group_ket);
+				 $data = array('grup'=>$group_group);
 				 $this->db->where('id_grup', $this->input->post('id_group'));
 				 $this->db->update('m_penilaian_kpi',$data);
 				 
