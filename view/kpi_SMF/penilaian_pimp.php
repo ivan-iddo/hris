@@ -238,7 +238,7 @@ function downloadKPI(){
                         $('#id_grup').val(id_uk);
                         $('#uk').val(nama_group);
                         
-                        getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=17&pid='+selectedRowsString);
+                        getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?id=17&pid='+selectedRowsString);
            }
 
            function prosesDataPI(result){
@@ -318,7 +318,7 @@ function tektok(){
                selectedRowsString += selectedRow.id; 
            });
            
-           getJson(prosesData,BASE_URL+'kpi/mpenilaian/listpenilaian?id=17&pid='+selectedRowsString);
+           getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?child=17&pid='+selectedRowsString);
 }
  
 function onBtForEachLeafNode() {
