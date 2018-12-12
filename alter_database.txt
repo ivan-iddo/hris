@@ -55,5 +55,24 @@ ALTER TABLE `sys_user_profile` CHANGE `kode_pos` `kode_pos` VARCHAR(255) CHARSET
 ALTER TABLE `his_pendidikan` ADD COLUMN `pen_jur` VARCHAR(255) NULL AFTER `file_url`;
 ALTER TABLE `gtpayid_hrislive`.`his_pendidikan` ADD COLUMN `pen_spe` VARCHAR(255) NULL AFTER `pen_jur`;
 
+9.
+CREATE TABLE `his_jabatan_asn` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `jabatan` int(11) DEFAULT NULL,
+  `tmt_jfung` varchar(60) DEFAULT NULL,
+  `no_skjfung` varchar(60) DEFAULT NULL,
+  `tgl_skjafung` date DEFAULT NULL,
+  `keterangan` varchar(225) DEFAULT NULL,
+  `no_pak` varchar(30) DEFAULT NULL,
+  `tmt_pak` varchar(60) DEFAULT NULL,
+  `tgl_pak` date DEFAULT NULL,
+  `nilai_pak` int(11) DEFAULT NULL,
+  `satuan_kerja` varchar(60) DEFAULT NULL,
+  `aktif` enum('0','1') DEFAULT NULL,
+  `tampilkan` bigint(20) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
 =============== DONE DEPLOY 20181210
 
