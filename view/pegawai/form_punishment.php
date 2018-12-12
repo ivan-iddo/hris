@@ -1,7 +1,7 @@
-<form name="form-file" id="form-file">
+<form name="form-file-punishment" id="form-file-punishment" class="form-horizontal">
     <div class="panel-body pad-all">
         <div class="row"><input type="text" style="display:none" name="kategorifile" id="kategorifile"
-                                value="<?php echo $_GET['id'] ?>"><input type="text" style="display:none"
+                                value="<?php echo @$_GET['id'] ?>"><input type="text" style="display:none"
                                                                          name="id_userfile" id="id_userfile">
             <div class="form-group">
                 <div class="col-sm-3"></div>
@@ -74,7 +74,7 @@ var id = $('#f_id_edit').val();
 $('#id_userfile').val(id);
 $("form").on("submit", function(e){
     e.preventDefault();
-    var form = $("#form-file");
+    var form = $("#form-file-punishment");
 
     if (id !== '') {
         $.ajax({

@@ -1,4 +1,4 @@
-<form name="form-file" id="form-file">
+<form name="form-file-str" id="form-file-str" class="form-horizontal">
     <div class="panel-body pad-all">
         <div class="row">
             <input type="text" style="display:none" name="id_userfile" id="id_userfile">
@@ -62,7 +62,7 @@ $("form").on("submit", function(e){
     e.preventDefault();
     var id_pelatihan = $('#f_id_edit').val();
     $('#id_userfile').val(id_pelatihan);
-    var form = $("#form-file");
+    var form = $("#form-file-str");
 
     if (id_pelatihan !== '') {
         $.ajax({

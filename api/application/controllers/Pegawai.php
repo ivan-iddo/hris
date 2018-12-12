@@ -900,9 +900,9 @@ class Pegawai extends REST_Controller
 
 
                 $this->db->where('id', $this->uri->segment(3));
-                $this->db->update('his_pendidikan', $arrdata);
+                $result = $this->db->update('his_pendidikan', $arrdata);
 
-                if ($this->db->affected_rows() == '1') {
+                if ($result) {
                     $arr['hasil'] = 'success';
                     $arr['id'] = $this->uri->segment(3);
                     $arr['message'] = 'Data berhasil diperbaharui!';

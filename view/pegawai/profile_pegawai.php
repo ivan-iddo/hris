@@ -103,6 +103,7 @@
 
                         $('.page-jabatan').html(res[0].jabatan);
                         $('#id_user').val(res[0].id);
+                        $('#f_id_edit').val(res[0].id);
                     }, 1000);
                     $('#profilePage').load('view/pegawai/profile_view.php');
                 }

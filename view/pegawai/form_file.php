@@ -1,22 +1,27 @@
-<form name="form-file" id="form-file" class="form-inline">
+<form name="form-file-upload-data" id="form-file-upload-data" class="form-horizontal">
     <div class="panel-body pad-all">
-        <div class="row"><input type="text" style="display:none" name="kategorifile" id="kategorifile"
-                                value="<?php echo $_GET['id'] ?>"><input type="text" style="display:none"
-                                                                         name="id_userfile" id="id_userfile">
-            <div class="col-sm-4" style="padding-right: 7.5px;">
-                <div class="form-group"><input name="inputfileupload" id="inputfileupload" type="file"
-                                               class="btn btn-success btn-sm fileinput-button dz-clickable"></div>
-            </div>
-            <div class="col-sm-3">
-                <div class="form-group"><input type="text" placeholder="nama file" class="form-control" id="namafile"
-                                               name="namafile"></div>
-            </div>
-            <div class="col-sm-3">
-                <div class="form-group">&nbsp;<span id="uploadbtn" style="width:80px"
-                                                    class="form-control btn btn-primary btn-md  upload-btn"
-                                                    onclick="upload_file2()"><i class="fa fa-save padd-left"></i> Upload</span>
+        <div class="row">
+            <input type="text" style="display:none" name="kategorifile" id="kategorifile" value="<?php echo $_GET['id'] ?>">
+            <input type="text" style="display:none" name="id_userfile" id="id_userfile">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <input name="inputfileupload" id="inputfileupload" type="file" class="btn btn-success btn-sm fileinput-button dz-clickable">
                 </div>
             </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <input type="text" placeholder="nama file" class="form-control" id="namafile" name="namafile">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <span id="uploadbtn" style="width:80px" class="form-control btn btn-primary btn-md  upload-btn" onclick="upload_file2()">
+                        <i class="fa fa-save padd-left"></i> 
+                        Upload
+                    </span>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
     </div>
@@ -40,7 +45,7 @@
 <script> function upload_file2() {
         var id_pelatihan = $('#f_id_edit').val();
         $('#id_userfile').val(id_pelatihan);
-        var form = $("#form-file");
+        var form = $("#form-file-upload-data");
         if (empty($('#inputfileupload').val())) {
             swal('PERHATIAN!', 'Anda belum memilih file untuk di upload');
             return false;

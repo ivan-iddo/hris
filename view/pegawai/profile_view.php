@@ -1,4 +1,4 @@
-<div class="fixed-fluid">
+<div class="">
     <div class="fixed-sm-200 fixed-lg-250 pull-sm-left">
       <div class="panel">
         <!-- Simple profile -->
@@ -16,6 +16,7 @@
         <div class="tab-base mar-all">
           <ul class="nav nav-tabs">
             <li class="active">
+            <input type="hidden" id="f_id_edit">
               <a data-toggle="tab" href="#demo-lft-tab-1a"><span class="block text-center text-success"><i class="fa fa-credit-card fa-2x"></i></span> Pegawai</a>
             </li>
             <li>
@@ -33,8 +34,84 @@
             <li>
               <a data-toggle="tab" href="#demo-lft-tab-5a" onclick="tabJabatanView();"><span class="block text-center text-success"><i class="fa fa-home fa-2x"></i></span> Jabatan</a>
             </li>
+            <li>
+              <div class="dropdown" style="margin: 10px;">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Upload Lainnya
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a onclick="$('#page-kontrak').load('view/pegawai/form_file.php?id=2')" data-toggle="tab" href="#tab-kontrak">
+                      Kontrak
+                    </a>
+                  </li>
+                  <li>
+                    <a onclick="$('#page-penugasaan').load('view/pegawai/form_file.php?id=3')" data-toggle="tab" href="#tab-penugasaan">
+                      Penugasaan
+                    </a>
+                  </li>
+                  <li>
+                    <a onclick="$('#page-skp').load('view/pegawai/form_file.php?id=4')" data-toggle="tab" href="#tab-skp">
+                      Skp
+                    </a>
+                  </li>
+                  <li>
+                    <a onclick="$('#page-data-medical').load('view/pegawai/form_file.php?id=5')" data-toggle="tab" href="#tab-data-medical">
+                      Data medical
+                    </a>
+                  </li>
+                  <li>
+                    <a onclick="$('#page-sk').load('view/pegawai/form_file.php?id=6')" data-toggle="tab" href="#tab-sk">
+                      SK
+                    </a>
+                  </li>
+                  <li>
+                    <a onclick="$('#page-penghargaan').load('view/pegawai/form_penghargaan.php')" data-toggle="tab" href="#tab-penghargaan">
+                      Penghargaan
+                    </a>
+                  </li>
+                  <li>
+                    <a onclick="$('#page-punishment').load('view/pegawai/form_punishment.php')" data-toggle="tab" href="#tab-punishment">
+                      Punishment
+                    </a>
+                  </li>
+                  <li>
+                    <a onclick="$('#page-str').load('view/pegawai/form_str.php')" data-toggle="tab" href="#tab-str">
+                      STR
+                    </a>
+                  </li>
+                  <li>
+                    <a onclick="$('#page-sip').load('view/pegawai/form_sip.php')" data-toggle="tab" href="#tab-sip">
+                      SIP
+                    </a>
+                  </li>
+
+                </ul>
+              </div>
+            </li>
+
+<!-- <li onclick="')"><a data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="true">Kontrak</a>
+</li>
+<li onclick="$('#uploadfile').load('')"><a data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="true">Penugasan</a></li>
+<li onclick="$('#uploadfile').load('view/pegawai/form_file.php?id=4')"><a data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">SKP</a></li>
+<li onclick="$('#uploadfile').load('view/pegawai/form_file.php?id=5')"><a data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="true">Data
+Medical</a></li>
+<li onclick="$('#uploadfile').load('view/pegawai/form_file.php?id=6')"><a data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">SK</a></li>
+<li onclick="$('#uploadfile').load('view/pegawai/form_penghargaan.php?id=7')"><a data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="true">Penghargaan</a></li>
+<li onclick="$('#uploadfile').load('view/pegawai/form_punishment.php?id=8')"><a data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="true">Punishment</a></li>
+<li onclick="$('#uploadfile').load('view/pegawai/form_str.php')"><a data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">STR</a></li>
+<li onclick="$('#uploadfile').load('view/pegawai/form_sip.php')"><a data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">SIP</a></li> -->
+
+
+
+
+
+
+
+
+
+
           </ul>
-          <div class="tab-content">
+          <div class="tab-content" style="min-height:200px !important">
             <div class="tab-pane fade active in" id="demo-lft-tab-1a">
               <div class="fixed-sm-200 fixed-lg-250 pull-sm-left"> 
 
@@ -65,6 +142,33 @@
             </div>
             <div class="tab-pane fade" id="demo-lft-tab-5a">
               <div id="page-jabatan"></div>
+            </div>
+            <div class="tab-pane fade" id="tab-kontrak">
+              <div id="page-kontrak"></div>
+            </div>
+            <div class="tab-pane fade" id="tab-penugasaan">
+              <div id="page-penugasaan"></div>
+            </div>
+            <div class="tab-pane fade" id="tab-skp">
+              <div id="page-skp"></div>
+            </div>
+            <div class="tab-pane fade" id="tab-data-medical">
+              <div id="page-data-medical"></div>
+            </div>
+            <div class="tab-pane fade" id="tab-sk">
+              <div id="page-sk"></div>
+            </div>
+            <div class="tab-pane fade" id="tab-penghargaan">
+              <div id="page-penghargaan"></div>
+            </div>
+            <div class="tab-pane fade" id="tab-punishment">
+              <div id="page-punishment"></div>
+            </div>
+            <div class="tab-pane fade" id="tab-str">
+              <div id="page-str"></div>
+            </div>
+            <div class="tab-pane fade" id="tab-sip">
+              <div id="page-sip"></div>
             </div>
           </div>
         </div>

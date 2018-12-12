@@ -1,4 +1,4 @@
-<form name="form-file" id="form-file">
+<form name="form-file-sip" id="form-file-sip" class="form-horizontal">
     <div class="panel-body pad-all">
         <div class="row">
             <input type="hidden" name="id_userfile" id="id_userfile">
@@ -60,7 +60,7 @@ var id = $('#f_id_edit').val();
 $('#id_userfile').val(id);
 $("form").on("submit", function(e){
     e.preventDefault();
-    var form = $("#form-file");
+    var form = $("#form-file-sip");
 
     if (id !== '') {
         $.ajax({
