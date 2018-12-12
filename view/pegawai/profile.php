@@ -38,12 +38,17 @@
                     <li>
                         <a data-toggle="tab" href="#demo-lft-tab-4a" onclick="tabGolongan();"><span
                                     class="block text-center text-success"><i class="fa fa-cubes fa-2x"></i></span>
-                            Golongan/Ruang</a>
+                            Golongan/Pangkat</a>
                     </li>
                     <li>
                         <a data-toggle="tab" href="#demo-lft-tab-5a" onclick="tabJabatan();"><span
                                     class="block text-center text-success"><i class="fa fa-home fa-2x"></i></span>
                             Jabatan</a>
+                    </li>
+					 <li>
+                        <a data-toggle="tab" href="#demo-lft-tab-6a" onclick="tabJabatanasn();"><span
+                                    class="block text-center text-success"><i class="fa fa-cubes fa-2x"></i></span>
+                            JabFung ASN</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -81,6 +86,9 @@
                     <div class="tab-pane fade" id="demo-lft-tab-5a">
                         <div id="page-jabatan"></div>
                     </div>
+					 <div class="tab-pane fade" id="demo-lft-tab-6a">
+                        <div id="page-jabfung"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,3 +116,4 @@
 <script src="js/pegawai/pelatihan.js"></script>
 <script src="js/pegawai/golongan.js"></script>
 <script src="js/pegawai/jabatan.js"></script>
+<script src="js/pegawai/jab_asn.js"></script>

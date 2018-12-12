@@ -68,12 +68,7 @@ require_once('../../connectdb.php');
 <script type="text/javascript" charset="utf-8">
   // specify the columns
   var columnDefs = [
-      
-    
     {
-      headerName: "Id", field: "id", width: 190, filterParams:{
-        newRowsAction: 'keep'}
-    },{
       headerName: "Nama", field: "nama", width: 400, filterParams:{
         newRowsAction: 'keep'}
     },{

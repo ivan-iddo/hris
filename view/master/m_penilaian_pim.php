@@ -70,10 +70,6 @@ require_once('../../connectdb.php');
   var columnDefs = [
       
     
-    {
-      headerName: "Id", field: "id", width: 190, filterParams:{
-        newRowsAction: 'keep'}
-    },
 	{
       headerName: "Nama", field: "nama", width: 400, filterParams:{
         newRowsAction: 'keep'}

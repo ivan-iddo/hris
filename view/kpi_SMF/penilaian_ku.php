@@ -267,7 +267,8 @@ loadDataPI(0);
  {headerName: 'Nilai', field: 'nilai', width: 120},
  {headerName: 'Bobot x Nilai', field: 'nilai_bobot', width: 120},
  {headerName: 'Keterangan', field: 'keterangan', width: 120},
- {headerName: 'pid', field: 'pid',  hide:true}
+ {headerName: 'pid', field: 'id', hide:true},
+ {headerName: 'Id Kegiatan', field: 'id', hide:true}
 
 ];
 

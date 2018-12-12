@@ -1,8 +1,9 @@
 <form class="form-horizontal" role="form" id="form-upload" name="form-upload" method="post"
       enctype="multipart/form-data">
+	  
     <div class="panel panel-primary" style="border-bottom:none !important"><!--Panel heading-->
         <div class="panel-heading">
-            <div class="panel-control"><!--Nav tabs-->
+            <div class="panel-control">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#demo-tabs-box-1a" aria-expanded="true">Login Data</a>
                     </li>

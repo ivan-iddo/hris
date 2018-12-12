@@ -60,12 +60,12 @@ class Mpenilaian extends REST_Controller
 					$array = array(
 						'id_kpi'=>$dat['pid'],
 						'id_kegiatan'=>$dat['id'],
-						'bobot'=>$dat['bobot'],
-						'target_kinerja'=>$dat['target'],
+						'bobot'=>$dat['no'],
+						'target_kinerja'=>$dat['target_kinerja'],
 						'capaian'=>$dat['capaian'],
-						'capaian_persen'=>$dat['persen'],
+						'capaian_persen'=>$dat['capaian_persen'],
 						'nilai'=>$dat['nilai'],
-						'nilai_bobot'=>$dat['bobotnilai'],
+						'nilai_bobot'=>$dat['nilai_bobot'],
 						'keterangan'=>$dat['keterangan'], 
 					);
 					
@@ -449,16 +449,15 @@ class Mpenilaian extends REST_Controller
 				  $this->db->where('m_penilaian_kpi.tampilkan','1');
 				  $this->db->join('dm_term','m_penilaian_kpi.kode = dm_term.id','LEFT');
 				  $this->db->join('his_kpi_detail','m_penilaian_kpi.id_grup = his_kpi_detail.id_kegiatan','LEFT');
+				  $this->db->join('his_kpi','his_kpi_detail.id_kegiatan = his_kpi.id_jenis','LEFT');
 				  $res = $this->db->get('m_penilaian_kpi')->result();
-
-					
 
 			if(!empty($res)){
 				 foreach($res as $d){
 					$nilai=$d->nilai;
 					$bobot=$d->bobot;
 					$nilai_bobot=$bobot*$nilai;
-					$arr[]=array('id'=>$d->id_grup,'id_detail'=>$d->id,'profesi'=>$d->kode,'deskripsi'=>$d->nama,'nama'=>$d->grup, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
+					$arr[]=array('id'=>$d->id_grup,'nama'=>$d->grup, 'pid'=>$d->id_grup, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
 				  }
 			}else{
 			$arr['result'] ='empty';

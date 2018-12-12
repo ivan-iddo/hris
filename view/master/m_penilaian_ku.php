@@ -68,11 +68,6 @@ require_once('../../connectdb.php');
 <script type="text/javascript" charset="utf-8">
   var columnDefs = [
       
-    
-    {
-      headerName: "Id", field: "id", width: 190, filterParams:{
-        newRowsAction: 'keep'}
-    },
 	 {
       headerName: "Nama", field: "nama", width: 400, filterParams:{
         newRowsAction: 'keep'}
@@ -381,14 +376,14 @@ require_once('../../connectdb.php');
     group_group     = $("#f_group_group").get(0).value;
     id_group     = $("#id_group").get(0).value;
     id_parent = 5; //rubah disini aja
-	pilih=($("#f_group_bot").get(0).value);
+	pilih=$("#f_group_bot").get(0).value+50;
 	nilai=$("#nilai").get(0).value;
 	ambil=$("#bobot_kpi").get(0).value;
 	if(nilai>=20){
 	   onMessage('Parameter Mencapai Max!');
       return false;
     }else{
-	if(pilih+ambil>=100){
+	if(pilih>=100){
 	   onMessage('Total Max bobot 100 %!');
       return false;
     }else{
