@@ -4,7 +4,6 @@
                     <div class="col-md-9"> 
                             <div class="box box-primary"> 
                                 <div class="box-body">
-                                <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
                                 <div class="row pad-top"> 
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="inputstatus">Tahun</label>
@@ -49,7 +48,6 @@
                                             </div>
                                     </div>
                                     </div>
-                                    <?php }?>
                                 </div>
                             </div>
                         </div>
