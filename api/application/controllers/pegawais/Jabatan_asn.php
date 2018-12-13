@@ -23,7 +23,7 @@ $_POST = json_decode($rest_json, true);
  *
  */
 
-class Jabatan extends REST_Controller
+class jabatan_asn extends REST_Controller
 {
     /**
      * URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
@@ -37,11 +37,7 @@ class Jabatan extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 				//$this->db->limit('100');
-				//$this->db->order_by();
-		 
-		
-		 
-				
+				//$this->db->order_by();	
 		$this->db->select('his_jabatan_asn.*');
 		$this->db->join('sys_user','sys_user.id_user = his_jabatan_asn.user_id','LEFT');
 		$this->db->where('sys_user.status','1'); 

@@ -513,7 +513,7 @@ public function save_post(){
             if ($decodedToken != false) {
 				 $group_group    = $_POST['group_group'];
 				 $id_group = $_POST['id_parent'];
-				 $bobot_ambil= $_POST['bobot_ambil'];
+				 $bobot= $_POST['pilih'];
 				 	
 				 $data = array(
 							   'grup'=>$group_group);
@@ -523,15 +523,12 @@ public function save_post(){
 				  }
 				  
 				$this->db->insert('m_penilaian_kpi',$data);
+				
+				$data = array(
+							   'id_kpi'=>$group_group,'bobot'=>$bobot);
+				  
+				$this->db->insert('his_kpi_detail',$data);
 				if($this->db->affected_rows() == '1'){
-							$arr['hasil']='success';
-							$arr['message']='Data berhasil ditambah!';
-						 }else{
-							$arr['hasil']='error';
-							$arr['message']='Data Gagal Ditambah!';
-						 }
-					 
-						if($this->db->affected_rows() == '1'){
 							$arr['hasil']='success';
 							$arr['message']='Data berhasil ditambah!';
 						 }else{
@@ -557,12 +554,12 @@ public function save_post(){
             if ($decodedToken != false) {
 				 $group_aplikasi = '1';//$this->input->post('group_aplikasi');
 				 $group_group    = $_POST['group_group'];
+				 $id_group    = $_POST['id_group'];
+				 $bobot    = $_POST['pilih'];
 				 
 				 $data = array('grup'=>$group_group);
 				 $this->db->where('id_grup', $this->input->post('id_group'));
 				 $this->db->update('m_penilaian_kpi',$data);
-				 
-				 
 				 if($this->db->affected_rows() == '1'){
 					$arr['hasil']='success';
 					$arr['message']='Data berhasil ditambah!';
