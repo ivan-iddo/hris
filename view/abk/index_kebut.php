@@ -127,6 +127,7 @@
           }
 
           function loadShift(result){
+            console.log("shift Result", result);
               if(result.hasil ==='success'){
                 gridShift.api.setRowData(result.result);
               }
@@ -190,6 +191,7 @@
           }
 
           function loadnonShift(result){
+              console.log("nonShift Result", result);
               if(result.hasil ==='success'){
                 gridnonShift.api.setRowData(result.result);
               }
@@ -202,7 +204,7 @@
                var uk =  $('#ukfrm6').val();
 
                if(empty(thn)){
-                onMessage('Pili Tahun Terlebih dahulu!');
+                onMessage('Pilih Tahun Terlebih dahulu!');
                return false;
                }else{
                 getJson(loadShift,BASE_URL+'abk/abk/listshift?year='+thn+'&uk='+uk);

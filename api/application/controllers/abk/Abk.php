@@ -129,11 +129,7 @@ class Abk extends REST_Controller
                }else{
                 $this->db->where('abk_beban_kerja.tahun',$this->input->get('year'));
                }
-                
-               $this->db->where('abk_beban_kerja.author', $g);
                 $res = $this->db->get('abk_beban_kerja')->row();
-
-               
 				  
 			if(!empty($res)){
                 $i=0;
@@ -225,7 +221,7 @@ class Abk extends REST_Controller
                     'skk' =>'',
                     'ski' =>'',
                     'subSDM'=>'',
-                    'sdm'=>round($totsdm-$respeg->jml)
+                    'sdm'=>abs(round($totsdm-$respeg->jml))
 
                 );
                     
@@ -434,7 +430,7 @@ class Abk extends REST_Controller
                     'skk' =>'',
                     'ski' =>'',
                     'subSDM'=>'',
-                    'sdm'=>round($totsdm-$respeg->jml)
+                    'sdm'=>abs(round($totsdm-$respeg->jml))
 
                 );
                     

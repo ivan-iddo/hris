@@ -46,7 +46,7 @@
                                             <div class="col-sm-5">
                                              
                                             <div class="row  text-left"> 
-                                    <button class="btn btn-primary mar-all" onClick="searchfrm2();return false;">Search</button> 
+                                    <button class="btn btn-primary mar-all" onClick="searchfrm2();">Search</button> 
                                    </div>
                                             </div>
                                     </div>
