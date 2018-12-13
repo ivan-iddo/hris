@@ -644,14 +644,14 @@ class Abk extends REST_Controller
                 uk_master.nama as kategsdm,b.nama as faktor,c.nama as shift');
                 
                 
-                if(($user_froup=='1') OR ($user_froup=='6')){
+                // if(($user_froup=='1') OR ($user_froup=='6')){
                     if(!empty($this->input->get('uk'))){
                         $this->db->where('abk_faktor_kelonggaran.id_uk',$this->input->get('uk'));
                     }
                     
-                }else{
-                    $this->db->where('abk_faktor_kelonggaran.id_uk',$user_froup );
-                }
+                // }else{
+                //     $this->db->where('abk_faktor_kelonggaran.id_uk',$user_froup );
+                // }
 
                 if(!empty($this->input->get('thn'))){
                     $this->db->where('abk_faktor_kelonggaran.tahun',$this->input->get('thn'));
