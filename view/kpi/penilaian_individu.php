@@ -103,9 +103,6 @@
  <button class="btn btn-primary btn-icon mar-all" onclick="getRowData()"><i class="fa fa-folder icon-2x"></i> SAVE KPI</button>
  <button class="btn btn-success btn-icon mar-all" onclick="downloadKPI()"><i class="fa fa-cloud-download icon-2x"></i> Download KPI</button>
 <div id="myGrid"  style="width:100%;height: 900px;" class="ag-theme-balham"></div> 
-
-
-
 <script> 
  $('.judul-menu').html('Penilaian Kerja Unit');
 $('.buttoenedit').hide();
@@ -238,7 +235,7 @@ function downloadKPI(){
                         $('#id_grup').val(id_uk);
                         $('#uk').val(nama_group);
                         
-                        getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?id=17&pid='+selectedRowsString);
+                        getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?id=5&pid='+selectedRowsString);
            }
 
            function prosesDataPI(result){
@@ -250,7 +247,7 @@ function loadDataPI(jml){
             if($('#search').val() !==''){
               search = $('#search').val();
             }
- getJson(prosesDataPI,BASE_URL+'kpi/mpenilaian/listpi/17/'+search+'/'+jml);
+ getJson(prosesDataPI,BASE_URL+'kpi/mpenilaian/listpi/5/'+search+'/'+jml);
 }
 
 loadDataPI(0);
@@ -259,16 +256,16 @@ loadDataPI(0);
 
  var columnDefs = [ 
   
- {headerName: 'Kegiatan', field: 'nama', width: 160,editable:false},
+ {headerName: 'Parameter', field: 'nama', width: 160,editable:false},
  {headerName: 'Bobot (%)', field: 'no', width: 160,editable:false},
  {headerName: 'Target Kinerja', field: 'target_kinerja', width: 120},
  {headerName: 'Capaian', field: 'capaian', width: 120},
  {headerName: 'Capaian (%)', field: 'capaian_persen', width: 120},
  {headerName: 'Nilai', field: 'nilai', width: 120},
  {headerName: 'Bobot x Nilai', field: 'nilai_bobot', width: 120},
- {headerName: 'Keterangan', field: 'keterangan', width: 120},
- {headerName: 'pid', field: 'pid',  hide:true},
- {headerName: 'id kegiatan', field: 'id',  hide:true}
+ {headerName: 'Keterangan', field: 'keterangan', width: 140},
+ {headerName: 'pid', field: 'pid',hide:true},
+ {headerName: 'Id Kegiatan', field: 'id',hide:true}
 
 ];
 
@@ -319,7 +316,7 @@ function tektok(){
                selectedRowsString += selectedRow.id; 
            });
            
-           getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?child=17&pid='+selectedRowsString);
+           getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?child=5&pid='+selectedRowsString);
 }
  
 function onBtForEachLeafNode() {
@@ -353,7 +350,7 @@ function prosesData(result){
 } 
 
 function loadData(){
- getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?child=17&kod=95');
+ getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?child=5&kod=95');
 }
 
 loadData();

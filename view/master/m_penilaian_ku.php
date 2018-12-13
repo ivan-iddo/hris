@@ -4,7 +4,7 @@ require_once('../../connectdb.php');
 ?>
 <?php 
    $query= mysqli_query($con,'SELECT count(m_penilaian_kpi.id_grup) as jml, sum(his_kpi_detail.bobot) as bobot_kpi FROM m_penilaian_kpi LEFT JOIN his_kpi_detail ON m_penilaian_kpi.id_grup=his_kpi_detail.id_kegiatan where m_penilaian_kpi.kode=96 and m_penilaian_kpi.child=5 and m_penilaian_kpi.tampilkan="1"');
-	$rowcount=mysqli_num_rows($query);
+  $rowcount=mysqli_num_rows($query);
    if(!empty($rowcount)){
    while($row = mysqli_fetch_array($query)){
         $total = $row['jml'];
@@ -43,7 +43,7 @@ require_once('../../connectdb.php');
         <div class="bootstrap-table">
           <div class="fixed-table-container " style="padding-bottom: 0px;">
             <div class="col-lg-12 col-md-12 col-sm-12">
-              <div class="btn-group pad-btm pad-top">
+              <div class="btn-group pad-btm pad-top ">
                 <button id="demo-bootbox-bounce" class="btn btn-primary btn-labeled fa fa-plus-square btn-sm" onClick="demo-bootbox-bounce">Add
                 </button>
                 <button class="btn btn-warning btn-labeled fa fa-edit btn-sm" onClick="proses_edit();">Edit
@@ -52,9 +52,9 @@ require_once('../../connectdb.php');
                 </button>
               </div>
               <h4>Indikator Kerja</h4>
-              <input placeholder="" id="nilai" class="form-control" value="<?php echo $total?>" type="text" style="display:none">
-			  <input placeholder="" id="bobot_kpi" class="form-control" value="<?php echo $bob?>" type="text" style="display:none"> 
-			  <div id="myGrid" style="height: 400px;width:100%" class="ag-theme-balham">
+			  <input placeholder="" id="nilai" class="form-control" value="<?php echo $total?>" type="text" style="display:none">
+			  <input placeholder="" id="nilai_bobot" class="form-control" value="<?php echo $bob?>" type="text" style="display:none"> 
+              <div id="myGrid" style="height: 400px;width:100%" class="ag-theme-balham">
               </div>
             </div>
           </div>
@@ -66,9 +66,9 @@ require_once('../../connectdb.php');
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">
+  // specify the columns
   var columnDefs = [
-      
-	 {
+    {
       headerName: "Nama", field: "nama", width: 400, filterParams:{
         newRowsAction: 'keep'}
     },{
@@ -181,11 +181,11 @@ require_once('../../connectdb.php');
       input += '</div>';
       input += '</div>';
 	  input +='<div class="form-group">';
-      input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Bobot</label>';
-      input +='<div class="col-sm-5">';
-      input +='<select  id="f_group_bot" name="f_group_bot" class="form-control" type="text" ></select>';
-      input += '</div>';
-      input += '</div>';
+	  input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Bobot</label>';
+	  input +='<div class="col-sm-5">';
+	  input +='<input placeholder="" id="f_group_bot" class="form-control" type="text">';
+	  input += '</div>';
+	  input += '</div>';
       input += '</div>';
       input +='</form>';
       bootbox.dialog({ 
@@ -329,7 +329,7 @@ require_once('../../connectdb.php');
 	input +='<div class="form-group">';
     input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Bobot</label>';
     input +='<div class="col-sm-5">';
-    input +='<select  id="f_group_bot" name="f_group_bot" class="form-control" type="text" ></select>';
+	input +='<input placeholder="" id="f_group_bot" class="form-control" type="text">';
     input += '</div>';
     input += '</div>';
     input += '</div>';
@@ -376,14 +376,15 @@ require_once('../../connectdb.php');
     group_group     = $("#f_group_group").get(0).value;
     id_group     = $("#id_group").get(0).value;
     id_parent = 5; //rubah disini aja
-	pilih=$("#f_group_bot").get(0).value+50;
-	nilai=$("#nilai").get(0).value;
-	ambil=$("#bobot_kpi").get(0).value;
+	pilih=$("#f_group_bot").get(0).value;
+	nilai     = $("#nilai").get(0).value;
+	bobot_ambil     = $("#nilai_bobot").get(0).value;
+	ambil=bobot_ambil+(pilih)
 	if(nilai>=20){
 	   onMessage('Parameter Mencapai Max!');
       return false;
     }else{
-	if(pilih>=100){
+	if(ambil>=100){
 	   onMessage('Total Max bobot 100 %!');
       return false;
     }else{
@@ -409,8 +410,9 @@ require_once('../../connectdb.php');
       save(URL,data,loaddata);
       return true;
     }
-
-  }}}
+    }
+    }
+  }
  
 </script>
 <script src="js/login.js">

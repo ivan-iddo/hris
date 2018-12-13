@@ -183,11 +183,11 @@ require_once('../../connectdb.php');
       input += '</div>';
       input += '</div>';
 	  input +='<div class="form-group">';
-      input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Bobot</label>';
+	  input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Bobot</label>';
       input +='<div class="col-sm-5">';
-      input +='<select  id="f_group_bot" name="f_group_bot" class="form-control" type="text" ></select>';
-      input += '</div>';
-      input += '</div>';
+	  input +='<input placeholder="" id="f_group_bot" class="form-control" type="text">';
+	  input += '</div>';
+	  input += '</div>';
       input += '</div>';
       input +='</form>';
       bootbox.dialog({ 
@@ -331,7 +331,7 @@ require_once('../../connectdb.php');
 	input +='<div class="form-group">';
     input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Bobot</label>';
     input +='<div class="col-sm-5">';
-    input +='<select  id="f_group_bot" name="f_group_bot" class="form-control" type="text" ></select>';
+	input +='<input placeholder="" id="f_group_bot" class="form-control" type="text">';
     input += '</div>';
     input += '</div>';
     input += '</div>';
@@ -378,16 +378,15 @@ require_once('../../connectdb.php');
     group_group     = $("#f_group_group").get(0).value;
 	id_group     = $("#id_group").get(0).value;
     id_parent = 17; //rubah disini aja
-	bobot_pilih=$("#f_group_bot").get(0).value;
 	pilih=$("#f_group_bot").get(0).value;
 	nilai     = $("#nilai").get(0).value;
 	bobot_ambil     = $("#nilai_bobot").get(0).value;
-	berat=bobot_ambil+(pilih)
+	ambil=bobot_ambil+(pilih)
 	if(nilai>=20){
 	   onMessage('Parameter Mencapai Max!');
       return false;
     }else{
-	if(berat>=100){
+	if(ambil>=100){
 	   onMessage('Total Max bobot 100 %!');
       return false;
     }else{

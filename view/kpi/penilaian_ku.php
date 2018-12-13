@@ -103,9 +103,6 @@
  <button class="btn btn-primary btn-icon mar-all" onclick="getRowData()"><i class="fa fa-folder icon-2x"></i> SAVE KPI</button>
  <button class="btn btn-success btn-icon mar-all" onclick="downloadKPI()"><i class="fa fa-cloud-download icon-2x"></i> Download KPI</button>
 <div id="myGrid"  style="width:100%;height: 900px;" class="ag-theme-balham"></div> 
-
-
-
 <script> 
  $('.judul-menu').html('Penilaian Kerja Unit');
 $('.buttoenedit').hide();
@@ -259,14 +256,14 @@ loadDataPI(0);
 
  var columnDefs = [ 
   
- {headerName: 'Kegiatan', field: 'nama', width: 160,editable:false},
+ {headerName: 'Parameter', field: 'nama', width: 160,editable:false},
  {headerName: 'Bobot (%)', field: 'no', width: 160,editable:false},
  {headerName: 'Target Kinerja', field: 'target_kinerja', width: 120},
  {headerName: 'Capaian', field: 'capaian', width: 120},
  {headerName: 'Capaian (%)', field: 'capaian_persen', width: 120},
  {headerName: 'Nilai', field: 'nilai', width: 120},
  {headerName: 'Bobot x Nilai', field: 'nilai_bobot', width: 120},
- {headerName: 'Keterangan', field: 'keterangan', width: 120},
+ {headerName: 'Keterangan', field: 'keterangan', width: 140},
  {headerName: 'pid', field: 'id', hide:true},
  {headerName: 'Id Kegiatan', field: 'id', hide:true}
 
