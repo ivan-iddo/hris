@@ -152,7 +152,9 @@ class Pengembangan_pelatihan extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization']) || true) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization'] || true);
             if ($decodedToken != false || true) {
-                $save["id"] = $this->input->post("id");
+                $save["nama_pelatihan"] = $this->input->post("nama_pelatihan");
+                $save["tujuan"] = $this->input->post("tujuan");
+                $save["institusi"] = $this->input->post("institusi");
                 $save["no_disposisi"] = $this->input->post("no_disposisi");
                 $save["laporan"] = $this->input->post("laporan");
                 $save["monev"] = $this->input->post("monev");
@@ -225,8 +227,10 @@ class Pengembangan_pelatihan extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization']) || true) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization'] || true);
             if ($decodedToken != false || true) {
-
                 $save["id"] = $this->input->post("id");
+                $save["nama_pelatihan"] = $this->input->post("nama_pelatihan");
+                $save["tujuan"] = $this->input->post("tujuan");
+                $save["institusi"] = $this->input->post("institusi");
                 $save["no_disposisi"] = $this->input->post("no_disposisi");
                 $save["laporan"] = $this->input->post("laporan");
                 $save["monev"] = $this->input->post("monev");

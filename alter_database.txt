@@ -74,5 +74,7 @@ CREATE TABLE `his_jabatan_asn` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-=============== DONE DEPLOY 20181210
+=============== DONE DEPLOY 20181210, JIKA ADA PERUBAHAN ISI DIBAWAH INI =========================== 
 
+1.
+ALTER TABLE `gtpayid_hrislive`.`pengembangan_pelatihan` ADD COLUMN `nama_pelatihan` VARCHAR(255) NULL AFTER `pengembangan_pelatihan_kegiatan_status`, ADD COLUMN `tujuan` VARCHAR(255) NULL AFTER `nama_pelatihan`, ADD COLUMN `institusi` VARCHAR(255) NULL AFTER `tujuan`; 

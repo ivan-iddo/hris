@@ -79,12 +79,30 @@
                         <div class="panel-body">
                             <form class="form-horizontal" id="form-add">
                                 <div class="panel-body">
-                                    <div class="form-group">
+                                    <div class="form-group hidden">
                                         <label class="col-sm-3 control-label" for="demo-hor-inputemail">No. Indeks</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="id" id="id" style="width: 220px;display:none"
                                                    class="form-control"/>
                                             <input type="text" name="no_disposisi" id="no_disposisi" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Nama Pelatihan</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" name="nama_pelatihan" id="nama_pelatihan" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Tujuan</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" name="tujuan" id="tujuan" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Institusi Latbang</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" name="institusi" id="institusi" class="form-control"/>
                                         </div>
                                     </div>
                                     <div class="body-content-calendar">
@@ -101,7 +119,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+<!--                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Laporan</label>
                                         <div class="col-sm-5">
                                             <input type="checkbox" name="laporan" id="laporan" value="1">
@@ -112,7 +130,7 @@
                                         <div class="col-sm-5">
                                             <input type="checkbox" name="monev" id="monev" value="1">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="demo-hor-inputemail">Total Hari Kerja</label>
                                         <div class="col-sm-5">
@@ -367,14 +385,14 @@
     new agGrid.Grid(gridDiv, gridPI);
 
     var columnListData = [
-            {headerName: "No Disposisi", field: "no_disposisi", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Nama Pelatihan", field: "nama_pelatihan", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Tujuan", field: "tujuan", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Institusi", field: "institusi", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Kegiatan", field: "pengembangan_pelatihan_kegiatan.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Pengembangan Pelatihan Status", field: "pengembangan_pelatihan_kegiatan.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Pengembangan Pelatihan Status", field: "pengembangan_pelatihan_kegiatan_status.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Tipe", field: "jenis", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Jenis Perjalanan", field: "jenis_perjalanan", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Jenis Biaya", field: "jenis_biaya", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Laporan", field: "laporan", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Monev", field: "monev", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Created Date", field: "created", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}}
     ];
@@ -795,6 +813,9 @@
         obj = {};
         obj.id = $("#id").val();
         obj.no_disposisi = $("#no_disposisi").val();
+        obj.nama_pelatihan = $("#nama_pelatihan").val();
+        obj.tujuan = $("#tujuan").val();
+        obj.institusi = $("#institusi").val();
         obj.tanggal = $(".tanggal").serializeArray();
         obj.laporan = 0;
         obj.monev = 0;
