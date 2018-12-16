@@ -1,4 +1,5 @@
 <!--Nav Tabs-->
+<?php require_once("../../constants.php"); ?>
 <ul class="nav nav-tabs">
     <div class="alert alert-danger hidden" id="users-blocked" role="alert">
         Akun anda tidak dapat mengajukan pelatihan! Silahkan selesaikan laporan pada pelatihan sebelumnya.
@@ -32,20 +33,12 @@
                             "demo-bootbox-bounce">Add
                             </button> -->
                             <button class=
-                                    "btn btn-warning btn-labeled fa fa-edit btn-sm" onclick=
-                                    "proses_edit();">Edit
-                            </button>
-                            <button class=
-                                    "btn btn-danger btn-labeled fa fa-close btn-sm" onclick=
-                                    "proses_delete();">Delete
-                            </button>
-                            <button class=
-                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                    "cetak();">Cetak
-                            </button>
-                            <button class=
                                     "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
-                                    "laporan_selesai();">Laporan selesai
+                                    "proses_update(<?php echo STATUS_LATBANG_KABAG ?>);">Persetujuan Kabag
+                            </button>
+                            <button class=
+                                      "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
+                                      "proses_update(<?php echo STATUS_LATBANG_DIREKTUR ?>);">Persetujuan Direktur
                             </button>
                         </div>
                     </div>
@@ -393,7 +386,6 @@
             {headerName: "Tipe", field: "jenis", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Jenis Perjalanan", field: "jenis_perjalanan", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Jenis Biaya", field: "jenis_biaya", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Status Pengajuan", field: "nama_status", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Created Date", field: "created", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}}
     ];
@@ -847,6 +839,25 @@
         if ($('#id').val().length != "") {
             URL = BASE_URL + "pengembangan_pelatihan/edit";
         }
+        save(URL, obj, loaddata);
+    }
+
+    function proses_update(status) {
+        obj = {};
+        var selectedRows = gridOptionsList.api.getSelectedRows();
+
+        if (selectedRows.length != 1) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } 
+        else {
+            var selectedRow = selectedRows[0];
+            obj.id = selectedRow.id;
+        }
+        obj.status = status;
+        console.log(obj);
+
+        URL = BASE_URL + "pengembangan_pelatihan/update";
         save(URL, obj, loaddata);
     }
     // setup the grid after the page has finished loading
