@@ -36,10 +36,6 @@
                                     "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
                                     "proses_update(<?php echo STATUS_LATBANG_KABAG ?>);">Persetujuan Kabag
                             </button>
-                            <button class=
-                                      "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
-                                      "proses_update(<?php echo STATUS_LATBANG_DIREKTUR ?>);">Persetujuan Direktur
-                            </button>
                         </div>
                     </div>
                 </div>
