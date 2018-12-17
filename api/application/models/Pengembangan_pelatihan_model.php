@@ -200,7 +200,7 @@ class Pengembangan_pelatihan_model extends MY_Model
 		$result = $this->db->update($this->table, $data);
 
 		if ($result) {
-			$get = $this->get_all(array("id" => $id, "statue" => $item["statue"]));
+			$get = $this->get_all(array("$this->table.id" => $id, "statue" => $item["statue"]));
 			if (count($get) == 1) {
 				return (Object)$get[0];
 			}

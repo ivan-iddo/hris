@@ -356,7 +356,7 @@ class Pengembangan_pelatihan extends REST_Controller
     {
         $results["success"] = false;
         $id = $this->input->get('id');
-        $result = $this->Pengembangan_pelatihan_model->get_all(array("id" => $id), null, $offset, $limit);
+        $result = $this->Pengembangan_pelatihan_model->get_all(array("pengembangan_pelatihan.id" => $id), null, $offset, $limit);
 
         if (count($result) == 1) {
             $results["success"] = true;
