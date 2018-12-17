@@ -439,7 +439,7 @@
     });
     $('.select-chosen').chosen();
     $('.chosen-container').css({"width": "100%"});
-    $('.judul-menu').html('Penilaian Kerja Individu');
+    $('.judul-menu').html('Pengajuan Pelatihan & Pengembangan');
     $('.buttoenedit').hide();
 
     $("#jenis_perjalanan").on("change", function () {

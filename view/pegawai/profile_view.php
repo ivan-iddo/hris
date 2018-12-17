@@ -14,7 +14,7 @@
       <div class="bg-trans-light pad-all mar-btm clearfix">
         <!-- START TAB -->
         <div class="tab-base mar-all">
-          <ul class="nav nav-tabs">
+          <ul class="nav nav-tabs" id="feedtab">
             <li class="active">
             <input type="hidden" id="f_id_edit">
               <a data-toggle="tab" href="#demo-lft-tab-1a"><span class="block text-center text-success"><i class="fa fa-credit-card fa-2x"></i></span> Pegawai</a>
@@ -40,47 +40,47 @@
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   <li>
-                    <a onclick="$('#page-kontrak').load('view/pegawai/form_file.php?id=2')" data-toggle="tab" href="#tab-kontrak">
+                    <a data-toggle="tab" href="#tab-kontrak" onclick="$('#page-kontrak').load('view/pegawai/form_file.php?id=2');removeActiveDropDown()">
                       Kontrak
                     </a>
                   </li>
                   <li>
-                    <a onclick="$('#page-penugasaan').load('view/pegawai/form_file.php?id=3')" data-toggle="tab" href="#tab-penugasaan">
+                    <a data-toggle="tab" href="#tab-penugasaan" onclick="$('#page-penugasaan').load('view/pegawai/form_file.php?id=3');removeActiveDropDown()">
                       Penugasaan
                     </a>
                   </li>
                   <li>
-                    <a onclick="$('#page-skp').load('view/pegawai/form_file.php?id=4')" data-toggle="tab" href="#tab-skp">
+                    <a data-toggle="tab" href="#tab-skp" onclick="$('#page-skp').load('view/pegawai/form_file.php?id=4');removeActiveDropDown()">
                       Skp
                     </a>
                   </li>
                   <li>
-                    <a onclick="$('#page-data-medical').load('view/pegawai/form_file.php?id=5')" data-toggle="tab" href="#tab-data-medical">
+                    <a onclick="$('#page-data-medical').load('view/pegawai/form_file.php?id=5');removeActiveDropDown()" data-toggle="tab" href="#tab-data-medical">
                       Data medical
                     </a>
                   </li>
                   <li>
-                    <a onclick="$('#page-sk').load('view/pegawai/form_file.php?id=6')" data-toggle="tab" href="#tab-sk">
+                    <a onclick="$('#page-sk').load('view/pegawai/form_file.php?id=6');removeActiveDropDown()" data-toggle="tab" href="#tab-sk">
                       SK
                     </a>
                   </li>
                   <li>
-                    <a onclick="$('#page-penghargaan').load('view/pegawai/form_penghargaan.php')" data-toggle="tab" href="#tab-penghargaan">
+                    <a onclick="$('#page-penghargaan').load('view/pegawai/form_penghargaan.php');removeActiveDropDown()" data-toggle="tab" href="#tab-penghargaan">
                       Penghargaan
                     </a>
                   </li>
                   <li>
-                    <a onclick="$('#page-punishment').load('view/pegawai/form_punishment.php')" data-toggle="tab" href="#tab-punishment">
+                    <a onclick="$('#page-punishment').load('view/pegawai/form_punishment.php');removeActiveDropDown()" data-toggle="tab" href="#tab-punishment">
                       Punishment
                     </a>
                   </li>
                   <li>
-                    <a onclick="$('#page-str').load('view/pegawai/form_str.php')" data-toggle="tab" href="#tab-str">
+                    <a onclick="$('#page-str').load('view/pegawai/form_str.php');removeActiveDropDown()" data-toggle="tab" href="#tab-str">
                       STR
                     </a>
                   </li>
                   <li>
-                    <a onclick="$('#page-sip').load('view/pegawai/form_sip.php')" data-toggle="tab" href="#tab-sip">
+                    <a onclick="$('#page-sip').load('view/pegawai/form_sip.php');removeActiveDropDown()" data-toggle="tab" href="#tab-sip">
                       SIP
                     </a>
                   </li>
@@ -179,6 +179,9 @@ Medical</a></li>
     </div>
   </div><!-- END TAB -->
   <script>
+    function removeActiveDropDown(){
+      $('ul.dropdown-menu').children().removeClass('active');
+    }; 
     function changePass(){
       var fld = $('#passwordchn').val();
       

@@ -1,7 +1,7 @@
 <form name="form-file-penghargaan" id="form-file-penghargaan" class="form-horizontal">
     <div class="panel-body pad-all">
         <div class="row">
-            <input type="hidden" name="id_userfile" id="id_userfile">
+            <input type="text" name="id_userfile" id="id_userfile">
             <div class="form-group">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6"><input required name="inputfileupload" id="inputfileupload" type="file"
@@ -57,6 +57,7 @@
 <script> 
 // set ID user
 var id = $('#f_id_edit').val();
+console.log("id : " + id);
 $('#id_userfile').val(id);
 $("form").on("submit", function(e){
     e.preventDefault();
