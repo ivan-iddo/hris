@@ -1,6 +1,5 @@
 <!doctype html>
-<html><head></head>
-<body>
+<html><head></head><body>
 <style type="text/css">
   table{
     width: 100%;
