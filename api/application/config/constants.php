@@ -1,5 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+// define("aaaa", "asdasd");
+// APPPATH."../../constants.php";
 
 /*
 |--------------------------------------------------------------------------

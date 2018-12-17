@@ -1,0 +1,5 @@
+<?php 
+define("STATUS_LATBANG_NEW", 102);
+define("STATUS_LATBANG_KABAG", 103);
+define("STATUS_LATBANG_DIREKTUR", 104);
+?>

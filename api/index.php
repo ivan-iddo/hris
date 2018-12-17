@@ -53,6 +53,7 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
+require_once '../constants.php';
 define('ENVIRONMENT','production');
 define('DEBUG_QUERY', true);
 /*

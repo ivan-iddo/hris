@@ -53,7 +53,7 @@ ALTER TABLE `sys_user_profile` CHANGE `kode_pos` `kode_pos` VARCHAR(255) CHARSET
 
 8
 ALTER TABLE `his_pendidikan` ADD COLUMN `pen_jur` VARCHAR(255) NULL AFTER `file_url`;
-ALTER TABLE `gtpayid_hrislive`.`his_pendidikan` ADD COLUMN `pen_spe` VARCHAR(255) NULL AFTER `pen_jur`;
+ALTER TABLE `his_pendidikan` ADD COLUMN `pen_spe` VARCHAR(255) NULL AFTER `pen_jur`;
 
 9.
 CREATE TABLE `his_jabatan_asn` (
@@ -77,4 +77,13 @@ CREATE TABLE `his_jabatan_asn` (
 =============== DONE DEPLOY 20181210, JIKA ADA PERUBAHAN ISI DIBAWAH INI =========================== 
 
 1.
-ALTER TABLE `gtpayid_hrislive`.`pengembangan_pelatihan` ADD COLUMN `nama_pelatihan` VARCHAR(255) NULL AFTER `pengembangan_pelatihan_kegiatan_status`, ADD COLUMN `tujuan` VARCHAR(255) NULL AFTER `nama_pelatihan`, ADD COLUMN `institusi` VARCHAR(255) NULL AFTER `tujuan`; 
+ALTER TABLE `pengembangan_pelatihan` ADD COLUMN `nama_pelatihan` VARCHAR(255) NULL AFTER `pengembangan_pelatihan_kegiatan_status`, ADD COLUMN `tujuan` VARCHAR(255) NULL AFTER `nama_pelatihan`, ADD COLUMN `institusi` VARCHAR(255) NULL AFTER `tujuan`; 
+
+2. 
+ALTER TABLE `pengembangan_pelatihan` ADD COLUMN `id_atasan` INT(11) NULL AFTER `total_hari_kerja`; 
+
+3.
+ALTER TABLE `gtpayid_hrislive`.`pengembangan_pelatihan` CHANGE `id_atasan` `id_atasan` INT(11) NULL, ADD COLUMN `id_uk` INT(11) NULL AFTER `id_atasan`; 
+
+4.
+ALTER TABLE `gtpayid_hrislive`.`pengembangan_pelatihan` ADD COLUMN `status` INT(11) NULL AFTER `id_uk`; 

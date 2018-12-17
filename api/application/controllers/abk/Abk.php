@@ -1476,19 +1476,23 @@ class Abk extends REST_Controller
                     'test_khusus' => $test_khusus,
                     'lain_lain' => $lainlain,
                     'status' => '83');
-
-                if (($decodedToken->data->_pnc_id_grup == '1') OR ($decodedToken->data->_pnc_id_grup == '1')) {
+                // jika super user yang create
+                // $id_parent = $this->System_auth_model->getparent($decodedToken->data->_pnc_id_grup, '27');
+                if ($decodedToken->data->_pnc_id_grup == '1') {
                     $id_parent = $this->System_auth_model->getparent($this->input->post('adduk'), '27');
                     $arrtam['id_atasan'] = $id_parent;
                     $arrtam['id_uk'] = $this->input->post('adduk');
                     $array = $array + $arrtam;
-                } else {
+                } 
+                else {
                     $id_parent = $this->System_auth_model->getparent($decodedToken->data->_pnc_id_grup, '27');
                     $arrtam['id_atasan'] = $id_parent;
                     $arrtam['id_uk'] = $decodedToken->data->_pnc_id_grup;
                     $array = $array + $arrtam;
                 }
-
+                // print_r($decodedToken);
+                // print_r($array);
+                // echo $this->db->last_query();die;
                 $this->db->insert('abk_pengajuan_tn', $array);
                 if ($this->db->affected_rows() == '1') {
                     $arr['hasil'] = 'success';
@@ -1567,7 +1571,7 @@ class Abk extends REST_Controller
 
 
                 $res = $this->db->get('abk_pengajuan_tn')->result();
-
+                // echo $this->db->last_query();die;
                 if (!empty($res)) {
                     $i = 0;
                     foreach ($res as $d) {

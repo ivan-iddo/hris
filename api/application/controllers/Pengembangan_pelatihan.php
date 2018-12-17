@@ -40,6 +40,7 @@ class Pengembangan_pelatihan extends REST_Controller
         $this->load->model('Pengembangan_pelatihan_model');
         $this->load->model('Pengembangan_pelatihan_kegiatan_model');
         $this->load->model('Pengembangan_pelatihan_kegiatan_status_model');
+        $this->load->model('System_auth_model');
     }
 
     public function cetak_get()
@@ -94,9 +95,9 @@ class Pengembangan_pelatihan extends REST_Controller
         $limit = 10;
         $headers = $this->input->request_headers();
         
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization']) || true) {
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false || true) {
+            if ($decodedToken != false) {
                 if (!empty($param_search)) {
                     $search["field"] = array("jenis_perjalanan", "nama_pegawai", "jabatan");
                     $search["search"] = $param_search;
@@ -146,12 +147,12 @@ class Pengembangan_pelatihan extends REST_Controller
     {
         $headers = $this->input->request_headers();
         // echo "<pre>";
-        // print_r($this->input->post());
+        // print_r($headers);
         // echo "</pre>";
         // die;
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization']) || true) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization'] || true);
-            if ($decodedToken != false || true) {
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
                 $save["nama_pelatihan"] = $this->input->post("nama_pelatihan");
                 $save["tujuan"] = $this->input->post("tujuan");
                 $save["institusi"] = $this->input->post("institusi");
@@ -168,16 +169,15 @@ class Pengembangan_pelatihan extends REST_Controller
                 $save["total_hari_kerja"] = $this->input->post("total_hari_kerja");
                 $save["pengembangan_pelatihan_kegiatan"] = $this->input->post("pengembangan_pelatihan_kegiatan");
                 $save["pengembangan_pelatihan_kegiatan_status"] = $this->input->post("pengembangan_pelatihan_kegiatan_status");
-                
+                // 18 = direktur SDM
+                $id_parent = $this->System_auth_model->getparent($decodedToken->data->_pnc_id_grup, '18');
+                $save["id_atasan"] = $id_parent;
+                $save["id_uk"] = $decodedToken->data->_pnc_id_grup;
+                $save["status"] = 102;
+
                 $detail = $this->input->post("detail");
                 $tanggal = $this->input->post("tanggal");
-
-                // echo "<pre>";
-                // print_r($detail);
-                // echo "</pre>";
-                // die;
                 
-
                 $result = $this->Pengembangan_pelatihan_model->create($save);
                 // echo "<pre>";
                 // print_r($save);
@@ -219,14 +219,41 @@ class Pengembangan_pelatihan extends REST_Controller
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
 
+    public function update_post()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+                $id = $this->input->post("id");
+                $status = $this->input->post("status");
+                $result = $this->Pengembangan_pelatihan_model->update($id, array("status" => $status));
+                if ($result) {
+                    $response['hasil'] = 'success';
+                    $response['message'] = 'Data berhasil diperbahurui!';
+                }
+                else{
+                    $response['hasil'] = 'failed';
+                    $response['message'] = 'Data gagal diperbahurui!';
+                }
+                $response["query"] = $this->db->last_query();
+                $this->set_response($response, REST_Controller::HTTP_OK);
+                return;
+            }
+        }
+        $this->set_response($response, REST_Controller::HTTP_OK);
+        return;
+    }
+
 
     public function edit_post()
     {
         $headers = $this->input->request_headers();
 
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization']) || true) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization'] || true);
-            if ($decodedToken != false || true) {
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
                 $save["id"] = $this->input->post("id");
                 $save["nama_pelatihan"] = $this->input->post("nama_pelatihan");
                 $save["tujuan"] = $this->input->post("tujuan");
