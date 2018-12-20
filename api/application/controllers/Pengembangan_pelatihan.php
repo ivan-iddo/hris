@@ -128,6 +128,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 }
 
                 $results['total'] = count($this->Pengembangan_pelatihan_model->get_all());
+                $results["query"] = $this->db->last_query();
                 $results['limit'] = $limit;
                 $results["is_blocked"] = $this->Pengembangan_pelatihan_model->is_blocked($decodedToken->data->NIP);
                 $results["is_monev"] = $this->Pengembangan_pelatihan_model->is_monev($decodedToken->data->NIP);
@@ -358,7 +359,7 @@ class Pengembangan_pelatihan extends REST_Controller
         $id = $this->input->get('id');
         $result = $this->Pengembangan_pelatihan_model->get_all(array("pengembangan_pelatihan.id" => $id), null, $offset, $limit);
 
-        if (count($result) == 1) {
+        if (!empty($result)) {
             $results["success"] = true;
             $result = $result[0];
             $tanggal = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $result["id"]));

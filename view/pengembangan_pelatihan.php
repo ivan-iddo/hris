@@ -385,9 +385,17 @@
     new agGrid.Grid(gridDiv, gridPI);
 
     var columnListData = [
+            {headerName: "ID", field: "id", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Nama Pelatihan", field: "nama_pelatihan", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Tujuan", field: "tujuan", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Institusi", field: "institusi", width: 190, filterParams: {newRowsAction: 'keep'}},
+
+            {headerName: "Nopeg", field: "nopeg", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Nama pegawai", field: "nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Golongan", field: "golongan", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Jabatan", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Pangkat", field: "pangkat", width: 190, filterParams: {newRowsAction: 'keep'}},
+
             {headerName: "Kegiatan", field: "pengembangan_pelatihan_kegiatan.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Pengembangan Pelatihan Status", field: "pengembangan_pelatihan_kegiatan_status.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Tipe", field: "jenis", width: 190, filterParams: {newRowsAction: 'keep'}},
@@ -417,7 +425,10 @@
             field: 'athlete'
         },
         defaultColDef: {
-            editable: true
+            editable: true,
+            enableRowGroup: true,
+            enablePivot: true,
+            enableValue: true
         },
         onGridReady: function (params) {
             params.api.sizeColumnsToFit();
@@ -946,6 +957,9 @@
                         $("#pengembangan_pelatihan_kegiatan_status").trigger("chosen:updated");
                     };
 
+                    $("#nama_pelatihan").val(res.data.nama_pelatihan);
+                    $("#tujuan").val(res.data.tujuan);
+                    $("#institusi").val(res.data.institusi);
 
                     $('#jenis').val(res.data.jenis);
                     $("#jenis").trigger("chosen:updated");

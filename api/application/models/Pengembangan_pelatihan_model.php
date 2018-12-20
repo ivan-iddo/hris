@@ -58,9 +58,9 @@ class Pengembangan_pelatihan_model extends MY_Model
 
 	function is_blocked($nopeg)
 	{
-		$data = $this->get_all(array("statue" => 1,
+		$data = $this->get_all(array("$this->table.statue" => 1,
 										"laporan" => 1,
-										"created <=" => date("Y-m-d", strtotime("-5 days", strtotime(date("Y-m-d"))))
+										"$this->table.created <=" => date("Y-m-d", strtotime("-5 days", strtotime(date("Y-m-d"))))
 										)
 								);
 		
@@ -68,7 +68,7 @@ class Pengembangan_pelatihan_model extends MY_Model
 			foreach ($data as $key => $value) {
 				$check_detail = $this->get_detail("pengembangan_pelatihan_detail", array("nopeg" => $nopeg));
 				// echo $this->db->last_query();die;
-				// jika ada isLaporan == true && now <= (created-5)
+				// jika ada isLaporan == true && now <= ($this->table.created-5)
 				if ($check_detail) {
 					return true;
 				}
@@ -79,9 +79,9 @@ class Pengembangan_pelatihan_model extends MY_Model
 
 	function is_monev($nopeg)
 	{
-		$data = $this->get_all(array("statue" => 1,
+		$data = $this->get_all(array("$this->table.statue" => 1,
 												"laporan" => 1,
-												"created <=" => date("Y-m-d", strtotime("-30 days", strtotime(date("Y-m-d"))))
+												"$this->table.created <=" => date("Y-m-d", strtotime("-30 days", strtotime(date("Y-m-d"))))
 												)
 										);
 				
@@ -132,8 +132,9 @@ class Pengembangan_pelatihan_model extends MY_Model
 	{	
 		$this->db->select("$this->table.*, dm_term.nama AS nama_status");
 		$this->db->from($this->table);
+		$this->db->join("pengembangan_pelatihan_detail", "$this->table.id = pengembangan_pelatihan_detail.pengembangan_pelatihan_id AND pengembangan_pelatihan_detail.statue = 1");
 		$this->db->join("dm_term", "$this->table.status = dm_term.id", "left");
-		$this->db->where("statue !=", 0);
+		$this->db->where("$this->table.statue !=", 0);
 		if (!empty($params_array) && is_array($params_array)) {
 			$this->db->where($params_array);
 		}
@@ -145,11 +146,11 @@ class Pengembangan_pelatihan_model extends MY_Model
 		}
 
 		if (!empty($from)) {
-			$this->db->where("created >=", $from);
+			$this->db->where("$this->table.created >=", $from);
 		}
 
 		if (!empty($to)) {
-			$this->db->where("created <=", $to);
+			$this->db->where("$this->table.created <=", $to);
 		}
 
 		if (is_array($like) && !empty($like)) {
