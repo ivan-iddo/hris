@@ -45,7 +45,7 @@ class Upload extends CI_Controller
         echo json_encode($arr);
     }
 
-    public function editkeluarga()
+    public function editkeluarga($id)
     {
         $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
@@ -69,7 +69,7 @@ class Upload extends CI_Controller
             $arrdata["url"] = $upload['file_name'];
         }
 
-        $this->db->where('id', $this->uri->segment(3));
+        $this->db->where('id', $id);
         $result = $this->db->update('his_keluarga', $arrdata);
 
         if ($result) {
