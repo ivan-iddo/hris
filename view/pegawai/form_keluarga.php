@@ -31,6 +31,7 @@ var columnKeluarga = [
            {headerName: "Tgl.Lahir", field: "tgl_lahir", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Gender", field: "kelamin", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Hubungan", field: "hubkel", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Kartu Nikah", field: "karn", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Pendidikan", field: "pendidikan", width: 190, filterParams:{newRowsAction: 'keep'}}, 
            {headerName: "Pekerjaan", field: "pekerjaan", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Dokumen", field: "url", 

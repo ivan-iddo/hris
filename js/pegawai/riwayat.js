@@ -10,37 +10,55 @@ function tabKeluargaView() {
 
 function simpanKeluarga(action) {
   var id_keluarga = $('#id_keluarga').val();
-    var form = $("#form-keluarga");
+  var id_user = $('#id_user').val();
     var gotourl = 'pegawais/upload/savekeluarga';
     if (action === 'edit') {
         gotourl = 'pegawais/upload/editkeluarga/' + id_keluarga;
     }
-    $.ajax({
-        url: BASE_URL + gotourl,
-        headers: {
-            'Authorization': localStorage.getItem("Token"),
-            'X_CSRF_TOKEN': 'donimaulana'
-        },
-        dataType: 'json',
-        type: 'post',
-        contentType: false,
-        processData: false,
-        data: new FormData(form[0]),
-        success: function (data, textStatus, jQxhr) {
-            hasil = data.hasil;
-            message = data.message;
-            if (hasil == "success") {
-                $.niftyNoty({type: 'success', title: 'Success', message: message, container: 'floating', timer: 5000});
-                $("#f_id_edit").val(data.id);
-                loadKeluarga();/* $('.modal').modal('hide');*/
-            } else {
-                return false;
-            }
-        },
-        error: function (jqXhr, textStatus, errorThrown) {
-            $.niftyNoty({type: 'danger', title: 'Warning!', message: message, container: 'floating', timer: 5000});
-        }
-    });
+	var data = formJson('form-keluarga'); //$("#form-upload").serializeArray();
+	var obj = JSON.parse(data);
+	obj['id_user'] = id_user;
+  
+	$.ajax({
+		url: BASE_URL + gotourl,
+		headers: {
+			'Authorization': localStorage.getItem("Token"),
+			'X_CSRF_TOKEN': 'donimaulana',
+			'Content-Type': 'application/json'
+		},
+		dataType: 'json',
+		type: 'post',
+		contentType: 'application/json',
+		processData: false,
+		data: JSON.stringify(obj),
+		success: function(data, textStatus, jQxhr) {
+			hasil = data.hasil;
+			message = data.message;
+			if (hasil == "success") {
+				$.niftyNoty({
+					type: 'success',
+					title: 'Success',
+					message: message,
+					container: 'floating',
+					timer: 5000
+				});
+				$("#form-keluarga").val(data.id);
+				 loadKeluarga();
+				// $('.modal').modal('hide');
+			} else {
+				return false;
+			}
+		},
+		error: function(jqXhr, textStatus, errorThrown) {
+			$.niftyNoty({
+				type: 'danger',
+				title: 'Warning!',
+				message: message,
+				container: 'floating',
+				timer: 5000
+			});
+		}
+	});	
 }
 
 function loadKeluarga() {
@@ -91,63 +109,109 @@ function addKeluarga() {
     });
 }
 
-function editKeluarga() {
-    var selectedRows = gridKeluargaOpt.api.getSelectedRows();/* alert('>>'+selectedRows+'<<<');*/
-    if (selectedRows == '') {
-        onMessage('Silahkan Pilih Keluarga Terlebih dahulu!');
-        return false;
-    } else {
-        var selectedRowsString = '';
-        selectedRows.forEach(function (selectedRow, index) {
-            if (index !== 0) {
-                selectedRowsString += ', ';
-            }
-            selectedRowsString += selectedRow.id;
-        });
-        bootbox.dialog({
-            message: $('<div></div>').load('view/pegawai/input_keluarga.php'),
-            animateIn: 'bounceIn',
-            animateOut: 'bounceOut',
-            backdrop: false,
-            size: 'large',
-            buttons: {
-                success: {
-                    label: "Save", className: "btn-success", callback: function () {
-                        simpanKeluarga('edit');
-                        return false;
-                    }
-                }, main: {
-                    label: "Close", className: "btn-warning", callback: function () {
-                        $.niftyNoty({type: 'dark', message: "Bye Bye", container: 'floating', timer: 5000});
-                    }
-                }
-            }
-        });
-        $.ajax({
-            url: BASE_URL + 'pegawai/getkeluarga/' + selectedRowsString,
-            headers: {
-                'Authorization': localStorage.getItem("Token"),
-                'X_CSRF_TOKEN': 'donimaulana',
-                'Content-Type': 'application/json'
-            },
-            dataType: 'json',
-            type: 'get',
-            contentType: 'application/json',
-            processData: false,
-            success: function (data, textStatus, jQxhr) {
-                $('#id_keluarga').val(data.id);
+function editKeluarga(){
+               var selectedRows = gridKeluargaOpt.api.getSelectedRows();
+            // alert('>>'+selectedRows+'<<<');
+            if(selectedRows == ''){
+               onMessage('Silahkan Pilih Keluarga Terlebih dahulu!');
+               return false;
+            }else{
+                var selectedRowsString = '';
+                    selectedRows.forEach( function(selectedRow, index) {
+                     
+                        if (index!==0) {
+                            selectedRowsString += ', ';
+                        }
+                        selectedRowsString += selectedRow.id;
+                    });
+                    
+                    bootbox.dialog({ 
+                                                  message: $('<div></div>').load('view/pegawai/input_keluarga.php'),
+                                                    animateIn: 'bounceIn',
+                                                    animateOut : 'bounceOut',
+                                                                               backdrop: false,
+                                                    size:'large',
+                                                    buttons: {
+                                                        success: {
+                                                            label: "Save",
+                                                            className: "btn-success",
+                                                            callback: function() {
+                                                                
+                                                               simpanKeluarga('edit');
+                                                                            return false;
+                                                                        
+                                                                        
+                                                            }
+                                                        },
+                                 
+                                                        main: {
+                                                            label: "Close",
+                                                            className: "btn-warning",
+                                                            callback: function() {
+                                                                $.niftyNoty({
+                                                                    type: 'dark',
+                                                                    message : "Bye Bye",
+                                                                    container : 'floating',
+                                                                    timer : 5000
+                                                                });
+                                                            }
+                                                        }
+                                                    }
+                                                        });
+                    
+               $.ajax({
+                                   url: BASE_URL + 'pegawai/getkeluarga/' + selectedRowsString,
+                                   headers: {
+                                       'Authorization': localStorage.getItem("Token"),
+                                       'X_CSRF_TOKEN':'donimaulana',
+                                       'Content-Type':'application/json'
+                                   },
+                                   dataType: 'json',
+                                   type: 'get',
+                                   contentType: 'application/json', 
+                                   processData: false,
+                                   success: function( data, textStatus, jQxhr ){
+               
+              
+               
+                                              
+              $('#id_keluarga').val(data.id);
                 $('#txtNama').val(data.nama);
                 $('#txtTptLahir').val(data.tempat_lahir);
                 $('#txtNik').val(data.NIK);
                 $('#txtTglLahir').val(data.tgl_lahir);
-                getOptionsEdit("txtKelamin", BASE_URL + "master/kelamin", data.kelamin);
+                $('#txtkarn').val(data.karn);
+
+if(!empty(data.file)){
+    var datafile='';
+               datafile+='<tr>';
+               datafile+='<td>1.';
+               datafile+='</td>';
+               datafile+='<td>';
+               datafile +=data.file.substring(0, 30)+'...';
+               datafile+='</td>';
+               datafile+='<td>';
+               
+               datafile +='<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/data/'+data.file+'\')"><i class="fa fa-eye"></i></a>';
+               datafile+='</td>';
+               datafile+='</tr>';
+               $('#fileIjazah').html(datafile);
+
+}
+               
+
+                                              
+               getOptionsEdit("txtKelamin", BASE_URL + "master/kelamin", data.kelamin);
                 getOptionsEdit("txtPendidikan", BASE_URL + "master/pendidikan", data.id_pendidikan);
                 getOptionsEdit("txtPekerjaan", BASE_URL + "master/pekerjaan", data.id_pekerjaan);
                 getOptionsEdit("txtHubungan", BASE_URL + "master/hubkeluarga", data.id_hubkel);
-            }
-        });
-    }
-}
+               
+                                   } 
+                               });
+               
+           }
+   }
+
 
 function deletKeluarga() {
     var selectedRows = gridKeluargaOpt.api.getSelectedRows();/* alert('>>'+selectedRows+'<<<');*/

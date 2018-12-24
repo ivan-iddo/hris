@@ -42,7 +42,7 @@ class Golongan extends REST_Controller
 
                 $arrdata = array(
                     'id_user' => $this->input->post('id_user'),
-                    'golongan_id' => $this->input->post('golongan_id'),
+                    'golongan_id' => $this->input->post('pangkat_id'),
                     'tmt_golongan' => $this->input->post('tmt_golongan'),
                     'no_sk' => $this->input->post('no_sk'),
                     'tgl_sk' => $this->input->post('tgl_sk'),
@@ -92,8 +92,7 @@ class Golongan extends REST_Controller
                 foreach ($res as $d) {
                     $arr[] = array('id' => $d->id,
                         'id_user' => $d->id_user,
-                        'golongan_id' => $d->golongan_id,
-                        'pangkat_id' => $d->pangkat,
+                        'pangkat_id' => $d->nama_p.' / '.$d->pangkat,
                         'tmt_golongan' => $d->tmt_golongan,
                         'no_sk' => $d->no_sk,
                         'tgl_sk' => $d->tgl_sk,
@@ -122,7 +121,7 @@ class Golongan extends REST_Controller
             if ($decodedToken != false) {
 
                 $arrdata = array(
-                    'golongan_id' => $this->input->post('golongan_id'),
+                    'golongan_id' => $this->input->post('pangkat_id'),
                     'tmt_golongan' => $this->input->post('tmt_golongan'),
                     'no_sk' => $this->input->post('no_sk'),
                     'tgl_sk' => $this->input->post('tgl_sk'),
@@ -170,7 +169,7 @@ class Golongan extends REST_Controller
                 foreach ($res as $d) {
                     $arr = array('id' => $d->id,
                         'id_user' => $d->id_user,
-                        'golongan_id' => $d->golongan_id,
+                        'pangkat_id' => $d->golongan_id,
                         'tmt_golongan' => $d->tmt_golongan,
                         'no_sk' => $d->no_sk,
                         'tgl_sk' => $d->tgl_sk,

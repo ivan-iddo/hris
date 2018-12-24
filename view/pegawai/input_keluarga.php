@@ -95,6 +95,12 @@
                                         style="width: 100%;">
                                 </select>
                             </div>
+                        </div>
+						 <div class="form-group">
+                            <label class="col-sm-4 control-label" for="inputstatus">Karis/Karsu</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtkarn" name="txtkarn" placeholder="">
+                            </div>
                         </div><!-- End Hori sontal -->
                     </div>
                 </div>

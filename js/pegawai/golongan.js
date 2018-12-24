@@ -99,7 +99,7 @@ function loadGolongan(){
 
 function addGolongan(){
             getOptions("pangkat_id",BASE_URL+"master/golongan_pegawai");
-            getOptions("golongan_id",BASE_URL+"master/golongan_peg");
+
               
               
               bootbox.dialog({ 
@@ -227,9 +227,6 @@ if(!empty(data.file)){
 
 }
               
-
-                                             
-              getOptionsEdit("golongan_id",BASE_URL+"master/golongan_peg",data.golongan_id);  
               getOptionsEdit("pangkat_id",BASE_URL+"master/golongan_pegawai",data.golongan_id);  
               
                                   } 

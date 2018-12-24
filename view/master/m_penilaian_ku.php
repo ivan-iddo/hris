@@ -1,17 +1,4 @@
 <?php $nama_modul='kpi/mpenilaian';?>
-<?php
-require_once('../../connectdb.php');
-?>
-<?php 
-   $query= mysqli_query($con,'SELECT count(m_penilaian_kpi.id_grup) as jml, sum(his_kpi_detail.bobot) as bobot_kpi FROM m_penilaian_kpi LEFT JOIN his_kpi_detail ON m_penilaian_kpi.id_grup=his_kpi_detail.id_kegiatan where m_penilaian_kpi.kode=96 and m_penilaian_kpi.child=5 and m_penilaian_kpi.tampilkan="1"');
-  $rowcount=mysqli_num_rows($query);
-   if(!empty($rowcount)){
-   while($row = mysqli_fetch_array($query)){
-        $total = $row['jml'];
-        $bob = $row['bobot_kpi'];
-    }
-    }
-?>
 <div class="tab-base">
   <!--Nav Tabs-->
   <ul class="nav nav-tabs">
@@ -52,8 +39,6 @@ require_once('../../connectdb.php');
                 </button>
               </div>
               <h4>Indikator Kerja</h4>
-			  <input placeholder="" id="nilai" class="form-control" value="<?php echo $total?>" type="text" style="display:none">
-			  <input placeholder="" id="nilai_bobot" class="form-control" value="<?php echo $bob?>" type="text" style="display:none"> 
               <div id="myGrid" style="height: 400px;width:100%" class="ag-theme-balham">
               </div>
             </div>
@@ -147,7 +132,7 @@ require_once('../../connectdb.php');
       }
                           );
       $.ajax({
-        url: BASE_URL+'<?php echo $nama_modul?>/getitemkpi/?id='+selectedRowsString,
+        url: BASE_URL+'<?php echo $nama_modul?>/getitemkpi/?idp='+selectedRowsString,
         headers: {
           'Authorization': localStorage.getItem("Token"),
           'X_CSRF_TOKEN':'donimaulana',
@@ -162,7 +147,8 @@ require_once('../../connectdb.php');
           $('#f_group_group').val(res[0].nama);
          // $('#f_group_ket').val(res[0].deskripsi);
           $('#id_group').val(res[0].id);
-		  getOptionsEdit('f_group_bot',BASE_URL+'master/getbobot',res[0].no);
+          $('#id_kpi').val(res[0].id_kpi);
+		  $('#f_group_bot').val(res[0].no);
           // gridOptions.api.setRowData(data);
         }
         ,
@@ -178,6 +164,7 @@ require_once('../../connectdb.php');
       input +='<div class="col-sm-5">';
       input +='<input placeholder="" id="f_group_group" class="form-control" type="text">';
       input +='<input placeholder="ID Group" id="id_group" style="display:none" class="form-control" type="text">';
+      input +='<input placeholder="ID Kpi" id="id_kpi" style="display:none" class="form-control" type="text">';
       input += '</div>';
       input += '</div>';
 	  input +='<div class="form-group">';
@@ -240,7 +227,7 @@ require_once('../../connectdb.php');
   }
 
   function loaddata(){
-    getJson(getdata,BASE_URL+'<?php echo $nama_modul?>/getitemkpi?child=5');
+    getJson(getdata,BASE_URL+'<?php echo $nama_modul?>/getikpi?child=5&id=5&pid=0');
   }
 
 
@@ -313,17 +300,15 @@ require_once('../../connectdb.php');
   }
   
   $('#demo-bootbox-bounce').on('click', function(){
-	getOptions("f_group_bot",BASE_URL+"master/getbobot");
     var input='<form class="form-horizontal">';
     input += '<div class="panel-body">';
     input +='<div class="form-group">';
     input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Kategori Dokumen</label>';
     input +='<div class="col-sm-5">';
-    input +='<input placeholder="" id="f_group_group" class="form-control" type="text">';
-    
+    input +='<input placeholder="" id="f_group_group" class="form-control" type="text">'; 
     input +='<input placeholder="ID Group" id="id_parent" style="display:none" class="form-control" type="text" value="1">';
-    
     input +='<input placeholder="ID Group" id="id_group" style="display:none" class="form-control" type="text">';
+	input +='<input placeholder="ID Kpi" id="id_kpi" style="display:none" class="form-control" type="text">';
     input += '</div>';
     input += '</div>';
 	input +='<div class="form-group">';
@@ -375,19 +360,10 @@ require_once('../../connectdb.php');
     group_aplikasi	= '1';
     group_group     = $("#f_group_group").get(0).value;
     id_group     = $("#id_group").get(0).value;
+    id_kpi     = $("#id_kpi").get(0).value;
     id_parent = 5; //rubah disini aja
+    max = 20;
 	pilih=$("#f_group_bot").get(0).value;
-	nilai     = $("#nilai").get(0).value;
-	bobot_ambil     = $("#nilai_bobot").get(0).value;
-	ambil=bobot_ambil+(pilih)
-	if(nilai>=20){
-	   onMessage('Parameter Mencapai Max!');
-      return false;
-    }else{
-	if(ambil>=100){
-	   onMessage('Total Max bobot 100 %!');
-      return false;
-    }else{
 	if(!group_group){
       alert('Nama Kategori Tidak Boleh Kosong');
       return false;
@@ -397,7 +373,9 @@ require_once('../../connectdb.php');
         group_aplikasi:group_aplikasi,                                                        
         group_group:group_group,
         id_group:id_group,
-        bobot_ambil:bobot_ambil,
+        id_kpi:id_kpi,
+		max:max,
+        pilih:pilih,
         id_parent:id_parent
       };
       var URL;
@@ -409,8 +387,6 @@ require_once('../../connectdb.php');
       }
       save(URL,data,loaddata);
       return true;
-    }
-    }
     }
   }
  

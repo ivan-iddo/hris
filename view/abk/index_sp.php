@@ -19,7 +19,7 @@
                                             <div class="col-sm-4">
                                                     <select class="form-control select2" id="thnfrm2" name="thnfrm2" style="width: 100%;">
                                                     <option value="">--TAHUN--</option>
-                                                     <?php for($i=2010;$i<= date('Y');$i++){?>
+                                                     <?php for($i=date('Y');$i>=2010;$i--){?>
                                                         <option value="<?php echo $i?>"><?php echo $i?></option>
                                                         <?php }?>
                                                     </select> 

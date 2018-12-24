@@ -1,4 +1,4 @@
-<form name="form-file-penghargaan" id="form-file-penghargaan" class="form-horizontal">
+<form name="form-file-kontrak" id="form-file-kontrak" class="form-horizontal">
     <div class="panel-body pad-all">
         <div class="row">
             <input type="text" name="id_userfile" id="id_userfile" style="display:none">
@@ -10,26 +10,32 @@
             </div>
 			<div class="form-group">
                 <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="No SK Penetapan" class="form-control" id="nosk"
-                                            required name="nosk"></div>
+                <div class="col-sm-6"><input type="text" placeholder="No Kontrak" class="form-control" id="noktr"
+                                            required name="noktr"></div>
                 <div class="col-sm-3"></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="Nama Penghargaan" class="form-control" id="penghargaan"
-                                            required name="penghargaan"></div>
+                <div class="col-sm-6"><input type="date" placeholder="TMT Awal Kotrak" class="form-control" id="tmtawal"
+                                            required name="tmtawal"></div>
                 <div class="col-sm-3"></div>
             </div>
             <div class="form-group">
                <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="text" placeholder="Instansi Pemberi" class="form-control" id="instansi"
-                                           required name="instansi"></div>
+               <div class="col-sm-6"><input type="date" placeholder="Tanggal Kontrak" class="form-control" id="tglktr"
+                                           required name="tglktr"></div>
                <div class="col-sm-3"></div>
+            </div>
+			<div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6"><input type="text" placeholder="Jenis Kontrak" class="form-control" id="jnsktr"
+                                            required name="jnsktr"></div>
+                <div class="col-sm-3"></div>
             </div>
             <div class="form-group">
                <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="date" placeholder="Tanggal" class="form-control" id="tanggal"
-                                           name="tanggal"></div>
+               <div class="col-sm-6"><input type="date" placeholder="Tanggal Akhir Kontrak" class="form-control" id="tglakhir"
+                                           name="tglakhir"></div>
                <div class="col-sm-3"></div>
             </div>
             <div class="form-group">
@@ -49,10 +55,11 @@
                 <thead>
                 <tr>
                     <th style="width:20px">No.</th>
-                    <th>No SK Penghargaan</th>
-                    <th>Nama Penghargaan</th>
-                    <th>Instansi Pemberi</th>
-                    <th>Tanggal Penetapan</th>
+                    <th>No Kontrak</th>
+                    <th>TMT awal Kotrak</th>
+                    <th>Tanggal Kontrak</th>
+                    <th>Jenis Kontrak</th>
+                    <th>TMT Akhir Kontrak</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -64,15 +71,16 @@
 <script> 
 // set ID user
 var id = $('#f_id_edit').val();
-console.log("id : " + id);
 $('#id_userfile').val(id);
 $("form").on("submit", function(e){
     e.preventDefault();
-    var form = $("#form-file-penghargaan");
+    var id_pelatihan = $('#f_id_edit').val();
+    $('#id_userfile').val(id_pelatihan);
+    var form = $("#form-file-kontrak");
 
-    if (id !== '') {
+    if (id_pelatihan !== '') {
         $.ajax({
-            url: BASE_URL + "pegawais/penghargaan/add", /* Url to which the request is send*/
+            url: BASE_URL + "pegawais/kontrak/add", /* Url to which the request is send*/
             type: "POST",
             headers: {
                 'Authorization': localStorage.getItem("Token"),
@@ -103,7 +111,7 @@ function getfileupload(result) {
 }
 
 function loadData() {
-    getJson(getfileupload, BASE_URL + 'pegawais/penghargaan/' + id);
+    getJson(getfileupload, BASE_URL + 'pegawais/kontrak/' + id);
 }
 
 loadData();
@@ -127,7 +135,7 @@ function hapusfile(a) {
         confirmButtonText: "Ya, Hapus saja!",
         closeOnConfirm: false
     }, function () {
-        getJson(filedelete, BASE_URL + 'pegawais/penghargaan/delete/' + a + "?id_userfile=" + id);
+        getJson(filedelete, BASE_URL + 'pegawais/kontrak/delete/' + a + "?id_userfile=" + id);
     });
 }
 </script>

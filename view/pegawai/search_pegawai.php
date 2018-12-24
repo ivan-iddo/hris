@@ -274,13 +274,18 @@
 																	 $('#txtAlamat').val(res[0].alamat_tinggal);
 																	 $('#inputrt').val(res[0].rt_tinggal);
 																	 $('#inputrw').val(res[0].rw_tinggal);
+																	 $('#inputkpos').val(res[0].kode_pos);
 																	 
 																	 $('#txtAlamatKtp').val(res[0].alamat_ktp);
 																	 $('#inputrtktp').val(res[0].rt_ktp);
 																	 $('#inputrwktp').val(res[0].rw_ktp);
+																	 $('#inputkposktp').val(res[0].kode_posktp);
 																	 
 																	 $('#txtnip').val(res[0].NIP);
 																	 $('#txtnik').val(res[0].NIK);
+																	 $('#txtnopeg').val(res[0].nopeg);
+																	 $('#txtkarpeg').val(res[0].karpeg);
+																	 $('#txttglnikah').val(res[0].tgl_nikah);
 																	 $('#txtgelardepan').val(res[0].gelar_depan);
 																	 $('#txtgelarbelakang').val(res[0].gelar_belakang);
 																	 $('#txttlahir').val(res[0].tempat_lahir);

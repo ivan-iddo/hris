@@ -45,8 +45,6 @@ class Mpenilaian extends REST_Controller
 						$this->db->delete('his_kpi_detail'); 
 					} 
 
-					
-
 				}else{
 					$arr['hasil']='error';
 						$arr['message']='Data Gagal Ditambah! anda harus memilih Pegawai terlebih dahulu';
@@ -56,20 +54,60 @@ class Mpenilaian extends REST_Controller
 					}
 			 
 				foreach($_POST as $dat){
-					 
+						$id_kpi=0;
+						$id_kegiatan=0;
+						$target_kinerja=0;
+						$capaian=0;
+						$capaian_persen=0;
+						$nilai=0;
+						$nilai_bobot=0;
+						$keterangan=''; 
+
+						if(!empty($dat['pid'])){
+							$id_kpi=$dat['pid'];
+						}
+						if(!empty($dat['id'])){
+							$id_kegiatan=$dat['id'];
+						}
+						if(!empty($dat['no'])){
+							$bobot=$dat['no'];
+						}
+						if(!empty($dat['target_kinerja'])){
+							$target_kinerja=$dat['target_kinerja'];
+						}
+						if(!empty($dat['nilai'])){
+							$nilai=$dat['nilai'];
+						}
+						if(!empty($dat['capaian_persen'])){
+							$capaian_persen=$dat['capaian_persen'];
+						}
+						if(!empty($dat['capaian'])){
+							$capaian=$dat['capaian'];
+						}
+						if(!empty($dat['nilai_bobot'])){
+							$nilai_bobot=$dat['nilai_bobot'];
+						}
+						if(!empty($dat['keterangan'])){
+							$keterangan=$dat['keterangan'];
+						}
 					$array = array(
-						'id_kpi'=>$dat['pid'],
-						'id_kegiatan'=>$dat['id'],
-						'bobot'=>$dat['no'],
-						'target_kinerja'=>$dat['target_kinerja'],
-						'capaian'=>$dat['capaian'],
-						'capaian_persen'=>$dat['capaian_persen'],
-						'nilai'=>$dat['nilai'],
-						'nilai_bobot'=>$dat['nilai_bobot'],
-						'keterangan'=>$dat['keterangan'], 
+						'id_kpi'=>$id_kpi,
+						'id_kegiatan'=>$id_kegiatan,
+						'target_kinerja'=>$target_kinerja,
+						'capaian'=>$capaian,
+						'capaian_persen'=>$capaian_persen,
+						'nilai'=>$nilai,
+						'nilai_bobot'=>$nilai_bobot,
+						'keterangan'=>$keterangan, 
 					);
 					
 					$this->db->insert('his_kpi_detail',$array);
+					if(!empty($dat['total'])){
+					$total=$dat['total'];
+					$dd = array('nilai' => $total);
+					$this->db->where('id', $id_kpi);
+					$res = $this->db->update('his_kpi', $dd);
+					}
 						if($this->db->affected_rows() == '1'){
 							$arr['hasil']='success';
 							$arr['message']='Data berhasil ditambah!';
@@ -248,8 +286,6 @@ class Mpenilaian extends REST_Controller
 				$res = $this->db->get('his_kpi')->row();
 
 				if(empty($res)){
-
-				
 				$data=array(
 					'id_jenis'=> $id_jenis,
 					'no_pegawai' => $nip,
@@ -257,9 +293,22 @@ class Mpenilaian extends REST_Controller
 					'akhir'=> $akhir,
 					'id_unitkerja' => $id_grup
 				);
-
 				$this->db->insert('his_kpi',$data);
-
+				$this->db->select('his_kpi.*,m_penilaian_kpi.*');
+				$this->db->where('his_kpi.awal',$awal);
+				$this->db->where('his_kpi.akhir',$akhir);
+				$this->db->where('his_kpi.no_pegawai',$nip);
+				$this->db->where('his_kpi.id_jenis',$id_jenis);
+				$this->db->where('m_penilaian_kpi.tampilkan','1');
+				$this->db->join('his_kpi','m_penilaian_kpi.child = his_kpi.id_jenis','LEFT');
+				$res = $this->db->get('m_penilaian_kpi')->result();
+				foreach($res as $d){
+					$data=array(
+					'id_kpi'=> $d->id,
+					'id_kegiatan'=> $d->id_grup,
+				);
+				$this->db->insert('his_kpi_detail',$data);
+				}
 				if($this->db->affected_rows() == '1'){
 					$arr['hasil']='success';
 					$arr['message']='Data berhasil ditambah!';
@@ -271,6 +320,7 @@ class Mpenilaian extends REST_Controller
 					$arr['hasil']='error';
 					$arr['message']='Maaf data gagal disimpan karena data <strong>'.$this->input->post('nama_pegawai').'</strong> dengan periode yg sama sudah ada!<br>Silahkan pilih periode lainnya';
 				}
+		
 		 
 		  $this->set_response($arr, REST_Controller::HTTP_OK);
 			
@@ -439,25 +489,85 @@ class Mpenilaian extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 				$id = $this->input->get('id');
+				$idp = $this->input->get('idp');
 				$child = $this->input->get('child');
 				if(!empty($id)){
-					 $this->db->where('m_penilaian_kpi.id_grup',$this->input->get('id'));
+					 $this->db->where('his_kpi_detail.id_kpi',$this->input->get('pid'));
+				}
+				if(!empty($idp)){
+					 $this->db->where('m_penilaian_kpi.id_grup',$this->input->get('idp'));
 				}
 				if(!empty($child)){
 					$this->db->where('m_penilaian_kpi.child',$child);
 				}
+				  $this->db->select('m_penilaian_kpi.*, his_kpi_detail.*,his_kpi.id as id_kpi');
 				  $this->db->where('m_penilaian_kpi.tampilkan','1');
-				  $this->db->join('dm_term','m_penilaian_kpi.kode = dm_term.id','LEFT');
 				  $this->db->join('his_kpi_detail','m_penilaian_kpi.id_grup = his_kpi_detail.id_kegiatan','LEFT');
-				  $this->db->join('his_kpi','his_kpi_detail.id_kegiatan = his_kpi.id_jenis','LEFT');
+				  $this->db->join('his_kpi','his_kpi_detail.id_kpi = his_kpi.id','LEFT');
+				  $res = $this->db->get('m_penilaian_kpi')->result();
+
+				  
+			if(!empty($res)){
+				 foreach($res as $d){
+					$nilai=$d->nilai;
+					$bobot=$d->bobot;
+					$nilai_bobot=$bobot/100*$nilai;
+					$total += $nilai_bobot;
+					$arr[]=array('id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'total'=>$total, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
+				  }
+			}else{
+			$arr['result'] ='empty';
+		  }
+		  $jmldata = count($arr);
+				$arr[$jmldata]=array('id_kpi'=>'',
+						'id_kegiatan'=>'',
+						'no'=>'',
+						'target_kinerja'=>'TOTAL',
+						'capaian'=>'',
+						'capaian_persen'=>'',
+						'nilai'=>'',
+						'nilai_bobot'=>$total,
+						'keterangan'=>'');
+		  $this->set_response($arr, REST_Controller::HTTP_OK);
+			
+                return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+	
+	public function getikpi_get(){
+		$headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+				$id = $this->input->get('id');
+				$idp = $this->input->get('idp');
+				$child = $this->input->get('child');
+				if(!empty($id)){
+					 $this->db->where('his_kpi_detail.id_kpi',$this->input->get('pid'));
+				}
+				if(!empty($idp)){
+					 $this->db->where('m_penilaian_kpi.id_grup',$this->input->get('idp'));
+				}
+				if(!empty($child)){
+					$this->db->where('m_penilaian_kpi.child',$child);
+				}
+				  $this->db->select('m_penilaian_kpi.*, his_kpi_detail.*,his_kpi.id as id_kpi');
+				  $this->db->where('m_penilaian_kpi.tampilkan','1');
+				  $this->db->join('his_kpi_detail','m_penilaian_kpi.id_grup = his_kpi_detail.id_kegiatan','LEFT');
+				  $this->db->join('his_kpi','his_kpi_detail.id_kpi = his_kpi.id','LEFT');
 				  $res = $this->db->get('m_penilaian_kpi')->result();
 
 			if(!empty($res)){
 				 foreach($res as $d){
 					$nilai=$d->nilai;
 					$bobot=$d->bobot;
-					$nilai_bobot=$bobot*$nilai;
-					$arr[]=array('id'=>$d->id_grup,'nama'=>$d->grup, 'pid'=>$d->id_grup, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
+					$nilai_bobot=$bobot/100*$nilai;
+					$total += $nilai_bobot;
+					$arr[]=array('id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'total'=>$total, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
 				  }
 			}else{
 			$arr['result'] ='empty';
@@ -512,22 +622,50 @@ public function save_post(){
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 				 $group_group    = $_POST['group_group'];
-				 $id_group = $_POST['id_parent'];
+				 $id_parent = $_POST['id_parent'];
+				 $max = $_POST['max'];
 				 $bobot= $_POST['pilih'];
-				 	
+				$this->db->select('count(id_grup) as jum');
+                $this->db->where('child', $id_parent);
+                $this->db->where('tampilkan', '1');
+
+                $resCek = $this->db->get('m_penilaian_kpi')->row();
+
+                $jum = $resCek->jum;
+
+                if ($max <= $jum) {
+					$arr['hasil']='Maaf';
+                    $arr['message'] = 'Parameter anda sudah melampaui batas! Parameter max ' . $max ;
+                }else{
+				$this->db->select('sum(bobot) as bobot');
+                $this->db->where('child', $id_parent);
+                $this->db->where('tampilkan', '1');
+
+                $resCek = $this->db->get('m_penilaian_kpi')->row();
+
+                $bob = $resCek->bobot;
+				$total_bobot=$bobot+$bob;
+                $max = 100;
+
+                if ($max <= $total_bobot) {
+					$arr['hasil']='Maaf';
+                    $arr['message'] = 'Bobot anda sudah melampaui batas! Bobot max 100';
+                }else{
 				 $data = array(
-							   'grup'=>$group_group);
+							   'grup'=>$group_group,'bobot'=>$bobot);
 				 
-				  if(!empty($id_group)){
-					$data['child']=$id_group;
+				  if(!empty($id_parent)){
+					$data['child']=$id_parent;
 				  }
 				  
 				$this->db->insert('m_penilaian_kpi',$data);
-				
-				$data = array(
-							   'id_kpi'=>$group_group,'bobot'=>$bobot);
-				  
-				$this->db->insert('his_kpi_detail',$data);
+				$this->db->where('grup',$group_group);
+				$res = $this->db->get('m_penilaian_kpi')->result();
+				foreach($res as $d){
+				$id_grup = $d->id_grup;
+				$data1 = array('id_kegiatan'=>$id_grup);
+				$this->db->insert('his_kpi_detail',$data1);
+				}
 				if($this->db->affected_rows() == '1'){
 							$arr['hasil']='success';
 							$arr['message']='Data berhasil ditambah!';
@@ -535,7 +673,7 @@ public function save_post(){
 							$arr['hasil']='error';
 							$arr['message']='Data Gagal Ditambah!';
 						 }
-				}
+				}}}
 		  
 				$this->set_response($arr, REST_Controller::HTTP_OK);
 			
@@ -554,12 +692,12 @@ public function save_post(){
             if ($decodedToken != false) {
 				 $group_aplikasi = '1';//$this->input->post('group_aplikasi');
 				 $group_group    = $_POST['group_group'];
-				 $id_group    = $_POST['id_group'];
-				 $bobot    = $_POST['pilih'];
+				 $pilih   = $_POST['pilih'];
+				 $id_group   = $_POST['id_group'];
 				 
-				 $data = array('grup'=>$group_group);
+				 $data = array('grup'=>$group_group,'bobot'=>$pilih,);
 				 $this->db->where('id_grup', $this->input->post('id_group'));
-				 $this->db->update('m_penilaian_kpi',$data);
+				 $this->db->update('m_penilaian_kpi',$data);				
 				 if($this->db->affected_rows() == '1'){
 					$arr['hasil']='success';
 					$arr['message']='Data berhasil ditambah!';
@@ -943,4 +1081,102 @@ public function save_post(){
 		
 		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
+	
+	public function listiki_get()
+    {
+        $headers = $this->input->request_headers();
+        $arr['hasil'] = 'error';
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+
+            if ($decodedToken != false) {
+
+				$id_jenis=$this->input->get('status');
+                $user_froup = $decodedToken->data->_pnc_id_grup;
+
+                if (($user_froup == '1') OR ($user_froup == '6')) {
+                    if ((!empty($this->input->get('id_uk'))) AND ($this->input->get('id_uk') <> 'null')) {
+                        $this->db->where('id_unitkerja', $this->input->get('id_uk'));
+                    }
+
+                }
+				
+				 if (empty($this->input->get('tahun'))) {
+                    $thn = date('Y');
+                } else {
+                    $thn = $this->input->get('tahun');
+                }
+
+                $this->db->select('his_kpi.*,m_status_proses.nama as status_name, sys_grup_user.grup as nama_uk,sys_user.name, EXTRACT(MONTH FROM his_kpi.akhir) AS bulan, EXTRACT(YEAR FROM his_kpi.akhir) AS tahun');
+				$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
+				$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.NIP','LEFT');
+				$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
+				$this->db->join('m_status_proses','m_status_proses.id = his_kpi.status','LEFT');
+				$this->db->where('his_kpi.id_jenis',$id_jenis);
+				$this->db->where('his_kpi.tampilkan','1');
+                $res = $this->db->get('his_kpi')->result();
+                if (!empty($res)) {
+                    $i = 0;
+                    foreach ($res as $d) {
+
+                        $arr['result'][] = array(
+                            'no' => ++$i,
+                            'nopeg' => $d->no_pegawai,
+                            'id' => $d->id,
+							'nama'=>$d->name,
+							'unit'=>$d->nama_uk,
+							'status'=>$d->status_name,
+							'nilai'=>$d->nilai,
+							'bulan'=>$d->bulan,
+							'id_uk'=>$d->id_unitkerja,
+							'tahun'=>$d->tahun
+                        );
+                    }
+
+                    $arr['hasil'] = 'success';
+
+
+                } else {
+
+                    $arr['hasil'] = 'error';
+                }
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
+	
+	 public function updateiki_get()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+
+            if ($decodedToken != false) {
+
+                $dd = array('status' => $this->input->get('type'));
+
+
+                $this->db->where('id', $this->input->get('id'));
+
+                $res = $this->db->update('his_kpi', $dd);
+                if ($this->db->affected_rows() == '1') {
+                    $arr['hasil'] = 'success';
+                    $arr['message'] = 'Data berhasil dihapus!';
+                } else {
+                    $arr['hasil'] = 'error';
+                    $arr['message'] = 'Data Gagal dihapus!';
+                }
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
 }

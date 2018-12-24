@@ -5,30 +5,30 @@ header("Access-Control-Allow-Methods: PUT, GET, POST");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
 
-class Penghargaan extends MY_Controller
+class Kontrak extends MY_Controller
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->model("His_penghargaan_model");
-	}
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model("His_kontrak_model");
+    }
 
-	public function index($id)
-	{
+    public function index($id)
+    {
         $response['success'] = true;
         $response['data'] = $this->view($id);
 
-	    $this->set_response($response);
-	}
-	private function view($id)
-	{
-		$datas["result"] = $this->His_penghargaan_model->get_all(array("id_user" => $id));
-		$view = $this->load->view('pegawai/view_penghargaan', $datas, true);
-		return $view;
-	}
+        $this->set_response($response);
+    }
+    private function view($id)
+    {
+        $datas["result"] = $this->His_kontrak_model->get_all(array("id_user" => $id));
+        $view = $this->load->view('pegawai/view_kontrak', $datas, true);
+        return $view;
+    }
 
-	public function add()
+    public function add()
     {
         $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
@@ -41,14 +41,16 @@ class Penghargaan extends MY_Controller
             $data = array('inputfileupload' => $this->upload->data());
             $filename = $data['inputfileupload']['file_name'];
         }
+
         $datas["id_user"] = $this->input->post('id_userfile');
-        $datas["nosk"] = $this->input->post('nosk');
-        $datas["penghargaan"] = $this->input->post('penghargaan');
-        $datas["instansi"] = $this->input->post('instansi');
-        $datas["tanggal"] = $this->input->post('tanggal');
+        $datas["noktr"] = $this->input->post('noktr');
+        $datas["tmtawal"] = $this->input->post('tmtawal');
+        $datas["tglktr"] = $this->input->post('tglktr');
+        $datas["jnsktr"] = $this->input->post('jnsktr');
+        $datas["tglakhir"] = $this->input->post('tglakhir');
         $datas["url"] = $filename;
 
-        $create = $this->His_penghargaan_model->create($datas);
+        $create = $this->His_kontrak_model->create($datas);
 
         if ($create) {
             $response['success'] = true;
@@ -65,9 +67,8 @@ class Penghargaan extends MY_Controller
 
     public function delete($id)
     {
-        $check = $this->His_penghargaan_model->delete($id);
+        $check = $this->His_kontrak_model->delete($id);
         $id_user = $this->input->get("id_userfile");
-
         if ($check) {
             $response['success'] = true;
             $response['message'] = 'Berhasil!';

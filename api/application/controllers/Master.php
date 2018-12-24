@@ -333,6 +333,53 @@ public function agama_get(){
 			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
 	
+	
+	public function jabatan_struktural1_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					 $this->db->order_by('nama','ASC');
+					 $this->db->where('tampilkan','1');
+					 
+			  $res = $this->db->get('uk_master')->result();
+			  foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->nama.' [Kode: '.$d->id.']','value'=>$d->id);
+			  }
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+	
+	public function jabatan_struktural2_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					 $this->db->order_by('nama','ASC');
+					 $this->db->where('tampilkan','1');
+					 
+			  $res = $this->db->get('uk_master')->result();
+			  foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->nama.' [Kode: '.$d->id.']','value'=>$d->id);
+			  }
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+	
 	public function golongan_pegawai_get(){
 		$headers = $this->input->request_headers();
 	
@@ -344,7 +391,8 @@ public function agama_get(){
 					 
 			  $res = $this->db->get('m_golongan_peg')->result();
 			  foreach($res as $d){
-				$arr['result'][]=array('label'=>$d->pangkat,'value'=>$d->id);
+				$pangkat=$d->gol_romawi." / ".$d->pangkat;
+				$arr['result'][]=array('label'=>$pangkat,'value'=>$d->id);
 			  }
 			  
 			  $this->set_response($arr, REST_Controller::HTTP_OK);

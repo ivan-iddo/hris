@@ -9,7 +9,7 @@
 					                <div class="panel-body">
                                     <form class="form-horizontal  pad-all" name="form-pi" id="form-pi" method="post">
                                     <div class="row">
-                                    <input style="display:none" type="text" id="id_jenis" name="id_jenis" value="16">
+                                    <input style="display:none" type="text" id="id_jenis" name="id_jenis" value="5">
                                     <input  style="display:none" type="text" id="id_pi" name="id_pi">
                                     <input style="display:none" type="text" id="id_grup" name="id_grup">
 					                        <div class="col-sm-4">
@@ -103,6 +103,9 @@
  <button class="btn btn-primary btn-icon mar-all" onclick="getRowData()"><i class="fa fa-folder icon-2x"></i> SAVE KPI</button>
  <button class="btn btn-success btn-icon mar-all" onclick="downloadKPI()"><i class="fa fa-cloud-download icon-2x"></i> Download KPI</button>
 <div id="myGrid"  style="width:100%;height: 900px;" class="ag-theme-balham"></div> 
+
+
+
 <script> 
  $('.judul-menu').html('Penilaian Kerja Unit');
 $('.buttoenedit').hide();
@@ -256,16 +259,15 @@ loadDataPI(0);
 
  var columnDefs = [ 
   
- {headerName: 'Parameter', field: 'nama', width: 160,editable:false},
+ {headerName: 'Kegiatan', field: 'nama', width: 160,editable:false},
  {headerName: 'Bobot (%)', field: 'no', width: 160,editable:false},
  {headerName: 'Target Kinerja', field: 'target_kinerja', width: 120},
  {headerName: 'Capaian', field: 'capaian', width: 120},
  {headerName: 'Capaian (%)', field: 'capaian_persen', width: 120},
  {headerName: 'Nilai', field: 'nilai', width: 120},
  {headerName: 'Bobot x Nilai', field: 'nilai_bobot', width: 120},
- {headerName: 'Keterangan', field: 'keterangan', width: 140},
- {headerName: 'pid', field: 'pid',hide:true},
- {headerName: 'Id Kegiatan', field: 'id',hide:true}
+ {headerName: 'Keterangan', field: 'keterangan', width: 120},
+ {headerName: 'pid', field: 'pid',  hide:true}
 
 ];
 
@@ -316,7 +318,7 @@ function tektok(){
                selectedRowsString += selectedRow.id; 
            });
            
-           getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?child=5&pid='+selectedRowsString);
+           getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?id=5&pid='+selectedRowsString);
 }
  
 function onBtForEachLeafNode() {
@@ -350,7 +352,7 @@ function prosesData(result){
 } 
 
 function loadData(){
- getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?child=5&kod=95');
+ getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?child=5&id=5&pid=0');
 }
 
 loadData();

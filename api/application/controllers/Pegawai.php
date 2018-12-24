@@ -97,6 +97,10 @@ class Pegawai extends REST_Controller
                 $txtkota = $this->input->post('txtkota');
                 $txtkotaktp = $this->input->post('txtkotaktp');
                 $txtnik = $this->input->post('txtnik');
+                $txtnopeg = $this->input->post('txtnopeg');
+                $txtkarpeg = $this->input->post('txtkarpeg');
+                $txtstp = $this->input->post('txtstp');
+                $txttglnikah = $this->input->post('txttglnikah');
                 $txtnip = $this->input->post('txtnip');
                 $txtpendidikan = $this->input->post('txtpendidikan');
                 $txtperingkat = $this->input->post('txtperingkat');
@@ -162,6 +166,10 @@ class Pegawai extends REST_Controller
                             'id_user' => $saved_id,
                             'NIP' => $txtnip,
                             'NIK' => $txtnik,
+							'nopeg' => $txtnopeg,
+							'karpeg' => $txtkarpeg,
+							'sts_p' => $txtstp,
+							'tgl_nikah' => $txttglnikah,
                             'gelar_depan' => $txtgelardepan,
                             'gelar_belakang' => $txtgelarbelakang,
                             'tgl_lahir' => $txttgllahir,
@@ -334,6 +342,10 @@ class Pegawai extends REST_Controller
                             'alamat_ktp' => $d->alamat_ktp,
                             'NIP' => $d->NIP,
                             'NIK' => $d->NIK,
+							'nopeg' => $d->nopeg,
+							'karpeg' => $d->karpeg,
+							'sts_p' => $d->sts_p,
+							'tgl_nikah' => $d->tgl_nikah,
                             'kode_pos' => $d->kode_pos,
                             'kode_posktp' => $d->kode_posktp,
                             'gelar_depan' => $d->gelar_depan,
@@ -424,6 +436,10 @@ class Pegawai extends REST_Controller
                 $txtkotaktp = $this->input->post('txtkotaktp');
                 $txtnik = $this->input->post('txtnik');
                 $txtnip = $this->input->post('txtnip');
+				$txtnopeg = $this->input->post('txtnopeg');
+                $txtkarpeg = $this->input->post('txtkarpeg');
+                $txtstp = $this->input->post('txtstp');
+                $txttglnikah = $this->input->post('txttglnikah');
                 $txtpendidikan = $this->input->post('txtpendidikan');
                 $txtperingkat = $this->input->post('txtperingkat');
                 $txtprov = $this->input->post('txtprov');
@@ -493,6 +509,10 @@ class Pegawai extends REST_Controller
                     $param_profile = array(
                         'NIP' => $txtnip,
                         'NIK' => $txtnik,
+                        'nopeg' => $txtnopeg,
+                        'karpeg' => $txtkarpeg,
+                        'sts_p' => $txtstp,
+                        'tgl_nikah' => $txttglnikah,
                         'gelar_depan' => $txtgelardepan,
                         'gelar_belakang' => $txtgelarbelakang,
                         'tgl_lahir' => $txttgllahir,
@@ -685,6 +705,7 @@ class Pegawai extends REST_Controller
                         'pekerjaan' => $d->pekerjaan,
                         'tpt_lahir' => $d->tempat_lahir,
                         'tgl_lahir' => $d->tgl_lahir,
+                        'karn' => $d->karn,
                         'url' => $d->url
                     );
                 }
@@ -754,7 +775,6 @@ class Pegawai extends REST_Controller
     function deletekeluarga_get()
     {
         $headers = $this->input->request_headers();
-
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             $arr['hasil'] = 'error';

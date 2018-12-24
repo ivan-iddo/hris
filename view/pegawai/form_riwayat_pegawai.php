@@ -23,7 +23,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right bg-primary">
                                 <li class="divider"></li>
-                                <li onClick="$('#uploadfile').load('view/pegawai/form_file.php?id=2')"><a
+                                <li onClick="$('#uploadfile').load('view/pegawai/form_kontrak.php')"><a
                                             data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">Kontrak</a>
                                 </li>
                                 <li onClick="$('#uploadfile').load('view/pegawai/form_file.php?id=3')"><a
@@ -117,6 +117,35 @@
                                                                              name="txtnik" placeholder="" type="text"
                                                                              value=""></div>
                                             </div>
+											 <div class="form-group"><label class="col-sm-4 control-label" for="txtnopeg">No Pegawai</label>
+                                                <div class="col-sm-8"><input class="form-control" id="txtnopeg"
+                                                                             name="txtnopeg" placeholder="" type="text"
+                                                                             value=""></div>
+                                            </div>
+											 <div class="form-group"><label class="col-sm-4 control-label" for="txtkarpeg">Kartu Pegawai</label>
+                                                <div class="col-sm-8"><input class="form-control" id="txtkarpeg"
+                                                                             name="txtkarpeg" placeholder="" type="text"
+                                                                             value=""></div>
+                                            </div>
+											<div class="form-group"><label class="col-sm-4 control-label"
+                                                                           for="txtstp">Status Perkawinan</label>
+                                                <div class="col-sm-8"><select aria-hidden="true" class="select-chosen"
+                                                                              name="txtstp" id="txtstp"
+                                                                              style="width: 100%;"
+                                                                              tabindex="-1">
+																			   <option disabled selected>Please select</option>
+																			   <option>1 Anak</option>
+																			   <option>2 Anak</option>
+																			   <option>3 Anak</option>
+																			   <option>Anak lebih 3</option>
+																			   </select></div>
+                                            </div>
+											 <div class="form-group">
+												<label class="col-sm-4 control-label" for="inputstatus">Tanggal Nikah</label>
+												<div class="col-sm-8">
+													<input type="date" class="form-control" id="txttglnikah" name="txttglnikah" placeholder="">
+												</div>
+											</div>
                                             <div class="form-group"><label class="col-sm-4 control-label"
                                                                            for="txtgelardepan">Gelar Depan</label>
                                                 <div class="col-sm-8"><input class="form-control" id="txtgelardepan"
@@ -448,6 +477,20 @@
                                                                               style="width: 100%;"
                                                                               tabindex="-1"></select></div>
                                             </div>
+											<div class="form-group"><label class="col-sm-4 control-label"
+                                                                           for="inputkec">J.Internal 1</label>
+                                                <div class="col-sm-8"><select aria-hidden="true" class="select-chosen"
+                                                                              id="txtjabatan1" name="txtjabatan1"
+                                                                              style="width: 100%;"
+                                                                              tabindex="-1"></select></div>
+                                            </div>
+											<div class="form-group"><label class="col-sm-4 control-label"
+                                                                           for="inputkec">J.Internal 2</label>
+                                                <div class="col-sm-8"><select aria-hidden="true" class="select-chosen"
+                                                                              id="txtjabatan2" name="txtjabatan2"
+                                                                              style="width: 100%;"
+                                                                              tabindex="-1"></select></div>
+                                            </div>
                                             <div class="form-group"><label class="col-sm-4 control-label"
                                                                            for="inputkel">TMT Jabatan</label>
                                                 <div class="col-sm-8"><input class="form-control" id="txttmtjabatan"
@@ -541,6 +584,8 @@
                 getOptions("txtdirektorat", BASE_URL + "master/direktorat");
                 getOptions("txtjabfung", BASE_URL + "m/group_jabatan_asn/getoption");
                 getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural");
+                getOptions("txtjabatan1", BASE_URL + "master/jabatan_struktural1");
+                getOptions("txtjabatan2", BASE_URL + "master/jabatan_struktural2");
                 getOptions("txtgolongan", BASE_URL + "master/golongan_pegawai");
                 getOptions("txtkelamin", BASE_URL + "master/kelamin");
                 getOptions("f_user_status_aktif", BASE_URL + "Appdata/getstatus");

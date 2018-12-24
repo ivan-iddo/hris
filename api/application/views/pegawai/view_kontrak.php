@@ -2,10 +2,11 @@
   <?php foreach ($result as $key => $value): ?>
     <tr>
         <td><?php echo $key + 1 ?></td>
-        <td><?php echo $value["nosk"] ?></td>
-        <td><?php echo $value["penghargaan"] ?></td>
-        <td><?php echo $value["instansi"] ?></td>
-        <td><?php echo $value["tanggal"] ?></td>
+        <td><?php echo $value["noktr"] ?></td>
+        <td><?php echo $value["tmtawal"] ?></td>
+        <td><?php echo $value["tglktr"] ?></td>
+        <td><?php echo $value["jnsktr"] ?></td>
+        <td><?php echo $value["tglakhir"] ?></td>
         <td>
             <a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook('api/upload/data/<?php echo $value["url"] ?>')">
               <i class="fa fa-eye"></i>
