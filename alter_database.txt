@@ -87,3 +87,32 @@ ALTER TABLE `gtpayid_hrislive`.`pengembangan_pelatihan` CHANGE `id_atasan` `id_a
 
 4.
 ALTER TABLE `gtpayid_hrislive`.`pengembangan_pelatihan` ADD COLUMN `status` INT(11) NULL AFTER `id_uk`; 
+
+
+tambahan atribut dan tabel baru
+ALTER TABLE `his_keluarga` ADD `karn` INT INT(11) AFTER `url`;
+
+ALTER TABLE `his_penghargaan` ADD `nosk` INT(11) NULL AFTER `id_user`;
+
+ALTER TABLE `sys_user_profile` ADD `nopeg` INT(11) NULL AFTER `NIK`;
+ALTER TABLE `sys_user_profile` ADD `karpeg` INT(11) NULL AFTER `NIK`;
+ALTER TABLE `sys_user_profile` ADD `sts_p`  Varchar(20) AFTER `NIK`;
+ALTER TABLE `sys_user_profile` ADD `tgl_nikah` date NULL AFTER `NIK`;
+
+CREATE TABLE `his_kontrak` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `noktr` int(11) DEFAULT NULL,
+  `tmtawal` date DEFAULT NULL,
+  `tglktr` date DEFAULT NULL,
+  `jnsktr` varchar(20) DEFAULT NULL,
+  `tglakhir` date DEFAULT NULL,
+  `url` varchar(40) DEFAULT NULL,
+  `createdby` varchar(60) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `updatedby` varchar(60) DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  `statue` tinyint(1) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ALTER TABLE `his_kontrak`
+  ADD PRIMARY KEY (`id`);
