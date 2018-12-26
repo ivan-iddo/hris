@@ -162,6 +162,7 @@
 			 rowSelection: 'single', 
 	       enableColResize: true, 
 			rowGroupPanelShow: 'always',
+			onRowDoubleClicked: getkpi,
 			pivotPanelShow: 'always',
 			enableRangeSelection: true,
 			columnDefs: headerTK,
@@ -181,6 +182,46 @@
 			var gridDiv = document.querySelector('#gridTK');
 			new agGrid.Grid(gridDiv,gridTK);
 			
+			function getkpi(){
+            var selectedRows = gridTK.api.getSelectedRows();
+            // alert('>>'+selectedRows+'<<<');
+            if(selectedRows == ''){
+               onMessage('Silahkan Pilih Unit kerja Terlebih dahulu!');
+               return false;
+            }else{
+                var selectedRowsString = '';
+                var level = '';
+           selectedRows.forEach( function(selectedRow, index) {
+            
+               if (index!==0) {
+                   selectedRowsString += ', ';
+               }
+               selectedRowsString += selectedRow.id;
+               level += selectedRow.level;
+           });
+
+           bootbox.dialog({ 
+                 message:$('<div></div>').load('view/kpi/listkpi.php?id=5&pid='+selectedRowsString),
+                   animateIn: 'bounceIn',
+                   animateOut : 'bounceOut',
+									 backdrop: false,
+                   size:'medium',
+                   buttons: {
+                        
+
+                       main: {
+                           label: "Close",
+                           className: "btn-warning",
+                           callback: function() {
+                               
+                           }
+                       }
+                   }
+                       });
+           
+        }
+                }
+				
 			 function listFromtk(){
 			   var thn= $('#thn').val(); 
 			   var uk =  $('#txtdirektorat').val();

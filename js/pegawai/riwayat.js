@@ -11,9 +11,9 @@ function tabKeluargaView() {
 function simpanKeluarga(action) {
   var id_keluarga = $('#id_keluarga').val();
   var id_user = $('#id_user').val();
-    var gotourl = 'pegawais/upload/savekeluarga';
+    var gotourl = 'pegawais/keluarga/savekeluarga';
     if (action === 'edit') {
-        gotourl = 'pegawais/upload/editkeluarga/' + id_keluarga;
+        gotourl = 'pegawais/keluarga/editkeluarga/' + id_keluarga;
     }
 	var data = formJson('form-keluarga'); //$("#form-upload").serializeArray();
 	var obj = JSON.parse(data);

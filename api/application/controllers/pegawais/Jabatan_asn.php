@@ -38,7 +38,10 @@ class jabatan_asn extends REST_Controller
             if ($decodedToken != false) {
 				//$this->db->limit('100');
 				//$this->db->order_by();	
-		$this->db->select('his_jabatan_asn.*');
+		$this->db->select('his_jabatan_asn.*,d.grup as jabatan,e.grup as bagian_jabatan,f.grup as sub_bagian_jabatan,');
+		$this->db->join('sys_grup_user as d','d.id_grup = his_jabatan_asn.jabatan','LEFT');
+		$this->db->join('sys_grup_user as e','e.id_grup = his_jabatan_asn.bagian_jabatan','LEFT');
+		$this->db->join('sys_grup_user as f','f.id_grup = his_jabatan_asn.sub_bagian_jabatan','LEFT');
 		$this->db->join('sys_user','sys_user.id_user = his_jabatan_asn.user_id','LEFT');
 		$this->db->where('sys_user.status','1'); 
 		$this->db->where('his_jabatan_asn.tampilkan','1'); 
@@ -50,6 +53,8 @@ class jabatan_asn extends REST_Controller
 		  foreach($res as $d){
 			$arr[]=array('id'=>$d->id,
 								   'jabatan' => $d->jabatan,
+								   'bagian_jabatan' => $d->bagian_jabatan,
+								   'sub_bagian_jabatan' => $d->sub_bagian_jabatan,
 								   'tmt_jfung' => $d->tmt_jfung,
 								   'no_skjfung' => $d->no_skjfung,
 								   'tgl_skjafung' => $d->tgl_skjafung,
@@ -82,51 +87,25 @@ class jabatan_asn extends REST_Controller
             if ($decodedToken != false) {
 				//$this->db->limit('100');
 				//$this->db->order_by();
-		 
-		
-		 
 				
-		$this->db->select('his_mutasi_jabatan.*,
-		a.grup as dir_asal,his_mutasi_jabatan.tgl_mutasi,his_mutasi_jabatan.keterangan,
-		b.grup as bag_asal,
-		c.grup as subbag_asal,
-		d.grup as dir_tujuan,
-		e.grup as bag_tujuan,
-		f.grup as subbag_tujuan, 
-		dm_term.nama as kelas, 
-		');
-		$this->db->join('sys_grup_user as f','f.id_grup = his_mutasi_jabatan.sub_bagian_tujuan','LEFT');
-		$this->db->join('sys_grup_user as e','e.id_grup = his_mutasi_jabatan.bagian_tujuan','LEFT');
-		$this->db->join('sys_grup_user as d','d.id_grup = his_mutasi_jabatan.direktorat_tujuan','LEFT');
-		$this->db->join('sys_grup_user as c','c.id_grup = his_mutasi_jabatan.sub_bagian_asal','LEFT');
-		$this->db->join('sys_grup_user as b','b.id_grup = his_mutasi_jabatan.bagian_asal','LEFT');
-		$this->db->join('sys_grup_user as a','a.id_grup = his_mutasi_jabatan.direktorat_asal','LEFT');
-		
-		 $this->db->join('sys_user','sys_user.id_user = his_mutasi_jabatan.user_id','LEFT');
-		 $this->db->join('dm_term','dm_term.id=his_mutasi_jabatan.id_kelas','LEFT');
-		$this->db->where('sys_user.status','1'); 
-		$this->db->where('his_mutasi_jabatan.id',$this->uri->segment('4')); 
-		$this->db->order_by('his_mutasi_jabatan.tgl_sk','DESC');
-		  $d = $this->db->get('his_mutasi_jabatan')->row();
+		$this->db->select('his_jabatan_asn.*');
+		$this->db->where('his_jabatan_asn.tampilkan','1');
+		$this->db->where('his_jabatan_asn.id',$this->uri->segment('4')); 
+		$d = $this->db->get('his_jabatan_asn')->row();
 		   
-			$arr=array('id'=> $d->id,
-								   'dir_asal' => $d->dir_asal,
-								   'tgl' => $d->tgl_mutasi,
-								   'no_sk' => $d->no_sk,
-								   'tgl_sk' => $d->tgl_sk,
-								   'dir_tujuan' => $d->dir_tujuan,
-								   'bag_tujuan' => $d->bag_tujuan,
-								   'subbag_tujuan' => $d->subbag_tujuan,
+			$arr=array('id'=>$d->id,
+								   'jabatan' => $d->jabatan,
+								   'bagian_jabatan' => $d->bagian_jabatan,
+								   'sub_bagian_jabatan' => $d->sub_bagian_jabatan,
+								   'tmt_jfung' => $d->tmt_jfung,
+								   'no_skjfung' => $d->no_skjfung,
+								   'tgl_skjafung' => $d->tgl_skjafung,
+								   'no_pak' => $d->no_pak,
+								   'tmt_pak' => $d->tmt_pak,
+								   'tgl_pak' => $d->tgl_pak,
+								   'nilai_pak' => $d->nilai_pak,
 								   'keterangan' => $d->keterangan,
-								   'kelas' => $d->kelas,
-								   'direktorat_asal' => $d->direktorat_asal,
-								   'bagian_tujuan'=> $d->bagian_tujuan,
-								   'sub_bagian_tujuan' => $d->sub_bagian_tujuan,
-								   'id_satker'=> $d->id_satker,
-								   'id_kelas'=> $d->id_kelas,
-								   'direktorat_tujuan' => $d->direktorat_tujuan
-
-
+								   'satuan_kerja' => $d->satuan_kerja,
 								   );
 		  
 		  

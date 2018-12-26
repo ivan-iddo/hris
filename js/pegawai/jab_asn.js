@@ -4,7 +4,7 @@ function tabJabatanasn(){
     
 	
     $("#page-jabfung").load("view/pegawai/form_jabatan_asn.php");
-     loadJabatan();
+     loadJasn();
    
 }
 
@@ -12,7 +12,7 @@ function tabJabatanViewasn(){
     
 	
     $("#page-jabfung").load("view/pegawai/form_jabatan_asn_view.php");
-     loadJabatan();
+     loadJasn();
    
 }
 
@@ -22,7 +22,7 @@ function simpanJasn(action){
     var tgl_skjafung = 	$('#tgl_skjafung').val();
 var gouirl = 'pegawai/savejfung';
     if(action==='edit'){
-        gouirl = 'pegawai/editjabatan';
+        gouirl = 'pegawai/editjasn';
     }
 	if(empty(tgl_skjafung)){
                                       onMessage("Data 'Tanggal' Wajib dipilih");
@@ -151,7 +151,7 @@ function addJasn(){
                   }
                       });
 
-                      getOptions("txtdirektorat",BASE_URL+"master/direktorat");
+                      getOptions("txtjabatan",BASE_URL+"master/direktorat");
                       getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
                       getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
                       
@@ -162,10 +162,10 @@ function addJasn(){
           
           
 function editJasn(){
-              var selectedRows = gridJabatanOpt.api.getSelectedRows();
+              var selectedRows = gridJOpt.api.getSelectedRows();
            // alert('>>'+selectedRows+'<<<');
            if(selectedRows == ''){
-              onMessage('Silahkan Pilih Jabatan Terlebih dahulu!');
+              onMessage('Silahkan Pilih Jabatan Asn Terlebih dahulu!');
               return false;
            }else{
                var selectedRowsString = '';
@@ -189,7 +189,7 @@ function editJasn(){
                                                            className: "btn-success",
                                                            callback: function() {
                                                                
-                                                              simpanJabatan('edit');
+                                                              simpanJasn('edit');
                                                                            return false;
                                                                        
                                                                        
@@ -212,7 +212,7 @@ function editJasn(){
                                                        });
                    
               $.ajax({
-                                  url: BASE_URL+'pegawais/jabatan/getjabatan/'+selectedRowsString,
+                                  url: BASE_URL+'pegawais/jabatan_asn/getjasn/'+selectedRowsString,
                                   headers: {
                                       'Authorization': localStorage.getItem("Token"),
                                       'X_CSRF_TOKEN':'donimaulana',
@@ -223,26 +223,22 @@ function editJasn(){
                                   contentType: 'application/json', 
                                   processData: false,
                                   success: function( data, textStatus, jQxhr ){
-              
-              
-                                     $('#tgl_mutasi').val(data.tgl);  
-                                     $('#no_sk').val(data.no_sk); 
-                                     $('#tgl_sk').val(data.tgl_sk); 
+               
+                                     $('#tmt_jabfung').val(data.tmt_jfung); 
+                                     $('#no_skjfung').val(data.no_skjfung); 
+                                     $('#tgl_skjafung').val(data.tgl_skjafung);
+                                     $('#no_pak').val(data.no_pak);
+                                     $('#tmt_pak').val(data.tmt_pak);
+                                     $('#tgl_pak').val(data.tgl_pak);
+                                     $('#nilai_pak').val(data.nilai_pak);
                                      $('#keterangan').val(data.keterangan);
-                                     $('#idjabatan').val(data.id);
-                                     
-                                            
-                                    getOptionsEdit("txtdirektorat",BASE_URL+"master/direktorat",data.direktorat_tujuan);
+                                     $('#idasn').val(data.id);
+                                                                               
                                     getOptionsEdit("satuan_kerja",BASE_URL+"master/getmaster?id=25",data.id_satker);
-                                    getOptionsEdit("kelas_jabatan",BASE_URL+"master/getmaster?id=24",data.id_kelas);
+                                    getOptionsEdit("txtjabatan",BASE_URL+"master/direktorat",data.jabatan);
+									getOptionsEdit("txtbagian",BASE_URL+"master/direktoratSub/"+data.jabatan,data.bagian_jabatan);
+									getOptionsEdit("unitkerja",BASE_URL+"master/direktoratSub/"+data.bagian_jabatan,data.sub_bagian_jabatan);
 
-                                    getOptionsEdit("txtbagian",BASE_URL+"master/direktoratSub/"+data.direktorat_tujuan,data.bagian_tujuan);
-									getOptionsEdit("unitkerja",BASE_URL+"master/direktoratSub/"+data.bagian_tujuan,data.sub_bagian_tujuan);
-																		
-              
-
-                                              
-              
                                   } 
                               });
               
@@ -251,7 +247,7 @@ function editJasn(){
 
 
 function deletJasn(){
-            var selectedRows = gridJabatanOpt.api.getSelectedRows();
+            var selectedRows = gridJOpt.api.getSelectedRows();
            // alert('>>'+selectedRows+'<<<');
            if(selectedRows == ''){
               onMessage('Silahkan Pilih Group Terlebih dahulu!');
@@ -266,7 +262,7 @@ function deletJasn(){
               selectedRowsString += selectedRow.id;
           });
           
-          submit_get(BASE_URL+'pegawais/jabatan/deletejabatan/?id='+selectedRowsString,loadJabatan);
+          submit_get(BASE_URL+'pegawais/jabatan_asn/deletejasn/?id='+selectedRowsString,loadJasn);
           
           
            }

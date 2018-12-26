@@ -41,7 +41,7 @@ class Mpenilaian extends REST_Controller
 					$res = $this->db->get('his_kpi_detail')->row();
 
 					if(!empty($res)){
-						$this->db->where('id_kpi',$_POST[0]['pid']);
+						$this->db->where('id_kpi',$_POST[0]['id_kpi_d']);
 						$this->db->delete('his_kpi_detail'); 
 					} 
 
@@ -101,12 +101,15 @@ class Mpenilaian extends REST_Controller
 						'keterangan'=>$keterangan, 
 					);
 					
-					$this->db->insert('his_kpi_detail',$array);
+					if(!empty($dat['id_kpi_d'])){
+					$this->db->where('id',$dat['id_kpi_d']);
+					$this->db->update('his_kpi_detail',$array);
+					}
+					
 					if(!empty($dat['total'])){
 					$total=$dat['total'];
-					$dd = array('nilai' => $total);
-					$this->db->where('id', $id_kpi);
-					$res = $this->db->update('his_kpi', $dd);
+				    $this->db->where('id', $id_kpi);
+				    $this->db->update('his_kpi',array('nilai' => $total, 'status' => '1'));
 					}
 						if($this->db->affected_rows() == '1'){
 							$arr['hasil']='success';
@@ -481,6 +484,44 @@ class Mpenilaian extends REST_Controller
 		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
 
+	function getlistkpi_get()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+
+            if ($decodedToken != false) {
+
+                $id = $this->input->get('id');
+				if(!empty($id)){
+					 $this->db->where('his_kpi_detail.id_kpi',$this->input->get('pid'));
+				}
+				  $this->db->select('m_penilaian_kpi.*, his_kpi_detail.*,his_kpi.id as id_kpi');
+				  $this->db->where('m_penilaian_kpi.tampilkan','1');
+				  $this->db->join('his_kpi_detail','m_penilaian_kpi.id_grup = his_kpi_detail.id_kegiatan','LEFT');
+				  $this->db->join('his_kpi','his_kpi_detail.id_kpi = his_kpi.id','LEFT');
+				  $res = $this->db->get('m_penilaian_kpi')->result_array();
+
+                if (!empty($res)) {
+                    $arr['result'] = $res;
+                    $arr['hasil'] = 'success';
+                    $arr['message'] = 'Pesan berhasil Terkirim!';
+                } else {
+                    $arr['hasil'] = 'error';
+                    $arr['message'] = 'Pesan Gagal kirim!';
+                }
+
+
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
+	
 
 	public function getitemkpi_get(){
 		$headers = $this->input->request_headers();
@@ -500,20 +541,21 @@ class Mpenilaian extends REST_Controller
 				if(!empty($child)){
 					$this->db->where('m_penilaian_kpi.child',$child);
 				}
-				  $this->db->select('m_penilaian_kpi.*, his_kpi_detail.*,his_kpi.id as id_kpi');
+				  $this->db->select('m_penilaian_kpi.*, his_kpi_detail.*,his_kpi.id as id_kpi,his_kpi_detail.id as id_kpi_d');
 				  $this->db->where('m_penilaian_kpi.tampilkan','1');
 				  $this->db->join('his_kpi_detail','m_penilaian_kpi.id_grup = his_kpi_detail.id_kegiatan','LEFT');
 				  $this->db->join('his_kpi','his_kpi_detail.id_kpi = his_kpi.id','LEFT');
 				  $res = $this->db->get('m_penilaian_kpi')->result();
 
-				  
+			 $jumlah=count($res);
 			if(!empty($res)){
 				 foreach($res as $d){
 					$nilai=$d->nilai;
 					$bobot=$d->bobot;
 					$nilai_bobot=$bobot/100*$nilai;
 					$total += $nilai_bobot;
-					$arr[]=array('id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'total'=>$total, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
+					$rata=$total/$jumlah;
+					$arr[]=array('id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'total'=>$rata, 'id_kpi_d'=>$d->id_kpi_d, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
 				  }
 			}else{
 			$arr['result'] ='empty';
@@ -526,7 +568,7 @@ class Mpenilaian extends REST_Controller
 						'capaian'=>'',
 						'capaian_persen'=>'',
 						'nilai'=>'',
-						'nilai_bobot'=>$total,
+						'nilai_bobot'=>$rata,
 						'keterangan'=>'');
 		  $this->set_response($arr, REST_Controller::HTTP_OK);
 			
@@ -563,11 +605,7 @@ class Mpenilaian extends REST_Controller
 
 			if(!empty($res)){
 				 foreach($res as $d){
-					$nilai=$d->nilai;
-					$bobot=$d->bobot;
-					$nilai_bobot=$bobot/100*$nilai;
-					$total += $nilai_bobot;
-					$arr[]=array('id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'total'=>$total, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
+					$arr[]=array('id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
 				  }
 			}else{
 			$arr['result'] ='empty';

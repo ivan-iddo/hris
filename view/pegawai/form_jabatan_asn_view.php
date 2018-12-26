@@ -23,6 +23,8 @@
 
 var columnJasn = [ 
  {headerName: "Jabatan", field: "jabatan", width: 190, filterParams:{newRowsAction: 'keep'}},
+  {headerName: "Bagian Jabatan", field: "bagian_jabatan", width: 190, filterParams:{newRowsAction: 'keep'}},
+ {headerName: "Sub Bagian Jabatan", field: "sub_bagian_jabatan", width: 190, filterParams:{newRowsAction: 'keep'}},
             {headerName: "TMT JabFung", field: "tmt_jfung", width: 190, filterParams:{newRowsAction: 'keep'}},
             {headerName: "No SK JabFung", field: "no_skjfung", width: 190, filterParams:{newRowsAction: 'keep'}},
             {headerName: "Tgl SK JabFung", field: "tgl_skjafung", width: 190, filterParams:{newRowsAction: 'keep'}},

@@ -2503,7 +2503,9 @@ class Pegawai extends REST_Controller
                     $arrdata = array(
                         'user_id' => $id,
                         'jabatan' => $this->input->post('txtjabatan'),
-                        'tmt_jfung' => $this->input->post('tmt_jfung'),
+						'bagian_jabatan' => $this->input->post('txtbagian'),
+						'sub_bagian_jabatan' => $this->input->post('unitkerja'),
+                        'tmt_jfung' => $this->input->post('tmt_jabfung'),
                         'no_skjfung' => $this->input->post('no_skjfung'),
                         'tgl_skjafung' => $this->input->post('tgl_skjafung'),
                         'no_pak' => $this->input->post('no_pak'),
@@ -2512,7 +2514,6 @@ class Pegawai extends REST_Controller
                         'nilai_pak' => $this->input->post('nilai_pak'),
                         'satuan_kerja' => $this->input->post('satuan_kerja'),
                         'keterangan' => $this->input->post('keterangan'),
-                        'aktif' => '0'
                     );
 
                     $this->db->insert('his_jabatan_asn', $arrdata);
@@ -2529,6 +2530,64 @@ class Pegawai extends REST_Controller
                 } else {
                     $arr['hasil'] = 'error';
                     $arr['message'] = 'Data Gagal Ditambah!';
+                }
+
+            }
+
+
+            $this->set_response($arr, REST_Controller::HTTP_OK);
+
+            return;
+
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
+	
+	function editjasn_post()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            $arr['hasil'] = 'error';
+            $arr['message'] = 'Data Gagal Ditambah!';
+            if ($decodedToken != false) {
+
+
+                //cari dulu diriwayat kedinasan
+                if (!empty($id = $this->input->post('idasn'))) {
+
+
+                   $arrdata = array(
+                        'jabatan' => $this->input->post('txtjabatan'),
+						'bagian_jabatan' => $this->input->post('txtbagian'),
+						'sub_bagian_jabatan' => $this->input->post('unitkerja'),
+                        'tmt_jfung' => $this->input->post('tmt_jabfung'),
+                        'no_skjfung' => $this->input->post('no_skjfung'),
+                        'tgl_skjafung' => $this->input->post('tgl_skjafung'),
+                        'no_pak' => $this->input->post('no_pak'),
+                        'tmt_pak' => $this->input->post('tmt_pak'),
+                        'tgl_pak' => $this->input->post('tgl_pak'),
+                        'nilai_pak' => $this->input->post('nilai_pak'),
+                        'satuan_kerja' => $this->input->post('satuan_kerja'),
+                        'keterangan' => $this->input->post('keterangan')
+                    );
+                    $this->db->where('id', $id);
+                    $this->db->update('his_jabatan_asn', $arrdata);
+
+
+                }
+
+                //update user
+
+
+                if ($this->db->affected_rows() == '1') {
+                    $arr['hasil'] = 'success';
+                    $arr['message'] = 'Data berhasil ditambah!';
+                } else {
+                    $arr['hasil'] = 'error';
+                    $arr['message'] = 'Data Gagal update! jabatan aktif tidak dapat dirubah';
                 }
 
             }

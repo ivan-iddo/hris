@@ -116,3 +116,13 @@ CREATE TABLE `his_kontrak` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 ALTER TABLE `his_kontrak`
   ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `his_kpi_detail` DROP `bobot`;
+
+ALTER TABLE `his_kpi` ADD `nilai` VARCHAR(12) NOT NULL AFTER `akhir`, ADD `status` INT NOT NULL AFTER `nilai`;
+
+ALTER TABLE `m_penilaian_kpi` ADD `bobot` INT NOT NULL AFTER `child`;
+
+ALTER TABLE `his_jabatan_asn` ADD `file_url` VARCHAR(225) NULL AFTER `satuan_kerja`;
+
+ALTER TABLE `his_kpi_detail` CHANGE `nilai_bobot` `nilai_bobot` VARCHAR(11) NULL;
