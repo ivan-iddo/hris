@@ -87,6 +87,8 @@ class Pegawai extends REST_Controller
                 $txtgolongan = $this->input->post('txtgolongan');
                 $txtindex = $this->input->post('txtindex');
                 $txtjabatan = $this->input->post('txtjabatan');
+                $txtjabatan1 = $this->input->post('txtjabatan1');
+                $txtjabatan2 = $this->input->post('txtjabatan2');
                 $txtjabfung = $this->input->post('txtjabfung');
                 $unitkerja = $this->input->post('unitkerja');
                 $txtkecamatan = $this->input->post('txtkecamatan');
@@ -218,6 +220,8 @@ class Pegawai extends REST_Controller
                             'ketahli' => $this->input->post('ketahli'),
                             'tmt_jabatan_asn' => $txttmtjabfung,
                             'jabatan_struktural' => $txtjabatan,
+                            'jabatan2' => $txtjabatan1,
+                            'jabatan3' => $txtjabatan2,
                             'tmt_jabatan' => $txttmtjabatan,
                             'tgl_bergabung' => $txttmtbergabung,
                             'inst_asal' => $instasi,
@@ -282,6 +286,8 @@ class Pegawai extends REST_Controller
                                riwayat_kedinasan.subjabasn,
                                riwayat_kedinasan.ketahli,
                                riwayat_kedinasan.jabatan_struktural,
+                               riwayat_kedinasan.jabatan2,
+                               riwayat_kedinasan.jabatan3,
                                riwayat_kedinasan.golongan,
                                riwayat_kedinasan.bagian,
                                riwayat_kedinasan.sub_bagian,
@@ -324,6 +330,8 @@ class Pegawai extends REST_Controller
                             'direktorat' => $d->direktorat,
                             'jabatan_asn' => $d->jabatan_asn,
                             'jabatan_struktural' => $d->jabatan_struktural,
+                            'jabatan2' => $d->jabatan2,
+                            'jabatan3' => $d->jabatan3,
                             'golongan' => $d->golongan,
                             'bagian' => $d->bagian,
                             'sub_bagian' => $d->sub_bagian,
@@ -425,6 +433,8 @@ class Pegawai extends REST_Controller
                 $txtgolongan = $this->input->post('txtgolongan');
                 $txtindex = $this->input->post('txtindex');
                 $txtjabatan = $this->input->post('txtjabatan');
+                $txtjabatan1 = $this->input->post('txtjabatan1');
+                $txtjabatan2 = $this->input->post('txtjabatan2');
                 $txtjabfung = $this->input->post('txtjabfung');
                 $unitkerja = $this->input->post('unitkerja');
                 $txtkecamatan = $this->input->post('txtkecamatan');
@@ -565,6 +575,8 @@ class Pegawai extends REST_Controller
                         'ketahli' => $this->input->post('ketahli'),
                         'tmt_jabatan_asn' => $txttmtjabfung,
                         'jabatan_struktural' => $txtjabatan,
+						'jabatan2' => $txtjabatan1,
+                        'jabatan3' => $txtjabatan2,
                         'tmt_jabatan' => $txttmtjabatan,
                         'tgl_bergabung' => $txttmtbergabung,
                         'inst_asal' => $instasi,

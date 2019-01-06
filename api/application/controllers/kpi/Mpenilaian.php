@@ -85,7 +85,9 @@ class Mpenilaian extends REST_Controller
 							$capaian=$dat['capaian'];
 						}
 						if(!empty($dat['nilai_bobot'])){
-							$nilai_bobot=$dat['nilai_bobot'];
+							$nilai=$dat['nilai'];
+							$bobot=$dat['no'];
+							$nilai_bobot=$bobot/100*$nilai;
 						}
 						if(!empty($dat['keterangan'])){
 							$keterangan=$dat['keterangan'];
@@ -100,16 +102,19 @@ class Mpenilaian extends REST_Controller
 						'nilai_bobot'=>$nilai_bobot,
 						'keterangan'=>$keterangan, 
 					);
-					
 					if(!empty($dat['id_kpi_d'])){
 					$this->db->where('id',$dat['id_kpi_d']);
 					$this->db->update('his_kpi_detail',$array);
 					}
 					
-					if(!empty($dat['total'])){
-					$total=$dat['total'];
+					if(!empty($id_kpi)){
+					$nilai=$dat['nilai'];
+					$bobot=$dat['no'];
+					$nilai_bobot=$bobot/100*$nilai;
+					$total += $nilai_bobot;
+					$rata=$total/$dat['jum'];
 				    $this->db->where('id', $id_kpi);
-				    $this->db->update('his_kpi',array('nilai' => $total, 'status' => '1'));
+				    $this->db->update('his_kpi',array('nilai' => round($rata, 2), 'status' => '1'));
 					}
 						if($this->db->affected_rows() == '1'){
 							$arr['hasil']='success';
@@ -149,11 +154,19 @@ class Mpenilaian extends REST_Controller
 		$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
 		$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.NIP','LEFT');
 		$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
+		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 		$this->db->where('his_kpi.tampilkan','1');
 		$this->db->where('his_kpi.id_jenis',$this->uri->segment(4));
 		 if(!empty($this->uri->segment(5))){
 			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)",$this->uri->segment(6)); 
 		 }
+
+		 if(!empty($this->uri->segment(7))){
+			
+			$this->db->like("riwayat_kedinasan.bagian",$this->uri->segment(7)); 
+		   //$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
+			
+		}
 		$total_rows = $this->db->count_all_results('his_kpi');
 		$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,6);
 		 
@@ -166,11 +179,20 @@ class Mpenilaian extends REST_Controller
 		$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
 		$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.NIP','LEFT');
 		$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
+		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 		$this->db->where('his_kpi.tampilkan','1');
 		$this->db->where('his_kpi.id_jenis',$this->uri->segment(4));
+
 		if(!empty($this->uri->segment(5))){
 			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)",$this->uri->segment(5)); 
 		 } 
+		 
+		  if(!empty($this->uri->segment(7))){
+			
+			$this->db->like("riwayat_kedinasan.bagian",$this->uri->segment(7)); 
+		   //$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
+			
+		}
 
 		$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
 		
@@ -549,13 +571,14 @@ class Mpenilaian extends REST_Controller
 
 			 $jumlah=count($res);
 			if(!empty($res)){
+				$i=0;
 				 foreach($res as $d){
 					$nilai=$d->nilai;
 					$bobot=$d->bobot;
 					$nilai_bobot=$bobot/100*$nilai;
 					$total += $nilai_bobot;
 					$rata=$total/$jumlah;
-					$arr[]=array('id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'total'=>$rata, 'id_kpi_d'=>$d->id_kpi_d, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
+					$arr[]=array('jum'=> $jumlah, 'n' => ++$i,'id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'total'=>$rata, 'id_kpi_d'=>$d->id_kpi_d, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
 				  }
 			}else{
 			$arr['result'] ='empty';
@@ -568,7 +591,7 @@ class Mpenilaian extends REST_Controller
 						'capaian'=>'',
 						'capaian_persen'=>'',
 						'nilai'=>'',
-						'nilai_bobot'=>$rata,
+						'nilai_bobot'=>round($rata, 2),
 						'keterangan'=>'');
 		  $this->set_response($arr, REST_Controller::HTTP_OK);
 			
@@ -604,8 +627,9 @@ class Mpenilaian extends REST_Controller
 				  $res = $this->db->get('m_penilaian_kpi')->result();
 
 			if(!empty($res)){
+				$i=0;
 				 foreach($res as $d){
-					$arr[]=array('id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
+					$arr[]=array('n' => ++$i,'id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
 				  }
 			}else{
 			$arr['result'] ='empty';
@@ -671,7 +695,7 @@ public function save_post(){
 
                 $jum = $resCek->jum;
 
-                if ($max <= $jum) {
+                if ($max < $jum) {
 					$arr['hasil']='Maaf';
                     $arr['message'] = 'Parameter anda sudah melampaui batas! Parameter max ' . $max ;
                 }else{
@@ -685,7 +709,7 @@ public function save_post(){
 				$total_bobot=$bobot+$bob;
                 $max = 100;
 
-                if ($max <= $total_bobot) {
+                if ($max < $total_bobot) {
 					$arr['hasil']='Maaf';
                     $arr['message'] = 'Bobot anda sudah melampaui batas! Bobot max 100';
                 }else{
@@ -731,8 +755,35 @@ public function save_post(){
 				 $group_aplikasi = '1';//$this->input->post('group_aplikasi');
 				 $group_group    = $_POST['group_group'];
 				 $pilih   = $_POST['pilih'];
+				 $awal   = $_POST['awal'];
+				 $id_parent = $_POST['id_parent'];
 				 $id_group   = $_POST['id_group'];
-				 
+				 if ($pilih > $awal) {
+					$selisih=$pilih-$awal;
+					$this->db->select('sum(bobot) as bobot');
+					$this->db->where('child', $id_parent);
+					$this->db->where('tampilkan', '1');
+
+					$resCek = $this->db->get('m_penilaian_kpi')->row();
+
+					$bob = $resCek->bobot;
+					$total_bobot=$selisih+$bob;
+				 }else{
+					$selisih=$awal-$pilih;
+					$this->db->select('sum(bobot) as bobot');
+					$this->db->where('child', $id_parent);
+					$this->db->where('tampilkan', '1');
+
+					$resCek = $this->db->get('m_penilaian_kpi')->row();
+
+					$bob = $resCek->bobot;
+					$total_bobot=$bob-$selisih;
+				 }
+				$max = 100;
+                if ($max < $total_bobot) {
+					$arr['hasil']='Maaf';
+                    $arr['message'] = 'Bobot anda sudah melampaui batas! Bobot max 100';
+                }else{
 				 $data = array('grup'=>$group_group,'bobot'=>$pilih,);
 				 $this->db->where('id_grup', $this->input->post('id_group'));
 				 $this->db->update('m_penilaian_kpi',$data);				
@@ -743,6 +794,7 @@ public function save_post(){
 					$arr['hasil']='error';
 					$arr['message']='Data Gagal Ditambah!';
 				 }
+				}
 				$this->set_response($arr, REST_Controller::HTTP_OK);
 			
                 return;
@@ -1144,18 +1196,28 @@ public function save_post(){
                 } else {
                     $thn = $this->input->get('tahun');
                 }
-
-                $this->db->select('his_kpi.*,m_status_proses.nama as status_name, sys_grup_user.grup as nama_uk,sys_user.name, EXTRACT(MONTH FROM his_kpi.akhir) AS bulan, EXTRACT(YEAR FROM his_kpi.akhir) AS tahun');
+				
+                $this->db->select('his_kpi.*,his_kpi.id_unitkerja as iki,m_status_proses.nama as status_name, sys_grup_user.grup as nama_uk,sys_user.name, MONTH(his_kpi.akhir) AS bulan, YEAR(his_kpi.akhir) AS tahun');
 				$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
 				$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.NIP','LEFT');
 				$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
 				$this->db->join('m_status_proses','m_status_proses.id = his_kpi.status','LEFT');
 				$this->db->where('his_kpi.id_jenis',$id_jenis);
+				$this->db->where('YEAR(his_kpi.akhir)',$thn);
 				$this->db->where('his_kpi.tampilkan','1');
                 $res = $this->db->get('his_kpi')->result();
+				
                 if (!empty($res)) {
                     $i = 0;
                     foreach ($res as $d) {
+					$unit=$d->iki;
+					$this->db->select('his_kpi.*,his_kpi.nilai as iku');
+					$this->db->where('his_kpi.id_unitkerja',$unit);
+					$this->db->where('his_kpi.id_jenis',16);
+					$n_unit = $this->db->get('his_kpi')->result();
+					foreach($n_unit as $n){
+						$iku=$n->iku;
+					}
 
                         $arr['result'][] = array(
                             'no' => ++$i,
@@ -1165,6 +1227,7 @@ public function save_post(){
 							'unit'=>$d->nama_uk,
 							'status'=>$d->status_name,
 							'nilai'=>$d->nilai,
+							'iku'=>$iku,
 							'bulan'=>$d->bulan,
 							'id_uk'=>$d->id_unitkerja,
 							'tahun'=>$d->tahun

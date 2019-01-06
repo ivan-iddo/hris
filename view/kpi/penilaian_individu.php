@@ -81,7 +81,7 @@
                     <!--===================================================-->
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title">List Data Penilaian Kerja Unit</h3>
+                            <h3 class="panel-title">List Data Penilaian Kerja Individu</h3>
                         </div>
                         <div class="panel-body">
                         <div class="dataTables_filter" id="demo-dt-addrow_filter" style="margin-right:5px">
@@ -107,7 +107,7 @@
 
 
 <script> 
- $('.judul-menu').html('Penilaian Kerja Unit');
+ $('.judul-menu').html('Penilaian Kerja Individu');
 $('.buttoenedit').hide();
 function downloadKPI(){
     var params = { 
@@ -247,10 +247,17 @@ function downloadKPI(){
 
 function loadDataPI(jml){
     var search = 0;
+	var group = localStorage.getItem("group");
+			var url = BASE_URL + 'kpi/mpenilaian/listpi/5/' + search + '/' + jml;
+             
             if($('#search').val() !==''){
               search = $('#search').val();
             }
- getJson(prosesDataPI,BASE_URL+'kpi/mpenilaian/listpi/5/'+search+'/'+jml);
+			
+			if ((group !== '1') && (group !== '6')) {
+            url = BASE_URL + 'kpi/mpenilaian/listpi/5/' + search + '/' + jml + "/" + group;
+			}
+ getJson(prosesDataPI,url);
 }
 
 loadDataPI(0);
@@ -258,14 +265,14 @@ loadDataPI(0);
            ///////////////////////////////////////////////
 
  var columnDefs = [ 
-  
- {headerName: 'Kegiatan', field: 'nama', width: 160,editable:false},
+ {headerName: 'No', field: 'n', width: 80,editable:false},
+ {headerName: 'Parameter', field: 'nama', width: 160,editable:false},
  {headerName: 'Bobot (%)', field: 'no', width: 160,editable:false},
  {headerName: 'Target Kinerja', field: 'target_kinerja', width: 120},
  {headerName: 'Capaian', field: 'capaian', width: 120},
  {headerName: 'Capaian (%)', field: 'capaian_persen', width: 120},
  {headerName: 'Nilai', field: 'nilai', width: 120},
- {headerName: 'Bobot x Nilai', field: 'nilai_bobot', width: 120},
+ {headerName: 'Bobot x Nilai', field: 'nilai_bobot', width: 120, editable:false,},
  {headerName: 'Keterangan', field: 'keterangan', width: 120},
  {headerName: 'pid', field: 'pid',  hide:true}
 

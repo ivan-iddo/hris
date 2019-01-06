@@ -233,7 +233,24 @@ function editJasn(){
                                      $('#nilai_pak').val(data.nilai_pak);
                                      $('#keterangan').val(data.keterangan);
                                      $('#idasn').val(data.id);
-                                                                               
+									 
+									 if(!empty(data.file)){
+									   var datafile='';
+												  datafile+='<tr>';
+												  datafile+='<td>1.';
+												  datafile+='</td>';
+												  datafile+='<td>';
+												  datafile +=data.file.substring(0, 30)+'...';
+												  datafile+='</td>';
+												  datafile+='<td>';
+												  
+												  datafile +='<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/data/'+data.file+'\')"><i class="fa fa-eye"></i></a>';
+												  datafile+='</td>';
+												  datafile+='</tr>';
+												  $('#fileIjazah').html(datafile);
+
+									}
+																												   
                                     getOptionsEdit("satuan_kerja",BASE_URL+"master/getmaster?id=25",data.id_satker);
                                     getOptionsEdit("txtjabatan",BASE_URL+"master/direktorat",data.jabatan);
 									getOptionsEdit("txtbagian",BASE_URL+"master/direktoratSub/"+data.jabatan,data.bagian_jabatan);

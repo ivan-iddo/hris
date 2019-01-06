@@ -126,3 +126,5 @@ ALTER TABLE `m_penilaian_kpi` ADD `bobot` INT NOT NULL AFTER `child`;
 ALTER TABLE `his_jabatan_asn` ADD `file_url` VARCHAR(225) NULL AFTER `satuan_kerja`;
 
 ALTER TABLE `his_kpi_detail` CHANGE `nilai_bobot` `nilai_bobot` VARCHAR(11) NULL;
+
+ALTER TABLE `riwayat_kedinasan` ADD `jabatan2` INT NULL AFTER `jabatan_struktural`, ADD `jabatan3` INT NULL AFTER `jabatan2`;

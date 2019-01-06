@@ -99,12 +99,18 @@
            // you will probably use a framework like JQuery, Angular or something else to do your HTTP calls.
            function loaddata(jml){
             var search = 0;
+			var group = localStorage.getItem("group");
+			var url = BASE_URL + 'users/list/' + search + '/' + jml;
              
             if($('#searchPegawai').val() !==''){
               search = $('#searchPegawai').val();
             }
+			
+			if ((group !== '1') && (group !== '6')) {
+            url = BASE_URL + 'users/list/' + search + '/' + jml + "/" + group;
+			}
            $.ajax({
-                                   url: BASE_URL+'users/list/'+search+'/'+jml,
+                                   url: url,
                                    headers: {
                                        'Authorization': localStorage.getItem("Token"),
                                        'X_CSRF_TOKEN':'donimaulana',

@@ -34,13 +34,16 @@
             <li>
               <a data-toggle="tab" href="#demo-lft-tab-5a" onclick="tabJabatanView();"><span class="block text-center text-success"><i class="fa fa-home fa-2x"></i></span> Jabatan</a>
             </li>
+			<li>
+             <a data-toggle="tab" href="#demo-lft-tab-6a" onclick="tabJabatanViewasn();"><span class="block text-center text-success"><i class="fa fa-cubes fa-2x"></i></span>JabFung ASN</a>
+            </li>
             <li>
               <div class="dropdown" style="margin: 10px;">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Upload Lainnya
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   <li>
-                    <a data-toggle="tab" href="#tab-kontrak" onclick="$('#page-kontrak').load('view/pegawai/form_file.php?id=2');removeActiveDropDown()">
+                    <a data-toggle="tab" href="#tab-kontrak" onclick="$('#page-kontrak').load('view/pegawai/form_kontrak.php')">
                       Kontrak
                     </a>
                   </li>
@@ -143,6 +146,9 @@ Medical</a></li>
             <div class="tab-pane fade" id="demo-lft-tab-5a">
               <div id="page-jabatan"></div>
             </div>
+			<div class="tab-pane fade" id="demo-lft-tab-6a">
+              <div id="page-jabfung"></div>
+            </div>
             <div class="tab-pane fade" id="tab-kontrak">
               <div id="page-kontrak"></div>
             </div>
@@ -200,3 +206,4 @@ Medical</a></li>
   <script src="js/pegawai/pelatihan.js"></script>
   <script src="js/pegawai/golongan.js"></script>
   <script src="js/pegawai/jabatan.js"></script>
+  <script src="js/pegawai/jab_asn.js"></script>

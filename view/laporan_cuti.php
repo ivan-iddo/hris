@@ -1,6 +1,6 @@
-<script src="http://localhost:8888/hrd01/hg/code/highcharts.js"></script>
-<script src="http://localhost:8888/hrd01/hg/code/modules/exporting.js"></script>
-<script src="http://localhost:8888/hrd01/hg/code/modules/export-data.js"></script>
+<script src="hg/code/highcharts.js"></script>
+<script src="hg/code/modules/exporting.js"></script>
+<script src="hg/code/modules/export-data.js"></script>
 
 <div class="panel">
 <div class="panel-body">
@@ -22,7 +22,7 @@
 
 
 
-		<script type="text/javascript">
+<script type="text/javascript">
 var chart;
 chart = new Highcharts.chart('containers', {
     chart: {

@@ -106,6 +106,7 @@ class jabatan_asn extends REST_Controller
 								   'nilai_pak' => $d->nilai_pak,
 								   'keterangan' => $d->keterangan,
 								   'satuan_kerja' => $d->satuan_kerja,
+								   'file' => $d->file_url
 								   );
 		  
 		  

@@ -397,8 +397,8 @@
        
         
 																			getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural",res[0].jabatan_struktural);
-																			getOptionsEdit("txtjabatan1",BASE_URL+"master/jabatan_struktural1",res[0].jabatan_struktural);
-																			getOptionsEdit("txtjabatan2",BASE_URL+"master/jabatan_struktural2",res[0].jabatan_struktural);
+																			getOptionsEdit("txtjabatan1",BASE_URL+"master/jabatan_struktural1",res[0].jabatan2);
+																			getOptionsEdit("txtjabatan2",BASE_URL+"master/jabatan_struktural2",res[0].jabatan3);
 																			getOptionsEdit("txtgolongan",BASE_URL+"master/golongan_pegawai",res[0].golongan);
 																			getOptionsEdit("txtbagian",BASE_URL+"master/direktoratSub/"+res[0].direktorat,res[0].bagian);
 																			getOptionsEdit("unitkerja",BASE_URL+"master/direktoratSub/"+res[0].bagian,res[0].sub_bagian);

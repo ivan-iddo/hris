@@ -95,25 +95,6 @@
             <div class="ag-theme-balham" id="gridTK" style="height: 300px;width:100%;">
         </div>
         </div>
-  
-        <div class="tab-pane fade " id="demo-lft-tab-2" >
-          <div id="page-sp"></div>
-        </div> 
- 
-       
- 
-      
-  
-        <div class="tab-pane fade" id="demo-lft-tab-3">
-        <div id="page-ut"></div>
-        </div>
-
-         <div class="tab-pane fade" id="demo-lft-tab-lk">
-        <div id="page-lk"></div>
-        </div>
-        <div class="tab-pane fade" id="demo-lft-tab-kebut">
-        <div id="page-kebut"></div>
-        </div>
       </div>
     </div>
       
@@ -125,7 +106,8 @@
   {headerName: "No.Pegawai", field: "nopeg", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Nama Pegawai", field: "nama", width: 160, filterParams:{newRowsAction: "keep"}},
   {headerName: "Unit Kerja", field: "unit", width: 190, filterParams:{newRowsAction: "keep"}},
-  {headerName: "Nilai IKI", field: "nilai", width: 190, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Nilai IKP", field: "nilai", width: 90, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Nilai IKU", field: "iku", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Status", field: "status", width: 120, filterParams:{newRowsAction: "keep"}},
   {headerName: "Bulan", field: "bulan", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Tahun", field: "tahun", width: 90, filterParams:{newRowsAction: "keep"}},
@@ -285,7 +267,7 @@
     var selectedRows = gridTK.api.getSelectedRows();
             // alert('>>'+selectedRows+'<<<');
             if(selectedRows == ''){
-               onMessage('Silahkan Pilih Data di Tabel Kebutuhan SDM Terlebih dahulu!');
+               onMessage('Silahkan Pilih Data di Tabel Pegawai Terlebih dahulu!');
                return false;
             }else{
                 var selectedRowsString = '';
@@ -306,7 +288,7 @@
     var selectedRows = gridTK.api.getSelectedRows();
             // alert('>>'+selectedRows+'<<<');
             if(selectedRows == ''){
-               onMessage('Silahkan Pilih Data di Tabel Kebutuhan SDM Terlebih dahulu!');
+               onMessage('Silahkan Pilih Data di Tabel Pegawai Terlebih dahulu!');
                return false;
             }else{
                 var selectedRowsString = '';

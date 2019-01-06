@@ -54,7 +54,10 @@
   // specify the columns
   var columnDefs = [
     {
-      headerName: "Nama", field: "nama", width: 400, filterParams:{
+      headerName: "No", field: "n", width: 100, filterParams:{
+        newRowsAction: 'keep'}
+    },{
+      headerName: "Parameter", field: "nama", width: 400, filterParams:{
         newRowsAction: 'keep'}
     },{
       headerName: "Bobot", field: "no", width: 210, filterParams:{
@@ -149,6 +152,7 @@
           $('#id_group').val(res[0].id);
           $('#id_kpi').val(res[0].id_kpi);
 		  $('#f_group_bot').val(res[0].no);
+		  $('#f_group_awal').val(res[0].no);
           // gridOptions.api.setRowData(data);
         }
         ,
@@ -171,6 +175,7 @@
 	  input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Bobot</label>';
 	  input +='<div class="col-sm-5">';
 	  input +='<input placeholder="" id="f_group_bot" class="form-control" type="text">';
+	  input +='<input placeholder="" id="f_group_awal" class="form-control" type="text" style="display:none">';
 	  input += '</div>';
 	  input += '</div>';
       input += '</div>';
@@ -306,7 +311,7 @@
     input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Kategori Dokumen</label>';
     input +='<div class="col-sm-5">';
     input +='<input placeholder="" id="f_group_group" class="form-control" type="text">'; 
-    input +='<input placeholder="ID Group" id="id_parent" style="display:none" class="form-control" type="text" value="1">';
+    input +='<input placeholder="ID Group" id="f_group_awal" style="display:none" class="form-control" type="text">';
     input +='<input placeholder="ID Group" id="id_group" style="display:none" class="form-control" type="text">';
 	input +='<input placeholder="ID Kpi" id="id_kpi" style="display:none" class="form-control" type="text">';
     input += '</div>';
@@ -364,6 +369,7 @@
     id_parent = 5; //rubah disini aja
     max = 20;
 	pilih=$("#f_group_bot").get(0).value;
+	awal=$("#f_group_awal").get(0).value;
 	if(!group_group){
       alert('Nama Kategori Tidak Boleh Kosong');
       return false;
@@ -375,6 +381,7 @@
         id_group:id_group,
         id_kpi:id_kpi,
 		max:max,
+		awal:awal,
         pilih:pilih,
         id_parent:id_parent
       };
