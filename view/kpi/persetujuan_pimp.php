@@ -278,7 +278,7 @@
                }
                selectedRowsString += selectedRow.id;
            }); 
-           submit_get(BASE_URL+'kpi/mpenilaian/updateiki/?id='+selectedRowsString+'&type='+a);
+           submit_get(BASE_URL+'kpi/mpenilaian/updateiki/?id='+selectedRowsString+'&type='+a,listFromtk);
            
             }
      
@@ -300,7 +300,7 @@
                selectedRowsString += selectedRow.id;
            });
 
-          submit_get(BASE_URL+'kpi/mpenilaian/updateiki/?id='+selectedRowsString+'&type='+a);
+          submit_get(BASE_URL+'kpi/mpenilaian/updateiki/?id='+selectedRowsString+'&type='+a,listFromtk);
 
            
            

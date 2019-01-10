@@ -305,6 +305,7 @@ class Mpenilaian extends REST_Controller
 				$akhir = $this->input->post('akhir');
 
 				//cek dulu kalau sama dia gak boleh save
+				$this->db->where('id_jenis',$id_jenis);
 				$this->db->where('awal',$awal);
 				$this->db->where('akhir',$akhir);
 				$this->db->where('no_pegawai',$nip);
@@ -726,6 +727,13 @@ public function save_post(){
 				foreach($res as $d){
 				$id_grup = $d->id_grup;
 				$data1 = array('id_kegiatan'=>$id_grup);
+				$this->db->insert('his_kpi_detail',$data1);
+				}
+				$this->db->where('id_jenis',$id_parent);
+				$res = $this->db->get('his_kpi')->result();
+				foreach($res as $d){
+				$id = $d->id;
+				$data1 = array('id_kpi'=>$id,'id_kegiatan'=>$id_grup);
 				$this->db->insert('his_kpi_detail',$data1);
 				}
 				if($this->db->affected_rows() == '1'){
@@ -1191,7 +1199,7 @@ public function save_post(){
 
                 }
 				
-				 if (empty($this->input->get('tahun'))) {
+				if (empty($this->input->get('tahun'))) {
                     $thn = date('Y');
                 } else {
                     $thn = $this->input->get('tahun');
@@ -1205,20 +1213,37 @@ public function save_post(){
 				$this->db->where('his_kpi.id_jenis',$id_jenis);
 				$this->db->where('YEAR(his_kpi.akhir)',$thn);
 				$this->db->where('his_kpi.tampilkan','1');
+				if(!empty($this->input->get('nopeg'))){
+					$this->db->where('sys_user.id_user',$this->input->get('nopeg'));
+					$this->db->where('his_kpi.status',2);
+				}
+				if(!empty($this->input->get('bulan'))){
+					$this->db->where('MONTH(his_kpi.akhir)',$this->input->get('bulan'));
+				}
                 $res = $this->db->get('his_kpi')->result();
 				
                 if (!empty($res)) {
                     $i = 0;
+					$iku=0;
                     foreach ($res as $d) {
 					$unit=$d->iki;
+					$bulan=$d->bulan;
 					$this->db->select('his_kpi.*,his_kpi.nilai as iku');
+					$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
+					$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.NIP','LEFT');
+					$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
+					$this->db->join('m_status_proses','m_status_proses.id = his_kpi.status','LEFT');
 					$this->db->where('his_kpi.id_unitkerja',$unit);
+					$this->db->where('MONTH(his_kpi.akhir)',$bulan);
+					$this->db->where('YEAR(his_kpi.akhir)',$thn);
 					$this->db->where('his_kpi.id_jenis',16);
+					if(!empty($this->input->get('nopeg'))){
+					$this->db->where('sys_user.id_user',$this->input->get('nopeg'));
+					$this->db->where('his_kpi.status',2);
+					}
 					$n_unit = $this->db->get('his_kpi')->result();
 					foreach($n_unit as $n){
 						$iku=$n->iku;
-					}
-
                         $arr['result'][] = array(
                             'no' => ++$i,
                             'nopeg' => $d->no_pegawai,
@@ -1232,6 +1257,7 @@ public function save_post(){
 							'id_uk'=>$d->id_unitkerja,
 							'tahun'=>$d->tahun
                         );
+					}
                     }
 
                     $arr['hasil'] = 'success';

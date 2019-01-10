@@ -33,7 +33,24 @@
         </ul>
 
         <div class="tab-content">
-            <div class="tab-pane fade" id="demo-lft-tab-1"></div>
+            <div class="tab-pane fade" id="demo-lft-tab-1">
+			  <div class="panel-group accordion" id="accordion">
+                    <div class="panel" style="border:none">
+                        <div class="panel-collapse collapse in" id="collapseOne" aria-expanded="true" style="">
+                            <div class="panel-body">
+                                <div class="dataTables_wrapper form-inline dt-bootstrap no-footer"
+                                     id="demo-dt-addrow_wrapper">
+                                </div>
+                                <div class="bootstrap-table">
+                                    <div class="fixed-table-container" style="padding-bottom: 0px;">
+                                        <div id="profile"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			</div>
 
             <div class="tab-pane fade active in" id="demo-lft-tab-2">
                 <div class="fixed-table-toolbar">
@@ -71,8 +88,6 @@
             <div class="tab-pane fade" id="demo-lft-tab-3"></div>
         </div>
     </div>
-
-
 </div>
 
 
@@ -104,6 +119,7 @@
                         $('.page-jabatan').html(res[0].jabatan);
                         $('#id_user').val(res[0].id);
                         $('#f_id_edit').val(res[0].id);
+						$('#nop').val(res[0].NIP);
                     }, 1000);
                     $('#profilePage').load('view/pegawai/profile_view.php');
                 }
@@ -119,6 +135,15 @@
 
 
     bukaProfile();
+	
+	  function buka() {
+		var d = new Date();
+		var n = d.getMonth();
+		bulan = n+1;
+		var user = localStorage.getItem("id_user");
+		$('#profile').load('view/kpi/kpi_pegawai.php?bulan='+bulan+'&nopeg='+user);
+	  }
+    buka();
     //]]>
 
 
