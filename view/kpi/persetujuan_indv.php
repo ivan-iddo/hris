@@ -89,6 +89,9 @@
                                                       
 					                     
 					                </div>
+									<div class="col-sm-6 table-toolbar-right">
+					                      <button class="btn btn-default"  onCLick="downloadindv();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
+					                </div>
 					            </div>
 					        </div>
                                             
@@ -252,10 +255,10 @@
 			 getJson(loadfrmtk,uri);
 		   }
  
-		   function downloadform2(){
+	function downloadindv(){
 	 var params = { 
-		 fileName: 'form2',
-		 sheetName: 'form2'
+		 fileName: 'KPI Individu',
+		 sheetName: 'KPI Individu'
 	 };
  
 	 gridTK.api.exportDataAsExcel(params);
@@ -305,7 +308,6 @@
            
             }
   }
- 
   </script>
 <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
  <script>

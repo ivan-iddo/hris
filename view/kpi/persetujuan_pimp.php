@@ -89,6 +89,9 @@
                                                       
 					                     
 					                </div>
+									<div class="col-sm-6 table-toolbar-right">
+					                      <button class="btn btn-default"  onCLick="downloadpimp();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
+					                </div>
 					            </div>
 					        </div>
                                             
@@ -253,10 +256,10 @@
 			 getJson(loadfrmtk,uri);
 		   }
  
-		   function downloadform2(){
+		   function downloadpimp(){
 	 var params = { 
-		 fileName: 'form2',
-		 sheetName: 'form2'
+		 fileName: 'KPI Pimpinan',
+		 sheetName: 'KPI Pimpinan'
 	 };
  
 	 gridTK.api.exportDataAsExcel(params);

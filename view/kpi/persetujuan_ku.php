@@ -89,6 +89,9 @@
                                                       
 					                     
 					                </div>
+									<div class="col-sm-6 table-toolbar-right">
+					                      <button class="btn btn-default"  onCLick="downloadku();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
+					                </div>
 					            </div>
 					        </div>
                                             
@@ -252,10 +255,10 @@
 			 getJson(loadfrmtk,uri);
 		   }
  
-		   function downloadform2(){
+ function downloadku(){
 	 var params = { 
-		 fileName: 'form2',
-		 sheetName: 'form2'
+		 fileName: 'KPI Unit',
+		 sheetName: 'KPI Unit'
 	 };
  
 	 gridTK.api.exportDataAsExcel(params);

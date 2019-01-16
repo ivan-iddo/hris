@@ -252,6 +252,7 @@ function loadDataPI(jml){
              
             if($('#search').val() !==''){
               search = $('#search').val();
+			  url = BASE_URL + 'kpi/mpenilaian/listpi/17/' + search + '/' + jml;
             }
 			
 			if ((group !== '1') && (group !== '6')) {
