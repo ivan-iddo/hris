@@ -1534,7 +1534,7 @@ class Pegawai extends REST_Controller
                 }
 
                 if (!empty($this->input->get('status'))) {
-                    //$this->db->where('abk_req_mutasi_jabatan.status',$this->input->get('status'));
+                    $this->db->where('abk_req_mutasi_jabatan.status',$this->input->get('status'));
                 }
 
 
@@ -1546,21 +1546,7 @@ class Pegawai extends REST_Controller
                 foreach ($res as $d) {
                     // echo $group.' =='. $d->direktorat_tujuan;
 
-                    $tampil = 'false';
-                    if (($group == $d->direktorat_tujuan) AND ($d->stat == '88')) {
-                        $tampil = 'true';
-                    }
-
-                    if (($group == $d->direktorat_tujuan) AND ($d->stat == '105')) {
-
-                        $tampil = 'true';
-
-                    }
-
-                    if (($group == $d->direktorat_asal) AND ($d->stat == '88')) {
-                        $tampil = 'true';
-                    }
-
+                    $tampil = 'true';
                     if ($tampil == 'true') {
                         $arr['result'][] = array(
                             'id' => $d->idmutasi,
@@ -1626,14 +1612,14 @@ class Pegawai extends REST_Controller
                     $arr['message'] = '<div class="alert alert-danger">Maaf cuti anda tahun ini <strong>sudah melampaui batas!</strong></div>';
                 } else {
                     if ($id_cuti == '1') {
-                        $cc = $total - $cuti_sudahDiambil;
+                        $c = $total - $cuti_sudahDiambil;
                         $this->db->select('sum(total) as total_cuti');
                         $this->db->where('jenis_cuti', '1');
                         $this->db->where('id_user', $id_user);
                         $this->db->where('YEAR(tgl_cuti)', ($tahun - 1));
                         $this->db->where('tampilkan', '1');
                         $resCeklalu = $this->db->get('his_cuti')->row();
-                        $cutithnlalu = 12 - $resCeklalu->total_cuti;
+                        $cutithnlalu = 18 - $resCeklalu->total_cuti;
                         $jumlahcuti = $cc + $cutithnlalu;
 
                         if (!empty($resCeklalu->total_cuti)) {
@@ -1647,7 +1633,7 @@ class Pegawai extends REST_Controller
                         }
                     }
 
-                    $arr['message'] = '<div class="alert alert-success">Anda memiliki sisa cuti <strong>' . $cc . ' Hari</strong></div>';
+                    $arr['message'] = '<div class="alert alert-success">Anda memiliki sisa cuti <strong>' . $c . ' Hari</strong></div>';
                     $arr['jumlah'] = $cc;
                 }
 
@@ -1705,7 +1691,7 @@ class Pegawai extends REST_Controller
                         $this->db->where('YEAR(tgl_izin)', ($tahun - 1));
                         $this->db->where('tampilkan', '1');
                         $resCeklalu = $this->db->get('his_izin')->row();
-                        $izinthnlalu = 224 - $resCeklalu->total_cuti;
+                        $izinthnlalu = 224 - $resCeklalu->total_izin;
                         $jumlahizin = $cc + $izinthnlalu;
 
                         if (!empty($resCeklalu->total_izin)) {
@@ -2026,7 +2012,7 @@ class Pegawai extends REST_Controller
                 $this->db->where('id', $id);
                 $arrayizin['status'] = $status;
                 if ($status == '0') {
-                    $arraycuti['tampilkan'] = '0';
+                    $arrayizin['tampilkan'] = '0';
                     $this->db->where('status', '1');
                 }
                 $this->db->update('his_izin', $arrayizin);

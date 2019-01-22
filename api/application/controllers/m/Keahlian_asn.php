@@ -166,7 +166,7 @@ class Keahlian_asn extends REST_Controller
 				 if(!empty($this->uri->segment('4'))){
 					$this->db->where('kode_ahli',$this->uri->segment('4'));
 				 }
-					 $this->db->order_by('nama','ASC');
+					 $this->db->order_by('id','ASC');
 					 
 			  $res = $this->db->get($this->table)->result();
 

@@ -111,7 +111,7 @@ class Abk extends REST_Controller
                 $SKI_NONKAUR = $total_SKI_NONKAUR / $waktu;
 
 
-                $this->db->select('sum(kasubag) as jkasubag,sum(kabag) as jkabag,sum(dirut) as jdirut,sum(dir) as jdir,sum(kaur) as jkaur,sum(sa) as jsa,sum(pk)as jpa');
+                $this->db->select('abk_beban_kerja.tahun, sum(kasubag) as jkasubag,sum(kabag) as jkabag,sum(dirut) as jdirut,sum(dir) as jdir,sum(kaur) as jkaur,sum(sa) as jsa,sum(pk)as jpa');
                 $this->db->where('abk_langkah_kerja.tampilkan', '1');
                 $this->db->join('abk_langkah_kerja', 'abk_langkah_kerja.id_beban_kerja = abk_beban_kerja.id');
                 $this->db->where('abk_beban_kerja.tampilkan', '1');
@@ -131,7 +131,7 @@ class Abk extends REST_Controller
                 }
                 $res = $this->db->get('abk_beban_kerja')->row();
 
-                if (!empty($res)) {
+                if (!empty($res->tahun)) {
                     $i = 0;
 
                     $data[$kaur]['beban'] = $res->jkaur;
@@ -230,7 +230,7 @@ class Abk extends REST_Controller
 
                 } else {
 
-                    $arr['hasil'] = 'error';
+                   $arr['hasil'] = 'error';
                 }
                 $this->set_response($arr, REST_Controller::HTTP_OK);
 
@@ -321,7 +321,7 @@ class Abk extends REST_Controller
                 $SKI_NONKAUR = $total_SKI_NONKAUR / $waktu;
 
 
-                $this->db->select('sum(kaur) as jkaur,sum(sa) as jsa,sum(pk)as jpa');
+                $this->db->select('abk_beban_kerja.tahun, sum(kaur) as jkaur,sum(sa) as jsa,sum(pk)as jpa');
                 $this->db->where('abk_langkah_kerja.tampilkan', '1');
                 $this->db->join('abk_langkah_kerja', 'abk_langkah_kerja.id_beban_kerja = abk_beban_kerja.id');
                 $this->db->where('abk_beban_kerja.tampilkan', '1');
@@ -344,7 +344,7 @@ class Abk extends REST_Controller
                 $res = $this->db->get('abk_beban_kerja')->row();
 
 
-                if (!empty($res)) {
+                if (!empty($res->tahun)) {
                     $i = 0;
 
                     $data[$kaur]['beban'] = $res->jkaur;
@@ -438,16 +438,7 @@ class Abk extends REST_Controller
 
 
                 } else {
-                    $arr['result'][] = array(
-                        'no' => '',
-                        'id' => '',
-                        'faktor' => '',
-                        'waktu_kerja' => '',
-                        'keterangan' => '',
-                        'tahun' => ''
-
-                    );
-                    $arr['hasil'] = 'success';
+                    $arr['hasil'] = 'error';
                 }
                 $this->set_response($arr, REST_Controller::HTTP_OK);
 

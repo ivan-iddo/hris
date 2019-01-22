@@ -611,8 +611,7 @@ bootbox.dialog({
     
            
     function prosesmutasi(){
-        
-        postForm('form-mutasi',BASE_URL+'pegawai/editmutasi',loadMutasi);
+        getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=91');
     }
 
      function chat(){

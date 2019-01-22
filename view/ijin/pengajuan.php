@@ -203,11 +203,11 @@ function hitungTanggal(jml){
     var tt = document.getElementById('tgl_izin').value;
 
     if(!empty(tt)){
-        var h = incrementDate(tt,jml);
+        var h = incrementDate(tt,0);
         var dd = h.getDate();
         var mm = h.getMonth() + 1;
         var y = h.getFullYear();
-        $('#sampai').html(dd+'-'+mm+'-'+y); 
+        $('#sampai').html(mm+'-'+dd+'-'+y); 
     }
      
  }
@@ -216,11 +216,11 @@ function hitungTanggal(jml){
     var tt = document.getElementById('jumlahizin').value;
 
     if(!empty(tt)){
-        var h = incrementDate(tgl,tt);
+        var h = incrementDate(tgl,0);
         var dd = h.getDate();
         var mm = h.getMonth() + 1;
         var y = h.getFullYear();
-        $('#sampai').html(dd+'-'+mm+'-'+y); 
+        $('#sampai').html(mm+'-'+dd+'-'+y); 
     }
      
  }

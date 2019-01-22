@@ -10,7 +10,7 @@
                                             <div class="col-sm-4">
                                                     <select class="form-control select2" id="thnfrm6" name="thnfrm6" style="width: 100%;" >
                                                     <option value="">--TAHUN--</option>
-                                                     <?php for($i=date('Y');$i>=2010;$i--){?>
+                                                     <?php for($i=date('Y')+9;$i>=date('Y')-1;$i--){?>
                                                         <option value="<?php echo $i?>"><?php echo $i?></option>
                                                         <?php }?>
                                                     </select> 
@@ -18,7 +18,7 @@
                                            
                                     </div> 
                                     </div>
-                                 
+                                 <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
                                     <div class="admininput">
                                     <div class="row pad-top"> 
                                     <div class="form-group">
@@ -35,7 +35,7 @@
                                      
                                     
                                                      </div>
-                                   
+                                    <?php } ?>
                                     
                                     <div class="row "> 
                                     <div class="form-group">
@@ -111,7 +111,7 @@
 
            
            function listShift(){
-              var thn=$('#thn').val();
+              var thn=$('#thnfrm6').val();
               var uk=$('#txtdirektorat').val();
               if(empty(thn)){
                 var d = new Date();
@@ -119,7 +119,7 @@
                   thn = n;
               }
 
-              
+              $('#thnfrm6').val(thn);
 
             getJson(loadShift,BASE_URL+'abk/abk/listshift?year='+thn+'&uk='+uk);
           }
@@ -175,7 +175,7 @@
            new agGrid.Grid(gridDiv, gridnonShift);
 
            function listnonShift(){
-              var thn=$('#thn').val();
+              var thn=$('#thnfrm6').val();
               var uk=$('#txtdirektorat').val();
               if(empty(thn)){
                 var d = new Date();
@@ -183,7 +183,7 @@
                   thn = n;
               }
 
-              
+              $('#thnfrm6').val(thn);
 
             getJson(loadnonShift,BASE_URL+'abk/abk/listnonshift?year='+thn+'&uk='+uk);
           }

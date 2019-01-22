@@ -28,7 +28,19 @@
                             <div class="box box-primary"> 
                                 <div class="box-body">
                                
-                                <div class="row pad-top"> 
+                                <div class="row pad-top">
+									<div class="form-group">
+                                        <label class="col-sm-2 control-label" for="inputstatus">Bulan</label>
+                                            <div class="col-sm-3">
+                                                    <select class="form-control select2" id="bulan" name="bulan" style="width: 100%;">
+                                                    <option value="">Bulan</option>
+                                                      <?php for($i=1;$i<=12;$i++){?>
+                                                        <option value="<?php echo $i?>"><?php echo $i?></option>
+                                                        <?php }?>
+                                                    </select> 
+                                            </div>
+                                           
+                                    </div> 								
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="inputstatus">Tahun</label>
                                             <div class="col-sm-3">
@@ -242,9 +254,10 @@
  
 		   function searchtk(){
 			 var thn=$('#thn').val();
+			 var bulan=$('#bulan').val();
 			 var uk=$('#txtdirektorat').val();
 			 var group = localStorage.getItem('group');
-			 var uri = BASE_URL+'kpi/mpenilaian/listiki?tahun='+thn+'&id_uk='+uk+'&status=16'; 
+			 var uri = BASE_URL+'kpi/mpenilaian/listiki?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk+'&status=16'; 
 			  if(empty(thn)){
 					 alert('Tahun harus dipilih');
 					 return false;

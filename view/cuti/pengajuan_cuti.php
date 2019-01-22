@@ -207,7 +207,7 @@ function hitungTanggal(jml){
         var dd = h.getDate();
         var mm = h.getMonth() + 1;
         var y = h.getFullYear();
-        $('#sampai').html(dd+'-'+mm+'-'+y); 
+        $('#sampai').html(mm+'-'+dd+'-'+y); 
     }
      
  }
@@ -220,7 +220,7 @@ function hitungTanggal(jml){
         var dd = h.getDate();
         var mm = h.getMonth() + 1;
         var y = h.getFullYear();
-        $('#sampai').html(dd+'-'+mm+'-'+y); 
+        $('#sampai').html(mm+'-'+dd+'-'+y); 
     }
      
  }

@@ -197,7 +197,7 @@
               search = $('#search').val();
             }
            $.ajax({
-                                   url: BASE_URL+'pegawai/listmutasi?status=100',
+                                   url: BASE_URL+'pegawai/listmutasi?status=84',
                                    headers: {
                                        'Authorization': localStorage.getItem("Token"),
                                        'X_CSRF_TOKEN':'donimaulana',

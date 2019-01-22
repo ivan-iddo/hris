@@ -50,7 +50,7 @@ class Users extends REST_Controller
 		
 		$this->db->where('sys_user.status','1');
 		 if(!empty($this->uri->segment(3))){
-			$this->db->like("sys_user.name",$this->uri->segment(3)); 
+			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP)",$this->uri->segment(3)); 
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 		 }
 		 if(!empty($this->uri->segment(5))){
@@ -72,7 +72,7 @@ class Users extends REST_Controller
 		$this->db->join('m_kode_profesi_group','sys_user_profile.kategori_profesi = m_kode_profesi_group.id','LEFT');
 		if(!empty($this->uri->segment(3))){
 			
-			 $this->db->like("sys_user.name",$this->uri->segment(3)); 
+			 $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP)",$this->uri->segment(3)); 
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 			 
 		 }

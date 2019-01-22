@@ -104,6 +104,7 @@
              
             if($('#searchPegawai').val() !==''){
               search = $('#searchPegawai').val();
+			  url = BASE_URL + 'users/list/' + search + '/' + jml ;
             }
 			
 			if ((group !== '1') && (group !== '6')) {

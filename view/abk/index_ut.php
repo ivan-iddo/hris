@@ -66,6 +66,7 @@
 					            </div>
 					        </div>
                             <input type="text" id="tmpId" style="display:none">
+                            <input type="text" id="kp" style="display:none">
                             <div class="ag-theme-balham" id="Gridform4" style="height: 300px;width:100%;">
                             </div>
                             <div class="ag-theme-balham" id="Gridform4Bottom" style="height: 125px;width:100%;"></div>
@@ -313,6 +314,7 @@
             var selectedRows = Gridform3.api.getSelectedRows(); 
             selectedEvent = selectedRows[0];
             var id_uk  =''; 
+            var kp  =''; 
             if(selectedRows == ''){
                onMessage('Silahkan Pilih Uraian Tugas Terlebih dahulu!');
                return false;
@@ -324,9 +326,11 @@
                             selectedRowsString += ', ';
                         }
                         selectedRowsString += selectedRow.id;
+                        kp += selectedRow.kegiatan_pokok;
                         id_uk += selectedRow.id_uk;
                     });
                     $('#tmpId').val(selectedRowsString);
+                    $('#kp').val(kp);
                     getJson(loadform4,BASE_URL+'abk/abk/listform4?id_ut='+selectedRowsString);
                     getJson(prosestable,BASE_URL+'abk/abk/listpofesi?id_ut='+id_uk);
                    // showtable('false','kaur');
@@ -396,9 +400,10 @@
 }
 
 function downloadform4(){
+	var kp=$('#kp').val();
     var params = { 
-        fileName: 'form4',
-        sheetName: 'form4'
+        fileName: kp,
+        sheetName: kp
     };
 
     Gridform4.api.exportDataAsExcel(params);
