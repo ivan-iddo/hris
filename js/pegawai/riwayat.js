@@ -178,7 +178,7 @@ function editKeluarga(){
               $('#id_keluarga').val(data.id);
                 $('#txtNama').val(data.nama);
                 $('#txtTptLahir').val(data.tempat_lahir);
-                $('#txtNik').val(data.NIK);
+                $('#txtNik').val(data.nik);
                 $('#txtTglLahir').val(data.tgl_lahir);
                 $('#txtkarn').val(data.karn);
 

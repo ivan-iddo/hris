@@ -31,6 +31,7 @@ class ParentChild {
 	var $db_user;
 	var $db_pass;
 	var $db_database;
+	var $db_port;
 	var $db_table; 
 	
 	
@@ -53,11 +54,15 @@ class ParentChild {
 	
 	var $item_path = array(); //contains the total path of a given element/node(the list of elements starting from the top level root node to the given element/node)
 	
-	public function getAllChilds($Parent_ID, $level_identifier="", $start=true) { // get all the childs of all the levels under a parent as a tree		
+	public function getAllChilds($Parent_ID, $level_identifier="", $start=true) { // get all the childs of all the levels under a parent as a tree	
 		$immediate_childs=$this->getImmediateChilds($Parent_ID,  $this->extra_condition, $this->order_by_phrase);
+		
 		if(count($immediate_childs)) {
 			foreach($immediate_childs as $chld) {
 				$chld[$this->item_list_field_name]=$level_identifier.$this->item_pointer.$chld[$this->item_list_field_name];
+				// echo '<pre>';
+				// print_r($chld);die();
+				// echo '<pre>';
 				array_push($this->all_childs,$chld);
 				$this->getAllChilds($chld[$this->item_identifier_field_name], ($level_identifier.$this->level_identifier), false);
 			}
@@ -68,21 +73,25 @@ class ParentChild {
 	} 
 	
 	private function getImmediateChilds($parent_identifier_field_value, $extra_condition="", $order_by_phrase="") { // get only the direct/immediate childs under a parent 
-		  $sql="SELECT * FROM `".$this->db_table."` WHERE `".$this->parent_identifier_field_name."`='".$parent_identifier_field_value."' ".$extra_condition." ".$order_by_phrase;
-		$res=mysqli_query($this->db_connect(),$sql);
+
+		$sql="SELECT * FROM ".$this->db_table." WHERE ".$this->parent_identifier_field_name." = ".$parent_identifier_field_value." ".$extra_condition." ".$order_by_phrase;
+		$res=pg_query($this->db_connect(),$sql);
 		$childs=array();
-		while($val=mysqli_fetch_assoc($res)) {
+		while($val=pg_fetch_array($res, null, PGSQL_ASSOC)) {
 			array_push($childs,$val);
 		}
+		// echo '<pre>';
+		// print_r($childs);die();
+		// echo '<pre>';
 		return $childs;	
 	}
 	
 	public function getItemPath($item_id,$start=true){ //returns the total path of a given item/node(the list of elements starting from the top level root node to the given item/node)
 		
 		if($item_id != 0) {
-			$sql="SELECT * FROM `".$this->db_table."` WHERE `".$this->item_identifier_field_name."`='".$item_id."' ";
-			$res=mysqli_query($this->db_connect(),$sql);
-			$itemdata=mysqli_fetch_assoc($res);
+			$sql="SELECT * FROM ".$this->db_table." WHERE ".$this->item_identifier_field_name." = ".$item_id." ";
+			$res=pg_query($this->db_connect(),$sql);
+			$itemdata=pg_fetch_array($res, null, PGSQL_ASSOC);
 			array_push($this->item_path,$itemdata); 
 		
 			if($itemdata[$this->parent_identifier_field_name]!=0) {
@@ -98,19 +107,13 @@ class ParentChild {
 	
 	public function db_connect(){
 	 
-		$conn = mysqli_connect($this->db_host,$this->db_user,$this->db_pass,$this->db_database);
+		$conn = pg_connect("host = $this->db_host port = $this->db_port dbname = $this->db_database user = $this->db_user password = $this->db_pass") or die ("Could not connect to server");
 
-				// Check connection
-				if (mysqli_connect_errno())
-				{
-				echo "Failed to connect to MySQL: " . mysqli_connect_error();
-				exit;
-				}
 		return $conn;
 	}
 	
 	public function db_disconnect(){
-		mysqli_close($this->db_connect());
+		pg_close($this->db_connect());
 	}
 } 
 ?>

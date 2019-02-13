@@ -18,9 +18,9 @@ require_once('../../connectdb.php');
 										<?php 
                                         // print_r($_SESSION['userdata'] );
 
-                                         $query= mysqli_query($con,'select count(total)as jml from his_izin where tampilkan=1 and status=1 and id_user = '.$_SESSION['userdata']['id'].' order by tgl_izin DESC');
-                                          $rowcount=mysqli_num_rows($query);
-                                          $row   = mysqli_fetch_row($query);
+                                         $query= pg_query('select count(total)as jml from his_izin where tampilkan=1 and status=1 and id_user = '.$_SESSION['userdata']['id'].'');
+                                          $rowcount=pg_num_rows($query);
+                                          $row   = pg_fetch_row($query);
                                           $total_izin =0;
                                           
                                           if(!empty($rowcount)){
@@ -28,13 +28,13 @@ require_once('../../connectdb.php');
                                           }
                                           $persen = round(($total_izin/(8*28))*100);
 										  
-										   $query2= mysqli_query($con,"select count(*) from sys_user where status='1'");
-                                           $rowcount2=mysqli_num_rows($query2);
-                                           $row2   = mysqli_fetch_row($query2);
+										   $query2= pg_query($con,"select count(*) from sys_user where status='1'");
+                                           $rowcount2=pg_num_rows($query2);
+                                           $row2   = pg_fetch_row($query2);
 
 
                                           $persen = round(($total_izin/$row2[0])*100);
-                                          //mysqli_close($con);
+                                          //pg_close($con);
                                           
                                          ?>
 					

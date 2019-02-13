@@ -166,8 +166,8 @@ class Pegawai extends REST_Controller
                     if (!empty($saved_id)) {
                         $param_profile = array(
                             'id_user' => $saved_id,
-                            'NIP' => $txtnip,
-                            'NIK' => $txtnik,
+                            'nip' => $txtnip,
+                            'nik' => $txtnik,
 							'nopeg' => $txtnopeg,
 							'karpeg' => $txtkarpeg,
 							'sts_p' => $txtstp,
@@ -299,14 +299,28 @@ class Pegawai extends REST_Controller
                                 riwayat_kedinasan.tgl_bergabung,
                                 riwayat_kedinasan.peringkat,
                                 riwayat_kedinasan.no_index_dok,
-                                uk_master.nama as nama_jabatan
+                                uk_master.nama as nama_jabatan,
+                                his_kontrak.tglktr,
+                                his_str.date_end as date_end_str,
+                                his_sip.date_end
                                ');
-                $this->db->where('sys_user.id_user', $id);
+                if ($id != ''){
+                    $this->db->where('sys_user.id_user', $id);
+                }
                 $this->db->join('sys_user_profile', 'sys_user_profile.id_user = sys_user.id_user', 'LEFT');
                 $this->db->join('riwayat_kedinasan', 'riwayat_kedinasan.id_user = sys_user.id_user', 'LEFT');
                 $this->db->join('uk_master', 'uk_master.id = sys_user.id_uk', 'LEFT');
-
+                $this->db->join('his_kontrak', 'his_kontrak.id_user = sys_user.id_user', 'LEFT');
+                $this->db->join('his_str', 'his_str.id_user = sys_user.id_user', 'LEFT');
+                $this->db->join('his_sip', 'his_sip.id_user = sys_user.id_user', 'LEFT');
+                
                 $this->db->where('riwayat_kedinasan.aktif', '1');
+                // $this->db->order_by('his_kontrak.tglktr','DESC');
+                // $this->db->limit('1');
+                // $this->db->order_by('his_str.date_end_str','DESC');
+                // $this->db->limit('1');
+                // $this->db->order_by('his_sip.date_end','DESC');
+                // $this->db->limit('1');
                 $res = $this->db->get('sys_user')->result();
                 if (!empty($res)) {
                     foreach ($res as $d) {
@@ -348,8 +362,8 @@ class Pegawai extends REST_Controller
                             'rt_ktp' => $d->rt_ktp,
                             'rw_ktp' => $d->rw_ktp,
                             'alamat_ktp' => $d->alamat_ktp,
-                            'NIP' => $d->NIP,
-                            'NIK' => $d->NIK,
+                            'nip' => $d->nip,
+                            'nik' => $d->nik,
 							'nopeg' => $d->nopeg,
 							'karpeg' => $d->karpeg,
 							'sts_p' => $d->sts_p,
@@ -378,7 +392,9 @@ class Pegawai extends REST_Controller
                             'subjabasn' => $d->subjabasn,
                             'ketahli' => $d->ketahli,
                             'id_user' => $d->id_user,
-
+                            'tgl_kontrak' => $d->tglktr,
+                            'tgl_str' => $d->date_end_str,
+                            'tgl_sip' => $d->date_end,
 
                         );
                     }
@@ -517,8 +533,8 @@ class Pegawai extends REST_Controller
                     //simpan profile:
 
                     $param_profile = array(
-                        'NIP' => $txtnip,
-                        'NIK' => $txtnik,
+                        'nip' => $txtnip,
+                        'nik' => $txtnik,
                         'nopeg' => $txtnopeg,
                         'karpeg' => $txtkarpeg,
                         'sts_p' => $txtstp,
@@ -652,7 +668,7 @@ class Pegawai extends REST_Controller
 
     //             $arrdata = array(
     //                 'id_user' => $decodedToken->data->id,
-    //                 'NIK' => $this->input->post('txtNik'),
+    //                 'nik' => $this->input->post('txtNik'),
     //                 'nama' => $this->input->post('txtNama'),
     //                 'tempat_lahir' => $this->input->post('txtTptLahir'),
     //                 'tgl_lahir' => $this->input->post('txtTglLahir'),
@@ -711,7 +727,7 @@ class Pegawai extends REST_Controller
                 }
                 $res = $this->db->get('his_keluarga')->result();
                 foreach ($res as $d) {
-                    $arr[] = array('id' => $d->id, 'nama' => $d->nama, 'kelamin' => $d->gender, 'NIK' => $d->NIK,
+                    $arr[] = array('id' => $d->id, 'nama' => $d->nama, 'kelamin' => $d->gender, 'nik' => $d->nik,
                         'pendidikan' => $d->nama_pendidikan,
                         'hubkel' => $d->hubkel,
                         'pekerjaan' => $d->pekerjaan,
@@ -746,7 +762,7 @@ class Pegawai extends REST_Controller
     //             $this->load->library('upload', $config);
 
     //             $arrdata = array(
-    //                 'NIK' => $this->input->post('txtNik'),
+    //                 'nik' => $this->input->post('txtNik'),
     //                 'nama' => $this->input->post('txtNama'),
     //                 'tempat_lahir' => $this->input->post('txtTptLahir'),
     //                 'tgl_lahir' => $this->input->post('txtTglLahir'),
@@ -1406,21 +1422,22 @@ class Pegawai extends REST_Controller
 
                 $this->db->join('sys_user', 'sys_user.id_user = his_mutasi_jabatan.user_id', 'LEFT');
                 $this->db->where('sys_user.status', '1');
+                $param = urldecode($this->uri->segment(3));
                 if (!empty($this->uri->segment(3))) {
-                    $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)", $this->uri->segment(3));
+                    $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)", $param);
                 }
                 $total_rows = $this->db->count_all_results('his_mutasi_jabatan');
                 $pagination = create_pagination_endless('/pegawai/listmutasi/0/', $total_rows, 20, 4);
 
                 $this->db->select('sys_user.*,a.grup as dir_asal,abk_req_mutasi_jabatan.tgl_mutasi,abk_req_mutasi_jabatan.keterangan,
-        abk_req_mutasi_jabatan.id as idmutasi,
-        b.grup as bag_asal,
-        c.grup as subbag_asal,
-        d.grup as dir_tujuan,
-        e.grup as bag_tujuan,
-        f.grup as subbag_tujuan,
-        dt.nama as namastatus,
-        jm.nama as namamutasi');
+                abk_req_mutasi_jabatan.id as idmutasi,
+                b.grup as bag_asal,
+                c.grup as subbag_asal,
+                d.grup as dir_tujuan,
+                e.grup as bag_tujuan,
+                f.grup as subbag_tujuan,
+                dt.nama as namastatus,
+                jm.nama as namamutasi');
                 $this->db->join('sys_grup_user as f', 'f.id_grup = abk_req_mutasi_jabatan.sub_bagian_tujuan', 'LEFT');
                 $this->db->join('sys_grup_user as e', 'e.id_grup = abk_req_mutasi_jabatan.bagian_tujuan', 'LEFT');
                 $this->db->join('sys_grup_user as d', 'd.id_grup = abk_req_mutasi_jabatan.direktorat_tujuan', 'LEFT');
@@ -1430,12 +1447,12 @@ class Pegawai extends REST_Controller
                 $this->db->join('dm_term as dt', 'dt.id = abk_req_mutasi_jabatan.status', 'LEFT');
                 $this->db->join('dm_term as jm', 'abk_req_mutasi_jabatan.jenis_mutasi = jm.id', 'LEFT');
                 if (!empty($this->uri->segment(3))) {
-                    $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)", $this->uri->segment(3));
+                    $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)", $param);
                 }
 
                 $this->db->join('sys_user', 'sys_user.id_user = abk_req_mutasi_jabatan.user_id', 'LEFT');
                 $this->db->where('sys_user.status', '1');
-                $this->db->where('YEAR(abk_req_mutasi_jabatan.tgl_mutasi)', date('Y'));
+                $this->db->where('EXTRACT(YEAR FROM abk_req_mutasi_jabatan.tgl_mutasi) =', date('Y'));
 
                 if (($group <> '1') AND ($group <> '6')) {
                     $this->db->where('abk_req_mutasi_jabatan.grup', $group);
@@ -1492,7 +1509,7 @@ class Pegawai extends REST_Controller
                 $this->db->join('sys_user', 'sys_user.id_user = his_mutasi_jabatan.user_id', 'LEFT');
                 $this->db->where('sys_user.status', '1');
                 if (!empty($this->uri->segment(3))) {
-                    $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)", $this->uri->segment(3));
+                    $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)", $this->uri->segment(3));
                 }
                 $total_rows = $this->db->count_all_results('his_mutasi_jabatan');
                 $pagination = create_pagination_endless('/pegawai/listmutasi/0/', $total_rows, 20, 4);
@@ -1518,12 +1535,12 @@ class Pegawai extends REST_Controller
                 $this->db->join('dm_term as dt', 'dt.id = abk_req_mutasi_jabatan.status', 'LEFT');
                 $this->db->join('dm_term as jm', 'abk_req_mutasi_jabatan.jenis_mutasi = jm.id', 'LEFT');
                 if (!empty($this->uri->segment(3))) {
-                    $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)", $this->uri->segment(3));
+                    $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)", $this->uri->segment(3));
                 }
 
                 $this->db->join('sys_user', 'sys_user.id_user = abk_req_mutasi_jabatan.user_id', 'LEFT');
                 $this->db->where('sys_user.status', '1');
-                $this->db->where('YEAR(abk_req_mutasi_jabatan.tgl_mutasi)', date('Y'));
+                $this->db->where('EXTRACT(YEAR FROM abk_req_mutasi_jabatan.tgl_mutasi) =', date('Y'));
 
                 if (($group <> '1') AND ($group <> '6')) {
 
@@ -2180,7 +2197,7 @@ class Pegawai extends REST_Controller
                 $this->db->join('sys_user', 'sys_user.id_user = his_mutasi_jabatan.user_id', 'LEFT');
                 $this->db->where('sys_user.status', '1');
                 if (!empty($this->uri->segment(3))) {
-                    $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)", $this->uri->segment(3));
+                    $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)", $this->uri->segment(3));
                 }
                 $total_rows = $this->db->count_all_results('his_mutasi_jabatan');
                 $pagination = create_pagination_endless('/pegawai/listpensiun/0/', $total_rows, 20, 4);
@@ -2198,7 +2215,7 @@ class Pegawai extends REST_Controller
                 $this->db->join('sys_grup_user as b', 'b.id_grup = his_mutasi_jabatan.bagian_asal', 'LEFT');
                 $this->db->join('sys_grup_user as a', 'a.id_grup = his_mutasi_jabatan.direktorat_asal', 'LEFT');
                 if (!empty($this->uri->segment(3))) {
-                    $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)", $this->uri->segment(3));
+                    $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)", $this->uri->segment(3));
                 }
                 $this->db->join('sys_user', 'sys_user.id_user = his_mutasi_jabatan.user_id', 'LEFT');
                 $this->db->where('sys_user.status', '1');
@@ -2405,7 +2422,11 @@ class Pegawai extends REST_Controller
             if ($decodedToken != false) {
 
                 $id_user = $this->input->get('id');
-                $this->db->where('id_user', $id_user);
+                if ($id_user != "") {
+                    $this->db->where('id_user', $id_user);
+                } else {
+                    $this->db->where('id_user', 0);
+                }
                 $this->db->where('kategori_id', $this->input->get('kategori'));
                 $this->db->where('tampilkan', '1');
                 $this->db->order_by('tgl', 'DESC');

@@ -101,21 +101,26 @@
                                         <!-- /.box-header --><!-- form start -->
                                         <div class="box-body">
                                             <div class="form-group"><label class="col-sm-4 control-label"
-                                                                           for="demo-hor-inputemail">Nama Lengkap<span
-                                                            class="text-xs text-danger">*</span></label>
+                                                                           for="demo-hor-inputemail">Nama Lengkap</label>
                                                 <div class="col-sm-8"><input type="text" name="f_user_name"
                                                                              id="f_user_name" style="width: 220px"
-                                                                             class="form-control"/></div>
+                                                                             class="form-control"/>
+                                                                           <span
+                                        class="text-xs text-danger">*Wajib diisi</span></div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-4 control-label" for="txtnip">NIP</label>
                                                 <div class="col-sm-8"><input class="form-control" id="txtnip"
                                                                              name="txtnip" placeholder="" type="text"
-                                                                             value=""></div>
+                                                                             value="">
+                                                                           <span
+                                        class="text-xs text-danger">*Wajib diisi</span></div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-4 control-label" for="txtnik">NIK</label>
                                                 <div class="col-sm-8"><input class="form-control" id="txtnik"
                                                                              name="txtnik" placeholder="" type="text"
-                                                                             value=""></div>
+                                                                             value="">
+                                                                           <span
+                                        class="text-xs text-danger">*Wajib diisi</span></div>
                                             </div>
 											 <div class="form-group"><label class="col-sm-4 control-label" for="txtnopeg">No Pegawai</label>
                                                 <div class="col-sm-8"><input class="form-control" id="txtnopeg"
@@ -385,10 +390,13 @@
                                                                               style="width: 100%;"></select></div>
                                             </div>
                                             <div class="form-group"><label
-                                                        class="col-sm-4 control-label">Status.Pegawai</label>
+                                                        class="col-sm-4 control-label">Status Pegawai</label>
                                                 <div class="col-sm-8"><select class="select-chosen" id="txtinputstatus"
                                                                               name="inputstatus" style="width: 100%;"
-                                                                              onChange="getjabatanasn(this.value);"></select>
+                                                                              onChange="getjabatanasn(this.value);">
+                                                                                <span
+                                        class="text-xs text-danger">*Wajib diisi</span>
+                                                                              </select>
                                                 </div>
                                             </div>
                                             <div class="datasn">
@@ -475,7 +483,9 @@
                                                 <div class="col-sm-8"><select aria-hidden="true" class="select-chosen"
                                                                               id="txtjabatan" name="txtjabatan"
                                                                               style="width: 100%;"
-                                                                              tabindex="-1"></select></div>
+                                                                              tabindex="-1"></select>
+                                                                            <span
+                                        class="text-xs text-danger">*Wajib diisi</span></div>
                                             </div>
 											<div class="form-group"><label class="col-sm-4 control-label"
                                                                            for="inputkec">J.Internal 1</label>
@@ -525,7 +535,11 @@
                                                                               id="kategori_profesi"
                                                                               name="kategori_profesi"
                                                                               style="width: 100%;" tabindex="-1"
-                                                                              onchange="getToSub(this.value,'id_profesi','masterp/profesi/getoption/')"></select>
+                                                                              onchange="getToSub(this.value,'id_profesi','masterp/profesi/getoption/')">
+                                                                                
+                                                                              </select>
+                                                                              <span
+                                        class="text-xs text-danger">*Wajib diisi</span>
                                                 </div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-4 control-label" for="inputrw">Profesi</label>
@@ -583,9 +597,9 @@
                 getOptions("txtinputstatus", BASE_URL + "master/status_pegawai");
                 getOptions("txtdirektorat", BASE_URL + "master/direktorat");
                 getOptions("txtjabfung", BASE_URL + "m/group_jabatan_asn/getoption");
-                getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural");
-                getOptions("txtjabatan1", BASE_URL + "master/jabatan_struktural1");
-                getOptions("txtjabatan2", BASE_URL + "master/jabatan_struktural2");
+                getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural_fix");
+                getOptions("txtjabatan1", BASE_URL + "master/jabatan_struktural_fix");
+                getOptions("txtjabatan2", BASE_URL + "master/jabatan_struktural_fix");
                 getOptions("txtgolongan", BASE_URL + "master/golongan_pegawai");
                 getOptions("txtkelamin", BASE_URL + "master/kelamin");
                 getOptions("f_user_status_aktif", BASE_URL + "Appdata/getstatus");

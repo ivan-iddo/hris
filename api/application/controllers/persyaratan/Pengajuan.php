@@ -30,7 +30,7 @@ class  extends REST_Controller
      * URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
      * Method: GET
      */
-	 var $table='his_kpi';
+	 var $table='kpi';
 	 var $perpage = 20;
  
 	
@@ -42,20 +42,20 @@ class  extends REST_Controller
             if ($decodedToken != false) {
 
 				if(!empty($this->input->get('id'))){
-					$this->db->where('id',$this->input->get('id'));
+					$this->db->where('kd_kpi',$this->input->get('id'));
 				}
 
 				if(!empty($this->uri->segment(4))){
-					$this->db->like("id_jenis",$this->uri->segment(4)); 
+					$this->db->like("kpi",$this->uri->segment(4)); 
 				 }
 				$total_rows = $this->db->count_all_results($this->table);
 				$pagination = create_pagination_endless('/kpi//0/', $total_rows,$this->perpage,5);
 				  
 				if(!empty($this->input->get('id'))){
-					$this->db->where('id',$this->input->get('id'));
+					$this->db->where('kd_kpi',$this->input->get('id'));
 				}
 				if(!empty($this->uri->segment(4))){
-					$this->db->like("id_jenis",$this->uri->segment(4)); 
+					$this->db->like("kpi",$this->uri->segment(4)); 
 				 }
 				  $this->db->where('tampilkan','1');
 				  $this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
@@ -63,7 +63,7 @@ class  extends REST_Controller
 				  
 			if(!empty($res)){
 				 foreach($res as $dat){
-					$arr['result'][]= array('id'=> $dat->id,'id_jenis'=> $dat->id_jenis,'no_pegawai'=> $dat->no_pegawai,'awal'=> $dat->awal,'akhir'=> $dat->akhir,'nilai'=> $dat->nilai,'status'=> $dat->status,'id_unitkerja'=> $dat->id_unitkerja,'tampilkan'=> $dat->tampilkan,);
+					$arr['result'][]= array('kd_kpi'=> $dat->kd_kpi,'kpi'=> $dat->kpi,'kpi_id'=> $dat->kpi_id,);
 				  }
 				  $arr['total']=$total_rows;
 					$arr['paging'] = $pagination['limit'][1];
@@ -91,12 +91,12 @@ class  extends REST_Controller
 				if(!empty($this->input->post('id_kpi'))){
 					//edit
 					$id= $this->input->post('id_kpi');
-					$arr=array('id_jenis'=> $this->input->post('id_jenis'),'no_pegawai'=> $this->input->post('no_pegawai'),'awal'=> $this->input->post('awal'),'akhir'=> $this->input->post('akhir'),'nilai'=> $this->input->post('nilai'),'status'=> $this->input->post('status'),'id_unitkerja'=> $this->input->post('id_unitkerja'),'tampilkan'=> $this->input->post('tampilkan'),);;//array('nama'=>$this->input->post('nama'));
-					$this->db->where('id',$id);
+					$arr=array('kpi'=> $this->input->post('kpi'),'kpi_id'=> $this->input->post('kpi_id'),);;//array('nama'=>$this->input->post('nama'));
+					$this->db->where('kd_kpi',$id);
 					$this->db->update($this->table,$arr);
 				}else{
 					//save
-					$arr=array('id_jenis'=> $this->input->post('id_jenis'),'no_pegawai'=> $this->input->post('no_pegawai'),'awal'=> $this->input->post('awal'),'akhir'=> $this->input->post('akhir'),'nilai'=> $this->input->post('nilai'),'status'=> $this->input->post('status'),'id_unitkerja'=> $this->input->post('id_unitkerja'),'tampilkan'=> $this->input->post('tampilkan'),);;//array('id_jenis'=>$this->input->post('nama'));
+					$arr=array('kpi'=> $this->input->post('kpi'),'kpi_id'=> $this->input->post('kpi_id'),);;//array('kpi'=>$this->input->post('nama'));
 					 
 					$this->db->insert($this->table,$arr);
 				}
@@ -132,7 +132,7 @@ class  extends REST_Controller
 				if(!empty($this->input->get('id'))){
 					//edit
 					$id= $this->input->get('id'); 
-					$this->db->where('id',$id);
+					$this->db->where('kd_kpi',$id);
 					$this->db->update($this->table,array('tampilkan'=>'0'));
 				} 
 				
@@ -164,16 +164,16 @@ class  extends REST_Controller
 				if ($decodedToken != false) {
 					
 				 if(!empty($this->uri->segment('4'))){
-					$this->db->where('id',$this->uri->segment('4'));
+					$this->db->where('kd_kpi',$this->uri->segment('4'));
 				 }
-					 $this->db->order_by('id_jenis','ASC');
+					 $this->db->order_by('kpi','ASC');
 					 
 			  $res = $this->db->get($this->table)->result();
 
 			  if(!empty($res)){
 
 			  foreach($res as $d){
-				$arr['result'][]=array('label'=>$d->id_jenis,'value'=>$d->id);
+				$arr['result'][]=array('label'=>$d->kpi,'value'=>$d->kd_kpi);
 			  }
 			}else{
 				$arr['result'][]=array('label'=>'No Data','value'=>'');

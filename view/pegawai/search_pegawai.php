@@ -288,8 +288,8 @@
 																	 $('#inputrwktp').val(res[0].rw_ktp);
 																	 $('#inputkposktp').val(res[0].kode_posktp);
 																	 
-																	 $('#txtnip').val(res[0].NIP);
-																	 $('#txtnik').val(res[0].NIK);
+																	 $('#txtnip').val(res[0].nip);
+																	 $('#txtnik').val(res[0].nik);
 																	 $('#txtnopeg').val(res[0].nopeg);
 																	 $('#txtkarpeg').val(res[0].karpeg);
 																	 $('#txttglnikah').val(res[0].tgl_nikah);

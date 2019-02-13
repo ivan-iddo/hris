@@ -115,7 +115,7 @@ class Chart extends CI_Controller
 
 
 		$this->db->join('dm_term','dm_term.id = sys_user.id_shift','LEFT');
-		$this->db->where('sys_user.id_shift <>','');
+		$this->db->where('sys_user.id_shift is not null', NULL, FALSE);
 		$this->db->group_by('b.grup,dm_term.nama');
 		
 		$res = $this->db->get('sys_user')->result();
@@ -174,7 +174,7 @@ class Chart extends CI_Controller
 
 
 		$this->db->join('m_kode_keluar','m_kode_keluar.kd_keluar = sys_user.kd_keluar','LEFT');
-		$this->db->where('sys_user.kd_keluar <>','');
+		$this->db->where('sys_user.kd_keluar is not null', NULL, FALSE);
 		$this->db->group_by('b.grup,m_kode_keluar.ds_keluar');
 		
 		$res = $this->db->get('sys_user')->result();
@@ -229,8 +229,8 @@ class Chart extends CI_Controller
 
 
 		$this->db->join('dm_term','dm_term.id = sys_user_profile.pendidikan_akhir','LEFT');
-		$this->db->where('sys_user.kd_keluar <>','');
-		$this->db->where('sys_user_profile.pendidikan_akhir <>','');
+		$this->db->where('sys_user.kd_keluar is not null', NULL, FALSE);
+		$this->db->where('sys_user_profile.pendidikan_akhir is not null', NULL, FALSE);
 		$this->db->group_by('b.grup,dm_term.nama');
 		
 		$res = $this->db->get('sys_user')->result();

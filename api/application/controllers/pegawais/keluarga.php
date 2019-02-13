@@ -20,7 +20,7 @@ class keluarga extends CI_Controller
 
         $arrdata = array(
             'id_user' => $this->input->post('id_user'),
-            'NIK' => $this->input->post('txtNik'),
+            'nik' => $this->input->post('txtNik'),
             'nama' => $this->input->post('txtNama'),
             'tempat_lahir' => $this->input->post('txtTptLahir'),
             'tgl_lahir' => $this->input->post('txtTglLahir'),
@@ -57,7 +57,7 @@ class keluarga extends CI_Controller
         $this->load->library('upload', $config);
 
         $arrdata = array(
-            'NIK' => $this->input->post('txtNik'),
+            'nik' => $this->input->post('txtNik'),
             'nama' => $this->input->post('txtNama'),
             'tempat_lahir' => $this->input->post('txtTptLahir'),
             'tgl_lahir' => $this->input->post('txtTglLahir'),

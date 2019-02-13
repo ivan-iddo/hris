@@ -99,9 +99,9 @@
           
              
              
-                                    <div class="row text-xs text-danger">
-                                        *Untuk upload file simpan data terlebih dahulu
-                                    </div>
+                <div class="row text-xs text-danger">
+                    *Untuk upload file simpan data terlebih dahulu
+                </div>
                                      
             </div>
             <div class="panel-body">
@@ -129,53 +129,53 @@
 
               <script>
      function upload_file(){
-                var form = $("#form-jfung");
-                var idasn = $('#idasn').val();
-                
-                    if(!empty(idasn)){
-                            $.ajax({
-                            url: BASE_URL+"pegawais/upload/upload_jabasn", // Url to which the request is send 
-                            type: "POST", 
-                            data: new FormData(form[0]), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-                            contentType: false,       // The content type used when sending data to the server.
-                            cache: false,             // To unable request pages to be cached
-                            processData:false,        // To send DOMDocument or non processed data file it is set to false
-                            success: function(data)   // A function to be called if request succeeds
-                            {
-                                hasil=data.hasil;
-                                var datafile='';
-                                datafile+='<tr>';
-                                datafile+='<td>1.';
-                                datafile+='</td>';
-                                datafile+='<td>';
-                                datafile +=data.file.substring(0, 30)+'...';
-                                datafile+='</td>';
-                                datafile+='<td>';
-                                
-                                datafile +='<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/data/'+data.file+'\')"><i class="fa fa-eye"></i></a>';
-                                datafile+='</td>';
-                                datafile+='</tr>';
-                               $('#fileIjazah').html(datafile);
-                                
-                                                                                                            message=data.message; 
-                                                                                                               if(hasil=="success"){ 
-                                                                                                                        
-                                                                                                                           $.niftyNoty({
-                                                                                                                                           type: 'success',
-                                                                                                                                           title: 'Success',
-                                                                                                                                           message: message,
-                                                                                                                                           container: 'floating',
-                                                                                                                                           timer: 5000
-                                                                                                                                       });  
-                                                                                                                     }else{
-                                                                                                                            alert(message);
-                                                                                                                          return false;	
-                                                                                                                     }
-                            }
-                            });
-                }else{
-                    alert('Anda harus menyimpan data jabatan Asn terlebih dahulu sebelum melakukan upload!');
-                }
+	    var form = $("#form-jfung");
+	    var idasn = $('#idasn').val();
+	    
+	        if(!empty(idasn)){
+	                $.ajax({
+	                url: BASE_URL+"pegawais/upload/upload_jabasn", // Url to which the request is send 
+	                type: "POST", 
+	                data: new FormData(form[0]), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+	                contentType: false,       // The content type used when sending data to the server.
+	                cache: false,             // To unable request pages to be cached
+	                processData:false,        // To send DOMDocument or non processed data file it is set to false
+	                success: function(data)   // A function to be called if request succeeds
+	                {
+	                    hasil=data.hasil;
+	                    var datafile='';
+	                    datafile+='<tr>';
+	                    datafile+='<td>1.';
+	                    datafile+='</td>';
+	                    datafile+='<td>';
+	                    datafile +=data.file.substring(0, 30)+'...';
+	                    datafile+='</td>';
+	                    datafile+='<td>';
+	                    
+	                    datafile +='<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/data/'+data.file+'\')"><i class="fa fa-eye"></i></a>';
+	                    datafile+='</td>';
+	                    datafile+='</tr>';
+	                   $('#fileIjazah').html(datafile);
+	                    
+	                    message=data.message; 
+	                       if(hasil=="success"){ 
+	                                
+	                                   $.niftyNoty({
+	                                                   type: 'success',
+	                                                   title: 'Success',
+	                                                   message: message,
+	                                                   container: 'floating',
+	                                                   timer: 5000
+	                                               });  
+	                             }else{
+	                                    alert(message);
+	                                  return false;	
+	                             }
+	                }
+	                });
+	    }else{
+	        alert('Anda harus menyimpan data jabatan Asn terlebih dahulu sebelum melakukan upload!');
+	    }
     }
       $('.select-chosen').chosen();
  $('.chosen-container').css({"width": "100%"});

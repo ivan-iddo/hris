@@ -6,6 +6,7 @@
                 <div class="pad-ver"><img alt="Profile Picture" class="img-lg img-border img-circle" id="page_foto"
                                           src=""></div>
                 <h4 class="text-lg text-overflow mar-no" id="page_nama"></h4>
+                <h4 class="text-lg text-overflow mar-no" id="warning-message"></h4>
                 <hr>
                 <button class="btn btn-block btn-success page-jabatan">Follow</button>
             </div>

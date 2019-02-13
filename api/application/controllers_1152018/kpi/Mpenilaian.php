@@ -106,29 +106,29 @@ class Mpenilaian extends REST_Controller
 		
 			 	
 		$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
-		$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.NIP','LEFT');
+		$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.nip','LEFT');
 		$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
 		$this->db->where('his_kpi.tampilkan','1');
 		$this->db->where('his_kpi.id_jenis',$this->uri->segment(4));
 		 if(!empty($this->uri->segment(5))){
-			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)",$this->uri->segment(6)); 
+			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)",$this->uri->segment(6)); 
 		 }
 		$total_rows = $this->db->count_all_results('his_kpi');
 		$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,6);
 		 
 				
 		$this->db->select('his_kpi.*,sys_grup_user.grup,sys_grup_user.grup as nama_uk,
-		sys_user_profile.NIP,
-		sys_user_profile.NIK,
+		sys_user_profile.nip,
+		sys_user_profile.nik,
 		sys_user.name,sys_user_profile.kategori_profesi as profesi');
 		
 		$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
-		$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.NIP','LEFT');
+		$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.nip','LEFT');
 		$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
 		$this->db->where('his_kpi.tampilkan','1');
 		$this->db->where('his_kpi.id_jenis',$this->uri->segment(4));
 		if(!empty($this->uri->segment(5))){
-			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.NIP,' ',sys_user_profile.NIK)",$this->uri->segment(5)); 
+			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)",$this->uri->segment(5)); 
 		 } 
 
 		$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
@@ -141,8 +141,8 @@ class Mpenilaian extends REST_Controller
 								   'id'=>$d->id,
 								   'nama'=>$d->name, 
 								   'nama_group'=>$d->grup,
-								   'nip'=>$d->NIP,
-								   'nik'=>$d->NIK,
+								   'nip'=>$d->nip,
+								   'nik'=>$d->nik,
 								   'awal' => $d->awal,
 								   'akhir'=> $d->akhir,
 								   'profesi' => $d->profesi

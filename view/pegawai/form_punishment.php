@@ -1,3 +1,14 @@
+<style type="text/css">
+     input[type="date"]:before {
+        content: attr(placeholder) !important;
+        color: #aaa;
+        margin-right: 0.5em;
+      }
+      input[type="date"]:focus:before,
+      input[type="date"]:valid:before {
+        content: "";
+      }
+</style>
 <form name="form-file-punishment" id="form-file-punishment" class="form-horizontal">
     <div class="panel-body pad-all">
         <div class="row"><input type="text" style="display:none" name="kategorifile" id="kategorifile"

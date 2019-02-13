@@ -4,7 +4,7 @@
 		<div class="newtoolbar">
 		  <div class="table-toolbar-left" id="demo-custom-toolbar2">
 		    <div class="btn-group" style="padding-left:10px">
-		      <button class="btn btn-mint btn-labeled fa fa-plus-square btn-sm" onClick="addKeluarga();">Add</button>
+		      <button class="btn btn-mint btn-labeled fa fa-plus-square btn-sm" onclick="addKeluarga();">Add</button>
 		      <button class="btn btn-mint btn-labeled fa fa-edit btn-sm" onclick="editKeluarga();">Edit</button>
 		      <button class="btn btn-warning btn-labeled fa fa-close btn-sm" onclick="deletKeluarga();">Delete</button>
 		    </div>

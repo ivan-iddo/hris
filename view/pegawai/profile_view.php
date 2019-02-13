@@ -5,6 +5,15 @@
         <div class="text-center pad-all bord-btm">
           <div class="pad-ver"><img alt="Profile Picture" class="img-lg img-border img-circle" id="page_foto" src=""></div>
           <h4 class="text-lg text-overflow mar-no" id="page_nama"></h4>
+          <div id="warning-message" class="col-md-4">
+
+          </div>
+          <div id="warning-message-str" class="col-md-4">
+
+          </div>
+          <div id="warning-message-sip" class="col-md-4">
+
+          </div>
           <hr>
           <button class="btn btn-block btn-success page-jabatan">Follow</button> 
         </div>

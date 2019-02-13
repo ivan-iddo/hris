@@ -14,11 +14,12 @@ class Str extends MY_Controller
         $this->load->model("His_str_model");
     }
 
-    public function index($id)
+    public function index($id = null)
     {
-        $response['success'] = true;
+        $response['success'] = true; 
+        if($id <> null){
         $response['data'] = $this->view($id);
-
+        }
         $this->set_response($response);
     }
     private function view($id)

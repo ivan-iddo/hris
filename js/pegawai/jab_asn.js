@@ -25,63 +25,63 @@ var gouirl = 'pegawai/savejfung';
         gouirl = 'pegawai/editjasn';
     }
 	if(empty(tgl_skjafung)){
-                                      onMessage("Data 'Tanggal' Wajib dipilih");
-             
-             return false;
+          onMessage("Data 'Tanggal' Wajib dipilih");
 
-                                  }else{
-                                  
-                                          var data = formJson('form-jfung');//$("#form-upload").serializeArray();
-                                          $.ajax({
-                                          url: BASE_URL+gouirl,
-                                          headers: {
-                                                  'Authorization': localStorage.getItem("Token"),
-                                                  'X_CSRF_TOKEN':'donimaulana',
-                                                  'Content-Type':'application/json'
-                                                  },
-                                                  dataType: 'json',
-                                                  type: 'post',
-                                                  contentType: 'application/json', 
-                                                  processData: false,
-                                                  data:data,
-                                                  success: function( data, textStatus, jQxhr ){
-                                                                                          hasil=data.hasil;
-                                                                                          message=data.message; 
-                                                                                               if(hasil=="success"){         
-                                                                                                                  
-                                                                                                                       $.niftyNoty({
-                                                                                                                                                       type: 'success',
-                                                                                                                                                       title: 'Success',
-                                                                                                                                                       message: message,
-                                                                                                                                                       container: 'floating',
-                                                                                                                                                       timer: 5000
-                                                                                                                                               });
-                                                                                                                      // $("#f_id_edit").val(data.id);
-                                                                                                                      loadJasn();
-                                                                                                                       $('.modal').modal('hide');
-                                                                                                           }else{
-                                                                                                            $.niftyNoty({
-                                                                                                                type: 'danger',
-                                                                                                                title: 'PERHATIAN!',
-                                                                                                                message: message,
-                                                                                                                container: 'floating',
-                                                                                                                timer: 5000
-                                                                                                        });    
-                                                                                                                      return false;	
-                                                                                                           }
-                                                           
-                                                           
-                                                      },
-                                                      error: function( jqXhr, textStatus, errorThrown ){
-                                                               $.niftyNoty({
-                                                                                                          type: 'danger',
-                                                                                                          title: 'Warning!',
-                                                                                                          message: message,
-                                                                                                          container: 'floating',
-                                                                                                          timer: 5000
-                                                                                                  });
-                                                      }
-                                                  });
+return false;
+
+      }else{
+      
+              var data = formJson('form-jfung');//$("#form-upload").serializeArray();
+              $.ajax({
+              url: BASE_URL+gouirl,
+              headers: {
+                      'Authorization': localStorage.getItem("Token"),
+                      'X_CSRF_TOKEN':'donimaulana',
+                      'Content-Type':'application/json'
+                      },
+                      dataType: 'json',
+                      type: 'post',
+                      contentType: 'application/json', 
+                      processData: false,
+                      data:data,
+                      success: function( data, textStatus, jQxhr ){
+            hasil=data.hasil;
+            message=data.message; 
+                 if(hasil=="success"){         
+                                    
+           $.niftyNoty({
+                                           type: 'success',
+                                           title: 'Success',
+                                           message: message,
+                                           container: 'floating',
+                                           timer: 5000
+                                   });
+          // $("#f_id_edit").val(data.id);
+          loadJasn();
+           $('.modal').modal('hide');
+                           }else{
+                            $.niftyNoty({
+                                type: 'danger',
+                                title: 'PERHATIAN!',
+                                message: message,
+                                container: 'floating',
+                                timer: 5000
+                        });    
+                                      return false;	
+                           }
+                             
+                             
+                        },
+                        error: function( jqXhr, textStatus, errorThrown ){
+                                 $.niftyNoty({
+                                  type: 'danger',
+                                  title: 'Warning!',
+                                  message: message,
+                                  container: 'floating',
+                                  timer: 5000
+                          });
+                        }
+                    });
                                        
          }  
 }
@@ -114,8 +114,6 @@ function loadJasn(){
 
 function addJasn(){
    
-              
-              
               bootbox.dialog({ 
                 message:$('<div></div>').load('view/pegawai/input_jabatan_asn.php'),
                   animateIn: 'bounceIn',
@@ -147,16 +145,52 @@ function addJasn(){
                                   timer : 5000
                               });
                           }
-                      }
+                      }   
                   }
                       });
 
-                      getOptions("txtjabatan",BASE_URL+"master/direktorat");
-                      getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
-                      getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
-                      
+                var selectedRows = gridOptions.api.getSelectedRows();
+            // alert('>>'+selectedRows+'<<<');
+            if(selectedRows == ''){
+               onMessage('Silahkan Pilih Pegawai Terlebih dahulu!');
+               return false;
+            }else{
+                var selectedRowsString = '';
+           selectedRows.forEach( function(selectedRow, index) {
+            
+               if (index!==0) {
+                   selectedRowsString += ', ';
+               }
+               selectedRowsString += selectedRow.id;
+           });
+            }
+            
+           $.ajax({
+                  url: BASE_URL+'pegawai/getuser/?id='+selectedRowsString,
+                   headers: {
+                       'Authorization': localStorage.getItem("Token"),
+                       'X_CSRF_TOKEN':'donimaulana',
+                       'Content-Type':'application/json'
+                   },
+                   dataType: 'json',
+                   type: 'get',
+                   contentType: 'application/json', 
+                   processData: false,
+                   success: function( res, textStatus, jQxhr ){
                      
-                     
+                       getOptionsEdit("txtjabatan",BASE_URL+"master/direktorat",res[0].direktorat);
+                       getOptionsEdit("txtbagian",BASE_URL+"master/direktoratSub/"+res[0].direktorat,res[0].bagian);
+                       getOptionsEdit("unitkerja",BASE_URL+"master/direktoratSub/"+res[0].bagian,res[0].sub_bagian);
+         
+                   },
+                   error: function( jqXhr, textStatus, errorThrown ){
+                       alert('error');
+                   }
+               });
+
+              // getOptions("txtjabatan",BASE_URL+"master/direktorat");
+              getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
+              getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
                       
           }
           
@@ -178,61 +212,61 @@ function editJasn(){
                    });
                    
                    bootbox.dialog({ 
-                                                 message:$('<div></div>').load('view/pegawai/input_jabatan_asn.php'),
-                                                   animateIn: 'bounceIn',
-                                                   animateOut : 'bounceOut',
-                                                                              backdrop: false,
-                                                   size:'large',
-                                                   buttons: {
-                                                       success: {
-                                                           label: "Save",
-                                                           className: "btn-success",
-                                                           callback: function() {
-                                                               
-                                                              simpanJasn('edit');
-                                                                           return false;
-                                                                       
-                                                                       
-                                                           }
-                                                       },
-                                
-                                                       main: {
-                                                           label: "Close",
-                                                           className: "btn-warning",
-                                                           callback: function() {
-                                                               $.niftyNoty({
-                                                                   type: 'dark',
-                                                                   message : "Bye Bye",
-                                                                   container : 'floating',
-                                                                   timer : 5000
-                                                               });
-                                                           }
-                                                       }
-                                                   }
-                                                       });
+                 message:$('<div></div>').load('view/pegawai/input_jabatan_asn.php'),
+                   animateIn: 'bounceIn',
+                   animateOut : 'bounceOut',
+                                              backdrop: false,
+                   size:'large',
+                   buttons: {
+                       success: {
+                           label: "Save",
+                           className: "btn-success",
+                           callback: function() {
+                               
+                              simpanJasn('edit');
+                                           return false;
+                                       
+                                       
+                           }
+                       },
+
+                       main: {
+                           label: "Close",
+                           className: "btn-warning",
+                           callback: function() {
+                               $.niftyNoty({
+                                   type: 'dark',
+                                   message : "Bye Bye",
+                                   container : 'floating',
+                                   timer : 5000
+                               });
+                           }
+                       }
+                   }
+                       });
                    
               $.ajax({
-                                  url: BASE_URL+'pegawais/jabatan_asn/getjasn/'+selectedRowsString,
-                                  headers: {
-                                      'Authorization': localStorage.getItem("Token"),
-                                      'X_CSRF_TOKEN':'donimaulana',
-                                      'Content-Type':'application/json'
-                                  },
-                                  dataType: 'json',
-                                  type: 'get',
-                                  contentType: 'application/json', 
-                                  processData: false,
-                                  success: function( data, textStatus, jQxhr ){
-               
-                                     $('#tmt_jabfung').val(data.tmt_jfung); 
-                                     $('#no_skjfung').val(data.no_skjfung); 
-                                     $('#tgl_skjafung').val(data.tgl_skjafung);
-                                     $('#no_pak').val(data.no_pak);
-                                     $('#tmt_pak').val(data.tmt_pak);
-                                     $('#tgl_pak').val(data.tgl_pak);
-                                     $('#nilai_pak').val(data.nilai_pak);
-                                     $('#keterangan').val(data.keterangan);
-                                     $('#idasn').val(data.id);
+                    url: BASE_URL+'pegawais/jabatan_asn/getjasn/'+selectedRowsString,
+                    headers: {
+                        'Authorization': localStorage.getItem("Token"),
+                        'X_CSRF_TOKEN':'donimaulana',
+                        'Content-Type':'application/json'
+                    },
+                    dataType: 'json',
+                    type: 'get',
+                    contentType: 'application/json', 
+                    processData: false,
+                    success: function( data, textStatus, jQxhr ){
+ 
+                       $('#tmt_jabfung').val(data.tmt_jfung); 
+                       $('#no_skjfung').val(data.no_skjfung); 
+                       $('#tgl_skjafung').val(data.tgl_skjafung);
+                       $('#no_pak').val(data.no_pak);
+                       $('#tmt_pak').val(data.tmt_pak);
+                       $('#tgl_pak').val(data.tgl_pak);
+                       $('#nilai_pak').val(data.nilai_pak);
+                       $('#keterangan').val(data.keterangan);
+                       $('#idasn').val(data.id);
 									 
 									 if(!empty(data.file)){
 									   var datafile='';
@@ -251,8 +285,8 @@ function editJasn(){
 
 									}
 																												   
-                                    getOptionsEdit("satuan_kerja",BASE_URL+"master/getmaster?id=25",data.id_satker);
-                                    getOptionsEdit("txtjabatan",BASE_URL+"master/direktorat",data.jabatan);
+                  getOptionsEdit("satuan_kerja",BASE_URL+"master/getmaster?id=25",data.id_satker);
+                  getOptionsEdit("txtjabatan",BASE_URL+"master/direktorat",data.jabatan);
 									getOptionsEdit("txtbagian",BASE_URL+"master/direktoratSub/"+data.jabatan,data.bagian_jabatan);
 									getOptionsEdit("unitkerja",BASE_URL+"master/direktoratSub/"+data.bagian_jabatan,data.sub_bagian_jabatan);
 

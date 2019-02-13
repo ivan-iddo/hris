@@ -1,6 +1,6 @@
 
 <div class="row">
-	
+
   <div class="tab-base mar-all">
     <!--Nav Tabs-->
 
@@ -84,8 +84,8 @@
             </div>
           </div>
         </div>
-													</div>
-</div>
+				</div>
+      </div>
       </div>
 
       <div class="tab-pane fade" id="demo-lft-tab-3"></div>
@@ -117,7 +117,6 @@
            {headerName: "Jabatan", field: "nama_uk", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Pendidikan Akhir", field: "pendidikan", width: 190, filterParams:{newRowsAction: 'keep'}}, {headerName: "Username", field: "username", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "E-Mail", field: "email", width: 190, filterParams:{newRowsAction: 'keep'}},
-           
         ];
 
         var autoGroupColumnDef = {
@@ -170,6 +169,7 @@
 
            // do http request to get our sample data - not using any framework to keep the example self contained.
            // you will probably use a framework like JQuery, Angular or something else to do your HTTP calls.
+           
            function loaddata(jml){
             var search = 0;
             if($('#search').val() !==''){
@@ -291,7 +291,7 @@
                    size:'large',
                    buttons: {
                        success: {
-                           label: "Save",
+                           label: "Save All",
                            className: "btn-primary",
                            callback: function() {
                                
@@ -366,8 +366,8 @@
 																	 $('#inputrwktp').val(res[0].rw_ktp);
 																	 $('#inputkposktp').val(res[0].kode_posktp);
 																	 
-																	 $('#txtnip').val(res[0].NIP);
-																	 $('#txtnik').val(res[0].NIK);
+																	 $('#txtnip').val(res[0].nip);
+																	 $('#txtnik').val(res[0].nik);
 																	 $('#txtnopeg').val(res[0].nopeg);
 																	 $('#txtkarpeg').val(res[0].karpeg);
 																	 $('#txttglnikah').val(res[0].tgl_nikah);
@@ -396,9 +396,9 @@
         getjabatanasn(res[0].status_pegawai);
        
         
-																			getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural",res[0].jabatan_struktural);
-																			getOptionsEdit("txtjabatan1",BASE_URL+"master/jabatan_struktural1",res[0].jabatan2);
-																			getOptionsEdit("txtjabatan2",BASE_URL+"master/jabatan_struktural2",res[0].jabatan3);
+																			getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural_fix",res[0].jabatan_struktural);
+																			getOptionsEdit("txtjabatan1",BASE_URL+"master/jabatan_struktural_fix",res[0].jabatan2);
+																			getOptionsEdit("txtjabatan2",BASE_URL+"master/jabatan_struktural_fix",res[0].jabatan3);
 																			getOptionsEdit("txtgolongan",BASE_URL+"master/golongan_pegawai",res[0].golongan);
 																			getOptionsEdit("txtbagian",BASE_URL+"master/direktoratSub/"+res[0].direktorat,res[0].bagian);
 																			getOptionsEdit("unitkerja",BASE_URL+"master/direktoratSub/"+res[0].bagian,res[0].sub_bagian);
@@ -466,7 +466,7 @@
                    size:'large',
                    buttons: {
                        success: {
-                           label: "Save",
+                           label: "Save All",
                            className: "btn-success",
                            callback: function() {
                                
@@ -570,13 +570,11 @@
 																																									 container: 'floating',
 																																									 timer: 5000
 																																							 });
-                                                                                                                                     $("#f_id_edit").val(data.id);
-                                                                                                                                     $('#id_userfile').val(data.id);
-																																	  loaddata(0);
+                                                                  loaddata(0);
 																																	// $('.modal').modal('hide');
 																														 }else{
-                                                                                                                            $.niftyNoty({
-																																									 type: 'success',
+                                                                  ({
+																																	type: 'success',
 																																									 title: 'Success',
 																																									 message: message,
 																																									 container: 'floating',

@@ -26,10 +26,11 @@ class His_kontrak_model extends MY_Model
 		$this->db->from($this->table);
 		$this->db->where("statue !=", 0);
 		if (!empty($params_array) && is_array($params_array)) {
+			// debug($params_array);die;
 			$this->db->where($params_array);
 		}
 		if (!empty($where_in) && is_array($where_in)) {
-//            debug($where_in);die;
+//           debug($where_in);die;
             foreach ($where_in as $key => $value){
                 $this->db->where_in($value["key"], $value["value_array"]);
             }

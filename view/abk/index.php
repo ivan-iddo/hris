@@ -282,23 +282,23 @@ function editfrm1(){
                                 hasil=data.hasil;
                                
                                 
-                                                                                                            message=data.message; 
-                                                                                                               if(hasil=="success"){
-                                                                                                                  
-                                                                                                                        
-                                                                                                                           $.niftyNoty({
-                                                                                                                                           type: 'success',
-                                                                                                                                           title: 'Success',
-                                                                                                                                           message: message,
-                                                                                                                                           container: 'floating',
-                                                                                                                                           timer: 5000
-                                                                                                                                       });  
+                                message=data.message; 
+                                   if(hasil=="success"){
+                                      
+                                            
+                                               $.niftyNoty({
+                                                               type: 'success',
+                                                               title: 'Success',
+                                                               message: message,
+                                                               container: 'floating',
+                                                               timer: 5000
+                                                           });  
 
-                                                                                                                                     listFrom1();   
-                                                                                                                     }else{
-                                                                                                                            alert(message);
-                                                                                                                          return false;	
-                                                                                                                     }
+                                                         listFrom1();   
+                                         }else{
+                                                alert(message);
+                                              return false;	
+                                         }
                             }
                             });
 	

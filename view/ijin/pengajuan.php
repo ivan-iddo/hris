@@ -17,16 +17,16 @@ require_once('../../connectdb.php');
                                          <?php 
                                         // print_r($_SESSION['userdata'] );
 
-                                         $query= mysqli_query($con,'select sum(total)as jml from his_izin where tampilkan=1 and id_user = '.$_SESSION['userdata']['id'].' order by tgl_izin DESC');
-                                          $rowcount=mysqli_num_rows($query);
-                                          $row   = mysqli_fetch_row($query);
+                                         $query= pg_query('select sum(total)as jml from his_izin where tampilkan=1 and id_user = '.$_SESSION['userdata']['id'].'');
+                                          $rowcount=pg_num_rows($query);
+                                          $row   = pg_fetch_row($query);
                                           $total_izin =0;
                                           
                                           if(!empty($rowcount)){
                                             $total_izin = $row[0];
                                           }
                                           $persen = round(($total_izin/(8*28))*100);
-                                          //mysqli_close($con);
+                                          //pg_close($con);
                                           
                                          ?>
 					

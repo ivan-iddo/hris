@@ -9,7 +9,7 @@ class System_auth_model extends CI_Model
         $sql = "select
 		    a.username
 ,a.id_user
-				,a.`name`
+				,a.name
 		    ,a.email
 		    ,a.id_aplikasi
 				,a.kode_klinik
@@ -181,14 +181,15 @@ class System_auth_model extends CI_Model
     }
 
     function getdatachild($id = 0)
-    {
-        $this->load->database();;
+    {   
+        $this->load->database();
         $obj_parentchild = new ParentChild();
 
         $obj_parentchild->db_host = "localhost";
         $obj_parentchild->db_user = $this->db->username;
         $obj_parentchild->db_pass = $this->db->password;
         $obj_parentchild->db_database = $this->db->database;
+        $obj_parentchild->db_port=$this->db->port;
 
         if (!$obj_parentchild->db_connect()) {
             echo "<h1>Sorry! Could not connect to the database server.</h1>";
@@ -201,7 +202,7 @@ class System_auth_model extends CI_Model
         $obj_parentchild->item_list_field_name = "id_grup";
 
         $obj_parentchild->extra_condition = ""; //if required
-        $obj_parentchild->order_by_phrase = " ORDER BY `id_grup` ";
+        $obj_parentchild->order_by_phrase = " ORDER BY id_grup ";
 
         $obj_parentchild->level_identifier = "";
         $obj_parentchild->item_pointer = "";
@@ -209,14 +210,15 @@ class System_auth_model extends CI_Model
 
         $root_item_id = $id;
         $all_childs = $obj_parentchild->getAllChilds($root_item_id);
-        //print_r($all_childs);
+        // print_r($all_childs);die();
 
         foreach ($all_childs as $chld) {
             $dataarr[] = trim($chld[$obj_parentchild->item_list_field_name]);
 
         }
-        return $dataarr;
 
+        return $dataarr;
+        // print_r($dataarr);die();
         //Getting the path of an item from the root : added on 18 january, 2011 : start
         //	echo "<p><b>Example : the full path for element q : </b></p>";
         $item_id = $id;

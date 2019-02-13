@@ -17,24 +17,24 @@ require_once('../../connectdb.php');
                                         <?php 
                                         // print_r($_SESSION['userdata'] );
 
-                                         $query= mysqli_query($con,"select count(total)as jml from his_cuti where tampilkan=1
+                                         $query= pg_query("select count(total)as jml from his_cuti where tampilkan=1
                                          and tgl_cuti < '".date('Y-m-d')."' AND tgl_akhir_cuti >= '".date('Y-m-d')."'
-                                           order by tgl_cuti DESC");
-                                          $rowcount=mysqli_num_rows($query);
-                                          $row   = mysqli_fetch_row($query);
+                                           ");
+                                          $rowcount=pg_num_rows($query);
+                                          $row   = pg_fetch_row($query);
                                           $total_cuti =0;
                                           
                                           if(!empty($rowcount)){
                                             $total_cuti = $row[0];
                                           }
 
-                                          $query2= mysqli_query($con,"select count(*) from sys_user where status='1'");
-                                           $rowcount2=mysqli_num_rows($query2);
-                                           $row2   = mysqli_fetch_row($query2);
+                                          $query2= pg_query("select count(*) from sys_user where status='1'");
+                                           $rowcount2=pg_num_rows($query2);
+                                           $row2   = pg_fetch_row($query2);
 
 
                                           $persen = round(($total_cuti/$row2[0])*100);
-                                          //mysqli_close($con);
+                                          //pg_close($con);
                                           
                                          ?>
 					

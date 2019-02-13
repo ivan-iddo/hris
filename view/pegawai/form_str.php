@@ -1,3 +1,14 @@
+<style type="text/css">
+     input[type="date"]:before {
+        content: attr(placeholder) !important;
+        color: #aaa;
+        margin-right: 0.5em;
+      }
+      input[type="date"]:focus:before,
+      input[type="date"]:valid:before {
+        content: "";
+      }
+</style>
 <form name="form-file-str" id="form-file-str" class="form-horizontal">
     <div class="panel-body pad-all">
         <div class="row">

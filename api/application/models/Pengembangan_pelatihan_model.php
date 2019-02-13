@@ -139,7 +139,7 @@ class Pengembangan_pelatihan_model extends MY_Model
 			$this->db->where($params_array);
 		}
 		if (!empty($where_in) && is_array($where_in)) {
-//            debug($where_in);die;
+           // debug($where_in);die;
             foreach ($where_in as $key => $value){
                 $this->db->where_in($value["key"], $value["value_array"]);
             }

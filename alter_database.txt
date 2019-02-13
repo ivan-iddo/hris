@@ -1,6 +1,6 @@
 1.
 CREATE TABLE `akreditasi` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO INCREMENT,
   `akreditasi` varchar(20) DEFAULT NULL,
   `tampilkan` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -57,7 +57,7 @@ ALTER TABLE `his_pendidikan` ADD COLUMN `pen_spe` VARCHAR(255) NULL AFTER `pen_j
 
 9.
 CREATE TABLE `his_jabatan_asn` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `jabatan` int(11) DEFAULT NULL,
   `tmt_jfung` varchar(60) DEFAULT NULL,
@@ -72,7 +72,6 @@ CREATE TABLE `his_jabatan_asn` (
   `aktif` enum('0','1') DEFAULT NULL,
   `tampilkan` bigint(20) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 =============== DONE DEPLOY 20181210, JIKA ADA PERUBAHAN ISI DIBAWAH INI =========================== 
 
@@ -92,32 +91,42 @@ ALTER TABLE `gtpayid_hrislive`.`pengembangan_pelatihan` ADD COLUMN `status` INT(
 tambahan atribut dan tabel baru
 ALTER TABLE `his_keluarga` ADD `karn` INT INT(11) AFTER `url`;
 
-ALTER TABLE `his_penghargaan` ADD `nosk` INT(11) NULL AFTER `id_user`;
+CREATE TABLE `his_penghargaan` (
+  `id` int(11) NOT NULL PRIMARY KEY AUTO INCREMENT,
+  `id_user` int(11) DEFAULT NULL,
+  `nosk` int(11) DEFAULT NULL,
+  `penghargaan` varchar(225) DEFAULT NULL,
+  `instansi` varchar(225) DEFAULT NULL,
+  `tgl` date DEFAULT NULL,
+  `url` varchar(225) DEFAULT NULL,
+  `createdby` varchar(225) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `updatedby` varchar(225) DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  `statue` tinyint DEFAULT 1,
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `sys_user_profile` ADD `nopeg` INT(11) NULL AFTER `NIK`;
 ALTER TABLE `sys_user_profile` ADD `karpeg` INT(11) NULL AFTER `NIK`;
 ALTER TABLE `sys_user_profile` ADD `sts_p`  Varchar(20) AFTER `NIK`;
 ALTER TABLE `sys_user_profile` ADD `tgl_nikah` date NULL AFTER `NIK`;
 
-CREATE TABLE `his_kontrak` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) DEFAULT NULL,
-  `noktr` int(11) DEFAULT NULL,
-  `tmtawal` date DEFAULT NULL,
-  `tglktr` date DEFAULT NULL,
-  `jnsktr` varchar(20) DEFAULT NULL,
-  `tglakhir` date DEFAULT NULL,
-  `url` varchar(40) DEFAULT NULL,
-  `createdby` varchar(60) DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
-  `updatedby` varchar(60) DEFAULT NULL,
-  `updated` datetime DEFAULT NULL,
-  `statue` tinyint(1) DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-ALTER TABLE `his_kontrak`
-  ADD PRIMARY KEY (`id`);
+create table his_kontrak (
+id int(11) not null primary key auto_increment, 
+id_user int(11) default null, 
+noktr int(11) default null, 
+tmtawal date default null, 
+tglkt date default null, 
+ jnsktr varchar(20) default null, 
+ tglakhir date default null, 
+url varchar(40) default null, 
+createdby varchar(60) default null, 
+created datetime default null, 
+updatedby varchar(60) default null, 
+updated datetime default null,
+ ststue tinyint(1) default '1');
 
-ALTER TABLE `his_kpi_detail` DROP `bobot`;
+ALTER TABLE `his_kpi_detail` DROP `bobot`; 
 
 ALTER TABLE `his_kpi` ADD `nilai` VARCHAR(12) NOT NULL AFTER `akhir`, ADD `status` INT NOT NULL AFTER `nilai`;
 
@@ -125,10 +134,22 @@ ALTER TABLE `m_penilaian_kpi` ADD `bobot` INT NOT NULL AFTER `child`;
 
 ALTER TABLE `his_jabatan_asn` ADD `file_url` VARCHAR(225) NULL AFTER `satuan_kerja`;
 
+CREATE TABLE `his_kpi_detail` (
+  `id` int(11) NOT NULL,
+  `id_kpi` int(11) DEFAULT '0',
+  `id_kegiatan` int(11) DEFAULT '0',
+  `target_kinerja` int(11) DEFAULT '0',
+  `capaian` int(11) DEFAULT '0',
+  `capaian_persen` int(11) DEFAULT '0',
+  `nilai` int(11) DEFAULT '0',
+  `nilai_bobot` varchar(11) DEFAULT '0',
+  `keterangan` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 ALTER TABLE `his_kpi_detail` CHANGE `nilai_bobot` `nilai_bobot` VARCHAR(11) NULL;
 
 ALTER TABLE `riwayat_kedinasan` ADD `jabatan2` INT NULL AFTER `jabatan_struktural`, ADD `jabatan3` INT NULL AFTER `jabatan2`;
 
 ALTER TABLE `his_jabatan_asn` CHANGE `tmt_jfung` `tmt_jfung` DATE NULL DEFAULT NULL, CHANGE `tmt_pak` `tmt_pak` DATE NULL DEFAULT NULL;
 
-ALTER TABLE `his_kpi` CHANGE `status` `status` INT(2) NULL DEFAULT '1';
+ALTER TABLE `his_kpi` CHANGE `status` `status` INT(2) NULL DEFAULT '1'; DONE

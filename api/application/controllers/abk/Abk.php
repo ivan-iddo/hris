@@ -35,13 +35,12 @@ class Abk extends REST_Controller
             if ($decodedToken != false) {
 
                 $user_froup = $decodedToken->data->_pnc_id_grup;
-
                 //manual setting:
                 $kaur = 5;
                 $sta = 6;
                 $pa = 7;
                 $id_shift = 50;
-                $g = $user_froup = $decodedToken->data->_pnc_id_grup;
+                $g = $user_froup;
                 $id_skk = 53;
                 $id_ski = 52;
 
@@ -117,8 +116,10 @@ class Abk extends REST_Controller
                 $this->db->where('abk_beban_kerja.tampilkan', '1');
 
                 if (($user_froup == '1') OR ($user_froup == '6')) {
-                    if (!empty($this->input->get('uk'))) {
-                        $this->db->where('abk_beban_kerja.id_uk', $this->input->get('uk'));
+                    if ($this->input->get('uk') <> 'undefined') {
+                        if ($this->input->get('uk') <> '') {
+                            $this->db->where('abk_beban_kerja.id_uk', $this->input->get('uk'));
+                        }
                     }
                 } else {
                     $this->db->where('abk_beban_kerja.id_uk', $user_froup);
@@ -129,6 +130,7 @@ class Abk extends REST_Controller
                 } else {
                     $this->db->where('abk_beban_kerja.tahun', $this->input->get('year'));
                 }
+                $this->db->group_by('abk_beban_kerja.tahun');
                 $res = $this->db->get('abk_beban_kerja')->row();
 
                 if (!empty($res->tahun)) {
@@ -327,8 +329,10 @@ class Abk extends REST_Controller
                 $this->db->where('abk_beban_kerja.tampilkan', '1');
 
                 if (($user_froup == '1') OR ($user_froup == '6')) {
-                    if (!empty($this->input->get('uk'))) {
-                        $this->db->where('abk_beban_kerja.id_uk', $this->input->get('uk'));
+                    if ($this->input->get('uk') <> 'undefined') {
+                        if ($this->input->get('uk') <> '') {
+                            $this->db->where('abk_beban_kerja.id_uk', $this->input->get('uk'));
+                        }
                     }
                 } else {
                     $this->db->where('abk_beban_kerja.id_uk', $user_froup);
@@ -340,7 +344,7 @@ class Abk extends REST_Controller
                     $this->db->where('abk_beban_kerja.tahun', $this->input->get('year'));
                 }
 
-
+                $this->db->group_by('abk_beban_kerja.tahun');
                 $res = $this->db->get('abk_beban_kerja')->row();
 
 
@@ -592,10 +596,10 @@ class Abk extends REST_Controller
 
                 $user_froup = $decodedToken->data->_pnc_id_grup;
 
-
-                $this->db->where('id_beban_kerja', $this->input->get('id_ut'));
-
-
+                if($this->input->get('id_ut')<>NULL){
+                    $this->db->where('id_beban_kerja', $this->input->get('id_ut'));
+                }
+                
                 $this->db->where('tampilkan', '1');
 
 
@@ -710,14 +714,21 @@ class Abk extends REST_Controller
 
                 if (($user_froup == '1') OR ($user_froup == '6')) {
                     // $this->db->where('sys_user.id_grup',$this->input->get('uk'));
-                    $idgroups = $this->m->getdatachild($this->input->get('uk'));
+                    // $uk = $this->input->get('uk')?$this->input->get('uk'):0;
+                    if ($this->input->get('uk') <> 'undefined') {
+                        $uk = $this->input->get('uk');
+                    } else {
+                        $uk = 0;
+                    }
+                    // print_r($uk);die();
+                    $idgroups = $this->m->getdatachild($uk);
+                    
                 } else {
                     $idgroups = $this->m->getdatachild($user_froup);
 
                     //  $this->db->where('sys_user.id_grup',$user_froup);
                 }
-
-
+                // print_r($idgroups);die();
                 $this->db->select('count(*) as jml,sys_grup_user.id_grup,sys_grup_user.grup as namgroup,uk_master.nama as grup,sys_user_profile.pendidikan_akhir as nama,uk_master.id as idjenis');
                 if (($user_froup == '1') OR ($user_froup == '6')) {
                     // $this->db->where('sys_user.id_grup',$this->input->get('uk'));
@@ -728,7 +739,6 @@ class Abk extends REST_Controller
 
                 //$this->db->where('tahun',$this->input->get('year'));
                 //$this->db->where('abk_kebutuhan_sdm.tampilkan','1' );
-
 
                 $this->db->join('sys_grup_user', 'sys_grup_user.id_grup = sys_user.id_grup', 'LEFT');
                 $this->db->where_in('sys_user.id_grup', $idgroups);

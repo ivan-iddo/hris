@@ -309,6 +309,29 @@ public function agama_get(){
 			
 			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
+
+	public function jabatan_struktural_fix_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					 $this->db->order_by('ds_jabatan','ASC');
+					 $this->db->where('tampilkan','1');
+					 
+			  $res = $this->db->get('m_index_jabatan_asn_detail')->result();
+			  foreach($res as $d){
+				$arr['result'][]=array('label'=>' [Kode: '.$d->kd_jabatan.'] '.$d->ds_jabatan,'value'=>$d->migrasi_jabatan_detail_id);
+			  }
+			  	
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
 	
 	public function jabatan_struktural_get(){
 		$headers = $this->input->request_headers();
