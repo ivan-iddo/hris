@@ -19,7 +19,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active">
                         <a data-toggle="tab" href="#demo-lft-tab-1a"><span class="block text-center text-success"><i
-                                        class="fa fa-credit-card fa-2x"></i></span> Pegawai</a>
+                                        class="fa fa-credit-card fa-2x"></i></span> Akun</a>
                     </li>
                     <li>
                         <a data-toggle="tab" href="#demo-lft-tab-1b" onclick="tabKeluarga();"><span

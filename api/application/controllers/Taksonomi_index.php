@@ -164,7 +164,9 @@ public function save_post(){
 				 $id_group = $_POST['id_parent'];
 				 	
 				 $data = array(
-							   'nama'=>$group_group,'deskripsi'=>$group_ket);
+							   'nama'=>($group_group)?$group_group:null,
+							   'deskripsi'=>($group_ket)?$group_ket:null
+							);
 				 if(!empty($id_group)){
 						$data['child']=$id_group;
 						 $this->db->insert('dm_term',$data);
@@ -201,7 +203,10 @@ public function save_post(){
 				 $group_group    = $_POST['group_group'];
 				 $group_ket      = $_POST['group_ket'];
 				 
-				 $data = array('nama'=>$group_group,'deskripsi'=>$group_ket);
+				 $data = array(
+							   'nama'=>($group_group)?$group_group:null,
+							   'deskripsi'=>($group_ket)?$group_ket:null
+							);
 				 $this->db->where('id', $this->input->post('id_group'));
 				 $this->db->update('dm_taxonomy',$data);
 				 
@@ -233,7 +238,10 @@ public function save_post(){
 				 $group_group    = $_POST['group_group'];
 				 $group_ket      = $_POST['group_ket'];
 				 
-				 $data = array('nama'=>$group_group,'deskripsi'=>$group_ket);
+				 $data = array(
+							   'nama'=>($group_group)?$group_group:null,
+							   'deskripsi'=>($group_ket)?$group_ket:null
+							);
 				 $this->db->where('id', $this->input->post('id_group'));
 				 $this->db->update('dm_term',$data);
 				 
@@ -319,8 +327,10 @@ public function save_post(){
 				 
 				 $id    = $this->input->get('id');
 				  
-				   
-				$this->db->where('id_user',$id);
+				if (!empty($id) {
+				   	$this->db->where('id_user',$id);
+				   }   
+				
 				$res = $this->db->get('sys_user')->result();
 				foreach($res as $d){
 				  $arr[]=array('id'=>$d->id_user,'nama'=>$d->name,'username'=>$d->username,'email'=>$d->email,'id_group'=>$d->id_grup,'status'=> $d->status);

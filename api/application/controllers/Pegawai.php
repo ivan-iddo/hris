@@ -63,64 +63,64 @@ class Pegawai extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 
-                $f_id_edit = $this->input->post('f_id_edit');
-                $f_user_edit = $this->input->post('f_user_edit');
-                $f_user_name = $this->input->post('f_user_name');
-                $f_user_email = $this->input->post('f_user_email');
-                $f_user_password = $this->input->post('f_user_password');
-                $f_user_status_aktif = $this->input->post('f_user_status_aktif');
-                $f_user_username = $this->input->post('f_user_username');
-                $inputphone = $this->input->post('inputphone');
-                $inputrt = $this->input->post('inputrt');
-                $inputrtktp = $this->input->post('inputrtktp');
-                $inputrw = $this->input->post('inputrw');
-                $inputrwktp = $this->input->post('inputrwktp');
-                $inputstatus = $this->input->post('inputstatus');
-                $instasi = $this->input->post('instasi');
-                $txtagama = $this->input->post('txtagama');
-                $txtAlamat = $this->input->post('txtAlamat');
-                $txtAlamatKtp = $this->input->post('txtAlamatKtp');
-                $txtbagian = $this->input->post('txtbagian');
-                $txtdirektorat = $this->input->post('txtdirektorat');
-                $txtgelarbelakang = $this->input->post('txtgelarbelakang');
-                $txtgelardepan = $this->input->post('txtgelardepan');
-                $txtgolongan = $this->input->post('txtgolongan');
-                $txtindex = $this->input->post('txtindex');
-                $txtjabatan = $this->input->post('txtjabatan');
-                $txtjabatan1 = $this->input->post('txtjabatan1');
-                $txtjabatan2 = $this->input->post('txtjabatan2');
-                $txtjabfung = $this->input->post('txtjabfung');
-                $unitkerja = $this->input->post('unitkerja');
-                $txtkecamatan = $this->input->post('txtkecamatan');
-                $txtkecamatanktp = $this->input->post('txtkecamatanktp');
-                $txtkelamin = $this->input->post('txtkelamin');
-                $txtkelurahan = $this->input->post('txtkelurahan');
-                $txtkelurahanktp = $this->input->post('txtkelurahanktp');
-                $txtkota = $this->input->post('txtkota');
-                $txtkotaktp = $this->input->post('txtkotaktp');
-                $txtnik = $this->input->post('txtnik');
-                $txtnopeg = $this->input->post('txtnopeg');
-                $txtkarpeg = $this->input->post('txtkarpeg');
-                $txtstp = $this->input->post('txtstp');
-                $txttglnikah = $this->input->post('txttglnikah');
-                $txtnip = $this->input->post('txtnip');
-                $txtpendidikan = $this->input->post('txtpendidikan');
-                $txtperingkat = $this->input->post('txtperingkat');
-                $txtprov = $this->input->post('txtprov');
-                $txtprovktp = $this->input->post('txtprovktp');
-                $txttgllahir = $this->input->post('txttgllahir');
-                $txttlahir = $this->input->post('txttlahir');
-                $txttmtbergabung = $this->input->post('txttmtbergabung');
-                $txttmtcpns = $this->input->post('txttmtcpns');
-                $txttmtgolongan = $this->input->post('txttmtgolongan');
-                $txttmtjabatan = $this->input->post('txttmtjabatan');
-                $txttmtjabfung = $this->input->post('txttmtjabfung');
-                $txttmtpns = $this->input->post('txttmtpns');
-                $id_bank = $this->input->post('id_bank');
-                $bpjs_kes = $this->input->post('bpjs_kes');
-                $bpjs_tk = $this->input->post('bpjs_tk');
-                $inputkpos = $this->input->post('inputkpos');
-                $inputkposktp = $this->input->post('inputkposktp');
+                $f_id_edit = ($this->input->post('f_id_edit'))?$this->input->post('f_id_edit'):null;
+                $f_user_edit = ($this->input->post('f_user_edit'))?$this->input->post('f_user_edit'):null;
+                $f_user_name = ($this->input->post('f_user_name'))?$this->input->post('f_user_name'):null;
+                $f_user_email = ($this->input->post('f_user_email'))?$this->input->post('f_user_email'):null;
+                $f_user_password = ($this->input->post('f_user_password'))?$this->input->post('f_user_password'):null;
+                $f_user_status_aktif = ($this->input->post('f_user_status_aktif'))?$this->input->post('f_user_status_aktif'):null;
+                $f_user_username = ($this->input->post('f_user_username'))?$this->input->post('f_user_username'):null;
+                $inputphone = ($this->input->post('inputphone'))?$this->input->post('inputphone'):null;
+                $inputrt = ($this->input->post('inputrt'))?$this->input->post('inputrt'):null;
+                $inputrtktp = ($this->input->post('inputrtktp'))?$this->input->post('inputrtktp'):null;
+                $inputrw = ($this->input->post('inputrw'))?$this->input->post('inputrw'):null;
+                $inputrwktp = ($this->input->post('inputrwktp'))?$this->input->post('inputrwktp'):null;
+                $inputstatus = ($this->input->post('inputstatus'))?$this->input->post('inputstatus'):null;
+                $instasi = ($this->input->post('instasi'))?$this->input->post('instasi'):null;
+                $txtagama = ($this->input->post('txtagama'))?$this->input->post('txtagama'):null;
+                $txtAlamat = ($this->input->post('txtAlamat'))?$this->input->post('txtAlamat'):null;
+                $txtAlamatKtp = ($this->input->post('txtAlamatKtp'))?$this->input->post('txtAlamatKtp'):null;
+                $txtbagian = ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null;
+                $txtdirektorat = ($this->input->post('txtdirektorat'))?$this->input->post('txtdirektorat'):null;
+                $txtgelarbelakang = ($this->input->post('txtgelarbelakang'))?$this->input->post('txtgelarbelakang'):null;
+                $txtgelardepan = ($this->input->post('txtgelardepan'))?$this->input->post('txtgelardepan'):null;
+                $txtgolongan = ($this->input->post('txtgolongan'))?$this->input->post('txtgolongan'):null;
+                $txtindex = ($this->input->post('txtindex'))?$this->input->post('txtindex'):null;
+                $txtjabatan = ($this->input->post('txtjabatan'))?$this->input->post('txtjabatan'):null;
+                $txtjabatan1 = ($this->input->post('txtjabatan1'))?$this->input->post('txtjabatan1'):null;
+                $txtjabatan2 = ($this->input->post('txtjabatan2'))?$this->input->post('txtjabatan2'):null;
+                $txtjabfung = ($this->input->post('txtjabfung'))?$this->input->post('txtjabfung'):null;
+                $unitkerja = ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null;
+                $txtkecamatan = ($this->input->post('txtkecamatan'))?$this->input->post('txtkecamatan'):null;
+                $txtkecamatanktp = ($this->input->post('txtkecamatanktp'))?$this->input->post('txtkecamatanktp'):null;
+                $txtkelamin = ($this->input->post('txtkelamin'))?$this->input->post('txtkelamin'):null;
+                $txtkelurahan = ($this->input->post('txtkelurahan'))?$this->input->post('txtkelurahan'):null;
+                $txtkelurahanktp = ($this->input->post('txtkelurahanktp'))?$this->input->post('txtkelurahanktp'):null;
+                $txtkota = ($this->input->post('txtkota'))?$this->input->post('txtkota'):null;
+                $txtkotaktp = ($this->input->post('txtkotaktp'))?$this->input->post('txtkotaktp'):null;
+                $txtnik = ($this->input->post('txtnik'))?$this->input->post('txtnik'):null;
+                $txtnopeg = ($this->input->post('txtnopeg'))?$this->input->post('txtnopeg'):null;
+                $txtkarpeg = ($this->input->post('txtkarpeg'))?$this->input->post('txtkarpeg'):null;
+                $txtstp = ($this->input->post('txtstp'))?$this->input->post('txtstp'):null;
+                $txttglnikah = ($this->input->post('txttglnikah'))?$this->input->post('txttglnikah'):null;
+                $txtnip = ($this->input->post('txtnip'))?$this->input->post('txtnip'):null;
+                $txtpendidikan = ($this->input->post('txtpendidikan'))?$this->input->post('txtpendidikan'):null;
+                $txtperingkat = ($this->input->post('txtperingkat'))?$this->input->post('txtperingkat'):null;
+                $txtprov = ($this->input->post('txtprov'))?$this->input->post('txtprov'):null;
+                $txtprovktp = ($this->input->post('txtprovktp'))?$this->input->post('txtprovktp'):null;
+                $txttgllahir = ($this->input->post('txttgllahir'))?$this->input->post('txttgllahir'):null;
+                $txttlahir = ($this->input->post('txttlahir'))?$this->input->post('txttlahir'):null;
+                $txttmtbergabung = ($this->input->post('txttmtbergabung'))?$this->input->post('txttmtbergabung'):null;
+                $txttmtcpns = ($this->input->post('txttmtcpns'))?$this->input->post('txttmtcpns'):null;
+                $txttmtgolongan = ($this->input->post('txttmtgolongan'))?$this->input->post('txttmtgolongan'):null;
+                $txttmtjabatan = ($this->input->post('txttmtjabatan'))?$this->input->post('txttmtjabatan'):null;
+                $txttmtjabfung = ($this->input->post('txttmtjabfung'))?$this->input->post('txttmtjabfung'):null;
+                $txttmtpns = ($this->input->post('txttmtpns'))?$this->input->post('txttmtpns'):null;
+                $id_bank = ($this->input->post('id_bank'))?$this->input->post('id_bank'):null;
+                $bpjs_kes = ($this->input->post('bpjs_kes'))?$this->input->post('bpjs_kes'):null;
+                $bpjs_tk = ($this->input->post('bpjs_tk'))?$this->input->post('bpjs_tk'):null;
+                $inputkpos = ($this->input->post('inputkpos'))?$this->input->post('inputkpos'):null;
+                $inputkposktp = ($this->input->post('inputkposktp'))?$this->input->post('inputkposktp'):null;
 
 
                 if (!empty($unitkerja)) {
@@ -156,7 +156,7 @@ class Pegawai extends REST_Controller
                     , "password" => $password
                     , "kode_klinik" => $user_id_klinik
                     , 'id_uk' => $txtjabatan
-                    , 'id_shift' => $this->input->post('id_shift')
+                    , 'id_shift' => ($this->input->post('id_shift'))?$this->input->post('id_shift'):null
                     );
 
 
@@ -199,10 +199,10 @@ class Pegawai extends REST_Controller
                             'id_bank' => $id_bank,
                             'bpjs_kes' => $bpjs_kes,
                             'bpjs_tk' => $bpjs_tk,
-                            'no_rek' => $this->input->post('no_rek'),
-                            'kategori_profesi' => $this->input->post('kategori_profesi'),
-                            'NPWP' => $this->input->post('npwp'),
-                            'id_profesi' => $this->input->post('id_profesi'),
+                            'no_rek' => ($this->input->post('no_rek'))?$this->input->post('no_rek'):null,
+                            'kategori_profesi' => ($this->input->post('kategori_profesi'))?$this->input->post('kategori_profesi'):null,
+                            'NPWP' => ($this->input->post('npwp'))?$this->input->post('npwp'):null,
+                            'id_profesi' => ($this->input->post('id_profesi'))?$this->input->post('id_profesi'):null
 
                         );
                         $this->db->insert('sys_user_profile', $param_profile);
@@ -216,8 +216,8 @@ class Pegawai extends REST_Controller
                             'bagian' => $txtbagian,
                             'sub_bagian' => $unitkerja,
                             'jabatan_asn' => $txtjabfung,
-                            'subjabasn' => $this->input->post('subjabasn'),
-                            'ketahli' => $this->input->post('ketahli'),
+                            'subjabasn' => ($this->input->post('subjabasn'))?$this->input->post('subjabasn'):null,
+                            'ketahli' => ($this->input->post('ketahli'))?$this->input->post('ketahli'):null,
                             'tmt_jabatan_asn' => $txttmtjabfung,
                             'jabatan_struktural' => $txtjabatan,
                             'jabatan2' => $txtjabatan1,
@@ -300,7 +300,7 @@ class Pegawai extends REST_Controller
                                 riwayat_kedinasan.peringkat,
                                 riwayat_kedinasan.no_index_dok,
                                 uk_master.nama as nama_jabatan,
-                                his_kontrak.tglktr,
+                                his_kontrak.tglakhir,
                                 his_str.date_end as date_end_str,
                                 his_sip.date_end
                                ');
@@ -392,7 +392,7 @@ class Pegawai extends REST_Controller
                             'subjabasn' => $d->subjabasn,
                             'ketahli' => $d->ketahli,
                             'id_user' => $d->id_user,
-                            'tgl_kontrak' => $d->tglktr,
+                            'tgl_kontrak' => $d->tglakhir,
                             'tgl_str' => $d->date_end_str,
                             'tgl_sip' => $d->date_end,
 
@@ -425,64 +425,64 @@ class Pegawai extends REST_Controller
                 $user_id_klinik = $decodedToken->data->_pnc_kode_klinik;
                 $author = $decodedToken->data->_pnc_username;
 
-                $id = $f_id_edit = $this->input->post('f_id_edit');
-                $f_user_edit = $this->input->post('f_user_edit');
-                $f_user_name = $this->input->post('f_user_name');
-                $f_user_email = $this->input->post('f_user_email');
-                $f_user_password = $this->input->post('f_user_password');
-                $f_user_status_aktif = $this->input->post('f_user_status_aktif');
-                $f_user_username = $this->input->post('f_user_username');
-                $inputphone = $this->input->post('inputphone');
-                $inputrt = $this->input->post('inputrt');
-                $inputrtktp = $this->input->post('inputrtktp');
-                $inputrw = $this->input->post('inputrw');
-                $inputrwktp = $this->input->post('inputrwktp');
-                $inputstatus = $this->input->post('inputstatus');
-                $instasi = $this->input->post('instasi');
-                $txtagama = $this->input->post('txtagama');
-                $txtAlamat = $this->input->post('txtAlamat');
-                $txtAlamatKtp = $this->input->post('txtAlamatKtp');
-                $txtbagian = $this->input->post('txtbagian');
-                $txtdirektorat = $this->input->post('txtdirektorat');
-                $txtgelarbelakang = $this->input->post('txtgelarbelakang');
-                $txtgelardepan = $this->input->post('txtgelardepan');
-                $txtgolongan = $this->input->post('txtgolongan');
-                $txtindex = $this->input->post('txtindex');
-                $txtjabatan = $this->input->post('txtjabatan');
-                $txtjabatan1 = $this->input->post('txtjabatan1');
-                $txtjabatan2 = $this->input->post('txtjabatan2');
-                $txtjabfung = $this->input->post('txtjabfung');
-                $unitkerja = $this->input->post('unitkerja');
-                $txtkecamatan = $this->input->post('txtkecamatan');
-                $txtkecamatanktp = $this->input->post('txtkecamatanktp');
-                $txtkelamin = $this->input->post('txtkelamin');
-                $txtkelurahan = $this->input->post('txtkelurahan');
-                $txtkelurahanktp = $this->input->post('txtkelurahanktp');
-                $txtkota = $this->input->post('txtkota');
-                $txtkotaktp = $this->input->post('txtkotaktp');
-                $txtnik = $this->input->post('txtnik');
-                $txtnip = $this->input->post('txtnip');
-				$txtnopeg = $this->input->post('txtnopeg');
-                $txtkarpeg = $this->input->post('txtkarpeg');
-                $txtstp = $this->input->post('txtstp');
-                $txttglnikah = $this->input->post('txttglnikah');
-                $txtpendidikan = $this->input->post('txtpendidikan');
-                $txtperingkat = $this->input->post('txtperingkat');
-                $txtprov = $this->input->post('txtprov');
-                $txtprovktp = $this->input->post('txtprovktp');
-                $txttgllahir = $this->input->post('txttgllahir');
-                $txttlahir = $this->input->post('txttlahir');
-                $txttmtbergabung = $this->input->post('txttmtbergabung');
-                $txttmtcpns = $this->input->post('txttmtcpns');
-                $txttmtgolongan = $this->input->post('txttmtgolongan');
-                $txttmtjabatan = $this->input->post('txttmtjabatan');
-                $txttmtjabfung = $this->input->post('txttmtjabfung');
-                $txttmtpns = $this->input->post('txttmtpns');
-                $id_bank = $this->input->post('id_bank');
-                $bpjs_kes = $this->input->post('bpjs_kes');
-                $bpjs_tk = $this->input->post('bpjs_tk');
-                $inputkpos = $this->input->post('inputkpos');
-                $inputkposktp = $this->input->post('inputkposktp');
+                $id = $f_id_edit = ($this->input->post('f_id_edit'))?$this->input->post('f_id_edit'):null;
+                $f_user_edit = ($this->input->post('f_user_edit'))?$this->input->post('f_user_edit'):null;
+                $f_user_name = ($this->input->post('f_user_name'))?$this->input->post('f_user_name'):null;
+                $f_user_email = ($this->input->post('f_user_email'))?$this->input->post('f_user_email'):null;
+                $f_user_password = ($this->input->post('f_user_password'))?$this->input->post('f_user_password'):null;
+                $f_user_status_aktif = ($this->input->post('f_user_status_aktif'))?$this->input->post('f_user_status_aktif'):null;
+                $f_user_username = ($this->input->post('f_user_username'))?$this->input->post('f_user_username'):null;
+                $inputphone = ($this->input->post('inputphone'))?$this->input->post('inputphone'):null;
+                $inputrt = ($this->input->post('inputrt'))?$this->input->post('inputrt'):null;
+                $inputrtktp = ($this->input->post('inputrtktp'))?$this->input->post('inputrtktp'):null;
+                $inputrw = ($this->input->post('inputrw'))?$this->input->post('inputrw'):null;
+                $inputrwktp = ($this->input->post('inputrwktp'))?$this->input->post('inputrwktp'):null;
+                $inputstatus = ($this->input->post('inputstatus'))?$this->input->post('inputstatus'):null;
+                $instasi = ($this->input->post('instasi'))?$this->input->post('instasi'):null;
+                $txtagama = ($this->input->post('txtagama'))?$this->input->post('txtagama'):null;
+                $txtAlamat = ($this->input->post('txtAlamat'))?$this->input->post('txtAlamat'):null;
+                $txtAlamatKtp = ($this->input->post('txtAlamatKtp'))?$this->input->post('txtAlamatKtp'):null;
+                $txtbagian = ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null;
+                $txtdirektorat = ($this->input->post('txtdirektorat'))?$this->input->post('txtdirektorat'):null;
+                $txtgelarbelakang = ($this->input->post('txtgelarbelakang'))?$this->input->post('txtgelarbelakang'):null;
+                $txtgelardepan = ($this->input->post('txtgelardepan'))?$this->input->post('txtgelardepan'):null;
+                $txtgolongan = ($this->input->post('txtgolongan'))?$this->input->post('txtgolongan'):null;
+                $txtindex = ($this->input->post('txtindex'))?$this->input->post('txtindex'):null;
+                $txtjabatan = ($this->input->post('txtjabatan'))?$this->input->post('txtjabatan'):null;
+                $txtjabatan1 = ($this->input->post('txtjabatan1'))?$this->input->post('txtjabatan1'):null;
+                $txtjabatan2 = ($this->input->post('txtjabatan2'))?$this->input->post('txtjabatan2'):null;
+                $txtjabfung = ($this->input->post('txtjabfung'))?$this->input->post('txtjabfung'):null;
+                $unitkerja = ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null;
+                $txtkecamatan = ($this->input->post('txtkecamatan'))?$this->input->post('txtkecamatan'):null;
+                $txtkecamatanktp = ($this->input->post('txtkecamatanktp'))?$this->input->post('txtkecamatanktp'):null;
+                $txtkelamin = ($this->input->post('txtkelamin'))?$this->input->post('txtkelamin'):null;
+                $txtkelurahan = ($this->input->post('txtkelurahan'))?$this->input->post('txtkelurahan'):null;
+                $txtkelurahanktp = ($this->input->post('txtkelurahanktp'))?$this->input->post('txtkelurahanktp'):null;
+                $txtkota = ($this->input->post('txtkota'))?$this->input->post('txtkota'):null;
+                $txtkotaktp = ($this->input->post('txtkotaktp'))?$this->input->post('txtkotaktp'):null;
+                $txtnik = ($this->input->post('txtnik'))?$this->input->post('txtnik'):null;
+                $txtnopeg = ($this->input->post('txtnopeg'))?$this->input->post('txtnopeg'):null;
+                $txtkarpeg = ($this->input->post('txtkarpeg'))?$this->input->post('txtkarpeg'):null;
+                $txtstp = ($this->input->post('txtstp'))?$this->input->post('txtstp'):null;
+                $txttglnikah = ($this->input->post('txttglnikah'))?$this->input->post('txttglnikah'):null;
+                $txtnip = ($this->input->post('txtnip'))?$this->input->post('txtnip'):null;
+                $txtpendidikan = ($this->input->post('txtpendidikan'))?$this->input->post('txtpendidikan'):null;
+                $txtperingkat = ($this->input->post('txtperingkat'))?$this->input->post('txtperingkat'):null;
+                $txtprov = ($this->input->post('txtprov'))?$this->input->post('txtprov'):null;
+                $txtprovktp = ($this->input->post('txtprovktp'))?$this->input->post('txtprovktp'):null;
+                $txttgllahir = ($this->input->post('txttgllahir'))?$this->input->post('txttgllahir'):null;
+                $txttlahir = ($this->input->post('txttlahir'))?$this->input->post('txttlahir'):null;
+                $txttmtbergabung = ($this->input->post('txttmtbergabung'))?$this->input->post('txttmtbergabung'):null;
+                $txttmtcpns = ($this->input->post('txttmtcpns'))?$this->input->post('txttmtcpns'):null;
+                $txttmtgolongan = ($this->input->post('txttmtgolongan'))?$this->input->post('txttmtgolongan'):null;
+                $txttmtjabatan = ($this->input->post('txttmtjabatan'))?$this->input->post('txttmtjabatan'):null;
+                $txttmtjabfung = ($this->input->post('txttmtjabfung'))?$this->input->post('txttmtjabfung'):null;
+                $txttmtpns = ($this->input->post('txttmtpns'))?$this->input->post('txttmtpns'):null;
+                $id_bank = ($this->input->post('id_bank'))?$this->input->post('id_bank'):null;
+                $bpjs_kes = ($this->input->post('bpjs_kes'))?$this->input->post('bpjs_kes'):null;
+                $bpjs_tk = ($this->input->post('bpjs_tk'))?$this->input->post('bpjs_tk'):null;
+                $inputkpos = ($this->input->post('inputkpos'))?$this->input->post('inputkpos'):null;
+                $inputkposktp = ($this->input->post('inputkposktp'))?$this->input->post('inputkposktp'):null;
 
 
                 if (!empty($unitkerja)) {
@@ -522,7 +522,7 @@ class Pegawai extends REST_Controller
                     , "status" => $f_user_status_aktif
                     , "kode_klinik" => $user_id_klinik
                     , 'id_uk' => $txtjabatan
-                    , 'id_shift' => $this->input->post('id_shift')
+                    , 'id_shift' => ($this->input->post('id_shift'))?$this->input->post('id_shift'):null
                     );
                     $this->db->where('id_user', $id);
                     if (!empty($paramss)) {
@@ -566,10 +566,10 @@ class Pegawai extends REST_Controller
                         'bpjs_tk' => $bpjs_tk,
                         'kode_pos' => $inputkpos,
                         'kode_posktp' => $inputkposktp,
-                        'no_rek' => $this->input->post('no_rek'),
-                        'kategori_profesi' => $this->input->post('kategori_profesi'),
-                        'NPWP' => $this->input->post('npwp'),
-                        'id_profesi' => $this->input->post('id_profesi'),
+                        'no_rek' => ($this->input->post('no_rek'))?$this->input->post('no_rek'):null,
+                            'kategori_profesi' => ($this->input->post('kategori_profesi'))?$this->input->post('kategori_profesi'):null,
+                            'NPWP' => ($this->input->post('npwp'))?$this->input->post('npwp'):null,
+                            'id_profesi' => ($this->input->post('id_profesi'))?$this->input->post('id_profesi'):null
 
                     );
 
@@ -587,8 +587,8 @@ class Pegawai extends REST_Controller
                         'bagian' => $txtbagian,
                         'sub_bagian' => $unitkerja,
                         'jabatan_asn' => $txtjabfung,
-                        'subjabasn' => $this->input->post('subjabasn'),
-                        'ketahli' => $this->input->post('ketahli'),
+                        'subjabasn' => ($this->input->post('subjabasn'))?$this->input->post('subjabasn'):null,
+                        'ketahli' => ($this->input->post('ketahli'))?$this->input->post('ketahli'):null,
                         'tmt_jabatan_asn' => $txttmtjabfung,
                         'jabatan_struktural' => $txtjabatan,
 						'jabatan2' => $txtjabatan1,
@@ -845,18 +845,18 @@ class Pegawai extends REST_Controller
             if ($decodedToken != false) {
 
                 $arrdata = array(
-                    'id_user' => $this->input->post('id_user'),
-                    'pen_name' => $this->input->post('txtNamaSekolah'),
-                    'pen_tahn' => $this->input->post('txtTahunLulus'),
-                    'pen_nijz' => $this->input->post('txtNoIjazah'),
-                    'pen_dijz' => $this->input->post('txtTglIjazah'),
-                    'pen_nkep' => $this->input->post('txtKepalaSekolah'),
-                    'pen_desc' => $this->input->post('txtStatusLulus'),
-                    'pen_lijzh' => $this->input->post('txtHubungan'),
-                    'pen_code' => $this->input->post('txtJPend'),
-                    'pen_jur' => $this->input->post('txtJjurusan'),
-                    'pen_spe' => $this->input->post('txtJspesialis'),
-                    'pen_akr' => $this->input->post('txtJakreditasi'),
+                    'id_user' => ($this->input->post('id_user'))?$this->input->post('id_user'):null,
+                    'pen_name' => ($this->input->post('txtNamaSekolah'))?$this->input->post('txtNamaSekolah'):null,
+                    'pen_tahn' => ($this->input->post('txtTahunLulus'))?$this->input->post('txtTahunLulus'):null,
+                    'pen_nijz' => ($this->input->post('txtNoIjazah'))?$this->input->post('txtNoIjazah'):null,
+                    'pen_dijz' => ($this->input->post('txtTglIjazah'))?$this->input->post('txtTglIjazah'):null,
+                    'pen_nkep' => ($this->input->post('txtKepalaSekolah'))?$this->input->post('txtKepalaSekolah'):null,
+                    'pen_desc' => ($this->input->post('txtStatusLulus'))?$this->input->post('txtStatusLulus'):null,
+                    'pen_lijzh' => ($this->input->post('txtHubungan'))?$this->input->post('txtHubungan'):null,
+                    'pen_code' => ($this->input->post('txtJPend'))?$this->input->post('txtJPend'):null,
+                    'pen_jur' => ($this->input->post('txtJjurusan'))?$this->input->post('txtJjurusan'):null,
+                    'pen_spe' => ($this->input->post('txtJspesialis'))?$this->input->post('txtJspesialis'):null,
+                    'pen_akr' => ($this->input->post('txtJakreditasi'))?$this->input->post('txtJakreditasi'):null,
                 );
 
                 $this->db->insert('his_pendidikan', $arrdata);
@@ -933,17 +933,17 @@ class Pegawai extends REST_Controller
             if ($decodedToken != false) {
 
                 $arrdata = array(
-                    'pen_name' => $this->input->post('txtNamaSekolah'),
-                    'pen_tahn' => $this->input->post('txtTahunLulus'),
-                    'pen_nijz' => $this->input->post('txtNoIjazah'),
-                    'pen_dijz' => $this->input->post('txtTglIjazah'),
-                    'pen_nkep' => $this->input->post('txtKepalaSekolah'),
-                    'pen_desc' => $this->input->post('txtStatusLulus'),
-                    'pen_lijzh' => $this->input->post('txtHubungan'),
-                    'pen_code' => $this->input->post('txtJPend'),
-                    'pen_jur' => $this->input->post('txtJjurusan'),
-                    'pen_spe' => $this->input->post('txtJspesialis'),
-                    'pen_akr' => $this->input->post('txtJakreditasi'),
+                    'pen_name' => ($this->input->post('txtNamaSekolah'))?$this->input->post('txtNamaSekolah'):null,
+                    'pen_tahn' => ($this->input->post('txtTahunLulus'))?$this->input->post('txtTahunLulus'):null,
+                    'pen_nijz' => ($this->input->post('txtNoIjazah'))?$this->input->post('txtNoIjazah'):null,
+                    'pen_dijz' => ($this->input->post('txtTglIjazah'))?$this->input->post('txtTglIjazah'):null,
+                    'pen_nkep' => ($this->input->post('txtKepalaSekolah'))?$this->input->post('txtKepalaSekolah'):null,
+                    'pen_desc' => ($this->input->post('txtStatusLulus'))?$this->input->post('txtStatusLulus'):null,
+                    'pen_lijzh' => ($this->input->post('txtHubungan'))?$this->input->post('txtHubungan'):null,
+                    'pen_code' => ($this->input->post('txtJPend'))?$this->input->post('txtJPend'):null,
+                    'pen_jur' => ($this->input->post('txtJjurusan'))?$this->input->post('txtJjurusan'):null,
+                    'pen_spe' => ($this->input->post('txtJspesialis'))?$this->input->post('txtJspesialis'):null,
+                    'pen_akr' => ($this->input->post('txtJakreditasi'))?$this->input->post('txtJakreditasi'):null,
                 );
 
 
@@ -1130,14 +1130,14 @@ class Pegawai extends REST_Controller
                             'bagian_asal' => $bagian_asal,
                             'sub_bagian_asal' => $sub_bagian_asal,
                             'direktorat_tujuan' => $this->input->post('txtdirektorat'),
-                            'bagian_tujuan' => $this->input->post('txtbagian'),
-                            'sub_bagian_tujuan' => $this->input->post('unitkerja'),
+                            'bagian_tujuan' => ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null,
+                            'sub_bagian_tujuan' => ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null,
                             'tgl_mutasi' => $this->input->post('tgl_mutasi'),
                             'keterangan' => $this->input->post('keterangan'),
-                            'tgl_sk' => $this->input->post('tgl_sk'),
+                            'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
                             'no_sk' => $this->input->post('no_sk'),
-                            'id_satker' => $this->input->post('satuan_kerja'),
-                            'id_kelas' => $this->input->post('kelas_jabatan'),
+                            'id_satker' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
+                            'id_kelas' => ($this->input->post('kelas_jabatan'))?$this->input->post('kelas_jabatan'):null,
                             'jabatan_struktural' => $this->input->post('txtjabatan'),
                             'jenis_mutasi' => $this->input->post('jenis_mutasi'),
                             'status' => '88',
@@ -1205,22 +1205,23 @@ class Pegawai extends REST_Controller
                         'direktorat_asal' => $direktorat_asal,
                         'bagian_asal' => $bagian_asal,
                         'sub_bagian_asal' => $sub_bagian_asal,
-                        'direktorat_tujuan' => $this->input->post('txtdirektorat'),
-                        'bagian_tujuan' => $this->input->post('txtbagian'),
-                        'sub_bagian_tujuan' => $this->input->post('unitkerja'),
-                        'tgl_mutasi' => $this->input->post('tgl_mutasi'),
-                        'keterangan' => $this->input->post('keterangan'),
-                        'tgl_sk' => $this->input->post('tgl_sk'),
-                        'no_sk' => $this->input->post('no_sk'),
-                        'id_satker' => $this->input->post('satuan_kerja'),
-                        'id_kelas' => $this->input->post('kelas_jabatan'),
-                        'jabatan_struktural' => $this->input->post('txtjabatan'),
-                        'status' => $this->input->post('statusproses'),
-                        'jenis_mutasi' => $this->input->post('jenis_mutasi')
+                        'direktorat_tujuan' => ($this->input->post('txtdirektorat'))?$this->input->post('txtdirektorat'):null,
+                        'bagian_tujuan' => ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null,
+                        'sub_bagian_tujuan' => ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null,
+                        'tgl_mutasi' => ($this->input->post('tgl_mutasi'))?$this->input->post('tgl_mutasi'):null,
+                        'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null,
+                        'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
+                        'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
+                        'id_satker' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
+                        'id_kelas' => ($this->input->post('kelas_jabatan'))?$this->input->post('kelas_jabatan'):null,
+                        'jabatan_struktural' => ($this->input->post('txtjabatan'))?$this->input->post('txtjabatan'):null,
+                        'status' => ($this->input->post('statusproses'))?$this->input->post('statusproses'):null,
+                        'jenis_mutasi' => ($this->input->post('jenis_mutasi'))?$this->input->post('jenis_mutasi'):null
                     );
 
-
-                    $this->db->where('id', $this->input->post('idtk'));
+                    if ($this->input->post('idtk')) {
+                        $this->db->where('id', $this->input->post('idtk'));
+                    }
                     $this->db->where_in('status', array('88', '89', '101'));
                     $this->db->update('abk_req_mutasi_jabatan', $arrdata);
 
@@ -1328,22 +1329,22 @@ class Pegawai extends REST_Controller
                         'direktorat_asal' => $direktorat_asal,
                         'bagian_asal' => $bagian_asal,
                         'sub_bagian_asal' => $sub_bagian_asal,
-                        'direktorat_tujuan' => $this->input->post('txtdirektorat'),
-                        'bagian_tujuan' => $this->input->post('txtbagian'),
-                        'sub_bagian_tujuan' => $this->input->post('unitkerja'),
-                        'tgl_mutasi' => $this->input->post('tgl_mutasi'),
-                        'keterangan' => $this->input->post('keterangan'),
-                        'tgl_sk' => $this->input->post('tgl_sk'),
-                        'no_sk' => $this->input->post('no_sk'),
-                        'id_satker' => $this->input->post('satuan_kerja'),
-                        'id_kelas' => $this->input->post('kelas_jabatan'),
-                        'jabatan_struktural' => $this->input->post('txtjabatan')
+                        'direktorat_tujuan' => ($this->input->post('txtdirektorat'))?$this->input->post('txtdirektorat'):null,
+                        'bagian_tujuan' => ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null,
+                        'sub_bagian_tujuan' => ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null,
+                        'tgl_mutasi' => ($this->input->post('tgl_mutasi'))?$this->input->post('tgl_mutasi'):null,
+                        'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null,
+                        'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
+                        'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
+                        'id_satker' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
+                        'id_kelas' => ($this->input->post('kelas_jabatan'))?$this->input->post('kelas_jabatan'):null,
+                        'jabatan_struktural' => ($this->input->post('txtjabatan'))?$this->input->post('txtjabatan'):null
                     );
 
                     $this->db->insert('his_mutasi_jabatan', $arrdata);
-                    $unitkerja = $this->input->post('unitkerja');
-                    $txtbagian = $this->input->post('txtbagian');
-                    $txtdirektorat = $this->input->post('txtdirektorat');
+                    $unitkerja = ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null;
+                    $txtbagian = ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null;
+                    $txtdirektorat = ($this->input->post('txtdirektorat'))?$this->input->post('txtdirektorat'):null;
 
                     if (!empty($res->id)) {
                         //update riwayat_kedinasan yg lama kasih flag 0 dan masukkan yg baru
@@ -1358,13 +1359,13 @@ class Pegawai extends REST_Controller
                             'jabatan_asn' => $res->jabatan_asn,
                             'tmt_jabatan_asn' => $res->tmt_jabatan_asn,
                             'tmt_jabatan' => $res->tmt_jabatan,
-                            'tgl_bergabung' => $this->input->post('tgl_mutasi'),
+                            'tgl_bergabung' => ($this->input->post('tgl_mutasi'))?$this->input->post('tgl_mutasi'):null,
                             'inst_asal' => $res->inst_asal,
                             'peringkat' => $res->peringkat,
                             'no_index_dok' => $res->no_index_dok,
                             'golongan' => $res->golongan,
                             'tmt_golongan' => $res->tmt_golongan,
-                            'jabatan_struktural' => $this->input->post('txtjabatan'),
+                            'jabatan_struktural' => ($this->input->post('txtjabatan'))?$this->input->post('txtjabatan'):null,
                             'aktif' => '1'
                         );
                         $this->db->insert('riwayat_kedinasan', $param_rd);
@@ -1742,16 +1743,16 @@ class Pegawai extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                $tgl = $this->input->post('tgl_cuti');
-                $jml = $this->input->post('jumlahCuti');
+                $tgl = ($this->input->post('tgl_cuti'))?$this->input->post('tgl_cuti'):null;
+                $jml = ($this->input->post('jumlahCuti'))?$this->input->post('jumlahCuti'):null;
 
                 $date = date_create($tgl);
                 date_add($date, date_interval_create_from_date_string($jml . " days"));
                 $sampai = date_format($date, "Y-m-d");
 
                 //cek lagi
-                $id_cuti = $this->input->post('jenis_cuti');
-                $id_user = $this->input->post('id_user');
+                $id_cuti = ($this->input->post('jenis_cuti'))?$this->input->post('jenis_cuti'):null;
+                $id_user = ($this->input->post('id_user'))?$this->input->post('id_user'):null;
                 $tahun = date('Y');
                 $this->db->where('id', $id_cuti);
                 $this->db->where('tampilkan', '1');
@@ -1779,7 +1780,7 @@ class Pegawai extends REST_Controller
                         'tgl_akhir_cuti' => $sampai,
                         'jenis_cuti' => $id_cuti,
                         'status' => '1',
-                        'keterangan' => $this->input->post('keterangan')
+                        'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null
 
                     );
 
@@ -1812,16 +1813,16 @@ class Pegawai extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                $tgl = $this->input->post('tgl_izin');
-                $jml = $this->input->post('jumlahizin');
+                $tgl = ($this->input->post('tgl_izin'))?$this->input->post('tgl_izin'):null;
+                $jml = ($this->input->post('jumlahizin'))?$this->input->post('jumlahizin'):null;
 
                 $date = date_create($tgl);
                 date_add($date, date_interval_create_from_date_string($jml . " days"));
                 $sampai = date_format($date, "Y-m-d");
 
                 //cek lagi
-                $id_izin = $this->input->post('jenis_izin');
-                $id_user = $this->input->post('id_user');
+                $id_izin = ($this->input->post('jenis_izin'))?$this->input->post('jenis_izin'):null;
+                $id_user = ($this->input->post('id_user'))?$this->input->post('id_user'):null;
                 $tahun = date('Y');
                 $this->db->where('id', $id_izin);
                 $this->db->where('tampilkan', '1');
@@ -1849,7 +1850,7 @@ class Pegawai extends REST_Controller
                         'tgl_akhir_izin' => $sampai,
                         'jenis_izin' => $id_izin,
                         'status' => '1',
-                        'keterangan' => $this->input->post('keterangan')
+                        'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null
 
                     );
 
@@ -2259,11 +2260,11 @@ class Pegawai extends REST_Controller
 
                 //cari dulu diriwayat kedinasan
                 if (!empty($id = $this->input->post('txtIdUser'))) {
-                    $id_alasan = $this->input->post('id_alasan');
-                    $keterangan = $this->input->post('keterangan');
-                    $no_sk = $this->input->post('no_sk');
-                    $pejabat = $this->input->post('pejabat');
-                    $tgl = $this->input->post('tgl_keluar');
+                    $id_alasan = ($this->input->post('id_alasan'))?$this->input->post('id_alasan'):null;
+                    $keterangan = ($this->input->post('keterangan'))?$this->input->post('keterangan'):null;
+                    $no_sk = ($this->input->post('no_sk'))?$this->input->post('no_sk'):null;
+                    $pejabat = ($this->input->post('pejabat'))?$this->input->post('pejabat'):null;
+                    $tgl = ($this->input->post('tgl_keluar'))?$this->input->post('tgl_keluar'):null;
 
                     $arratdata = array(
                         'id_user' => $id,
@@ -2315,15 +2316,15 @@ class Pegawai extends REST_Controller
 
                     $arrdata = array(
                         'user_id' => $id,
-                        'direktorat_tujuan' => $this->input->post('txtdirektorat'),
-                        'bagian_tujuan' => $this->input->post('txtbagian'),
-                        'sub_bagian_tujuan' => $this->input->post('unitkerja'),
-                        'tgl_mutasi' => $this->input->post('tgl_mutasi'),
-                        'keterangan' => $this->input->post('keterangan'),
-                        'tgl_sk' => $this->input->post('tgl_sk'),
-                        'no_sk' => $this->input->post('no_sk'),
-                        'id_satker' => $this->input->post('satuan_kerja'),
-                        'id_kelas' => $this->input->post('kelas_jabatan'),
+                        'direktorat_tujuan' => ($this->input->post('txtdirektorat'))?$this->input->post('txtdirektorat'):null,
+                        'bagian_tujuan' => ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null,
+                        'sub_bagian_tujuan' => ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null,
+                        'tgl_mutasi' => ($this->input->post('tgl_mutasi'))?$this->input->post('tgl_mutasi'):null,
+                        'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null,
+                        'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
+                        'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
+                        'id_satker' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
+                        'id_kelas' => ($this->input->post('kelas_jabatan'))?$this->input->post('kelas_jabatan'):null,
                         'aktif' => '0'
                     );
 
@@ -2371,15 +2372,15 @@ class Pegawai extends REST_Controller
 
 
                     $arrdata = array(
-                        'direktorat_tujuan' => $this->input->post('txtdirektorat'),
-                        'bagian_tujuan' => $this->input->post('txtbagian'),
-                        'sub_bagian_tujuan' => $this->input->post('unitkerja'),
-                        'tgl_mutasi' => $this->input->post('tgl_mutasi'),
-                        'keterangan' => $this->input->post('keterangan'),
-                        'tgl_sk' => $this->input->post('tgl_sk'),
-                        'no_sk' => $this->input->post('no_sk'),
-                        'id_satker' => $this->input->post('satuan_kerja'),
-                        'id_kelas' => $this->input->post('kelas_jabatan'),
+                        'direktorat_tujuan' => ($this->input->post('txtdirektorat'))?$this->input->post('txtdirektorat'):null,
+                        'bagian_tujuan' => ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null,
+                        'sub_bagian_tujuan' => ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null,
+                        'tgl_mutasi' => ($this->input->post('tgl_mutasi'))?$this->input->post('tgl_mutasi'):null,
+                        'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null,
+                        'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
+                        'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
+                        'id_satker' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
+                        'id_kelas' => ($this->input->post('kelas_jabatan'))?$this->input->post('kelas_jabatan'):null,
 
                     );
                     $this->db->where('id', $id);
@@ -2521,18 +2522,18 @@ class Pegawai extends REST_Controller
 
                     $arrdata = array(
                         'user_id' => $id,
-                        'jabatan' => $this->input->post('txtjabatan'),
-						'bagian_jabatan' => $this->input->post('txtbagian'),
-						'sub_bagian_jabatan' => $this->input->post('unitkerja'),
-                        'tmt_jfung' => $this->input->post('tmt_jabfung'),
-                        'no_skjfung' => $this->input->post('no_skjfung'),
-                        'tgl_skjafung' => $this->input->post('tgl_skjafung'),
-                        'no_pak' => $this->input->post('no_pak'),
-                        'tmt_pak' => $this->input->post('tmt_pak'),
-                        'tgl_pak' => $this->input->post('tgl_pak'),
-                        'nilai_pak' => $this->input->post('nilai_pak'),
-                        'satuan_kerja' => $this->input->post('satuan_kerja'),
-                        'keterangan' => $this->input->post('keterangan'),
+                        'jabatan' => ($this->input->post('txtjabatan'))?$this->input->post('txtjabatan'):null,
+						'bagian_jabatan' => ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null,
+						'sub_bagian_jabatan' => ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null,
+                        'tmt_jfung' => ($this->input->post('tmt_jabfung'))?$this->input->post('tmt_jabfung'):null,
+                        'no_skjfung' => ($this->input->post('no_skjfung'))?$this->input->post('no_skjfung'):null,
+                        'tgl_skjafung' => ($this->input->post('tgl_skjafung'))?$this->input->post('tgl_skjafung'):null,
+                        'no_pak' => ($this->input->post('no_pak'))?$this->input->post('no_pak'):null,
+                        'tmt_pak' => ($this->input->post('tmt_pak'))?$this->input->post('tmt_pak'):null,
+                        'tgl_pak' => ($this->input->post('tgl_pak'))?$this->input->post('tgl_pak'):null,
+                        'nilai_pak' => ($this->input->post('nilai_pak'))?$this->input->post('nilai_pak'):null,
+                        'satuan_kerja' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
+                        'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null,
                     );
 
                     $this->db->insert('his_jabatan_asn', $arrdata);
@@ -2579,18 +2580,18 @@ class Pegawai extends REST_Controller
 
 
                    $arrdata = array(
-                        'jabatan' => $this->input->post('txtjabatan'),
-						'bagian_jabatan' => $this->input->post('txtbagian'),
-						'sub_bagian_jabatan' => $this->input->post('unitkerja'),
-                        'tmt_jfung' => $this->input->post('tmt_jabfung'),
-                        'no_skjfung' => $this->input->post('no_skjfung'),
-                        'tgl_skjafung' => $this->input->post('tgl_skjafung'),
-                        'no_pak' => $this->input->post('no_pak'),
-                        'tmt_pak' => $this->input->post('tmt_pak'),
-                        'tgl_pak' => $this->input->post('tgl_pak'),
-                        'nilai_pak' => $this->input->post('nilai_pak'),
-                        'satuan_kerja' => $this->input->post('satuan_kerja'),
-                        'keterangan' => $this->input->post('keterangan')
+                        'jabatan' => ($this->input->post('txtjabatan'))?$this->input->post('txtjabatan'):null,
+                        'bagian_jabatan' => ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null,
+                        'sub_bagian_jabatan' => ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null,
+                        'tmt_jfung' => ($this->input->post('tmt_jabfung'))?$this->input->post('tmt_jabfung'):null,
+                        'no_skjfung' => ($this->input->post('no_skjfung'))?$this->input->post('no_skjfung'):null,
+                        'tgl_skjafung' => ($this->input->post('tgl_skjafung'))?$this->input->post('tgl_skjafung'):null,
+                        'no_pak' => ($this->input->post('no_pak'))?$this->input->post('no_pak'):null,
+                        'tmt_pak' => ($this->input->post('tmt_pak'))?$this->input->post('tmt_pak'):null,
+                        'tgl_pak' => ($this->input->post('tgl_pak'))?$this->input->post('tgl_pak'):null,
+                        'nilai_pak' => ($this->input->post('nilai_pak'))?$this->input->post('nilai_pak'):null,
+                        'satuan_kerja' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
+                        'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null
                     );
                     $this->db->where('id', $id);
                     $this->db->update('his_jabatan_asn', $arrdata);

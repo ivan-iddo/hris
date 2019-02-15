@@ -63,7 +63,9 @@ class Uk_index extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 				 $id = $this->input->get('id');
+				 if (!empty($id)) {
 				 $this->db->where('id_uk_master',$id);
+				 }
 				 $ressearch = $this->db->get('uk_sys')->result();
 				 
 				 if(!empty($ressearch)){
@@ -175,7 +177,9 @@ public function save_post(){
 				 $id_group = $_POST['id_parent'];
 				 	
 				 $data = array(
-							   'nama'=>$group_group,'deskripsi'=>$group_ket);
+							   'nama'=>($group_group)?$group_group:null,
+							   'deskripsi'=>($group_ket)?$group_ket:null
+							);
 				 if(!empty($id_group)){
 						$data['child']=$id_group;
 					}
@@ -215,15 +219,15 @@ public function save_post(){
 					$t_pph =$_POST['t_pph'];
 					$t_beras = $_POST['t_beras'];
 				 
-				 $data = array('nama'=>$group_group,
-							   'deskripsi'=>$group_ket,
-							   'gaji_pokok' => $group_ket,
-							   'tunjangan_anak' => $t_anak,
-							   'tunjangan_istri' => $t_istri,
-							   'tunjangan_jabatan' => $t_jabatan,
-							   'tunjangan_fungsional' => $t_fungsional,
-							   'tunjangan_pph' => $t_pph,
-							   'tunjangan_beras' => $t_beras,
+				 $data = array('nama'=>($group_group)?$group_group:null,
+							   'deskripsi'=>($group_ket)?$group_ket:null,
+							   'gaji_pokok' => ($group_ket)?$group_ket:null,
+							   'tunjangan_anak' => ($t_anak)?$t_anak:null,
+							   'tunjangan_istri' => ($t_istri)?$t_istri:null,
+							   'tunjangan_jabatan' => ($t_jabatan)?$t_jabatan:null,
+							   'tunjangan_fungsional' => ($t_fungsional)?$t_fungsional:null,
+							   'tunjangan_pph' => ($t_pph)?$t_pph:null,
+							   'tunjangan_beras' => ($t_beras)?$t_beras:null
 							   
 							   );
 				 $this->db->where('id', $this->input->post('id_group'));
@@ -280,9 +284,10 @@ public function save_post(){
             if ($decodedToken != false) {
 				 
 				 $id    = $this->input->get('id');
-				  
+				 if (!empty($id)) {
+					$this->db->where('id_user',$id);
+				  } 
 				   
-				$this->db->where('id_user',$id);
 				$res = $this->db->get('sys_user')->result();
 				foreach($res as $d){
 				  $arr[]=array('id'=>$d->id_user,'nama'=>$d->name,'username'=>$d->username,'email'=>$d->email,'id_group'=>$d->id_grup,'status'=> $d->status);
@@ -306,8 +311,8 @@ public function save_post(){
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 				 
-				 $id_group    = $this->input->post('id_group');
-				 $id_menu    = $this->input->post('id_menu');
+				 $id_group    = ($this->input->post('id_group'))?$this->input->post('id_group'):null;
+				 $id_menu    = ($this->input->post('id_menu'))?$this->input->post('id_menu'):null;
 				  
 				   
 				$this->db->where('id_uk_master',$id_group);

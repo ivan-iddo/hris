@@ -92,8 +92,10 @@ public function save_post(){
             if ($decodedToken != false) {
 				$nama	= $this->input->post('nama');
 				 
+				if (!empty($nama)) {
+					$this->db->where('nama',$nama);
+				}
 				
-				$this->db->where('nama',$nama);
 				$cek = $this->db->get('dok_tipe')->row();
 				if(empty($cek)){
 				$param=array( 
@@ -132,9 +134,9 @@ public function save_post(){
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				$username	= $this->input->post('nama');
-				$username_asli	= $this->input->post('f_user_edit');
-				$id	= $this->input->post('f_id_edit');
+				$username	= ($this->input->post('nama'))?$this->input->post('nama'):null;
+				$username_asli	= ($this->input->post('f_user_edit'))?$this->input->post('f_user_edit'):null;
+				$id	= ($this->input->post('f_id_edit'))?$this->input->post('f_id_edit'):null;
 				 
 					
 				 
@@ -185,7 +187,10 @@ public function save_post(){
             if ($decodedToken != false) {
 				 
 				 $id    = $this->input->get('id');
-				 $this->db->where('id',$id);
+				 if (!empty($id)) {
+				 	$this->db->where('id',$id);
+				 }
+				 
 				 $this->db->update('dok_tipe',array('tampilkan'=>'0'));
 				  
 				 if($this->db->affected_rows() == '1'){
@@ -214,8 +219,9 @@ public function save_post(){
 				 
 				 $id    = $this->input->get('id');
 				  
-				   
-				$this->db->where('id',$id);
+				 if (!empty($id)) {
+				 	$this->db->where('id',$id);
+				 }  
 				$res = $this->db->get('dok_tipe')->result();
 				foreach($res as $d){
 				  $arr[]=array('id'=>$d->id,'nama'=>$d->nama);

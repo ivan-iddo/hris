@@ -26,7 +26,7 @@
           <ul class="nav nav-tabs" id="feedtab">
             <li class="active">
             <input type="hidden" id="f_id_edit">
-              <a data-toggle="tab" href="#demo-lft-tab-1a"><span class="block text-center text-success"><i class="fa fa-credit-card fa-2x"></i></span> Pegawai</a>
+              <a data-toggle="tab" href="#demo-lft-tab-1a"><span class="block text-center text-success"><i class="fa fa-credit-card fa-2x"></i></span> Akun</a>
             </li>
             <li>
               <a data-toggle="tab" href="#demo-lft-tab-1b" onclick="tabKeluargaView();"><span class="block text-center text-success"><i class="fa fa-group fa-2x"></i></span> Keluarga</a>

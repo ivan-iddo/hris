@@ -90,17 +90,16 @@ public function save_post(){
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				$nama	= $this->input->post('nama');
-				 $f_ruang = $this->input->post('f_ruang'); 
-                                    $f_norak = $this->input->post('f_norak');  
-                                    $f_nobox = $this->input->post('f_nobox');  
-                                    $f_deskripsi = $this->input->post('f_deskripsi'); 
-                                    $f_alamat = $this->input->post('f_alamat');
-									$f_kode_arsip = $this->input->post('f_kode_arsip');
-									$f_lantai = $this->input->post('f_lantai');
-									
-									$f_lat = $this->input->post('f_lat');
-									$f_lng = $this->input->post('f_lng');
+				$nama	= ($this->input->post('nama'))?$this->input->post('nama'):null;
+				$f_ruang = ($this->input->post('f_ruang'))?$this->input->post('f_ruang'):null; 
+                $f_norak = ($this->input->post('f_norak'))?$this->input->post('f_norak'):null;  
+                $f_nobox = ($this->input->post('f_nobox'))?$this->input->post('f_nobox'):null;  
+                $f_deskripsi = ($this->input->post('f_deskripsi'))?$this->input->post('f_deskripsi'):null; 
+                $f_alamat = ($this->input->post('f_alamat'))?$this->input->post('f_alamat'):null;
+				$f_kode_arsip = ($this->input->post('f_kode_arsip'))?$this->input->post('f_kode_arsip'):null;
+				$f_lantai = ($this->input->post('f_lantai'))?$this->input->post('f_lantai'):null;
+				$f_lat = ($this->input->post('f_lat'))?$this->input->post('f_lat'):null;
+				$f_lng = ($this->input->post('f_lng'))?$this->input->post('f_lng'):null;
 				
 				$this->db->where('nama',$nama);
 				$cek = $this->db->get('dok_lokasi')->row();
@@ -150,18 +149,18 @@ public function save_post(){
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				$username	= $this->input->post('nama');
-				$username_asli	= $this->input->post('f_user_edit');
-				$id	= $this->input->post('f_id_edit');
-				  $f_ruang = $this->input->post('f_ruang'); 
-                                    $f_norak = $this->input->post('f_norak');  
-                                    $f_nobox = $this->input->post('f_nobox');  
-                                    $f_deskripsi = $this->input->post('f_deskripsi'); 
-                                    $f_alamat = $this->input->post('f_alamat');
-									$f_kode_arsip = $this->input->post('f_kode_arsip');
-									$f_lantai = $this->input->post('f_lantai');
-					$f_lat = $this->input->post('f_lat');
-									$f_lng = $this->input->post('f_lng');
+				$username	= ($this->input->post('nama'))?$this->input->post('nama'):null;
+				$username_asli	= ($this->input->post('f_user_edit'))?$this->input->post('f_user_edit'):null;
+				$id	= ($this->input->post('f_id_edit'))?$this->input->post('f_id_edit'):null;
+				$f_ruang = ($this->input->post('f_ruang'))?$this->input->post('f_ruang'):null; 
+                $f_norak = ($this->input->post('f_norak'))?$this->input->post('f_norak'):null;  
+                $f_nobox = ($this->input->post('f_nobox'))?$this->input->post('f_nobox'):null;  
+                $f_deskripsi = ($this->input->post('f_deskripsi'))?$this->input->post('f_deskripsi'):null; 
+                $f_alamat = ($this->input->post('f_alamat'))?$this->input->post('f_alamat'):null;
+				$f_kode_arsip = ($this->input->post('f_kode_arsip'))?$this->input->post('f_kode_arsip'):null;
+				$f_lantai = ($this->input->post('f_lantai'))?$this->input->post('f_lantai'):null;
+				$f_lat = ($this->input->post('f_lat'))?$this->input->post('f_lat'):null;
+				$f_lng = ($this->input->post('f_lng'))?$this->input->post('f_lng'):null;
 				 
 				
 				if($username != $username_asli){

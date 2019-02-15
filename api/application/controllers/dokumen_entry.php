@@ -38,10 +38,10 @@ class Dokumen_entry extends REST_Controller
             if ($decodedToken != false) {
 				$id	= $this->input->post('id');
 				 
-				 $nama_kegiatan = $this->input->post('nama_kegiatan'); 
-                                    $lama_kegiatan = $this->input->post('lama_kegiatan');  
-                                    $nilai_kegiatan = $this->input->post('nilai_kegiatan');  
-                                    $f_provinsi = $this->input->post('f_provinsi');  
+				$nama_kegiatan = ($this->input->post('nama_kegiatan'))?$this->input->post('nama_kegiatan'):null; 
+                $lama_kegiatan = ($this->input->post('lama_kegiatan'))?$this->input->post('lama_kegiatan'):null;  
+                $nilai_kegiatan = ($this->input->post('nilai_kegiatan'))?$this->input->post('nilai_kegiatan'):null;  
+                $f_provinsi = ($this->input->post('f_provinsi'))?$this->input->post('f_provinsi'):null;  
 				
 				 
 				$cek = '';
@@ -87,14 +87,14 @@ class Dokumen_entry extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				$id	= $this->input->post('id');
-																	 $txt_nomor = $this->input->post('txt_nomor'); 
-                                   $txt_nama = $this->input->post('txt_nama'); 
-                                   $jenis_penanganan = $this->input->post('jenis_penanganan'); 
-                                   $panjang_penanganan = $this->input->post('panjang_penanganan'); 
-                                    $f_provinsi = $this->input->post('f_provinsi');
-																		$id_ruas =  $this->input->post('id_ruas');
-																		$id_jembatan =  $this->input->post('id_jembatan');
+			   $id	= ($this->input->post('id'))?$this->input->post('id'):null;
+			   $txt_nomor = ($this->input->post('txt_nomor'))?$this->input->post('txt_nomor'):null; 
+               $txt_nama = ($this->input->post('txt_nama'))?$this->input->post('txt_nama'):null; 
+               $jenis_penanganan = ($this->input->post('jenis_penanganan'))?$this->input->post('jenis_penanganan'):null; 
+               $panjang_penanganan = ($this->input->post('panjang_penanganan'))?$this->input->post('panjang_penanganan'):null; 
+               $f_provinsi = ($this->input->post('f_provinsi'))?$this->input->post('f_provinsi'):null;
+			   $id_ruas =  ($this->input->post('id_ruas'))?$this->input->post('id_ruas'):null;
+			   $id_jembatan =  ($this->input->post('id_jembatan'))?$this->input->post('id_jembatan'):null;
 				
 				 
 				$cek = '';
@@ -143,16 +143,15 @@ class Dokumen_entry extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				$id	= $this->input->post('id');
-				$id_atribut	= $this->input->post('id_atribut');
-				 
-				   $txt_nomor = $this->input->post('txt_nomor'); 
-                                   $txt_nama = $this->input->post('txt_nama'); 
-                                   $jenis_penanganan = $this->input->post('jenis_penanganan'); 
-                                   $panjang_penanganan = $this->input->post('panjang_penanganan'); 
-                                    $f_provinsi = $this->input->post('f_provinsi');
-																		$id_ruas =  $this->input->post('id_ruas');
-																		$id_jembatan =  $this->input->post('id_jembatan');
+				$id	= ($this->input->post('id'))?$this->input->post('id'):null;
+				$id_atribut	= ($this->input->post('id_atribut'))?$this->input->post('id_atribut'):null;
+				$txt_nomor = ($this->input->post('txt_nomor'))?$this->input->post('txt_nomor'):null; 
+                $txt_nama = ($this->input->post('txt_nama'))?$this->input->post('txt_nama'):null; 
+                $jenis_penanganan = ($this->input->post('jenis_penanganan'))?$this->input->post('jenis_penanganan'):null; 
+                $panjang_penanganan = ($this->input->post('panjang_penanganan'))?$this->input->post('panjang_penanganan'):null; 
+                $f_provinsi = ($this->input->post('f_provinsi'))?$this->input->post('f_provinsi'):null;
+				$id_ruas =  ($this->input->post('id_ruas'))?$this->input->post('id_ruas'):null;
+				$id_jembatan =  ($this->input->post('id_jembatan'))?$this->input->post('id_jembatan'):null;
 				
 				 
 				$cek = '';
@@ -201,13 +200,12 @@ class Dokumen_entry extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				$id	= $this->input->post('id');
-				$id_atribut	= $this->input->post('id_atribut');
-				 
-				 $nama_kegiatan = $this->input->post('nama_kegiatan'); 
-                                    $lama_kegiatan = $this->input->post('lama_kegiatan');  
-                                    $nilai_kegiatan = $this->input->post('nilai_kegiatan');  
-                                    $f_provinsi = $this->input->post('f_provinsi');  
+				$id	= ($this->input->post('id'))?$this->input->post('id'):null;
+				$id_atribut	= ($this->input->post('id_atribut'))?$this->input->post('id_atribut'):null;
+				$nama_kegiatan = ($this->input->post('nama_kegiatan'))?$this->input->post('nama_kegiatan'):null; 
+                $lama_kegiatan = ($this->input->post('lama_kegiatan'))?$this->input->post('lama_kegiatan'):null;  
+                $nilai_kegiatan = ($this->input->post('nilai_kegiatan'))?$this->input->post('nilai_kegiatan'):null;  
+                $f_provinsi = ($this->input->post('f_provinsi'))?$this->input->post('f_provinsi'):null;  
 				
 				 
 				$cek = '';
@@ -258,19 +256,21 @@ class Dokumen_entry extends REST_Controller
 			
 			$this->db->select('dokumen_entry_atribut_khusus.*,m_provinsi.province_name');
 			$this->db->join('m_provinsi','m_provinsi.province_id = dokumen_entry_atribut_khusus.id_prov','LEFT');
-								  $this->db->where('entry_id',$id); 
-								  $this->db->where('dokumen_entry_atribut_khusus.tampilkan','1');
-								  $res = $this->db->get('dokumen_entry_atribut_khusus')->result();
+			if (!empty($id)) {
+				$this->db->where('entry_id',$id);
+			}
+			  $this->db->where('dokumen_entry_atribut_khusus.tampilkan','1');
+			  $res = $this->db->get('dokumen_entry_atribut_khusus')->result();
 		  $no=0;
 		  if(!empty($res)){
 		  foreach($res as $d){
 			++$no;
 			$arr[]=array('no'=>$no,
-																				 'provinsi'=>$d->province_name,
-																				 'id'=>$d->id,
-																				 'nama'=>$d->nama,
-																				 'nilai'=>number_format($d->nilai),
-																				 'lama_kegiatan'=>$d->lama_kegiatan);
+				 'provinsi'=>$d->province_name,
+				 'id'=>$d->id,
+				 'nama'=>$d->nama,
+				 'nilai'=>number_format($d->nilai),
+				 'lama_kegiatan'=>$d->lama_kegiatan);
 		  }
 		  }else{
 			$arr['result']='empty';
@@ -293,28 +293,28 @@ class Dokumen_entry extends REST_Controller
 					 $arr['result']='empty';
             if ($decodedToken != false) {
 				 
-				 	$id = $this->input->get('id'); 
-						
-					if(!empty($id)){ 
+			 	$id = $this->input->get('id'); 
+					
+				if(!empty($id)){ 
 					  
-								  $this->db->join('m_provinsi','m_provinsi.province_id = dokumen_entry_atribut_khusus.id_prov');
-								  $this->db->where('entry_id',$id); 
-								  $this->db->where('dokumen_entry_atribut_khusus.tampilkan','1');
-								  $res = $this->db->get('dokumen_entry_atribut_khusus')->result();
-									if(!empty($res)){
-										$no=0;
-										foreach($res as $dres){
-										++$no;
-										 array('no'=>$no,
-																				 'provinsi'=>$dres->province_name,
-																				 'id'=>$dres->id,
-																				 'nama'=>$dres->nama,
-																				 'nilai'=>$dres->nilai,
-																				 'lama_kegiatan'=>$dres->lama_kegiatan);
-										}
-										}else{
-										$arr['result']='empty';
-										}
+				  $this->db->join('m_provinsi','m_provinsi.province_id = dokumen_entry_atribut_khusus.id_prov');
+				  $this->db->where('entry_id',$id); 
+				  $this->db->where('dokumen_entry_atribut_khusus.tampilkan','1');
+				  $res = $this->db->get('dokumen_entry_atribut_khusus')->result();
+					if(!empty($res)){
+						$no=0;
+						foreach($res as $dres){
+						++$no;
+						 array('no'=>$no,
+						 'provinsi'=>$dres->province_name,
+						 'id'=>$dres->id,
+						 'nama'=>$dres->nama,
+						 'nilai'=>$dres->nilai,
+						 'lama_kegiatan'=>$dres->lama_kegiatan);
+						}
+						}else{
+						$arr['result']='empty';
+						}
 					} 
 			}
 			$this->set_response($arr, REST_Controller::HTTP_OK);
@@ -333,13 +333,13 @@ class Dokumen_entry extends REST_Controller
 				 	$id = $this->input->get('id'); 
 						
 					if(!empty($id)){ 
-									$this->db->select('dokumen_entry_atribut_khusus.*,m_provinsi.province_name,m_provinsi.province_id');
-								  $this->db->join('m_provinsi','m_provinsi.province_id = dokumen_entry_atribut_khusus.id_prov','LEFT');
-								  $this->db->where('dokumen_entry_atribut_khusus.id',$id); 
-								  $this->db->where('dokumen_entry_atribut_khusus.tampilkan','1');
-								  $res = $this->db->get('dokumen_entry_atribut_khusus')->result();
-								  foreach($res as $dres){
-									  $arr['list']=array('id_prov'=>$dres->province_id,'provinsi'=>$dres->province_name,'id'=>$dres->id,'nama'=>$dres->nama,'nilai'=>$dres->nilai,'lama_kegiatan'=>$dres->lama_kegiatan);
+					  $this->db->select('dokumen_entry_atribut_khusus.*,m_provinsi.province_name,m_provinsi.province_id');
+					  $this->db->join('m_provinsi','m_provinsi.province_id = dokumen_entry_atribut_khusus.id_prov','LEFT');
+					  $this->db->where('dokumen_entry_atribut_khusus.id',$id); 
+					  $this->db->where('dokumen_entry_atribut_khusus.tampilkan','1');
+					  $res = $this->db->get('dokumen_entry_atribut_khusus')->result();
+					  foreach($res as $dres){
+						  $arr['list']=array('id_prov'=>$dres->province_id,'provinsi'=>$dres->province_name,'id'=>$dres->id,'nama'=>$dres->nama,'nilai'=>$dres->nilai,'lama_kegiatan'=>$dres->lama_kegiatan);
 								  }
 								  
 								  

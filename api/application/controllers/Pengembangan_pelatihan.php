@@ -154,30 +154,48 @@ class Pengembangan_pelatihan extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                $save["nama_pelatihan"] = $this->input->post("nama_pelatihan");
-                $save["tujuan"] = $this->input->post("tujuan");
-                $save["institusi"] = $this->input->post("institusi");
-                $save["no_disposisi"] = $this->input->post("no_disposisi");
-                $save["laporan"] = $this->input->post("laporan");
-                $save["monev"] = $this->input->post("monev");
-                $save["jenis"] = $this->input->post("jenis");
-                $save["jenis_biaya"] = $this->input->post("jenis_biaya");
-                $save["jenis_perjalanan"] = $this->input->post("jenis_perjalanan");
-                $save["dalam_negeri"] = $this->input->post("dalam_negeri");
-                $save["surat_tugas_dalam_negeri_dalamkota"] = $this->input->post("surat_tugas_dalam_negeri_dalamkota");
-                $save["surat_tugas_dalam_negeri_luarkota"] = $this->input->post("surat_tugas_dalam_negeri_luarkota");
-                $save["surat_tugas_luar_negeri"] = $this->input->post("surat_tugas_luar_negeri");
-                $save["total_hari_kerja"] = $this->input->post("total_hari_kerja");
-                $save["pengembangan_pelatihan_kegiatan"] = $this->input->post("pengembangan_pelatihan_kegiatan");
-                $save["pengembangan_pelatihan_kegiatan_status"] = $this->input->post("pengembangan_pelatihan_kegiatan_status");
+
+                $nama_pelatihan = $this->input->post("nama_pelatihan");
+                $tujuan = $this->input->post("tujuan");
+                $institusi = $this->input->post("institusi");
+                $no_disposisi = $this->input->post("no_disposisi");
+                $laporan = $this->input->post("laporan");
+                $monev = $this->input->post("monev");
+                $jenis = $this->input->post("jenis");
+                $jenis_biaya = $this->input->post("jenis_biaya");
+                $jenis_perjalanan = $this->input->post("jenis_perjalanan");
+                $dalam_negeri = $this->input->post("dalam_negeri");
+                $surat_tugas_dalam_negeri_dalamkota = $this->input->post("surat_tugas_dalam_negeri_dalamkota");
+                $surat_tugas_dalam_negeri_luarkota = $this->input->post("surat_tugas_dalam_negeri_luarkota");
+                $surat_tugas_luar_negeri = $this->input->post("surat_tugas_luar_negeri");
+                $total_hari_kerja = $this->input->post("total_hari_kerja");
+                $pengembangan_pelatihan_kegiatan = $this->input->post("pengembangan_pelatihan_kegiatan");
+                $pengembangan_pelatihan_kegiatan_status = $this->input->post("pengembangan_pelatihan_kegiatan_status");
+
+                $save["nama_pelatihan"] = ($nama_pelatihan)?$nama_pelatihan:null;
+                $save["tujuan"] = ($tujuan)?$tujuan:null;
+                $save["institusi"] = ($institusi)?$institusi:null;
+                $save["no_disposisi"] = ($no_disposisi)?$no_disposisi:null;
+                $save["laporan"] = ($laporan)?$laporan:null;
+                $save["monev"] = ($monev)?$monev:null;
+                $save["jenis"] = ($jenis)?$jenis:null;
+                $save["jenis_biaya"] = ($jenis_biaya)?$jenis_biaya:null;
+                $save["jenis_perjalanan"] = ($jenis_perjalanan)?$jenis_perjalanan:null;
+                $save["dalam_negeri"] = ($dalam_negeri)?$dalam_negeri:null;
+                $save["surat_tugas_dalam_negeri_dalamkota"] = ($surat_tugas_dalam_negeri_dalamkota)?$surat_tugas_dalam_negeri_dalamkota:null;
+                $save["surat_tugas_dalam_negeri_luarkota"] = ($surat_tugas_dalam_negeri_luarkota)?$surat_tugas_dalam_negeri_luarkota:null;
+                $save["surat_tugas_luar_negeri"] = ($surat_tugas_luar_negeri)?$surat_tugas_luar_negeri:null;
+                $save["total_hari_kerja"] = ($total_hari_kerja)?$total_hari_kerja:null;
+                $save["pengembangan_pelatihan_kegiatan"] = ($pengembangan_pelatihan_kegiatan)?$pengembangan_pelatihan_kegiatan:null;
+                $save["pengembangan_pelatihan_kegiatan_status"] = ($pengembangan_pelatihan_kegiatan_status)?$pengembangan_pelatihan_kegiatan_status:null;
                 // 18 = direktur SDM
                 $id_parent = $this->System_auth_model->getparent($decodedToken->data->_pnc_id_grup, '18');
                 $save["id_atasan"] = $id_parent;
                 $save["id_uk"] = $decodedToken->data->_pnc_id_grup;
                 $save["status"] = 102;
 
-                $detail = $this->input->post("detail");
-                $tanggal = $this->input->post("tanggal");
+                $detail = ($this->input->post("detail"))?$this->input->post("detail"):null;
+                $tanggal = ($this->input->post("tanggal"))?$this->input->post("tanggal"):null;
                 
                 $result = $this->Pengembangan_pelatihan_model->create($save);
                 // echo "<pre>";
@@ -227,8 +245,8 @@ class Pengembangan_pelatihan extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                $id = $this->input->post("id");
-                $status = $this->input->post("status");
+                $id = ($this->input->post("id"))?$this->input->post("id"):null;
+                $status = ($this->input->post("status"))?$this->input->post("status"):null;
                 $result = $this->Pengembangan_pelatihan_model->update($id, array("status" => $status));
                 if ($result) {
                     $response['hasil'] = 'success';
@@ -255,26 +273,45 @@ class Pengembangan_pelatihan extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                $save["id"] = $this->input->post("id");
-                $save["nama_pelatihan"] = $this->input->post("nama_pelatihan");
-                $save["tujuan"] = $this->input->post("tujuan");
-                $save["institusi"] = $this->input->post("institusi");
-                $save["no_disposisi"] = $this->input->post("no_disposisi");
-                $save["laporan"] = $this->input->post("laporan");
-                $save["monev"] = $this->input->post("monev");
-                $save["jenis"] = $this->input->post("jenis");
-                $save["jenis_biaya"] = $this->input->post("jenis_biaya");
-                $save["jenis_perjalanan"] = $this->input->post("jenis_perjalanan");
-                $save["dalam_negeri"] = $this->input->post("dalam_negeri");
-                $save["surat_tugas_dalam_negeri_dalamkota"] = $this->input->post("surat_tugas_dalam_negeri_dalamkota");
-                $save["surat_tugas_dalam_negeri_luarkota"] = $this->input->post("surat_tugas_dalam_negeri_luarkota");
-                $save["surat_tugas_luar_negeri"] = $this->input->post("surat_tugas_luar_negeri");
-                $save["total_hari_kerja"] = $this->input->post("total_hari_kerja");
-                $save["pengembangan_pelatihan_kegiatan"] = $this->input->post("pengembangan_pelatihan_kegiatan");
-                $save["pengembangan_pelatihan_kegiatan_status"] = $this->input->post("pengembangan_pelatihan_kegiatan_status");
+
+                $id = $this->input->post("id");
+                $nama_pelatihan = $this->input->post("nama_pelatihan");
+                $tujuan = $this->input->post("tujuan");
+                $institusi = $this->input->post("institusi");
+                $no_disposisi = $this->input->post("no_disposisi");
+                $laporan = $this->input->post("laporan");
+                $monev = $this->input->post("monev");
+                $jenis = $this->input->post("jenis");
+                $jenis_biaya = $this->input->post("jenis_biaya");
+                $jenis_perjalanan = $this->input->post("jenis_perjalanan");
+                $dalam_negeri = $this->input->post("dalam_negeri");
+                $surat_tugas_dalam_negeri_dalamkota = $this->input->post("surat_tugas_dalam_negeri_dalamkota");
+                $surat_tugas_dalam_negeri_luarkota = $this->input->post("surat_tugas_dalam_negeri_luarkota");
+                $surat_tugas_luar_negeri = $this->input->post("surat_tugas_luar_negeri");
+                $total_hari_kerja = $this->input->post("total_hari_kerja");
+                $pengembangan_pelatihan_kegiatan = $this->input->post("pengembangan_pelatihan_kegiatan");
+                $pengembangan_pelatihan_kegiatan_status = $this->input->post("pengembangan_pelatihan_kegiatan_status");
+
+                $save["id"] = ($id)?$id:null;
+                $save["nama_pelatihan"] = ($nama_pelatihan)?$nama_pelatihan:null;
+                $save["tujuan"] = ($tujuan)?$tujuan:null;
+                $save["institusi"] = ($institusi)?$institusi:null;
+                $save["no_disposisi"] = ($no_disposisi)?$no_disposisi:null;
+                $save["laporan"] = ($laporan)?$laporan:null;
+                $save["monev"] = ($monev)?$monev:null;
+                $save["jenis"] = ($jenis)?$jenis:null;
+                $save["jenis_biaya"] = ($jenis_biaya)?$jenis_biaya:null;
+                $save["jenis_perjalanan"] = ($jenis_perjalanan)?$jenis_perjalanan:null;
+                $save["dalam_negeri"] = ($dalam_negeri)?$dalam_negeri:null;
+                $save["surat_tugas_dalam_negeri_dalamkota"] = ($surat_tugas_dalam_negeri_dalamkota)?$surat_tugas_dalam_negeri_dalamkota:null;
+                $save["surat_tugas_dalam_negeri_luarkota"] = ($surat_tugas_dalam_negeri_luarkota)?$surat_tugas_dalam_negeri_luarkota:null;
+                $save["surat_tugas_luar_negeri"] = ($surat_tugas_luar_negeri)?$surat_tugas_luar_negeri:null;
+                $save["total_hari_kerja"] = ($total_hari_kerja)?$total_hari_kerja:null;
+                $save["pengembangan_pelatihan_kegiatan"] = ($pengembangan_pelatihan_kegiatan)?$pengembangan_pelatihan_kegiatan:null;
+                $save["pengembangan_pelatihan_kegiatan_status"] = ($pengembangan_pelatihan_kegiatan_status)?$pengembangan_pelatihan_kegiatan_status:null;
                 
-                $detail = $this->input->post("detail");
-                $tanggal = $this->input->post("tanggal");                
+                $detail = ($this->input->post("detail"))?$this->input->post("detail"):null;
+                $tanggal = ($this->input->post("tanggal"))?$this->input->post("tanggal"):null;                
 
                 $result = $this->Pengembangan_pelatihan_model->update($save["id"], $save);
                 if ($result){

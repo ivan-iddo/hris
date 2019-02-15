@@ -112,21 +112,8 @@
             processData: false,
             success: function (res, textStatus, jQxhr) {
                 const today = new Date();
-                const kontrak_date = new Date(res[0].tgl_kontrak);
-                // const diff = Math.abs(today.getTime() - kontrak_date.getTime());
-                const diff = kontrak_date - today;
-                const diffDays = Math.ceil(diff/(1000 * 3600* 24)); 
-                console.log(kontrak_date, today, diffDays);
-                // tgl str
-                const str_date = new Date(res[0].tgl_str);
-                const diffstr = str_date - today ;
-                const diffDaysstr = Math.ceil(diffstr/(1000 * 3600* 24)); 
-                console.log(str_date, today, diffDaysstr);
-                // tgl sip
-                const sip_date = new Date(res[0].tgl_sip);
-                const diffsip = sip_date - today ;
-                const diffDayssip = Math.ceil(diffsip/(1000 * 3600* 24)); 
-                console.log(sip_date, today, diffDayssip);
+                
+                
 
                 if (res.hasil !== 'error') {
                     
@@ -134,68 +121,92 @@
                         $('#page_nama').html(res[0].nama);
                         $('#page_foto').attr('src', res[0].foto);
 
-                        if (diffDays <= 1)
-                        {
-                            $('#warning-message').html('<div class="alert alert-danger">'+
-                        '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-                        '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa Kontrak Anda Telah Berkhir Pada Tanggal '+ res[0].tgl_kontrak +
-                         '!</div>');
-                        } 
-                        else if (diffDays <= 90) 
-                        {
-                            $('#warning-message').html('<div class="alert alert-warning">'+
-                        '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-                        '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa Kontrak Anda Tinggal '+ diffDays +
-                         ' Hari </div>');
-                        }
-                        else if (diffDays <= 180) {
-                            $('#warning-message').html('<div class="alert alert-info">'+
-                        '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-                        '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa Kontrak Anda Tinggal '+ diffDays +
-                         ' Hari </div>');
-                        }   
+                        if(res[0].tgl_kontrak){
+                            const kontrak_date = new Date(res[0].tgl_kontrak);
+                            // const diff = Math.abs(today.getTime() - kontrak_date.getTime());
+                            const diff = kontrak_date - today;
+                            const diffDays = Math.ceil(diff/(1000 * 3600* 24)); 
+                            console.log(kontrak_date, today, diffDays);
 
-                        if (diffDaysstr <= 1)
-                        {
-                            $('#warning-message-str').html('<div class="alert alert-danger">'+
-                        '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-                        '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa STR Anda Telah Berkhir Pada Tanggal '+ res[0].tgl_str +
-                         '!</div>');
-                        } 
-                        else if (diffDaysstr <= 90) 
-                        {
-                            $('#warning-message-str').html('<div class="alert alert-warning">'+
-                        '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-                        '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa STR Anda Tinggal '+ diffDaysstr +
-                         ' Hari </div>');
+                            if (diffDays <= 1)
+                            {
+                                $('#warning-message').html('<div class="alert alert-danger">'+
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+                            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa Kontrak Anda Telah Berkhir Pada Tanggal '+ res[0].tgl_kontrak +
+                             '!</div>');
+                            } 
+                            else if (diffDays <= 90) 
+                            {
+                                $('#warning-message').html('<div class="alert alert-warning">'+
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+                            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa Kontrak Anda Tinggal '+ diffDays +
+                             ' Hari </div>');
+                            }
+                            else if (diffDays <= 180) {
+                                $('#warning-message').html('<div class="alert alert-info">'+
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+                            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa Kontrak Anda Tinggal '+ diffDays +
+                             ' Hari </div>');
+                            }
                         }
-                        else if (diffDaysstr <= 180) {
-                            $('#warning-message-str').html('<div class="alert alert-info">'+
-                        '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-                        '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa STR Anda Tinggal '+ diffDaysstr +
-                         ' Hari </div>');
-                        } 
+                        
+                        if (res[0].tgl_str) {
+                            const str_date = new Date(res[0].tgl_str);
+                            const diffstr = str_date - today ;
+                            const diffDaysstr = Math.ceil(diffstr/(1000 * 3600* 24)); 
+                            console.log(str_date, today, diffDaysstr);
 
-                        if (diffDayssip <= 1)
-                        {
-                            $('#warning-message-sip').html('<div class="alert alert-danger">'+
-                        '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-                        '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa SIP Anda Telah Berkhir Pada Tanggal '+ res[0].tgl_sip +
-                         '!</div>');
-                        } 
-                        else if (diffDayssip <= 90) 
-                        {
-                            $('#warning-message-sip').html('<div class="alert alert-warning">'+
-                        '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-                        '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa SIP Anda Tinggal '+ diffDayssip +
-                         ' Hari </div>');
+                            if (diffDaysstr <= 1)
+                            {
+                                $('#warning-message-str').html('<div class="alert alert-danger">'+
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+                            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa STR Anda Telah Berkhir Pada Tanggal '+ res[0].tgl_str +
+                             '!</div>');
+                            } 
+                            else if (diffDaysstr <= 90) 
+                            {
+                                $('#warning-message-str').html('<div class="alert alert-warning">'+
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+                            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa STR Anda Tinggal '+ diffDaysstr +
+                             ' Hari </div>');
+                            }
+                            else if (diffDaysstr <= 180) {
+                                $('#warning-message-str').html('<div class="alert alert-info">'+
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+                            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa STR Anda Tinggal '+ diffDaysstr +
+                             ' Hari </div>');
+                            } 
                         }
-                        else if (diffDayssip <= 180) {
-                            $('#warning-message-sip').html('<div class="alert alert-info">'+
-                        '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-                        '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa SIP Anda Tinggal '+ diffDayssip +
-                         ' Hari </div>');
-                        } 
+
+                        if(res[0].tgl_sip){
+                            const sip_date = new Date(res[0].tgl_sip);
+                            const diffsip = sip_date - today ;
+                            const diffDayssip = Math.ceil(diffsip/(1000 * 3600* 24)); 
+                            console.log(sip_date, today, res[0].tgl_sip);
+
+                            if (diffDayssip <= 1)
+                            {
+                                $('#warning-message-sip').html('<div class="alert alert-danger">'+
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+                            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa SIP Anda Telah Berkhir Pada Tanggal '+ res[0].tgl_sip +
+                             '!</div>');
+                            } 
+                            else if (diffDayssip <= 90) 
+                            {
+                                $('#warning-message-sip').html('<div class="alert alert-warning">'+
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+                            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa SIP Anda Tinggal '+ diffDayssip +
+                             ' Hari </div>');
+                            }
+                            else if (diffDayssip <= 180) {
+                                $('#warning-message-sip').html('<div class="alert alert-info">'+
+                            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+                            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> Masa SIP Anda Tinggal '+ diffDayssip +
+                             ' Hari </div>');
+                            }
+                        }
+
+                         
 
                         $('.page-jabatan').html(res[0].jabatan);
                         $('#id_user').val(res[0].id);

@@ -107,21 +107,22 @@ public function save_post(){
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				$nama	= $this->input->post('nama');
-				 $f_link_id = $this->input->post('f_link_id');
-				  $f_kode_ruas = $this->input->post('f_kode_ruas');
-                                  $f_provinsi = $this->input->post('f_provinsi');
-                                  $f_keterangan = $this->input->post('f_keterangan');
-                                  $f_nama = $this->input->post('f_nama');
-                                  $f_panjang = $this->input->post('f_panjang');
-                                  $f_sta_awal = $this->input->post('f_sta_awal');
-                                  $f_sta_akhir= $this->input->post('f_sta_akhir');
-                                  $f_kord_awal = $this->input->post('f_kord_awal');
-                                  $f_kord_akhir = $this->input->post('f_kord_akhir');
-                                  $f_titik_ref_awal = $this->input->post('f_titik_ref_awal');
-                                  $f_titik_ref_akhir = $this->input->post('f_titik_ref_akhir');
-								  $id_jalan = $this->input->post('id_jalan');
-				
+					
+			  $nama	= ($this->input->post('nama'))?$this->input->post('nama'):null;
+			  $f_link_id = ($this->input->post('f_link_id'))?$this->input->post('f_link_id'):null;
+			  $f_kode_ruas = ($this->input->post('f_kode_ruas'))?$this->input->post('f_kode_ruas'):null;
+              $f_provinsi = ($this->input->post('f_provinsi'))?$this->input->post('f_provinsi'):null;
+              $f_keterangan = ($this->input->post('f_keterangan'))?$this->input->post('f_keterangan'):null;
+              $f_nama = ($this->input->post('f_nama'))?$this->input->post('f_nama'):null;
+              $f_panjang = ($this->input->post('f_panjang'))?$this->input->post('f_panjang'):null;
+              $f_sta_awal = ($this->input->post('f_sta_awal'))?$this->input->post('f_sta_awal'):null;
+              $f_sta_akhir= ($this->input->post('f_sta_akhir'))?$this->input->post('f_sta_akhir'):null;
+              $f_kord_awal = ($this->input->post('f_kord_awal'))?$this->input->post('f_kord_awal'):null;
+              $f_kord_akhir = ($this->input->post('f_kord_akhir'))?$this->input->post('f_kord_akhir'):null;
+              $f_titik_ref_awal = ($this->input->post('f_titik_ref_awal'))?$this->input->post('f_titik_ref_awal'):null;
+              $f_titik_ref_akhir = ($this->input->post('f_titik_ref_akhir'))?$this->input->post('f_titik_ref_akhir'):null;
+			  $id_jalan = ($this->input->post('id_jalan'))?$this->input->post('id_jalan'):null;
+
 				$this->db->where('nama',$nama);
 				$cek = $this->db->get('ruas_jembatan')->row();
 				if(empty($cek)){
@@ -173,22 +174,22 @@ public function save_post(){
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				$username	= $this->input->post('nama');
-				$username_asli	= $this->input->post('f_user_edit');
-				$id	= $this->input->post('f_id_edit');
-				  $f_link_id = $this->input->post('f_link_id');
-				  $f_kode_ruas = $this->input->post('f_kode_ruas');
-                                  $f_provinsi = $this->input->post('f_provinsi');
-                                  $f_keterangan = $this->input->post('f_keterangan');
-                                  $f_nama = $this->input->post('f_nama');
-                                  $f_panjang = $this->input->post('f_panjang');
-                                  $f_sta_awal = $this->input->post('f_sta_awal');
-                                  $f_sta_akhir= $this->input->post('f_sta_akhir');
-                                  $f_kord_awal = $this->input->post('f_kord_awal');
-                                  $f_kord_akhir = $this->input->post('f_kord_akhir');
-                                  $f_titik_ref_awal = $this->input->post('f_titik_ref_awal');
-                                  $f_titik_ref_akhir = $this->input->post('f_titik_ref_akhir');
-					$id_jalan = $this->input->post('id_jalan');
+				$username	= ($this->input->post('nama'))?$this->input->post('nama'):null;
+				$username_asli	= ($this->input->post('f_user_edit'))?$this->input->post('f_user_edit'):null;
+				$id	= ($this->input->post('f_id_edit'))?$this->input->post('f_id_edit'):null;
+              $f_link_id = ($this->input->post('f_link_id'))?$this->input->post('f_link_id'):null;
+			  $f_kode_ruas = ($this->input->post('f_kode_ruas'))?$this->input->post('f_kode_ruas'):null;
+              $f_provinsi = ($this->input->post('f_provinsi'))?$this->input->post('f_provinsi'):null;
+              $f_keterangan = ($this->input->post('f_keterangan'))?$this->input->post('f_keterangan'):null;
+              $f_nama = ($this->input->post('f_nama'))?$this->input->post('f_nama'):null;
+              $f_panjang = ($this->input->post('f_panjang'))?$this->input->post('f_panjang'):null;
+              $f_sta_awal = ($this->input->post('f_sta_awal'))?$this->input->post('f_sta_awal'):null;
+              $f_sta_akhir= ($this->input->post('f_sta_akhir'))?$this->input->post('f_sta_akhir'):null;
+              $f_kord_awal = ($this->input->post('f_kord_awal'))?$this->input->post('f_kord_awal'):null;
+              $f_kord_akhir = ($this->input->post('f_kord_akhir'))?$this->input->post('f_kord_akhir'):null;
+              $f_titik_ref_awal = ($this->input->post('f_titik_ref_awal'))?$this->input->post('f_titik_ref_awal'):null;
+              $f_titik_ref_akhir = ($this->input->post('f_titik_ref_akhir'))?$this->input->post('f_titik_ref_akhir'):null;
+				$id_jalan = ($this->input->post('id_jalan'))?$this->input->post('id_jalan'):null;
 				 
 				
 				if($username != $username_asli){

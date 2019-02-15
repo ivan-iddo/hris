@@ -245,7 +245,10 @@ class Appdata extends REST_Controller
                 $group_ket = $_POST['group_ket'];
 
                 $data = array(
-                    'id_aplikasi' => $group_aplikasi, 'grup' => $group_group, 'ket' => $group_ket);
+                    'id_aplikasi' => ($group_aplikasi)?$group_aplikasi:null, 
+                    'grup' => ($group_group)?$group_group:null, 
+                    'ket' => ($group_ket)?$group_ket:null
+                );
                 $this->db->insert('sys_grup_user', $data);
                 if ($this->db->affected_rows() == '1') {
                     $arr['hasil'] = 'success';
@@ -277,7 +280,10 @@ class Appdata extends REST_Controller
                 $group_ket = $_POST['group_ket'];
 
                 $data = array(
-                    'id_aplikasi' => $group_aplikasi, 'grup' => $group_group, 'ket' => $group_ket);
+                    'id_aplikasi' => ($group_aplikasi)?$group_aplikasi:null, 
+                    'grup' => ($group_group)?$group_group:null, 
+                    'ket' => ($group_ket)?$group_ket:null
+                );
                 $this->db->where('id_grup', $this->input->post('id_group'));
                 $this->db->update('sys_grup_user', $data);
                 if ($this->db->affected_rows() == '1') {
@@ -349,7 +355,12 @@ class Appdata extends REST_Controller
                     $id_modul = $IDS[0];
                     $id_menu = $IDS[1];
 
-                    $dataarr = array('id_aplikasi' => '1', 'id_group' => $id_group, 'id_modul' => $id_modul, 'id_menu' => $id_menu);
+                    $dataarr = array(
+                        'id_aplikasi' => '1', 
+                        'id_group' => ($id_group)?$id_group:null, 
+                        'id_modul' => ($id_modul)?$id_modul:null, 
+                        'id_menu' => ($id_menu)?$id_menu:null
+                    );
                     $this->db->insert('sys_user_access', $dataarr);
                 }
                 if ($this->db->affected_rows() == '1') {
@@ -380,7 +391,10 @@ class Appdata extends REST_Controller
                 $this->db->order_by('province_name', 'ASC');
                 $res = $this->db->get('m_provinsi')->result();
                 foreach ($res as $d) {
-                    $arr['result'][] = array('label' => $d->province_name, 'value' => $d->province_id);
+                    $arr['result'][] = array(
+                        'label' => $d->province_name, 
+                        'value' => $d->province_id
+                    );
                 }
 
                 $this->set_response($arr, REST_Controller::HTTP_OK);

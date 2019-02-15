@@ -394,9 +394,9 @@
                                                 <div class="col-sm-8"><select class="select-chosen" id="txtinputstatus"
                                                                               name="inputstatus" style="width: 100%;"
                                                                               onChange="getjabatanasn(this.value);">
-                                                                                <span
-                                        class="text-xs text-danger">*Wajib diisi</span>
                                                                               </select>
+                                                                              <span
+                                        class="text-xs text-danger">*Wajib diisi</span>
                                                 </div>
                                             </div>
                                             <div class="datasn">

@@ -131,8 +131,8 @@
            {headerName: "ID", field: "id", width: 70, filterParams:{newRowsAction: 'keep'}},
            {headerName: "NIP", field: "nip", width: 100, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
-           {headerName: "Devisi", field: "nama_group", width: 190, filterParams:{newRowsAction: 'keep'}},
-           {headerName: "Status Kontrak", field: "tgl_kontrak", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Devisi", field: "nama_group", width: 250, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Status Kontrak", field: "tgl_kontrak", width: 250, filterParams:{newRowsAction: 'keep'}},
         ];
    
    
@@ -204,8 +204,8 @@
            {headerName: "ID", field: "id", width: 70, filterParams:{newRowsAction: 'keep'}},
            {headerName: "NIP", field: "nip", width: 100, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
-           {headerName: "Devisi", field: "nama_group", width: 190, filterParams:{newRowsAction: 'keep'}},
-           {headerName: "Status STR", field: "tgl_str", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Devisi", field: "nama_group", width: 250, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Status STR", field: "tgl_str", width: 250, filterParams:{newRowsAction: 'keep'}},
            
         ];
    
@@ -278,8 +278,8 @@
            {headerName: "ID", field: "id", width: 70, filterParams:{newRowsAction: 'keep'}},
            {headerName: "NIP", field: "nip", width: 100, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
-           {headerName: "Devisi", field: "nama_group", width: 190, filterParams:{newRowsAction: 'keep'}},
-           {headerName: "Status SIP", field: "tgl_sip", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Devisi", field: "nama_group", width: 250, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Status SIP", field: "tgl_sip", width: 250, filterParams:{newRowsAction: 'keep'}},
            
         ];
    

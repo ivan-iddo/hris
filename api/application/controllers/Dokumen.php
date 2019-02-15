@@ -241,7 +241,9 @@ public function save_post(){
 				 $id_group = $_POST['id_parent'];
 				 	
 				 $data = array(
-							   'nama'=>$group_group,'deskripsi'=>$group_ket);
+							   'nama'=>($group_group)?$group_group:null,
+							   'deskripsi'=>($group_ket)?$group_ket:null
+							);
 				 if(!empty($id_group)){
 						$data['child']=$id_group;
 					}
@@ -275,7 +277,10 @@ public function save_post(){
 				 $group_group    = $_POST['group_group'];
 				 $group_ket      = $_POST['group_ket'];
 				 
-				 $data = array('nama'=>$group_group,'deskripsi'=>$group_ket);
+				 $data = array(
+							   'nama'=>($group_group)?$group_group:null,
+							   'deskripsi'=>($group_ket)?$group_ket:null
+							);
 				 $this->db->where('id', $this->input->post('id_group'));
 				 $this->db->update('dok_master',$data);
 				 if($this->db->affected_rows() == '1'){
@@ -332,7 +337,7 @@ public function save_post(){
 				 $id    = $this->input->get('id');
 				  
 				   
-				$this->db->where('id_user',$id);
+				$this->db->where('id_user',$id;
 				$res = $this->db->get('sys_user')->result();
 				foreach($res as $d){
 				  $arr[]=array('id'=>$d->id_user,'nama'=>$d->name,'username'=>$d->username,'email'=>$d->email,'id_group'=>$d->id_grup,'status'=> $d->status);
@@ -493,22 +498,22 @@ public function save_post(){
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				$nodoc = $this->input->post('nodoc');
-				$titledoc = $this->input->post('titledoc');
-				$created_date = $this->input->post('created_date').' '.date('H:i:s');
-				$jra_date = $this->input->post('jra_date').' '.date('H:i:s');
-				$cover = $this->input->post('cover-fl');
-				$media_type = $this->input->post('media_type');
-				$kategori_dokumen = $this->input->post('kategori_dokumen');
-				$format_dok = $this->input->post('format_dok');
-				$status_dok = $this->input->post('status_dok');
-				$select_uk = $this->input->post('select_uk');
-				$area_akses = $this->input->post('area_akses');
-				$deskripsi = $this->input->post('deskripsi');
-				$kunci = $this->input->post('kunci');
-				$lokasiarsip = $this->input->post('lokasiarsip');
-				$id_dok_master = $this->input->post('id_master');
-				$id_dok_tipe = $this->input->post('id_tipe');
+				$nodoc = ($this->input->post('nodoc'))?$this->input->post('nodoc'):null;
+				$titledoc = ($this->input->post('titledoc'))?$this->input->post('titledoc'):null;
+				$created_date = ($this->input->post('created_date').' '.date('H:i:s'))?$this->input->post('created_date').' '.date('H:i:s'):null;
+				$jra_date = ($this->input->post('jra_date').' '.date('H:i:s'))?$this->input->post('jra_date').' '.date('H:i:s'):null;
+				$cover = ($this->input->post('cover-fl'))?$this->input->post('cover-fl'):null;
+				$media_type = ($this->input->post('media_type'))?$this->input->post('media_type'):null;
+				$kategori_dokumen = ($this->input->post('kategori_dokumen'))?$this->input->post('kategori_dokumen'):null;
+				$format_dok = ($this->input->post('format_dok'))?$this->input->post('format_dok'):null;
+				$status_dok = ($this->input->post('status_dok'))?$this->input->post('status_dok'):null;
+				$select_uk = ($this->input->post('select_uk'))?$this->input->post('select_uk'):null;
+				$area_akses = ($this->input->post('area_akses'))?$this->input->post('area_akses'):null;
+				$deskripsi = ($this->input->post('deskripsi'))?$this->input->post('deskripsi'):null;
+				$kunci = ($this->input->post('kunci'))?$this->input->post('kunci'):null;
+				$lokasiarsip = ($this->input->post('lokasiarsip'))?$this->input->post('lokasiarsip'):null;
+				$id_dok_master = ($this->input->post('id_master'))?$this->input->post('id_master'):null;
+				$id_dok_tipe = ($this->input->post('id_tipe'))?$this->input->post('id_tipe'):null;
 				//$this->response($_FILES);
 				$config['upload_path'] = 'upload/';
 				$config['allowed_types'] = 'gif|jpg|png|jpeg';

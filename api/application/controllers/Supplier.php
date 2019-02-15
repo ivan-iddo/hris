@@ -36,37 +36,37 @@ class Supplier extends CI_Controller
 			$filename1 = '';
 			$filename2 = '';
 			
-										if ($this->upload->do_upload('cover_file'))
-																	{
-																											$data = array('upload_data' => $this->upload->data());
-																											$filename = $data['upload_data']['file_name'];
-																											   //$error = array('error' => $this->upload->display_errors());
-																													 //$arr['hasil']='error';
-																														//$arr['message']='Data Gagal Ditambah!';
-							
-																	}
+			if ($this->upload->do_upload('cover_file'))
+										{
+				$data = array('upload_data' => $this->upload->data());
+				$filename = $data['upload_data']['file_name'];
+				   //$error = array('error' => $this->upload->display_errors());
+						 //$arr['hasil']='error';
+							//$arr['message']='Data Gagal Ditambah!';
+
+										}
 																	
 			
-															if ($this->upload->do_upload('cover_file1'))
-																	{
-																											$data = array('upload_data' => $this->upload->data());
-																											$filename1 = $data['upload_data']['file_name'];
-																											   //$error = array('error' => $this->upload->display_errors());
-																													 //$arr['hasil']='error';
-																														//$arr['message']='Data Gagal Ditambah!';
-							
-																	}
+			if ($this->upload->do_upload('cover_file1'))
+					{
+				$data = array('upload_data' => $this->upload->data());
+				$filename1 = $data['upload_data']['file_name'];
+				   //$error = array('error' => $this->upload->display_errors());
+						 //$arr['hasil']='error';
+							//$arr['message']='Data Gagal Ditambah!';
+
+					}
 																	
-																	if ($this->upload->do_upload('cover_file2'))
-																	{
-																		
-																											$data = array('upload_data' => $this->upload->data());
-																											$filename2 = $data['upload_data']['file_name'];
-																											// $error = array('error' => $this->upload->display_errors());
-																													//$arr['hasil']='error';
-																													//	$arr['message']='Data Gagal Ditambah!';
-							
-																	}
+			if ($this->upload->do_upload('cover_file2'))
+			{
+				
+				$data = array('upload_data' => $this->upload->data());
+				$filename2 = $data['upload_data']['file_name'];
+				// $error = array('error' => $this->upload->display_errors());
+						//$arr['hasil']='error';
+						//	$arr['message']='Data Gagal Ditambah!';
+
+			}
 																	
 																	
 			$hasiltheme = $this->db->get('themes')->row();
@@ -88,21 +88,21 @@ class Supplier extends CI_Controller
 				
 				
 			
-																											$datas['title'] =  $title;
-							$datas['description'] =  $desc;
-																											
-																											$this->db->insert('themes', $datas);
-																																		$insert_id = $this->db->insert_id();
-																													
-																													
-																														if($this->db->affected_rows() == '1'){
-																														$arr['hasil']='success';
-																														$arr['message']='Data berhasil ditambah!';
-																														$arr['id']=$insert_id;
-																														}else{
-																														$arr['hasil']='error';
-																														$arr['message']='Data Gagal Ditambah!';
-																														}
+			$datas['title'] =  $title;
+			$datas['description'] =  $desc;
+																							
+			$this->db->insert('themes', $datas);
+										$insert_id = $this->db->insert_id();
+					
+					
+						if($this->db->affected_rows() == '1'){
+						$arr['hasil']='success';
+						$arr['message']='Data berhasil ditambah!';
+						$arr['id']=$insert_id;
+						}else{
+						$arr['hasil']='error';
+						$arr['message']='Data Gagal Ditambah!';
+						}
 			}else{
 				
 				  $id=$hasiltheme->id;
@@ -113,18 +113,18 @@ class Supplier extends CI_Controller
 							 
 							$this->db->where('id',$id);
 																											
-																											$this->db->update('themes', $datas);
-																																	//	$insert_id = $this->db->insert_id();
-																													
-																													
-																														if($this->db->affected_rows() == '1'){
-																														$arr['hasil']='success';
-																														$arr['message']='Data berhasil ditambah!';
-																														//$arr['id']=$insert_id;
-																														}else{
-																														$arr['hasil']='error';
-																														$arr['message']='Data Gagal Ditambah!';
-																														}
+							$this->db->update('themes', $datas);
+													//	$insert_id = $this->db->insert_id();
+									
+									
+										if($this->db->affected_rows() == '1'){
+										$arr['hasil']='success';
+										$arr['message']='Data berhasil ditambah!';
+										//$arr['id']=$insert_id;
+										}else{
+										$arr['hasil']='error';
+										$arr['message']='Data Gagal Ditambah!';
+										}
 						
 						
 			}
@@ -137,25 +137,25 @@ class Supplier extends CI_Controller
 		//$headers = $this->input->request_headers();
 		 
 		
-		        $nodoc = $this->input->post('nodoc');
-				$titledoc = $this->input->post('titledoc');
-				$created_date = $this->input->post('created_date');
-				$jra_date = $this->input->post('jra_date');
-				$cover = $this->input->post('cover-fl');
-				$media_type = $this->input->post('f_media_type');
-				$kategori_dokumen = $this->input->post('f_kategori_dokumen');
-				$format_dok = $this->input->post('f_format_dok');
-				$status_dok = $this->input->post('f_status_dok');
-				$select_uk = $this->input->post('select_uk');
-				$area_akses = $this->input->post('f_area_akses');
-				$deskripsi = $this->input->post('deskripsi');
-				$kunci = $this->input->post('kunci');
-				$lokasiarsip = $this->input->post('lokasiarsip');
-				$id_dok_master = $this->input->post('id_master');
-				$id_dok_tipe = $this->input->post('id_tipe');
-				$user_group = $this->input->post('user_group');
-				$lat = $this->input->post('lati');
-				$lng = $this->input->post('longi');
+		        $nodoc = ($this->input->post('nodoc'))?$this->input->post('nodoc'):null;
+				$titledoc = ($this->input->post('titledoc'))?$this->input->post('titledoc'):null;
+				$created_date = ($this->input->post('created_date'))?$this->input->post('created_date'):null;
+				$jra_date = ($this->input->post('jra_date'))?$this->input->post('jra_date'):null;
+				$cover = ($this->input->post('cover-fl'))?$this->input->post('cover-fl'):null;
+				$media_type = ($this->input->post('f_media_type'))?$this->input->post('f_media_type'):null;
+				$kategori_dokumen = ($this->input->post('f_kategori_dokumen'))?$this->input->post('f_kategori_dokumen'):null;
+				$format_dok = ($this->input->post('f_format_dok'))?$this->input->post('f_format_dok'):null;
+				$status_dok = ($this->input->post('f_status_dok'))?$this->input->post('f_status_dok'):null;
+				$select_uk = ($this->input->post('select_uk'))?$this->input->post('select_uk'):null;
+				$area_akses = ($this->input->post('f_area_akses'))?$this->input->post('f_area_akses'):null;
+				$deskripsi = ($this->input->post('deskripsi'))?$this->input->post('deskripsi'):null;
+				$kunci = ($this->input->post('kunci'))?$this->input->post('kunci'):null;
+				$lokasiarsip = ($this->input->post('lokasiarsip'))?$this->input->post('lokasiarsip'):null;
+				$id_dok_master = ($this->input->post('id_master'))?$this->input->post('id_master'):null;
+				$id_dok_tipe = ($this->input->post('id_tipe'))?$this->input->post('id_tipe'):null;
+				$user_group = ($this->input->post('user_group'))?$this->input->post('user_group'):null;
+				$lat = ($this->input->post('lati'))?$this->input->post('lati'):null;
+				$lng = ($this->input->post('longi'))?$this->input->post('longi'):null;
 				
 				if(empty(trim($created_date))){
 					$created_date = date('Y-m-d');
@@ -174,37 +174,37 @@ class Supplier extends CI_Controller
 		 
 				if (!$this->upload->do_upload('cover_file'))
 																	{
-																											$error = array('error' => $this->upload->display_errors());
+				$error = array('error' => $this->upload->display_errors());
 									
 							
 																	}
 																	else
 																	{
-																											$data = array('upload_data' => $this->upload->data());
-																											$filename = $data['upload_data']['file_name'];
+							$data = array('upload_data' => $this->upload->data());
+							$filename = $data['upload_data']['file_name'];
 																											
 																	}
 					
 							$datas = array('no_dok' =>$nodoc,
-																									'judul' =>$titledoc ,
-																									'tanggal_pembuatan' =>$created_date.' '.date('H:i:s'),
-																									'JRA' =>$jra_date.' '.date('H:i:s'),
-																									'cover_photo' =>$filename ,
-																									'tipe_media' =>$media_type ,
-																									'kategori_dokumen' =>$kategori_dokumen ,
-																									'format' =>$format_dok ,
-																									'status' =>$status_dok,
-																									'id_uk' =>$select_uk ,
-																									'id_area_akses' =>$area_akses ,
-																									'deskripsi' =>$deskripsi,
-																									'keyword' =>$kunci,
-																									'id_lokasi' => $lokasiarsip,
-																									'id_dok_master' => $id_dok_master,
-																									'id_dok_tipe' => $id_dok_tipe,
-																									'user_group' => $user_group,
-																									'author' =>$this->input->post('user_id'),
-																									'lat'=>$lat,
-																									'lng'=>$lng
+							'judul' =>$titledoc ,
+							'tanggal_pembuatan' =>$created_date.' '.date('H:i:s'),
+							'JRA' =>$jra_date.' '.date('H:i:s'),
+							'cover_photo' =>$filename ,
+							'tipe_media' =>$media_type ,
+							'kategori_dokumen' =>$kategori_dokumen ,
+							'format' =>$format_dok ,
+							'status' =>$status_dok,
+							'id_uk' =>$select_uk ,
+							'id_area_akses' =>$area_akses ,
+							'deskripsi' =>$deskripsi,
+							'keyword' =>$kunci,
+							'id_lokasi' => $lokasiarsip,
+							'id_dok_master' => $id_dok_master,
+							'id_dok_tipe' => $id_dok_tipe,
+							'user_group' => $user_group,
+							'author' =>$this->input->post('user_id'),
+							'lat'=>$lat,
+							'lng'=>$lng
 								);
 								
 							$this->db->insert('dokumen_entry', $datas);
@@ -240,26 +240,26 @@ class Supplier extends CI_Controller
 		 
 				if (!$this->upload->do_upload('doc_file'))
 																	{
-																											$error = array('error' => $this->upload->display_errors());
+					$error = array('error' => $this->upload->display_errors());
 									
 							
 																	}
 																	else
 																	{
-																											$data = array('upload_data' => $this->upload->data());
-																											$filename = $data['upload_data']['file_name'];
+					$data = array('upload_data' => $this->upload->data());
+					$filename = $data['upload_data']['file_name'];
 																											
 																	}
 					
-							$datas = array('entry_id' =>$this->input->post('id_data'), 
-																									'tanggal' =>date('Y-m-d H:i:s'),
-																									'tampilkan' =>'1',
-																									'nama' =>$filename,
-																									'author' =>$this->input->post('user_id') ,
-																									'url'=> 	$config['upload_path'].'/'.$filename
+					$datas = array('entry_id' =>$this->input->post('id_data'), 
+					'tanggal' =>date('Y-m-d H:i:s'),
+					'tampilkan' =>'1',
+					'nama' =>$filename,
+					'author' =>$this->input->post('user_id') ,
+					'url'=> 	$config['upload_path'].'/'.$filename
 								);
 								
-							$this->db->insert('dokumen_entry_file', $datas);
+					$this->db->insert('dokumen_entry_file', $datas);
 										$insert_id = $this->db->insert_id();
 					
 					
@@ -288,27 +288,26 @@ class Supplier extends CI_Controller
 	
 	public function edit_entry(){
 		//$headers = $this->input->request_headers();
-		 
-		
-		  $nodoc = $this->input->post('nodoc');
-				$titledoc = $this->input->post('titledoc');
-				$created_date = $this->input->post('created_date');
-				$jra_date = $this->input->post('jra_date');
-				$cover = $this->input->post('cover-fl');
-				$media_type = $this->input->post('f_media_type');
-				$kategori_dokumen = $this->input->post('f_kategori_dokumen');
-				$format_dok = $this->input->post('f_format_dok');
-				$status_dok = $this->input->post('f_status_dok');
-				$select_uk = $this->input->post('select_uk');
-				$area_akses = $this->input->post('f_area_akses');
-				$deskripsi = $this->input->post('deskripsi');
-				$kunci = $this->input->post('kunci');
-				$lokasiarsip = $this->input->post('lokasiarsip');
-				$id_dok_master = $this->input->post('id_master');
-				$id_dok_tipe = $this->input->post('id_tipe');
-				$user_group = $this->input->post('user_group');
-					$lat = $this->input->post('lati');
-				$lng = $this->input->post('longi');
+
+				$nodoc = ($this->input->post('nodoc'))?$this->input->post('nodoc'):null;
+				$titledoc = ($this->input->post('titledoc'))?$this->input->post('titledoc'):null;
+				$created_date = ($this->input->post('created_date'))?$this->input->post('created_date'):null;
+				$jra_date = ($this->input->post('jra_date'))?$this->input->post('jra_date'):null;
+				$cover = ($this->input->post('cover-fl'))?$this->input->post('cover-fl'):null;
+				$media_type = ($this->input->post('f_media_type'))?$this->input->post('f_media_type'):null;
+				$kategori_dokumen = ($this->input->post('f_kategori_dokumen'))?$this->input->post('f_kategori_dokumen'):null;
+				$format_dok = ($this->input->post('f_format_dok'))?$this->input->post('f_format_dok'):null;
+				$status_dok = ($this->input->post('f_status_dok'))?$this->input->post('f_status_dok'):null;
+				$select_uk = ($this->input->post('select_uk'))?$this->input->post('select_uk'):null;
+				$area_akses = ($this->input->post('f_area_akses'))?$this->input->post('f_area_akses'):null;
+				$deskripsi = ($this->input->post('deskripsi'))?$this->input->post('deskripsi'):null;
+				$kunci = ($this->input->post('kunci'))?$this->input->post('kunci'):null;
+				$lokasiarsip = ($this->input->post('lokasiarsip'))?$this->input->post('lokasiarsip'):null;
+				$id_dok_master = ($this->input->post('id_master'))?$this->input->post('id_master'):null;
+				$id_dok_tipe = ($this->input->post('id_tipe'))?$this->input->post('id_tipe'):null;
+				$user_group = ($this->input->post('user_group'))?$this->input->post('user_group'):null;
+				$lat = ($this->input->post('lati'))?$this->input->post('lati'):null;
+				$lng = ($this->input->post('longi'))?$this->input->post('longi'):null;
 				
 				if(empty(trim($created_date))){
 					$created_date = date('Y-m-d');
@@ -340,7 +339,7 @@ class Supplier extends CI_Controller
                 else
                 {
                           $data = array('upload_data' => $this->upload->data());
-																										$filename = $data['upload_data']['file_name'];
+						$filename = $data['upload_data']['file_name'];
                 }
 		 
 				
@@ -357,13 +356,13 @@ class Supplier extends CI_Controller
                         'id_area_akses' =>$area_akses ,
                         'deskripsi' =>$deskripsi,
                         'keyword' =>$kunci,
-																								'id_lokasi' => $lokasiarsip,
-																								'id_dok_master' => $id_dok_master,
-																								'id_dok_tipe' => $id_dok_tipe,
-																								'user_group' => $user_group,
-																								'author' =>$this->input->post('user_id'),
-																								'lat'=>$lat,
-																									'lng'=>$lng
+						'id_lokasi' => $lokasiarsip,
+						'id_dok_master' => $id_dok_master,
+						'id_dok_tipe' => $id_dok_tipe,
+						'user_group' => $user_group,
+						'author' =>$this->input->post('user_id'),
+						'lat'=>$lat,
+							'lng'=>$lng
 					  );
 						 
 							$this->db->where('id',$this->input->post('id_data'));
@@ -407,19 +406,19 @@ class Supplier extends CI_Controller
 		 
 				if (!$this->upload->do_upload('cover_file'))
 																	{
-																											$error = array('error' => $this->upload->display_errors());
+				$error = array('error' => $this->upload->display_errors());
 									
 							
 																	}
 																	else
 																	{
-																											$data = array('upload_data' => $this->upload->data());
-																											$filename = $data['upload_data']['file_name'];
+				$data = array('upload_data' => $this->upload->data());
+				$filename = $data['upload_data']['file_name'];
 																											
 																	}
 					
 							$datas = array(
-																									'foto' =>$filename 
+				'foto' =>$filename 
 								);
 								
 							$this->db->where('id_user',$this->input->post('f_id_edit'));
@@ -481,14 +480,14 @@ class Supplier extends CI_Controller
 				  $s2 = $objWorksheet->getCellByColumnAndRow(6,$i)->getValue();
 
 				  $data = array(
-					'id_uk' => $uk,
+					'id_uk' => ($uk)?$uk:null,
 					'kategori_sdm'=>$kategori,
 					'slta'=> $slta,
 					'd3'=>$d3,
 					's1'=>$s1,
 					's2'=>$s2,
-					'tahun'=>$this->input->post('thn'),
-					'author'=> $this->input->post('author'),
+					'tahun'=>($this->input->post('thn'))?$this->input->post('thn'):null,
+					'author'=> ($this->input->post('author'))?$this->input->post('author'):null,
 					'date_created' => date('Y-m-d H:i:s')
 
 				  );
@@ -550,13 +549,13 @@ class Supplier extends CI_Controller
 				  $s2 = $objWorksheet->getCellByColumnAndRow(5,$i)->getValue();
 
 				  $data = array(
-					'id_uk' => $uk,
+					'id_uk' => ($uk)?$uk:null,
 					'kegiatan_pokok'=>$kegiatan_pokok,
 					'uraian_tugas'=> $uraian_tugas,
 					'produk_dihasilkan'=>$produk_dihasilkan,
 					'jumlah'=>$jumlah, 
-					'tahun'=>$this->input->post('thnfrm3add'),
-					'author'=> $this->input->post('author') 
+					'tahun'=> ($this->input->post('thnfrm3add'))?$this->input->post('thnfrm3add'):null,
+					'author'=> ($this->input->post('author'))?$this->input->post('author'):null 
 
 				  );
 				  $this->db->insert('abk_beban_kerja',$data);
@@ -580,8 +579,6 @@ class Supplier extends CI_Controller
 	function uploadform5(){
 	 
 		$this->load->library('Excel');
-		
- 
 
 		$config['upload_path'] = 'upload/data';
 		$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
@@ -618,14 +615,14 @@ class Supplier extends CI_Controller
 				  $waktu = $objWorksheet->getCellByColumnAndRow(6,$i)->getValue();
 
 				  $data = array(
-					'id_faktor' => $id_faktor,
-					'id_shift'=>$id_shift,
-					'id_uk'=> $id_uk,
-					'tahun'=>$tahun,
-					'kegiatan'=>$kegiatan, 
-					'frekuensi'=>$kegiatan,
-					'waktu' => $waktu,
-					'author'=> $this->input->post('author') 
+					'id_faktor' => ($id_faktor)?$id_faktor:null,
+					'id_shift'=> ($id_shift)?$id_shift:null,
+					'id_uk'=> ($id_uk)?$id_uk:null,
+					'tahun'=> ($tahun)?$tahun:null,
+					'kegiatan'=> ($kegiatan)?$kegiatan:null, 
+					'frekuensi'=> ($kegiatan)?$kegiatan:null,
+					'waktu' => ($waktu)?$waktu:null,
+					'author'=> ($this->input->post('author'))?$this->input->post('author'):null 
 
 				  );
 				  $this->db->insert('abk_faktor_kelonggaran',$data);
@@ -688,13 +685,13 @@ class Supplier extends CI_Controller
 				  $pekarya = $objWorksheet->getCellByColumnAndRow(6,$i)->getValue();
 
 				  $data = array( 
-					'id_beban_kerja'=>$id_beban_kerja,
-					'langkah'=> $langkah,
-					'frekuensi'=>$frekuensi,
-					'waktu'=>$waktu, 
-					'kaur'=>$kaur,
-					'staff_admin'=> $staff_admin, 
-					'pekarya' =>  $pekarya
+					'id_beban_kerja'=>($id_beban_kerja)?$id_beban_kerja:null,
+					'langkah'=> ($langkah)?$langkah:null,
+					'frekuensi'=>($frekuensi)?$frekuensi:null,
+					'waktu'=>($waktu)?$waktu:null, 
+					'kaur'=>($kaur)?$kaur:null,
+					'staff_admin'=> ($staff_admin)?$staff_admin:null, 
+					'pekarya' =>  ($pekarya)?$pekarya:null
 
 				  );
 				  $this->db->insert('abk_langkah_kerja',$data);
@@ -755,11 +752,11 @@ class Supplier extends CI_Controller
 				   
 
 				  $data =array(  
-				'faktor'=>$faktor,
-				'waktu_kerja' =>$waktukerja,
-				'keterangan' => $keterangan,
-				'tahun' =>$this->input->post('thnfrm2add'),
-				'id_shift' =>$this->input->post('shiftpeg2'),
+				'faktor'=>($faktor)?$faktor:null,
+				'waktu_kerja' =>($waktukerja)?$waktukerja:null,
+				'keterangan' => ($keterangan)?$keterangan:null,
+				'tahun' =>($this->input->post('thnfrm2add'))?$this->input->post('thnfrm2add'):null,
+				'id_shift' =>($this->input->post('shiftpeg2'))?$this->input->post('shiftpeg2'):null,
 
 			);
 			

@@ -227,14 +227,14 @@ public function save_post(){
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				$username	= $this->input->post('username');
-				$name		= $this->input->post('name');
-				$email		= $this->input->post('email');
+				$username	= ($this->input->post('username'))?$this->input->post('username'):null;
+				$name		= ($this->input->post('name'))?$this->input->post('name'):null;
+				$email		= ($this->input->post('email'))?$this->input->post('email'):null;
 				$id_aplikasi	= 1;
-				$id_group	= $this->input->post('id_group');
-				$status		= $this->input->post('status');
-				$user_id_klinik	= $decodedToken->data->_pnc_kode_klinik;
-				$author		= $decodedToken->data->_pnc_username;
+				$id_group	= ($this->input->post('id_group'))?$this->input->post('id_group'):null;
+				$status		= ($this->input->post('status'))?$this->input->post('status'):null;
+				$user_id_klinik	= ($decodedToken->data->_pnc_kode_klinik)?$decodedToken->data->_pnc_kode_klinik:null;
+				$author		= ($decodedToken->data->_pnc_username)?$decodedToken->data->_pnc_username:null;
 					
 				$salt = round(rand()*1000);
 				
@@ -290,16 +290,16 @@ public function save_post(){
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				$username	= $this->input->post('username');
-				$username_asli	= $this->input->post('f_user_edit');
-				$id	= $this->input->post('f_id_edit');
-				$name		= $this->input->post('name');
-				$email		= $this->input->post('email');
+				$username	= ($this->input->post('username'))?$this->input->post('username'):null;
+				$username_asli	= ($this->input->post('f_user_edit'))?$this->input->post('f_user_edit'):null;
+				$id	= ($this->input->post('f_id_edit'))?$this->input->post('f_id_edit'):null;
+				$name		= ($this->input->post('name'))?$this->input->post('name'):null;
+				$email		= ($this->input->post('email'))?$this->input->post('email'):null;
 				$id_aplikasi	= 1;
-				$id_group	= $this->input->post('id_group');
-				$status		= $this->input->post('status');
-				$user_id_klinik	= $decodedToken->data->_pnc_kode_klinik;
-				$author		= $decodedToken->data->_pnc_username;
+				$id_group	= ($this->input->post('id_group'))?$this->input->post('id_group'):null;
+				$status		= ($this->input->post('status'))?$this->input->post('status'):null;
+				$user_id_klinik	= ($decodedToken->data->_pnc_kode_klinik)?$decodedToken->data->_pnc_kode_klinik:null;
+				$author		= ($decodedToken->data->_pnc_username)?$decodedToken->data->_pnc_username:null;
 					
 				$salt = round(rand()*1000);
 				if(!empty($this->input->post('pass'))){
@@ -327,7 +327,7 @@ public function save_post(){
 					,"status"=>$status
 					,"created"=>date('Y-m-d H:i:s') 
 					,"kode_klinik"=>$user_id_klinik,
-					'id_uk' => $this->input->post('f_uk')
+					'id_uk' => ($this->input->post('f_uk'))?$this->input->post('f_uk'):null
 					);
 				
 				 $this->db->where('id_user',$id);

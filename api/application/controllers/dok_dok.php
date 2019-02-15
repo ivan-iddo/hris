@@ -141,7 +141,9 @@ public function save_post(){
 				 $id_group = $_POST['id_parent'];
 				 	
 				 $data = array(
-							   'nama'=>$group_group,'deskripsi'=>$group_ket);
+							   'nama'=>($group_group)?$group_group:null,
+							   'deskripsi'=>($group_ket)?$group_ket:null
+							);
 				 if(!empty($id_group)){
 						$data['child']=$id_group;
 					}
@@ -175,7 +177,10 @@ public function save_post(){
 				 $group_group    = $_POST['group_group'];
 				 $group_ket      = $_POST['group_ket'];
 				 
-				 $data = array('nama'=>$group_group,'deskripsi'=>$group_ket);
+				 $data = array(
+							   'nama'=>($group_group)?$group_group:null,
+							   'deskripsi'=>($group_ket)?$group_ket:null
+							);
 				 $this->db->where('id', $this->input->post('id_group'));
 				 $this->db->update('dok_master',$data);
 				 if($this->db->affected_rows() == '1'){
@@ -268,7 +273,10 @@ public function save_post(){
 				 foreach($data as $val){
 				  $id_aplikasi = 1; 
 				  
-				  $dataarr= array('id_dok_master'=>$id_group,'id_dok_tipe'=>$val);
+				  $dataarr= array(
+				  	'id_dok_master'=>($id_group)?$id_group:null,
+				  	'id_dok_tipe'=>($val)?$val:null
+				  );
 				   $this->db->insert('dok_sys',$dataarr);
 				 }
 				 if($this->db->affected_rows() == '1'){

@@ -194,11 +194,11 @@
     function loaddata(jml) {
         var search = 0;
         var group = localStorage.getItem("group");
-        var url = BASE_URL + 'users/list/' + search + '/' + jml;
+        
         if ($('#search').val() !== '') {
             search = $('#search').val();
         }
-
+        var url = BASE_URL + 'users/list/' + search + '/' + jml;
         if ((group !== '1') && (group !== '6')) {
             url = BASE_URL + 'users/list/' + search + '/' + jml + "/" + group;
         }
@@ -282,7 +282,7 @@
                 getOptions("txtdirektorat", BASE_URL + "master/direktorat");
                 getOptions("satuan_kerja", BASE_URL + "master/getmaster?id=25");
                 getOptions("kelas_jabatan", BASE_URL + "master/getmaster?id=24");
-                getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural");
+                getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural_fix");
                 getOptions("jenis_mutasi", BASE_URL + "master/getmaster?id=43");
             }, 2000);
 
@@ -295,12 +295,24 @@
     function simpan() {
         var direktorat = $('#txtdirektorat').val();
         var tgl_mutasi = $('#tgl_mutasi').val();
+        var jabatan = $('#txtjabatan').val();
+        var satuan_kerja = $('#satuan_kerja').val();
         if (empty(direktorat)) {
             onMessage("Data 'Direktorat' Wajib dipilih");
 
             return false;
         } else if (empty(tgl_mutasi)) {
             onMessage("Data 'Tanggal Mutasi' Wajib dipilih");
+
+            return false;
+
+        } else if (empty(jabatan)) {
+            onMessage("Data 'Jabatan Struktural' Wajib dipilih");
+
+            return false;
+
+        } else if (empty(satuan_kerja)) {
+            onMessage("Data 'Stuan Kerja' Wajib dipilih");
 
             return false;
 
@@ -485,7 +497,7 @@
             getOptions("txtdirektorat", BASE_URL + "master/direktorat");
             getOptions("satuan_kerja", BASE_URL + "master/getmaster?id=25");
             getOptions("kelas_jabatan", BASE_URL + "master/getmaster?id=24");
-            getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural");
+            getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural_fix");
 
 
         }
@@ -503,7 +515,7 @@
 
             getOptionsEdit("satuan_kerja", BASE_URL + "master/getmaster?id=25", a.result[0].id_satker);
             getOptionsEdit("kelas_jabatan", BASE_URL + "master/getmaster?id=24", a.result[0].id_kelas);
-            getOptionsEdit("txtjabatan", BASE_URL + "master/jabatan_struktural", a.result[0].jabatan_struktural);
+            getOptionsEdit("txtjabatan", BASE_URL + "master/jabatan_struktural_fix", a.result[0].jabatan_struktural);
             getOptionsEdit("jenis_mutasi", BASE_URL + "master/getmaster?id=43", a.result[0].jm);
             $('#idtk').val(a.result[0].id);
             $('#tgl_mutasi').val(a.result[0].tgl_mutasi);
