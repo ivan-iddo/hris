@@ -139,10 +139,10 @@
                                                                               style="width: 100%;"
                                                                               tabindex="-1">
 																			   <option disabled selected>Please select</option>
-																			   <option>1 Anak</option>
-																			   <option>2 Anak</option>
-																			   <option>3 Anak</option>
-																			   <option>Anak lebih 3</option>
+																			   <option>Lajang</option>
+																			   <option>Menikah</option>
+																			   <option>Janda</option>
+																			   <option>Duda</option>
 																			   </select></div>
                                             </div>
 											 <div class="form-group">
