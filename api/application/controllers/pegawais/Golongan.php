@@ -177,7 +177,6 @@ class Golongan extends REST_Controller
                         'file' => $d->file_url
                     );
                 }
-
                 $this->set_response($arr, REST_Controller::HTTP_OK);
 
                 return;

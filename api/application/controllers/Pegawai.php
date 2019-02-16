@@ -1618,7 +1618,7 @@ class Pegawai extends REST_Controller
                 $this->db->select('sum(total) as total_cuti');
                 $this->db->where('jenis_cuti', $id_cuti);
                 $this->db->where('id_user', $id_user);
-                $this->db->where('YEAR(tgl_cuti)', $tahun);
+                $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', $tahun);
                 $this->db->where('tampilkan', '1');
 
                 $resCek = $this->db->get('his_cuti')->row();
@@ -1634,7 +1634,7 @@ class Pegawai extends REST_Controller
                         $this->db->select('sum(total) as total_cuti');
                         $this->db->where('jenis_cuti', '1');
                         $this->db->where('id_user', $id_user);
-                        $this->db->where('YEAR(tgl_cuti)', ($tahun - 1));
+                        $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', ($tahun - 1));
                         $this->db->where('tampilkan', '1');
                         $resCeklalu = $this->db->get('his_cuti')->row();
                         $cutithnlalu = 18 - $resCeklalu->total_cuti;
@@ -1690,7 +1690,7 @@ class Pegawai extends REST_Controller
                 $this->db->select('sum(total) as total_izin');
                 $this->db->where('jenis_izin', $id_izin);
                 $this->db->where('id_user', $id_user);
-                $this->db->where('YEAR(tgl_izin)', $tahun);
+                $this->db->where('EXTRACT(YEAR FROM tgl_izin) =', $tahun);
                 $this->db->where('tampilkan', '1');
 
                 $resCek = $this->db->get('his_izin')->row();
@@ -1706,7 +1706,7 @@ class Pegawai extends REST_Controller
                         $this->db->select('sum(total) as total_izin');
                         $this->db->where('jenis_izin', '1');
                         $this->db->where('id_user', $id_user);
-                        $this->db->where('YEAR(tgl_izin)', ($tahun - 1));
+                        $this->db->where('EXTRACT(YEAR FROM tgl_izin) =', ($tahun - 1));
                         $this->db->where('tampilkan', '1');
                         $resCeklalu = $this->db->get('his_izin')->row();
                         $izinthnlalu = 224 - $resCeklalu->total_izin;
@@ -1762,7 +1762,7 @@ class Pegawai extends REST_Controller
                 $this->db->select('sum(total) as total_cuti');
                 $this->db->where('jenis_cuti', $id_cuti);
                 $this->db->where('id_user', $id_user);
-                $this->db->where('YEAR(tgl_cuti)', $tahun);
+                $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', $tahun);
                 $this->db->where('tampilkan', '1');
 
                 $resCek = $this->db->get('his_cuti')->row();
@@ -1832,7 +1832,7 @@ class Pegawai extends REST_Controller
                 $this->db->select('sum(total) as total_izin');
                 $this->db->where('jenis_izin', $id_izin);
                 $this->db->where('id_user', $id_user);
-                $this->db->where('YEAR(tgl_izin)', $tahun);
+                $this->db->where('EXTRACT(YEAR FROM tgl_izin) =', $tahun);
                 $this->db->where('tampilkan', '1');
 
                 $resCek = $this->db->get('his_izin')->row();

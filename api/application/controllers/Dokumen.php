@@ -337,7 +337,7 @@ public function save_post(){
 				 $id    = $this->input->get('id');
 				  
 				   
-				$this->db->where('id_user',$id;
+				$this->db->where('id_user',$id);
 				$res = $this->db->get('sys_user')->result();
 				foreach($res as $d){
 				  $arr[]=array('id'=>$d->id_user,'nama'=>$d->name,'username'=>$d->username,'email'=>$d->email,'id_group'=>$d->id_grup,'status'=> $d->status);

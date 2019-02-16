@@ -145,20 +145,20 @@
                                 datafile+='</tr>';
                                $('#fileIjazah').html(datafile);
                                 
-                                                                                                            message=data.message; 
-                                                                                                               if(hasil=="success"){ 
-                                                                                                                        
-                                                                                                                           $.niftyNoty({
-                                                                                                                                           type: 'success',
-                                                                                                                                           title: 'Success',
-                                                                                                                                           message: message,
-                                                                                                                                           container: 'floating',
-                                                                                                                                           timer: 5000
-                                                                                                                                       });  
-                                                                                                                     }else{
-                                                                                                                            alert(message);
-                                                                                                                          return false;	
-                                                                                                                     }
+                                message=data.message; 
+                                   if(hasil=="success"){ 
+                                            
+                                               $.niftyNoty({
+                                                               type: 'success',
+                                                               title: 'Success',
+                                                               message: message,
+                                                               container: 'floating',
+                                                               timer: 5000
+                                                           });  
+                                         }else{
+                                                alert(message);
+                                              return false;	
+                                         }
                             }
                             });
                 }else{

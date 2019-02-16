@@ -155,80 +155,76 @@ function editGolongan(){
                    });
                    
                    bootbox.dialog({ 
-                                                 message:$('<div></div>').load('view/pegawai/input_golongan.php'),
-                                                   animateIn: 'bounceIn',
-                                                   animateOut : 'bounceOut',
-                                                                              backdrop: false,
-                                                   size:'large',
-                                                   buttons: {
-                                                       success: {
-                                                           label: "Save",
-                                                           className: "btn-success",
-                                                           callback: function() {
-                                                               
-                                                              simpanGolongan('edit');
-                                                                           return false;
-                                                                       
-                                                                       
-                                                           }
-                                                       },
-                                
-                                                       main: {
-                                                           label: "Close",
-                                                           className: "btn-warning",
-                                                           callback: function() {
-                                                               $.niftyNoty({
-                                                                   type: 'dark',
-                                                                   message : "Bye Bye",
-                                                                   container : 'floating',
-                                                                   timer : 5000
-                                                               });
-                                                           }
-                                                       }
-                                                   }
-                                                       });
+             message:$('<div></div>').load('view/pegawai/input_golongan.php'),
+               animateIn: 'bounceIn',
+               animateOut : 'bounceOut',
+                                          backdrop: false,
+               size:'large',
+               buttons: {
+                   success: {
+                       label: "Save",
+                       className: "btn-success",
+                       callback: function() {
+                           
+                          simpanGolongan('edit');
+                                       return false;
+                                   
+                                   
+                       }
+                   },
+
+                   main: {
+                       label: "Close",
+                       className: "btn-warning",
+                       callback: function() {
+                           $.niftyNoty({
+                               type: 'dark',
+                               message : "Bye Bye",
+                               container : 'floating',
+                               timer : 5000
+                           });
+                       }
+                   }
+               }
+                   });
                    
               $.ajax({
-                                  url: BASE_URL+'pegawais/golongan/getgolongan/'+selectedRowsString,
-                                  headers: {
-                                      'Authorization': localStorage.getItem("Token"),
-                                      'X_CSRF_TOKEN':'donimaulana',
-                                      'Content-Type':'application/json'
-                                  },
-                                  dataType: 'json',
-                                  type: 'get',
-                                  contentType: 'application/json', 
-                                  processData: false,
-                                  success: function( data, textStatus, jQxhr ){
-              
-             
-              
-                                              
-              $('#tmt_golongan').val(data.tmt_golongan);
-              $('#no_sk').val(data.no_sk); 
-              $('#tgl_sk').val(data.tgl_sk);
-              $('#penanda_tanganan').val(data.penanda_tanganan);
-              $('#id_golongan').val(data.id);
+                  url: BASE_URL+'pegawais/golongan/getgolongan/'+selectedRowsString,
+                  headers: {
+                      'Authorization': localStorage.getItem("Token"),
+                      'X_CSRF_TOKEN':'donimaulana',
+                      'Content-Type':'application/json'
+                  },
+                  dataType: 'json',
+                  type: 'get',
+                  contentType: 'application/json', 
+                  processData: false,
+                  success: function( data, textStatus, jQxhr ){
+                    $('#tmt_golongan').val(data.tmt_golongan);
+                    $('#no_sk').val(data.no_sk); 
+                    $('#tgl_sk').val(data.tgl_sk);
+                    $('#penanda_tanganan').val(data.penanda_tanganan);
+                    $('#id_golongan').val(data.id);
 
-if(!empty(data.file)){
-   var datafile='';
-              datafile+='<tr>';
-              datafile+='<td>1.';
-              datafile+='</td>';
-              datafile+='<td>';
-              datafile +=data.file.substring(0, 30)+'...';
-              datafile+='</td>';
-              datafile+='<td>';
-              
-              datafile +='<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/data/'+data.file+'\')"><i class="fa fa-eye"></i></a>';
-              datafile+='</td>';
-              datafile+='</tr>';
-              $('#fileIjazah').html(datafile);
 
-}
-              
-              getOptionsEdit("pangkat_id",BASE_URL+"master/golongan_pegawai",data.golongan_id);  
-              
+                    if(!empty(data.file)){
+                       var datafile='';
+                                  datafile+='<tr>';
+                                  datafile+='<td>1.';
+                                  datafile+='</td>';
+                                  datafile+='<td>';
+                                  datafile +=data.file.substring(0, 30)+'...';
+                                  datafile+='</td>';
+                                  datafile+='<td>';
+                                  
+                                  datafile +='<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/data/'+data.file+'\')"><i class="fa fa-eye"></i></a>';
+                                  datafile+='</td>';
+                                  datafile+='</tr>';
+                                  $('#fileIjazah').html(datafile);
+
+                    }
+                
+                    getOptionsEdit("pangkat_id",BASE_URL+"master/golongan_pegawai",data.pangkat_id);
                                   } 
                               });
               
