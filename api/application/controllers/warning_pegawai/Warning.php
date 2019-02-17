@@ -83,7 +83,7 @@ class Warning extends REST_Controller
             }
 
           }
-         	$arr['total']=$total_rows;
+         	// $arr['total']=$total_rows;
             $this->set_response($arr, REST_Controller::HTTP_OK);
             
                 return;
@@ -143,7 +143,7 @@ class Warning extends REST_Controller
 
             
           }
-         	$arr['total']=$total_rows;
+         	// $arr['total']=$total_rows;
           $this->set_response($arr, REST_Controller::HTTP_OK);
             
                 return;
@@ -203,7 +203,7 @@ class Warning extends REST_Controller
 
           }
          
-          $arr['paging'] = $pagination['limit'][1];
+          // $arr['paging'] = $pagination['limit'][1];
           $this->set_response($arr, REST_Controller::HTTP_OK);
             
                 return;

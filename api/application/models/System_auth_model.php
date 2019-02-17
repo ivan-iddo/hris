@@ -182,6 +182,7 @@ class System_auth_model extends CI_Model
 
     function getdatachild($id = 0)
     {   
+
         $this->load->database();
         $obj_parentchild = new ParentChild();
 

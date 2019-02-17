@@ -56,7 +56,7 @@ class ParentChild {
 	
 	public function getAllChilds($Parent_ID, $level_identifier="", $start=true) { // get all the childs of all the levels under a parent as a tree	
 		$immediate_childs=$this->getImmediateChilds($Parent_ID,  $this->extra_condition, $this->order_by_phrase);
-		
+		// print_r($immediate_childs);die();
 		if(count($immediate_childs)) {
 			foreach($immediate_childs as $chld) {
 				$chld[$this->item_list_field_name]=$level_identifier.$this->item_pointer.$chld[$this->item_list_field_name];
@@ -73,8 +73,8 @@ class ParentChild {
 	} 
 	
 	private function getImmediateChilds($parent_identifier_field_value, $extra_condition="", $order_by_phrase="") { // get only the direct/immediate childs under a parent 
-
 		$sql="SELECT * FROM ".$this->db_table." WHERE ".$this->parent_identifier_field_name." = ".$parent_identifier_field_value." ".$extra_condition." ".$order_by_phrase;
+		// print_r($sql);die();
 		$res=pg_query($this->db_connect(),$sql);
 		$childs=array();
 		while($val=pg_fetch_array($res, null, PGSQL_ASSOC)) {
