@@ -22,7 +22,7 @@ $_POST = json_decode($rest_json, true);
  * 3. Change 'jwt_key' in application\config\jwt.php
  *
  */
-
+date_default_timezone_set('Asia/Jakarta');
 class Pengembangan_pelatihan_kegiatan_status extends REST_Controller
 {
     /**

@@ -91,12 +91,16 @@ class Kode_profesi extends REST_Controller
 				if(!empty($this->input->post('id_masterp'))){
 					//edit
 					$id= $this->input->post('id_masterp');
-					$arr=array('ds_profesi'=> $this->input->post('ds_profesi'),'kd_grp_job_profesi'=> $this->input->post('kd_grp_job_profesi'),);;//array('nama'=>$this->input->post('nama'));
+					$arr=array(
+					'ds_profesi'=> ($this->input->post('ds_profesi')?$this->input->post('ds_profesi'):NULL),
+					'kd_grp_job_profesi'=> ($this->input->post('kd_grp_job_profesi')?$this->input->post('kd_grp_job_profesi'):NULL),);;//array('nama'=>$this->input->post('nama'));
 					$this->db->where('kd_profesi',$id);
 					$this->db->update($this->table,$arr);
 				}else{
 					//save
-					$arr=array('ds_profesi'=> $this->input->post('ds_profesi'),'kd_grp_job_profesi'=> $this->input->post('kd_grp_job_profesi'),);;//array('ds_profesi'=>$this->input->post('nama'));
+					$arr=array(
+					'ds_profesi'=> ($this->input->post('ds_profesi')?$this->input->post('ds_profesi'):NULL),
+					'kd_grp_job_profesi'=> ($this->input->post('kd_grp_job_profesi')?$this->input->post('kd_grp_job_profesi'):NULL),);;//array('ds_profesi'=>$this->input->post('nama'));
 					 
 					$this->db->insert($this->table,$arr);
 				}

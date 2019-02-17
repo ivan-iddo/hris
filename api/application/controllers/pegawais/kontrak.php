@@ -44,12 +44,12 @@ class Kontrak extends MY_Controller
             $filename = $data['inputfileupload']['file_name'];
         }
 
-        $datas["id_user"] = $this->input->post('id_userfile');
-        $datas["noktr"] = $this->input->post('noktr');
-        $datas["tmtawal"] = $this->input->post('tmtawal');
-        $datas["tglktr"] = $this->input->post('tglktr');
-        $datas["jnsktr"] = $this->input->post('jnsktr');
-        $datas["tglakhir"] = $this->input->post('tglakhir');
+        $datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
+        $datas["noktr"] = ($this->input->post('noktr')?$this->input->post('noktr'):NULL);
+        $datas["tmtawal"] = ($this->input->post('tmtawal')?$this->input->post('tmtawal'):NULL);
+        $datas["tglktr"] = ($this->input->post('tglktr')?$this->input->post('tglktr'):NULL);
+        $datas["jnsktr"] = ($this->input->post('jnsktr')?$this->input->post('jnsktr'):NULL);
+        $datas["tglakhir"] = ($this->input->post('tglakhir')?$this->input->post('tglakhir'):NULL);
         $datas["url"] = $filename;
 
         $create = $this->His_kontrak_model->create($datas);

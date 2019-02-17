@@ -42,12 +42,12 @@ class Penghargaan extends MY_Controller
             $data = array('inputfileupload' => $this->upload->data());
             $filename = $data['inputfileupload']['file_name'];
         }
-        $datas["id_user"] = $this->input->post('id_userfile');
-        $datas["nosk"] = $this->input->post('nosk');
-        $datas["penghargaan"] = $this->input->post('penghargaan');
-        $datas["instansi"] = $this->input->post('instansi');
-        $datas["tanggal"] = $this->input->post('tanggal');
-        $datas["url"] = $filename;
+        $datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
+        $datas["nosk"] = ($this->input->post('nosk')?$this->input->post('nosk'):NULL);
+        $datas["penghargaan"] = ($this->input->post('penghargaan')?$this->input->post('penghargaan'):NULL);
+        $datas["instansi"] = ($this->input->post('instansi')?$this->input->post('instansi'):NULL);
+        $datas["tanggal"] = ($this->input->post('tanggal')?$this->input->post('tanggal'):NULL);
+        $datas["url"] = ($filename?$filename:NULL);
 
         $create = $this->His_penghargaan_model->create($datas);
 

@@ -972,12 +972,12 @@ class Abk extends REST_Controller
 
                 $array = array(
 
-                    'tahun' => $this->input->post('thnadd'),
-                    'kategori_sdm' => $this->input->post('katsdm'),
-                    'slta' => $this->input->post('slta'),
-                    'd3' => $this->input->post('d3'),
-                    's1' => $this->input->post('s1'),
-                    's2' => $this->input->post('s2'),
+                    'tahun' => ($this->input->post('thnadd')?$this->input->post('thnadd'):NULL),
+                    'kategori_sdm' => ($this->input->post('katsdm')?$this->input->post('katsdm'):NULL),
+                    'slta' => ($this->input->post('slta')?$this->input->post('slta'):NULL),
+                    'd3' => ($this->input->post('d3')?$this->input->post('d3'):NULL),
+                    's1' => ($this->input->post('s1')?$this->input->post('s1'):NULL),
+                    's2' => ($this->input->post('s2')?$this->input->post('s2'):NULL),
                     'date_created' => date('Y-m-d H:i:s'),
                     'author' => $decodedToken->data->_pnc_id_grup
                 );
@@ -1016,17 +1016,17 @@ class Abk extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
 
             if ($decodedToken != false) {
-                $kp = $this->input->post('kegiatan_pokoks');
+                $kp = ($this->input->post('kegiatan_pokoks')?$this->input->post('kegiatan_pokoks'):NULL);
                 if (!empty($this->input->post('kegiatan_pokok_baru'))) {
                     $kp = $this->input->post('kegiatan_pokok_baru');
                 }
                 $array = array(
 
-                    'tahun' => $this->input->post('thnadd'),
+                    'tahun' => ($this->input->post('thnadd')?$this->input->post('thnadd'):NULL),
                     'kegiatan_pokok' => $kp,
-                    'uraian_tugas' => $this->input->post('uraian_tugas'),
-                    'produk_dihasilkan' => $this->input->post('produk_dihasilkan'),
-                    'jumlah' => $this->input->post('jumlah'),
+                    'uraian_tugas' => ($this->input->post('uraian_tugas')?$this->input->post('uraian_tugas'):NULL),
+                    'produk_dihasilkan' => ($this->input->post('produk_dihasilkan')?$this->input->post('produk_dihasilkan'):NULL),
+                    'jumlah' => ($this->input->post('jumlah')?$this->input->post('jumlah'):NULL),
                     'author' => $decodedToken->data->_pnc_id_grup
                 );
 
@@ -1067,13 +1067,13 @@ class Abk extends REST_Controller
 
                 $array = array(
 
-                    'tahun' => $this->input->post('thnadd'),
-                    'kategori_sdm' => $this->input->post('katsdmfrm4'),
-                    'kegiatan' => $this->input->post('kegiatanfrm4'),
-                    'frekuensi' => $this->input->post('frekuensifrm4'),
-                    'waktu' => $this->input->post('jumlah'),
-                    'id_shift' => $this->input->post('shiftfrm4'),
-                    'id_faktor' => $this->input->post('faktorfrm4'),
+                    'tahun' => ($this->input->post('thnadd')?$this->input->post('thnadd'):NULL),
+                    'kategori_sdm' => ($this->input->post('katsdmfrm4')?$this->input->post('katsdmfrm4'):NULL),
+                    'kegiatan' => ($this->input->post('kegiatanfrm4')?$this->input->post('kegiatanfrm4'):NULL),
+                    'frekuensi' => ($this->input->post('frekuensifrm4')?$this->input->post('frekuensifrm4'):NULL),
+                    'waktu' => ($this->input->post('jumlah')?$this->input->post('jumlah'):NULL),
+                    'id_shift' => ($this->input->post('shiftfrm4')?$this->input->post('shiftfrm4'):NULL),
+                    'id_faktor' => ($this->input->post('faktorfrm4')?$this->input->post('faktorfrm4'):NULL),
                     'author' => $decodedToken->data->_pnc_id_grup
                 );
 
@@ -1116,10 +1116,10 @@ class Abk extends REST_Controller
                 foreach ($_POST as $dat) {
 
                     $array = array(
-                        'slta' => $dat['slta'],
-                        'd3' => $dat['d3'],
-                        's1' => $dat['s1'],
-                        's2' => $dat['s2']
+                        'slta' => ($dat['slta']?$dat['slta']:NULL),
+                        'd3' => ($dat['d3']?$dat['d3']:NULL),
+                        's1' => ($dat['s1']?$dat['s1']:NULL),
+                        's2' => ($dat['s2']?$dat['s2']:NULL),
                     );
 
                     $this->db->where('id', $dat['id']);
@@ -1155,9 +1155,9 @@ class Abk extends REST_Controller
                 foreach ($_POST as $dat) {
 
                     $array = array(
-                        'faktor' => $dat['faktor'],
-                        'waktu_kerja' => $dat['waktu_kerja'],
-                        'keterangan' => $dat['keterangan']
+                        'faktor' => ($dat['faktor']?$dat['faktor']:NULL),
+                        'waktu_kerja' => ($dat['waktu_kerja']?$dat['waktu_kerja']:NULL),
+                        'keterangan' => ($dat['keterangan']?$dat['keterangan']:NULL)
                     );
 
                     $this->db->where('id', $dat['id']);
@@ -1193,10 +1193,10 @@ class Abk extends REST_Controller
                 foreach ($_POST as $dat) {
 
                     $array = array(
-                        'kegiatan_pokok' => $dat['kegiatan_pokok'],
-                        'uraian_tugas' => $dat['uraian_tugas'],
-                        'produk_dihasilkan' => $dat['produk_dihasilkan'],
-                        'jumlah' => $dat['jumlah']
+                        'kegiatan_pokok' => ($dat['kegiatan_pokok']?$dat['kegiatan_pokok']:NULL),
+                        'uraian_tugas' => ($dat['uraian_tugas']?$dat['uraian_tugas']:NULL),
+                        'produk_dihasilkan' => ($dat['produk_dihasilkan']?$dat['produk_dihasilkan']:NULL),
+                        'jumlah' => ($dat['jumlah']?$dat['jumlah']:NULL)
                     );
 
                     $this->db->where('id', $dat['id']);
@@ -1233,9 +1233,9 @@ class Abk extends REST_Controller
 
 
                     $array = array(
-                        'kegiatan' => $dat['kegiatan'],
-                        'frekuensi' => $dat['frekuensi'],
-                        'waktu' => $dat['waktu']
+                        'kegiatan' => ($dat['kegiatan']?$dat['kegiatan']:NULL),
+                        'frekuensi' => ($dat['frekuensi']?$dat['frekuensi']:NULL),
+                        'waktu' => ($dat['waktu']?$dat['waktu']:NULL)
                     );
 
                     $this->db->where('id', $dat['id']);
@@ -1273,10 +1273,10 @@ class Abk extends REST_Controller
 
                     if (empty($dat['id'])) {
                         $array = array(
-                            'id_beban_kerja' => $dat['kode'],
-                            'langkah' => $dat['langkah'],
-                            'frekuensi' => $dat['frekuensi'],
-                            'waktu' => $dat['waktu'],
+                            'id_beban_kerja' => ($dat['kode']?$dat['kode']:NULL),
+                            'langkah' => ($dat['langkah']?$dat['langkah']:NULL),
+                            'frekuensi' => ($dat['frekuensi']?$dat['frekuensi']:NULL),
+                            'waktu' => ($dat['waktu']?$dat['waktu']:NULL),
                             'kaur' => $dat['kaur'],
                             'sa' => $dat['sa'],
                             'pk' => $dat['pk'],
@@ -1288,9 +1288,9 @@ class Abk extends REST_Controller
                         $this->db->insert('abk_langkah_kerja', $array);
                     } else {
                         $array = array(
-                            'langkah' => $dat['langkah'],
-                            'frekuensi' => $dat['frekuensi'],
-                            'waktu' => $dat['waktu'],
+                            'langkah' => ($dat['langkah']?$dat['langkah']:NULL),
+                            'frekuensi' => ($dat['frekuensi']?$dat['frekuensi']:NULL),
+                            'waktu' => ($dat['waktu']?$dat['waktu']:NULL),
                             'kaur' => $dat['kaur'],
                             'sa' => $dat['sa'],
                             'pk' => $dat['pk'],
@@ -1421,32 +1421,32 @@ class Abk extends REST_Controller
                 $user_froup = $decodedToken->data->_pnc_id_grup;
 
 
-                $adduk = $this->input->post('adduk');
-                $bahasa = $this->input->post('bahasa');
-                $batas_fisik = $this->input->post('batas_fisik');
-                $buta_warna = $this->input->post('buta_warna');
-                $f_kelamin = $this->input->post('f_kelamin');
-                $f_level_bahasa = $this->input->post('f_level_bahasa');
-                $f_level_kompi = $this->input->post('f_level_kompi');
-                $jurusan1 = $this->input->post('jurusan1');
-                $jurusan2 = $this->input->post('jurusan2');
-                $jurusan3 = $this->input->post('jurusan3');
-                $kaca_mata = $this->input->post('kaca_mata');
-                $katsdmfrm4 = $this->input->post('katsdmfrm4');
-                $kompetensi = $this->input->post('kompetensi');
-                $kompi = $this->input->post('kompi');
-                $lainlain = $this->input->post('lainlain');
-                $pendidikan = $this->input->post('pendidikan');
-                $pengalaman = $this->input->post('pengalaman');
-                $syarat_khusus = $this->input->post('syarat_khusus');
-                $test_khusus = $this->input->post('test_khusus');
-                $thnadd = $this->input->post('thnadd');
-                $txtboleh_fisik = $this->input->post('txtboleh_fisik');
-                $txtusiamax = $this->input->post('txtusiamax');
-                $txtusiamin = $this->input->post('txtusiamin');
-                $tinggimin = $this->input->post('tinggimin');
-                $tinggimax = $this->input->post('tinggimax');
-                $txtboleh_fisik = $this->input->post('txtboleh_fisik');
+                $adduk = ($this->input->post('adduk')?$this->input->post('adduk'):NULL);
+                $bahasa = ($this->input->post('bahasa')?$this->input->post('bahasa'):NULL);
+                $batas_fisik = ($this->input->post('batas_fisik')?$this->input->post('batas_fisik'):NULL);
+                $buta_warna = ($this->input->post('buta_warna')?$this->input->post('buta_warna'):NULL);
+                $f_kelamin = ($this->input->post('f_kelamin')?$this->input->post('f_kelamin'):NULL);
+                $f_level_bahasa = ($this->input->post('f_level_bahasa')?$this->input->post('f_level_bahasa'):NULL);
+                $f_level_kompi = ($this->input->post('f_level_kompi')?$this->input->post('f_level_kompi'):NULL);
+                $jurusan1 = ($this->input->post('jurusan1')?$this->input->post('jurusan1'):NULL);
+                $jurusan2 = ($this->input->post('jurusan2')?$this->input->post('jurusan2'):NULL);
+                $jurusan3 = ($this->input->post('jurusan3')?$this->input->post('jurusan3'):NULL);
+                $kaca_mata = ($this->input->post('kaca_mata')?$this->input->post('kaca_mata'):NULL);
+                $katsdmfrm4 = ($this->input->post('katsdmfrm4')?$this->input->post('katsdmfrm4'):NULL);
+                $kompetensi = ($this->input->post('kompetensi')?$this->input->post('kompetensi'):NULL);
+                $kompi = ($this->input->post('kompi')?$this->input->post('kompi'):NULL);
+                $lainlain = ($this->input->post('lainlain')?$this->input->post('lainlain'):NULL);
+                $pendidikan = ($this->input->post('pendidikan')?$this->input->post('pendidikan'):NULL);
+                $pengalaman = ($this->input->post('pengalaman')?$this->input->post('pengalaman'):NULL);
+                $syarat_khusus = ($this->input->post('syarat_khusus')?$this->input->post('syarat_khusus'):NULL);
+                $test_khusus = ($this->input->post('test_khusus')?$this->input->post('test_khusus'):NULL);
+                $thnadd = ($this->input->post('thnadd')?$this->input->post('thnadd'):NULL);
+                $txtboleh_fisik = ($this->input->post('txtboleh_fisik')?$this->input->post('txtboleh_fisik'):NULL);
+                $txtusiamax = ($this->input->post('txtusiamax')?$this->input->post('txtusiamax'):NULL);
+                $txtusiamin = ($this->input->post('txtusiamin')?$this->input->post('txtusiamin'):NULL);
+                $tinggimin = ($this->input->post('tinggimin')?$this->input->post('tinggimin'):NULL);
+                $tinggimax = ($this->input->post('tinggimax')?$this->input->post('tinggimax'):NULL);
+                $txtboleh_fisik = ($this->input->post('txtboleh_fisik')?$this->input->post('txtboleh_fisik'):NULL);
 
 
                 $array = array(
@@ -1466,8 +1466,8 @@ class Abk extends REST_Controller
                     'pengalaman' => $pengalaman,
                     'tinggi_b_min' => $tinggimin,
                     'tinggi_b_max' => $tinggimax,
-                    'berat_b_min' => $this->input->post('berat_b_min'),
-                    'berat_b_max' => $this->input->post('berat_b_max'),
+                    'berat_b_min' => ($this->input->post('berat_b_min')?$this->input->post('berat_b_min'):NULL),
+                    'berat_b_max' => ($this->input->post('berat_b_max')?$this->input->post('berat_b_max'):NULL),
                     'buta_warna' => $buta_warna,
                     'kacamata' => $kaca_mata,
                     'fisik_lain' => $batas_fisik,
@@ -1482,7 +1482,7 @@ class Abk extends REST_Controller
                 if ($decodedToken->data->_pnc_id_grup == '1') {
                     $id_parent = $this->System_auth_model->getparent($this->input->post('adduk'), '27');
                     $arrtam['id_atasan'] = $id_parent;
-                    $arrtam['id_uk'] = $this->input->post('adduk');
+                    $arrtam['id_uk'] = ($this->input->post('adduk')?$this->input->post('adduk'):NULL);
                     $array = $array + $arrtam;
                 } 
                 else {
@@ -1794,32 +1794,32 @@ class Abk extends REST_Controller
                 $user_froup = $decodedToken->data->_pnc_id_grup;
 
 
-                $adduk = $this->input->post('adduk');
-                $bahasa = $this->input->post('bahasa');
-                $batas_fisik = $this->input->post('batas_fisik');
-                $buta_warna = $this->input->post('buta_warna');
-                $f_kelamin = $this->input->post('f_kelamin');
-                $f_level_bahasa = $this->input->post('f_level_bahasa');
-                $f_level_kompi = $this->input->post('f_level_kompi');
-                $jurusan1 = $this->input->post('jurusan1');
-                $jurusan2 = $this->input->post('jurusan2');
-                $jurusan3 = $this->input->post('jurusan3');
-                $kaca_mata = $this->input->post('kaca_mata');
-                $katsdmfrm4 = $this->input->post('katsdmfrm4');
-                $kompetensi = $this->input->post('kompetensi');
-                $kompi = $this->input->post('kompi');
-                $lainlain = $this->input->post('lainlain');
-                $pendidikan = $this->input->post('pendidikan');
-                $pengalaman = $this->input->post('pengalaman');
-                $syarat_khusus = $this->input->post('syarat_khusus');
-                $test_khusus = $this->input->post('test_khusus');
-                $thnadd = $this->input->post('thnadd');
-                $txtboleh_fisik = $this->input->post('txtboleh_fisik');
-                $txtusiamax = $this->input->post('txtusiamax');
-                $txtusiamin = $this->input->post('txtusiamin');
-                $tinggimin = $this->input->post('tinggimin');
-                $tinggimax = $this->input->post('tinggimax');
-                $txtboleh_fisik = $this->input->post('txtboleh_fisik');
+                $adduk = ($this->input->post('adduk')?$this->input->post('adduk'):NULL);
+                $bahasa = ($this->input->post('bahasa')?$this->input->post('bahasa'):NULL);
+                $batas_fisik = ($this->input->post('batas_fisik')?$this->input->post('batas_fisik'):NULL);
+                $buta_warna = ($this->input->post('buta_warna')?$this->input->post('buta_warna'):NULL);
+                $f_kelamin = ($this->input->post('f_kelamin')?$this->input->post('f_kelamin'):NULL);
+                $f_level_bahasa = ($this->input->post('f_level_bahasa')?$this->input->post('f_level_bahasa'):NULL);
+                $f_level_kompi = ($this->input->post('f_level_kompi')?$this->input->post('f_level_kompi'):NULL);
+                $jurusan1 = ($this->input->post('jurusan1')?$this->input->post('jurusan1'):NULL);
+                $jurusan2 = ($this->input->post('jurusan2')?$this->input->post('jurusan2'):NULL);
+                $jurusan3 = ($this->input->post('jurusan3')?$this->input->post('jurusan3'):NULL);
+                $kaca_mata = ($this->input->post('kaca_mata')?$this->input->post('kaca_mata'):NULL);
+                $katsdmfrm4 = ($this->input->post('katsdmfrm4')?$this->input->post('katsdmfrm4'):NULL);
+                $kompetensi = ($this->input->post('kompetensi')?$this->input->post('kompetensi'):NULL);
+                $kompi = ($this->input->post('kompi')?$this->input->post('kompi'):NULL);
+                $lainlain = ($this->input->post('lainlain')?$this->input->post('lainlain'):NULL);
+                $pendidikan = ($this->input->post('pendidikan')?$this->input->post('pendidikan'):NULL);
+                $pengalaman = ($this->input->post('pengalaman')?$this->input->post('pengalaman'):NULL);
+                $syarat_khusus = ($this->input->post('syarat_khusus')?$this->input->post('syarat_khusus'):NULL);
+                $test_khusus = ($this->input->post('test_khusus')?$this->input->post('test_khusus'):NULL);
+                $thnadd = ($this->input->post('thnadd')?$this->input->post('thnadd'):NULL);
+                $txtboleh_fisik = ($this->input->post('txtboleh_fisik')?$this->input->post('txtboleh_fisik'):NULL);
+                $txtusiamax = ($this->input->post('txtusiamax')?$this->input->post('txtusiamax'):NULL);
+                $txtusiamin = ($this->input->post('txtusiamin')?$this->input->post('txtusiamin'):NULL);
+                $tinggimin = ($this->input->post('tinggimin')?$this->input->post('tinggimin'):NULL);
+                $tinggimax = ($this->input->post('tinggimax')?$this->input->post('tinggimax'):NULL);
+                $txtboleh_fisik = ($this->input->post('txtboleh_fisik')?$this->input->post('txtboleh_fisik'):NULL);
 
 
                 $array = array(
@@ -1839,8 +1839,8 @@ class Abk extends REST_Controller
                     'pengalaman' => $pengalaman,
                     'tinggi_b_min' => $tinggimin,
                     'tinggi_b_max' => $tinggimax,
-                    'berat_b_min' => $this->input->post('berat_b_min'),
-                    'berat_b_max' => $this->input->post('berat_b_max'),
+                    'berat_b_min' => ($this->input->post('berat_b_min')?$this->input->post('berat_b_min'):NULL),
+                    'berat_b_max' => ($this->input->post('berat_b_max')?$this->input->post('berat_b_max'):NULL),
                     'buta_warna' => $buta_warna,
                     'kacamata' => $kaca_mata,
                     'fisik_lain' => $batas_fisik,
@@ -1916,7 +1916,7 @@ class Abk extends REST_Controller
 
             if ($decodedToken != false) {
 
-                $dd = array('status' => $this->input->get('type'));
+                $dd = array('status' => ($this->input->get('type')?$this->input->get('type'):NULL));
 
 
                 $this->db->where('id', $this->input->get('id'));
@@ -1983,13 +1983,13 @@ class Abk extends REST_Controller
 
                 $array =
                     array(
-                        'id_uk_det' => $this->input->post('id_uk_det'),
-                        'gaji' => $this->input->post('gaji'),
-                        'id_kp' => $this->input->post('id_kp'),
-                        'jml_saatini' => $this->input->post('jml_saatini'),
-                        'kebutuhan_sesuai_abk' => $this->input->post('kebutuhan_sesuai_abk'),
-                        'id_pengajuan' => $this->input->post('idtk'),
-                        'jumlah' => $this->input->post('jumlah'),
+                        'id_uk_det' => ($this->input->post('id_uk_det')?$this->input->post('id_uk_det'):NULL),
+                        'gaji' => ($this->input->post('gaji')?$this->input->post('gaji'):NULL),
+                        'id_kp' => ($this->input->post('id_kp')?$this->input->post('id_kp'):NULL),
+                        'jml_saatini' => ($this->input->post('jml_saatini')?$this->input->post('jml_saatini'):NULL),
+                        'kebutuhan_sesuai_abk' => ($this->input->post('kebutuhan_sesuai_abk')?$this->input->post('kebutuhan_sesuai_abk'):NULL),
+                        'id_pengajuan' => ($this->input->post('idtk')?$this->input->post('idtk'):NULL),
+                        'jumlah' => ($this->input->post('jumlah')?$this->input->post('jumlah'):NULL),
                     );
 
 
@@ -2022,13 +2022,13 @@ class Abk extends REST_Controller
 
                 $array =
                     array(
-                        'id_uk_det' => $this->input->post('id_uk_det'),
-                        'gaji' => $this->input->post('gaji'),
-                        'id_kp' => $this->input->post('id_kp'),
-                        'jml_saatini' => $this->input->post('jml_saatini'),
-                        'kebutuhan_sesuai_abk' => $this->input->post('kebutuhan_sesuai_abk'),
-                        'id_pengajuan' => $this->input->post('idtk'),
-                        'jumlah' => $this->input->post('jumlah'),
+						'id_uk_det' => ($this->input->post('id_uk_det')?$this->input->post('id_uk_det'):NULL),
+                        'gaji' => ($this->input->post('gaji')?$this->input->post('gaji'):NULL),
+                        'id_kp' => ($this->input->post('id_kp')?$this->input->post('id_kp'):NULL),
+                        'jml_saatini' => ($this->input->post('jml_saatini')?$this->input->post('jml_saatini'):NULL),
+                        'kebutuhan_sesuai_abk' => ($this->input->post('kebutuhan_sesuai_abk')?$this->input->post('kebutuhan_sesuai_abk'):NULL),
+                        'id_pengajuan' => ($this->input->post('idtk')?$this->input->post('idtk'):NULL),
+                        'jumlah' => ($this->input->post('jumlah')?$this->input->post('jumlah'):NULL),
                     );
 
 
@@ -2203,19 +2203,19 @@ class Abk extends REST_Controller
             if ($decodedToken != false) {
 
                 $array =
-                    array('id' => $this->input->post('id_alasan'),
-                        'id_pengajuan' => $this->input->post('id_pengajuandetail'),
-                        'id_gantikaryawan' => $this->input->post('id_gantikaryawan'),
-                        'nama_karyawan' => $this->input->post('nama_karyawan'),
-                        'tgl_keluar' => $this->input->post('tgl_keluar'),
-                        'alasan_rekrut' => $this->input->post('alasan_rekrut'),
-                        'dampak_diharapkan' => $this->input->post('dampak_diharapkan'),
-                        'indikator' => $this->input->post('indikator'),
-                        'jangka_waktu_bln' => $this->input->post('jangka_waktu_bln'),
-                        'lain_lain' => $this->input->post('lain_lain'),
-                        'id_sumber' => $this->input->post('id_sumber'),
-                        'status_pegawai_pns' => $this->input->post('status_pegawai_pns'),
-                        'status_pegawai_tetap' => $this->input->post('status_pegawai_tetap'),
+                    array(
+                        'id_pengajuan' => ($this->input->post('id_pengajuandetail')?$this->input->post('id_pengajuandetail'):NULL),
+                        'id_gantikaryawan' => ($this->input->post('id_gantikaryawan')?$this->input->post('id_gantikaryawan'):NULL),
+                        'nama_karyawan' => ($this->input->post('nama_karyawan')?$this->input->post('nama_karyawan'):NULL),
+                        'tgl_keluar' => ($this->input->post('tgl_keluar')?$this->input->post('tgl_keluar'):NULL),
+                        'alasan_rekrut' => ($this->input->post('alasan_rekrut')?$this->input->post('alasan_rekrut'):NULL),
+                        'dampak_diharapkan' => ($this->input->post('dampak_diharapkan')?$this->input->post('dampak_diharapkan'):NULL),
+                        'indikator' => ($this->input->post('indikator')?$this->input->post('indikator'):NULL),
+                        'jangka_waktu_bln' => ($this->input->post('jangka_waktu_bln')?$this->input->post('jangka_waktu_bln'):NULL),
+                        'lain_lain' => ($this->input->post('lain_lain')?$this->input->post('lain_lain'):NULL),
+                        'id_sumber' => ($this->input->post('id_sumber')?$this->input->post('id_sumber'):NULL),
+                        'status_pegawai_pns' => ($this->input->post('status_pegawai_pns')?$this->input->post('status_pegawai_pns'):NULL),
+                        'status_pegawai_tetap' => ($this->input->post('status_pegawai_tetap')?$this->input->post('status_pegawai_tetap'):NULL),
                     );
 
 
@@ -2248,17 +2248,17 @@ class Abk extends REST_Controller
 
                 $array =
                     array(
-                        'id_gantikaryawan' => $this->input->post('id_gantikaryawan'),
-                        'nama_karyawan' => $this->input->post('nama_karyawan'),
-                        'tgl_keluar' => $this->input->post('tgl_keluar'),
-                        'alasan_rekrut' => $this->input->post('alasan_rekrut'),
-                        'dampak_diharapkan' => $this->input->post('dampak_diharapkan'),
-                        'indikator' => $this->input->post('indikator'),
-                        'jangka_waktu_bln' => $this->input->post('jangka_waktu_bln'),
-                        'lain_lain' => $this->input->post('lain_lain'),
-                        'id_sumber' => $this->input->post('id_sumber'),
-                        'status_pegawai_pns' => $this->input->post('status_pegawai_pns'),
-                        'status_pegawai_tetap' => $this->input->post('status_pegawai_tetap'),
+						'id_gantikaryawan' => ($this->input->post('id_gantikaryawan')?$this->input->post('id_gantikaryawan'):NULL),
+                        'nama_karyawan' => ($this->input->post('nama_karyawan')?$this->input->post('nama_karyawan'):NULL),
+                        'tgl_keluar' => ($this->input->post('tgl_keluar')?$this->input->post('tgl_keluar'):NULL),
+                        'alasan_rekrut' => ($this->input->post('alasan_rekrut')?$this->input->post('alasan_rekrut'):NULL),
+                        'dampak_diharapkan' => ($this->input->post('dampak_diharapkan')?$this->input->post('dampak_diharapkan'):NULL),
+                        'indikator' => ($this->input->post('indikator')?$this->input->post('indikator'):NULL),
+                        'jangka_waktu_bln' => ($this->input->post('jangka_waktu_bln')?$this->input->post('jangka_waktu_bln'):NULL),
+                        'lain_lain' => ($this->input->post('lain_lain')?$this->input->post('lain_lain'):NULL),
+                        'id_sumber' => ($this->input->post('id_sumber')?$this->input->post('id_sumber'):NULL),
+                        'status_pegawai_pns' => ($this->input->post('status_pegawai_pns')?$this->input->post('status_pegawai_pns'):NULL),
+                        'status_pegawai_tetap' => ($this->input->post('status_pegawai_tetap')?$this->input->post('status_pegawai_tetap'):NULL),
                     );
 
 
@@ -2329,9 +2329,9 @@ class Abk extends REST_Controller
 
                 $array =
                     array(
-                        'id_pengajuan_posisi' => $this->input->post('id_pengajuan_posisi'),
-                        'dlm_struktur' => $this->input->post('dlm_struktur'),
-                        'urian' => $this->input->post('urian'),
+                        'id_pengajuan_posisi' => ($this->input->post('id_pengajuan_posisi')?$this->input->post('id_pengajuan_posisi'):NULL),
+                        'dlm_struktur' => ($this->input->post('dlm_struktur')?$this->input->post('dlm_struktur'):NULL),
+                        'urian' => ($this->input->post('urian')?$this->input->post('urian'):NULL),
                     );
 
 
@@ -2364,8 +2364,8 @@ class Abk extends REST_Controller
 
                 $array =
                     array(
-                        'dlm_struktur' => $this->input->post('dlm_struktur'),
-                        'urian' => $this->input->post('urian'),
+                        'dlm_struktur' => ($this->input->post('dlm_struktur')?$this->input->post('dlm_struktur'):NULL),
+                        'urian' => ($this->input->post('urian')?$this->input->post('urian'):NULL),
                     );
 
 
@@ -2398,11 +2398,11 @@ class Abk extends REST_Controller
             if ($decodedToken != false) {
 
                 $array = array(
-                    'id_pengajuan_comment' => $this->input->post('idtk'),
+                    'id_pengajuan_comment' => ($this->input->post('idtk')?$this->input->post('idtk'):NULL),
                     'tgl' => date('Y-m-d H:i:s'),
-                    'isi' => $this->input->post('isi'),
+                    'isi' => ($this->input->post('isi')?$this->input->post('isi'):NULL),
                     'id_user' => $decodedToken->data->id,
-                    'kategori' => $this->input->post('kategori_chat')
+                    'kategori' => ($this->input->post('kategori_chat')?$this->input->post('kategori_chat'):NULL)
                 );
 
 
@@ -2434,9 +2434,9 @@ class Abk extends REST_Controller
             if ($decodedToken != false) {
 
                 $array = array(
-                    'id_pengajuan_comment' => $this->input->post('idtk'),
+					'id_pengajuan_comment' => ($this->input->post('idtk')?$this->input->post('idtk'):NULL),
                     'tgl' => date('Y-m-d H:i:s'),
-                    'isi' => $this->input->post('isi'),
+                    'isi' => ($this->input->post('isi')?$this->input->post('isi'):NULL),
                     'id_user' => $decodedToken->data->id,
                 );
 

@@ -85,12 +85,13 @@
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">
+  $('.judul-menu').html('Group Jabatan ASN');
   // specify the columns
   var url_view= BASE_URL2+'view/m/'; 
   var url_api=BASE_URL+'m/group_jabatan_asn/';
 
 
-  var columnDefs_m_group_jabatan_asn =  [{headerName: "migrasi group jabatan ASN id", field: "migrasi_group_jabatan_ASN_id", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "kd grp job profesi", field: "kd_grp_job_profesi", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "ds group jabatan", field: "ds_group_jabatan", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "tgl update", field: "tgl_update", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "no peg update", field: "no_peg_update", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "tampilkan", field: "tampilkan", width: 190, filterParams:{newRowsAction: "keep"}},];
+  var columnDefs_m_group_jabatan_asn =  [{headerName: "Kode Grup", field: "kd_grp_job_profesi", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Grup Jabatan", field: "ds_group_jabatan", width: 330, filterParams:{newRowsAction: "keep"}},{headerName: "Update date", field: "tgl_update", width: 200, filterParams:{newRowsAction: "keep"}},{headerName: "Update by", field: "no_peg_update", width: 200, filterParams:{newRowsAction: "keep"}},];
    
    
 
@@ -154,7 +155,7 @@
   function add_m_group_jabatan_asn(){
     gopop(url_view+'form_m_group_jabatan_asn.php',save_m_group_jabatan_asn,'medium');
     window.setTimeout(function(){
-      $('#migrasi_group_jabatan_ASN_id').val('');
+      $('#id').val('');
     },500);
     
   }
@@ -175,7 +176,18 @@
   }
 
    function save_m_group_jabatan_asn(){
-    postForm('form-m_group_jabatan_asn', url_api+'save',loaddata_m_group_jabatan_asn);
+	var kd_grp_job_profesi = $('#kd_grp_job_profesi').val();
+	var ds_group_jabatan = $('#ds_group_jabatan').val();
+     
+     if(empty(kd_grp_job_profesi)){
+        onMessage('Kode Group Wajib diisi!');
+               return false;
+     }else if(empty(ds_group_jabatan)){
+        onMessage('Keterangan Wajib diisi!');
+               return false;
+     }else{
+		postForm('form-m_group_jabatan_asn', url_api+'save',loaddata_m_group_jabatan_asn);
+	 }
   }
 
    function delete_m_group_jabatan_asn(){

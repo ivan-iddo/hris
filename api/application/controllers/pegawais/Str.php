@@ -43,11 +43,11 @@ class Str extends MY_Controller
             $filename = $data['inputfileupload']['file_name'];
         }
 
-        $datas["id_user"] = $this->input->post('id_userfile');
-        $datas["str"] = $this->input->post('str');
-        $datas["date_start"] = $this->input->post('date_start');
-        $datas["date_end"] = $this->input->post('date_end');
-        $datas["url"] = $filename;
+        $datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
+        $datas["str"] = ($this->input->post('str')?$this->input->post('str'):NULL);
+        $datas["date_start"] = ($this->input->post('date_start')?$this->input->post('date_start'):NULL);
+        $datas["date_end"] = ($this->input->post('date_end')?$this->input->post('date_end'):NULL);
+        $datas["url"] = ($filename?$filename:NULL);
 
         $create = $this->His_str_model->create($datas);
 

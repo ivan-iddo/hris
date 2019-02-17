@@ -23,7 +23,7 @@ $_POST = json_decode($rest_json, true);
  * 3. Change 'jwt_key' in application\config\jwt.php
  *
  */
-
+date_default_timezone_set('Asia/Jakarta');
 class Group_profesi extends REST_Controller
 {
     /**
@@ -41,6 +41,8 @@ class Group_profesi extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 
+
+				
 				if(!empty($this->input->get('id'))){
 					$this->db->where('id',$this->input->get('id'));
 				}
@@ -51,9 +53,11 @@ class Group_profesi extends REST_Controller
 				$total_rows = $this->db->count_all_results($this->table);
 				$pagination = create_pagination_endless('/masterp/Group_profesi/0/', $total_rows,$this->perpage,5);
 				  
+				
 				if(!empty($this->input->get('id'))){
 					$this->db->where('id',$this->input->get('id'));
 				}
+				
 				if(!empty($this->uri->segment(4))){
 					$this->db->like("kd_grp_job_profesi",$this->uri->segment(4)); 
 				 }
@@ -63,7 +67,7 @@ class Group_profesi extends REST_Controller
 				  
 			if(!empty($res)){
 				 foreach($res as $dat){
-					$arr['result'][]= array('id'=> $dat->id,'kd_grp_job_profesi'=> $dat->kd_grp_job_profesi,'ds_group_jabatan'=> $dat->ds_group_jabatan,'tgl_update'=> $dat->tgl_update,'no_peg_update'=> $dat->no_peg_update,'tampilkan'=> $dat->tampilkan,);
+					$arr['result'][]= array('id'=> $dat->id,'kd_grp_job_profesi'=> $dat->kd_grp_job_profesi,'ds_group_jabatan'=> $dat->ds_group_jabatan,'tgl_update'=> $dat->tgl_update,'no_peg_update'=> $dat->no_peg_update,);
 				  }
 				  $arr['total']=$total_rows;
 					$arr['paging'] = $pagination['limit'][1];
@@ -87,16 +91,26 @@ class Group_profesi extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-
-				if(!empty($this->input->post('id_masterp'))){
+			
+			$id_user=$decodedToken->data->_pnc_id_grup;
+			
+				if(!empty($this->input->post('id'))){
 					//edit
-					$id= $this->input->post('id_masterp');
-					$arr=array('kd_grp_job_profesi'=> $this->input->post('kd_grp_job_profesi'),'ds_group_jabatan'=> $this->input->post('ds_group_jabatan'),'tgl_update'=> $this->input->post('tgl_update'),'no_peg_update'=> $this->input->post('no_peg_update'),'tampilkan'=> $this->input->post('tampilkan'),);;//array('nama'=>$this->input->post('nama'));
+					$id= $this->input->post('id');
+					$arr=array(
+					'kd_grp_job_profesi'=> ($this->input->post('kd_grp_job_profesi')?$this->input->post('kd_grp_job_profesi'):NULL),
+					'ds_group_jabatan'=> ($this->input->post('ds_group_jabatan')?$this->input->post('ds_group_jabatan'):NULL),
+					'tgl_update'=> date('Y-m-d H:i:s'),
+					'no_peg_update'=> $id_user,);//array('nama'=>$this->input->post('nama'));
 					$this->db->where('id',$id);
 					$this->db->update($this->table,$arr);
 				}else{
 					//save
-					$arr=array('kd_grp_job_profesi'=> $this->input->post('kd_grp_job_profesi'),'ds_group_jabatan'=> $this->input->post('ds_group_jabatan'),'tgl_update'=> $this->input->post('tgl_update'),'no_peg_update'=> $this->input->post('no_peg_update'),'tampilkan'=> $this->input->post('tampilkan'),);;//array('kd_grp_job_profesi'=>$this->input->post('nama'));
+					$arr=array(
+					'kd_grp_job_profesi'=> ($this->input->post('kd_grp_job_profesi')?$this->input->post('kd_grp_job_profesi'):NULL),
+					'ds_group_jabatan'=> ($this->input->post('ds_group_jabatan')?$this->input->post('ds_group_jabatan'):NULL),
+					'tgl_update'=> date('Y-m-d H:i:s'),
+					'no_peg_update'=> $id_user,);//array('kd_grp_job_profesi'=>$this->input->post('nama'));
 					 
 					$this->db->insert($this->table,$arr);
 				}
@@ -163,12 +177,36 @@ class Group_profesi extends REST_Controller
 				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
 				if ($decodedToken != false) {
 
-				 
-					 $this->db->order_by('ds_group_jabatan','ASC');
+			  $this->db->where('tampilkan',1);
+			  $this->db->order_by('ds_group_jabatan','ASC');
 					 
 			  $res = $this->db->get($this->table)->result();
 			  foreach($res as $d){
 				$arr['result'][]=array('label'=>$d->ds_group_jabatan,'value'=>$d->id);
+			  }
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+	
+	public function getoption2_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+
+			  $this->db->where('tampilkan',1);
+			  $this->db->order_by('ds_group_jabatan','ASC');
+					 
+			  $res = $this->db->get($this->table)->result();
+			  foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->ds_group_jabatan,'value'=>$d->kd_grp_job_profesi);
 			  }
 			  
 			  $this->set_response($arr, REST_Controller::HTTP_OK);

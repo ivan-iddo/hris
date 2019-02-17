@@ -50,20 +50,23 @@ class Profesi extends REST_Controller
 				 }
 				$total_rows = $this->db->count_all_results($this->table);
 				$pagination = create_pagination_endless('/masterp/Profesi/0/', $total_rows,$this->perpage,5);
-				  
+
+				$this->db->select('m_kode_profesi.*,m_kode_profesi_group.ds_group_jabatan as grup');
+                $this->db->join('m_kode_profesi_group', 'm_kode_profesi_group.id = m_kode_profesi.kd_grp_job_profesi', 'LEFT');
+				
 				if(!empty($this->input->get('id'))){
-					$this->db->where('id',$this->input->get('id'));
+					$this->db->where('m_kode_profesi.id',$this->input->get('id'));
 				}
 				if(!empty($this->uri->segment(4))){
-					$this->db->like("kd_profesi",$this->uri->segment(4)); 
+					$this->db->like("m_kode_profesi.kd_profesi",$this->uri->segment(4)); 
 				 }
-				  $this->db->where('tampilkan','1');
+				  $this->db->where('m_kode_profesi.tampilkan','1');
 				  $this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
 				  $res = $this->db->get($this->table)->result();
 				  
 			if(!empty($res)){
 				 foreach($res as $dat){
-					$arr['result'][]= array('id'=> $dat->id,'kd_profesi'=> $dat->kd_profesi,'ds_profesi'=> $dat->ds_profesi,'kd_grp_job_profesi'=> $dat->kd_grp_job_profesi,'tampilkan'=> $dat->tampilkan,);
+					$arr['result'][]= array('id'=> $dat->id,'grup'=> $dat->grup,'kd_profesi'=> $dat->kd_profesi,'ds_profesi'=> $dat->ds_profesi,'kd_grp_job_profesi'=> $dat->kd_grp_job_profesi,);
 				  }
 				  $arr['total']=$total_rows;
 					$arr['paging'] = $pagination['limit'][1];
@@ -88,15 +91,21 @@ class Profesi extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 
-				if(!empty($this->input->post('id_masterp'))){
+				if(!empty($this->input->post('id'))){
 					//edit
-					$id= $this->input->post('id_masterp');
-					$arr=array('kd_profesi'=> $this->input->post('kd_profesi'),'ds_profesi'=> $this->input->post('ds_profesi'),'kd_grp_job_profesi'=> $this->input->post('kd_grp_job_profesi'),'tampilkan'=> $this->input->post('tampilkan'),);;//array('nama'=>$this->input->post('nama'));
+					$id= $this->input->post('id');
+					$arr=array(
+					'kd_profesi'=> ($this->input->post('kd_profesi')?$this->input->post('kd_profesi'):NULL),
+					'ds_profesi'=> ($this->input->post('ds_profesi')?$this->input->post('ds_profesi'):NULL),
+					'kd_grp_job_profesi'=> ($this->input->post('kd_grp_job_profesi')?$this->input->post('kd_grp_job_profesi'):NULL),);//array('nama'=>$this->input->post('nama'));
 					$this->db->where('id',$id);
 					$this->db->update($this->table,$arr);
 				}else{
 					//save
-					$arr=array('kd_profesi'=> $this->input->post('kd_profesi'),'ds_profesi'=> $this->input->post('ds_profesi'),'kd_grp_job_profesi'=> $this->input->post('kd_grp_job_profesi'),'tampilkan'=> $this->input->post('tampilkan'),);;//array('kd_profesi'=>$this->input->post('nama'));
+					$arr=array(
+					'kd_profesi'=> ($this->input->post('kd_profesi')?$this->input->post('kd_profesi'):NULL),
+					'ds_profesi'=> ($this->input->post('ds_profesi')?$this->input->post('ds_profesi'):NULL),
+					'kd_grp_job_profesi'=> ($this->input->post('kd_grp_job_profesi')?$this->input->post('kd_grp_job_profesi'):NULL),);//array('kd_profesi'=>$this->input->post('nama'));
 					 
 					$this->db->insert($this->table,$arr);
 				}

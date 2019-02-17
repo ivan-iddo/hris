@@ -42,16 +42,16 @@ class Pelatihan extends REST_Controller
 				if ($decodedToken != false) {
 				 
 			  $arrdata=array(
-				   'id_user'=>$this->input->post('id_user'),
-				   'nama'=>$this->input->post('nama'), 
-				   'tempat'=>$this->input->post('tempat'),
-				   'penyelenggara'=>$this->input->post('penyelenggara'),
-				   'penanggung'=>$this->input->post('penanggung'),
-				   'durasi'=>$this->input->post('durasi'),
-				   'mulai'=>$this->input->post('mulai'),
-				   'sampai'=>$this->input->post('sampai'),
-				   'jenis_sertifikat' => $this->input->post('jenis_sertifikat'),
-				   'no_sertifikat' => $this->input->post('no_sertifikat')
+				   'id_user'=>($this->input->post('id_user')?$this->input->post('id_user'):NULL),
+				   'nama'=>($this->input->post('nama')?$this->input->post('nama'):NULL), 
+				   'tempat'=>($this->input->post('tempat')?$this->input->post('tempat'):NULL),
+				   'penyelenggara'=>($this->input->post('penyelenggara')?$this->input->post('penyelenggara'):NULL),
+				   'penanggung'=>($this->input->post('penanggung')?$this->input->post('penanggung'):NULL),
+				   'durasi'=>($this->input->post('durasi')?$this->input->post('durasi'):NULL),
+				   'mulai'=>($this->input->post('mulai')?$this->input->post('mulai'):NULL),
+				   'sampai'=>($this->input->post('sampai')?$this->input->post('sampai'):NULL),
+				   'jenis_sertifikat' => ($this->input->post('jenis_sertifikat')?$this->input->post('jenis_sertifikat'):NULL),
+				   'no_sertifikat' => ($this->input->post('no_sertifikat')?$this->input->post('no_sertifikat'):NULL)
 				   );
 			  
 			  $this->db->insert('his_pelatihan',$arrdata);
@@ -125,15 +125,15 @@ class Pelatihan extends REST_Controller
 				if ($decodedToken != false) {
 				 
 			  $arrdata=array( 
-				'nama'=>$this->input->post('nama'), 
-				'tempat'=>$this->input->post('tempat'),
-				'penyelenggara'=>$this->input->post('penyelenggara'),
-				'penanggung'=>$this->input->post('penanggung'),
-				'durasi'=>$this->input->post('durasi'),
-				'mulai'=>$this->input->post('mulai'),
-				'sampai'=>$this->input->post('sampai'),
-				'jenis_sertifikat' => $this->input->post('jenis_sertifikat'),
-				'no_sertifikat' => $this->input->post('no_sertifikat')
+				   'nama'=>($this->input->post('nama')?$this->input->post('nama'):NULL), 
+				   'tempat'=>($this->input->post('tempat')?$this->input->post('tempat'):NULL),
+				   'penyelenggara'=>($this->input->post('penyelenggara')?$this->input->post('penyelenggara'):NULL),
+				   'penanggung'=>($this->input->post('penanggung')?$this->input->post('penanggung'):NULL),
+				   'durasi'=>($this->input->post('durasi')?$this->input->post('durasi'):NULL),
+				   'mulai'=>($this->input->post('mulai')?$this->input->post('mulai'):NULL),
+				   'sampai'=>($this->input->post('sampai')?$this->input->post('sampai'):NULL),
+				   'jenis_sertifikat' => ($this->input->post('jenis_sertifikat')?$this->input->post('jenis_sertifikat'):NULL),
+				   'no_sertifikat' => ($this->input->post('no_sertifikat')?$this->input->post('no_sertifikat'):NULL)
 				   );
 			   
 			  

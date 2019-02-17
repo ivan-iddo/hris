@@ -1,17 +1,10 @@
 <form id="form-m_keahlian_asn_detail"  method="post" role="form" class="form-horizontal pad-all">
 <div class="row pad-all">
 <div class="panel-body">
-    <input type="text" style="display:none" name="id" id="id" class="form-control"/><div class="row mar-all"> 
+    <input type="text" style="display:none" name="id" id="id" class="form-control"/>
+					<div class="row mar-all"> 
 					<div class="form-group">
-					<label class="col-sm-2 control-label" for="inputstatus">nama</label>
-							<div class="col-sm-7">
-							<input type="text" name="nama" id="nama" class="form-control"/>
-							</div>
-							
-					</div> 
-					</div><div class="row mar-all"> 
-					<div class="form-group">
-					<label class="col-sm-2 control-label" for="inputstatus">kode ahli</label>
+					<label class="col-sm-3 control-label" for="inputstatus">Jenis Keahlian</label>
 							<div class="col-sm-7">
 							<select aria-hidden="true" class="form-control select-chosen" id="kode_ahli" name="kode_ahli" style="width: 100%;" tabindex="-1">
 									 
@@ -21,9 +14,9 @@
 					</div> 
 					</div><div class="row mar-all"> 
 					<div class="form-group">
-					<label class="col-sm-2 control-label" for="inputstatus">tampilkan</label>
+					<label class="col-sm-3 control-label" for="inputstatus">Detail Keahlian ASN</label>
 							<div class="col-sm-7">
-							<input type="text" name="tampilkan" id="tampilkan" class="form-control"/>
+							<input type="text" name="nama" id="nama" class="form-control"/>
 							</div>
 							
 					</div> 

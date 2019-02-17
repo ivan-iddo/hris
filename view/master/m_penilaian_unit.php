@@ -51,6 +51,7 @@
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">
+$('.judul-menu').html('Master Penilaian Unit');
   // specify the columns
   var columnDefs = [
     {

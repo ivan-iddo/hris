@@ -23,7 +23,7 @@ $_POST = json_decode($rest_json, true);
  * 3. Change 'jwt_key' in application\config\jwt.php
  *
  */
-
+date_default_timezone_set('Asia/Jakarta');
 class Group_jabatan_asn extends REST_Controller
 {
     /**
@@ -63,7 +63,7 @@ class Group_jabatan_asn extends REST_Controller
 				  
 			if(!empty($res)){
 				 foreach($res as $dat){
-					$arr['result'][]= array('migrasi_group_jabatan_ASN_id'=> $dat->migrasi_group_jabatan_ASN_id,'kd_grp_job_profesi'=> $dat->kd_grp_job_profesi,'ds_group_jabatan'=> $dat->ds_group_jabatan,'tgl_update'=> $dat->tgl_update,'no_peg_update'=> $dat->no_peg_update,'tampilkan'=> $dat->tampilkan,);
+					$arr['result'][]= array('migrasi_group_jabatan_ASN_id'=> $dat->migrasi_group_jabatan_ASN_id,'kd_grp_job_profesi'=> $dat->kd_grp_job_profesi,'ds_group_jabatan'=> $dat->ds_group_jabatan,'tgl_update'=> $dat->tgl_update,'no_peg_update'=> $dat->no_peg_update,);
 				  }
 				  $arr['total']=$total_rows;
 					$arr['paging'] = $pagination['limit'][1];
@@ -87,16 +87,27 @@ class Group_jabatan_asn extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-
-				if(!empty($this->input->post('id_m'))){
+				$id_user=$decodedToken->data->_pnc_id_grup;
+	
+				if(!empty($this->input->post('id'))){
 					//edit
-					$id= $this->input->post('id_m');
-					$arr=array('kd_grp_job_profesi'=> $this->input->post('kd_grp_job_profesi'),'ds_group_jabatan'=> $this->input->post('ds_group_jabatan'),'tgl_update'=> $this->input->post('tgl_update'),'no_peg_update'=> $this->input->post('no_peg_update'),'tampilkan'=> $this->input->post('tampilkan'),);;//array('nama'=>$this->input->post('nama'));
+					$id= $this->input->post('id');
+					$arr=array(
+					'kd_grp_job_profesi'=> ($this->input->post('kd_grp_job_profesi')?$this->input->post('kd_grp_job_profesi'):NULL),
+					'ds_group_jabatan'=> ($this->input->post('ds_group_jabatan')?$this->input->post('ds_group_jabatan'):NULL),
+					'tgl_update'=> date('Y-m-d H:i:s'),
+					'no_peg_update'=> $id_user,);
+					//array('nama'=>$this->input->post('nama'));
 					$this->db->where('migrasi_group_jabatan_ASN_id',$id);
 					$this->db->update($this->table,$arr);
 				}else{
 					//save
-					$arr=array('kd_grp_job_profesi'=> $this->input->post('kd_grp_job_profesi'),'ds_group_jabatan'=> $this->input->post('ds_group_jabatan'),'tgl_update'=> $this->input->post('tgl_update'),'no_peg_update'=> $this->input->post('no_peg_update'),'tampilkan'=> $this->input->post('tampilkan'),);;//array('kd_grp_job_profesi'=>$this->input->post('nama'));
+					$arr=array(
+					'kd_grp_job_profesi'=> ($this->input->post('kd_grp_job_profesi')?$this->input->post('kd_grp_job_profesi'):NULL),
+					'ds_group_jabatan'=> ($this->input->post('ds_group_jabatan')?$this->input->post('ds_group_jabatan'):NULL),
+					'tgl_update'=> date('Y-m-d H:i:s'),
+					'no_peg_update'=> $id_user,);
+					//array('kd_grp_job_profesi'=>$this->input->post('nama'));
 					 
 					$this->db->insert($this->table,$arr);
 				}

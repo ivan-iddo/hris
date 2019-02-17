@@ -22,13 +22,14 @@ $_POST = json_decode($rest_json, true);
  * 3. Change 'jwt_key' in application\config\jwt.php
  *
  */
-
+date_default_timezone_set('Asia/Jakarta');
 class Pengembangan_pelatihan_kegiatan extends REST_Controller
 {
     /**
      * URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
      * Method: GET
      */
+
     public function __construct()
     {
         parent::__construct();

@@ -54,6 +54,7 @@ class Pengembangan_pelatihan_kegiatan_model extends MY_Model
 
 	function get_all($params_array = array(), $like = array(), $offset = "", $limit = "", $from = "", $to = "", $where_in = "", $order_by = "")
 	{	
+	
 		$this->db->select("*");
 		$this->db->from($this->table);
 		$this->db->where("statue !=", 0);

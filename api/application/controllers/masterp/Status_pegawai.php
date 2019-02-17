@@ -91,12 +91,12 @@ class Status_pegawai extends REST_Controller
 				if(!empty($this->input->post('id'))){
 					//edit
 					$id= $this->input->post('id');
-					$arr=array('nama'=> $this->input->post('nama'),);;//array('nama'=>$this->input->post('nama'));
+					$arr=array('nama'=> ($this->input->post('nama')?$this->input->post('nama'):NULL),);//array('nama'=>$this->input->post('nama'));
 					$this->db->where('id',$id);
 					$this->db->update($this->table,$arr);
 				}else{
 					//save
-					$arr=array('nama'=> $this->input->post('nama'),);;//array('nama'=>$this->input->post('nama'));
+					$arr=array('nama'=> ($this->input->post('nama')?$this->input->post('nama'):NULL),);//array('nama'=>$this->input->post('nama'));
 					 
 					$this->db->insert($this->table,$arr);
 				}

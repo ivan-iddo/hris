@@ -85,6 +85,7 @@
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">
+  $('.judul-menu').html('Status Pegawai');
   // specify the columns
   var url_view= BASE_URL2+'view/master/'; 
   var url_api=BASE_URL+'masterp/status_pegawai/';
@@ -175,7 +176,14 @@
   }
 
    function save_m_status_pegawai(){
-    postForm('form-m_status_pegawai', url_api+'save',loaddata_m_status_pegawai);
+	var nama = $('#nama').val();
+     
+     if(empty(nama)){
+        onMessage('Status Pagawai Wajib diisi!');
+               return false;
+     }else{
+		postForm('form-m_status_pegawai', url_api+'save',loaddata_m_status_pegawai);
+	 }
   }
 
    function delete_m_status_pegawai(){

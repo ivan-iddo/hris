@@ -100,8 +100,18 @@
 					        </div>
                             
   </div>
- <button class="btn btn-primary btn-icon mar-all" onclick="getRowData()"><i class="fa fa-folder icon-2x"></i> SAVE KPI</button>
- <button class="btn btn-success btn-icon mar-all" onclick="downloadKPI()"><i class="fa fa-cloud-download icon-2x"></i> Download KPI</button>
+  <div class="row">
+	<div class="col-sm-6 table-toolbar-left">
+		<button id="demo-btn-addrow" class="btn btn-purple" onclick="onAddRow()"><i class="demo-pli-add"></i> Tambah Langkah Kerja</button>
+		<button style="margin-left:3px" class="btn btn-mint" onclick="getRowData()"><i class="fa fa-file-excel-o"></i> Simpan Perubahan</button>
+		<button class="btn btn-danger" onclick="hapusform4()"><i class="fa fa-file-excel-o"></i> Delete</button>                                                   				                     
+	</div>
+	<div class="col-sm-6 table-toolbar-right">				                   
+		<div class="btn-group">
+		<button class="btn btn-default"  onCLick="downloadKPI()"><i class="fa fa-file-excel-o"></i> Download Excel</button>
+		</div>
+	</div>
+  </div>
 <div id="myGrid"  style="width:100%;height: 900px;" class="ag-theme-balham"></div> 
 
 
@@ -266,16 +276,19 @@ loadDataPI(0);
            ///////////////////////////////////////////////
 
  var columnDefs = [ 
-  {headerName: 'No', field: 'n', width: 80,editable:false},
- {headerName: 'Parameter', field: 'nama', width: 160,editable:false,},
- {headerName: 'Bobot (%)', field: 'no', width: 160,editable:false},
+ {headerName: 'No', field: 'n', width: 80,editable:false},
+ {headerName: 'Parameter', field: 'nama', width: 160},
+ {headerName: 'Bobot (%)', field: 'no', width: 160},
  {headerName: 'Target Kinerja', field: 'target_kinerja', width: 120,},
  {headerName: 'Capaian', field: 'capaian', width: 120, },
  {headerName: 'Capaian (%)', field: 'capaian_persen', width: 120},
  {headerName: 'Nilai', field: 'nilai', width: 120},
  {headerName: 'Bobot x Nilai', field: 'nilai_bobot', width: 120,editable:false,},
  {headerName: 'Keterangan', field: 'keterangan', width: 120},
- {headerName: 'pid', field: 'pid',  hide:true}
+ {headerName: 'pid', field: 'pid',  hide:true},
+ {headerName: 'child', field: 'child',  hide:true},
+ {headerName: 'max', field: 'max',  hide:true},
+ {headerName: 'jum', field: 'jum',  hide:true},
 
 ];
 
@@ -292,9 +305,12 @@ var gridOptions = {
         enableRangeSelection: true,
         columnDefs: columnDefs,
         pagination: false,
- defaultColDef: {
-     editable: true
- },
+		defaultColDef: {
+			editable: true,
+			enableRowGroup:true,
+			enablePivot:true,
+			enableValue:true
+		},
     onGridReady: function (params) {
         params.api.sizeColumnsToFit();
     },
@@ -365,6 +381,50 @@ function loadData(){
 
 loadData();
 
+ function createNewRowData() {
+    var selectedRows = gridPI.api.getSelectedRows(); 
+    if(selectedRows == ''){
+        onMessage('Silahkan Pilih Pegawai Terlebih dahulu!');
+            return false;
+    }else{
+    var selectedRowsString = '';
+    selectedRows.forEach( function(selectedRow, index) {
+            
+    if (index!==0) {
+    selectedRowsString += ', ';
+    }
+    selectedRowsString += selectedRow.id;
+    });
+              
+    var newData = {
+        pid : selectedRowsString,
+        child : 16,
+        max : 20,
+        nama: '',
+        no: 0,
+        target_kinerja: 0,
+        capaian: 0,
+        capaian_persen: 0,
+        nilai: 0,
+        nilai_bobot: 0,
+        Keterangan: '',
+        }; 
+        return newData;
+    }
+    }
+
+    function onAddRow() {
+    var selectedRows = gridPI.api.getSelectedRows();
+            // alert('>>'+selectedRows+'<<<');
+    if(selectedRows == ''){
+        onMessage('Silahkan Pilih Pegawai Terlebih dahulu!');
+            return false;
+    }else{
+    var newItem = createNewRowData();
+    var res = gridOptions.api.updateRowData({add: [newItem]});
+    }
+	}
+			
 function getCharCodeFromEvent(event) {
  event = event || window.event;
  return typeof event.which === 'undefined' ? event.keyCode : event.which;

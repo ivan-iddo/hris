@@ -3,7 +3,7 @@
 <div class="panel-body">
     <input type="text" style="display:none" name="migrasi_index_jabatan_id" id="migrasi_index_jabatan_id" class="form-control"/><div class="row mar-all"> 
 					<div class="form-group">
-					<label class="col-sm-2 control-label" for="inputstatus">kd job index</label>
+					<label class="col-sm-3 control-label" for="inputstatus">Kode Pekerjaan</label>
 							<div class="col-sm-7">
 							<input type="text" name="kd_job_index" id="kd_job_index" class="form-control"/>
 							</div>
@@ -11,7 +11,7 @@
 					</div> 
 					</div><div class="row mar-all"> 
 					<div class="form-group">
-					<label class="col-sm-2 control-label" for="inputstatus">ds job index</label>
+					<label class="col-sm-3 control-label" for="inputstatus">Pekerjaan</label>
 							<div class="col-sm-7">
 							<input type="text" name="ds_job_index" id="ds_job_index" class="form-control"/>
 							</div>
@@ -19,7 +19,7 @@
 					</div> 
 					</div><div class="row mar-all"> 
 					<div class="form-group">
-					<label class="col-sm-2 control-label" for="inputstatus">tipe ij</label>
+					<label class="col-sm-3 control-label" for="inputstatus">Tipe ij</label>
 							<div class="col-sm-7">
 							<input type="text" name="tipe_ij" id="tipe_ij" class="form-control"/>
 							</div>
@@ -27,7 +27,7 @@
 					</div> 
 					</div><div class="row mar-all"> 
 					<div class="form-group">
-					<label class="col-sm-2 control-label" for="inputstatus">nilai ij</label>
+					<label class="col-sm-3 control-label" for="inputstatus">Nilai ij</label>
 							<div class="col-sm-7">
 							<input type="text" name="nilai_ij" id="nilai_ij" class="form-control"/>
 							</div>
@@ -35,31 +35,13 @@
 					</div> 
 					</div><div class="row mar-all"> 
 					<div class="form-group">
-					<label class="col-sm-2 control-label" for="inputstatus">seq job index</label>
+					<label class="col-sm-3 control-label" for="inputstatus">Seq Pekerjaan</label>
 							<div class="col-sm-7">
 							<input type="text" name="seq_job_index" id="seq_job_index" class="form-control"/>
 							</div>
 							
 					</div> 
-					</div><div class="row mar-all"> 
-					<div class="form-group">
-					<label class="col-sm-2 control-label" for="inputstatus">tgl update</label>
-							<div class="col-sm-7">
-							<input type="text" name="tgl_update" id="tgl_update" class="form-control"/>
-							</div>
-							
-					</div> 
-					</div><div class="row mar-all"> 
-					<div class="form-group">
-					<label class="col-sm-2 control-label" for="inputstatus">no peg update</label>
-							<div class="col-sm-7">
-							<input type="text" name="no_peg_update" id="no_peg_update" class="form-control"/>
-							</div>
-							
-					</div> 
 					</div>
-      
-      
     </div>
 </div>
 

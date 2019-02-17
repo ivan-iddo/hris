@@ -91,12 +91,18 @@ class G_kp extends REST_Controller
 				if(!empty($this->input->post('id_masterp'))){
 					//edit
 					$id= $this->input->post('id_masterp');
-					$arr=array('ds_group_jabatan'=> $this->input->post('ds_group_jabatan'),'tgl_update'=> $this->input->post('tgl_update'),'no_peg_update'=> $this->input->post('no_peg_update'),);;//array('nama'=>$this->input->post('nama'));
+					$arr=array(
+					'ds_group_jabatan'=> ($this->input->post('ds_group_jabatan')?$this->input->post('ds_group_jabatan'):NULL),
+					'tgl_update'=> ($this->input->post('tgl_update')?$this->input->post('tgl_update'):NULL),
+					'no_peg_update'=> ($this->input->post('no_peg_update')?$this->input->post('no_peg_update'):NULL),);;//array('nama'=>$this->input->post('nama'));
 					$this->db->where('kd_grp_job_profesi',$id);
 					$this->db->update($this->table,$arr);
 				}else{
 					//save
-					$arr=array('ds_group_jabatan'=> $this->input->post('ds_group_jabatan'),'tgl_update'=> $this->input->post('tgl_update'),'no_peg_update'=> $this->input->post('no_peg_update'),);;//array('ds_group_jabatan'=>$this->input->post('nama'));
+					$arr=array(
+					'ds_group_jabatan'=> ($this->input->post('ds_group_jabatan')?$this->input->post('ds_group_jabatan'):NULL),
+					'tgl_update'=> ($this->input->post('tgl_update')?$this->input->post('tgl_update'):NULL),
+					'no_peg_update'=> ($this->input->post('no_peg_update')?$this->input->post('no_peg_update'):NULL),);;//array('ds_group_jabatan'=>$this->input->post('nama'));
 					 
 					$this->db->insert($this->table,$arr);
 				}

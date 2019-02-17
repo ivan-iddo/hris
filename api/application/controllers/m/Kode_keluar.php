@@ -23,7 +23,7 @@ $_POST = json_decode($rest_json, true);
  * 3. Change 'jwt_key' in application\config\jwt.php
  *
  */
-
+date_default_timezone_set('Asia/Jakarta');
 class Kode_keluar extends REST_Controller
 {
     /**
@@ -50,6 +50,7 @@ class Kode_keluar extends REST_Controller
 				 }
 				$total_rows = $this->db->count_all_results($this->table);
 				$pagination = create_pagination_endless('/m/Kode_keluar/0/', $total_rows,$this->perpage,5);
+				
 				  
 				if(!empty($this->input->get('id'))){
 					$this->db->where('kd_keluar',$this->input->get('id'));
@@ -87,16 +88,24 @@ class Kode_keluar extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-
-				if(!empty($this->input->post('id_m'))){
+			
+			$id_user=$decodedToken->data->_pnc_id_grup;
+			
+				if(!empty($this->input->post('id'))){
 					//edit
-					$id= $this->input->post('id_m');
-					$arr=array('ds_keluar'=> $this->input->post('ds_keluar'),'tgl_update'=> $this->input->post('tgl_update'),'no_peg_update'=> $this->input->post('no_peg_update'),);;//array('nama'=>$this->input->post('nama'));
+					$id= $this->input->post('id');
+					$arr=array(
+					'ds_keluar'=> ($this->input->post('ds_keluar')?$this->input->post('ds_keluar'):NULL),
+					'tgl_update'=> date('Y-m-d H:i:s'),
+					'no_peg_update'=> $id_user,);;//array('nama'=>$this->input->post('nama'));
 					$this->db->where('kd_keluar',$id);
 					$this->db->update($this->table,$arr);
 				}else{
 					//save
-					$arr=array('ds_keluar'=> $this->input->post('ds_keluar'),'tgl_update'=> $this->input->post('tgl_update'),'no_peg_update'=> $this->input->post('no_peg_update'),);;//array('ds_keluar'=>$this->input->post('nama'));
+					$arr=array(
+					'ds_keluar'=> ($this->input->post('ds_keluar')?$this->input->post('ds_keluar'):NULL),
+					'tgl_update'=> date('Y-m-d H:i:s'),
+					'no_peg_update'=> $id_user,);;//array('ds_keluar'=>$this->input->post('nama'));
 					 
 					$this->db->insert($this->table,$arr);
 				}

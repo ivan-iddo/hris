@@ -85,12 +85,13 @@
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">
-  // specify the columns
+  // specify the columns\
+   $('.judul-menu').html('Kode Keluar');
   var url_view= BASE_URL2+'view/m/'; 
   var url_api=BASE_URL+'m/kode_keluar/';
 
 
-  var columnDefs_m_kode_keluar =  [{headerName: "kd keluar", field: "kd_keluar", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "ds keluar", field: "ds_keluar", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "tgl update", field: "tgl_update", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "no peg update", field: "no_peg_update", width: 190, filterParams:{newRowsAction: "keep"}},];
+  var columnDefs_m_kode_keluar =  [{headerName: "Kode Keluar", field: "kd_keluar", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Keterangan", field: "ds_keluar", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Update Date", field: "tgl_update", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Updateby", field: "no_peg_update", width: 190, filterParams:{newRowsAction: "keep"}},];
    
    
 
@@ -154,7 +155,7 @@
   function add_m_kode_keluar(){
     gopop(url_view+'form_m_kode_keluar.php',save_m_kode_keluar,'medium');
     window.setTimeout(function(){
-      $('#kd_keluar').val('');
+      $('#id').val('');
     },500);
     
   }
@@ -175,7 +176,14 @@
   }
 
    function save_m_kode_keluar(){
-    postForm('form-m_kode_keluar', url_api+'save',loaddata_m_kode_keluar);
+	 var ds_keluar = $('#ds_keluar').val();
+     
+     if(empty(ds_keluar)){
+        onMessage('Keterangan Keluar Wajib diisi!');
+               return false;
+     }else{
+		postForm('form-m_kode_keluar', url_api+'save',loaddata_m_kode_keluar);
+	 }
   }
 
    function delete_m_kode_keluar(){

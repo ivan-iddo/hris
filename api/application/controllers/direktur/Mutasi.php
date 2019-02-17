@@ -91,12 +91,50 @@ class Mutasi extends REST_Controller
 				if(!empty($this->input->post('id_direktur'))){
 					//edit
 					$id= $this->input->post('id_direktur');
-					$arr=array('user_id'=> $this->input->post('user_id'),'direktorat_asal'=> $this->input->post('direktorat_asal'),'bagian_asal'=> $this->input->post('bagian_asal'),'sub_bagian_asal'=> $this->input->post('sub_bagian_asal'),'direktorat_tujuan'=> $this->input->post('direktorat_tujuan'),'bagian_tujuan'=> $this->input->post('bagian_tujuan'),'sub_bagian_tujuan'=> $this->input->post('sub_bagian_tujuan'),'tgl_mutasi'=> $this->input->post('tgl_mutasi'),'keterangan'=> $this->input->post('keterangan'),'tampilkan'=> $this->input->post('tampilkan'),'aktif'=> $this->input->post('aktif'),'no_sk'=> $this->input->post('no_sk'),'tgl_sk'=> $this->input->post('tgl_sk'),'id_satker'=> $this->input->post('id_satker'),'id_kelas'=> $this->input->post('id_kelas'),'jabatan_struktural'=> $this->input->post('jabatan_struktural'),'status'=> $this->input->post('status'),'grup'=> $this->input->post('grup'),'author'=> $this->input->post('author'),);;//array('nama'=>$this->input->post('nama'));
+					$arr=array(
+					'user_id'=> ($this->input->post('user_id')?$this->input->post('user_id'):NULL),
+					'direktorat_asal'=> ($this->input->post('direktorat_asal')?$this->input->post('direktorat_asal'):NULL),
+					'bagian_asal'=> ($this->input->post('bagian_asal')?$this->input->post('bagian_asal'):NULL),
+					'sub_bagian_asal'=> ($this->input->post('sub_bagian_asal')?$this->input->post('sub_bagian_asal'):NULL),
+					'direktorat_tujuan'=> ($this->input->post('direktorat_tujuan')?$this->input->post('direktorat_tujuan'):NULL),
+					'bagian_tujuan'=> ($this->input->post('bagian_tujuan')?$this->input->post('bagian_tujuan'):NULL),
+					'sub_bagian_tujuan'=> ($this->input->post('sub_bagian_tujuan')?$this->input->post('sub_bagian_tujuan'):NULL),
+					'tgl_mutasi'=> ($this->input->post('tgl_mutasi')?$this->input->post('tgl_mutasi'):NULL),
+					'keterangan'=> ($this->input->post('keterangan')?$this->input->post('keterangan'):NULL),
+					'tampilkan'=> ($this->input->post('tampilkan')?$this->input->post('tampilkan'):NULL),
+					'aktif'=> ($this->input->post('aktif')?$this->input->post('aktif'):NULL),
+					'no_sk'=> ($this->input->post('no_sk')?$this->input->post('no_sk'):NULL),
+					'tgl_sk'=> ($this->input->post('tgl_sk')?$this->input->post('tgl_sk'):NULL),
+					'id_satker'=> ($this->input->post('id_satker')?$this->input->post('id_satker'):NULL),
+					'id_kelas'=> ($this->input->post('id_kelas')?$this->input->post('id_kelas'):NULL),
+					'jabatan_struktural'=> ($this->input->post('jabatan_struktural')?$this->input->post('jabatan_struktural'):NULL),
+					'status'=> ($this->input->post('status')?$this->input->post('status'):NULL),
+					'grup'=> ($this->input->post('grup')?$this->input->post('grup'):NULL),
+					'author'=> ($this->input->post('author')?$this->input->post('author'):NULL),);;//array('nama'=>$this->input->post('nama'));
 					$this->db->where('id',$id);
 					$this->db->update($this->table,$arr);
 				}else{
 					//save
-					$arr=array('user_id'=> $this->input->post('user_id'),'direktorat_asal'=> $this->input->post('direktorat_asal'),'bagian_asal'=> $this->input->post('bagian_asal'),'sub_bagian_asal'=> $this->input->post('sub_bagian_asal'),'direktorat_tujuan'=> $this->input->post('direktorat_tujuan'),'bagian_tujuan'=> $this->input->post('bagian_tujuan'),'sub_bagian_tujuan'=> $this->input->post('sub_bagian_tujuan'),'tgl_mutasi'=> $this->input->post('tgl_mutasi'),'keterangan'=> $this->input->post('keterangan'),'tampilkan'=> $this->input->post('tampilkan'),'aktif'=> $this->input->post('aktif'),'no_sk'=> $this->input->post('no_sk'),'tgl_sk'=> $this->input->post('tgl_sk'),'id_satker'=> $this->input->post('id_satker'),'id_kelas'=> $this->input->post('id_kelas'),'jabatan_struktural'=> $this->input->post('jabatan_struktural'),'status'=> $this->input->post('status'),'grup'=> $this->input->post('grup'),'author'=> $this->input->post('author'),);;//array('user_id'=>$this->input->post('nama'));
+					$arr=array(
+					'user_id'=> ($this->input->post('user_id')?$this->input->post('user_id'):NULL),
+					'direktorat_asal'=> ($this->input->post('direktorat_asal')?$this->input->post('direktorat_asal'):NULL),
+					'bagian_asal'=> ($this->input->post('bagian_asal')?$this->input->post('bagian_asal'):NULL),
+					'sub_bagian_asal'=> ($this->input->post('sub_bagian_asal')?$this->input->post('sub_bagian_asal'):NULL),
+					'direktorat_tujuan'=> ($this->input->post('direktorat_tujuan')?$this->input->post('direktorat_tujuan'):NULL),
+					'bagian_tujuan'=> ($this->input->post('bagian_tujuan')?$this->input->post('bagian_tujuan'):NULL),
+					'sub_bagian_tujuan'=> ($this->input->post('sub_bagian_tujuan')?$this->input->post('sub_bagian_tujuan'):NULL),
+					'tgl_mutasi'=> ($this->input->post('tgl_mutasi')?$this->input->post('tgl_mutasi'):NULL),
+					'keterangan'=> ($this->input->post('keterangan')?$this->input->post('keterangan'):NULL),
+					'tampilkan'=> ($this->input->post('tampilkan')?$this->input->post('tampilkan'):NULL),
+					'aktif'=> ($this->input->post('aktif')?$this->input->post('aktif'):NULL),
+					'no_sk'=> ($this->input->post('no_sk')?$this->input->post('no_sk'):NULL),
+					'tgl_sk'=> ($this->input->post('tgl_sk')?$this->input->post('tgl_sk'):NULL),
+					'id_satker'=> ($this->input->post('id_satker')?$this->input->post('id_satker'):NULL),
+					'id_kelas'=> ($this->input->post('id_kelas')?$this->input->post('id_kelas'):NULL),
+					'jabatan_struktural'=> ($this->input->post('jabatan_struktural')?$this->input->post('jabatan_struktural'):NULL),
+					'status'=> ($this->input->post('status')?$this->input->post('status'):NULL),
+					'grup'=> ($this->input->post('grup')?$this->input->post('grup'):NULL),
+					'author'=> ($this->input->post('author')?$this->input->post('author'):NULL),);;//array('user_id'=>$this->input->post('nama'));
 					 
 					$this->db->insert($this->table,$arr);
 				}

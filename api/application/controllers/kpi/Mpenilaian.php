@@ -36,97 +36,181 @@ class Mpenilaian extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				if(!empty($_POST[0]['pid'])){
-					$this->db->where('id_kpi',$_POST[0]['pid']);
-					$res = $this->db->get('his_kpi_detail')->row();
-
-					if(!empty($res)){
-						$this->db->where('id_kpi',$_POST[0]['id_kpi_d']);
-						$this->db->delete('his_kpi_detail'); 
-					} 
-
-				}else{
-					$arr['hasil']='error';
-						$arr['message']='Data Gagal Ditambah! anda harus memilih Pegawai terlebih dahulu';
-						$this->set_response($arr, REST_Controller::HTTP_OK);
+                foreach ($_POST as $dat) {
+				$nama1=strtolower($dat['nama']);
+				$nama=ucwords($nama1);
+				$this->db->select('m_penilaian_kpi.id_grup,m_penilaian_kpi.bobot');
+				$this->db->where('grup',$nama);
+                $res = $this->db->get('m_penilaian_kpi')->row();
+				$kpi_id = $res->id_grup;
+				$bobot_a = $res->bobot;
+				if(!empty($res)){
+                    if (empty($dat['id_kpi_d'])) {
+						$max1=$dat['max'];
+						$this->db->select('count(id) as jum');
+						$this->db->where('id_kpi', $dat['pid']);
+						$resCek = $this->db->get('his_kpi_detail')->row();
+						$jum = $resCek->jum;
+						if($max1 < $jum){
+							$arr['hasil']='Maaf';
+							$arr['message'] = 'Parameter anda sudah melampaui batas! Parameter max';
+						}else{
+						$max = 100;
+						if ($max < $bobot_a) {
+							$arr['hasil']='Maaf';
+							$arr['message'] = 'Bobot anda sudah melampaui batas! Bobot max' . $bobot_a;
+						}else{		
+                        $array = array(
+						'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
+						'id_kegiatan'=>($kpi_id?$kpi_id:NULL),
+						'target_kinerja'=>$dat['target_kinerja'],
+						'capaian'=>$dat['capaian'],
+						'capaian_persen'=>$dat['capaian_persen'],
+						'nilai'=>$dat['nilai'],
+						'nilai_bobot'=>$dat['nilai_bobot'],
+						'keterangan'=>$dat['keterangan'],
+                        );
+                        $this->db->insert('his_kpi_detail', $array);
+						if ($this->db->affected_rows() == '1') {
+							$arr['hasil'] = 'success';
+							$arr['message'] = 'Data berhasil diupdate!';
+						} else {
+							$arr['hasil'] = 'error';
+							$arr['message'] = 'Data Gagal diupdate!';
+						}
+						}
+						}
+						
+                    } else {
+						$max = 100;
+						if ($max < $bobot_a) {
+							$arr['hasil']='Maaf';
+							$arr['message'] = 'Bobot anda sudah melampaui batas! Bobot max' . $bobot_a;
+						}else{
+                        $array = array(
+                        'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
+						'id_kegiatan'=>($kpi_id?$kpi_id:NULL),
+						'target_kinerja'=>$dat['target_kinerja'],
+						'capaian'=>$dat['capaian'],
+						'capaian_persen'=>$dat['capaian_persen'],
+						'nilai'=>$dat['nilai'],
+						'nilai_bobot'=>$dat['nilai_bobot'],
+						'keterangan'=>$dat['keterangan'],
+                        );
+                        $this->db->where('id',$dat['id_kpi_d']);
+						$this->db->update('his_kpi_detail',$array);
+						if ($this->db->affected_rows() == '1') {
+							$arr['hasil'] = 'success';
+							$arr['message'] = 'Data berhasil diupdate!';
+						} else {
+							$arr['hasil'] = 'error';
+							$arr['message'] = 'Data Gagal diupdate!';
+						}
+						}
+                    }
+               
+                }else{
+					$nama1=strtolower($dat['nama']);
+					$nama=ucwords($nama1);
+					$data = array(
+							   'grup'=>$nama,'bobot'=>$dat['no'],'child'=>$dat['child'],);
+					$this->db->insert('m_penilaian_kpi',$data);
+					$this->db->select('m_penilaian_kpi.id_grup');
+					$this->db->where('grup',$nama);
+					$res = $this->db->get('m_penilaian_kpi')->row();
+					$kpi_id = $res->id_grup;
+					if (empty($dat['id_kpi_d'])) {
+						$max=$dat['max'];
+						$this->db->select('count(id) as jum');
+						$this->db->where('id_kpi', $dat['pid']);
+						$resCek = $this->db->get('his_kpi_detail')->row();
+						$jum = $resCek->jum;
+						if($max < $jum){
+							$arr['hasil']='Maaf';
+							$arr['message'] = 'Parameter anda sudah melampaui batas! Parameter max ';
+						}else{
+						$this->db->select('his_kpi_detail.id_kegiatan');
+						$this->db->where('id_kpi', $dat['pid']);
+						$res = $this->db->get('his_kpi_detail')->result();
+						foreach($res as $d){
+						$id_kegiatan=$d->id_kegiatan;
+						$this->db->select('sum(bobot) as bobot');
+						$this->db->where('id_grup', $id_kegiatan);
+						$resCek = $this->db->get('m_penilaian_kpi')->row();
+						$bob = $resCek->bobot;
+						$bobot += $bob;
+						}
+						$bobot_awal += $dat['no'];
+						$total_bobot=$bobot_awal+$bobot;
+						
+						$max = 100;
+						if ($max < $total_bobot) {
+							$arr['hasil']='Maaf';
+							$arr['message'] = 'Bobot anda sudah melampaui batas! Bobot max' . $total_bobot;
+						}else{		
+                        $array = array(
+						'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
+						'id_kegiatan'=>($kpi_id?$kpi_id:NULL),
+						'target_kinerja'=>$dat['target_kinerja'],
+						'capaian'=>$dat['capaian'],
+						'capaian_persen'=>$dat['capaian_persen'],
+						'nilai'=>$dat['nilai'],
+						'nilai_bobot'=>$dat['nilai_bobot'],
+						'keterangan'=>$dat['keterangan'],
+                        );
+                        $this->db->insert('his_kpi_detail', $array);
+						if ($this->db->affected_rows() == '1') {
+							$arr['hasil'] = 'success';
+							$arr['message'] = 'Data berhasil diupdate!';
+						} else {
+							$arr['hasil'] = 'error';
+							$arr['message'] = 'Data Gagal diupdate!';
+						}
+						}
+						}
+                    } else {
+						$this->db->select('his_kpi_detail.id_kegiatan');
+						$this->db->where('id_kpi', $dat['pid']);
+						$res = $this->db->get('his_kpi_detail')->result();
+						foreach($res as $d){
+						$id_kegiatan=$d->id_kegiatan;
+						$this->db->select('sum(bobot) as bobot');
+						$this->db->where('id_grup', $id_kegiatan);
+						$resCek = $this->db->get('m_penilaian_kpi')->row();
+						$bob = $resCek->bobot;
+						$bobot += $bob;
+						}
+						$bobot_awal += $dat['no'];
+						$total_bobot=$bobot_awal+$bobot;
+						
+						$max = 100;
+						if ($max < $total_bobot) {
+							$arr['hasil']='Maaf';
+							$arr['message'] = 'Bobot anda sudah melampaui batas! Bobot max' . $total_bobot;
+						}else{	
+                        $array = array(
+                        'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
+						'id_kegiatan'=>($kpi_id?$kpi_id:NULL),
+						'target_kinerja'=>$dat['target_kinerja'],
+						'capaian'=>$dat['capaian'],
+						'capaian_persen'=>$dat['capaian_persen'],
+						'nilai'=>$dat['nilai'],
+						'nilai_bobot'=>$dat['nilai_bobot'],
+						'keterangan'=>$dat['keterangan'],
+                        );
+                        $this->db->where('id',$dat['id_kpi_d']);
+						$this->db->update('his_kpi_detail',$array);
+						if ($this->db->affected_rows() == '1') {
+							$arr['hasil'] = 'success';
+							$arr['message'] = 'Data berhasil diupdate!';
+						} else {
+							$arr['hasil'] = 'error';
+							$arr['message'] = 'Data Gagal diupdate!';
+						}
+					}
+                    }
 			
-						return;
-					}
-			 
-				foreach($_POST as $dat){
-						$id_kpi=0;
-						$id_kegiatan=0;
-						$target_kinerja=0;
-						$capaian=0;
-						$capaian_persen=0;
-						$nilai=0;
-						$nilai_bobot=0;
-						$keterangan=''; 
-
-						if(!empty($dat['pid'])){
-							$id_kpi=$dat['pid'];
-						}
-						if(!empty($dat['id'])){
-							$id_kegiatan=$dat['id'];
-						}
-						if(!empty($dat['no'])){
-							$bobot=$dat['no'];
-						}
-						if(!empty($dat['target_kinerja'])){
-							$target_kinerja=$dat['target_kinerja'];
-						}
-						if(!empty($dat['nilai'])){
-							$nilai=$dat['nilai'];
-						}
-						if(!empty($dat['capaian_persen'])){
-							$capaian_persen=$dat['capaian_persen'];
-						}
-						if(!empty($dat['capaian'])){
-							$capaian=$dat['capaian'];
-						}
-						if(!empty($dat['nilai_bobot'])){
-							$nilai=$dat['nilai'];
-							$bobot=$dat['no'];
-							$nilai_bobot=$bobot/100*$nilai;
-						}
-						if(!empty($dat['keterangan'])){
-							$keterangan=$dat['keterangan'];
-						}
-					$array = array(
-						'id_kpi'=>$id_kpi,
-						'id_kegiatan'=>$id_kegiatan,
-						'target_kinerja'=>$target_kinerja,
-						'capaian'=>$capaian,
-						'capaian_persen'=>$capaian_persen,
-						'nilai'=>$nilai,
-						'nilai_bobot'=>$nilai_bobot,
-						'keterangan'=>$keterangan, 
-					);
-					if(!empty($dat['id_kpi_d'])){
-					$this->db->where('id',$dat['id_kpi_d']);
-					$this->db->update('his_kpi_detail',$array);
-					}
-					
-					if(!empty($id_kpi)){
-					$nilai=$dat['nilai'];
-					$bobot=$dat['no'];
-					$nilai_bobot=$bobot/100*$nilai;
-					$total += $nilai_bobot;
-					$rata=$total/$dat['jum'];
-				    $this->db->where('id', $id_kpi);
-				    $this->db->update('his_kpi',array('nilai' => round($rata, 2), 'status' => '1'));
-					}
-						if($this->db->affected_rows() == '1'){
-							$arr['hasil']='success';
-							$arr['message']='Data berhasil ditambah!';
-						 }else{
-							$arr['hasil']='error';
-							$arr['message']='Data Gagal Ditambah!';
-						 }
-
-					
-
-
+				}
 				}
 		  
 				$this->set_response($arr, REST_Controller::HTTP_OK);
@@ -312,6 +396,12 @@ class Mpenilaian extends REST_Controller
 				$res = $this->db->get('his_kpi')->row();
 
 				if(empty($res)){
+				$this->db->order_by('id','DESC');
+				$this->db->limit('1');
+				$this->db->where('no_pegawai',$nip);
+				$pegid = $this->db->get('his_kpi')->result();
+				foreach($pegid as $peg1){
+				$peg= $peg1->id;
 				$data=array(
 					'id_jenis'=> $id_jenis,
 					'no_pegawai' => $nip,
@@ -320,20 +410,22 @@ class Mpenilaian extends REST_Controller
 					'id_unitkerja' => $id_grup
 				);
 				$this->db->insert('his_kpi',$data);
-				$this->db->select('his_kpi.*,m_penilaian_kpi.*');
-				$this->db->where('his_kpi.awal',$awal);
-				$this->db->where('his_kpi.akhir',$akhir);
-				$this->db->where('his_kpi.no_pegawai',$nip);
-				$this->db->where('his_kpi.id_jenis',$id_jenis);
-				$this->db->where('m_penilaian_kpi.tampilkan','1');
-				$this->db->join('his_kpi','m_penilaian_kpi.child = his_kpi.id_jenis','LEFT');
-				$res = $this->db->get('m_penilaian_kpi')->result();
+				$this->db->where('awal',$awal);
+				$this->db->where('akhir',$akhir);
+				$this->db->where('no_pegawai',$nip);
+				$resid = $this->db->get('his_kpi')->result();
+				foreach($resid as $idd){
+				$id= $idd->id;
+				$this->db->where('id_kpi',$peg);
+				$res = $this->db->get('his_kpi_detail')->result();
 				foreach($res as $d){
 					$data=array(
-					'id_kpi'=> $d->id,
-					'id_kegiatan'=> $d->id_grup,
+					'id_kpi'=> $id,
+					'id_kegiatan'=> $d->id_kegiatan,
 				);
 				$this->db->insert('his_kpi_detail',$data);
+				}
+				}
 				}
 				if($this->db->affected_rows() == '1'){
 					$arr['hasil']='success';
@@ -564,7 +656,7 @@ class Mpenilaian extends REST_Controller
 				if(!empty($child)){
 					$this->db->where('m_penilaian_kpi.child',$child);
 				}
-				  $this->db->select('m_penilaian_kpi.*, his_kpi_detail.*,his_kpi.id as id_kpi,his_kpi_detail.id as id_kpi_d');
+				  $this->db->select('m_penilaian_kpi.*,his_kpi_detail.*,his_kpi.no_pegawai,his_kpi.id as id_kpi,his_kpi_detail.id as id_kpi_d');
 				  $this->db->where('m_penilaian_kpi.tampilkan','1');
 				  $this->db->join('his_kpi_detail','m_penilaian_kpi.id_grup = his_kpi_detail.id_kegiatan','LEFT');
 				  $this->db->join('his_kpi','his_kpi_detail.id_kpi = his_kpi.id','LEFT');
@@ -577,23 +669,12 @@ class Mpenilaian extends REST_Controller
 					$nilai=$d->nilai;
 					$bobot=$d->bobot;
 					$nilai_bobot=$bobot/100*$nilai;
-					$total += $nilai_bobot;
-					$rata=$total/$jumlah;
-					$arr[]=array('jum'=> $jumlah, 'n' => ++$i,'id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'total'=>$rata, 'id_kpi_d'=>$d->id_kpi_d, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
+					$max=20;
+					$arr[]=array('max'=> $max,'child'=> $d->child,'jum'=> $jumlah, 'n' => ++$i,'id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'id_kpi_d'=>$d->id_kpi_d, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai_bobot'=>$nilai_bobot, 'nilai'=>$d->nilai, 'keterangan'=>$d->keterangan);
 				  }
 			}else{
 			$arr['result'] ='empty';
 		  }
-		  $jmldata = count($arr);
-				$arr[$jmldata]=array('id_kpi'=>'',
-						'id_kegiatan'=>'',
-						'no'=>'',
-						'target_kinerja'=>'TOTAL',
-						'capaian'=>'',
-						'capaian_persen'=>'',
-						'nilai'=>'',
-						'nilai_bobot'=>round($rata, 2),
-						'keterangan'=>'');
 		  $this->set_response($arr, REST_Controller::HTTP_OK);
 			
                 return;
@@ -621,7 +702,7 @@ class Mpenilaian extends REST_Controller
 				if(!empty($child)){
 					$this->db->where('m_penilaian_kpi.child',$child);
 				}
-				  $this->db->select('m_penilaian_kpi.*, his_kpi_detail.*,his_kpi.id as id_kpi');
+				  $this->db->select('m_penilaian_kpi.*, his_kpi_detail.*,his_kpi.no_pegawai,his_kpi.id as id_kpi');
 				  $this->db->where('m_penilaian_kpi.tampilkan','1');
 				  $this->db->join('his_kpi_detail','m_penilaian_kpi.id_grup = his_kpi_detail.id_kegiatan','LEFT');
 				  $this->db->join('his_kpi','his_kpi_detail.id_kpi = his_kpi.id','LEFT');
@@ -630,7 +711,7 @@ class Mpenilaian extends REST_Controller
 			if(!empty($res)){
 				$i=0;
 				 foreach($res as $d){
-					$arr[]=array('n' => ++$i,'id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$nilai_bobot, 'keterangan'=>$d->keterangan);
+					$arr[]=array('n' => ++$i,'id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$d->nilai_bobot, 'keterangan'=>$d->keterangan);
 				  }
 			}else{
 			$arr['result'] ='empty';

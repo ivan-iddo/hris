@@ -85,12 +85,13 @@
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">
+  $('.judul-menu').html('Keahlian');
   // specify the columns
   var url_view= BASE_URL2+'view/m/'; 
   var url_api=BASE_URL+'m/keahlian_asn/';
 
 
-  var columnDefs_m_keahlian_asn_detail =  [{headerName: "id", field: "id", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "nama", field: "nama", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "kode ahli", field: "kode_ahli", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "tampilkan", field: "tampilkan", width: 190, filterParams:{newRowsAction: "keep"}},];
+  var columnDefs_m_keahlian_asn_detail =  [{headerName: "id", field: "id", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Keahlian", field: "nama", width: 290, filterParams:{newRowsAction: "keep"}},{headerName: "Jenis Keahlian", field: "keahlian", width: 190, filterParams:{newRowsAction: "keep"}}];
    
    
  
@@ -179,7 +180,18 @@
   }
 
    function save_m_keahlian_asn_detail(){
-    postForm('form-m_keahlian_asn_detail', url_api+'save',loaddata_m_keahlian_asn_detail);
+	 var kode_ahli = $('#kode_ahli').val();
+	 var nama = $('#nama').val();
+     
+     if(empty(kode_ahli)){
+        onMessage('Group Keahlian Wajib diisi!');
+               return false;
+     }else if(empty(nama)){
+        onMessage('Keahlian Wajib diisi!');
+               return false;
+     }else{
+		postForm('form-m_keahlian_asn_detail', url_api+'save',loaddata_m_keahlian_asn_detail);
+	 }
   }
 
    function delete_m_keahlian_asn_detail(){

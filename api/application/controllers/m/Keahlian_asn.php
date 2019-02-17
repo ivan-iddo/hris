@@ -41,6 +41,7 @@ class Keahlian_asn extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 
+
 				if(!empty($this->input->get('id'))){
 					$this->db->where('id',$this->input->get('id'));
 				}
@@ -50,20 +51,23 @@ class Keahlian_asn extends REST_Controller
 				 }
 				$total_rows = $this->db->count_all_results($this->table);
 				$pagination = create_pagination_endless('/m/Keahlian_asn/0/', $total_rows,$this->perpage,5);
-				  
+				
+				$this->db->select('m_keahlian_asn_detail.*,dm_term.nama as keahlian');
+                $this->db->join('dm_term', 'dm_term.id = m_keahlian_asn_detail.kode_ahli', 'LEFT');
+				
 				if(!empty($this->input->get('id'))){
-					$this->db->where('id',$this->input->get('id'));
+					$this->db->where('m_keahlian_asn_detail.id',$this->input->get('id'));
 				}
 				if(!empty($this->uri->segment(4))){
-					$this->db->like("nama",$this->uri->segment(4)); 
+					$this->db->like("m_keahlian_asn_detail.nama",$this->uri->segment(4)); 
 				 }
-				  $this->db->where('tampilkan','1');
+				  $this->db->where('m_keahlian_asn_detail.tampilkan','1');
 				  $this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
 				  $res = $this->db->get($this->table)->result();
 				  
 			if(!empty($res)){
 				 foreach($res as $dat){
-					$arr['result'][]= array('id'=> $dat->id,'nama'=> $dat->nama,'kode_ahli'=> $dat->kode_ahli,'tampilkan'=> $dat->tampilkan,);
+					$arr['result'][]= array('id'=> $dat->id,'nama'=> $dat->nama,'keahlian'=> $dat->keahlian,'kode_ahli'=> $dat->kode_ahli,);
 				  }
 				  $arr['total']=$total_rows;
 					$arr['paging'] = $pagination['limit'][1];
@@ -88,15 +92,18 @@ class Keahlian_asn extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 
-				if(!empty($this->input->post('id_m'))){
+				if(!empty($this->input->post('id'))){
 					//edit
-					$id= $this->input->post('id_m');
-					$arr=array('nama'=> $this->input->post('nama'),'kode_ahli'=> $this->input->post('kode_ahli'),'tampilkan'=> $this->input->post('tampilkan'),);;//array('nama'=>$this->input->post('nama'));
+					$id= $this->input->post('id');
+					$arr=array(
+					'nama'=> ($this->input->post('nama')?$this->input->post('nama'):NULL),
+					'kode_ahli'=> ($this->input->post('kode_ahli')?$this->input->post('kode_ahli'):NULL),);;//array('nama'=>$this->input->post('nama'));
 					$this->db->where('id',$id);
 					$this->db->update($this->table,$arr);
 				}else{
 					//save
-					$arr=array('nama'=> $this->input->post('nama'),'kode_ahli'=> $this->input->post('kode_ahli'),'tampilkan'=> $this->input->post('tampilkan'),);;//array('nama'=>$this->input->post('nama'));
+					$arr=array('nama'=> ($this->input->post('nama')?$this->input->post('nama'):NULL),
+					'kode_ahli'=> ($this->input->post('kode_ahli')?$this->input->post('kode_ahli'):NULL),);;//array('nama'=>$this->input->post('nama'));
 					 
 					$this->db->insert($this->table,$arr);
 				}

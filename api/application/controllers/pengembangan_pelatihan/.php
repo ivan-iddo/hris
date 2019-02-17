@@ -91,13 +91,62 @@ class  extends REST_Controller
 				if(!empty($this->input->post('id_pengembangan_pelatihan'))){
 					//edit
 					$id= $this->input->post('id_pengembangan_pelatihan');
-					$arr=array('pengembangan_pelatihan_kegiatan'=> $this->input->post('pengembangan_pelatihan_kegiatan'),'pengembangan_pelatihan_kegiatan_status'=> $this->input->post('pengembangan_pelatihan_kegiatan_status'),'nama_pelatihan'=> $this->input->post('nama_pelatihan'),'tujuan'=> $this->input->post('tujuan'),'institusi'=> $this->input->post('institusi'),'no_disposisi'=> $this->input->post('no_disposisi'),'jenis_perjalanan'=> $this->input->post('jenis_perjalanan'),'dalam_negeri'=> $this->input->post('dalam_negeri'),'surat_tugas_dalam_negeri'=> $this->input->post('surat_tugas_dalam_negeri'),'surat_tugas_luar_negeri'=> $this->input->post('surat_tugas_luar_negeri'),'surat_tugas_dalam_negeri_dalamkota'=> $this->input->post('surat_tugas_dalam_negeri_dalamkota'),'surat_tugas_dalam_negeri_luarkota'=> $this->input->post('surat_tugas_dalam_negeri_luarkota'),'jenis'=> $this->input->post('jenis'),'jenis_biaya'=> $this->input->post('jenis_biaya'),'laporan'=> $this->input->post('laporan'),'monev'=> $this->input->post('monev'),'total_hari_kerja'=> $this->input->post('total_hari_kerja'),'id_atasan'=> $this->input->post('id_atasan'),'id_uk'=> $this->input->post('id_uk'),'status'=> $this->input->post('status'),'statue'=> $this->input->post('statue'),'created'=> $this->input->post('created'),'createdby'=> $this->input->post('createdby'),'updated'=> $this->input->post('updated'),'updatedby'=> $this->input->post('updatedby'),);;//array('nama'=>$this->input->post('nama'));
+					$arr=array(
+					'pengembangan_pelatihan_kegiatan'=> ($this->input->post('pengembangan_pelatihan_kegiatan')?$this->input->post('pengembangan_pelatihan_kegiatan'):NULL),
+					'pengembangan_pelatihan_kegiatan_status'=> ($this->input->post('pengembangan_pelatihan_kegiatan_status')?$this->input->post('pengembangan_pelatihan_kegiatan_status'):NULL),
+					'nama_pelatihan'=> ($this->input->post('nama_pelatihan')?$this->input->post('nama_pelatihan'):NULL),
+					'tujuan'=> ($this->input->post('tujuan')?$this->input->post('tujuan'):NULL),
+					'institusi'=> ($this->input->post('institusi')?$this->input->post('institusi'):NULL),
+					'no_disposisi'=> ($this->input->post('no_disposisi')?$this->input->post('no_disposisi'):NULL),
+					'jenis_perjalanan'=> ($this->input->post('jenis_perjalanan')?$this->input->post('jenis_perjalanan'):NULL),
+					'dalam_negeri'=> ($this->input->post('dalam_negeri')?$this->input->post('dalam_negeri'):NULL),
+					'surat_tugas_dalam_negeri'=> ($this->input->post('surat_tugas_dalam_negeri')?$this->input->post('surat_tugas_dalam_negeri'):NULL),
+					'surat_tugas_luar_negeri'=> ($this->input->post('surat_tugas_luar_negeri')?$this->input->post('surat_tugas_luar_negeri'):NULL),
+					'surat_tugas_dalam_negeri_dalamkota'=> ($this->input->post('surat_tugas_dalam_negeri_dalamkota')?$this->input->post('surat_tugas_dalam_negeri_dalamkota'):NULL),
+					'surat_tugas_dalam_negeri_luarkota'=> ($this->input->post('surat_tugas_dalam_negeri_luarkota')?$this->input->post('surat_tugas_dalam_negeri_luarkota'):NULL),
+					'jenis'=> ($this->input->post('jenis')?$this->input->post('jenis'):NULL),
+					'jenis_biaya'=> ($this->input->post('jenis_biaya')?$this->input->post('jenis_biaya'):NULL),
+					'laporan'=> ($this->input->post('laporan')?$this->input->post('laporan'):NULL),
+					'monev'=> ($this->input->post('monev')?$this->input->post('monev'):NULL),
+					'total_hari_kerja'=> ($this->input->post('total_hari_kerja')?$this->input->post('total_hari_kerja'):NULL),
+					'id_atasan'=> ($this->input->post('id_atasan')?$this->input->post('id_atasan'):NULL),
+					'id_uk'=> ($this->input->post('id_uk')?$this->input->post('id_uk'):NULL),
+					'status'=> ($this->input->post('status')?$this->input->post('status'):NULL),
+					'statue'=> ($this->input->post('statue')?$this->input->post('statue'):NULL),
+					'created'=> ($this->input->post('created')?$this->input->post('created'):NULL),
+					'createdby'=> ($this->input->post('createdby')?$this->input->post('createdby'):NULL),
+					'updated'=> ($this->input->post('updated')?$this->input->post('updated'):NULL),
+					'updatedby'=> ($this->input->post('updatedby')?$this->input->post('updatedby'):NULL),);;//array('nama'=>$this->input->post('nama'));
 					$this->db->where('id',$id);
 					$this->db->update($this->table,$arr);
 				}else{
 					//save
-					$arr=array('pengembangan_pelatihan_kegiatan'=> $this->input->post('pengembangan_pelatihan_kegiatan'),'pengembangan_pelatihan_kegiatan_status'=> $this->input->post('pengembangan_pelatihan_kegiatan_status'),'nama_pelatihan'=> $this->input->post('nama_pelatihan'),'tujuan'=> $this->input->post('tujuan'),'institusi'=> $this->input->post('institusi'),'no_disposisi'=> $this->input->post('no_disposisi'),'jenis_perjalanan'=> $this->input->post('jenis_perjalanan'),'dalam_negeri'=> $this->input->post('dalam_negeri'),'surat_tugas_dalam_negeri'=> $this->input->post('surat_tugas_dalam_negeri'),'surat_tugas_luar_negeri'=> $this->input->post('surat_tugas_luar_negeri'),'surat_tugas_dalam_negeri_dalamkota'=> $this->input->post('surat_tugas_dalam_negeri_dalamkota'),'surat_tugas_dalam_negeri_luarkota'=> $this->input->post('surat_tugas_dalam_negeri_luarkota'),'jenis'=> $this->input->post('jenis'),'jenis_biaya'=> $this->input->post('jenis_biaya'),'laporan'=> $this->input->post('laporan'),'monev'=> $this->input->post('monev'),'total_hari_kerja'=> $this->input->post('total_hari_kerja'),'id_atasan'=> $this->input->post('id_atasan'),'id_uk'=> $this->input->post('id_uk'),'status'=> $this->input->post('status'),'statue'=> $this->input->post('statue'),'created'=> $this->input->post('created'),'createdby'=> $this->input->post('createdby'),'updated'=> $this->input->post('updated'),'updatedby'=> $this->input->post('updatedby'),);;//array('pengembangan_pelatihan_kegiatan'=>$this->input->post('nama'));
-					 
+					$arr=array(
+					'pengembangan_pelatihan_kegiatan'=> ($this->input->post('pengembangan_pelatihan_kegiatan')?$this->input->post('pengembangan_pelatihan_kegiatan'):NULL),
+					'pengembangan_pelatihan_kegiatan_status'=> ($this->input->post('pengembangan_pelatihan_kegiatan_status')?$this->input->post('pengembangan_pelatihan_kegiatan_status'):NULL),
+					'nama_pelatihan'=> ($this->input->post('nama_pelatihan')?$this->input->post('nama_pelatihan'):NULL),
+					'tujuan'=> ($this->input->post('tujuan')?$this->input->post('tujuan'):NULL),
+					'institusi'=> ($this->input->post('institusi')?$this->input->post('institusi'):NULL),
+					'no_disposisi'=> ($this->input->post('no_disposisi')?$this->input->post('no_disposisi'):NULL),
+					'jenis_perjalanan'=> ($this->input->post('jenis_perjalanan')?$this->input->post('jenis_perjalanan'):NULL),
+					'dalam_negeri'=> ($this->input->post('dalam_negeri')?$this->input->post('dalam_negeri'):NULL),
+					'surat_tugas_dalam_negeri'=> ($this->input->post('surat_tugas_dalam_negeri')?$this->input->post('surat_tugas_dalam_negeri'):NULL),
+					'surat_tugas_luar_negeri'=> ($this->input->post('surat_tugas_luar_negeri')?$this->input->post('surat_tugas_luar_negeri'):NULL),
+					'surat_tugas_dalam_negeri_dalamkota'=> ($this->input->post('surat_tugas_dalam_negeri_dalamkota')?$this->input->post('surat_tugas_dalam_negeri_dalamkota'):NULL),
+					'surat_tugas_dalam_negeri_luarkota'=> ($this->input->post('surat_tugas_dalam_negeri_luarkota')?$this->input->post('surat_tugas_dalam_negeri_luarkota'):NULL),
+					'jenis'=> ($this->input->post('jenis')?$this->input->post('jenis'):NULL),
+					'jenis_biaya'=> ($this->input->post('jenis_biaya')?$this->input->post('jenis_biaya'):NULL),
+					'laporan'=> ($this->input->post('laporan')?$this->input->post('laporan'):NULL),
+					'monev'=> ($this->input->post('monev')?$this->input->post('monev'):NULL),
+					'total_hari_kerja'=> ($this->input->post('total_hari_kerja')?$this->input->post('total_hari_kerja'):NULL),
+					'id_atasan'=> ($this->input->post('id_atasan')?$this->input->post('id_atasan'):NULL),
+					'id_uk'=> ($this->input->post('id_uk')?$this->input->post('id_uk'):NULL),
+					'status'=> ($this->input->post('status')?$this->input->post('status'):NULL),
+					'statue'=> ($this->input->post('statue')?$this->input->post('statue'):NULL),
+					'created'=> ($this->input->post('created')?$this->input->post('created'):NULL),
+					'createdby'=> ($this->input->post('createdby')?$this->input->post('createdby'):NULL),
+					'updated'=> ($this->input->post('updated')?$this->input->post('updated'):NULL),
+					'updatedby'=> ($this->input->post('updatedby')?$this->input->post('updatedby'):NULL),);; 
 					$this->db->insert($this->table,$arr);
 				}
 				

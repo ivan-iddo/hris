@@ -62,6 +62,7 @@
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">
+$('.judul-menu').html('Taksonomi');
   // specify the columns
   var columnDefs = [
       

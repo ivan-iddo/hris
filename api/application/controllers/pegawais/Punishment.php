@@ -42,13 +42,13 @@ class Punishment extends MY_Controller
             $data = array('inputfileupload' => $this->upload->data());
             $filename = $data['inputfileupload']['file_name'];
         }
-        $datas["id_user"] = $this->input->post('id_userfile');
-        $datas["keterangan"] = $this->input->post('keterangan');
-        $datas["kasus"] = $this->input->post('kasus');
-        $datas["tindakan"] = $this->input->post('tindakan');
-        $datas["date_start"] = $this->input->post('date_start');
-        $datas["date_end"] = $this->input->post('date_end');
-        $datas["url"] = $filename;
+        $datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
+        $datas["keterangan"] = ($this->input->post('keterangan')?$this->input->post('keterangan'):NULL);
+        $datas["kasus"] = ($this->input->post('kasus')?$this->input->post('kasus'):NULL);
+        $datas["tindakan"] = ($this->input->post('tindakan')?$this->input->post('tindakan'):NULL);
+        $datas["date_start"] = ($this->input->post('date_start')?$this->input->post('date_start'):NULL);
+        $datas["date_end"] = ($this->input->post('date_end')?$this->input->post('date_end'):NULL);
+        $datas["url"] = ($filename?$filename:NULL);
         
         $create = $this->Punishment_model->create($datas);
 

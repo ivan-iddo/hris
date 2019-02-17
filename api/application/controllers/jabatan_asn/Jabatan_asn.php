@@ -23,7 +23,7 @@ $_POST = json_decode($rest_json, true);
  * 3. Change 'jwt_key' in application\config\jwt.php
  *
  */
-
+date_default_timezone_set('Asia/Jakarta');
 class Jabatan_asn extends REST_Controller
 {
     /**
@@ -87,17 +87,33 @@ class Jabatan_asn extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-
+				
+				$id_user=$decodedToken->data->_pnc_id_grup;
+				
 				if(!empty($this->input->post('id_jabatan_asn'))){
 					//edit
 					$id= $this->input->post('id_jabatan_asn');
-					$arr=array('kd_job_index'=> $this->input->post('kd_job_index'),'ds_job_index'=> $this->input->post('ds_job_index'),'tipe_ij'=> $this->input->post('tipe_ij'),'nilai_ij'=> $this->input->post('nilai_ij'),'seq_job_index'=> $this->input->post('seq_job_index'),'tgl_update'=> $this->input->post('tgl_update'),'no_peg_update'=> $this->input->post('no_peg_update'),);;//array('nama'=>$this->input->post('nama'));
+					$arr=array(
+					'kd_job_index'=> ($this->input->post('kd_job_index')?$this->input->post('kd_job_index'):NULL),
+					'ds_job_index'=> ($this->input->post('ds_job_index')?$this->input->post('ds_job_index'):NULL),
+					'tipe_ij'=> ($this->input->post('tipe_ij')?$this->input->post('tipe_ij'):NULL),
+					'nilai_ij'=> ($this->input->post('nilai_ij')?$this->input->post('nilai_ij'):NULL),
+					'seq_job_index'=> ($this->input->post('seq_job_index')?$this->input->post('seq_job_index'):NULL),
+					'tgl_update'=> date('Y-m-d H:i:s'),
+					'no_peg_update'=> $id_user,);;//array('nama'=>$this->input->post('nama'));
 					$this->db->where('migrasi_index_jabatan_id',$id);
 					$this->db->update($this->table,$arr);
 				}else{
 					//save
-					$arr=array('kd_job_index'=> $this->input->post('kd_job_index'),'ds_job_index'=> $this->input->post('ds_job_index'),'tipe_ij'=> $this->input->post('tipe_ij'),'nilai_ij'=> $this->input->post('nilai_ij'),'seq_job_index'=> $this->input->post('seq_job_index'),'tgl_update'=> $this->input->post('tgl_update'),'no_peg_update'=> $this->input->post('no_peg_update'),);;//array('kd_job_index'=>$this->input->post('nama'));
-					 
+					$arr=array(
+					'kd_job_index'=> ($this->input->post('kd_job_index')?$this->input->post('kd_job_index'):NULL),
+					'ds_job_index'=> ($this->input->post('ds_job_index')?$this->input->post('ds_job_index'):NULL),
+					'tipe_ij'=> ($this->input->post('tipe_ij')?$this->input->post('tipe_ij'):NULL),
+					'nilai_ij'=> ($this->input->post('nilai_ij')?$this->input->post('nilai_ij'):NULL),
+					'seq_job_index'=> ($this->input->post('seq_job_index')?$this->input->post('seq_job_index'):NULL),
+					'tgl_update'=> date('Y-m-d H:i:s'),
+					'no_peg_update'=> $id_user,);;
+					
 					$this->db->insert($this->table,$arr);
 				}
 				

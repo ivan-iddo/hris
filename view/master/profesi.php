@@ -86,11 +86,12 @@
 </div>
 <script type="text/javascript" charset="utf-8">
   // specify the columns
+  $('.judul-menu').html('Profesi');
   var url_view= BASE_URL2+'view/master/'; 
   var url_api=BASE_URL+'masterp/profesi/';
 
 
-  var columnDefs_m_kode_profesi =  [{headerName: "id", field: "id", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "kd profesi", field: "kd_profesi", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "ds profesi", field: "ds_profesi", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "kd grp job profesi", field: "kd_grp_job_profesi", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "tampilkan", field: "tampilkan", width: 190, filterParams:{newRowsAction: "keep"}},];
+  var columnDefs_m_kode_profesi =  [{headerName: "Id", field: "id", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Kode Profesi", field: "kd_profesi", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Profesi", field: "ds_profesi", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Group Profesi", field: "grup", width: 190, filterParams:{newRowsAction: "keep"}},];
    
    
 
@@ -175,7 +176,23 @@
   }
 
    function save_m_kode_profesi(){
-    postForm('form-m_kode_profesi', url_api+'save',loaddata_m_kode_profesi);
+	 var kd_profesi = $('#kd_profesi').val();
+     var ds_profesi =  $('#ds_profesi').val();
+     var kd_grp_job_profesi =  $('#kd_grp_job_profesi').val();
+     
+     if(empty(kd_profesi)){
+        onMessage('Kode Profesi Wajib diisi!');
+               return false;
+     }else if(empty(ds_profesi)){
+        onMessage('Profesi Wajib diisi!');
+               return false;
+	 }else if(empty(kd_grp_job_profesi)){
+        onMessage('Grup Profesi Wajib diisi!');
+               return false;
+	 }else{
+		postForm('form-m_kode_profesi', url_api+'save',loaddata_m_kode_profesi);
+	 }
+	 
   }
 
    function delete_m_kode_profesi(){

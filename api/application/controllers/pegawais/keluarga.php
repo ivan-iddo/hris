@@ -19,16 +19,16 @@ class keluarga extends CI_Controller
         $this->load->library('upload', $config);
 
         $arrdata = array(
-            'id_user' => $this->input->post('id_user'),
-            'nik' => $this->input->post('txtNik'),
-            'nama' => $this->input->post('txtNama'),
-            'tempat_lahir' => $this->input->post('txtTptLahir'),
-            'tgl_lahir' => $this->input->post('txtTglLahir'),
-            'kelamin' => $this->input->post('txtKelamin'),
-            'id_pendidikan' => $this->input->post('txtPendidikan'),
-            'id_pekerjaan' => $this->input->post('txtPekerjaan'),
-            'id_hubkel' => $this->input->post('txtHubungan'),
-			'karn' => $this->input->post('txtkarn'),
+            'id_user' => ($this->input->post('id_user')?$this->input->post('id_user'):NULL),
+            'nik' => ($this->input->post('txtNik')?$this->input->post('txtNik'):NULL),
+            'nama' => ($this->input->post('txtNama')?$this->input->post('txtNama'):NULL),
+            'tempat_lahir' => ($this->input->post('txtTptLahir')?$this->input->post('txtTptLahir'):NULL),
+            'tgl_lahir' => ($this->input->post('txtTglLahir')?$this->input->post('txtTglLahir'):NULL),
+            'kelamin' => ($this->input->post('txtKelamin')?$this->input->post('txtKelamin'):NULL),
+            'id_pendidikan' => ($this->input->post('txtPendidikan')?$this->input->post('txtPendidikan'):NULL),
+            'id_pekerjaan' => ($this->input->post('txtPekerjaan')?$this->input->post('txtPekerjaan'):NULL),
+            'id_hubkel' => ($this->input->post('txtHubungan')?$this->input->post('txtHubungan'):NULL),
+			'karn' => ($this->input->post('txtkarn')?$this->input->post('txtkarn'):NULL),
         );
         if (!$this->upload->do_upload('inputfileupload')) {
             $error = array('error' => $this->upload->display_errors());
@@ -57,15 +57,15 @@ class keluarga extends CI_Controller
         $this->load->library('upload', $config);
 
         $arrdata = array(
-            'nik' => $this->input->post('txtNik'),
-            'nama' => $this->input->post('txtNama'),
-            'tempat_lahir' => $this->input->post('txtTptLahir'),
-            'tgl_lahir' => $this->input->post('txtTglLahir'),
-            'kelamin' => $this->input->post('txtKelamin'),
-            'id_pendidikan' => $this->input->post('txtPendidikan'),
-            'id_pekerjaan' => $this->input->post('txtPekerjaan'),
-            'id_hubkel' => $this->input->post('txtHubungan'),
-			'karn' => $this->input->post('txtkarn'),
+			'nik' => ($this->input->post('txtNik')?$this->input->post('txtNik'):NULL),
+            'nama' => ($this->input->post('txtNama')?$this->input->post('txtNama'):NULL),
+            'tempat_lahir' => ($this->input->post('txtTptLahir')?$this->input->post('txtTptLahir'):NULL),
+            'tgl_lahir' => ($this->input->post('txtTglLahir')?$this->input->post('txtTglLahir'):NULL),
+            'kelamin' => ($this->input->post('txtKelamin')?$this->input->post('txtKelamin'):NULL),
+            'id_pendidikan' => ($this->input->post('txtPendidikan')?$this->input->post('txtPendidikan'):NULL),
+            'id_pekerjaan' => ($this->input->post('txtPekerjaan')?$this->input->post('txtPekerjaan'):NULL),
+            'id_hubkel' => ($this->input->post('txtHubungan')?$this->input->post('txtHubungan'):NULL),
+			'karn' => ($this->input->post('txtkarn')?$this->input->post('txtkarn'):NULL),
         );
         if (!$this->upload->do_upload('inputfileupload')) {
             $error = array('error' => $this->upload->display_errors());

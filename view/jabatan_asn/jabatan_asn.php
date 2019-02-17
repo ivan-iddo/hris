@@ -85,12 +85,13 @@
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">
+  $('.judul-menu').html('Jabatan ASN');
   // specify the columns
   var url_view= BASE_URL2+'view/jabatan_asn/'; 
   var url_api=BASE_URL+'jabatan_asn/jabatan_asn/';
 
 
-  var columnDefs_m_index_jabatan_asn =  [{headerName: "migrasi index jabatan id", field: "migrasi_index_jabatan_id", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "kd job index", field: "kd_job_index", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "ds job index", field: "ds_job_index", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "tipe ij", field: "tipe_ij", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "nilai ij", field: "nilai_ij", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "seq job index", field: "seq_job_index", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "tgl update", field: "tgl_update", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "no peg update", field: "no_peg_update", width: 190, filterParams:{newRowsAction: "keep"}},];
+  var columnDefs_m_index_jabatan_asn =  [{headerName: "Id", field: "migrasi_index_jabatan_id", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Kode Pekerjaan", field: "kd_job_index", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Pekerjaan", field: "ds_job_index", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Tipe ij", field: "tipe_ij", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Nilai ij", field: "nilai_ij", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Seq Pekerjaan", field: "seq_job_index", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Update Date", field: "tgl_update", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Updateby", field: "no_peg_update", width: 190, filterParams:{newRowsAction: "keep"}},];
    
    
 

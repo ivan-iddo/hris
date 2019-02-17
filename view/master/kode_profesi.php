@@ -86,6 +86,7 @@
 </div>
 <script type="text/javascript" charset="utf-8">
   // specify the columns
+  $('.judul-menu').html('Kode Profesi');
   var url_view= BASE_URL2+'view/master/'; 
   var url_api=BASE_URL+'masterp/kode_profesi/';
 
