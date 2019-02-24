@@ -37,6 +37,8 @@ class Mpenilaian extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
                 foreach ($_POST as $dat) {
+				$bobot_awal = $dat['total_bobot'];
+				$jumlah = $dat['nil_bobot'];
 				$nama1=strtolower($dat['nama']);
 				$nama=ucwords($nama1);
 				$this->db->select('m_penilaian_kpi.id_grup,m_penilaian_kpi.bobot');
@@ -49,17 +51,18 @@ class Mpenilaian extends REST_Controller
 						$max1=$dat['max'];
 						$this->db->select('count(id) as jum');
 						$this->db->where('id_kpi', $dat['pid']);
+						$this->db->where('his_kpi_detail.tampilkan','1');
 						$resCek = $this->db->get('his_kpi_detail')->row();
 						$jum = $resCek->jum;
 						if($max1 < $jum){
 							$arr['hasil']='Maaf';
-							$arr['message'] = 'Parameter anda sudah melampaui batas! Parameter max';
+							$arr['message'] = 'Parameter anda sudah melampaui batas! Parameter max '. $max1;
 						}else{
 						$max = 100;
-						if ($max < $bobot_a) {
+						if ($max < $bobot_awal) {
 							$arr['hasil']='Maaf';
-							$arr['message'] = 'Bobot anda sudah melampaui batas! Bobot max' . $bobot_a;
-						}else{		
+							$arr['message'] = 'Bobot anda '. $bobot_awal .' sudah melampaui batas! Bobot max 100';
+						}else{							
                         $array = array(
 						'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
 						'id_kegiatan'=>($kpi_id?$kpi_id:NULL),
@@ -71,6 +74,8 @@ class Mpenilaian extends REST_Controller
 						'keterangan'=>$dat['keterangan'],
                         );
                         $this->db->insert('his_kpi_detail', $array);
+						$this->db->where('id', $dat['pid']);
+						$this->db->update('his_kpi',array('nilai' => round($jumlah, 2), 'status' => '1'));
 						if ($this->db->affected_rows() == '1') {
 							$arr['hasil'] = 'success';
 							$arr['message'] = 'Data berhasil diupdate!';
@@ -80,12 +85,12 @@ class Mpenilaian extends REST_Controller
 						}
 						}
 						}
-						
                     } else {
+						
 						$max = 100;
-						if ($max < $bobot_a) {
+						if ($max < $bobot_awal) {
 							$arr['hasil']='Maaf';
-							$arr['message'] = 'Bobot anda sudah melampaui batas! Bobot max' . $bobot_a;
+							$arr['message'] = 'Bobot anda '. $bobot_awal .' sudah melampaui batas! Bobot max 100';
 						}else{
                         $array = array(
                         'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
@@ -99,6 +104,8 @@ class Mpenilaian extends REST_Controller
                         );
                         $this->db->where('id',$dat['id_kpi_d']);
 						$this->db->update('his_kpi_detail',$array);
+						$this->db->where('id', $dat['pid']);
+						$this->db->update('his_kpi',array('nilai' => round($jumlah, 2), 'status' => '1'));
 						if ($this->db->affected_rows() == '1') {
 							$arr['hasil'] = 'success';
 							$arr['message'] = 'Data berhasil diupdate!';
@@ -107,9 +114,13 @@ class Mpenilaian extends REST_Controller
 							$arr['message'] = 'Data Gagal diupdate!';
 						}
 						}
-                    }
-               
+						}
                 }else{
+					$max = 100;
+					if ($max < $bobot_awal) {
+						$arr['hasil']='Maaf';
+						$arr['message'] = 'Bobot anda  '. $bobot_awal .' sudah melampaui batas! Bobot max 100';
+					}else{
 					$nama1=strtolower($dat['nama']);
 					$nama=ucwords($nama1);
 					$data = array(
@@ -118,39 +129,21 @@ class Mpenilaian extends REST_Controller
 					$this->db->select('m_penilaian_kpi.id_grup');
 					$this->db->where('grup',$nama);
 					$res = $this->db->get('m_penilaian_kpi')->row();
-					$kpi_id = $res->id_grup;
+					$kpi = $res->id_grup;
 					if (empty($dat['id_kpi_d'])) {
-						$max=$dat['max'];
+						$max1=$dat['max'];
 						$this->db->select('count(id) as jum');
 						$this->db->where('id_kpi', $dat['pid']);
+						$this->db->where('his_kpi_detail.tampilkan','1');
 						$resCek = $this->db->get('his_kpi_detail')->row();
 						$jum = $resCek->jum;
-						if($max < $jum){
+						if($max1 < $jum){
 							$arr['hasil']='Maaf';
-							$arr['message'] = 'Parameter anda sudah melampaui batas! Parameter max ';
-						}else{
-						$this->db->select('his_kpi_detail.id_kegiatan');
-						$this->db->where('id_kpi', $dat['pid']);
-						$res = $this->db->get('his_kpi_detail')->result();
-						foreach($res as $d){
-						$id_kegiatan=$d->id_kegiatan;
-						$this->db->select('sum(bobot) as bobot');
-						$this->db->where('id_grup', $id_kegiatan);
-						$resCek = $this->db->get('m_penilaian_kpi')->row();
-						$bob = $resCek->bobot;
-						$bobot += $bob;
-						}
-						$bobot_awal += $dat['no'];
-						$total_bobot=$bobot_awal+$bobot;
-						
-						$max = 100;
-						if ($max < $total_bobot) {
-							$arr['hasil']='Maaf';
-							$arr['message'] = 'Bobot anda sudah melampaui batas! Bobot max' . $total_bobot;
+							$arr['message'] = 'Parameter anda sudah melampaui batas! Parameter max '. $max1;
 						}else{		
                         $array = array(
 						'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
-						'id_kegiatan'=>($kpi_id?$kpi_id:NULL),
+						'id_kegiatan'=>($kpi?$kpi:NULL),
 						'target_kinerja'=>$dat['target_kinerja'],
 						'capaian'=>$dat['capaian'],
 						'capaian_persen'=>$dat['capaian_persen'],
@@ -167,30 +160,10 @@ class Mpenilaian extends REST_Controller
 							$arr['message'] = 'Data Gagal diupdate!';
 						}
 						}
-						}
-                    } else {
-						$this->db->select('his_kpi_detail.id_kegiatan');
-						$this->db->where('id_kpi', $dat['pid']);
-						$res = $this->db->get('his_kpi_detail')->result();
-						foreach($res as $d){
-						$id_kegiatan=$d->id_kegiatan;
-						$this->db->select('sum(bobot) as bobot');
-						$this->db->where('id_grup', $id_kegiatan);
-						$resCek = $this->db->get('m_penilaian_kpi')->row();
-						$bob = $resCek->bobot;
-						$bobot += $bob;
-						}
-						$bobot_awal += $dat['no'];
-						$total_bobot=$bobot_awal+$bobot;
-						
-						$max = 100;
-						if ($max < $total_bobot) {
-							$arr['hasil']='Maaf';
-							$arr['message'] = 'Bobot anda sudah melampaui batas! Bobot max' . $total_bobot;
-						}else{	
+                    } else {	
                         $array = array(
                         'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
-						'id_kegiatan'=>($kpi_id?$kpi_id:NULL),
+						'id_kegiatan'=>($kpi?$kpi:NULL),
 						'target_kinerja'=>$dat['target_kinerja'],
 						'capaian'=>$dat['capaian'],
 						'capaian_persen'=>$dat['capaian_persen'],
@@ -207,9 +180,9 @@ class Mpenilaian extends REST_Controller
 							$arr['hasil'] = 'error';
 							$arr['message'] = 'Data Gagal diupdate!';
 						}
-					}
                     }
-			
+				
+				}
 				}
 				}
 		  
@@ -224,6 +197,34 @@ class Mpenilaian extends REST_Controller
 		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 		
 	}
+	
+	public function hapus_get()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+
+            if ($decodedToken != false) {
+
+                $this->db->where('id', $this->input->get('id'));
+
+                $res = $this->db->update('his_kpi_detail', array('tampilkan' => '0'));
+                if ($this->db->affected_rows() == '1') {
+                    $arr['hasil'] = 'success';
+                    $arr['message'] = 'Data berhasil dihapus!';
+                } else {
+                    $arr['hasil'] = 'error';
+                    $arr['message'] = 'Data Gagal dihapus!';
+                }
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
 
 	public function listpi_get(){
 		$headers = $this->input->request_headers(); 
@@ -241,13 +242,15 @@ class Mpenilaian extends REST_Controller
 		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 		$this->db->where('his_kpi.tampilkan','1');
 		$this->db->where('his_kpi.id_jenis',$this->uri->segment(4));
+		 
+		 $param = urldecode($this->uri->segment(6));
 		 if(!empty($this->uri->segment(5))){
-			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)",$this->uri->segment(6)); 
+			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param); 
 		 }
 
 		 if(!empty($this->uri->segment(7))){
 			
-			$this->db->like("riwayat_kedinasan.bagian",$this->uri->segment(7)); 
+			$this->db->where("riwayat_kedinasan.bagian",$this->uri->segment(7)); 
 		   //$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 			
 		}
@@ -267,13 +270,14 @@ class Mpenilaian extends REST_Controller
 		$this->db->where('his_kpi.tampilkan','1');
 		$this->db->where('his_kpi.id_jenis',$this->uri->segment(4));
 
-		if(!empty($this->uri->segment(5))){
-			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)",$this->uri->segment(5)); 
-		 } 
+		 $param = urldecode($this->uri->segment(5));
+		 if(!empty($this->uri->segment(5))){
+			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param); 
+		 }
 		 
-		  if(!empty($this->uri->segment(7))){
+		if(!empty($this->uri->segment(7))){
 			
-			$this->db->like("riwayat_kedinasan.bagian",$this->uri->segment(7)); 
+			$this->db->where("riwayat_kedinasan.bagian",$this->uri->segment(7)); 
 		   //$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 			
 		}
@@ -293,6 +297,110 @@ class Mpenilaian extends REST_Controller
 								   'awal' => $d->awal,
 								   'akhir'=> $d->akhir,
 								   'profesi' => $d->profesi
+								   );
+		  }
+		 
+		  $arr['total']=$total_rows;
+		  $arr['paging'] = $pagination['limit'][1];
+		  $this->set_response($arr, REST_Controller::HTTP_OK);
+			
+                return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+	
+	public function listuser_get(){
+		$headers = $this->input->request_headers(); 
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+				//$this->db->limit('100');
+				//$this->db->order_by();
+		
+		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup');
+		$this->db->join('uk_master','uk_master.id = sys_user.id_uk','LEFT');
+		$this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
+		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+		$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
+		$this->db->where('riwayat_kedinasan.aktif','1');
+		$this->db->join('dm_term','sys_user_profile.pendidikan_akhir = dm_term.id','LEFT');
+		$this->db->join('m_kode_profesi_group','sys_user_profile.kategori_profesi = m_kode_profesi_group.id','LEFT');
+		$this->db->like("m_index_jabatan_asn_detail.ds_jabatan",'Kepala');
+		$this->db->where('sys_user.status','1');
+		// if(!empty($this->uri->segment(3))){
+		// 	$this->db->like("sys_user.name",$this->uri->segment(3)); 
+		// 	$this->db->or_like('sys_user_profile.nip',$this->uri->segment(3));
+		//  }
+
+		$param = urldecode($this->uri->segment(4));
+		 if(!empty($this->uri->segment(4))){
+
+			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param); 
+			// $this->db->like("sys_user.name",$param); 
+			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
+		 }
+		 if(!empty($this->uri->segment(6))){
+			
+			$this->db->where("riwayat_kedinasan.bagian",$this->uri->segment(6));  
+		   //$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
+			
+		}
+		$total_rows = $this->db->count_all_results('sys_user');
+		$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,4);
+				
+		$this->db->select('sys_user.*,sys_grup_user.grup,m_index_jabatan_asn_detail.ds_jabatan as nama,sys_user_profile.nip,sys_user_profile.nik,dm_term.nama as pendidikan,m_kode_profesi_group.ds_group_jabatan as profesi');
+		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup');
+		$this->db->join('uk_master','uk_master.id = sys_user.id_uk','LEFT');
+		$this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
+		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+		$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
+		$this->db->where('riwayat_kedinasan.aktif','1');
+		$this->db->join('dm_term','sys_user_profile.pendidikan_akhir = dm_term.id','LEFT');
+		$this->db->join('m_kode_profesi_group','sys_user_profile.kategori_profesi = m_kode_profesi_group.id','LEFT');
+		$this->db->like("m_index_jabatan_asn_detail.ds_jabatan",'Kepala');
+		// if(!empty($this->uri->segment(3))){
+		// 	$this->db->like("sys_user.name",$this->uri->segment(3)); 
+		// 	$this->db->or_like('sys_user_profile.nip',$this->uri->segment(3));
+		//  }
+		if(!empty($this->uri->segment(4))){
+			
+			 $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param);
+			 // $this->db->like("sys_user.name",$param);  
+			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
+			 
+		 }
+		 if(!empty($this->uri->segment(6))){
+			
+			$this->db->where("riwayat_kedinasan.bagian",$this->uri->segment(6));  
+		   //$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
+			
+		}
+		$this->db->where('sys_user.status','1');
+		$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
+		$this->db->order_by('sys_user.name','ACS');
+		// $this->db->order_by('his_kontrak.tglktr','DESC');
+  //       $this->db->limit('1');
+        // $this->db->order_by('his_str.date_end_str','DESC');
+        // $this->db->limit('1');
+        // $this->db->order_by('his_sip.date_end','DESC');
+        // $this->db->limit('1');
+		  $res = $this->db->get('sys_user')->result();
+		  foreach($res as $d){
+
+			$arr['result'][]=array('nama_uk'=>$d->nama,
+								   'id_uk'=>$d->id_uk,
+								   'id_grup'=>$d->id_grup,
+								   'id'=>$d->id_user,
+								   'nama'=>$d->name,
+								   'username'=>$d->username,
+								   'profesi'=>$d->profesi,
+								   'email'=>$d->email,
+								   'nama_group'=>$d->grup,
+								   'nip'=>$d->nip,
+								   'nik'=>$d->nik,
+								   'pendidikan'=>$d->pendidikan,
 								   );
 		  }
 		 
@@ -400,6 +508,7 @@ class Mpenilaian extends REST_Controller
 				$this->db->limit('1');
 				$this->db->where('no_pegawai',$nip);
 				$pegid = $this->db->get('his_kpi')->result();
+				if(!empty($pegid)){
 				foreach($pegid as $peg1){
 				$peg= $peg1->id;
 				$data=array(
@@ -426,6 +535,16 @@ class Mpenilaian extends REST_Controller
 				$this->db->insert('his_kpi_detail',$data);
 				}
 				}
+				}
+				}else{
+				$data=array(
+					'id_jenis'=> $id_jenis,
+					'no_pegawai' => $nip,
+					'awal'=> $awal,
+					'akhir'=> $akhir,
+					'id_unitkerja' => $id_grup
+				);
+				$this->db->insert('his_kpi',$data);
 				}
 				if($this->db->affected_rows() == '1'){
 					$arr['hasil']='success';
@@ -613,6 +732,7 @@ class Mpenilaian extends REST_Controller
 					 $this->db->where('his_kpi_detail.id_kpi',$this->input->get('pid'));
 				}
 				  $this->db->select('m_penilaian_kpi.*, his_kpi_detail.*,his_kpi.id as id_kpi');
+				  $this->db->where('his_kpi_detail.tampilkan','1');
 				  $this->db->where('m_penilaian_kpi.tampilkan','1');
 				  $this->db->join('his_kpi_detail','m_penilaian_kpi.id_grup = his_kpi_detail.id_kegiatan','LEFT');
 				  $this->db->join('his_kpi','his_kpi_detail.id_kpi = his_kpi.id','LEFT');
@@ -647,6 +767,16 @@ class Mpenilaian extends REST_Controller
 				$id = $this->input->get('id');
 				$idp = $this->input->get('idp');
 				$child = $this->input->get('child');
+				if(($child==16)){
+				$ik='IKU ';
+				$max=6;
+				}else if(($child==17)){
+				$ik='IKP ';
+				$max=20;
+				}else{
+				$ik='IKI ';
+				$max=20;
+				}
 				if(!empty($id)){
 					 $this->db->where('his_kpi_detail.id_kpi',$this->input->get('pid'));
 				}
@@ -658,23 +788,44 @@ class Mpenilaian extends REST_Controller
 				}
 				  $this->db->select('m_penilaian_kpi.*,his_kpi_detail.*,his_kpi.no_pegawai,his_kpi.id as id_kpi,his_kpi_detail.id as id_kpi_d');
 				  $this->db->where('m_penilaian_kpi.tampilkan','1');
+				  $this->db->where('his_kpi_detail.tampilkan','1');
 				  $this->db->join('his_kpi_detail','m_penilaian_kpi.id_grup = his_kpi_detail.id_kegiatan','LEFT');
 				  $this->db->join('his_kpi','his_kpi_detail.id_kpi = his_kpi.id','LEFT');
 				  $res = $this->db->get('m_penilaian_kpi')->result();
 
-			 $jumlah=count($res);
+				  $this->db->select('sum(m_penilaian_kpi.bobot) as total_bobot,sum(his_kpi_detail.nilai_bobot) as nil_bobot');
+				  $this->db->where('m_penilaian_kpi.tampilkan','1');
+				  $this->db->where('his_kpi_detail.tampilkan','1');
+				  $this->db->join('his_kpi_detail','m_penilaian_kpi.id_grup = his_kpi_detail.id_kegiatan','LEFT');
+				  $this->db->join('his_kpi','his_kpi_detail.id_kpi = his_kpi.id','LEFT');
+				  	if(!empty($id)){
+					 $this->db->where('his_kpi_detail.id_kpi',$this->input->get('pid'));
+					}
+					if(!empty($idp)){
+						 $this->db->where('m_penilaian_kpi.id_grup',$this->input->get('idp'));
+					}
+					if(!empty($child)){
+						$this->db->where('m_penilaian_kpi.child',$child);
+					}
+				  $res1 = $this->db->get('m_penilaian_kpi')->row();
+				  
+				  $jmlh=count($res);
+				  $total_bobot=$res1->total_bobot;
+				  $nilai_bbt=$res1->nil_bobot;
+				  $nil_bobot=$nilai_bbt/$jmlh;
+				  
 			if(!empty($res)){
 				$i=0;
 				 foreach($res as $d){
 					$nilai=$d->nilai;
 					$bobot=$d->bobot;
 					$nilai_bobot=$bobot/100*$nilai;
-					$max=20;
-					$arr[]=array('max'=> $max,'child'=> $d->child,'jum'=> $jumlah, 'n' => ++$i,'id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'id_kpi_d'=>$d->id_kpi_d, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai_bobot'=>$nilai_bobot, 'nilai'=>$d->nilai, 'keterangan'=>$d->keterangan);
+					$arr[]=array('max'=> $max,'child'=> $d->child,'total_bobot'=> $total_bobot,'nil_bobot'=> $nil_bobot, 'n' => $ik.++$i,'id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'id_kpi_d'=>$d->id_kpi_d, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai_bobot'=>$nilai_bobot, 'nilai'=>$d->nilai, 'keterangan'=>$d->keterangan);
 				  }
 			}else{
 			$arr['result'] ='empty';
-		  }
+			}
+		  
 		  $this->set_response($arr, REST_Controller::HTTP_OK);
 			
                 return;
@@ -702,12 +853,13 @@ class Mpenilaian extends REST_Controller
 				if(!empty($child)){
 					$this->db->where('m_penilaian_kpi.child',$child);
 				}
+				
 				  $this->db->select('m_penilaian_kpi.*, his_kpi_detail.*,his_kpi.no_pegawai,his_kpi.id as id_kpi');
 				  $this->db->where('m_penilaian_kpi.tampilkan','1');
 				  $this->db->join('his_kpi_detail','m_penilaian_kpi.id_grup = his_kpi_detail.id_kegiatan','LEFT');
 				  $this->db->join('his_kpi','his_kpi_detail.id_kpi = his_kpi.id','LEFT');
 				  $res = $this->db->get('m_penilaian_kpi')->result();
-
+				
 			if(!empty($res)){
 				$i=0;
 				 foreach($res as $d){
@@ -1323,6 +1475,7 @@ public function save_post(){
 					$this->db->where('his_kpi.status',2);
 					}
 					$n_unit = $this->db->get('his_kpi')->result();
+					
 					foreach($n_unit as $n){
 						$iku=$n->iku;
                         $arr['result'][] = array(

@@ -16,8 +16,8 @@ require_once('../../connectdb.php');
                                     <div class="row pad-top pad-all">
                                          <?php 
                                         // print_r($_SESSION['userdata'] );
-
-                                         $query= pg_query('select sum(total)as jml from his_cuti where tampilkan=1 and id_user = '.$_SESSION['userdata']['id'].'');
+										  $thn = date('Y');
+                                          $query= pg_query('select sum(total)as jml from his_cuti where status=103 and EXTRACT(YEAR FROM his_cuti.tgl_cuti)='.$thn.' and tampilkan=1 and id_user = '.$_SESSION['userdata']['id'].'');
                                           $rowcount=pg_num_rows($query);
                                           $row   = pg_fetch_row($query);
                                           $total_cuti =0;
@@ -198,7 +198,7 @@ $('.select-chosen').chosen();
                                    }
     });
  }
-
+				
 function hitungTanggal(jml){
     var tt = document.getElementById('tgl_cuti').value;
 
@@ -207,7 +207,7 @@ function hitungTanggal(jml){
         var dd = h.getDate();
         var mm = h.getMonth() + 1;
         var y = h.getFullYear();
-        $('#sampai').html(mm+'-'+dd+'-'+y); 
+        $('#sampai').html(dd+'-'+mm+'-'+y); 
     }
      
  }
@@ -220,7 +220,8 @@ function hitungTanggal(jml){
         var dd = h.getDate();
         var mm = h.getMonth() + 1;
         var y = h.getFullYear();
-        $('#sampai').html(mm+'-'+dd+'-'+y); 
+        $('#sampai').html(dd+'-'+mm+'-'+y);
+		
     }
      
  }

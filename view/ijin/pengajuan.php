@@ -16,8 +16,8 @@ require_once('../../connectdb.php');
                                     <div class="row pad-top pad-all">
                                          <?php 
                                         // print_r($_SESSION['userdata'] );
-
-                                         $query= pg_query('select sum(total)as jml from his_izin where tampilkan=1 and id_user = '.$_SESSION['userdata']['id'].'');
+										  $thn = date('Y');
+                                          $query= pg_query('select sum(total)as jml from his_izin where status=103 and EXTRACT(YEAR FROM his_izin.tgl_izin)='.$thn.' and tampilkan=1 and id_user = '.$_SESSION['userdata']['id'].'');
                                           $rowcount=pg_num_rows($query);
                                           $row   = pg_fetch_row($query);
                                           $total_izin =0;

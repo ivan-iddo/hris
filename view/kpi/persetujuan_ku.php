@@ -116,6 +116,8 @@
       
   </div>
   <script>
+  $('.judul-menu').html('Persetujuan KPI Unit'); 
+  
   var headerTK = [
   {headerName: "No", field: "no", width: 60, filterParams:{newRowsAction: "keep"}},
   {headerName: "No.Pegawai", field: "nopeg", width: 90, filterParams:{newRowsAction: "keep"}},
@@ -194,7 +196,6 @@
                    selectedRowsString += ', ';
                }
                selectedRowsString += selectedRow.id;
-               level += selectedRow.level;
            });
 
            bootbox.dialog({ 
@@ -202,7 +203,7 @@
                    animateIn: 'bounceIn',
                    animateOut : 'bounceOut',
 									 backdrop: false,
-                   size:'medium',
+                   size:'large',
                    buttons: {
                         
 
