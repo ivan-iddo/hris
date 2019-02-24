@@ -60,8 +60,8 @@ class Users extends REST_Controller
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 		 }
 		 if(!empty($this->uri->segment(5))){
-			
-			$this->db->like("riwayat_kedinasan.bagian",$this->uri->segment(5)); 
+			$this->db->where("riwayat_kedinasan.bagian",$this->uri->segment(5));
+			// $this->db->like("riwayat_kedinasan.bagian",$this->uri->segment(5)); 
 		   //$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 			
 		}
@@ -88,8 +88,8 @@ class Users extends REST_Controller
 			 
 		 }
 		 if(!empty($this->uri->segment(5))){
-			
-			$this->db->like("riwayat_kedinasan.bagian",$this->uri->segment(5)); 
+			$this->db->where("riwayat_kedinasan.bagian",$this->uri->segment(5));
+			// $this->db->like("riwayat_kedinasan.bagian",$this->uri->segment(5)); 
 		   //$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 			
 		}

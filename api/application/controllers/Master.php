@@ -232,7 +232,27 @@ public function agama_get(){
 			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
 
-	 
+	public function all_jabatan_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					 $this->db->order_by('grup','ASC');
+					 $this->db->where('tampilkan','1');
+			  $res = $this->db->get('sys_grup_user')->result();
+			  foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->grup,'value'=>$d->grup);
+			  }
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
 	
 	public function direktorat_get(){
 		$headers = $this->input->request_headers();

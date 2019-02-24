@@ -327,7 +327,7 @@ public function save_post(){
 				 
 				 $id    = $this->input->get('id');
 				  
-				if (!empty($id) {
+				if (!empty($id)) {
 				   	$this->db->where('id_user',$id);
 				   }   
 				

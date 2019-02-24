@@ -73,7 +73,7 @@ class ParentChild {
 	} 
 	
 	private function getImmediateChilds($parent_identifier_field_value, $extra_condition="", $order_by_phrase="") { // get only the direct/immediate childs under a parent 
-		$sql="SELECT * FROM ".$this->db_table." WHERE ".$this->parent_identifier_field_name." = ".$parent_identifier_field_value." ".$extra_condition." ".$order_by_phrase;
+		$sql="SELECT * FROM ".$this->db_table." WHERE ".$this->parent_identifier_field_name." = ".$parent_identifier_field_value." AND tampilkan = 1".$extra_condition." ".$order_by_phrase;
 		// print_r($sql);die();
 		$res=pg_query($this->db_connect(),$sql);
 		$childs=array();

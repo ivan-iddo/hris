@@ -77,13 +77,15 @@ class Warning extends REST_Controller
                                    'nip'=>$d->nip,
                                    'tgl_kontrak' => $dayKontrak,
                                    );
-
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+            
+                return;
             } else {
                 $dayKontrak = $tanggalKontrak;
             }
 
           }
-         	// $arr['total']=$total_rows;
+         	$arr['result']=array();
             $this->set_response($arr, REST_Controller::HTTP_OK);
             
                 return;
@@ -137,13 +139,16 @@ class Warning extends REST_Controller
                                    'nip'=>$d->nip,
                                    'tgl_str' => $daySTR,
                                    );
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+            
+                return;
             } else {
                 $daySTR = $tanggalSTR;
             }
 
             
           }
-         	// $arr['total']=$total_rows;
+         	$arr['result']=array();
           $this->set_response($arr, REST_Controller::HTTP_OK);
             
                 return;
@@ -197,13 +202,16 @@ class Warning extends REST_Controller
                                    'nip'=>$d->nip,
                                     'tgl_sip' => $daySIP,
                                    );
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+            
+                return;
             } else {
                 $daySIP = $tanggalSIP;
             }
 
           }
          
-          // $arr['paging'] = $pagination['limit'][1];
+          $arr['result']=array();
           $this->set_response($arr, REST_Controller::HTTP_OK);
             
                 return;

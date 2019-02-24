@@ -55,7 +55,9 @@ class Abk extends REST_Controller
                 $shift = $this->db->get('abk_shift_pegawai')->row();
 
                 //beban kerja
-                $waktu = $shift->waktu_kerja;
+                if ($shift <> "") {
+                    $waktu = $shift->waktu_kerja;    
+                }
 
                 //SKK
                 $this->db->select('sum(frekuensi*waktu) as totska');
@@ -111,7 +113,6 @@ class Abk extends REST_Controller
 
 
                 $this->db->select('abk_beban_kerja.tahun, sum(kasubag) as jkasubag,sum(kabag) as jkabag,sum(dirut) as jdirut,sum(dir) as jdir,sum(kaur) as jkaur,sum(sa) as jsa,sum(pk)as jpa');
-                $this->db->where('abk_langkah_kerja.tampilkan', '1');
                 $this->db->join('abk_langkah_kerja', 'abk_langkah_kerja.id_beban_kerja = abk_beban_kerja.id');
                 $this->db->where('abk_beban_kerja.tampilkan', '1');
 
@@ -132,7 +133,6 @@ class Abk extends REST_Controller
                 }
                 $this->db->group_by('abk_beban_kerja.tahun');
                 $res = $this->db->get('abk_beban_kerja')->row();
-
                 if (!empty($res->tahun)) {
                     $i = 0;
 
@@ -196,6 +196,12 @@ class Abk extends REST_Controller
                     );
 
                     $this->load->model('System_auth_model', 'm');
+                    if ($g == 1) {
+                        $root_item_id = 27;
+                    } else {
+                        $root_item_id = $g;
+                    }
+
                     $idgroups = $this->m->getdatachild($g);
                     $this->db->select('count(*) as jml');
                     $this->db->where_in('sys_user.id_grup', $idgroups);
@@ -407,6 +413,11 @@ class Abk extends REST_Controller
                     );
 
                     $this->load->model('System_auth_model', 'm');
+                    if ($g == 1) {
+                        $root_item_id = 27;
+                    } else {
+                        $root_item_id = $g;
+                    }
                     $idgroups = $this->m->getdatachild($g);
                     $this->db->select('count(*) as jml');
                     $this->db->where_in('sys_user.id_grup', $idgroups);

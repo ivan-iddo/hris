@@ -48,8 +48,8 @@
          
         </div>
 				
-<div class="panel-group accordion" id="accordion" >
-	<div class="panel" style="border:none">
+      <div class="panel-group accordion" id="accordion" >
+      	<div class="panel" style="border:none">
 					
 					                <!--Accordion title-->
 					                <div class="panel-heading">

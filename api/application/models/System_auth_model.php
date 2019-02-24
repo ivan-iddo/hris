@@ -208,7 +208,6 @@ class System_auth_model extends CI_Model
         $obj_parentchild->level_identifier = "";
         $obj_parentchild->item_pointer = "";
 
-
         $root_item_id = $id;
         $all_childs = $obj_parentchild->getAllChilds($root_item_id);
         // print_r($all_childs);die();
