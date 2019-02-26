@@ -41,12 +41,14 @@ class Golongan extends REST_Controller
             if ($decodedToken != false) {
 
                 $arrdata = array(
-                    'id_user' => $this->input->post('id_user'),
-                    'golongan_id' => $this->input->post('pangkat_id'),
-                    'tmt_golongan' => $this->input->post('tmt_golongan'),
-                    'no_sk' => $this->input->post('no_sk'),
-                    'tgl_sk' => $this->input->post('tgl_sk'),
-                    'penanda_tanganan' => $this->input->post('penanda_tanganan'),
+                    'id_user' => ($this->input->post('id_user'))?$this->input->post('id_user'):null,
+                    'golongan_id' => ($this->input->post('pangkat_id'))?$this->input->post('pangkat_id'):null,
+                    'tmt_golongan' => ($this->input->post('tmt_golongan'))?$this->input->post('tmt_golongan'):null,
+                    'tmt_golongan_akhir' => ($this->input->post('tmt_golongan_akhir'))?$this->input->post('tmt_golongan_akhir'):null,
+                    'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
+                    'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
+                    'penanda_tanganan' => ($this->input->post('penanda_tanganan'))?$this->input->post('penanda_tanganan'):null,
+                    'status' => ($this->input->post('status'))?$this->input->post('status'):null,
                 );
 
                 $this->db->insert('his_golongan', $arrdata);
@@ -94,9 +96,11 @@ class Golongan extends REST_Controller
                         'id_user' => $d->id_user,
                         'pangkat_id' => $d->nama_p.' / '.$d->pangkat,
                         'tmt_golongan' => $d->tmt_golongan,
+                        'tmt_golongan_akhir' => $d->tmt_golongan_akhir,
                         'no_sk' => $d->no_sk,
                         'tgl_sk' => $d->tgl_sk,
                         'penanda_tanganan' => $d->penanda_tanganan,
+                        'status' => $d->status,
                         'namaGolongan' => $d->nama_p
                     );
                 }
@@ -121,24 +125,25 @@ class Golongan extends REST_Controller
             if ($decodedToken != false) {
 
                 $arrdata = array(
-                    'golongan_id' => $this->input->post('pangkat_id'),
-                    'tmt_golongan' => $this->input->post('tmt_golongan'),
-                    'no_sk' => $this->input->post('no_sk'),
-                    'tgl_sk' => $this->input->post('tgl_sk'),
-                    'penanda_tanganan' => $this->input->post('penanda_tanganan'),
+                    'golongan_id' => ($this->input->post('pangkat_id'))?$this->input->post('pangkat_id'):null,
+                    'tmt_golongan' => ($this->input->post('tmt_golongan'))?$this->input->post('tmt_golongan'):null,
+                    'tmt_golongan_akhir' => ($this->input->post('tmt_golongan_akhir'))?$this->input->post('tmt_golongan_akhir'):null,
+                    'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
+                    'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
+                    'penanda_tanganan' => ($this->input->post('penanda_tanganan'))?$this->input->post('penanda_tanganan'):null,
+                    'status' => ($this->input->post('status'))?$this->input->post('status'):null,
                 );
 
 
                 $this->db->where('id', $this->uri->segment(4));
-                $this->db->update('his_golongan', $arrdata);
-
-                if ($this->db->affected_rows() == '1') {
+                $test = $this->db->update('his_golongan', $arrdata);
+                if ($test == '1') {
                     $arr['hasil'] = 'success';
                     $arr['id'] = $this->uri->segment(4);
                     $arr['message'] = 'Data berhasil diperbaharui!';
                 } else {
                     $arr['hasil'] = 'error';
-                    $arr['message'] = 'Data Gagal Ditambah!';
+                    $arr['message'] = 'Data Gagal diperbaharui!';
                 }
 
 
@@ -171,9 +176,11 @@ class Golongan extends REST_Controller
                         'id_user' => $d->id_user,
                         'pangkat_id' => $d->golongan_id,
                         'tmt_golongan' => $d->tmt_golongan,
+                        'tmt_golongan_akhir' => $d->tmt_golongan_akhir,
                         'no_sk' => $d->no_sk,
                         'tgl_sk' => $d->tgl_sk,
                         'penanda_tanganan' => $d->penanda_tanganan,
+                        'status' => $d->status,
                         'file' => $d->file_url
                     );
                 }
@@ -201,9 +208,9 @@ class Golongan extends REST_Controller
                 );
 
                 $this->db->where('id', $_GET['id']);
-                $this->db->update('his_golongan', $arrdata);
+                $test = $this->db->update('his_golongan', $arrdata);
 
-                if ($this->db->affected_rows() == '1') {
+                if ($test == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil ditambah!';
                 } else {

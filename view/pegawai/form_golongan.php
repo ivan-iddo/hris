@@ -27,6 +27,7 @@
 var columnGolongan = [ 
             {headerName: "Pangkat", field: "pangkat_id", width: 100, filterParams:{newRowsAction: 'keep'}},
            {headerName: "TMT Golongan", field: "tmt_golongan", width: 190, filterParams:{newRowsAction: 'keep'}}, 
+           {headerName: "TMT Golongan Akhir", field: "tmt_golongan_akhir", width: 190, filterParams:{newRowsAction: 'keep'}}, 
            {headerName: "No.SK", field: "no_sk", width: 100, filterParams:{newRowsAction: 'keep'}}, 
            {headerName: "Tgl.SK", field: "tgl_sk", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Penandatangan SK", field: "penanda_tanganan", width: 190, filterParams:{newRowsAction: 'keep'}},

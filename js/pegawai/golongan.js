@@ -99,7 +99,7 @@ function loadGolongan(){
 
 function addGolongan(){
             getOptions("pangkat_id",BASE_URL+"master/golongan_pegawai");
-
+            getOptions("status",BASE_URL+"master/getmaster?id=45");
               
               
               bootbox.dialog({ 
@@ -201,6 +201,7 @@ function editGolongan(){
                   processData: false,
                   success: function( data, textStatus, jQxhr ){
                     $('#tmt_golongan').val(data.tmt_golongan);
+                    $('#tmt_golongan_akhir').val(data.tmt_golongan_akhir);
                     $('#no_sk').val(data.no_sk); 
                     $('#tgl_sk').val(data.tgl_sk);
                     $('#penanda_tanganan').val(data.penanda_tanganan);
@@ -225,6 +226,7 @@ function editGolongan(){
                     }
                 
                     getOptionsEdit("pangkat_id",BASE_URL+"master/golongan_pegawai",data.pangkat_id);
+                    getOptionsEdit("status",BASE_URL+"master/getmaster?id=45",data.status);
                                   } 
                               });
               

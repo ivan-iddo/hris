@@ -134,15 +134,15 @@
                                             </div>
 											<div class="form-group"><label class="col-sm-4 control-label"
                                                                            for="txtstp">Status Perkawinan</label>
-                                                <div class="col-sm-8"><select aria-hidden="true" class="select-chosen"
+                                                <div class="col-sm-8"><select aria-hidden="true"
                                                                               name="txtstp" id="txtstp"
                                                                               style="width: 100%;"
-                                                                              tabindex="-1">
-																			   <option disabled selected>Please select</option>
-																			   <option>Lajang</option>
-																			   <option>Menikah</option>
-																			   <option>Janda</option>
-																			   <option>Duda</option>
+                                                                              tabindex="-1" class="form-control">
+                                                                               <option value="">Please Select</option>
+																			   <option value="lajang">Lajang</option>
+																			   <option value="menikah">Menikah</option>
+																			   <option value="janda">Janda</option>
+																			   <option value="duda">Duda</option>
 																			   </select></div>
                                             </div>
 											 <div class="form-group">
@@ -390,7 +390,16 @@
                                                                               style="width: 100%;"></select></div>
                                             </div>
                                             <div class="form-group"><label
-                                                        class="col-sm-4 control-label">Status Pegawai</label>
+                                                        class="col-sm-4 control-label">Status Pegawai Tetap</label>
+                                                <div class="col-sm-8"><select class="select-chosen" id="inputstatustetap"
+                                                                              name="inputstatustetap" style="width: 100%;">
+                                                                              </select>
+                                                                              <span
+                                        class="text-xs text-danger">*Wajib diisi</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group"><label
+                                                        class="col-sm-4 control-label">Status Pegawai PNS</label>
                                                 <div class="col-sm-8"><select class="select-chosen" id="txtinputstatus"
                                                                               name="inputstatus" style="width: 100%;"
                                                                               onChange="getjabatanasn(this.value);">
@@ -594,7 +603,8 @@
                 getOptions("id_bank", BASE_URL + "master/getmaster?id=26");
                 getOptions("id_shift", BASE_URL + "master/getmaster?id=27");
                 getOptions("txtprovktp", BASE_URL + "master/provinsi");
-                getOptions("txtinputstatus", BASE_URL + "master/status_pegawai");
+                getOptions("txtinputstatus", BASE_URL + "master/status_pegawai_pns");
+                getOptions("inputstatustetap", BASE_URL + "master/status_pegawai_tetap");
                 getOptions("txtdirektorat", BASE_URL + "master/direktorat");
                 getOptions("txtjabfung", BASE_URL + "m/group_jabatan_asn/getoption");
                 getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural_fix");

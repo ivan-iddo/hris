@@ -17,9 +17,15 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="col-sm-4 control-label" for="inputstatus">TMT Golongan</label>
+                          <label class="col-sm-4 control-label" for="tmt_golongan">TMT Golongan</label>
                           <div class="col-sm-8">
                             <input class="form-control" id="tmt_golongan" name="tmt_golongan" placeholder="" type="date">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label" for="tmt_golongan_akhir">TMT Akhir</label>
+                          <div class="col-sm-8">
+                            <input class="form-control" id="tmt_golongan_akhir" name="tmt_golongan_akhir" placeholder="" type="date" readonly>
                           </div>
                         </div>
                         <div class="form-group">
@@ -58,6 +64,16 @@
                           <label class="col-sm-4 control-label" for="inputpropinsi">Penandatangan SK</label>
                           <div class="col-sm-8">
                             <input class="form-control" id="penanda_tanganan" name="penanda_tanganan" placeholder="" type="text">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label" for="inputpropinsi">Status</label>
+                          <div class="col-sm-8">
+                            <select class="form-control" id="status" name="status" type="text" onChange="getTmtakhir(this.value);">
+                              <option value="">--Silahkan Pilih--</option>
+                              <!-- <option value="fungsional">Fungsional</option>
+                              <option value="reguler">Reguler</option> -->
+                            </select>
                           </div>
                         </div>
                         
@@ -165,5 +181,52 @@
                     alert('Anda harus menyimpan data golongan terlebih dahulu sebelum melakukan upload ijazah!');
                 }
     }
-     
+   
+
+    Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setFullYear(date.getFullYear() + days);
+    return date;
+    }
+
+    function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+    }
+
+     function getTmtakhir(a){
+
+      if ($('#tmt_golongan').val() == "") {
+        alert('Anda harus mengisi TMT Golongan terlebih dahulu!');
+        $('#status').val("")
+      } else {
+        if(a==='110'){
+          var date = new Date($('#tmt_golongan').val());
+          var test = date.addDays(3)
+          var tust = formatDate(test)
+          document.getElementById("tmt_golongan").readOnly = true;
+           $('#tmt_golongan_akhir').val(tust);
+         }else if(a==='111'){
+          var date = new Date($('#tmt_golongan').val());
+          var test = date.addDays(4)
+          var tust = formatDate(test)
+          document.getElementById("tmt_golongan").readOnly = true;
+          $('#tmt_golongan_akhir').val(tust);
+         }else{
+          document.getElementById("tmt_golongan").readOnly = false;
+        }
+      }
+
+        // var date = new Date();
+
+        // alert(date.addDays(5));
+
+     }
 </script>

@@ -76,6 +76,7 @@ class Pegawai extends REST_Controller
                 $inputrw = ($this->input->post('inputrw'))?$this->input->post('inputrw'):null;
                 $inputrwktp = ($this->input->post('inputrwktp'))?$this->input->post('inputrwktp'):null;
                 $inputstatus = ($this->input->post('inputstatus'))?$this->input->post('inputstatus'):null;
+                $inputstatustetap = ($this->input->post('inputstatustetap'))?$this->input->post('inputstatustetap'):null;
                 $instasi = ($this->input->post('instasi'))?$this->input->post('instasi'):null;
                 $txtagama = ($this->input->post('txtagama'))?$this->input->post('txtagama'):null;
                 $txtAlamat = ($this->input->post('txtAlamat'))?$this->input->post('txtAlamat'):null;
@@ -210,6 +211,7 @@ class Pegawai extends REST_Controller
                         $param_rd = array(
                             'id_user' => $saved_id,
                             'status_pegawai' => $inputstatus,
+                            'status_pegawai_tetap' => $inputstatustetap,
                             'tmt_cpns' => $txttmtcpns,
                             'tmt_pns' => $txttmtpns,
                             'direktorat' => $txtdirektorat,
@@ -281,6 +283,7 @@ class Pegawai extends REST_Controller
                                 sys_user.kd_keluar,
                                sys_user_profile.*,
                                riwayat_kedinasan.status_pegawai,
+                               riwayat_kedinasan.status_pegawai_tetap,
                                riwayat_kedinasan.direktorat,
                                riwayat_kedinasan.jabatan_asn,
                                riwayat_kedinasan.subjabasn,
@@ -341,6 +344,7 @@ class Pegawai extends REST_Controller
                             'alamat_tinggal' => $d->alamat_tinggal,
                             'prov_ktp' => $d->prov_ktp,
                             'status_pegawai' => $d->status_pegawai,
+                            'status_pegawai_tetap' => $d->status_pegawai_tetap,
                             'direktorat' => $d->direktorat,
                             'jabatan_asn' => $d->jabatan_asn,
                             'jabatan_struktural' => $d->jabatan_struktural,
@@ -438,6 +442,7 @@ class Pegawai extends REST_Controller
                 $inputrw = ($this->input->post('inputrw'))?$this->input->post('inputrw'):null;
                 $inputrwktp = ($this->input->post('inputrwktp'))?$this->input->post('inputrwktp'):null;
                 $inputstatus = ($this->input->post('inputstatus'))?$this->input->post('inputstatus'):null;
+                $inputstatustetap = ($this->input->post('inputstatustetap'))?$this->input->post('inputstatustetap'):null;
                 $instasi = ($this->input->post('instasi'))?$this->input->post('instasi'):null;
                 $txtagama = ($this->input->post('txtagama'))?$this->input->post('txtagama'):null;
                 $txtAlamat = ($this->input->post('txtAlamat'))?$this->input->post('txtAlamat'):null;
@@ -581,6 +586,7 @@ class Pegawai extends REST_Controller
 
                     $param_rd = array(
                         'status_pegawai' => $inputstatus,
+                        'status_pegawai_tetap' => $inputstatustetap,
                         'tmt_cpns' => $txttmtcpns,
                         'tmt_pns' => $txttmtpns,
                         'direktorat' => $txtdirektorat,

@@ -359,54 +359,10 @@
     }else if(empty($('#keterangan').val())){
     onMessage('Data Keterangan tidak boleh kosong');
     return false;
+    } else {
+      postForm('form-pengajuan-detail', url_api2+'save',loaddata_pengajuan);
     }
-    var data = formJson('form-pengajuan-detail');//$("#form-upload").serializeArray();
-    $.ajax({
-        url: url_api2+'save',
-        headers: {
-            'Authorization': localStorage.getItem("Token"),
-            'X_CSRF_TOKEN': 'donimaulana',
-            'Content-Type': 'application/json'
-        },
-        dataType: 'json',
-        type: 'post',
-        contentType: 'application/json',
-        processData: false,
-        data: data,
-        success: function (data, textStatus, jQxhr) {
-            hasil = data.hasil;
-            message = data.message;
-            if (hasil == "success") {
-
-                swal("Good job!", "Terimakasih!", "success");
-                $("#f_id_edit").val(data.id);
-                loaddata_pengajuan(0);
-                $('.modal').modal('hide');
-            } else {
-                $.niftyNoty({
-                    type: 'danger',
-                    title: 'Warning!',
-                    message: message,
-                    container: 'floating',
-                    timer: 5000
-                });
-
-                return false;
-            }
-
-
-        },
-        error: function (jqXhr, textStatus, errorThrown) {
-            $.niftyNoty({
-                type: 'danger',
-                title: 'Warning!',
-                message: message,
-                container: 'floating',
-                timer: 5000
-            });
-        }
-    });
-    // postForm('form-pengajuan-detail', url_api2+'save',loaddata_pengajuan);
+    
   }
 
    function delete_pengajuan(){

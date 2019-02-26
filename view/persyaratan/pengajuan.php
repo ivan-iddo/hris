@@ -21,14 +21,14 @@
 					</a> 
 			</li>
 
-      <li>
+      <!-- <li>
         <a href="#demo-lft-tab-pengajuan" data-toggle="tab">
             <span class="block text-center">
               <i class="fa fa-mail-forward fa-2x text-danger"></i> 
             </span>
             Riwayat Pengajuan Jabatan
           </a>
-      </li>
+      </li> -->
 
       <li> 
 			<a href="#demo-lft-tab-3" data-toggle="tab">
@@ -88,7 +88,7 @@
     </div>
 
 
-    <div id="demo-lft-tab-pengajuan" class="tab-pane fade">
+    <!-- <div id="demo-lft-tab-pengajuan" class="tab-pane fade">
    
       <div class="panel-body">
         <div class="bootstrap-table">
@@ -132,7 +132,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div id="demo-lft-tab-3" class="tab-pane fade ">
     </div>

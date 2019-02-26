@@ -199,6 +199,52 @@ public function agama_get(){
 			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
 	
+	public function status_pegawai_tetap_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					 $this->db->where('flagpns','0');
+					 $this->db->order_by('nama','ASC');
+					 $this->db->where('tampilkan','1');
+			  $res = $this->db->get('m_status_pegawai')->result();
+			  foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id);
+			  }
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+
+	public function status_pegawai_pns_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					 $this->db->where('flagpns','1');
+					 $this->db->order_by('nama','ASC');
+					 $this->db->where('tampilkan','1');
+			  $res = $this->db->get('m_status_pegawai')->result();
+			  foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id);
+			  }
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+
 	public function status_pegawai_get(){
 		$headers = $this->input->request_headers();
 	

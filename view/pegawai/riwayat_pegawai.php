@@ -332,8 +332,9 @@
                                    processData: false,
                                    success: function( res, textStatus, jQxhr ){
 																		///alert('Loading data..');
-                                                                       
+                                                                     
 																		 window.setTimeout(function(){
+                                      console.log(res[0].sts_p);
              $('#f_id_edit').val(selectedRowsString);
     var element = document.getElementById('f_id_edit');
     if(element){
@@ -347,6 +348,7 @@
                                    $('#npwp').val(res[0].npwp);
                                    $('#f_user_name').val(res[0].nama);
                                    $('#f_user_email').val(res[0].email);
+                                   
 																	 $('#txttmtcpns').val(res[0].tmt_cpns);
 																	 $('#txttmtpns').val(res[0].tmt_pns);
 																	 $('#txttmtjabatan').val(res[0].tmt_jabatan);
@@ -365,6 +367,7 @@
 																	 $('#inputrtktp').val(res[0].rt_ktp);
 																	 $('#inputrwktp').val(res[0].rw_ktp);
 																	 $('#inputkposktp').val(res[0].kode_posktp);
+                                   $('#txtstp').val(res[0].sts_p);
 																	 
 																	 $('#txtnip').val(res[0].nip);
 																	 $('#txtnik').val(res[0].nik);
@@ -387,7 +390,8 @@
 																		getOptionsEdit("txtpendidikan",BASE_URL+"master/getmaster?id=29",res[0].pendidikan);
 																		getOptionsEdit("txtprov",BASE_URL+"master/provinsi",res[0].prov);
 																		getOptionsEdit("txtprovktp",BASE_URL+"master/provinsi",res[0].prov_ktp);
-																			getOptionsEdit("txtinputstatus",BASE_URL+"master/status_pegawai",res[0].status_pegawai);
+                                      getOptionsEdit("txtinputstatus",BASE_URL+"master/status_pegawai_pns",res[0].status_pegawai);
+																			getOptionsEdit("inputstatustetap",BASE_URL+"master/status_pegawai_tetap",res[0].status_pegawai_tetap);
 			getOptionsEdit("txtdirektorat",BASE_URL+"master/direktorat",res[0].direktorat);
         getOptionsEdit("txtjabfung",BASE_URL+"m/group_jabatan_asn/getoption",res[0].jabatan_asn);
         getOptionsEdit("subjabasn",BASE_URL+"master/getmaster?id=40",res[0].subjabasn);
@@ -535,9 +539,12 @@
 						   onMessage("Data 'NIK' is required"); 
                            return false;
 					   }else if(empty($('#txtinputstatus').val())){
-						   onMessage("Data 'STATUS PEGAWAI' is required"); 
+						   onMessage("Data 'STATUS PEGAWAI PNS' is required"); 
                            return false;
-					   }else if(empty($('#txtjabatan').val())){
+					   }else if(empty($('#inputstatustetap').val())){
+               onMessage("Data 'STATUS PEGAWAI TETAP' is required"); 
+                           return false;
+             }else if(empty($('#txtjabatan').val())){
 						   onMessage("Data 'Jabatan struktural' is required"); 
                            return false;
 					   }else if(empty($('#kategori_profesi').val())){
