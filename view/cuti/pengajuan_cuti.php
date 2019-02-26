@@ -202,27 +202,47 @@ $('.select-chosen').chosen();
 function hitungTanggal(jml){
     var tt = document.getElementById('tgl_cuti').value;
 
-    if(!empty(tt)){
-        var h = incrementDate(tt,jml);
-        var dd = h.getDate();
-        var mm = h.getMonth() + 1;
-        var y = h.getFullYear();
-        $('#sampai').html(dd+'-'+mm+'-'+y); 
-    }
-     
+	$.ajax({
+                                  url: BASE_URL+'pegawai/tglcuti/'+jml+'/'+tt,
+                                   headers: {
+                                       'Authorization': localStorage.getItem("Token"),
+                                       'X_CSRF_TOKEN':'donimaulana',
+                                       'Content-Type':'application/json'
+                                   },
+                                   dataType: 'json',
+                                   type: 'get',
+                                   contentType: 'application/json', 
+                                   processData: false,
+                                   success: function( res, textStatus, jQxhr ){
+									$('#sampai').html(res[0].tgl_selesai);
+                                   },
+                                   error: function( jqXhr, textStatus, errorThrown ){
+                                       alert('error');
+                                   }
+                               });
  }
 
  function hitungTanggalB(tgl){
     var tt = document.getElementById('jumlahCuti').value;
 
-    if(!empty(tt)){
-        var h = incrementDate(tgl,tt);
-        var dd = h.getDate();
-        var mm = h.getMonth() + 1;
-        var y = h.getFullYear();
-        $('#sampai').html(dd+'-'+mm+'-'+y);
-		
-    }
+  $.ajax({
+                                  url: BASE_URL+'pegawai/tglcuti/'+tt+'/'+tgl,
+                                   headers: {
+                                       'Authorization': localStorage.getItem("Token"),
+                                       'X_CSRF_TOKEN':'donimaulana',
+                                       'Content-Type':'application/json'
+                                   },
+                                   dataType: 'json',
+                                   type: 'get',
+                                   contentType: 'application/json', 
+                                   processData: false,
+                                   success: function( res, textStatus, jQxhr ){
+									$('#sampai').html(res[0].tgl_selesai);
+                                   },
+                                   error: function( jqXhr, textStatus, errorThrown ){
+                                       alert('error');
+                                   }
+                               });
      
  }
 

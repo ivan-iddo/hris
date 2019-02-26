@@ -11,6 +11,7 @@
 					                                <th>Capaian %</th>
 					                                <th>Nilai</th>
 					                                <th>Bobot x Nilai</th>
+					                                <th>Keterangan</th>
 					                            </tr>
 					                        </thead>
 					                        <tbody id="tabel">
@@ -31,17 +32,19 @@ function reskpi(result){
     var capaianp='';
     var nilai='';
     var nilaib='';
+    var ket='';
 
 
     var table ='';
     $.each( result.result, function( key, value ) {
-    parameter = value.keterangan;
+    parameter = value.grup;
     bobot = value.bobot;
     target = value.target_kinerja;
     capaian = value.capaian;
     capaianp = value.capaian_persen;
     nilai = value.nilai;
     nilaib = value.nilai_bobot;
+    ket = value.keterangan;
 
     table +='<tr>';
     table +='<td>';
@@ -64,6 +67,9 @@ function reskpi(result){
     table +='</td>';
     table +='<td>';
     table += nilaib;
+    table +='</td>';
+	table +='<td>';
+    table += ket;
     table +='</td>';
     table +='</tr>';
     

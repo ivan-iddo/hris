@@ -844,9 +844,6 @@ class Mpenilaian extends REST_Controller
 				$id = $this->input->get('id');
 				$idp = $this->input->get('idp');
 				$child = $this->input->get('child');
-				if(!empty($id)){
-					 $this->db->where('his_kpi_detail.id_kpi',$this->input->get('pid'));
-				}
 				if(!empty($idp)){
 					 $this->db->where('m_penilaian_kpi.id_grup',$this->input->get('idp'));
 				}
@@ -854,16 +851,14 @@ class Mpenilaian extends REST_Controller
 					$this->db->where('m_penilaian_kpi.child',$child);
 				}
 				
-				  $this->db->select('m_penilaian_kpi.*, his_kpi_detail.*,his_kpi.no_pegawai,his_kpi.id as id_kpi');
+				  $this->db->select('m_penilaian_kpi.*');
 				  $this->db->where('m_penilaian_kpi.tampilkan','1');
-				  $this->db->join('his_kpi_detail','m_penilaian_kpi.id_grup = his_kpi_detail.id_kegiatan','LEFT');
-				  $this->db->join('his_kpi','his_kpi_detail.id_kpi = his_kpi.id','LEFT');
 				  $res = $this->db->get('m_penilaian_kpi')->result();
 				
 			if(!empty($res)){
 				$i=0;
 				 foreach($res as $d){
-					$arr[]=array('n' => ++$i,'id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'pid'=>$d->id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai'=>$d->nilai, 'nilai_bobot'=>$d->nilai_bobot, 'keterangan'=>$d->keterangan);
+					$arr[]=array('n' => ++$i,'id'=>$d->id_grup,'nama'=>$d->grup,'no'=>$d->bobot);
 				  }
 			}else{
 			$arr['result'] ='empty';
@@ -911,42 +906,17 @@ class Mpenilaian extends REST_Controller
 	}
 	
 	 
-public function save_post(){
+    public function save_post(){
 		$headers = $this->input->request_headers();
 
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				 $group_group    = $_POST['group_group'];
 				 $id_parent = $_POST['id_parent'];
 				 $max = $_POST['max'];
 				 $bobot= $_POST['pilih'];
-				$this->db->select('count(id_grup) as jum');
-                $this->db->where('child', $id_parent);
-                $this->db->where('tampilkan', '1');
-
-                $resCek = $this->db->get('m_penilaian_kpi')->row();
-
-                $jum = $resCek->jum;
-
-                if ($max < $jum) {
-					$arr['hasil']='Maaf';
-                    $arr['message'] = 'Parameter anda sudah melampaui batas! Parameter max ' . $max ;
-                }else{
-				$this->db->select('sum(bobot) as bobot');
-                $this->db->where('child', $id_parent);
-                $this->db->where('tampilkan', '1');
-
-                $resCek = $this->db->get('m_penilaian_kpi')->row();
-
-                $bob = $resCek->bobot;
-				$total_bobot=$bobot+$bob;
-                $max = 100;
-
-                if ($max < $total_bobot) {
-					$arr['hasil']='Maaf';
-                    $arr['message'] = 'Bobot anda sudah melampaui batas! Bobot max 100';
-                }else{
+				 $nama1=strtolower($_POST['group_group']);
+				 $group_group=ucwords($nama1);
 				 $data = array(
 							   'grup'=>$group_group,'bobot'=>$bobot);
 				 
@@ -955,20 +925,6 @@ public function save_post(){
 				  }
 				  
 				$this->db->insert('m_penilaian_kpi',$data);
-				$this->db->where('grup',$group_group);
-				$res = $this->db->get('m_penilaian_kpi')->result();
-				foreach($res as $d){
-				$id_grup = $d->id_grup;
-				$data1 = array('id_kegiatan'=>$id_grup);
-				$this->db->insert('his_kpi_detail',$data1);
-				}
-				$this->db->where('id_jenis',$id_parent);
-				$res = $this->db->get('his_kpi')->result();
-				foreach($res as $d){
-				$id = $d->id;
-				$data1 = array('id_kpi'=>$id,'id_kegiatan'=>$id_grup);
-				$this->db->insert('his_kpi_detail',$data1);
-				}
 				if($this->db->affected_rows() == '1'){
 							$arr['hasil']='success';
 							$arr['message']='Data berhasil ditambah!';
@@ -976,7 +932,7 @@ public function save_post(){
 							$arr['hasil']='error';
 							$arr['message']='Data Gagal Ditambah!';
 						 }
-				}}}
+				}
 		  
 				$this->set_response($arr, REST_Controller::HTTP_OK);
 			
@@ -994,37 +950,12 @@ public function save_post(){
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 				 $group_aplikasi = '1';//$this->input->post('group_aplikasi');
-				 $group_group    = $_POST['group_group'];
 				 $pilih   = $_POST['pilih'];
 				 $awal   = $_POST['awal'];
 				 $id_parent = $_POST['id_parent'];
 				 $id_group   = $_POST['id_group'];
-				 if ($pilih > $awal) {
-					$selisih=$pilih-$awal;
-					$this->db->select('sum(bobot) as bobot');
-					$this->db->where('child', $id_parent);
-					$this->db->where('tampilkan', '1');
-
-					$resCek = $this->db->get('m_penilaian_kpi')->row();
-
-					$bob = $resCek->bobot;
-					$total_bobot=$selisih+$bob;
-				 }else{
-					$selisih=$awal-$pilih;
-					$this->db->select('sum(bobot) as bobot');
-					$this->db->where('child', $id_parent);
-					$this->db->where('tampilkan', '1');
-
-					$resCek = $this->db->get('m_penilaian_kpi')->row();
-
-					$bob = $resCek->bobot;
-					$total_bobot=$bob-$selisih;
-				 }
-				$max = 100;
-                if ($max < $total_bobot) {
-					$arr['hasil']='Maaf';
-                    $arr['message'] = 'Bobot anda sudah melampaui batas! Bobot max 100';
-                }else{
+				 $nama1=strtolower($_POST['group_group']);
+				 $group_group=ucwords($nama1);
 				 $data = array('grup'=>$group_group,'bobot'=>$pilih,);
 				 $this->db->where('id_grup', $this->input->post('id_group'));
 				 $this->db->update('m_penilaian_kpi',$data);				
@@ -1035,7 +966,7 @@ public function save_post(){
 					$arr['hasil']='error';
 					$arr['message']='Data Gagal Ditambah!';
 				 }
-				}
+				
 				$this->set_response($arr, REST_Controller::HTTP_OK);
 			
                 return;
