@@ -1599,6 +1599,126 @@ class Pegawai extends REST_Controller
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
 
+	function tglcuti_get()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+				
+                $lama_cuti1 = $this->uri->segment(3);
+                if(!empty($this->uri->segment(4))){
+				$tglawal = date('d-m-Y', strtotime($this->uri->segment(4)));
+				$thn = date('Y');
+				$tglakhir = date('d-m-Y', strtotime('+'.$lama_cuti1.' days', strtotime($tglawal))); // Tgl Selesai termasuk minggu & libur nasional
+				$tgl_awal = $tgl_akhir = $minggu = $sabtu = $koreksi = $libur = 0;
+				$this->db->select('libur.tanggal as tgl');
+				$this->db->where('tahun', $thn);
+				$tgl_libur = $this->db->get('libur')->result();
+				foreach ( $tgl_libur as $harilibur ) {
+				$liburnasional = strtotime($harilibur->tgl);
+				}
+			//    memecah tanggal untuk mendapatkan hari, bulan dan tahun
+				$pecah_tglawal = explode('-', $tglawal);
+				$pecah_tglakhir = explode('-', $tglakhir);
+				
+			//    mengubah Gregorian date menjadi Julian Day Count
+				$tgl_awal = gregoriantojd($pecah_tglawal[1], $pecah_tglawal[0], $pecah_tglawal[2]);
+				$tgl_akhir = gregoriantojd($pecah_tglakhir[1], $pecah_tglakhir[0], $pecah_tglakhir[2]);
+			 
+			//    mengubah ke unix timestamp
+				$jmldetik = 24*3600;
+				$a = strtotime($tglawal);
+				$b = strtotime($tglakhir);
+				
+			//    menghitung jumlah libur nasional 
+				for($i=$a; $i<$b; $i+=$jmldetik){
+					foreach ($liburnasional as $key => $tgllibur) {
+						if($tgllibur==date("d-m-Y",$i)){
+							$libur++;
+						}
+					}
+				}
+				
+			//    menghitung jumlah hari minggu
+				for($i=$a; $i<$b; $i+=$jmldetik){
+					if(date("w",$i)=="0"){
+						$minggu++;
+					}
+				}
+				
+			//    menghitung jumlah hari sabtu
+				for($i=$a; $i<$b; $i+=$jmldetik){
+					if(date("w",$i)=="6"){
+						$sabtu++;
+					}
+				}
+			 
+			//    dijalankan jika $tglakhir adalah hari sabtu atau minggu
+				if(date("w",$b)=="0" || date("w",$b)=="6"){
+					$koreksi = 1;
+				}
+				
+			//    mengitung selisih dengan pengurangan kemudian ditambahkan 1 agar tanggal awal cuti juga dihitung
+				$jumlahcuti =  $tgl_akhir - $tgl_awal - $libur - $minggu - $sabtu - $koreksi + 1;
+				
+				/// PANGGIL FUNGSI dengan PARAMETERNYA BERIKUT
+				$lama_cuti = $lama_cuti1+($lama_cuti1-$jumlahcuti); // Tambahkan Jumlah hari libur dengan lama cuti
+				$tgl_selesai_tanpa_libur = date('d-m-Y', strtotime('+'.$lama_cuti.' days', strtotime($tglawal))); // Hasil akhir 
+				}else{
+					$tgl_selesai_tanpa_libur='';
+				}
+				if (!empty($tgl_selesai_tanpa_libur)) {
+                    $arr[] = array('tgl_selesai' => $tgl_selesai_tanpa_libur,
+                        );
+                } else {
+                    $arr['hasil'] = 'error';
+                }
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
+	
+	function tglizin_get()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+				
+                $lama_cuti1 = $this->uri->segment(3);
+                if(!empty($this->uri->segment(4))){
+				$tglawal = date('d-m-Y', strtotime($this->uri->segment(4)));
+				if(8<$lama_cuti1){
+				$lama_cuti=1;
+				}else{
+				$lama_cuti=0;
+				}
+				$tgl_selesai_tanpa_libur = date('d-m-Y', strtotime('+'.$lama_cuti.' days', strtotime($tglawal))); // Hasil akhir 
+				}else{
+					$tgl_selesai_tanpa_libur='';
+				}
+				if (!empty($tgl_selesai_tanpa_libur)) {
+                    $arr[] = array('tgl_selesai' => $tgl_selesai_tanpa_libur,
+                        );
+                } else {
+                    $arr['hasil'] = 'error';
+                }
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
+	
 	
     function cekcuti_get()
     {
@@ -1666,7 +1786,13 @@ class Pegawai extends REST_Controller
                             } else {
                                 $cc = $jumlahcuti;
                             }
-                        }
+                        }else{
+							if(!empty($cuti_sudahDiambil)){
+							$cc = 18-$cuti_sudahDiambil;
+							}else{
+							$cc = 18;
+							}
+						}
                     }
 
                     $arr['message'] = '<div class="alert alert-success">Anda memiliki sisa cuti <strong>' . $cc . ' Hari</strong></div>';
@@ -1693,56 +1819,26 @@ class Pegawai extends REST_Controller
                 $id_user = $this->input->get('id_user');
                 $tgl_izin = $this->input->get('tgl_izin');
                 $tahun = date('Y');
-
-                if ($tahun !== $tgl_izin) {
-                    $arr['message'] = '<div class="alert alert-success">Anda memiliki sisa Izin <strong> 224  Jam</strong></div>';
-                    $arr['jumlah'] = 8;
-
-                    return $this->set_response($arr, REST_Controller::HTTP_OK);
-                }
-
-                $this->db->where('id', $id_izin);
-                $this->db->where('tampilkan', '1');
-
-                $res = $this->db->get('m_jenis_izin')->row();
-                $this->db->select('sum(total) as total_izin');
-                $this->db->where('jenis_izin', $id_izin);
+				$this->db->select('sum(total) as total_izin');
                 $this->db->where('id_user', $id_user);
+				$this->db->where('status != 108');
                 $this->db->where('EXTRACT(YEAR FROM tgl_izin) =', $tahun);
                 $this->db->where('tampilkan', '1');
-
                 $resCek = $this->db->get('his_izin')->row();
-
-                $izin_sudahDiambil = $resCek->total_izin;
-                $total = $res->jumlah;
-
+				$izin_sudahDiambil = $resCek->total_izin;
+                $total = 224;
                 if ($total <= $izin_sudahDiambil) {
                     $arr['message'] = '<div class="alert alert-danger">Maaf Izin anda tahun ini <strong>sudah melampaui batas!</strong></div>';
                 } else {
-                    if ($id_izin == '1') {
-                        $cc = $total - $izin_sudahDiambil;
-                        $this->db->select('sum(total) as total_izin');
-                        $this->db->where('jenis_izin', '1');
-                        $this->db->where('id_user', $id_user);
-                        $this->db->where('EXTRACT(YEAR FROM tgl_izin) =', ($tahun - 1));
-                        $this->db->where('tampilkan', '1');
-                        $resCeklalu = $this->db->get('his_izin')->row();
-                        $izinthnlalu = 224 - $resCeklalu->total_izin;
-                        $jumlahizin = $cc + $izinthnlalu;
-
-                        if (!empty($resCeklalu->total_izin)) {
-                            if ($jumlahizin > 224) {
-                                $cc = 224;
-                            } else {
-                                $cc = $jumlahizin;
-                            }
-                        }
-                    }
-
-
-                    $arr['message'] = '<div class="alert alert-success">Anda memiliki sisa Izin <strong>' . $cc . ' Jam</strong></div>';
-                    $arr['jumlah'] = $cc;
+                $jum= $total - $izin_sudahDiambil;
+				if($jum > 12){
+				$arr['message'] = '<div class="alert alert-success">Anda memiliki sisa Izin <strong> ' . $jum . ' Jam</strong></div>';
+                $arr['jumlah'] = 12;
+				}else{
+                $arr['message'] = '<div class="alert alert-success">Anda memiliki sisa Izin <strong>' . $jum . ' Jam</strong></div>';
+                $arr['jumlah'] = $jum;
                 }
+				}
 
                 $this->set_response($arr, REST_Controller::HTTP_OK);
 
