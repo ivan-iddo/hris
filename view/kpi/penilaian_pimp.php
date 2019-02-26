@@ -104,7 +104,7 @@
 	<div class="col-sm-6 table-toolbar-left">
 		<button id="demo-btn-addrow" class="btn btn-purple" onclick="onAddRow()"><i class="demo-pli-add"></i> Tambah Langkah Kerja</button>
 		<button style="margin-left:3px" class="btn btn-mint" onclick="getRowData()"><i class="fa fa-file-excel-o"></i> Simpan Perubahan</button>
-		<button class="btn btn-danger" onclick="hapusform4()"><i class="fa fa-file-excel-o"></i> Delete</button>                                                   				                     
+		<button class="btn btn-danger" onclick="hapus()"><i class="fa fa-file-excel-o"></i> Delete</button>                                                   				                     
 	</div>
 	<div class="col-sm-6 table-toolbar-right">				                   
 		<div class="btn-group">
@@ -277,8 +277,8 @@ loadDataPI(0);
 
  var columnDefs = [ 
   
- {headerName: 'No', field: 'n', width: 80,editable:false},
- {headerName: 'Parameter', field: 'nama', width: 160,},
+ {headerName: 'Parameter', field: 'n', width: 100,editable:false},
+ {headerName: 'Indek Kinerja', field: 'nama', width: 160,},
  {headerName: 'Bobot (%)', field: 'no', width: 160,},
  {headerName: 'Target Kinerja', field: 'target_kinerja', width: 120},
  {headerName: 'Capaian', field: 'capaian', width: 120},
@@ -289,7 +289,8 @@ loadDataPI(0);
  {headerName: 'pid', field: 'pid',  hide:true},
  {headerName: 'child', field: 'child',  hide:true},
  {headerName: 'max', field: 'max',  hide:true},
- {headerName: 'jum', field: 'jum',  hide:true},
+ {headerName: 'total', field: 'total_bobot',  hide:true},
+ {headerName: 'nilai', field: 'nil_bobot',  hide:true},
  
 
 ];
@@ -424,6 +425,53 @@ function createNewRowData() {
     }
 	}
 	
+	
+	function hapus(){
+        var selectedRows = gridOptions.api.getSelectedRows();
+            // alert('>>'+selectedRows+'<<<');
+            if(selectedRows == ''){
+               onMessage('Silahkan Pilih data yg akan dihapus Terlebih dahulu!');
+               return false;
+            }else{
+                var selectedRowsString = '';
+           selectedRows.forEach( function(selectedRow, index) {
+            
+               if (index!==0) {
+                   selectedRowsString += ', ';
+               }
+               selectedRowsString += selectedRow.id_kpi_d;
+           });
+
+            bootbox.dialog({ 
+                   message:'<center><h4 class="pad-all mar-all">Anda yakin ingin menghapus data ini?</h4></center>',
+                   animateIn: 'bounceIn',
+                   animateOut : 'bounceOut',
+									 backdrop: false,
+                   size:'medium',
+                   buttons: {
+                       success: {
+                           label: "Hapus",
+                           className: "btn-primary",
+                           callback: function() {
+                               
+                            getJson(tektok,BASE_URL+'kpi/mpenilaian/hapus?id='+selectedRowsString);
+                           }
+                       },
+
+                       main: {
+                           label: "Close",
+                           className: "btn-warning",
+                           callback: function() {
+                               
+                           }
+                       }
+                   }
+                       });
+            
+
+            }
+     }
+	 
 function getCharCodeFromEvent(event) {
  event = event || window.event;
  return typeof event.which === 'undefined' ? event.keyCode : event.which;
@@ -441,7 +489,7 @@ function isKeyPressedNumeric(event) {
 
 function search(){
     bootbox.dialog({ 
-                   message:$('<div></div>').load('view/pegawai/search_pegawai.php'),
+                   message:$('<div></div>').load('view/pegawai/search_pim.php'),
                    animateIn: 'bounceIn',
                    animateOut : 'bounceOut',
 									 backdrop: false,

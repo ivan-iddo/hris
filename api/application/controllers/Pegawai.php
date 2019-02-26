@@ -302,7 +302,7 @@ class Pegawai extends REST_Controller
                                 riwayat_kedinasan.tgl_bergabung,
                                 riwayat_kedinasan.peringkat,
                                 riwayat_kedinasan.no_index_dok,
-                                uk_master.nama as nama_jabatan,
+                                m_index_jabatan_asn_detail.ds_jabatan as nama_jabatan,
                                 his_kontrak.tglakhir,
                                 his_str.date_end as date_end_str,
                                 his_sip.date_end
@@ -312,8 +312,8 @@ class Pegawai extends REST_Controller
                 }
                 $this->db->join('sys_user_profile', 'sys_user_profile.id_user = sys_user.id_user', 'LEFT');
                 $this->db->join('riwayat_kedinasan', 'riwayat_kedinasan.id_user = sys_user.id_user', 'LEFT');
-                $this->db->join('uk_master', 'uk_master.id = sys_user.id_uk', 'LEFT');
-                $this->db->join('his_kontrak', 'his_kontrak.id_user = sys_user.id_user', 'LEFT');
+                $this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
+				$this->db->join('his_kontrak', 'his_kontrak.id_user = sys_user.id_user', 'LEFT');
                 $this->db->join('his_str', 'his_str.id_user = sys_user.id_user', 'LEFT');
                 $this->db->join('his_sip', 'his_sip.id_user = sys_user.id_user', 'LEFT');
                 
@@ -1599,6 +1599,7 @@ class Pegawai extends REST_Controller
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
 
+	
     function cekcuti_get()
     {
         $headers = $this->input->request_headers();
@@ -1624,6 +1625,7 @@ class Pegawai extends REST_Controller
                 $this->db->select('sum(total) as total_cuti');
                 $this->db->where('jenis_cuti', $id_cuti);
                 $this->db->where('id_user', $id_user);
+				$this->db->where('status != 108');
                 $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', $tahun);
                 $this->db->where('tampilkan', '1');
 
@@ -1631,7 +1633,7 @@ class Pegawai extends REST_Controller
 
                 $cuti_sudahDiambil = $resCek->total_cuti;
                 $total = $res->jumlah;
-
+		
                 if ($total <= $cuti_sudahDiambil) {
                     $arr['message'] = '<div class="alert alert-danger">Maaf cuti anda tahun ini <strong>sudah melampaui batas!</strong></div>';
                 } else {
@@ -1641,14 +1643,24 @@ class Pegawai extends REST_Controller
                         $this->db->where('jenis_cuti', '1');
                         $this->db->where('id_user', $id_user);
                         $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', ($tahun - 1));
+                        $this->db->where('status != 108');
                         $this->db->where('tampilkan', '1');
                         $resCeklalu = $this->db->get('his_cuti')->row();
-                        $cutithnlalu = 18 - $resCeklalu->total_cuti;
-                        $jumlahcuti = $cc + $cutithnlalu;
-
+						$cutikmrn=$resCeklalu->total_cuti;
+						if ($cutikmrn > 18) {
+                                $jumcuti = 18;
+                        } else {
+                                $jumcuti = $cutikmrn;
+                        }
+						$cutithnlalu = 18 - $jumcuti;
+                        $jumlahtot = 12 + $cutithnlalu;
+						if ($jumlahtot > 18) {
+                                $jumlah = 18;
+                        } else {
+                                $jumlah = $jumlahtot;
+                        }
+                        $jumlahcuti = $jumlah - $cuti_sudahDiambil;
                         if (!empty($resCeklalu->total_cuti)) {
-
-
                             if ($jumlahcuti > 18) {
                                 $cc = 18;
                             } else {
@@ -1657,7 +1669,7 @@ class Pegawai extends REST_Controller
                         }
                     }
 
-                    $arr['message'] = '<div class="alert alert-success">Anda memiliki sisa cuti <strong>' . $c . ' Hari</strong></div>';
+                    $arr['message'] = '<div class="alert alert-success">Anda memiliki sisa cuti <strong>' . $cc . ' Hari</strong></div>';
                     $arr['jumlah'] = $cc;
                 }
 
@@ -1785,7 +1797,7 @@ class Pegawai extends REST_Controller
                         'tgl_cuti' => $tgl,
                         'tgl_akhir_cuti' => $sampai,
                         'jenis_cuti' => $id_cuti,
-                        'status' => '1',
+                        'status' => '102',
                         'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null
 
                     );
@@ -1821,7 +1833,7 @@ class Pegawai extends REST_Controller
             if ($decodedToken != false) {
                 $tgl = ($this->input->post('tgl_izin'))?$this->input->post('tgl_izin'):null;
                 $jml = ($this->input->post('jumlahizin'))?$this->input->post('jumlahizin'):null;
-
+				
                 $date = date_create($tgl);
                 date_add($date, date_interval_create_from_date_string($jml . " days"));
                 $sampai = date_format($date, "Y-m-d");
@@ -1855,7 +1867,7 @@ class Pegawai extends REST_Controller
                         'tgl_izin' => $tgl,
                         'tgl_akhir_izin' => $sampai,
                         'jenis_izin' => $id_izin,
-                        'status' => '1',
+                        'status' => '102',
                         'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null
 
                     );
@@ -1890,11 +1902,14 @@ class Pegawai extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 
+				$thn = date('Y');
+				
                 $id_user = $this->input->get('id_user');
-                $this->db->select('m_jenis_cuti.nama as namcut,his_cuti.*,m_status_proses.nama as statuspros');
+                $this->db->select('m_jenis_cuti.nama as namcut,his_cuti.*,dm_term.nama as statuspros');
                 $this->db->join('m_jenis_cuti', 'm_jenis_cuti.id = his_cuti.jenis_cuti');
-                $this->db->join('m_status_proses', 'm_status_proses.id = his_cuti.status');
+                $this->db->join('dm_term', 'dm_term.id = his_cuti.status');
                 $this->db->where('id_user', $id_user);
+				$this->db->where('EXTRACT(YEAR FROM his_cuti.tgl_cuti) =',$thn);
                 $this->db->where('his_cuti.tampilkan', '1');
                 $this->db->order_by('tgl_cuti', 'DESC');
                 $resCek = $this->db->get('his_cuti')->result();
@@ -1902,7 +1917,7 @@ class Pegawai extends REST_Controller
                 $da = '';
                 foreach ($resCek as $val) {
                     $text = 'text-success';
-                    if ($val->status == '1') {
+                    if ($val->status == '108') {
                         $text = 'text-danger';
                     }
                     $da .= '<tr>';
@@ -1949,9 +1964,11 @@ class Pegawai extends REST_Controller
             if ($decodedToken != false) {
 
                 $id_user = $this->input->get('id_user');
-                $this->db->select('m_jenis_izin.nama as namcut,his_izin.*,m_status_proses.nama as statuspros');
+				$thn = date('Y');
+                $this->db->select('m_jenis_izin.nama as namcut,his_izin.*,dm_term.nama as statuspros');
                 $this->db->join('m_jenis_izin', 'm_jenis_izin.id = his_izin.jenis_izin');
-                $this->db->join('m_status_proses', 'm_status_proses.id = his_izin.status');
+                $this->db->join('dm_term', 'dm_term.id = his_izin.status');
+				$this->db->where('EXTRACT(YEAR FROM his_izin.tgl_izin) =',$thn);
                 $this->db->where('id_user', $id_user);
                 $this->db->where('his_izin.tampilkan', '1');
                 $this->db->order_by('tgl_izin', 'DESC');
@@ -1960,7 +1977,7 @@ class Pegawai extends REST_Controller
                 $da = '';
                 foreach ($resCek as $val) {
                     $text = 'text-success';
-                    if ($val->status == '1') {
+                    if ($val->status == '108') {
                         $text = 'text-danger';
                     }
                     $da .= '<tr>';
@@ -2011,7 +2028,7 @@ class Pegawai extends REST_Controller
                 $arraycuti['status'] = $status;
                 if ($status == '0') {
                     $arraycuti['tampilkan'] = '0';
-                    $this->db->where('status', '1');
+                    $this->db->where('status', '102');
                 }
                 $this->db->update('his_cuti', $arraycuti);
                 $arr['hasil'] = 'success';
@@ -2037,7 +2054,7 @@ class Pegawai extends REST_Controller
                 $arrayizin['status'] = $status;
                 if ($status == '0') {
                     $arrayizin['tampilkan'] = '0';
-                    $this->db->where('status', '1');
+                    $this->db->where('status', '102');
                 }
                 $this->db->update('his_izin', $arrayizin);
                 $arr['hasil'] = 'success';
@@ -2057,21 +2074,36 @@ class Pegawai extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-
+				$user_froup = $decodedToken->data->_pnc_id_grup;
+				
                 $id_user = $this->input->get('id_user');
-                $this->db->select('m_jenis_cuti.nama as namcut,his_cuti.*,m_status_proses.nama as statuspros,sys_user.name as namapegawai');
+                $this->db->select('m_jenis_cuti.nama as namcut,his_cuti.*,dm_term.nama as statuspros,sys_user.name as namapegawai');
                 $this->db->join('m_jenis_cuti', 'm_jenis_cuti.id = his_cuti.jenis_cuti');
-                $this->db->join('m_status_proses', 'm_status_proses.id = his_cuti.status');
+                $this->db->join('dm_term', 'dm_term.id = his_cuti.status');
                 $this->db->join('sys_user', 'sys_user.id_user = his_cuti.id_user');
-                $this->db->where('his_cuti.tampilkan', '1');
-                $this->db->where('his_cuti.status', '1');
-                $this->db->order_by('tgl_cuti', 'DESC');
+                $this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+				$this->db->where('his_cuti.tampilkan', '1');
+                $this->db->where('his_cuti.status', '102');
+				if ($user_froup!=1) {
+				$this->db->where("riwayat_kedinasan.bagian",$user_froup);  
+				}
+				
+				if (empty($this->input->get('tahun'))) {
+                    $thn = date('Y');
+                } else {
+                    $thn = $this->input->get('tahun');
+                }
+				$this->db->where('EXTRACT(YEAR FROM his_cuti.tgl_akhir_cuti) =',$thn);
+				if(!empty($this->input->get('bulan'))){
+					$this->db->where('EXTRACT(MONTH FROM his_cuti.tgl_akhir_cuti) =',$this->input->get('bulan'));
+				}
+				$this->db->order_by('tgl_cuti', 'DESC');
                 $resCek = $this->db->get('his_cuti')->result();
-
+				
                 $da = '';
                 foreach ($resCek as $val) {
                     $text = 'text-success';
-                    if ($val->status == '1') {
+                    if ($val->status == '108') {
                         $text = 'text-danger';
                     }
                     $da .= '<tr>';
@@ -2097,10 +2129,10 @@ class Pegawai extends REST_Controller
                     $da .= $val->statuspros;
                     $da .= '</td>';
                     $da .= '<td>';
-                    $da .= '<a class="label label-success" href="javascript:void(0);" onClick="prosesCuti(\'' . $val->id . '\',\'2\')">';
+                    $da .= '<a class="label label-success" href="javascript:void(0);" onClick="prosesCuti(\'' . $val->id . '\',\'107\')">';
                     $da .= 'Setujui';
                     $da .= '</a>';
-                    $da .= '<a class="label label-danger" href="javascript:void(0);" onClick="prosesCuti(\'' . $val->id . '\',\'0\')">';
+                    $da .= '<a class="label label-danger" href="javascript:void(0);" onClick="prosesCuti(\'' . $val->id . '\',\'108\')">';
                     $da .= 'Tolak';
                     $da .= '</a>';
                     $da .= '</td>';
@@ -2120,6 +2152,92 @@ class Pegawai extends REST_Controller
 
     }
 
+	function listcutisdm_get()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+				$user_froup = $decodedToken->data->_pnc_id_grup;
+                $id_user = $this->input->get('id_user');
+                $this->db->select('m_jenis_cuti.nama as namcut,his_cuti.*,dm_term.nama as statuspros,sys_user.name as namapegawai');
+                $this->db->join('m_jenis_cuti', 'm_jenis_cuti.id = his_cuti.jenis_cuti');
+                $this->db->join('dm_term', 'dm_term.id = his_cuti.status');
+                $this->db->join('sys_user', 'sys_user.id_user = his_cuti.id_user');
+                $this->db->where('his_cuti.tampilkan', '1');
+                $this->db->where('his_cuti.status', '107');
+				
+                if (($user_froup == '1') OR ($user_froup == '6')) {
+                    if ((!empty($this->input->get('id_uk'))) AND ($this->input->get('id_uk') <> 'null')) {
+                        $this->db->where('sys_user.id_grup', $this->input->get('id_uk'));
+                    }
+                }
+				
+				if (empty($this->input->get('tahun'))) {
+                    $thn = date('Y');
+                } else {
+                    $thn = $this->input->get('tahun');
+                }
+				$this->db->where('EXTRACT(YEAR FROM his_cuti.tgl_akhir_cuti) =',$thn);
+				if(!empty($this->input->get('bulan'))){
+					$this->db->where('EXTRACT(MONTH FROM his_cuti.tgl_akhir_cuti) =',$this->input->get('bulan'));
+				}
+				$this->db->order_by('tgl_cuti', 'DESC');
+                $resCek = $this->db->get('his_cuti')->result();
+				
+                $da = '';
+                foreach ($resCek as $val) {
+                    $text = 'text-success';
+                    if ($val->status == '108') {
+                        $text = 'text-danger';
+                    }
+                    $da .= '<tr>';
+                    $da .= '<td>';
+                    $da .= $val->namapegawai;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= $val->namcut;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= $val->keterangan;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= date_format(date_create($val->tgl_cuti), "d-m-Y");
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= date_format(date_create($val->tgl_akhir_cuti), "d-m-Y");
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= $val->total;
+                    $da .= '</td>';
+                    $da .= '<td class="' . $text . '">';
+                    $da .= $val->statuspros;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= '<a class="label label-success" href="javascript:void(0);" onClick="prosesCuti(\'' . $val->id . '\',\'103\')">';
+                    $da .= 'Setujui';
+                    $da .= '</a>';
+                    $da .= '<a class="label label-danger" href="javascript:void(0);" onClick="prosesCuti(\'' . $val->id . '\',\'108\')">';
+                    $da .= 'Tolak';
+                    $da .= '</a>';
+                    $da .= '</td>';
+                    $da .= '</tr>';
+                }
+
+                $arr['hasil'] = 'success';
+                $arr['isi'] = $da;
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+
+
+    }
+	
     function listizinall_get()
     {
         $headers = $this->input->request_headers();
@@ -2127,17 +2245,30 @@ class Pegawai extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-
+				$user_froup = $decodedToken->data->_pnc_id_grup;
                 $id_user = $this->input->get('id_user');
-                $this->db->select('m_jenis_izin.nama as namcut,his_izin.*,m_status_proses.nama as statuspros,sys_user.name as namapegawai');
+                $this->db->select('m_jenis_izin.nama as namcut,his_izin.*,dm_term.nama as statuspros,sys_user.name as namapegawai');
                 $this->db->join('m_jenis_izin', 'm_jenis_izin.id = his_izin.jenis_izin');
-                $this->db->join('m_status_proses', 'm_status_proses.id = his_izin.status');
+                $this->db->join('dm_term', 'dm_term.id = his_izin.status');
                 $this->db->join('sys_user', 'sys_user.id_user = his_izin.id_user');
-                $this->db->where('his_izin.tampilkan', '1');
-                $this->db->where('his_izin.status', '1');
+                $this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+				$this->db->where('his_izin.tampilkan', '1');
+                $this->db->where('his_izin.status', '102');
+				if ($user_froup!=1) {
+				$this->db->where("riwayat_kedinasan.bagian",$user_froup);  
+				}
+				
+				if (empty($this->input->get('tahun'))) {
+                    $thn = date('Y');
+                } else {
+                    $thn = $this->input->get('tahun');
+                }
+				$this->db->where('EXTRACT(YEAR FROM his_izin.tgl_akhir_izin) =',$thn);
+				if(!empty($this->input->get('bulan'))){
+					$this->db->where('EXTRACT(MONTH FROM his_izin.tgl_akhir_izin) =',$this->input->get('bulan'));
+				}
                 $this->db->order_by('tgl_izin', 'DESC');
                 $resCek = $this->db->get('his_izin')->result();
-
                 $da = '';
                 foreach ($resCek as $val) {
                     $text = 'text-success';
@@ -2167,16 +2298,16 @@ class Pegawai extends REST_Controller
                     $da .= $val->statuspros;
                     $da .= '</td>';
                     $da .= '<td>';
-                    $da .= '<a class="label label-success" href="javascript:void(0);" onClick="prosesizin(\'' . $val->id . '\',\'2\')">';
+                    $da .= '<a class="label label-success" href="javascript:void(0);" onClick="prosesizin(\'' . $val->id . '\',\'107\')">';
                     $da .= 'Setujui';
                     $da .= '</a>';
-                    $da .= '<a class="label label-danger" href="javascript:void(0);" onClick="prosesizin(\'' . $val->id . '\',\'0\')">';
+                    $da .= '<a class="label label-danger" href="javascript:void(0);" onClick="prosesizin(\'' . $val->id . '\',\'108\')">';
                     $da .= 'Tolak';
                     $da .= '</a>';
                     $da .= '</td>';
                     $da .= '</tr>';
                 }
-
+				
                 $arr['hasil'] = 'success';
                 $arr['isi'] = $da;
                 $this->set_response($arr, REST_Controller::HTTP_OK);
@@ -2190,6 +2321,90 @@ class Pegawai extends REST_Controller
 
     }
 
+	function listizisdm_get()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+
+                $id_user = $this->input->get('id_user');
+                $this->db->select('m_jenis_izin.nama as namcut,his_izin.*,dm_term.nama as statuspros,sys_user.name as namapegawai');
+                $this->db->join('m_jenis_izin', 'm_jenis_izin.id = his_izin.jenis_izin');
+                $this->db->join('dm_term', 'dm_term.id = his_izin.status');
+                $this->db->join('sys_user', 'sys_user.id_user = his_izin.id_user');
+                $this->db->where('his_izin.tampilkan', '1');
+                $this->db->where('his_izin.status', '107');
+				if (($user_froup == '1') OR ($user_froup == '6')) {
+                    if ((!empty($this->input->get('id_uk'))) AND ($this->input->get('id_uk') <> 'null')) {
+                        $this->db->where('sys_user.id_grup', $this->input->get('id_uk'));
+                    }
+                }
+				
+				if (empty($this->input->get('tahun'))) {
+                    $thn = date('Y');
+                } else {
+                    $thn = $this->input->get('tahun');
+                }
+				$this->db->where('EXTRACT(YEAR FROM his_izin.tgl_akhir_izin) =',$thn);
+				if(!empty($this->input->get('bulan'))){
+					$this->db->where('EXTRACT(MONTH FROM his_izin.tgl_akhir_izin) =',$this->input->get('bulan'));
+				}
+                $this->db->order_by('tgl_izin', 'DESC');
+                $resCek = $this->db->get('his_izin')->result();
+                $da = '';
+                foreach ($resCek as $val) {
+                    $text = 'text-success';
+                    if ($val->status == '1') {
+                        $text = 'text-danger';
+                    }
+                    $da .= '<tr>';
+                    $da .= '<td>';
+                    $da .= $val->namapegawai;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= $val->namcut;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= $val->keterangan;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= date_format(date_create($val->tgl_izin), "d-m-Y");
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= date_format(date_create($val->tgl_akhir_izin), "d-m-Y");
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= $val->total;
+                    $da .= '</td>';
+                    $da .= '<td class="' . $text . '">';
+                    $da .= $val->statuspros;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= '<a class="label label-success" href="javascript:void(0);" onClick="prosesizin(\'' . $val->id . '\',\'103\')">';
+                    $da .= 'Setujui';
+                    $da .= '</a>';
+                    $da .= '<a class="label label-danger" href="javascript:void(0);" onClick="prosesizin(\'' . $val->id . '\',\'108\')">';
+                    $da .= 'Tolak';
+                    $da .= '</a>';
+                    $da .= '</td>';
+                    $da .= '</tr>';
+                }
+				
+                $arr['hasil'] = 'success';
+                $arr['isi'] = $da;
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+
+
+    }
+	
     public function listpensiun_get()
     {
         $headers = $this->input->request_headers();
