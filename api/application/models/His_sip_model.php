@@ -16,7 +16,7 @@ class His_sip_model extends MY_Model
 								$this->data
 							);
 		$this->db->insert($this->table, $data);
-		$id = $this->db->insert_id();
+		$id = $this->db->insert_id('his_sipid_seq');
 		return $this->db->where("id", $id)->get($this->table)->row();
 	}
 

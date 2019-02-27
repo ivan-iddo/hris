@@ -52,7 +52,7 @@ class Golongan extends REST_Controller
                 );
 
                 $this->db->insert('his_golongan', $arrdata);
-                $saved_id = $this->db->insert_id();
+                $saved_id = $this->db->insert_id('his_golonganid_seq');
 
                 if ($this->db->affected_rows() == '1') {
                     $arr['hasil'] = 'success';

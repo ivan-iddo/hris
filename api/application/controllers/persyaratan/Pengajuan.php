@@ -116,7 +116,8 @@ class Pengajuan extends REST_Controller
 				}
 				$param = "%".urldecode($this->uri->segment(4))."%";
 				if(!empty($this->uri->segment(4))){
-					$this->db->where("name ilike",$param); 
+					// $this->db->where("name ilike",$param); 
+					$this->db->where("CONCAT(sys_user.name,' ', pengajuan_jabatan.status) ilike",$param);
 				 }
 				$total_rows = $this->db->count_all_results($this->table);
 				$pagination = create_pagination_endless('/persyaratan//0/', $total_rows,$this->perpage,5);
@@ -126,7 +127,8 @@ class Pengajuan extends REST_Controller
 					$this->db->where('id_persyaratan',$id_persyaratan);
 				}
 				if(!empty($this->uri->segment(4))){
-					$this->db->where("name ilike",$param); 
+					// $this->db->where("name ilike",$param); 
+					$this->db->where("CONCAT(sys_user.name,' ', pengajuan_jabatan.status) ilike",$param);
 				 }
 
 				  $this->db->where('tampilkan','1');

@@ -66,7 +66,6 @@ class Persyaratan extends REST_Controller
 				 foreach($res as $dat){
 					$arr['result'][]= array(
 					'id' => $dat->id_persyaratan,
-					'id' => $dat->id_persyaratan,
 					'jabatan_baru'=> $dat->jabatan_baru,
 					'masa_jabatan'=> $dat->masa_jabatan,
 					'kompetensi'=> $dat->kompetensi,
@@ -112,7 +111,7 @@ class Persyaratan extends REST_Controller
 					);
 
 					$this->db->where('id_persyaratan',$id);
-					$this->db->update($this->table,$arr);
+					$res = $this->db->update($this->table,$arr);
 				}else{
 					//save
 					$arr=array(
@@ -124,7 +123,7 @@ class Persyaratan extends REST_Controller
 					'jabatan_lama'=> ($this->input->post('txtjabatans')?$this->input->post('txtjabatans'):NULL),
 					'tufoksi'=> ($this->input->post('tufoksi')?$this->input->post('tufoksi'):NULL)
 				); 
-					$this->db->insert($this->table,$arr);
+					$res = $this->db->insert($this->table,$arr);
 				}
 				
 

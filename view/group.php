@@ -36,7 +36,11 @@
                 </button>
                 <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete();">Delete
                 </button>
+                <div class="pull-right" style="margin-left: 90px">
+                <input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder="Search..." style="width: 200px;" type="search" id="search" onkeydown="if(event.keyCode=='13'){loaddata(0);}" ></label>
+                </div>
               </div>
+
               <div id="myGrid" style="height: 400px;width:100%" class="ag-theme-balham">
               </div>
             </div>
@@ -284,8 +288,12 @@
   // do http request to get our sample data - not using any framework to keep the example self contained.
   // you will probably use a framework like JQuery, Angular or something else to do your HTTP calls.
   function loaddata(){
+    var search = 0;
+            if($('#search').val() !==''){
+              search = $('#search').val();
+            }
     $.ajax({
-      url: BASE_URL+'Appdata/loaddataGroup/?id_modul=<?php
+      url: BASE_URL+'Appdata/loaddataGroup/'+search+'/?id_modul=<?php
       echo $_GET['id_modul'];
       ?>',
       headers: {
@@ -299,7 +307,11 @@
            contentType: 'application/json', 
            processData: false,
            success: function( data, textStatus, jQxhr ){
-      gridOptions.api.setRowData(data);
+      if(data.result !== 'empty'){
+          gridOptions.api.setRowData(data.result);
+        }else{
+          gridOptions.api.setRowData([]);
+        }
     }
     ,
       error: function( jqXhr, textStatus, errorThrown ){
@@ -308,6 +320,7 @@
   }
   );
   }
+
   loaddata();
   function bukasetting(){
     var selectedRows = gridOptions.api.getSelectedRows();

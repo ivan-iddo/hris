@@ -243,9 +243,10 @@ class Mpenilaian extends REST_Controller
 		$this->db->where('his_kpi.tampilkan','1');
 		$this->db->where('his_kpi.id_jenis',$this->uri->segment(4));
 		 
-		 $param = urldecode($this->uri->segment(6));
+		 $param = urldecode($this->uri->segment(5));
+		 $param2 = "%".$param."%";
 		 if(!empty($this->uri->segment(5))){
-			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param); 
+			$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param2); 
 		 }
 
 		 if(!empty($this->uri->segment(7))){
@@ -271,8 +272,9 @@ class Mpenilaian extends REST_Controller
 		$this->db->where('his_kpi.id_jenis',$this->uri->segment(4));
 
 		 $param = urldecode($this->uri->segment(5));
+		 $param2 = "%".$param."%";
 		 if(!empty($this->uri->segment(5))){
-			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param); 
+			$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param2); 
 		 }
 		 
 		if(!empty($this->uri->segment(7))){
@@ -335,9 +337,10 @@ class Mpenilaian extends REST_Controller
 		//  }
 
 		$param = urldecode($this->uri->segment(4));
+		$param2 = "%".$param."%";
 		 if(!empty($this->uri->segment(4))){
 
-			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param); 
+			$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param2); 
 			// $this->db->like("sys_user.name",$param); 
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 		 }
@@ -366,7 +369,7 @@ class Mpenilaian extends REST_Controller
 		//  }
 		if(!empty($this->uri->segment(4))){
 			
-			 $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param);
+			 $this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param2);
 			 // $this->db->like("sys_user.name",$param);  
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 			 
@@ -430,8 +433,10 @@ class Mpenilaian extends REST_Controller
 		$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
 		$this->db->where('his_kpi_smf.tampilkan','1');
 		$this->db->where('his_kpi_smf.id_jenis',$this->uri->segment(4));
+		$param = urldecode($this->uri->segment(5));
+		$param2 = "%".$param."%";
 		 if(!empty($this->uri->segment(5))){
-			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)",$this->uri->segment(6)); 
+			$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik) ilike",$param2); 
 		 }
 		$total_rows = $this->db->count_all_results('his_kpi_smf');
 		$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,6);
@@ -448,7 +453,7 @@ class Mpenilaian extends REST_Controller
 		$this->db->where('his_kpi_smf.tampilkan','1');
 		$this->db->where('his_kpi_smf.id_jenis',$this->uri->segment(4));
 		if(!empty($this->uri->segment(5))){
-			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)",$this->uri->segment(5)); 
+			$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik) ilike",$param2); 
 		 } 
 
 		$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);

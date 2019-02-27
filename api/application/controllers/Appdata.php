@@ -120,11 +120,21 @@ class Appdata extends REST_Controller
                 }
                 $this->db->order_by('grup', 'ASC');
                 $this->db->where('tampilkan', '1');
-                $res = $this->db->get('sys_grup_user')->result();
-                foreach ($res as $d) {
-                    $arr[] = array('id' => $d->id_grup, 'nama' => $d->grup, 'jumlah' => $d->ket);
-                }
 
+                $param = urldecode($this->uri->segment(3));
+                $param2 = "%".$param."%"; 
+                
+                if(!empty($this->uri->segment(3))){
+                    $this->db->where('grup ilike',$param2); 
+                 }
+                $res = $this->db->get('sys_grup_user')->result();
+                if (!empty($res)) {
+                    foreach ($res as $d) {
+                        $arr['result'][] = array('id' => $d->id_grup, 'nama' => $d->grup, 'jumlah' => $d->ket);
+                    }
+                } else {
+                    $arr['result'] =array();
+                }
                 $this->set_response($arr, REST_Controller::HTTP_OK);
 
                 return;

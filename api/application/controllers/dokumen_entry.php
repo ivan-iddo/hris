@@ -56,7 +56,7 @@ class Dokumen_entry extends REST_Controller
 				
 				
 				 $this->db->insert('dokumen_entry_atribut_khusus',$param);
-				 $insert_id = $this->db->insert_id();
+				 $insert_id = $this->db->insert_id('dokumen_entry_atribut_khususnid_seq');
 				
 				 if($this->db->affected_rows() == '1'){
 					$arr['hasil']='success';
@@ -112,7 +112,7 @@ class Dokumen_entry extends REST_Controller
 				
 				
 				 $this->db->insert('dokumen_entry_atribut_jalan',$param);
-				 $insert_id = $this->db->insert_id();
+				 $insert_id = $this->db->insert_id('dokumen_entry_atribut_jalanid_seq');
 				
 				 if($this->db->affected_rows() == '1'){
 					$arr['hasil']='success';

@@ -16,7 +16,7 @@ class Pengembangan_pelatihan_kegiatan_status_model extends MY_Model
 								$this->data
 							);
 		$this->db->insert($this->table, $data);
-		$id = $this->db->insert_id();
+		$id = $this->db->insert_id('pengembangan_pelatihan_kegiatan_statusid_seq');
 		return $this->db->where("id", $id)->get($this->table)->row();
 	}
 

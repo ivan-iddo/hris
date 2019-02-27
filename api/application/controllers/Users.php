@@ -53,9 +53,11 @@ class Users extends REST_Controller
 		//  }
 
 		$param = urldecode($this->uri->segment(3));
+		$param2 = "%".$param."%";
 		 if(!empty($this->uri->segment(3))){
 
-			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param); 
+			// $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param); 
+			$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param2); 
 			// $this->db->like("sys_user.name",$param); 
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 		 }
@@ -82,7 +84,8 @@ class Users extends REST_Controller
 		//  }
 		if(!empty($this->uri->segment(3))){
 			
-			 $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param);
+			 // $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param);
+			$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param2);
 			 // $this->db->like("sys_user.name",$param);  
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 			 
@@ -146,8 +149,11 @@ class Users extends REST_Controller
 		$this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
 		
 		$this->db->where('sys_user.status','0');
+		$param = urldecode($this->uri->segment(3));
+		$param2 = "%".$param."%";
 		if(!empty($this->uri->segment(3))){
-			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)",$this->uri->segment(3)); 
+			// $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)",$this->uri->segment(3)); 
+			$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik) ilike",$param2); 
 		}
 		$total_rows = $this->db->count_all_results('sys_user');
 		$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,4);
@@ -168,7 +174,8 @@ class Users extends REST_Controller
 		
 		
 		if(!empty($this->uri->segment(3))){
-			$this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)",$this->uri->segment(3)); 
+			// $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik)",$this->uri->segment(3)); 
+			$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip,' ',sys_user_profile.nik) ilike",$param2); 
 		 }
 		$this->db->where('sys_user.status','0');
 		$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);

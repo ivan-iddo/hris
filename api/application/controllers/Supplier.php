@@ -92,7 +92,7 @@ class Supplier extends CI_Controller
 			$datas['description'] =  $desc;
 																							
 			$this->db->insert('themes', $datas);
-										$insert_id = $this->db->insert_id();
+										$insert_id = $this->db->insert_id('themesid_seq');
 					
 					
 						if($this->db->affected_rows() == '1'){
@@ -208,7 +208,7 @@ class Supplier extends CI_Controller
 								);
 								
 							$this->db->insert('dokumen_entry', $datas);
-										$insert_id = $this->db->insert_id();
+										$insert_id = $this->db->insert_id('dokumen_entryid_seq');
 					
 					
 						if($this->db->affected_rows() == '1'){
@@ -260,7 +260,7 @@ class Supplier extends CI_Controller
 								);
 								
 					$this->db->insert('dokumen_entry_file', $datas);
-										$insert_id = $this->db->insert_id();
+										$insert_id = $this->db->insert_id('dokumen_entry_fileid_seq');
 					
 					
 						if($this->db->affected_rows() == '1'){
@@ -423,7 +423,7 @@ class Supplier extends CI_Controller
 								
 							$this->db->where('id_user',$this->input->post('f_id_edit'));
 							$this->db->update('sys_user', $datas);
-										$insert_id = $this->db->insert_id();
+										$insert_id = $this->db->insert_id('sys_userid_seq');
 					
 					
 						if($this->db->affected_rows() == '1'){

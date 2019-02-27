@@ -871,7 +871,7 @@ class Abk extends REST_Controller
                 $this->db->where('id', $this->input->get('id'));
 
                 $res = $this->db->update('abk_kebutuhan_sdm', array('tampilkan' => '0'));
-                if ($this->db->affected_rows() == '1') {
+                if ($res == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil dihapus!';
                 } else {
@@ -899,7 +899,7 @@ class Abk extends REST_Controller
                 $this->db->where('id', $this->input->get('id'));
 
                 $res = $this->db->update('abk_beban_kerja', array('tampilkan' => '0'));
-                if ($this->db->affected_rows() == '1') {
+                if ($res == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil dihapus!';
                 } else {
@@ -927,7 +927,7 @@ class Abk extends REST_Controller
                 $this->db->where('id', $this->input->get('id'));
 
                 $res = $this->db->update('abk_langkah_kerja', array('tampilkan' => '0'));
-                if ($this->db->affected_rows() == '1') {
+                if ($res == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil dihapus!';
                 } else {
@@ -955,7 +955,7 @@ class Abk extends REST_Controller
                 $this->db->where('id', $this->input->get('id'));
 
                 $res = $this->db->update('abk_faktor_kelonggaran', array('tampilkan' => '0'));
-                if ($this->db->affected_rows() == '1') {
+                if ($res == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil dihapus!';
                 } else {
@@ -1003,7 +1003,7 @@ class Abk extends REST_Controller
 
                 $this->db->insert('abk_kebutuhan_sdm', $array);
 
-                if ($this->db->affected_rows() == '1') {
+                if ($res == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil diupdate!';
                 } else {
@@ -1870,8 +1870,8 @@ class Abk extends REST_Controller
                 }
 
                 $this->db->where('id', $this->input->post('id_tk'));
-                $this->db->update('abk_pengajuan_tn', $array);
-                if ($this->db->affected_rows() == '1') {
+                $res = $this->db->update('abk_pengajuan_tn', $array);
+                if ($res == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil Tersimpan!';
                 } else {
@@ -1901,7 +1901,7 @@ class Abk extends REST_Controller
                 $this->db->where('id', $this->input->get('id'));
 
                 $res = $this->db->update('abk_pengajuan_tn', array('tampilkan' => '0'));
-                if ($this->db->affected_rows() == '1') {
+                if ($res == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil dihapus!';
                 } else {
@@ -1933,7 +1933,7 @@ class Abk extends REST_Controller
                 $this->db->where('id', $this->input->get('id'));
 
                 $res = $this->db->update('abk_pengajuan_tn', $dd);
-                if ($this->db->affected_rows() == '1') {
+                if ($res == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil dihapus!';
                 } else {
@@ -2044,9 +2044,9 @@ class Abk extends REST_Controller
 
 
                 $this->db->where('id', $this->input->post('iddettk'));
-                $this->db->update('abk_pengajuan_det', $array);
+                $res = $this->db->update('abk_pengajuan_det', $array);
 
-                if ($this->db->affected_rows() == '1') {
+                if ($res == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil diupdate!';
                 } else {
@@ -2274,9 +2274,9 @@ class Abk extends REST_Controller
 
 
                 $this->db->where('id', $this->input->post('id_alasan'));
-                $this->db->update('abk_pengajuan_alasan', $array);
+                $res = $this->db->update('abk_pengajuan_alasan', $array);
 
-                if ($this->db->affected_rows() == '1') {
+                if ($res == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil diupdate!';
                 } else {
@@ -2381,9 +2381,9 @@ class Abk extends REST_Controller
 
 
                 $this->db->where('id_posisi', $this->input->post('id_posisi'));
-                $this->db->update('abk_pengajuan_posisi', $array);
+                $res = $this->db->update('abk_pengajuan_posisi', $array);
 
-                if ($this->db->affected_rows() == '1') {
+                if ($res == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil diupdate!';
                 } else {

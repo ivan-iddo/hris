@@ -103,7 +103,7 @@ class Warning extends REST_Controller
                   
                     return;
                 }
-                if ($sisa <= 0 && $sisa >= 14) {
+                if ($sisa <= 0 && $sisa >= -14) {
                     $dayGolongan = 'Masa Berlaku Pangkat Telah Berakhir Tanggal '. $tanggalN;
                     $arr['result'][]=array(
                                        'id'=>$d->id_user,

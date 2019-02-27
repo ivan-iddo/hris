@@ -551,7 +551,7 @@ public function save_post(){
 						'id_dok_tipe' => $id_dok_tipe
 					  );
 		 $this->db->insert('dokumen_entry', $datas);
-         $insert_id = $this->db->insert_id();
+         $insert_id = $this->db->insert_id('dokumen_entryid_seq');
 				
 				
 				 if($this->db->affected_rows() == '1'){

@@ -44,10 +44,10 @@ class Warning extends REST_Controller
         $this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
         $this->db->join('his_kontrak', 'sys_user.id_user = his_kontrak.id_user', 'LEFT');
 
-        $param = urldecode($this->uri->segment(4));
+        $param = "%".urldecode($this->uri->segment(4))."%";
         if(!empty($this->uri->segment(4))){
             
-             $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param);
+             $this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param);
              
          }
 
@@ -64,13 +64,9 @@ class Warning extends REST_Controller
                 $today = time();
                 $diff = $tanggal - $today ;
                 $sisa = floor($diff / (60 * 60 * 24));
-                if ($sisa <= 180) {
+                if ($sisa <= 180 && $sisa > 0) {
                     $dayKontrak = 'Sisa Kontrak tinggal '. $sisa . ' hari lagi';
-                }
-                if ($sisa < 0) {
-                    $dayKontrak = 'Kontrak Telah Berakhir Tanggal '. $tanggalN;
-                }
-                $arr['result'][]=array(
+                    $arr['result'][]=array(
                                    'id'=>$d->id_user,
                                    'nama'=>$d->name,
                                    'nama_group'=>$d->grup,
@@ -80,8 +76,28 @@ class Warning extends REST_Controller
                 $this->set_response($arr, REST_Controller::HTTP_OK);
             
                 return;
+                }
+                if ($sisa <= 0 && $sisa >= -14) {
+                    $dayKontrak = 'Kontrak Telah Berakhir Tanggal '. $tanggalN;
+                    $dayKontrak = 'Sisa Kontrak tinggal '. $sisa . ' hari lagi';
+                    $arr['result'][]=array(
+                                   'id'=>$d->id_user,
+                                   'nama'=>$d->name,
+                                   'nama_group'=>$d->grup,
+                                   'nip'=>$d->nip,
+                                   'tgl_kontrak' => $dayKontrak,
+                                   );
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+            
+                return;
+                }
+                
             } else {
-                $dayKontrak = $tanggalKontrak;
+                $arr['result']=array();
+            $this->set_response($arr, REST_Controller::HTTP_OK);
+            
+                return;
+            
             }
 
           }
@@ -106,10 +122,10 @@ class Warning extends REST_Controller
         $this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
         $this->db->join('his_str', 'sys_user.id_user = his_str.id_user', 'LEFT');
 
-        $param = urldecode($this->uri->segment(4));
+        $param = "%".urldecode($this->uri->segment(4))."%";
         if(!empty($this->uri->segment(4))){
             
-             $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param);
+             $this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param);
              
          }
          
@@ -127,13 +143,9 @@ class Warning extends REST_Controller
                 $today = time();
                 $diff = $tanggal - $today ;
                 $sisa = floor($diff / (60 * 60 * 24));
-                if ($sisa <= 180) {
+                if ($sisa <= 180 && $sisa > 0) {
                     $daySTR = 'Sisa STR tinggal '. $sisa . ' hari lagi';
-                }
-                if ($sisa < 0) {
-                    $daySTR = 'STR Telah Berakhir Tanggal '. $tanggalN;
-                }
-                $arr['result'][]=array('id'=>$d->id_user,
+                    $arr['result'][]=array('id'=>$d->id_user,
                                    'nama'=>$d->name,
                                    'nama_group'=>$d->grup,
                                    'nip'=>$d->nip,
@@ -142,8 +154,25 @@ class Warning extends REST_Controller
                 $this->set_response($arr, REST_Controller::HTTP_OK);
             
                 return;
+                }
+                if ($sisa <= 0 && $sisa >= -14) {
+                    $daySTR = 'STR Telah Berakhir Tanggal '. $tanggalN;
+                    $arr['result'][]=array('id'=>$d->id_user,
+                                   'nama'=>$d->name,
+                                   'nama_group'=>$d->grup,
+                                   'nip'=>$d->nip,
+                                   'tgl_str' => $daySTR,
+                                   );
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+            
+                return;
+                }
+                
             } else {
-                $daySTR = $tanggalSTR;
+                $arr['result']=array();
+          $this->set_response($arr, REST_Controller::HTTP_OK);
+            
+                return;
             }
 
             
@@ -169,10 +198,10 @@ class Warning extends REST_Controller
         $this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
         $this->db->join('his_sip', 'sys_user.id_user = his_sip.id_user', 'LEFT');
 
-        $param = urldecode($this->uri->segment(4));
+        $param = "%".urldecode($this->uri->segment(4))."%";
         if(!empty($this->uri->segment(4))){
             
-             $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param);
+             $this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param);
              
          }
          
@@ -190,13 +219,9 @@ class Warning extends REST_Controller
                 $today = time();
                 $diff = $tanggal - $today ;
                 $sisa = floor($diff / (60 * 60 * 24));
-                if ($sisa <= 180) {
-                    $daySIP = 'Sisa SIP tinggal'. $sisa . ' hari lagi';
-                }
-                if ($sisa < 0) {
-                    $daySIP = 'SIP Telah Berakhir Tanggal '. $tanggalN;
-                }
-                $arr['result'][]=array('id'=>$d->id_user,
+                if ($sisa <= 180 && $sisa > 0) {
+                    $daySIP = 'Sisa SIP tinggal '. $sisa . ' hari lagi';
+                    $arr['result'][]=array('id'=>$d->id_user,
                                    'nama'=>$d->name,
                                    'nama_group'=>$d->grup,
                                    'nip'=>$d->nip,
@@ -205,8 +230,25 @@ class Warning extends REST_Controller
                 $this->set_response($arr, REST_Controller::HTTP_OK);
             
                 return;
+                }
+                if ($sisa <= 0 && $sisa >= -14) {
+                    $daySIP = 'SIP Telah Berakhir Tanggal '. $tanggalN;
+                    $arr['result'][]=array('id'=>$d->id_user,
+                                   'nama'=>$d->name,
+                                   'nama_group'=>$d->grup,
+                                   'nip'=>$d->nip,
+                                    'tgl_sip' => $daySIP,
+                                   );
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+            
+                return;
+                }
+                
             } else {
-                $daySIP = $tanggalSIP;
+                $arr['result']=array();
+          $this->set_response($arr, REST_Controller::HTTP_OK);
+            
+                return;
             }
 
           }

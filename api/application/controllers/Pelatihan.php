@@ -51,7 +51,7 @@ class Pelatihan extends REST_Controller
 				   );
 			  
 			  $this->db->insert('his_pelatihan',$arrdata);
-			  $saved_id = $this->db->insert_id();
+			  $saved_id = $this->db->insert_id('his_pelatihanid_seq');
 			  
 			   if($this->db->affected_rows() == '1'){
 					$arr['hasil']='success';
