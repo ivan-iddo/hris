@@ -65,7 +65,7 @@
 	      	<input class="form-control" type="hidden" id="id_persyaratan" name="id_persyaratan" >
 	         <select class="form-control input-sm" id="status" name="status">
 	         	<option value="">-Pilih Status-</option>
-	         	<option value="Sesuai">Sesuai</option>
+	         	<option value="Sudah Sesuai">Sudah Sesuai</option>
 	         	<option value="Dengan Syarat">Dengan Syarat</option>
 	         	<option value="Tidak Sesuai">Tidak Sesuai</option>
 	         </select>

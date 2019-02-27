@@ -139,10 +139,9 @@
                                                                               style="width: 100%;"
                                                                               tabindex="-1" class="form-control">
                                                                                <option value="">Please Select</option>
-																			   <option value="lajang">Lajang</option>
+																			   <option value="belum menikah">Belum Menikah</option>
 																			   <option value="menikah">Menikah</option>
-																			   <option value="janda">Janda</option>
-																			   <option value="duda">Duda</option>
+																			   <option value="janda/duda">Janda/Duda</option>
 																			   </select></div>
                                             </div>
 											 <div class="form-group">
