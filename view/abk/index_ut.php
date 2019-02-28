@@ -174,7 +174,7 @@
 
           function loadform4(result){
               let totalFrekuensi = 0, totalWaktu = 0, totalDirut = 0, totalDir = 0, totalKabag = 0, totalKasubag = 0, totalKaur = 0, totalSa = 0, totalPk = 0;
-              console.log(result);
+              // console.log(result);
               if(result.hasil ==='success'){
                 result.result.map(function(item, index){
                   totalWaktu = totalWaktu + parseInt((item.waktu ? item.waktu : 0));
@@ -185,13 +185,13 @@
                   totalKaur = totalKaur + parseInt((item.kaur ? item.kaur : 0));
                   totalSa = totalSa + parseInt((item.sa ? item.sa : 0));
                   totalPk = totalPk + parseInt((item.pk ? item.pk : 0));
-                  console.log(totalFrekuensi, totalWaktu, totalDirut, totalDir, totalKabag, totalKasubag, totalKaur, totalSa, totalPk);
+                  // console.log(totalFrekuensi, totalWaktu, totalDirut, totalDir, totalKabag, totalKasubag, totalKaur, totalSa, totalPk);
                 });
                 Gridform4.api.setRowData(result.result);
               }else{
                 Gridform4.api.setRowData([]);
               }
-              console.log(selectedEvent);
+              // console.log(selectedEvent);
               Gridform4Bottom.api.setRowData([
                 {langkah:"Jumlah", frekuensi: '', waktu: totalWaktu, dirut: totalDirut, dir: totalDir, kabag: totalKabag, kasubag: totalKasubag, kaur: totalKaur, sa: totalSa, pk: totalPk},
                 {langkah:"", frekuensi: '', waktu: '', dirut:'x', dir:'x',kabag:'x',kasubag:'x',kaur:'x',sa:'x',pk:'x'},
@@ -367,6 +367,8 @@
           function loadform3(result){
               if(result.hasil ==='success'){
                 Gridform3.api.setRowData(result.result);
+              } else {
+                Gridform3.api.setRowData([]);
               }
           }
 

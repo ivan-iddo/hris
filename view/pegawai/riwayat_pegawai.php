@@ -377,7 +377,8 @@
 																	 $('#txtgelardepan').val(res[0].gelar_depan);
 																	 $('#txtgelarbelakang').val(res[0].gelar_belakang);
 																	 $('#txttlahir').val(res[0].tempat_lahir);
-																	 $('#txtphone').val(res[0].phone);
+                                   $('#txtphone').val(res[0].phone);
+																	 $('#txtphone2').val(res[0].phone2);
 																	 $('#txttgllahir').val(res[0].tgl_lahir);
                                                                      $('#bpjs_kes').val(res[0].bpjs_kes);
 																	 $('#bpjs_tk').val(res[0].bpjs_tk);

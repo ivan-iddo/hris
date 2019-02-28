@@ -71,6 +71,7 @@ class Pegawai extends REST_Controller
                 $f_user_status_aktif = ($this->input->post('f_user_status_aktif'))?$this->input->post('f_user_status_aktif'):null;
                 $f_user_username = ($this->input->post('f_user_username'))?$this->input->post('f_user_username'):null;
                 $inputphone = ($this->input->post('inputphone'))?$this->input->post('inputphone'):null;
+                $inputphone2 = ($this->input->post('inputphone2'))?$this->input->post('inputphone2'):null;
                 $inputrt = ($this->input->post('inputrt'))?$this->input->post('inputrt'):null;
                 $inputrtktp = ($this->input->post('inputrtktp'))?$this->input->post('inputrtktp'):null;
                 $inputrw = ($this->input->post('inputrw'))?$this->input->post('inputrw'):null;
@@ -181,6 +182,7 @@ class Pegawai extends REST_Controller
                             'agama' => $txtagama,
                             'pendidikan_akhir' => $txtpendidikan,
                             'phone' => $inputphone,
+                            'phone2' => $inputphone2,
                             'alamat_tinggal' => $txtAlamat,
                             'rt_tinggal' => $inputrt,
                             'rw_tinggal' => $inputrw,
@@ -380,6 +382,7 @@ class Pegawai extends REST_Controller
                             'tgl_lahir' => $d->tgl_lahir,
                             'tempat_lahir' => $d->tempat_lahir,
                             'phone' => $d->phone,
+                            'phone2' => $d->phone2,
                             'kota_ktp' => $d->kota_ktp,
                             'kecamatan_ktp' => $d->kec_ktp,
                             'kelurahan_ktp' => $d->kel_ktp,
@@ -437,6 +440,7 @@ class Pegawai extends REST_Controller
                 $f_user_status_aktif = ($this->input->post('f_user_status_aktif'))?$this->input->post('f_user_status_aktif'):null;
                 $f_user_username = ($this->input->post('f_user_username'))?$this->input->post('f_user_username'):null;
                 $inputphone = ($this->input->post('inputphone'))?$this->input->post('inputphone'):null;
+                $inputphone2 = ($this->input->post('inputphone2'))?$this->input->post('inputphone2'):null;
                 $inputrt = ($this->input->post('inputrt'))?$this->input->post('inputrt'):null;
                 $inputrtktp = ($this->input->post('inputrtktp'))?$this->input->post('inputrtktp'):null;
                 $inputrw = ($this->input->post('inputrw'))?$this->input->post('inputrw'):null;
@@ -552,6 +556,7 @@ class Pegawai extends REST_Controller
                         'agama' => $txtagama,
                         'pendidikan_akhir' => $txtpendidikan,
                         'phone' => $inputphone,
+                        'phone2' => $inputphone2,
                         'alamat_tinggal' => $txtAlamat,
                         'rt_tinggal' => $inputrt,
                         'rw_tinggal' => $inputrw,

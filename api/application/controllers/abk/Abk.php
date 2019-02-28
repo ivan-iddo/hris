@@ -237,7 +237,7 @@ class Abk extends REST_Controller
 
 
                 } else {
-
+                    $arr['result'][] = array();
                    $arr['hasil'] = 'error';
                 }
                 $this->set_response($arr, REST_Controller::HTTP_OK);
@@ -453,6 +453,7 @@ class Abk extends REST_Controller
 
 
                 } else {
+                    $arr['result'][] = array();
                     $arr['hasil'] = 'error';
                 }
                 $this->set_response($arr, REST_Controller::HTTP_OK);
@@ -576,16 +577,8 @@ class Abk extends REST_Controller
 
 
                 } else {
-                    $arr['result'][] = array(
-                        'no' => '',
-                        'id' => '',
-                        'faktor' => '',
-                        'waktu_kerja' => '',
-                        'keterangan' => '',
-                        'tahun' => ''
-
-                    );
-                    $arr['hasil'] = 'success';
+                    $arr['result'][] = array();
+                    $arr['hasil'] = 'empty';
                 }
                 $this->set_response($arr, REST_Controller::HTTP_OK);
 
@@ -722,7 +715,7 @@ class Abk extends REST_Controller
             if ($decodedToken != false) {
 
                 $user_froup = $decodedToken->data->_pnc_id_grup;
-
+                // print_r($user_froup);die();
                 if (($user_froup == '1') OR ($user_froup == '6')) {
                     // $this->db->where('sys_user.id_grup',$this->input->get('uk'));
                     // $uk = $this->input->get('uk')?$this->input->get('uk'):0;
@@ -758,7 +751,7 @@ class Abk extends REST_Controller
 
                 $this->db->group_by('sys_grup_user.id_grup,sys_grup_user.grup,uk_master.nama,sys_user_profile.pendidikan_akhir,uk_master.id');
                 $res = $this->db->get('sys_user')->result();
-                //  print_r($res);
+                // print_r($res);die();
 
                 if (!empty($res)) {
                     $i = 0;
@@ -797,8 +790,6 @@ class Abk extends REST_Controller
                                 } else {
                                     $jmlh = 0;
                                 }
-//echo '<br>'.$g.'='.$jmlh;
-
 
                                 if ($g == '54') {
                                     //slta
@@ -848,7 +839,7 @@ class Abk extends REST_Controller
 
                 } else {
                     $arr['result'] = array();
-                    $arr['hasil'] = 'error';
+                    $arr['hasil'] = 'empty';
                 }
                 $this->set_response($arr, REST_Controller::HTTP_OK);
 

@@ -462,6 +462,8 @@ function createNewRowData() {
           function loadForm1(result){
               if(result.hasil ==='success'){
                 Gridform1.api.setRowData(result.result);
+              } else {
+                Gridform1.api.setRowData([]);
               }
           }
 

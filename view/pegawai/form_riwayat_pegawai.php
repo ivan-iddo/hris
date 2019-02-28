@@ -234,9 +234,15 @@
                                             </div>
                                             <h3 class="panel-title">Kontak</h3>
                                             <div class="form-group"><label class="col-sm-4 control-label"
-                                                                           for="inputphone">Phone</label>
+                                                                           for="inputphone">Phone 1</label>
                                                 <div class="col-sm-8"><input class="form-control" id="txtphone"
                                                                              name="inputphone" placeholder=""
+                                                                             type="text" value=""></div>
+                                            </div>
+                                            <div class="form-group"><label class="col-sm-4 control-label"
+                                                                           for="inputphone2">Phone 2</label>
+                                                <div class="col-sm-8"><input class="form-control" id="txtphone2"
+                                                                             name="inputphone2" placeholder=""
                                                                              type="text" value=""></div>
                                             </div>
                                         </div><!-- /.box-body --></div><!-- /.box --></div><!--/.col (right) --></div>

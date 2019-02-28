@@ -128,6 +128,8 @@
             console.log("shift Result", result);
               if(result.hasil ==='success'){
                 gridShift.api.setRowData(result.result);
+              } else {
+                gridShift.api.setRowData([]);
               }
           }
 
@@ -192,6 +194,8 @@
               console.log("nonShift Result", result);
               if(result.hasil ==='success'){
                 gridnonShift.api.setRowData(result.result);
+              } else {
+                gridnonShift.api.setRowData([]);
               }
           }
 
