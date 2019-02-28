@@ -204,21 +204,24 @@ class Pengajuan extends REST_Controller
 	                $this->db->order_by('tmtawal', 'ACS');
 	                $this->db->limit('1');
 	                $kontrak = $this->db->get('his_kontrak')->row();
-	                $tanggal = new DateTime($kontrak->tmtawal);
-					$today = new DateTime('today');
-					$y = $today->diff($tanggal)->y;
-					$m = $today->diff($tanggal)->m;
-					$d = $today->diff($tanggal)->d;
+	                $masa_jabatan = "";
+	                if ($kontrak) {
+	                	$tanggal = new DateTime($kontrak->tmtawal);
+						$today = new DateTime('today');
+						$y = $today->diff($tanggal)->y;
+						$m = $today->diff($tanggal)->m;
+						$d = $today->diff($tanggal)->d;
 
-					if ($m != 0 && $y != 0) {
+						if ($m != 0 && $y != 0) {
 						$masa_jabatan = $y." Tahun ".$m." Bulan";
-					} else if ($y == 0 && $m != 0) {
-						$masa_jabatan = $m." Bulan";
-					} else if ($m == 0 && $y != 0) {
-						$masa_jabatan = $y." Tahun";
-					} else {
-						$masa_jabatan = $d." Hari";
-					}
+						} else if ($y == 0 && $m != 0) {
+							$masa_jabatan = $m." Bulan";
+						} else if ($m == 0 && $y != 0) {
+							$masa_jabatan = $y." Tahun";
+						} else {
+							$masa_jabatan = $d." Hari";
+						}
+	                }
 
 					//pendidikan
 					$this->db->select('his_pendidikan.*,dm_term.nama as jenjangPendidikan');
@@ -226,26 +229,35 @@ class Pengajuan extends REST_Controller
         			$this->db->join('dm_term', 'dm_term.id = his_pendidikan.pen_code', 'LEFT');
         			$this->db->where('sys_user_profile.id_user', $user_id);
         			$pendidikan = $this->db->get('his_pendidikan')->row();
-        			$pendidikan_akhir = $pendidikan->jenjangPendidikan." ".$pendidikan->pen_jur;
+        			$pendidikan_akhir = "";
+        			if ($pendidikan) {
+        				$pendidikan_akhir = $pendidikan->jenjangPendidikan." ".$pendidikan->pen_jur;
+        			}
 
         			//jabatan skrg
-        			$this->db->select('sys_user.*,sys_grup_user.grup');
-					$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup');
-					$this->db->where('sys_user.id_user', $user_id);
-					$jabatan = $this->db->get('sys_user')->row();
-					$jabatan_sekarang =$jabatan->grup;
-
+        			$this->db->select('riwayat_kedinasan.*,m_index_jabatan_asn_detail.kd_jabatan,m_index_jabatan_asn_detail.ds_jabatan');
+					$this->db->join('m_index_jabatan_asn_detail','riwayat_kedinasan.jabatan_struktural = m_index_jabatan_asn_detail.migrasi_jabatan_detail_id');
+					$this->db->where('riwayat_kedinasan.id_user', $user_id);
+					$jabatan = $this->db->get('riwayat_kedinasan')->row();
+					$jabatan_sekarang = "";
+					if ($jabatan) {
+						$jabatan_sekarang = '['. $jabatan->kd_jabatan. '] '.$jabatan->ds_jabatan;
+					}
+					
+					// pelatihan
 					$this->db->where('his_pelatihan.tampilkan','1');
 					$this->db->where('his_pelatihan.id_user', $user_id);
 					$pelatihan = $this->db->get('his_pelatihan')->result();
-					$nonformal = array();
-					foreach($pelatihan as $d){
-					$nonformal[]=array(
-							   'nama'=> $d->nama,
-							   );
-				 	}
-				 	$pendidikan_nonformal = implode(', ', array_column($nonformal, 'nama'));
-
+					$pendidikan_nonformal = "";
+					if ($pelatihan) {
+						foreach($pelatihan as $d){
+						$nonformal[]=array(
+								   'nama'=> $d->nama,
+								   );
+					 	}
+					 	$pendidikan_nonformal = implode(', ', array_column($nonformal, 'nama'));
+					}
+					
 					$arr=array(
 					'id_user'=> $user_id,
 					'id_persyaratan'=> $this->input->post('id_persyaratan'),
@@ -317,38 +329,5 @@ class Pengajuan extends REST_Controller
 		
 		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
-
-	public function getoption_get(){
-		$headers = $this->input->request_headers();
-	
-			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
-				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-				if ($decodedToken != false) {
-					
-				 if(!empty($this->uri->segment('4'))){
-					$this->db->where('id',$this->uri->segment('4'));
-				 }
-					 $this->db->order_by('pengembangan_pelatihan_kegiatan','ASC');
-					 
-			  $res = $this->db->get($this->table)->result();
-
-			  if(!empty($res)){
-
-			  foreach($res as $d){
-				$arr['result'][]=array('label'=>$d->pengembangan_pelatihan_kegiatan,'value'=>$d->id);
-			  }
-			}else{
-				$arr['result'][]=array('label'=>'No Data','value'=>'');
-			}
-			  
-			  $this->set_response($arr, REST_Controller::HTTP_OK);
-				
-					return;
-				}
-			}
-			
-			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
-	}
-	
 	  
 }

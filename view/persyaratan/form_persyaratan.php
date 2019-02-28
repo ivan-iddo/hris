@@ -121,8 +121,8 @@
         console.log("remove" + $(this));
         $(this).parentsUntil(".body-remove").parent().remove();
     });
-getOptions("txtjabatan",BASE_URL+"master/all_jabatan");
-getOptions("txtjabatans",BASE_URL+"master/all_jabatan");
+getOptions("txtjabatan",BASE_URL+"master/jabatan_struktural_fix_label");
+getOptions("txtjabatans",BASE_URL+"master/jabatan_struktural_fix_label");
       $('.select-chosen').chosen();
  $('.chosen-container').css({"width": "100%"});
 
@@ -142,12 +142,12 @@ getOptions("txtjabatans",BASE_URL+"master/all_jabatan");
 function getdata_persyaratan(result){
     
    $('#id_persyaratan').val(result.result[0].id);
-   getOptionsEdit("txtjabatan",BASE_URL+"master/all_jabatan",result.result[0].jabatan_baru);
+   getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural_fix_label",result.result[0].jabatan_baru);
    $('#masajbt').val(result.result[0].masa_jabatan);
    $('#kompetensi').val(result.result[0].kompetensi);
    $('#formal').val(result.result[0].formal);
    $('#nonformal').val(result.result[0].nonformal);
-   getOptionsEdit("txtjabatans",BASE_URL+"master/all_jabatan",result.result[0].jabatan_lama);
+   getOptionsEdit("txtjabatans",BASE_URL+"master/jabatan_struktural_fix_label",result.result[0].jabatan_lama);
    $('#tufoksi').val(result.result[0].tufoksi);
 }
 

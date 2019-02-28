@@ -146,8 +146,8 @@
 
   var columnDefs_persyaratan =  
   [
-    {headerName: "Id Persyaratan", field: "id", width: 100, filterParams:{newRowsAction: "keep"}},
-    {headerName: "Jabatan", field: "jabatan_baru", width: 190, filterParams:{newRowsAction: "keep"}},
+    {headerName: "Id Persyaratan", field: "id", width: 50, filterParams:{newRowsAction: "keep"}},
+    {headerName: "Jabatan", field: "jabatan_baru", width: 290, filterParams:{newRowsAction: "keep"}},
     {headerName: "Masa Jabatan", field: "masa_jabatan", width: 100, filterParams:{newRowsAction: "keep"}},
     {headerName: "Kompetensi", field: "kompetensi", width: 190, filterParams:{newRowsAction: "keep"}},
     {headerName: "Pendidikan Formal", field: "formal", width: 190, filterParams:{newRowsAction: "keep"}},

@@ -180,38 +180,5 @@ class Persyaratan extends REST_Controller
 		
 		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
-
-	public function getoption_get(){
-		$headers = $this->input->request_headers();
-	
-			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
-				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-				if ($decodedToken != false) {
-					
-				 if(!empty($this->uri->segment('4'))){
-					$this->db->where('id',$this->uri->segment('4'));
-				 }
-					 $this->db->order_by('pengembangan_pelatihan_kegiatan','ASC');
-					 
-			  $res = $this->db->get($this->table)->result();
-
-			  if(!empty($res)){
-
-			  foreach($res as $d){
-				$arr['result'][]=array('label'=>$d->pengembangan_pelatihan_kegiatan,'value'=>$d->id);
-			  }
-			}else{
-				$arr['result'][]=array('label'=>'No Data','value'=>'');
-			}
-			  
-			  $this->set_response($arr, REST_Controller::HTTP_OK);
-				
-					return;
-				}
-			}
-			
-			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
-	}
-	
-	  
+	 
 }
