@@ -1617,63 +1617,73 @@ class Pegawai extends REST_Controller
 				
                 $lama_cuti1 = $this->uri->segment(3);
                 if(!empty($this->uri->segment(4))){
-				$tglawal = date('d-m-Y', strtotime($this->uri->segment(4)));
-				$thn = date('Y');
-				$tglakhir = date('d-m-Y', strtotime('+'.$lama_cuti1.' days', strtotime($tglawal))); // Tgl Selesai termasuk minggu & libur nasional
-				$tgl_awal = $tgl_akhir = $minggu = $sabtu = $koreksi = $libur = 0;
-				$this->db->select('libur.tanggal as tgl');
-				$this->db->where('tahun', $thn);
-				$tgl_libur = $this->db->get('libur')->result();
-				foreach ( $tgl_libur as $harilibur ) {
-				$liburnasional = strtotime($harilibur->tgl);
-				}
-			//    memecah tanggal untuk mendapatkan hari, bulan dan tahun
-				$pecah_tglawal = explode('-', $tglawal);
-				$pecah_tglakhir = explode('-', $tglakhir);
-				
-			//    mengubah Gregorian date menjadi Julian Day Count
-				$tgl_awal = gregoriantojd($pecah_tglawal[1], $pecah_tglawal[0], $pecah_tglawal[2]);
-				$tgl_akhir = gregoriantojd($pecah_tglakhir[1], $pecah_tglakhir[0], $pecah_tglakhir[2]);
-			 
-			//    mengubah ke unix timestamp
-				$jmldetik = 24*3600;
-				$a = strtotime($tglawal);
-				$b = strtotime($tglakhir);
-				
-			//    menghitung jumlah libur nasional 
-				for($i=$a; $i<$b; $i+=$jmldetik){
-					foreach ($liburnasional as $key => $tgllibur) {
-						if($tgllibur==date("d-m-Y",$i)){
-							$libur++;
-						}
-					}
-				}
-				
-			//    menghitung jumlah hari minggu
-				for($i=$a; $i<$b; $i+=$jmldetik){
-					if(date("w",$i)=="0"){
-						$minggu++;
-					}
-				}
-				
-			//    menghitung jumlah hari sabtu
-				for($i=$a; $i<$b; $i+=$jmldetik){
-					if(date("w",$i)=="6"){
-						$sabtu++;
-					}
-				}
-			 
-			//    dijalankan jika $tglakhir adalah hari sabtu atau minggu
-				if(date("w",$b)=="0" || date("w",$b)=="6"){
-					$koreksi = 1;
-				}
-				
-			//    mengitung selisih dengan pengurangan kemudian ditambahkan 1 agar tanggal awal cuti juga dihitung
-				$jumlahcuti =  $tgl_akhir - $tgl_awal - $libur - $minggu - $sabtu - $koreksi + 1;
-				
-				/// PANGGIL FUNGSI dengan PARAMETERNYA BERIKUT
-				$lama_cuti = $lama_cuti1+($lama_cuti1-$jumlahcuti); // Tambahkan Jumlah hari libur dengan lama cuti
-				$tgl_selesai_tanpa_libur = date('d-m-Y', strtotime('+'.$lama_cuti.' days', strtotime($tglawal))); // Hasil akhir 
+    				$tglawal = date('d-m-Y', strtotime($this->uri->segment(4)));
+    				$thn = date('Y');
+    				$tglakhir = date('d-m-Y', strtotime('+'.$lama_cuti1.' days', strtotime($tglawal))); // Tgl Selesai termasuk minggu & libur nasional
+                    $tglakhir2 = date('d-m-Y', strtotime('-1 days', strtotime($tglakhir)));
+    				$tgl_awal = $tgl_akhir = $minggu = $sabtu = $koreksi = $libur = 0;
+    				$this->db->select('libur.tanggal as tgl');
+    				$this->db->where('tahun', $thn);
+    				$tgl_libur = $this->db->get('libur')->result();
+    				foreach ( $tgl_libur as $harilibur ) {
+    				    $liburnasional[] = strtotime($harilibur->tgl);
+    				}
+    			//    memecah tanggal untuk mendapatkan hari, bulan dan tahun
+    				$pecah_tglawal = explode('-', $tglawal);
+    				$pecah_tglakhir = explode('-', $tglakhir);
+    				
+    			//    mengubah Gregorian date menjadi Julian Day Count
+    				$tgl_awal = gregoriantojd($pecah_tglawal[1], $pecah_tglawal[0], $pecah_tglawal[2]);
+    				$tgl_akhir = gregoriantojd($pecah_tglakhir[1], $pecah_tglakhir[0], $pecah_tglakhir[2]);
+    			 
+    			//    mengubah ke unix timestamp
+    				$jmldetik = 24*3600;
+    				$a = strtotime($tglawal);
+                    $b = strtotime($tglakhir);
+    				$c = strtotime($tglakhir2);
+    				
+    			//    menghitung jumlah libur nasional 
+    				for($i=$a; $i<$b; $i+=$jmldetik){
+    					foreach ($liburnasional as $key => $tgllibur) {
+    						if($tgllibur==$i){
+    							$libur++;
+    						}
+    					}
+    				}
+    				
+    			//    menghitung jumlah hari minggu
+    				for($i=$a; $i<$b; $i+=$jmldetik){
+    					if(date("w",$i)=="0"){
+    						$minggu++;
+    					}
+    				}
+    				
+    			//    menghitung jumlah hari sabtu
+    				for($i=$a; $i<$b; $i+=$jmldetik){
+    					if(date("w",$i)=="6"){
+    						$sabtu++;
+    					}
+    				}
+    			 
+    			//    dijalankan jika $tglakhir adalah hari sabtu atau minggu
+    				if(date("w",$b)=="0" || date("w",$b)=="6"){
+    					$koreksi = 1;
+    				}
+    				
+    			//    mengitung selisih dengan pengurangan kemudian ditambahkan 1 agar tanggal awal cuti juga dihitung
+    				$jumlahcuti =  $tgl_akhir - $tgl_awal - $libur - $minggu - $sabtu - $koreksi + 1;
+                    // echo " jumlahcuti" .$jumlahcuti;
+                    // echo "</br> tgl_akhir" .$tgl_akhir;
+                    // echo "</br> tgl_awal" .$tgl_awal;
+                    // echo "</br> libur" .$libur;
+                    // echo "</br> minggu" .$minggu;
+                    // echo "</br> sabtu" .$sabtu;
+                    // echo "</br> koreksi" .$koreksi;
+                    // die();
+    				/// PANGGIL FUNGSI dengan PARAMETERNYA BERIKUT
+    				$lama_cuti = $lama_cuti1+($lama_cuti1-$jumlahcuti); // Tambahkan Jumlah hari libur dengan lama cuti
+
+    				$tgl_selesai_tanpa_libur = date('Y-m-d', strtotime('+'.$lama_cuti.' days', strtotime($tglawal))); // Hasil akhir 
 				}else{
 					$tgl_selesai_tanpa_libur='';
 				}
@@ -1867,10 +1877,11 @@ class Pegawai extends REST_Controller
             if ($decodedToken != false) {
                 $tgl = ($this->input->post('tgl_cuti'))?$this->input->post('tgl_cuti'):null;
                 $jml = ($this->input->post('jumlahCuti'))?$this->input->post('jumlahCuti'):null;
+                $sampai = ($this->input->post('sampai'))?$this->input->post('sampai'):null;
 
-                $date = date_create($tgl);
-                date_add($date, date_interval_create_from_date_string($jml . " days"));
-                $sampai = date_format($date, "Y-m-d");
+                // $date = date_create($tgl);
+                // date_add($date, date_interval_create_from_date_string($jml . " days"));
+                // $sampai = date_format($date, "Y-m-d");
 
                 //cek lagi
                 $id_cuti = ($this->input->post('jenis_cuti'))?$this->input->post('jenis_cuti'):null;

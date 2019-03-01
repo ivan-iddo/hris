@@ -120,7 +120,7 @@ require_once('../../connectdb.php');
                                         <div class="form-group">
 					                        <label class="col-sm-3 control-label">Tanggal Berakhir</label>
 					                        <div class="col-sm-9">
-                                            <div id="sampai" style="padding-top:7px"></div>
+                                            <input class="form-control" type="date" id="sampai" name="sampai" readonly>
 					                        </div>
 					                    </div>
 
@@ -214,7 +214,7 @@ function hitungTanggal(jml){
                                    contentType: 'application/json', 
                                    processData: false,
                                    success: function( res, textStatus, jQxhr ){
-									$('#sampai').html(res[0].tgl_selesai);
+									$('#sampai').val(res[0].tgl_selesai);
                                    },
                                    error: function( jqXhr, textStatus, errorThrown ){
                                        alert('error');
@@ -237,7 +237,7 @@ function hitungTanggal(jml){
                                    contentType: 'application/json', 
                                    processData: false,
                                    success: function( res, textStatus, jQxhr ){
-									$('#sampai').html(res[0].tgl_selesai);
+									$('#sampai').val(res[0].tgl_selesai);
                                    },
                                    error: function( jqXhr, textStatus, errorThrown ){
                                        alert('error');
@@ -288,6 +288,14 @@ function hitungTanggal(jml){
              $('#jumlahCuti').val('');
             $('#tgl_cuti').val('');
             $('#jenis_cuti').val('');
+            $('#sampai').val('');
+            $.niftyNoty({
+                    type: 'success',
+                    title: 'Warning!',
+                    message: 'Berhasil Mengajukan Cuti',
+                    container: 'floating',
+                    timer: 5000
+                });
             listcuti();
            }
            
