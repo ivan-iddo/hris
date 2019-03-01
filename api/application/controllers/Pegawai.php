@@ -1620,8 +1620,7 @@ class Pegawai extends REST_Controller
     				$tglawal = date('d-m-Y', strtotime($this->uri->segment(4)));
     				$thn = date('Y');
     				$tglakhir = date('d-m-Y', strtotime('+'.$lama_cuti1.' days', strtotime($tglawal))); // Tgl Selesai termasuk minggu & libur nasional
-                    $tglakhir2 = date('d-m-Y', strtotime('-1 days', strtotime($tglakhir)));
-    				$tgl_awal = $tgl_akhir = $minggu = $sabtu = $koreksi = $libur = 0;
+    				$tgl_awal = $tgl_akhir = $minggu = $sabtu = $koreksi = $libur = $koreksi2 = 0;
     				$this->db->select('libur.tanggal as tgl');
     				$this->db->where('tahun', $thn);
     				$tgl_libur = $this->db->get('libur')->result();
@@ -1640,7 +1639,6 @@ class Pegawai extends REST_Controller
     				$jmldetik = 24*3600;
     				$a = strtotime($tglawal);
                     $b = strtotime($tglakhir);
-    				$c = strtotime($tglakhir2);
     				
     			//    menghitung jumlah libur nasional 
     				for($i=$a; $i<$b; $i+=$jmldetik){
@@ -1669,17 +1667,23 @@ class Pegawai extends REST_Controller
     				if(date("w",$b)=="0" || date("w",$b)=="6"){
     					$koreksi = 1;
     				}
+
+                    if ($lama_cuti1 == 1) {
+                        if(date("w",$a)=="5"){
+                            $koreksi2 = 1;
+                        }
+                    }
     				
     			//    mengitung selisih dengan pengurangan kemudian ditambahkan 1 agar tanggal awal cuti juga dihitung
-    				$jumlahcuti =  $tgl_akhir - $tgl_awal - $libur - $minggu - $sabtu - $koreksi + 1;
-                    // echo " jumlahcuti" .$jumlahcuti;
-                    // echo "</br> tgl_akhir" .$tgl_akhir;
-                    // echo "</br> tgl_awal" .$tgl_awal;
-                    // echo "</br> libur" .$libur;
-                    // echo "</br> minggu" .$minggu;
-                    // echo "</br> sabtu" .$sabtu;
-                    // echo "</br> koreksi" .$koreksi;
-                    // die();
+    				$jumlahcuti =  $tgl_akhir - $tgl_awal - $libur - $minggu - $sabtu - $koreksi + $koreksi2 + 1;
+                    echo " jumlahcuti" .$jumlahcuti;
+                    echo "</br> tgl_akhir" .$tgl_akhir;
+                    echo "</br> tgl_awal" .$tgl_awal;
+                    echo "</br> libur" .$libur;
+                    echo "</br> minggu" .$minggu;
+                    echo "</br> sabtu" .$sabtu;
+                    echo "</br> koreksi" .$koreksi;
+                    die();
     				/// PANGGIL FUNGSI dengan PARAMETERNYA BERIKUT
     				$lama_cuti = $lama_cuti1+($lama_cuti1-$jumlahcuti); // Tambahkan Jumlah hari libur dengan lama cuti
 
