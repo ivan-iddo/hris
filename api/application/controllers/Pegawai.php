@@ -1676,14 +1676,7 @@ class Pegawai extends REST_Controller
     				
     			//    mengitung selisih dengan pengurangan kemudian ditambahkan 1 agar tanggal awal cuti juga dihitung
     				$jumlahcuti =  $tgl_akhir - $tgl_awal - $libur - $minggu - $sabtu - $koreksi + $koreksi2 + 1;
-                    echo " jumlahcuti" .$jumlahcuti;
-                    echo "</br> tgl_akhir" .$tgl_akhir;
-                    echo "</br> tgl_awal" .$tgl_awal;
-                    echo "</br> libur" .$libur;
-                    echo "</br> minggu" .$minggu;
-                    echo "</br> sabtu" .$sabtu;
-                    echo "</br> koreksi" .$koreksi;
-                    die();
+
     				/// PANGGIL FUNGSI dengan PARAMETERNYA BERIKUT
     				$lama_cuti = $lama_cuti1+($lama_cuti1-$jumlahcuti); // Tambahkan Jumlah hari libur dengan lama cuti
 
