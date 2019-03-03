@@ -745,10 +745,10 @@ class Abk extends REST_Controller
                 //$this->db->where('abk_kebutuhan_sdm.tampilkan','1' );
 
                 $this->db->join('sys_grup_user', 'sys_grup_user.id_grup = sys_user.id_grup', 'LEFT');
-                $this->db->where_in('sys_user.id_grup', $idgroups);
                 $this->db->join('sys_user_profile', 'sys_user.id_user = sys_user_profile.id_user', 'LEFT');
 				$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 				$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
+                $this->db->where_in('sys_user.id_grup', $idgroups);
                 $this->db->group_by('sys_grup_user.id_grup,sys_grup_user.grup,m_index_jabatan_asn_detail.ds_jabatan,sys_user_profile.pendidikan_akhir,m_index_jabatan_asn_detail.migrasi_jabatan_detail_id');
                 $res = $this->db->get('sys_user')->result();
                 // print_r($res);die();

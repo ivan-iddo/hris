@@ -214,7 +214,7 @@ function hitungTanggal(jml){
                                    contentType: 'application/json', 
                                    processData: false,
                                    success: function( res, textStatus, jQxhr ){
-									$('#sampai').val(res[0].tgl_selesai);
+								                   $('#sampai').val(res[0].tgl_selesai);
                                    },
                                    error: function( jqXhr, textStatus, errorThrown ){
                                        alert('error');
@@ -237,7 +237,14 @@ function hitungTanggal(jml){
                                    contentType: 'application/json', 
                                    processData: false,
                                    success: function( res, textStatus, jQxhr ){
-									$('#sampai').val(res[0].tgl_selesai);
+                                   console.log(res.pesan_eror);
+                                    if (res.pesan_eror != "") {
+                                      onMessage(res.pesan_eror);
+                                      document.getElementById("tgl_cuti").value = "";
+                                    } else {
+                                      $('#sampai').val(res[0].tgl_selesai);
+                                    }
+									                 
                                    },
                                    error: function( jqXhr, textStatus, errorThrown ){
                                        alert('error');
