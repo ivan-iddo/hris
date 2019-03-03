@@ -17,7 +17,7 @@
 					                </div>
 					            </div>
 
-<script>
+<script>	
 getJson(respegawai,BASE_URL+'abk/abk/getpegawai?bagian=<?php echo $_GET["bagian"]?>&jejang=<?php echo $_GET["jenjang"]?>');
 
 function respegawai(result){

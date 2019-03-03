@@ -733,7 +733,7 @@ class Abk extends REST_Controller
                     //  $this->db->where('sys_user.id_grup',$user_froup);
                 }
                 // print_r($idgroups);die();
-                $this->db->select('count(*) as jml,sys_grup_user.id_grup,sys_grup_user.grup as namgroup,uk_master.nama as grup,sys_user_profile.pendidikan_akhir as nama,uk_master.id as idjenis');
+                $this->db->select('count(*) as jml,sys_grup_user.id_grup,sys_grup_user.grup as namgroup,m_index_jabatan_asn_detail.ds_jabatan as grup,sys_user_profile.pendidikan_akhir as nama,m_index_jabatan_asn_detail.migrasi_jabatan_detail_id as idjenis');
                 if (($user_froup == '1') OR ($user_froup == '6')) {
                     // $this->db->where('sys_user.id_grup',$this->input->get('uk'));
                 } else {
@@ -747,9 +747,9 @@ class Abk extends REST_Controller
                 $this->db->join('sys_grup_user', 'sys_grup_user.id_grup = sys_user.id_grup', 'LEFT');
                 $this->db->where_in('sys_user.id_grup', $idgroups);
                 $this->db->join('sys_user_profile', 'sys_user.id_user = sys_user_profile.id_user', 'LEFT');
-                $this->db->join('uk_master', 'sys_user.id_uk = uk_master.id');
-
-                $this->db->group_by('sys_grup_user.id_grup,sys_grup_user.grup,uk_master.nama,sys_user_profile.pendidikan_akhir,uk_master.id');
+				$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+				$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
+                $this->db->group_by('sys_grup_user.id_grup,sys_grup_user.grup,m_index_jabatan_asn_detail.ds_jabatan,sys_user_profile.pendidikan_akhir,m_index_jabatan_asn_detail.migrasi_jabatan_detail_id');
                 $res = $this->db->get('sys_user')->result();
                 // print_r($res);die();
 
@@ -793,20 +793,34 @@ class Abk extends REST_Controller
 
                                 if ($g == '54') {
                                     //slta
+                                    $arr['result'][$nom]['sd'] = $jmlh;
+                                    //$arr['result'][$nom]+$arrb['result'][$nom];
+                                }
+								if ($g == '55') {
+                                    //slta
+                                    $arr['result'][$nom]['sltp'] = $jmlh;
+                                    //$arr['result'][$nom]+$arrb['result'][$nom];
+                                }
+								if ($g == '56') {
+                                    //slta
                                     $arr['result'][$nom]['slta'] = $jmlh;
                                     //$arr['result'][$nom]+$arrb['result'][$nom];
                                 }
-                                if ($g == '55') {
+                                if ($g == '57') {
                                     //d3
                                     $arr['result'][$nom]['d3'] = $jmlh;
                                 }
-                                if ($g == '56') {
+                                if ($g == '100') {
                                     //d3
                                     $arr['result'][$nom]['s1'] = $jmlh;
                                 }
-                                if ($g == '57') {
+                                if ($g == '101') {
                                     //d3
                                     $arr['result'][$nom]['s2'] = $jmlh;
+                                }
+								if ($g == '105') {
+                                    //d3
+                                    $arr['result'][$nom]['s3'] = $jmlh;
                                 }
 
                                 if (!empty($g)) {
@@ -829,10 +843,13 @@ class Abk extends REST_Controller
                     $arr['result'][$nom]['no'] = '';
                     $arr['result'][$nom]['unit_kerja'] = 'TOTAL';
                     $arr['result'][$nom]['kategori_sdm'] = '';
+                    $arr['result'][$nom]['sd'] = '';
+                    $arr['result'][$nom]['sltp'] = '';
                     $arr['result'][$nom]['slta'] = '';
                     $arr['result'][$nom]['d3'] = '';
                     $arr['result'][$nom]['s1'] = '';
                     $arr['result'][$nom]['s2'] = '';
+                    $arr['result'][$nom]['s3'] = '';
                     $arr['result'][$nom]['total'] = $totalsemua;
                     $arr['hasil'] = 'success';
 
@@ -2540,14 +2557,15 @@ class Abk extends REST_Controller
                 $user_froup = $this->input->get('bagian');
                 $iduk = $this->input->get('jejang');
 
-                $this->db->select('sys_user.*,uk_master.nama as profesi,sys_grup_user.grup,dm_term.nama as jenjang');
+                $this->db->select('sys_user.*,m_index_jabatan_asn_detail.ds_jabatan as profesi,sys_grup_user.grup,dm_term.nama as jenjang');
                 $this->db->join('sys_grup_user', 'sys_grup_user.id_grup = sys_user.id_grup', 'LEFT');
                 $this->db->where('sys_user.id_grup', $user_froup);
-                $this->db->where('sys_user.id_uk', $iduk);
+                $this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+				$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
+				$this->db->where('m_index_jabatan_asn_detail.migrasi_jabatan_detail_id', $iduk);
                 $this->db->join('sys_user_profile', 'sys_user.id_user = sys_user_profile.id_user', 'LEFT');
                 $this->db->where('sys_user_profile.pendidikan_akhir > ', '0');
                 $this->db->join('dm_term', 'sys_user_profile.pendidikan_akhir = dm_term.id', 'LEFT');
-                $this->db->join('uk_master', 'sys_user.id_uk = uk_master.id');
                 $res = $this->db->get('sys_user')->result_array();
 
                 if (!empty($res)) {

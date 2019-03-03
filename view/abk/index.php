@@ -338,10 +338,13 @@ function createNewRowData() {
            {headerName: "No.", field: "no", width: 80, filterParams:{newRowsAction: 'keep'}},
 		   {headerName: "Unit Kerja", field: "unit_kerja", width: 190,editable:false, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Kategori SDM", field: "kategori_sdm",editable:false, width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "SD", field: "sd", width: 80, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "SLTP", field: "sltp", width: 80, filterParams:{newRowsAction: 'keep'}},
            {headerName: "SLTA", field: "slta", width: 80, filterParams:{newRowsAction: 'keep'}},
            {headerName: "D-III", field: "d3", width: 80, filterParams:{newRowsAction: 'keep'}}, 
            {headerName: "S1", field: "s1", width: 80, filterParams:{newRowsAction: 'keep'}},
            {headerName: "S2", field: "s2", width: 80, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "S3", field: "s3", width: 80, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Jumlah", field: "total", width: 80, filterParams:{newRowsAction: 'keep'}},
          
            
@@ -424,7 +427,7 @@ function createNewRowData() {
                    animateIn: 'bounceIn',
                    animateOut : 'bounceOut',
 									 backdrop: false,
-                   size:'medium',
+                   size:'large',
                    buttons: {
                         
 
