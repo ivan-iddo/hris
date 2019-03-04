@@ -814,12 +814,11 @@ class Mpenilaian extends REST_Controller
 					}
 				  $res1 = $this->db->get('m_penilaian_kpi')->row();
 				  
-				  $jmlh=count($res);
+			if(!empty($res)){
+				$jmlh=count($res);
 				  $total_bobot=$res1->total_bobot;
 				  $nilai_bbt=$res1->nil_bobot;
 				  $nil_bobot=$nilai_bbt/$jmlh;
-				  
-			if(!empty($res)){
 				$i=0;
 				 foreach($res as $d){
 					$nilai=$d->nilai;

@@ -292,10 +292,13 @@ function hitungTanggal(jml){
        data: data,
        success: function(data, textStatus, jQxhr) {
            if(data.hasil ==='success'){
+            document.getElementById("jenis_cuti").value = "";
+            document.getElementById("jumlahCuti").value = "";
              $('#jumlahCuti').val('');
             $('#tgl_cuti').val('');
             $('#jenis_cuti').val('');
             $('#sampai').val('');
+            $('#keterangan').val('');
             $.niftyNoty({
                     type: 'success',
                     title: 'Warning!',

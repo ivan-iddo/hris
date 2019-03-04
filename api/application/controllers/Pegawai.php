@@ -1621,7 +1621,6 @@ class Pegawai extends REST_Controller
     				$tglawal = date('Y-m-d', strtotime($this->uri->segment(4)));
     				$thn = date('Y');
     				$tglakhir = date('Y-m-d', strtotime('+'.$lama_cuti2.' days', strtotime($tglawal))); // Tgl Selesai termasuk minggu & libur nasional
-    				$tgl_awal = $tgl_akhir = $minggu = $sabtu = $koreksi = $libur = $koreksi2 = 0;
     				$this->db->select('libur.tanggal as tgl');
     				$this->db->where('tahun', $thn);
     				$tgl_libur = $this->db->get('libur')->result();
@@ -1867,21 +1866,17 @@ class Pegawai extends REST_Controller
                 $jml = ($this->input->post('jumlahCuti'))?$this->input->post('jumlahCuti'):null;
                 $sampai = ($this->input->post('sampai'))?$this->input->post('sampai'):null;
 
-                // $date = date_create($tgl);
-                // date_add($date, date_interval_create_from_date_string($jml . " days"));
-                // $sampai = date_format($date, "Y-m-d");
-
                 //cek lagi
-                $id_cuti = ($this->input->post('jenis_cuti'))?$this->input->post('jenis_cuti'):null;
+                $jenis_cuti = ($this->input->post('jenis_cuti'))?$this->input->post('jenis_cuti'):null;
                 $id_user = ($this->input->post('id_user'))?$this->input->post('id_user'):null;
                 $tahun = date('Y');
-                $this->db->where('id', $id_cuti);
+                $this->db->where('id', $jenis_cuti);
                 $this->db->where('tampilkan', '1');
 
                 $res = $this->db->get('m_jenis_cuti')->row();
 
                 $this->db->select('sum(total) as total_cuti');
-                $this->db->where('jenis_cuti', $id_cuti);
+                $this->db->where('jenis_cuti', $jenis_cuti);
                 $this->db->where('id_user', $id_user);
                 $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', $tahun);
                 $this->db->where('tampilkan', '1');
@@ -1899,13 +1894,15 @@ class Pegawai extends REST_Controller
                         'total' => $jml,
                         'tgl_cuti' => $tgl,
                         'tgl_akhir_cuti' => $sampai,
-                        'jenis_cuti' => $id_cuti,
+                        'jenis_cuti' => $jenis_cuti,
                         'status' => '102',
                         'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null
 
                     );
-
                     $this->db->insert('his_cuti', $datacuti);
+                    $id_cuti = $this->db->insert_id('his_cutiid_seq');
+
+                    
                     if ($this->db->affected_rows() == '1') {
                         $arr['hasil'] = 'success';
                         $arr['message'] = 'Data berhasil ditambah!';
@@ -1913,6 +1910,41 @@ class Pegawai extends REST_Controller
                         $arr['hasil'] = 'error';
                         $arr['message'] = 'Data Gagal Ditambah!';
                     }
+
+                    $this->db->select('libur.tanggal as tgl');
+                    $this->db->where('tahun', $tahun);
+                    $tgl_libur = $this->db->get('libur')->result();
+                    foreach ( $tgl_libur as $harilibur ) {
+                        $liburnasional[] = $harilibur->tgl;
+                    }
+
+                    $jmldetik = 24*60*60;
+                    $a = strtotime($tgl);
+                    $b = strtotime($sampai);
+
+                    $haricuti = array();
+
+                    for ($i=$a; $i <= $b; $i += $jmldetik) {
+                        if (date('w', $i) !== '0' && date('w', $i) !== '6') {
+                            if (!in_array(date('Y-m-d', $i), $liburnasional)) {
+                                $haricuti[] = $i;
+                            } 
+                        } 
+                     
+                    }
+                    foreach ( $haricuti as $tgl_cuti ) {
+                        $datadetail = array(
+                            'id_cuti' => $id_cuti,
+                            'id_user' => $id_user,
+                            'tgl_cuti' => date('Y-m-d', $tgl_cuti),
+                            'jenis_cuti' => $jenis_cuti,
+                            'status' => '102',
+                            'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null
+                            );
+
+                        $this->db->insert('his_cuti_detail', $datadetail);
+                    }
+
 
                 }
 
