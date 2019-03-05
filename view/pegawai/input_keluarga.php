@@ -1,4 +1,4 @@
-<form id="form-keluarga" method="post" name="form-keluarga">
+<form id="form-keluarga" method="post" name="form-keluarga" enctype="multipart/form-data">
   <input id="id_keluarga" name="id_keluarga" style="" type="hidden">
     <div class="panel-body pad-all">
         <div class="row">

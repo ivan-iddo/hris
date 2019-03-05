@@ -23,7 +23,7 @@ require_once('../../connectdb.php');
                                           $rowcount=pg_num_rows($query);
                                           $row   = pg_fetch_row($query);
                                           $total_cuti =0;
-                                          
+
                                           if(!empty($rowcount)){
                                             $total_cuti = $row[0];
                                           }

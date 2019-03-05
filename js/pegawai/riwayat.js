@@ -8,7 +8,7 @@ function tabKeluargaView() {
     loadKeluarga();
 }
 
-function simpanKeluarga(action) {
+function simpanKeluarga1(action) {
   var id_keluarga = $('#id_keluarga').val();
   var id_user = $('#id_user').val();
     var gotourl = 'pegawais/keluarga/savekeluarga';
@@ -21,14 +21,15 @@ function simpanKeluarga(action) {
   
 	$.ajax({
 		url: BASE_URL + gotourl,
+    type: "POST",
 		headers: {
 			'Authorization': localStorage.getItem("Token"),
 			'X_CSRF_TOKEN': 'donimaulana',
 			'Content-Type': 'application/json'
 		},
 		dataType: 'json',
-		type: 'post',
-		contentType: 'application/json',
+    contentType: 'application/json',
+    cache: false,
 		processData: false,
 		data: JSON.stringify(obj),
 		success: function(data, textStatus, jQxhr) {
@@ -59,6 +60,64 @@ function simpanKeluarga(action) {
 			});
 		}
 	});	
+}
+
+function simpanKeluarga(action) {
+  var id_keluarga = $('#id_keluarga').val();
+  var id_user = $('#id_user').val();
+    var gotourl = 'pegawais/keluarga/savekeluarga';
+    if (action === 'edit') {
+        gotourl = 'pegawais/keluarga/editkeluarga/' + id_keluarga;
+    }
+  var form = $("#form-keluarga");
+  var data = new FormData(form[0]);
+  for (var value of data.values()) {
+   console.log(value); 
+  } 
+  $.ajax({
+    url: BASE_URL + gotourl,
+    type: "POST",
+    // headers: {
+    //   'Authorization': localStorage.getItem("Token"),
+    //   'X_CSRF_TOKEN': 'donimaulana',
+    //   'Content-Type': 'application/json'
+    // },
+    data: data,
+    contentType: false,
+    cache: false,
+    processData: false,
+    // dataType: 'JSON',
+    async:false,
+    success: function(data, textStatus, jQxhr) {
+      hasil = data.hasil;
+      message = data.message;
+      if (hasil == "success") {
+        $.niftyNoty({
+          type: 'success',
+          title: 'Success',
+          message: message,
+          container: 'floating',
+          timer: 5000
+        });
+        $("#form-keluarga").val(data.id);
+         loadKeluarga();
+        // $('.modal').modal('hide');
+      } else {
+        return false;
+      }
+    },
+    error: function(jqXhr, textStatus, errorThrown) {
+      hasil = jqXhr.hasil;
+      message = jqXhr.message;
+      $.niftyNoty({
+        type: 'danger',
+        title: 'Warning!',
+        message: message,
+        container: 'floating',
+        timer: 5000
+      });
+    }
+  }); 
 }
 
 function loadKeluarga() {

@@ -12,7 +12,7 @@ class keluarga extends CI_Controller
 
     public function savekeluarga()
     {
-
+        print_r($_POST);die();
         $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
@@ -30,13 +30,15 @@ class keluarga extends CI_Controller
             'id_hubkel' => ($this->input->post('txtHubungan')?$this->input->post('txtHubungan'):NULL),
 			'karn' => ($this->input->post('txtkarn')?$this->input->post('txtkarn'):NULL),
         );
+        // $arrdata["url"] = "logo.png";
+            // print_r($error);die();
         if (!$this->upload->do_upload('inputfileupload')) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $upload = $this->upload->data();
             $arrdata["url"] = $upload['file_name'];
         }
-
+        print_r($arrdata);die();
         $this->db->insert('his_keluarga', $arrdata);
 
         if ($this->db->affected_rows() == '1') {

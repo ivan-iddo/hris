@@ -2166,6 +2166,18 @@ class Pegawai extends REST_Controller
                     $this->db->where('status', '102');
                 }
                 $this->db->update('his_cuti', $arraycuti);
+
+                if ($status == '0') {
+                    $this->db->where('id_cuti', $id);
+                    $arraycutidetail['tampilkan'] = '0';
+                    $this->db->update('his_cuti_detail', $arraycutidetail);
+                }
+
+                if ($status != '0') {
+                    $this->db->where('id_cuti', $id);
+                    $arraycutidetail['status'] = $status;
+                    $this->db->update('his_cuti_detail', $arraycutidetail);
+                }
                 $arr['hasil'] = 'success';
                 $this->set_response($arr, REST_Controller::HTTP_OK);
 
