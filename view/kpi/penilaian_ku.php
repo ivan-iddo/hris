@@ -328,7 +328,7 @@ function getRowData() {
         rowData.push(node.data);
     });
     //console.log('Row Data:'); 
-    save(BASE_URL+'kpi/mpenilaian/savedetail',rowData,tektok);
+    save(BASE_URL+'kpi/mpenilaian/savedetail/',rowData,tektok);
 }
 
 function tektok(){
@@ -407,7 +407,7 @@ loadData();
         capaian_persen: 0,
         nilai: 0,
         nilai_bobot: 0,
-        Keterangan: '',
+        keterangan: '',
         }; 
         return newData;
     }

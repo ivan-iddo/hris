@@ -54,7 +54,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  */
 require_once '../constants.php';
-define('ENVIRONMENT','development');
+define('ENVIRONMENT','production');
 define('DEBUG_QUERY', true);
 /*
  *---------------------------------------------------------------
