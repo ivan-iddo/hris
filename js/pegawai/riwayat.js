@@ -7,7 +7,12 @@ function tabKeluargaView() {
     $("#page-keluarga").load("view/pegawai/form_keluarga_view.php");
     loadKeluarga();
 }
-
+/* darisini hapus saja
+* fungsi ajaxnya sudah di pindah ke file input_keluarga.php
+* agar form data dapat di terima oleh controller maka form harus di "SUBMIT !"
+* cara membedakan edit dan tambah bisa menggunakan pengecekan id keluarga
+* jika belun ada id keluarga maka berarti add, jika sudah ada id keluarga maka edit
+*
 function simpanKeluarga1(action) {
   var id_keluarga = $('#id_keluarga').val();
   var id_user = $('#id_user').val();
@@ -119,7 +124,7 @@ function simpanKeluarga(action) {
     }
   }); 
 }
-
+hapus sampai sini*/
 function loadKeluarga() {
     var id_user = $('#id_user').val();
     $.ajax({
@@ -156,7 +161,8 @@ function addKeluarga() {
         buttons: {
             success: {
                 label: "Save", className: "btn-success", callback: function () {
-                    simpanKeluarga('save');
+                    // simpanKeluarga('save'); ini bisa di hapus
+                    $('#form-keluarga').submit(); //ini untuk submit form-keluarga
                     return false;
                 }
             }, main: {

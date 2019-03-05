@@ -4,20 +4,26 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: PUT, GET, POST");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");/* Changes: 1. This project contains .htaccess file for windows machine. Please update as per your requirements. Samples (Win/Linux): http://stackoverflow.com/questions/28525870/removing-index-php-from-url-in-codeigniter-on-mandriva 2. Change 'encryption_key' in application\config\config.php Link for encryption_key: http://jeffreybarke.net/tools/codeigniter-encryption-key-generator/ 3. Change 'jwt_key' in application\config\jwt.php */
 
-require APPPATH . '/libraries/REST_Controller.php';
-$rest_json = file_get_contents("php://input");
-$_POST = json_decode($rest_json, true);
+// require APPPATH . '/libraries/REST_Controller.php';
+// $rest_json = file_get_contents("php://input");
+// $_POST = json_decode($rest_json, true);
 class keluarga extends CI_Controller
 {
 
     public function savekeluarga()
     {
-        print_r($_POST);die();
         $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
 
+        /* ini untuk dump hasil post dari ajax
+        var_dump($this->input->post());
+        if (!$this->upload->do_upload('inputfileupload')) {
+            print_r($this->upload->display_errors());
+        }
+        die;
+        */
         $arrdata = array(
             'id_user' => ($this->input->post('id_user')?$this->input->post('id_user'):NULL),
             'nik' => ($this->input->post('txtNik')?$this->input->post('txtNik'):NULL),
@@ -30,8 +36,7 @@ class keluarga extends CI_Controller
             'id_hubkel' => ($this->input->post('txtHubungan')?$this->input->post('txtHubungan'):NULL),
 			'karn' => ($this->input->post('txtkarn')?$this->input->post('txtkarn'):NULL),
         );
-        // $arrdata["url"] = "logo.png";
-            // print_r($error);die();
+
         if (!$this->upload->do_upload('inputfileupload')) {
             $error = array('error' => $this->upload->display_errors());
         } else {

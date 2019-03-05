@@ -108,3 +108,30 @@
         </div><!-- /.row -->
     </div>
 </form>
+<script type="text/javascript">
+    
+    $('#form-keluarga').submit(function(e){
+      e.preventDefault();
+      /*
+      * tambah fungsi untuk pengujian edit atau add
+      */
+      $.ajax({
+        url: BASE_URL + 'pegawais/keluarga/savekeluarga',
+        type: "POST",
+        data:  new FormData(this),
+        contentType: false,
+        cache: false,
+        processData:false,
+        success: function(data, textStatus, jQxhr) {
+         /*
+         * tambah fungsi untuk niftyNoty
+         */
+        },
+        error: function(jqXhr, textStatus, errorThrown) {
+          /*
+         * tambah fungsi untuk niftyNoty
+         */
+        }
+      }); 
+    });
+</script>
