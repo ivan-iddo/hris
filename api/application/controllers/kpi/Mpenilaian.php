@@ -38,7 +38,7 @@ class Mpenilaian extends REST_Controller
             if ($decodedToken != false) {
                 foreach ($_POST as $dat) {
 				$bobot_awal = $dat['total_bobot'];
-				$jumlah = $dat['nil_bobot'];
+				$jumlah = $dat['nilai_bobot'];
 				$nama1=strtolower($dat['nama']);
 				$nama=ucwords($nama1);
 				$this->db->select('m_penilaian_kpi.id_grup,m_penilaian_kpi.bobot');
@@ -71,7 +71,7 @@ class Mpenilaian extends REST_Controller
 						'capaian_persen'=>$dat['capaian_persen'],
 						'nilai'=>$dat['nilai'],
 						'nilai_bobot'=>$dat['nilai_bobot'],
-						'keterangan'=>$dat['keterangan'],
+						'keterangan'=>($dat['keterangan']?$dat['keterangan']:NULL),
                         );
                         $this->db->insert('his_kpi_detail', $array);
 						$this->db->where('id', $dat['pid']);
@@ -100,7 +100,7 @@ class Mpenilaian extends REST_Controller
 						'capaian_persen'=>$dat['capaian_persen'],
 						'nilai'=>$dat['nilai'],
 						'nilai_bobot'=>$dat['nilai_bobot'],
-						'keterangan'=>$dat['keterangan'],
+						'keterangan'=>($dat['keterangan']?$dat['keterangan']:NULL),
                         );
                         $this->db->where('id',$dat['id_kpi_d']);
 						$this->db->update('his_kpi_detail',$array);
@@ -149,7 +149,7 @@ class Mpenilaian extends REST_Controller
 						'capaian_persen'=>$dat['capaian_persen'],
 						'nilai'=>$dat['nilai'],
 						'nilai_bobot'=>$dat['nilai_bobot'],
-						'keterangan'=>$dat['keterangan'],
+						'keterangan'=>($dat['keterangan']?$dat['keterangan']:NULL),
                         );
                         $this->db->insert('his_kpi_detail', $array);
 						if ($this->db->affected_rows() == '1') {
@@ -169,7 +169,7 @@ class Mpenilaian extends REST_Controller
 						'capaian_persen'=>$dat['capaian_persen'],
 						'nilai'=>$dat['nilai'],
 						'nilai_bobot'=>$dat['nilai_bobot'],
-						'keterangan'=>$dat['keterangan'],
+						'keterangan'=>($dat['keterangan']?$dat['keterangan']:NULL),
                         );
                         $this->db->where('id',$dat['id_kpi_d']);
 						$this->db->update('his_kpi_detail',$array);
