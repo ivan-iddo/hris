@@ -25,7 +25,7 @@ class keluarga extends CI_Controller
         die;
         */
         $arrdata = array(
-            'id_user' => ($this->input->post('id_user')?$this->input->post('id_user'):NULL),
+            'id_user' => ($this->input->post('id_user_baru')?$this->input->post('id_user_baru'):NULL),
             'nik' => ($this->input->post('txtNik')?$this->input->post('txtNik'):NULL),
             'nama' => ($this->input->post('txtNama')?$this->input->post('txtNama'):NULL),
             'tempat_lahir' => ($this->input->post('txtTptLahir')?$this->input->post('txtTptLahir'):NULL),
@@ -43,8 +43,14 @@ class keluarga extends CI_Controller
             $upload = $this->upload->data();
             $arrdata["url"] = $upload['file_name'];
         }
-        print_r($arrdata);die();
-        $this->db->insert('his_keluarga', $arrdata);
+        // print_r($arrdata);die();
+        if (!empty($this->input->post('id_keluarga'))) {
+            $this->db->where('id', $this->input->post('id_keluarga'));
+            $result = $this->db->update('his_keluarga', $arrdata);
+        } else {
+            $this->db->insert('his_keluarga', $arrdata);
+        }
+        
 
         if ($this->db->affected_rows() == '1') {
             $arr['hasil'] = 'success';

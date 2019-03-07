@@ -24,6 +24,7 @@
                             </div>
                             <div class="col-sm-8">
                                 <input class="form-control" id="txtNik" name="txtNik" placeholder="" type="text">
+                                <input class="form-control" id="id_user_baru" name="id_user_baru" placeholder="" type="hidden">
                             </div>
                         </div>
                         <div class="form-group">
@@ -99,7 +100,7 @@
 						 <div class="form-group">
                             <label class="col-sm-4 control-label" for="inputstatus">Karis/Karsu</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="txtkarn" name="txtkarn" placeholder="">
+                                <input type="number" class="form-control" id="txtkarn" name="txtkarn" placeholder="">
                             </div>
                         </div><!-- End Hori sontal -->
                     </div>
@@ -109,6 +110,12 @@
     </div>
 </form>
 <script type="text/javascript">
+
+    var id_user = $('#id_user').val();
+    $('#id_user_baru').val(id_user);
+    $('.select2').chosen();
+    $('.select-chosen').chosen();
+
     
     $('#form-keluarga').submit(function(e){
       e.preventDefault();
@@ -126,11 +133,36 @@
          /*
          * tambah fungsi untuk niftyNoty
          */
+         hasil = data.hasil;
+            message = data.message;
+            if (hasil == "success") {
+                $.niftyNoty({
+                    type: 'success',
+                    title: 'Success',
+                    message: message,
+                    container: 'floating',
+                    timer: 5000
+                });
+                $("#form-keluarga").val(data.id);
+                 loadKeluarga();
+                // $('.modal').modal('hide');
+            } else {
+                return false;
+            }
         },
         error: function(jqXhr, textStatus, errorThrown) {
           /*
          * tambah fungsi untuk niftyNoty
          */
+          hasil = jqXhr.hasil;
+          message = jqXhr.message;
+          $.niftyNoty({
+            type: 'danger',
+            title: 'Warning!',
+            message: message,
+            container: 'floating',
+            timer: 5000
+          });
         }
       }); 
     });

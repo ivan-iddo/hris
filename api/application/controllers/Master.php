@@ -702,8 +702,10 @@ public function agama_get(){
 			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
 				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
 				if ($decodedToken != false) {
+					$tahunskrg = "'".date('Y')."'";
 					 $this->db->order_by('id','ASC');
 					 $this->db->where('tampilkan','1');
+					 $this->db->where('tahun',date('Y'));
 			  $res = $this->db->get('m_jenis_cuti')->result();
 			  foreach($res as $d){
 				$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id);

@@ -1618,6 +1618,7 @@ class Pegawai extends REST_Controller
                 $lama_cuti1 = $this->uri->segment(3); 
                 $lama_cuti2 = $lama_cuti1 - 1;
                 if(!empty($this->uri->segment(4))){
+                    $id_user = $this->input->get('id_user');
     				$tglawal = date('Y-m-d', strtotime($this->uri->segment(4)));
     				$thn = date('Y');
     				$tglakhir = date('Y-m-d', strtotime('+'.$lama_cuti2.' days', strtotime($tglawal))); // Tgl Selesai termasuk minggu & libur nasional
@@ -1629,15 +1630,13 @@ class Pegawai extends REST_Controller
     				    $liburnasional2[] = $harilibur->tgl;
     				}
 
+                    $this->db->where('id_user', $id_user);
+                    $resShift = $this->db->get('sys_user')->row();
+                    $status_shift = $resShift->id_shift;
+
                     $jmldetik = 24*60*60;
                     $a = strtotime($tglawal);
                     $b = strtotime($tglakhir);
-
-                    if (date('w', $a) == "0" || date("w", $a) == "6") {
-                        $arr['pesan_eror'] = 'Anda tidak tidak bisa mengajukan cuti di hari libur sabtu/minggu!';
-                        $this->set_response($arr, REST_Controller::HTTP_OK);
-                        return;
-                    }
 
                     if (in_array(date('Y-m-d', $a), $liburnasional2)) {
                         $arr['pesan_eror'] = 'Anda tidak tidak bisa mengajukan cuti di hari libur nasional';
@@ -1645,30 +1644,59 @@ class Pegawai extends REST_Controller
                         return;
                     }
 
-                    $haricuti = array();
-                    $sabtuminggu = array();
-                    $tgllibur = array();
+                    if ($status_shift == '51') {
 
-                    for ($i=$a; $i <= $b; $i += $jmldetik) {
-                        if (date('w', $i) !== '0' && date('w', $i) !== '6') {
+                        if (date('w', $a) == "0" || date("w", $a) == "6") {
+                            $arr['pesan_eror'] = 'Anda tidak tidak bisa mengajukan cuti di hari libur sabtu/minggu!';
+                            $this->set_response($arr, REST_Controller::HTTP_OK);
+                            return;
+                        }
+
+                        $haricuti = array();
+                        $sabtuminggu = array();
+                        $tgllibur = array();
+
+                        for ($i=$a; $i <= $b; $i += $jmldetik) {
+                            if (date('w', $i) !== '0' && date('w', $i) !== '6') {
+                                if (!in_array(date('Y-m-d', $i), $liburnasional2)) {
+                                    $haricuti[] = $i;
+                                } else {
+                                    $tgllibur[] = $i;
+                                    $b += $jmldetik;
+                                }
+                            } else {
+                                $sabtuminggu[] = $i;
+                                $b += $jmldetik;
+                            }
+                         
+                        }
+                        $jumlah_cuti = count($haricuti);
+                        $jumlah_sabtuminggu = count($sabtuminggu);
+                        $jumlah_tgllibur = count($tgllibur);
+                        $abtotal = $jumlah_cuti + $jumlah_sabtuminggu + $jumlah_tgllibur - 1;
+
+        				$tgl_selesai_tanpa_libur = date('Y-m-d', strtotime('+'.$abtotal.' days', strtotime($tglawal))); // Hasil akhir 
+
+                    } else if($status_shift == '50') {
+                        $haricuti = array();
+                        $tgllibur = array();
+
+                        for ($i=$a; $i <= $b; $i += $jmldetik) {
                             if (!in_array(date('Y-m-d', $i), $liburnasional2)) {
                                 $haricuti[] = $i;
                             } else {
                                 $tgllibur[] = $i;
                                 $b += $jmldetik;
                             }
-                        } else {
-                            $sabtuminggu[] = $i;
-                            $b += $jmldetik;
+                         
                         }
-                     
-                    }
-                    $jumlah_cuti = count($haricuti);
-                    $jumlah_sabtuminggu = count($sabtuminggu);
-                    $jumlah_tgllibur = count($tgllibur);
-                    $abtotal = $jumlah_cuti + $jumlah_sabtuminggu + $jumlah_tgllibur - 1;
+                        $jumlah_cuti = count($haricuti);
+                        $jumlah_tgllibur = count($tgllibur);
+                        $abtotal = $jumlah_cuti + $jumlah_tgllibur - 1;
 
-    				$tgl_selesai_tanpa_libur = date('Y-m-d', strtotime('+'.$abtotal.' days', strtotime($tglawal))); // Hasil akhir 
+                        $tgl_selesai_tanpa_libur = date('Y-m-d', strtotime('+'.$abtotal.' days', strtotime($tglawal)));
+                    }
+
 				}else{
 					$tgl_selesai_tanpa_libur='';
 				}
@@ -1725,7 +1753,7 @@ class Pegawai extends REST_Controller
     }
 	
 	
-    function cekcuti_get()
+    function cekcutiold_get()
     {
         $headers = $this->input->request_headers();
 
@@ -1813,6 +1841,114 @@ class Pegawai extends REST_Controller
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
 
+    function cekcuti_get()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+                $id_cuti = $this->input->get('id');
+                $id_user = $this->input->get('id_user');
+                $tahun = date('Y');
+                $tahunskrg = $tahun;
+                $tahunlalu = ($tahun - 1);
+
+                $this->db->where('id', $id_cuti);
+                $this->db->where('tampilkan', '1');
+                $res = $this->db->get('m_jenis_cuti')->row();
+                $kd_jenis_cuti = $res->abid;
+
+                $this->db->where('id_user', $id_user);
+                $resShift = $this->db->get('sys_user')->row();
+                $status_shift = $resShift->id_shift;
+
+                if ($kd_jenis_cuti == 'AB_CTNS' && $status_shift == '50') {
+                    $arr['warning'] = 'Anda Tidak Dapat Mengajukan Cuti Untuk Nonshift!';
+                    return $this->set_response($arr, REST_Controller::HTTP_OK);
+                }
+
+                if ($kd_jenis_cuti == 'AB_CTS' && $status_shift == '51') {
+                    $arr['warning'] = 'Anda Tidak Dapat Mengajukan Cuti Untuk Shift!';
+                    return $this->set_response($arr, REST_Controller::HTTP_OK);
+                }
+
+                $this->db->select('sum(total) as total_cuti');
+                $this->db->where('jenis_cuti', $id_cuti);
+                $this->db->where('id_user', $id_user);
+                $this->db->where('status != 108');
+                $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', $tahun);
+                $this->db->where('tampilkan', '1');
+                $resCekSkrg = $this->db->get('his_cuti')->row();
+
+                $this->db->where('abid', $kd_jenis_cuti);
+                $this->db->where('tampilkan', '1');
+                $this->db->where('tahun', $tahunskrg);
+                $resMaxSkrg = $this->db->get('m_jenis_cuti')->row();
+
+                $cuti_skrg = $resCekSkrg->total_cuti;
+                $max_cuti_skrg = $resMaxSkrg->jumlah;
+                
+                $this->db->select('sum(total) as total_cuti');
+                $this->db->where('jenis_cuti', $id_cuti);
+                $this->db->where('id_user', $id_user);
+                $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', ($tahun - 1));
+                $this->db->where('status != 108');
+                $this->db->where('tampilkan', '1');
+                $resCekLalu = $this->db->get('his_cuti')->row();
+
+                $this->db->where('abid', $kd_jenis_cuti);
+                $this->db->where('tampilkan', '1');
+                $this->db->where('tahun', $tahunlalu);
+                $resMaxLalu = $this->db->get('m_jenis_cuti')->row();
+
+                $cuti_kmrn = $resCekLalu->total_cuti;
+                $max_cuti_kmrn = $resMaxLalu->jumlah;
+
+                if ($cuti_kmrn > 18) {
+                        $jumcuti = 18;
+                } else {
+                        $jumcuti = $cuti_kmrn;
+                }
+
+                $cutithnlalu = 18 - $jumcuti;
+                $jumlahtot = $max_cuti_skrg + $cutithnlalu;
+
+                if ($jumlahtot > 18) {
+                        $jumlah = 18;
+                } else {
+                        $jumlah = $jumlahtot;
+                }
+
+                $jumlahcuti = $jumlah - $cuti_skrg;
+
+                if (!empty($cuti_kmrn)) {
+                    if ($jumlahcuti > 18) {
+                        $cc = 18;
+                    } else {
+                        $cc = $jumlahcuti;
+                    }
+                }else{
+                    if(!empty($cuti_skrg)){
+                        $cc = 18 - $cuti_skrg;
+                    }else{
+                        $cc = 18;
+                    }
+                }
+
+                $arr['message'] = '<div class="alert alert-success">Anda memiliki sisa cuti <strong>' . $cc . ' Hari</strong></div>';
+                $arr['jumlah'] = $cc;
+                $arr['warning'] = "";
+
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
+
     function cekizin_get()
     {
         $headers = $this->input->request_headers();
@@ -1869,25 +2005,85 @@ class Pegawai extends REST_Controller
                 //cek lagi
                 $jenis_cuti = ($this->input->post('jenis_cuti'))?$this->input->post('jenis_cuti'):null;
                 $id_user = ($this->input->post('id_user'))?$this->input->post('id_user'):null;
+                $id_group = ($this->input->post('id_group'))?$this->input->post('id_group'):null;
+                $keterangan = ($this->input->post('keterangan'))?$this->input->post('keterangan'):null;
                 $tahun = date('Y');
+                $tahunskrg = $tahun;
+                $tahunlalu = ($tahun - 1);
+
                 $this->db->where('id', $jenis_cuti);
                 $this->db->where('tampilkan', '1');
-
                 $res = $this->db->get('m_jenis_cuti')->row();
+                $kd_jenis_cuti = $res->abid;
+
+                $this->db->where('id_user', $id_user);
+                $resShift = $this->db->get('sys_user')->row();
+                $status_shift = $resShift->id_shift;
 
                 $this->db->select('sum(total) as total_cuti');
                 $this->db->where('jenis_cuti', $jenis_cuti);
                 $this->db->where('id_user', $id_user);
+                $this->db->where('status != 108');
                 $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', $tahun);
                 $this->db->where('tampilkan', '1');
+                $resCekSkrg = $this->db->get('his_cuti')->row();
 
-                $resCek = $this->db->get('his_cuti')->row();
+                $this->db->where('abid', $kd_jenis_cuti);
+                $this->db->where('tampilkan', '1');
+                $this->db->where('tahun', $tahunskrg);
+                $resMaxSkrg = $this->db->get('m_jenis_cuti')->row();
 
-                $cuti_sudahDiambil = $resCek->total_cuti;
-                $total = $res->jumlah;
+                $cuti_skrg = $resCekSkrg->total_cuti;
+                $max_cuti_skrg = $resMaxSkrg->jumlah;
+                
+                $this->db->select('sum(total) as total_cuti');
+                $this->db->where('jenis_cuti', $jenis_cuti);
+                $this->db->where('id_user', $id_user);
+                $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', ($tahun - 1));
+                $this->db->where('status != 108');
+                $this->db->where('tampilkan', '1');
+                $resCekLalu = $this->db->get('his_cuti')->row();
 
-                $totalcuti = $cuti_sudahDiambil + $jml;
-                if ($totalcuti <= $total) {
+                $this->db->where('abid', $kd_jenis_cuti);
+                $this->db->where('tampilkan', '1');
+                $this->db->where('tahun', $tahunlalu);
+                $resMaxLalu = $this->db->get('m_jenis_cuti')->row();
+
+                $cuti_kmrn = $resCekLalu->total_cuti;
+                $max_cuti_kmrn = $resMaxLalu->jumlah;
+
+                if ($cuti_kmrn > 18) {
+                        $jumcuti = 18;
+                } else {
+                        $jumcuti = $cuti_kmrn;
+                }
+
+                $cutithnlalu = 18 - $jumcuti;
+                $jumlahtot = $max_cuti_skrg + $cutithnlalu;
+
+                if ($jumlahtot > 18) {
+                        $jumlah = 18;
+                } else {
+                        $jumlah = $jumlahtot;
+                }
+
+                $jumlahcuti = $jumlah - $cuti_skrg;
+
+                if (!empty($cuti_kmrn)) {
+                    if ($jumlahcuti > 18) {
+                        $cc = 18;
+                    } else {
+                        $cc = $jumlahcuti;
+                    }
+                }else{
+                    if(!empty($cuti_skrg)){
+                        $cc = 18 - $cuti_skrg;
+                    }else{
+                        $cc = 18;
+                    }
+                }
+
+                if ($jml <= $cc) {
 
                     $datacuti = array(
                         'id_user' => $id_user,
@@ -1896,7 +2092,8 @@ class Pegawai extends REST_Controller
                         'tgl_akhir_cuti' => $sampai,
                         'jenis_cuti' => $jenis_cuti,
                         'status' => '102',
-                        'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null
+                        'keterangan' => $keterangan,
+                        'id_group' => $id_group
 
                     );
                     $this->db->insert('his_cuti', $datacuti);
@@ -1923,29 +2120,55 @@ class Pegawai extends REST_Controller
                     $b = strtotime($sampai);
 
                     $haricuti = array();
+                    if ($status_shift == "51") {
+                        for ($i=$a; $i <= $b; $i += $jmldetik) {
+                            if (date('w', $i) !== '0' && date('w', $i) !== '6') {
+                                if (!in_array(date('Y-m-d', $i), $liburnasional)) {
+                                    $haricuti[] = $i;
+                                } 
+                            } 
+                         
+                        }
 
-                    for ($i=$a; $i <= $b; $i += $jmldetik) {
-                        if (date('w', $i) !== '0' && date('w', $i) !== '6') {
+                        foreach ( $haricuti as $tgl_cuti ) {
+                            $datadetail = array(
+                                'id_cuti' => $id_cuti,
+                                'id_user' => $id_user,
+                                'tgl_cuti' => date('Y-m-d', $tgl_cuti),
+                                'jenis_cuti' => $jenis_cuti,
+                                'status' => '102',
+                                'keterangan' => $keterangan,
+                                'id_group' => $id_group
+                                );
+
+                            $this->db->insert('his_cuti_detail', $datadetail);
+                        }
+                    } else if ($status_shift == '50'){
+                        for ($i=$a; $i <= $b; $i += $jmldetik) {
                             if (!in_array(date('Y-m-d', $i), $liburnasional)) {
                                 $haricuti[] = $i;
                             } 
-                        } 
-                     
+                         
+                        }
+
+                        foreach ( $haricuti as $tgl_cuti ) {
+                            $datadetail = array(
+                                'id_cuti' => $id_cuti,
+                                'id_user' => $id_user,
+                                'tgl_cuti' => date('Y-m-d', $tgl_cuti),
+                                'jenis_cuti' => $jenis_cuti,
+                                'status' => '102',
+                                'keterangan' => $keterangan,
+                                'id_group' => $id_group
+                                );
+
+                            $this->db->insert('his_cuti_detail', $datadetail);
+                        }
                     }
-                    foreach ( $haricuti as $tgl_cuti ) {
-                        $datadetail = array(
-                            'id_cuti' => $id_cuti,
-                            'id_user' => $id_user,
-                            'tgl_cuti' => date('Y-m-d', $tgl_cuti),
-                            'jenis_cuti' => $jenis_cuti,
-                            'status' => '102',
-                            'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null
-                            );
 
-                        $this->db->insert('his_cuti_detail', $datadetail);
-                    }
-
-
+                } else {
+                    $arr['hasil'] = 'error';
+                    $arr['message'] = 'Sisa Cuti Anda Kurang!';
                 }
 
 

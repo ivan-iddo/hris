@@ -17,18 +17,18 @@ require_once('../../connectdb.php');
                                          <?php 
                                         // print_r($_SESSION['userdata'] );
 										  $thn = date('Y');
-                                          $query= pg_query('select sum(total)as jml from his_cuti where status=103 and EXTRACT(YEAR FROM his_cuti.tgl_cuti)='.$thn.' and tampilkan=1 and id_user = '.$_SESSION['userdata']['id'].'');
-                                          $rowcount=pg_num_rows($query);
-                                          $row   = pg_fetch_row($query);
-                                          $total_cuti =0;
-                                          
-                                          if(!empty($rowcount)){
-                                            $total_cuti = $row[0];
-                                          }
-                                          $persen = round(($total_cuti/22)*100);
-                                          //mysqli_close($con);
-                                          
-                                         ?>
+                      $query= pg_query('select sum(total)as jml from his_cuti where status=103 and EXTRACT(YEAR FROM his_cuti.tgl_cuti)='.$thn.' and tampilkan=1 and id_user = '.$_SESSION['userdata']['id'].'');
+                      $rowcount=pg_num_rows($query);
+                      $row   = pg_fetch_row($query);
+                      $total_cuti = 0;
+                      
+                      if(!empty($rowcount)){
+                        $total_cuti = $row[0];
+                      }
+                      $persen = round(($total_cuti/22)*100);
+                      //mysqli_close($con);
+                      
+                     ?>
 					
 					                    <div class="col-lg-4">
 					                        <p class="text-semibold text-main">Total Cuti Anda</p>
@@ -37,7 +37,7 @@ require_once('../../connectdb.php');
 					                                <div class="media">
 					                                    <div class="media-left">
 					                                        <span class="text-2x text-semibold text-main">
-                                                            <?php echo $total_cuti?></span>
+                                                            <?php echo $total_cuti; ?></span>
 					                                    </div>
 					                                    <div class="media-body">
 					                                        <p class="mar-no">Hari</p>
@@ -70,9 +70,9 @@ require_once('../../connectdb.php');
 					                                <th>Jenis Cuti</th>
 					                                <th>Mulai</th>
 					                                <th>Sampai</th>
-                                                    <th>Hari</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
+                                          <th>Hari</th>
+                                          <th>Status</th>
+                                          <th>Action</th>
 					                            </tr>
 					                        </thead>
 					                        <tbody id="isicuti">
@@ -97,6 +97,7 @@ require_once('../../connectdb.php');
 					                        <label class="col-sm-3 control-label">Jenis Cuti</label>
 					                        <div class="col-sm-9">
                                             <input style="display:none" type="text" id="id_user" name="id_user" value="<?php echo $_SESSION['userdata']['id']?>">
+                                            <input style="display:none" type="text" id="id_group" name="id_group" value="<?php echo $_SESSION['userdata']['group']?>">
                                             <select class="select-chosen" name="jenis_cuti" id="jenis_cuti" style="width: 100%;" tabindex="-1" onChange="cekCuti(this.value)">
 									 
 								            </select>
@@ -154,103 +155,110 @@ $('.select-chosen').chosen();
 
  function cekCuti(nilai){
     $.ajax({
-                                   url: BASE_URL+'pegawai/cekcuti/?id='+nilai+'&id_user='+$('#id_user').val(),
-                                   headers: {
-                                       'Authorization': localStorage.getItem("Token"),
-                                       'X_CSRF_TOKEN':'donimaulana',
-                                       'Content-Type':'application/json'
-                                   },
-                                   dataType: 'json',
-                                   type: 'get',
-                                   contentType: 'application/json', 
-                                   processData: false,
-                                   success: function( res, textStatus, jQxhr ){
-                                       $('#pesan').html(res.message);
-                                       $('#jumlahCuti').empty();
-                                       for( var i = 0; i < res.jumlah; i++ ){
-                                        
-                                        $('#jumlahCuti').append('<option value="'+(i+1)+'" >'+(i+1)+'</option>');
-                                    }
-                                    $('#jumlahCuti').trigger("chosen:updated");
+       url: BASE_URL+'pegawai/cekcuti/?id='+nilai+'&id_user='+$('#id_user').val(),
+       headers: {
+           'Authorization': localStorage.getItem("Token"),
+           'X_CSRF_TOKEN':'donimaulana',
+           'Content-Type':'application/json'
+       },
+       dataType: 'json',
+       type: 'get',
+       contentType: 'application/json', 
+       processData: false,
+       success: function( res, textStatus, jQxhr ){
+            if (res.warning != "") {
+              onMessage(res.warning);
+              getOptions("jenis_cuti",BASE_URL+"master/jenis_cuti");
+            }
 
-                                   }
+            if (res.message != "") {
+              $('#pesan').html(res.message);
+               $('#jumlahCuti').empty();
+               for( var i = 0; i < res.jumlah; i++ ){
+                
+                $('#jumlahCuti').append('<option value="'+(i+1)+'" >'+(i+1)+'</option>');
+            }
+        }
+        $('#jumlahCuti').trigger("chosen:updated");
+
+       }
     });
  }
  listcuti();
  function listcuti(){
     $.ajax({
-                                   url: BASE_URL+'pegawai/listcuti/?id_user='+$('#id_user').val(),
-                                   headers: {
-                                       'Authorization': localStorage.getItem("Token"),
-                                       'X_CSRF_TOKEN':'donimaulana',
-                                       'Content-Type':'application/json'
-                                   },
-                                   dataType: 'json',
-                                   type: 'get',
-                                   contentType: 'application/json', 
-                                   processData: false,
-                                   success: function( res, textStatus, jQxhr ){
-                                       $('#isicuti').html(res.isi);
-                                        
-                                       
-                                   
+       url: BASE_URL+'pegawai/listcuti/?id_user='+$('#id_user').val(),
+       headers: {
+           'Authorization': localStorage.getItem("Token"),
+           'X_CSRF_TOKEN':'donimaulana',
+           'Content-Type':'application/json'
+       },
+       dataType: 'json',
+       type: 'get',
+       contentType: 'application/json', 
+       processData: false,
+       success: function( res, textStatus, jQxhr ){
+           $('#isicuti').html(res.isi);
+            
+           
+       
 
-                                   }
+       }
     });
  }
 				
 function hitungTanggal(jml){
     var tt = document.getElementById('tgl_cuti').value;
-
+    var id_user = $('#id_user').val();
 	$.ajax({
-                                  url: BASE_URL+'pegawai/tglcuti/'+jml+'/'+tt,
-                                   headers: {
-                                       'Authorization': localStorage.getItem("Token"),
-                                       'X_CSRF_TOKEN':'donimaulana',
-                                       'Content-Type':'application/json'
-                                   },
-                                   dataType: 'json',
-                                   type: 'get',
-                                   contentType: 'application/json', 
-                                   processData: false,
-                                   success: function( res, textStatus, jQxhr ){
-								                   $('#sampai').val(res[0].tgl_selesai);
-                                   },
-                                   error: function( jqXhr, textStatus, errorThrown ){
-                                       alert('error');
-                                   }
-                               });
+      url: BASE_URL+'pegawai/tglcuti/'+jml+'/'+tt+'/?id_user='+id_user,
+       headers: {
+           'Authorization': localStorage.getItem("Token"),
+           'X_CSRF_TOKEN':'donimaulana',
+           'Content-Type':'application/json'
+       },
+       dataType: 'json',
+       type: 'get',
+       contentType: 'application/json', 
+       processData: false,
+       success: function( res, textStatus, jQxhr ){
+       $('#sampai').val(res[0].tgl_selesai);
+       },
+       error: function( jqXhr, textStatus, errorThrown ){
+           alert('error');
+       }
+   });
  }
 
  function hitungTanggalB(tgl){
     var tt = document.getElementById('jumlahCuti').value;
-
+    var id_user = $('#id_user').val();
   $.ajax({
-                                  url: BASE_URL+'pegawai/tglcuti/'+tt+'/'+tgl,
-                                   headers: {
-                                       'Authorization': localStorage.getItem("Token"),
-                                       'X_CSRF_TOKEN':'donimaulana',
-                                       'Content-Type':'application/json'
-                                   },
-                                   dataType: 'json',
-                                   type: 'get',
-                                   contentType: 'application/json', 
-                                   processData: false,
-                                   success: function( res, textStatus, jQxhr ){
-                                   console.log(res.pesan_eror);
-                                    if (res.pesan_eror != "") {
-                                      onMessage(res.pesan_eror);
-                                      document.getElementById("tgl_cuti").value = "";
-                                    } else {
-                                      $('#sampai').val(res[0].tgl_selesai);
-                                    }
-									                 
-                                   },
-                                   error: function( jqXhr, textStatus, errorThrown ){
-                                       alert('error');
-                                   }
-                               });
-     
+      url: BASE_URL+'pegawai/tglcuti/'+tt+'/'+tgl+'/?id_user='+id_user,
+       headers: {
+           'Authorization': localStorage.getItem("Token"),
+           'X_CSRF_TOKEN':'donimaulana',
+           'Content-Type':'application/json'
+       },
+       dataType: 'json',
+       type: 'get',
+       contentType: 'application/json', 
+       processData: false,
+       success: function( res, textStatus, jQxhr ){
+       console.log(res.pesan_eror);
+        if (res.pesan_eror != "") {
+          onMessage(res.pesan_eror);
+          document.getElementById("tgl_cuti").value = "";
+        } else {
+          $('#sampai').val(res[0].tgl_selesai);
+        }
+       
+       },
+       error: function( jqXhr, textStatus, errorThrown ){
+           alert('error');
+       }
+   });
+
  }
 
  function incrementDate(dateInput,increment) {
@@ -292,9 +300,12 @@ function hitungTanggal(jml){
        data: data,
        success: function(data, textStatus, jQxhr) {
            if(data.hasil ==='success'){
+            getOptions("jenis_cuti",BASE_URL+"master/jenis_cuti");
+            $('#jumlahCuti').append('<option value=""></option>');
+            $('#jumlahCuti').trigger("chosen:updated");
             document.getElementById("jenis_cuti").value = "";
             document.getElementById("jumlahCuti").value = "";
-             $('#jumlahCuti').val('');
+            $('#jumlahCuti').val('');
             $('#tgl_cuti').val('');
             $('#jenis_cuti').val('');
             $('#sampai').val('');
@@ -318,23 +329,23 @@ function hitungTanggal(jml){
 
     function prosesCuti(idcuti){
         $.ajax({
-                                   url: BASE_URL+'pegawai/beristratuscuti/?id='+idcuti+'&status=0',
-                                   headers: {
-                                       'Authorization': localStorage.getItem("Token"),
-                                       'X_CSRF_TOKEN':'donimaulana',
-                                       'Content-Type':'application/json'
-                                   },
-                                   dataType: 'json',
-                                   type: 'get',
-                                   contentType: 'application/json', 
-                                   processData: false,
-                                   success: function( res, textStatus, jQxhr ){
-                                    listcuti();
-                                        
-                                       
-                                   
+             url: BASE_URL+'pegawai/beristratuscuti/?id='+idcuti+'&status=0',
+             headers: {
+                 'Authorization': localStorage.getItem("Token"),
+                 'X_CSRF_TOKEN':'donimaulana',
+                 'Content-Type':'application/json'
+             },
+             dataType: 'json',
+             type: 'get',
+             contentType: 'application/json', 
+             processData: false,
+             success: function( res, textStatus, jQxhr ){
+              listcuti();
+                  
+                 
+             
 
-                                   }
+             }
     });
     }
 </script>

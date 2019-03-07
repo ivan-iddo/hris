@@ -23,6 +23,12 @@ function simpanKeluarga1(action) {
 	var data = formJson('form-keluarga'); //$("#form-upload").serializeArray();
 	var obj = JSON.parse(data);
 	obj['id_user'] = id_user;
+
+  var form = $("#form-keluarga");
+  var data = new FormData(form[0]);
+  for (var value of data.values()) {
+   console.log(value); 
+  } 
   
 	$.ajax({
 		url: BASE_URL + gotourl,
@@ -66,65 +72,8 @@ function simpanKeluarga1(action) {
 		}
 	});	
 }
+*/
 
-function simpanKeluarga(action) {
-  var id_keluarga = $('#id_keluarga').val();
-  var id_user = $('#id_user').val();
-    var gotourl = 'pegawais/keluarga/savekeluarga';
-    if (action === 'edit') {
-        gotourl = 'pegawais/keluarga/editkeluarga/' + id_keluarga;
-    }
-  var form = $("#form-keluarga");
-  var data = new FormData(form[0]);
-  for (var value of data.values()) {
-   console.log(value); 
-  } 
-  $.ajax({
-    url: BASE_URL + gotourl,
-    type: "POST",
-    // headers: {
-    //   'Authorization': localStorage.getItem("Token"),
-    //   'X_CSRF_TOKEN': 'donimaulana',
-    //   'Content-Type': 'application/json'
-    // },
-    data: data,
-    contentType: false,
-    cache: false,
-    processData: false,
-    // dataType: 'JSON',
-    async:false,
-    success: function(data, textStatus, jQxhr) {
-      hasil = data.hasil;
-      message = data.message;
-      if (hasil == "success") {
-        $.niftyNoty({
-          type: 'success',
-          title: 'Success',
-          message: message,
-          container: 'floating',
-          timer: 5000
-        });
-        $("#form-keluarga").val(data.id);
-         loadKeluarga();
-        // $('.modal').modal('hide');
-      } else {
-        return false;
-      }
-    },
-    error: function(jqXhr, textStatus, errorThrown) {
-      hasil = jqXhr.hasil;
-      message = jqXhr.message;
-      $.niftyNoty({
-        type: 'danger',
-        title: 'Warning!',
-        message: message,
-        container: 'floating',
-        timer: 5000
-      });
-    }
-  }); 
-}
-hapus sampai sini*/
 function loadKeluarga() {
     var id_user = $('#id_user').val();
     $.ajax({
@@ -148,6 +97,7 @@ function loadKeluarga() {
 }
 
 function addKeluarga() {
+
     getOptions("txtKelamin", BASE_URL + "master/kelamin");
     getOptions("txtPendidikan", BASE_URL + "master/pendidikan");
     getOptions("txtPekerjaan", BASE_URL + "master/pekerjaan");
@@ -202,7 +152,8 @@ function editKeluarga(){
                                                             className: "btn-success",
                                                             callback: function() {
                                                                 
-                                                               simpanKeluarga('edit');
+                                                               // simpanKeluarga('edit');
+                                                               $('#form-keluarga').submit();
                                                                             return false;
                                                                         
                                                                         
@@ -246,6 +197,7 @@ function editKeluarga(){
                 $('#txtNik').val(data.nik);
                 $('#txtTglLahir').val(data.tgl_lahir);
                 $('#txtkarn').val(data.karn);
+                console.log(data.url);
 
 if(!empty(data.file)){
     var datafile='';
@@ -260,7 +212,7 @@ if(!empty(data.file)){
                datafile +='<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/data/'+data.file+'\')"><i class="fa fa-eye"></i></a>';
                datafile+='</td>';
                datafile+='</tr>';
-               $('#fileIjazah').html(datafile);
+               $('#inputfileupload').html(datafile);
 
 }
                

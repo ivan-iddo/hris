@@ -25,7 +25,7 @@
 	
 
 var columnKeluarga = [ 
-           {headerName: "NIK", field: "NIK", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "NIK", field: "nik", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Tempat Lahir", field: "tpt_lahir", width: 190, filterParams:{newRowsAction: 'keep'}}, 
            {headerName: "Tgl.Lahir", field: "tgl_lahir", width: 190, filterParams:{newRowsAction: 'keep'}},
