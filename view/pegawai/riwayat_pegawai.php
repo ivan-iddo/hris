@@ -343,6 +343,7 @@
        $('#f_user_password').val('');
              $('#f_user_username').val(res[0].username);
              $('#f_id_user').val(res[0].id_user);
+			 $('#acces').val(res[0].acces);
              
                                    $('#f_user_edit').val(res[0].username);
                                    $('#npwp').val(res[0].npwp);
@@ -388,7 +389,7 @@
 																	  getOptionsEdit("txtkelamin",BASE_URL+"master/kelamin",res[0].kelamin);
 																		getOptionsEdit("f_user_status_aktif",BASE_URL+"Appdata/getstatus",res[0].status);
 																		getOptionsEdit("txtagama",BASE_URL+"master/agama",res[0].agama);
-																		getOptionsEdit("txtpendidikan",BASE_URL+"master/getmaster?id=29",res[0].pendidikan);
+																		getOptionsEdit("txtpendidikan",BASE_URL+"master/getpen?id=29",res[0].pendidikan);
 																		getOptionsEdit("txtprov",BASE_URL+"master/provinsi",res[0].prov);
 																		getOptionsEdit("txtprovktp",BASE_URL+"master/provinsi",res[0].prov_ktp);
                                       getOptionsEdit("txtinputstatus",BASE_URL+"master/status_pegawai_pns",res[0].status_pegawai);
@@ -512,6 +513,7 @@
                        status_aktif        = $("#f_user_status_aktif").get(0).value; 
                        f_user_edit     = $("#f_user_edit").get(0).value;
                        user_password       = $("#f_user_password").get(0).value;
+                       acces       = $("#acces").get(0).value;
                        f_id_edit = $("#f_id_edit").get(0).value;
 											 txtjabatan = $("#txtjabatan").val();
 											 

@@ -773,6 +773,39 @@ public function agama_get(){
 		
 		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
+	
+	public function getpen_get(){
+		$headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+				$id = $this->input->get('id');
+				if(!empty($id)){
+					 $this->db->where('dm_term.child',$this->input->get('id'));
+				}
+				  
+				  $this->db->select('dm_term.*,dm_taxonomy.nama as nama_grup');
+				  $this->db->order_by('id','ASC');
+				  $this->db->where('dm_term.tampilkan','1');
+				  $this->db->join('dm_taxonomy',' dm_taxonomy.id = dm_term.child');
+				  $res = $this->db->get('dm_term')->result();
+				
+			if(!empty($res)){
+				 foreach($res as $d){
+					$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id,);
+				  }
+			}else{
+			$arr['result'] ='empty';
+		  }
+		  $this->set_response($arr, REST_Controller::HTTP_OK);
+			
+                return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
 
 	public function kegiatanpokok_get(){
 		$headers = $this->input->request_headers();

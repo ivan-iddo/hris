@@ -91,7 +91,7 @@
   var url_api=BASE_URL+'masterp/status_pegawai/';
 
 
-  var columnDefs_m_status_pegawai =  [{headerName: "id", field: "id", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "nama", field: "nama", width: 190, filterParams:{newRowsAction: "keep"}},];
+  var columnDefs_m_status_pegawai =  [{headerName: "Id", field: "id", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Update", field: "tgl_update", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Updateby", field: "no_peg_update", width: 190, filterParams:{newRowsAction: "keep"}},];
    
    
 

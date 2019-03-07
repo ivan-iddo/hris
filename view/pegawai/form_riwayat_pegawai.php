@@ -84,11 +84,21 @@
                                                          style="width: 220px" class="form-control"/><span
                                         class="text-xs text-danger">*Minimum 6 character</span></div>
                         </div>
+						<div class="form-group"><label class="col-sm-3 control-label"
+                                                       for="demo-hor-inputemail">Level Acces</label>
+                            <div class="col-sm-5"><select name="acces" id="acces"
+                                                          style="width: 150px" class="form-control">
+														  <option value="">Please Select</option>
+														  <option value="Kepala">Kepala</option>
+														  <option value="Staff">Staff</option>
+														  </select></div>
+                        </div>
                         <div class="form-group"><label class="col-sm-3 control-label"
                                                        for="demo-hor-inputemail">Aktif</label>
                             <div class="col-sm-5"><select name="f_user_status_aktif" id="f_user_status_aktif"
                                                           style="width: 150px" class="form-control"/></div>
                         </div>
+						
                     </div>
                 </div>
                 <div id="demo-tabs-box-1" class="tab-pane">
@@ -619,7 +629,7 @@
                 getOptions("txtkelamin", BASE_URL + "master/kelamin");
                 getOptions("f_user_status_aktif", BASE_URL + "Appdata/getstatus");
                 getOptions("txtagama", BASE_URL + "master/agama");
-                getOptions("txtpendidikan", BASE_URL + "master/getmaster?id=29");
+                getOptions("txtpendidikan", BASE_URL + "master/getpen?id=29");
                 getOptions("subjabasn", BASE_URL + "master/getmaster?id=40");
                 getOptions("txtprov", BASE_URL + "master/provinsi");
             }

@@ -91,7 +91,7 @@
   var url_api=BASE_URL+'masterp/profesi/';
 
 
-  var columnDefs_m_kode_profesi =  [{headerName: "Id", field: "id", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Kode Profesi", field: "kd_profesi", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Profesi", field: "ds_profesi", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Group Profesi", field: "grup", width: 190, filterParams:{newRowsAction: "keep"}},];
+  var columnDefs_m_kode_profesi =  [{headerName: "Id", field: "id", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Kode Profesi", field: "kd_profesi", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Profesi", field: "ds_profesi", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Group Profesi", field: "grup", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Update", field: "tgl_update", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Updateby", field: "no_peg_update", width: 190, filterParams:{newRowsAction: "keep"}},];
    
    
 

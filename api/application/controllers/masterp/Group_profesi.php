@@ -92,7 +92,7 @@ class Group_profesi extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 			
-			$id_user=$decodedToken->data->_pnc_id_grup;
+			$id_user=$decodedToken->data->id;
 			
 				if(!empty($this->input->post('id'))){
 					//edit

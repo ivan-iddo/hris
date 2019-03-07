@@ -100,15 +100,15 @@
            function loaddata(jml){
             var search = 0;
 			var group = localStorage.getItem("group");
-			var url = BASE_URL + 'users/list/' + search + '/' + jml;
+			var url = BASE_URL + 'kpi/mpenilaian/list_us/' + search + '/' + jml;
              
             if($('#searchPegawai').val() !==''){
               search = $('#searchPegawai').val();
-			  url = BASE_URL + 'users/list/' + search + '/' + jml ;
+			  url = BASE_URL + 'kpi/mpenilaian/list_us/' + search + '/' + jml ;
             }
 			
 			if ((group !== '1') && (group !== '6')) {
-            url = BASE_URL + 'users/list/' + search + '/' + jml + "/" + group;
+            url = BASE_URL + 'kpi/mpenilaian/list_us/' + search + '/' + jml + "/" + group;
 			}
            $.ajax({
                                    url: url,

@@ -33,7 +33,15 @@ class Abk extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
 
             if ($decodedToken != false) {
-
+			
+				$id_user = $decodedToken->data->id;
+				$this->db->select('riwayat_kedinasan.direktorat,riwayat_kedinasan.bagian,riwayat_kedinasan.sub_bagian');
+				$this->db->where('id_user',$id_user);
+				$uk = $this->db->get('riwayat_kedinasan')->row();
+				$dir = $uk->direktorat;
+				$bagian = $uk->bagian;
+				$sub_bag = $uk->sub_bagian;
+				
                 $user_froup = $decodedToken->data->_pnc_id_grup;
                 //manual setting:
                 $kaur = 5;
@@ -202,14 +210,27 @@ class Abk extends REST_Controller
                         $root_item_id = $g;
                     }
 
-                    $idgroups = $this->m->getdatachild($g);
                     $this->db->select('count(*) as jml');
-                    $this->db->where_in('sys_user.id_grup', $idgroups);
-                    $this->db->where('sys_user.id_shift', '50');
-                    $this->db->join('uk_master', 'uk_master.id = sys_user.id_uk');
-                    $this->db->join('sys_user_profile', 'sys_user_profile.id_user = sys_user.id_user');
-                    $this->db->where('sys_user_profile.pendidikan_akhir >', '0');
-                    $respeg = $this->db->get('sys_user')->row();
+                    $this->db->where_in('sys_user.id_shift', '50');
+					if ($g == 1) {
+                    $root_item_id = 27;
+					$idgroups = $this->m->getdatachild($g);
+					$this->db->where_in('sys_user.id_grup', $idgroups);
+                    }
+					$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+					$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
+					$this->db->join('sys_user_profile', 'sys_user_profile.id_user = sys_user.id_user');
+                    $this->db->where('sys_user_profile.pendidikan_akhir !=', '0');
+                    if($sub_bag==0){
+					$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+					if($bagian==0){
+					$this->db->where_in('riwayat_kedinasan.direktorat', $dir);
+					}
+					}else{
+					$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+					$this->db->where_in('riwayat_kedinasan.sub_bagian', $sub_bag);
+					}
+					$respeg = $this->db->get('sys_user')->row();
 
 
                     $arr['result'][] = array(
@@ -258,14 +279,21 @@ class Abk extends REST_Controller
 
             if ($decodedToken != false) {
 
-                $user_froup = $decodedToken->data->_pnc_id_grup;
+                $id_user = $decodedToken->data->id;
+				$this->db->select('riwayat_kedinasan.direktorat,riwayat_kedinasan.bagian,riwayat_kedinasan.sub_bagian');
+				$this->db->where('id_user',$id_user);
+				$uk = $this->db->get('riwayat_kedinasan')->row();
+				$dir = $uk->direktorat;
+				$bagian = $uk->bagian;
+				$sub_bag = $uk->sub_bagian;
 
+                $user_froup = $decodedToken->data->_pnc_id_grup;
                 //manual setting:
                 $kaur = 5;
                 $sta = 6;
                 $pa = 7;
                 $id_shift = 51;
-                $g = $user_froup = $decodedToken->data->_pnc_id_grup;
+                $g = $user_froup;
                 $id_skk = 53;
                 $id_ski = 52;
 
@@ -413,19 +441,28 @@ class Abk extends REST_Controller
                     );
 
                     $this->load->model('System_auth_model', 'm');
-                    if ($g == 1) {
-                        $root_item_id = 27;
-                    } else {
-                        $root_item_id = $g;
-                    }
-                    $idgroups = $this->m->getdatachild($g);
                     $this->db->select('count(*) as jml');
-                    $this->db->where_in('sys_user.id_grup', $idgroups);
                     $this->db->where('sys_user.id_shift', '51');
-                    $this->db->join('uk_master', 'uk_master.id = sys_user.id_uk');
-                    $this->db->join('sys_user_profile', 'sys_user_profile.id_user = sys_user.id_user');
-                    $this->db->where('sys_user_profile.pendidikan_akhir >', '0');
-                    $respeg = $this->db->get('sys_user')->row();
+					if ($g == 1) {
+                    $root_item_id = 27;
+					$idgroups = $this->m->getdatachild($g);
+					$this->db->where_in('sys_user.id_grup', $idgroups);
+                    }
+                    $this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+					$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
+					$this->db->join('sys_user_profile', 'sys_user_profile.id_user = sys_user.id_user');
+                    $this->db->where('sys_user_profile.pendidikan_akhir !=', '0');
+                    if($sub_bag==0){
+					$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+					if($bagian==0){
+					$this->db->where_in('riwayat_kedinasan.direktorat', $dir);
+					}
+					}else{
+					$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+					$this->db->where_in('riwayat_kedinasan.sub_bagian', $sub_bag);
+					}
+					$respeg = $this->db->get('sys_user')->row();
+
 
 
                     $arr['result'][] = array(
@@ -708,13 +745,14 @@ class Abk extends REST_Controller
         $this->load->model('System_auth_model', 'm');
         $headers = $this->input->request_headers();
 
-
+  
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
 
             if ($decodedToken != false) {
 
                 $user_froup = $decodedToken->data->_pnc_id_grup;
+				$id_user = $decodedToken->data->id;
                 // print_r($user_froup);die();
                 if (($user_froup == '1') OR ($user_froup == '6')) {
                     // $this->db->where('sys_user.id_grup',$this->input->get('uk'));
@@ -728,10 +766,15 @@ class Abk extends REST_Controller
                     $idgroups = $this->m->getdatachild($uk);
                     
                 } else {
-                    $idgroups = $this->m->getdatachild($user_froup);
 
                     //  $this->db->where('sys_user.id_grup',$user_froup);
                 }
+				$this->db->select('riwayat_kedinasan.direktorat,riwayat_kedinasan.bagian,riwayat_kedinasan.sub_bagian');
+				$this->db->where('id_user',$id_user);
+				$uk = $this->db->get('riwayat_kedinasan')->row();
+				$dir = $uk->direktorat;
+				$bagian = $uk->bagian;
+				$sub_bag = $uk->sub_bagian;
                 // print_r($idgroups);die();
                 $this->db->select('count(*) as jml,sys_grup_user.id_grup,sys_grup_user.grup as namgroup,m_index_jabatan_asn_detail.ds_jabatan as grup,sys_user_profile.pendidikan_akhir as nama,m_index_jabatan_asn_detail.migrasi_jabatan_detail_id as idjenis');
                 if (($user_froup == '1') OR ($user_froup == '6')) {
@@ -748,7 +791,15 @@ class Abk extends REST_Controller
                 $this->db->join('sys_user_profile', 'sys_user.id_user = sys_user_profile.id_user', 'LEFT');
 				$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 				$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
-                $this->db->where_in('sys_user.id_grup', $idgroups);
+				if($sub_bag==0){
+				$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+				if($bagian==0){
+				$this->db->where_in('riwayat_kedinasan.direktorat', $dir);
+				}
+				}else{
+				$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+				$this->db->where_in('riwayat_kedinasan.sub_bagian', $sub_bag);
+				}
                 $this->db->group_by('sys_grup_user.id_grup,sys_grup_user.grup,m_index_jabatan_asn_detail.ds_jabatan,sys_user_profile.pendidikan_akhir,m_index_jabatan_asn_detail.migrasi_jabatan_detail_id');
                 $res = $this->db->get('sys_user')->result();
                 // print_r($res);die();

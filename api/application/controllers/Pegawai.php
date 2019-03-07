@@ -68,7 +68,8 @@ class Pegawai extends REST_Controller
                 $f_user_name = ($this->input->post('f_user_name'))?$this->input->post('f_user_name'):null;
                 $f_user_email = ($this->input->post('f_user_email'))?$this->input->post('f_user_email'):null;
                 $f_user_password = ($this->input->post('f_user_password'))?$this->input->post('f_user_password'):null;
-                $f_user_status_aktif = ($this->input->post('f_user_status_aktif'))?$this->input->post('f_user_status_aktif'):null;
+                $acces = ($this->input->post('acces'))?$this->input->post('acces'):null;
+				$f_user_status_aktif = ($this->input->post('f_user_status_aktif'))?$this->input->post('f_user_status_aktif'):null;
                 $f_user_username = ($this->input->post('f_user_username'))?$this->input->post('f_user_username'):null;
                 $inputphone = ($this->input->post('inputphone'))?$this->input->post('inputphone'):null;
                 $inputphone2 = ($this->input->post('inputphone2'))?$this->input->post('inputphone2'):null;
@@ -149,6 +150,7 @@ class Pegawai extends REST_Controller
                         "username" => $f_user_username
                     , "name" => $f_user_name
                     , "email" => $f_user_email
+					, "acces" => $acces
                     , "id_aplikasi" => '1'
                     , "id_grup" => $group
                     , "author" => $author
@@ -283,6 +285,7 @@ class Pegawai extends REST_Controller
                                 sys_user.foto,
                                 sys_user.id_shift,
                                 sys_user.kd_keluar,
+								sys_user.acces,
                                sys_user_profile.*,
                                riwayat_kedinasan.status_pegawai,
                                riwayat_kedinasan.status_pegawai_tetap,
@@ -334,6 +337,7 @@ class Pegawai extends REST_Controller
                             'nama' => $d->name,
                             'username' => $d->username,
                             'email' => $d->email,
+							'acces' => $d->acces,
                             'id_group' => $d->id_grup,
                             'status' => $d->status,
                             'kelamin' => $d->kelamin,
@@ -437,6 +441,7 @@ class Pegawai extends REST_Controller
                 $f_user_name = ($this->input->post('f_user_name'))?$this->input->post('f_user_name'):null;
                 $f_user_email = ($this->input->post('f_user_email'))?$this->input->post('f_user_email'):null;
                 $f_user_password = ($this->input->post('f_user_password'))?$this->input->post('f_user_password'):null;
+                $acces = ($this->input->post('acces'))?$this->input->post('acces'):null;
                 $f_user_status_aktif = ($this->input->post('f_user_status_aktif'))?$this->input->post('f_user_status_aktif'):null;
                 $f_user_username = ($this->input->post('f_user_username'))?$this->input->post('f_user_username'):null;
                 $inputphone = ($this->input->post('inputphone'))?$this->input->post('inputphone'):null;
@@ -525,6 +530,7 @@ class Pegawai extends REST_Controller
                         "username" => $f_user_username
                     , "name" => $f_user_name
                     , "email" => $f_user_email
+					, "acces" => $acces
                     , "id_aplikasi" => '1'
                     , "id_grup" => $group
                     , "author" => $author
@@ -1880,7 +1886,7 @@ class Pegawai extends REST_Controller
                 $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', $tahun);
                 $this->db->where('tampilkan', '1');
                 $resCekSkrg = $this->db->get('his_cuti')->row();
-
+				
                 $this->db->where('abid', $kd_jenis_cuti);
                 $this->db->where('tampilkan', '1');
                 $this->db->where('tahun', $tahunskrg);
@@ -1896,7 +1902,7 @@ class Pegawai extends REST_Controller
                 $this->db->where('status != 108');
                 $this->db->where('tampilkan', '1');
                 $resCekLalu = $this->db->get('his_cuti')->row();
-
+				//print_r($resCekLalu);die();
                 $this->db->where('abid', $kd_jenis_cuti);
                 $this->db->where('tampilkan', '1');
                 $this->db->where('tahun', $tahunlalu);
@@ -1905,13 +1911,13 @@ class Pegawai extends REST_Controller
                 $cuti_kmrn = $resCekLalu->total_cuti;
                 $max_cuti_kmrn = $resMaxLalu->jumlah;
 
-                if ($cuti_kmrn > 18) {
-                        $jumcuti = 18;
+                if ($cuti_kmrn > 12) {
+                        $jumcuti = 12;
                 } else {
                         $jumcuti = $cuti_kmrn;
                 }
 
-                $cutithnlalu = 18 - $jumcuti;
+                $cutithnlalu = $max_cuti_kmrn - $jumcuti;
                 $jumlahtot = $max_cuti_skrg + $cutithnlalu;
 
                 if ($jumlahtot > 18) {
@@ -1930,9 +1936,9 @@ class Pegawai extends REST_Controller
                     }
                 }else{
                     if(!empty($cuti_skrg)){
-                        $cc = 18 - $cuti_skrg;
+                        $cc = $max_cuti_skrg - $cuti_skrg;
                     }else{
-                        $cc = 18;
+                        $cc = $max_cuti_skrg;
                     }
                 }
 
@@ -2446,16 +2452,35 @@ class Pegawai extends REST_Controller
             if ($decodedToken != false) {
 				$user_froup = $decodedToken->data->_pnc_id_grup;
 				
-                $id_user = $this->input->get('id_user');
+				$id_user = $decodedToken->data->id;
+				$this->db->select('riwayat_kedinasan.direktorat,riwayat_kedinasan.bagian,riwayat_kedinasan.sub_bagian');
+				$this->db->where('id_user',$id_user);
+				$uk = $this->db->get('riwayat_kedinasan')->row();
+				$dir = $uk->direktorat;
+				$bagian = $uk->bagian;
+				$sub_bag = $uk->sub_bagian;
+                //$id_user = $this->input->get('id_user');
                 $this->db->select('m_jenis_cuti.nama as namcut,his_cuti.*,dm_term.nama as statuspros,sys_user.name as namapegawai');
                 $this->db->join('m_jenis_cuti', 'm_jenis_cuti.id = his_cuti.jenis_cuti');
                 $this->db->join('dm_term', 'dm_term.id = his_cuti.status');
                 $this->db->join('sys_user', 'sys_user.id_user = his_cuti.id_user');
                 $this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+				$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
 				$this->db->where('his_cuti.tampilkan', '1');
                 $this->db->where('his_cuti.status', '102');
-				if ($user_froup!=1) {
-				$this->db->where("riwayat_kedinasan.bagian",$user_froup);  
+				//if ($user_froup!=1) {
+				//$this->db->where("riwayat_kedinasan.bagian",$user_froup);  
+				//}
+				$this->db->where('sys_user.id_user !=', $id_user);
+				if($sub_bag==0){
+				$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+				if($bagian==0){
+				$this->db->where_in('riwayat_kedinasan.direktorat', $dir);
+				$this->db->like("m_index_jabatan_asn_detail.ds_jabatan",'Kepala Bagian');
+				}
+				}else{
+				$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+				$this->db->where_in('riwayat_kedinasan.sub_bagian', $sub_bag);
 				}
 				
 				if (empty($this->input->get('tahun'))) {

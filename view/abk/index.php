@@ -64,7 +64,7 @@
 						</div>                    
             <div class="ag-theme-balham" id="Gridform1" style="height: 400px;width:100%;">
         </div>
-        </div>
+		</div>
   
         <div class="tab-pane fade " id="demo-lft-tab-2" >
           <div id="page-sp"></div>

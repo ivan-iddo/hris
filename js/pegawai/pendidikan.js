@@ -101,7 +101,7 @@ obj['id_user'] = id_user;
            function addPendidikan(){
                getOptions("txtStatusLulus",BASE_URL+"master/statuslulus");
 			   getOptions("txtJakreditasi",BASE_URL+"master/akreditas");
-               getOptions("txtJPend",BASE_URL+"master/getmaster?id=29");
+               getOptions("txtJPend",BASE_URL+"master/getpen?id=29");
 			  
                
                
@@ -235,7 +235,7 @@ if(!empty(data.file)){
                
 
                                               
-               getOptionsEdit("txtJPend",BASE_URL+"master/getmaster?id=29",data.pen_code);
+               getOptionsEdit("txtJPend",BASE_URL+"master/getpen?id=29",data.pen_code);
 			   getOptionsEdit("txtJakreditasi",BASE_URL+"master/akreditas",data.pen_akr);
                getOptionsEdit("txtStatusLulus",BASE_URL+"master/statuslulus",data.pen_desc);
                

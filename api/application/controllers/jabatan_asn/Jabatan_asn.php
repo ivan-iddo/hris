@@ -88,7 +88,7 @@ class Jabatan_asn extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 				
-				$id_user=$decodedToken->data->_pnc_id_grup;
+				$id_user=$decodedToken->data->id;
 				
 				if(!empty($this->input->post('id_jabatan_asn'))){
 					//edit

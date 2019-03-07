@@ -23,7 +23,7 @@ $_POST = json_decode($rest_json, true);
  * 3. Change 'jwt_key' in application\config\jwt.php
  *
  */
-
+date_default_timezone_set('Asia/Jakarta');
 class Profesi extends REST_Controller
 {
     /**
@@ -66,7 +66,7 @@ class Profesi extends REST_Controller
 				  
 			if(!empty($res)){
 				 foreach($res as $dat){
-					$arr['result'][]= array('id'=> $dat->id,'grup'=> $dat->grup,'kd_profesi'=> $dat->kd_profesi,'ds_profesi'=> $dat->ds_profesi,'kd_grp_job_profesi'=> $dat->kd_grp_job_profesi,);
+					$arr['result'][]= array('id'=> $dat->id,'grup'=> $dat->grup,'kd_profesi'=> $dat->kd_profesi,'ds_profesi'=> $dat->ds_profesi,'kd_grp_job_profesi'=> $dat->kd_grp_job_profesi,'tgl_update'=> $dat->tgl_update,'no_peg_update'=> $dat->no_peg_update,);
 				  }
 				  $arr['total']=$total_rows;
 					$arr['paging'] = $pagination['limit'][1];
@@ -90,6 +90,7 @@ class Profesi extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
+				$id_user=$decodedToken->data->id;
 
 				if(!empty($this->input->post('id'))){
 					//edit
@@ -97,7 +98,9 @@ class Profesi extends REST_Controller
 					$arr=array(
 					'kd_profesi'=> ($this->input->post('kd_profesi')?$this->input->post('kd_profesi'):NULL),
 					'ds_profesi'=> ($this->input->post('ds_profesi')?$this->input->post('ds_profesi'):NULL),
-					'kd_grp_job_profesi'=> ($this->input->post('kd_grp_job_profesi')?$this->input->post('kd_grp_job_profesi'):NULL),);//array('nama'=>$this->input->post('nama'));
+					'kd_grp_job_profesi'=> ($this->input->post('kd_grp_job_profesi')?$this->input->post('kd_grp_job_profesi'):NULL),
+					'tgl_update'=> date('Y-m-d H:i:s'),
+					'no_peg_update'=> $id_user,);//array('nama'=>$this->input->post('nama'));
 					$this->db->where('id',$id);
 					$this->db->update($this->table,$arr);
 				}else{
@@ -105,7 +108,9 @@ class Profesi extends REST_Controller
 					$arr=array(
 					'kd_profesi'=> ($this->input->post('kd_profesi')?$this->input->post('kd_profesi'):NULL),
 					'ds_profesi'=> ($this->input->post('ds_profesi')?$this->input->post('ds_profesi'):NULL),
-					'kd_grp_job_profesi'=> ($this->input->post('kd_grp_job_profesi')?$this->input->post('kd_grp_job_profesi'):NULL),);//array('kd_profesi'=>$this->input->post('nama'));
+					'kd_grp_job_profesi'=> ($this->input->post('kd_grp_job_profesi')?$this->input->post('kd_grp_job_profesi'):NULL),
+					'tgl_update'=> date('Y-m-d H:i:s'),
+					'no_peg_update'=> $id_user,);//array('kd_profesi'=>$this->input->post('nama'));
 					 
 					$this->db->insert($this->table,$arr);
 				}

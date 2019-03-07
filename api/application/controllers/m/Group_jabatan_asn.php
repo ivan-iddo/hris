@@ -87,7 +87,7 @@ class Group_jabatan_asn extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-				$id_user=$decodedToken->data->_pnc_id_grup;
+				$id_user=$decodedToken->data->id;
 	
 				if(!empty($this->input->post('id'))){
 					//edit

@@ -91,7 +91,8 @@
   var url_api=BASE_URL+'m/keahlian_asn/';
 
 
-  var columnDefs_m_keahlian_asn_detail =  [{headerName: "id", field: "id", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Keahlian", field: "nama", width: 290, filterParams:{newRowsAction: "keep"}},{headerName: "Jenis Keahlian", field: "keahlian", width: 190, filterParams:{newRowsAction: "keep"}}];
+  var columnDefs_m_keahlian_asn_detail =  [{headerName: "id", field: "id", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Keahlian", field: "nama", width: 290, filterParams:{newRowsAction: "keep"}},{headerName: "Jenis Keahlian", field: "keahlian", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Update", field: "tgl_update", width: 190, filterParams:{newRowsAction: "keep"}},{headerName: "Updateby", field: "no_peg_update", width: 190, filterParams:{newRowsAction: "keep"}},
+];
    
    
  
