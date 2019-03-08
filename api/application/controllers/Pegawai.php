@@ -1869,6 +1869,11 @@ class Pegawai extends REST_Controller
                 $resShift = $this->db->get('sys_user')->row();
                 $status_shift = $resShift->id_shift;
 
+                if (empty($status_shift)) {
+                    $arr['warning'] = 'Anda Belum Mengisi Status Shift!';
+                    return $this->set_response($arr, REST_Controller::HTTP_OK);
+                }
+
                 if ($kd_jenis_cuti == 'AB_CTNS' && $status_shift == '50') {
                     $arr['warning'] = 'Anda Tidak Dapat Mengajukan Cuti Untuk Nonshift!';
                     return $this->set_response($arr, REST_Controller::HTTP_OK);
