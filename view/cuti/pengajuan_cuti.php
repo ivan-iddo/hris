@@ -114,14 +114,14 @@ require_once('../../connectdb.php');
                                         <div class="form-group">
 					                        <label class="col-sm-3 control-label">Tanggal Mulai Cuti</label>
 					                        <div class="col-sm-9">
-                                             <input class="form-control" type="date" id="tgl_cuti" name="tgl_cuti" onChange="hitungTanggalB(this.value)" >
+                                             <input class="form-control datepickerbootstrap" type="text" id="tgl_cuti" name="tgl_cuti" onChange="hitungTanggalB(this.value)" >
 					                        </div>
 					                    </div>
                                        
                                         <div class="form-group">
 					                        <label class="col-sm-3 control-label">Tanggal Berakhir</label>
 					                        <div class="col-sm-9">
-                                            <input class="form-control" type="date" id="sampai" name="sampai" readonly>
+                                            <input class="form-control datepickerbootstrap" type="text" id="sampai" name="sampai" readonly>
 					                        </div>
 					                    </div>
 
@@ -148,6 +148,13 @@ require_once('../../connectdb.php');
 					    </div>
 					</div>
 <script>
+  $(document).ready(function(){
+    $('.datepickerbootstrap').datepicker({
+      format: 'dd/mm/yyyy',
+      autoclose: true
+    });     
+  })
+
 $('.judul-menu').html('Pengajuan Cuti');
 $('.select-chosen').chosen();
  $('.chosen-container').css({"width": "100%"});
@@ -210,8 +217,9 @@ $('.select-chosen').chosen();
 function hitungTanggal(jml){
     var tt = document.getElementById('tgl_cuti').value;
     var id_user = $('#id_user').val();
+    var newdate = tt.split("/").reverse().join("-");
 	$.ajax({
-      url: BASE_URL+'pegawai/tglcuti/'+jml+'/'+tt+'/?id_user='+id_user,
+      url: BASE_URL+'pegawai/tglcuti/'+jml+'/'+newdate+'/?id_user='+id_user,
        headers: {
            'Authorization': localStorage.getItem("Token"),
            'X_CSRF_TOKEN':'donimaulana',
@@ -222,7 +230,8 @@ function hitungTanggal(jml){
        contentType: 'application/json', 
        processData: false,
        success: function( res, textStatus, jQxhr ){
-       $('#sampai').val(res[0].tgl_selesai);
+          var newdates = res[0].tgl_selesai.split("-").reverse().join("/");
+          $('#sampai').val(newdates);
        },
        error: function( jqXhr, textStatus, errorThrown ){
            alert('error');
@@ -233,8 +242,9 @@ function hitungTanggal(jml){
  function hitungTanggalB(tgl){
     var tt = document.getElementById('jumlahCuti').value;
     var id_user = $('#id_user').val();
+    var newdate = tgl.split("/").reverse().join("-");
   $.ajax({
-      url: BASE_URL+'pegawai/tglcuti/'+tt+'/'+tgl+'/?id_user='+id_user,
+      url: BASE_URL+'pegawai/tglcuti/'+tt+'/'+newdate+'/?id_user='+id_user,
        headers: {
            'Authorization': localStorage.getItem("Token"),
            'X_CSRF_TOKEN':'donimaulana',
@@ -245,12 +255,14 @@ function hitungTanggal(jml){
        contentType: 'application/json', 
        processData: false,
        success: function( res, textStatus, jQxhr ){
-       console.log(res.pesan_eror);
+       console.log(res);
         if (res.pesan_eror != "") {
           onMessage(res.pesan_eror);
           document.getElementById("tgl_cuti").value = "";
-        } else {
-          $('#sampai').val(res[0].tgl_selesai);
+        } else if (res[0].tgl_selesai != ""){
+          var datatgl = res[0].tgl_selesai;
+          var newdates = datatgl.split("-").reverse().join("/");
+          $('#sampai').val(newdates);
         }
        
        },

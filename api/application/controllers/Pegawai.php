@@ -308,9 +308,9 @@ class Pegawai extends REST_Controller
                                 riwayat_kedinasan.peringkat,
                                 riwayat_kedinasan.no_index_dok,
                                 m_index_jabatan_asn_detail.ds_jabatan as nama_jabatan,
-                                his_kontrak.tglakhir,
-                                his_str.date_end as date_end_str,
-                                his_sip.date_end
+                                sub_kontrak.tglakhir,
+                                sub_str.date_end as date_end_str,
+                                sub_sip.date_end
                                ');
                 if ($id != ''){
                     $this->db->where('sys_user.id_user', $id);
@@ -318,17 +318,11 @@ class Pegawai extends REST_Controller
                 $this->db->join('sys_user_profile', 'sys_user_profile.id_user = sys_user.id_user', 'LEFT');
                 $this->db->join('riwayat_kedinasan', 'riwayat_kedinasan.id_user = sys_user.id_user', 'LEFT');
                 $this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
-				$this->db->join('his_kontrak', 'his_kontrak.id_user = sys_user.id_user', 'LEFT');
-                $this->db->join('his_str', 'his_str.id_user = sys_user.id_user', 'LEFT');
-                $this->db->join('his_sip', 'his_sip.id_user = sys_user.id_user', 'LEFT');
+				$this->db->join('(SELECT id_user, max(tglakhir) as tglakhir FROM his_kontrak WHERE statue = 1 GROUP BY id_user) AS sub_kontrak', 'sys_user.id_user = sub_kontrak.id_user', 'LEFT');
+                $this->db->join('(SELECT id_user, max(date_end) as date_end FROM his_str WHERE statue = 1 GROUP BY id_user) AS sub_str', 'sys_user.id_user = sub_str.id_user', 'LEFT');
+                $this->db->join('(SELECT id_user, max(date_end) as date_end FROM his_sip WHERE statue = 1 GROUP BY id_user) AS sub_sip', 'sys_user.id_user = sub_sip.id_user', 'LEFT');
                 
                 $this->db->where('riwayat_kedinasan.aktif', '1');
-                // $this->db->order_by('his_kontrak.tglktr','DESC');
-                // $this->db->limit('1');
-                // $this->db->order_by('his_str.date_end_str','DESC');
-                // $this->db->limit('1');
-                // $this->db->order_by('his_sip.date_end','DESC');
-                // $this->db->limit('1');
                 $res = $this->db->get('sys_user')->result();
                 if (!empty($res)) {
                     foreach ($res as $d) {
@@ -1713,6 +1707,8 @@ class Pegawai extends REST_Controller
                 } else {
                     $arr['hasil'] = 'error';
                     $arr['pesan_eror'] = '';
+                    $arr[] = array('tgl_selesai' => "",
+                        );
                 }
                 $this->set_response($arr, REST_Controller::HTTP_OK);
 

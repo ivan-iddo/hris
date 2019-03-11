@@ -31,6 +31,7 @@ class Str extends MY_Controller
 
     public function add()
     {
+        // print_r($_POST);die();
         $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';

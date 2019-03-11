@@ -59,10 +59,11 @@
                  <div class="btn-group">
               <button class="btn btn-mint btn-labeled fa fa-plus-square btn-sm" id=
             "demo-bootbox-bounce">Tambah Pegawai Baru</button> <button class=
-            "btn btn-mint btn-labeled fa fa-edit btn-sm" onclick=
+            "btn btn-warning btn-labeled fa fa-edit btn-sm" onclick=
             "proses_edit();">Edit Pegawai</button> <button class=
-            "btn btn-warning btn-labeled fa fa-close btn-sm" onclick=
+            "btn btn-danger btn-labeled fa fa-close btn-sm" onclick=
             "proses_delete();">Delete</button>
+            <button class="btn btn-default btn-labeled fa fa-file-excel-o btn-sm" onClick="print_pegawai();return false;">Download Excell</button>
 								 </div>
               </div>
             </div>
@@ -201,6 +202,24 @@
            }
            
            loaddata(0);
+
+           function print_pegawai(){
+              var today = new Date();
+              var dd = today.getDate();
+              var mm = today.getMonth() + 1; 
+              var yyyy = today.getFullYear();
+              var h = today.getHours();
+              var i = today.getMinutes();
+              var s = today.getSeconds();
+              var time = dd + '/' + mm + '/' + yyyy + '/' + h + '/' + i + '/' + s;
+              var params = { 
+                  fileName: 'List Pegawai '+time,
+                  sheetName: 'List Pegawai',
+                  allColumns: true
+              };
+
+              gridOptions.api.exportDataAsExcel(params);
+            }
 					 
 					 function bukaProfile(){
                          

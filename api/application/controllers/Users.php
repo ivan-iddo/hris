@@ -57,7 +57,7 @@ class Users extends REST_Controller
 		 if(!empty($this->uri->segment(3))){
 
 			// $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param); 
-			$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param2); 
+			$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip, ' ', sys_grup_user.grup) ilike",$param2); 
 			// $this->db->like("sys_user.name",$param); 
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 		 }
@@ -85,7 +85,7 @@ class Users extends REST_Controller
 		if(!empty($this->uri->segment(3))){
 			
 			 // $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param);
-			$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param2);
+			$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip, ' ', sys_grup_user.grup) ilike",$param2);
 			 // $this->db->like("sys_user.name",$param);  
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 			 
@@ -99,12 +99,7 @@ class Users extends REST_Controller
 		$this->db->where('sys_user.status','1');
 		$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
 		$this->db->order_by('sys_user.name','ACS');
-		// $this->db->order_by('his_kontrak.tglktr','DESC');
-  //       $this->db->limit('1');
-        // $this->db->order_by('his_str.date_end_str','DESC');
-        // $this->db->limit('1');
-        // $this->db->order_by('his_sip.date_end','DESC');
-        // $this->db->limit('1');
+
 		  $res = $this->db->get('sys_user')->result();
 		  foreach($res as $d){
 

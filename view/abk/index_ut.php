@@ -515,23 +515,23 @@ function downloadform4(){
                                 hasil=data.hasil;
                                
                                 
-                                                                                                            message=data.message; 
-                                                                                                               if(hasil=="success"){
-                                                                                                                  
-                                                                                                                        
-                                                                                                                           $.niftyNoty({
-                                                                                                                                           type: 'success',
-                                                                                                                                           title: 'Success',
-                                                                                                                                           message: message,
-                                                                                                                                           container: 'floating',
-                                                                                                                                           timer: 5000
-                                                                                                                                       });  
-                                                                                                                                       $('#thnfrm3').val(tahun);
-                                                                                                                                       listform3();   
-                                                                                                                     }else{
-                                                                                                                            alert(message);
-                                                                                                                          return false;	
-                                                                                                                     }
+                                message=data.message; 
+                                   if(hasil=="success"){
+                                      
+                                            
+                                               $.niftyNoty({
+                                                               type: 'success',
+                                                               title: 'Success',
+                                                               message: message,
+                                                               container: 'floating',
+                                                               timer: 5000
+                                                           });  
+                                                           $('#thnfrm3').val(tahun);
+                                                           listform3();   
+                                         }else{
+                                                alert(message);
+                                              return false;	
+                                         }
                             }
                             });
 	

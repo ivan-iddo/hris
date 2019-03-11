@@ -68,6 +68,7 @@
 <script> 
 // set ID user
 var id = $('#f_id_edit').val();
+console.log(id);
 $('#id_userfile').val(id);
 $("form").on("submit", function(e){
     e.preventDefault();
