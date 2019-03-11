@@ -1,17 +1,3 @@
- 
-	<div class="row ">
-	 
-		<div class="newtoolbar">
-		  <div class="table-toolbar-left" id="demo-custom-toolbar2">
-		    <div class="btn-group" style="padding-left:10px">
-          <button class="btn btn-mint btn-labeled fa fa-plus-square btn-sm" onClick="addJabatan();">Add</button>
-          <button class="btn btn-mint btn-labeled fa fa-edit btn-sm" onclick="editJabatan();">Edit</button>
-          <button class="btn btn-warning btn-labeled fa fa-close btn-sm" onclick="deletJabatan();">Delete</button>
-		    </div>
-		  </div>
-		</div>
-	 
-	</div>
     <div class="bootstrap-table">
             <div class="fixed-table-container" style="padding-bottom: 0px;">
               <div class="ag-theme-balham" id="gridJabatan" style="height: 200px;width:100%;"></div>

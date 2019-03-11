@@ -1,3 +1,4 @@
+<?php session_start();?>
 <style type="text/css">
      input[type="date"]:before {
         content: attr(placeholder) !important;
@@ -9,6 +10,7 @@
         content: "";
       }
 </style>
+<?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
 <form name="form-file-punishment" id="form-file-punishment" class="form-horizontal">
     <div class="panel-body pad-all">
         <div class="row"><input type="text" style="display:none" name="kategorifile" id="kategorifile"
@@ -60,6 +62,7 @@
         </div>
     </div>
     </div>
+	<?php }?>
     <div class="row"></div>
     <div class="row pad-all">
         <div class="table-responsive">

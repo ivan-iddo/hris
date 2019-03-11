@@ -212,11 +212,11 @@ class Abk extends REST_Controller
 
                     $this->db->select('count(*) as jml');
                     $this->db->where_in('sys_user.id_shift', '50');
-					if ($g == 1) {
-                    $root_item_id = 27;
-					$idgroups = $this->m->getdatachild($g);
-					$this->db->where_in('sys_user.id_grup', $idgroups);
-                    }
+					//if ($g == 1) {
+                    //$root_item_id = 27;
+					//$idgroups = $this->m->getdatachild($g);
+					//$this->db->where_in('sys_user.id_grup', $idgroups);
+                   // }
 					$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 					$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
 					$this->db->join('sys_user_profile', 'sys_user_profile.id_user = sys_user.id_user');
@@ -443,11 +443,11 @@ class Abk extends REST_Controller
                     $this->load->model('System_auth_model', 'm');
                     $this->db->select('count(*) as jml');
                     $this->db->where('sys_user.id_shift', '51');
-					if ($g == 1) {
-                    $root_item_id = 27;
-					$idgroups = $this->m->getdatachild($g);
-					$this->db->where_in('sys_user.id_grup', $idgroups);
-                    }
+					//if ($g == 1) {
+                    //$root_item_id = 27;
+					//$idgroups = $this->m->getdatachild($g);
+					//$this->db->where_in('sys_user.id_grup', $idgroups);
+                   // }
                     $this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 					$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
 					$this->db->join('sys_user_profile', 'sys_user_profile.id_user = sys_user.id_user');
