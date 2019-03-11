@@ -72,16 +72,33 @@ class Warning extends REST_Controller
                 $today = time();
                 $diff = $tanggal - $today ;
                 $sisa = floor($diff / (60 * 60 * 24));
-                if ($sisa <= 180 && $sisa > 0) {
+                $tanggal1 = new DateTime($tanggalKontrak);
+                $today1 = new DateTime('today');
+                $y = $today1->diff($tanggal1)->y;
+                $m = $today1->diff($tanggal1)->m;
+                $day = $today1->diff($tanggal1)->d;
+                
+                if ($sisa <= 30 && $sisa > 0) {
                     $dayKontrak = 'Sisa Kontrak tinggal '. $sisa . ' hari lagi';
                     $arr['result'][]=array(
-                                   'id'=>$d->id_user,
-                                   'nama'=>$d->name,
-                                   'nama_group'=>$d->grup,
-                                   'nip'=>$d->nip,
-                                   'tgl_kontrak' => $dayKontrak,
-                                   );
-                
+                                       'id'=>$d->id_user,
+                                       'nama'=>$d->name,
+                                       'nama_group'=>$d->grup,
+                                       'nip'=>$d->nip,
+                                       'tgl_kontrak' => $dayKontrak,
+                                       );
+                   
+                }
+                if ($sisa <= 180 && $sisa > 30) {
+                    $dayKontrak = 'Sisa Kontrak tinggal '. $m . ' bulan '. $day . ' hari lagi';
+                    $arr['result'][]=array(
+                                       'id'=>$d->id_user,
+                                       'nama'=>$d->name,
+                                       'nama_group'=>$d->grup,
+                                       'nip'=>$d->nip,
+                                       'tgl_kontrak' => $dayKontrak,
+                                       );
+                   
                 }
                 if ($sisa <= 0 && $sisa >= -14) {
                     $dayKontrak = 'Kontrak Telah Berakhir Tanggal '. $tanggalN;
@@ -150,15 +167,33 @@ class Warning extends REST_Controller
                 $today = time();
                 $diff = $tanggal - $today ;
                 $sisa = floor($diff / (60 * 60 * 24));
-                if ($sisa <= 180 && $sisa > 0) {
+                $tanggal1 = new DateTime($tanggalSTR);
+                $today1 = new DateTime('today');
+                $y = $today1->diff($tanggal1)->y;
+                $m = $today1->diff($tanggal1)->m;
+                $day = $today1->diff($tanggal1)->d;
+
+                if ($sisa <= 30 && $sisa > 0) {
                     $daySTR = 'Sisa STR tinggal '. $sisa . ' hari lagi';
-                    $arr['result'][]=array('id'=>$d->id_user,
-                                   'nama'=>$d->name,
-                                   'nama_group'=>$d->grup,
-                                   'nip'=>$d->nip,
-                                   'tgl_str' => $daySTR,
-                                   );
-                
+                    $arr['result'][]=array(
+                                       'id'=>$d->id_user,
+                                       'nama'=>$d->name,
+                                       'nama_group'=>$d->grup,
+                                       'nip'=>$d->nip,
+                                       'tgl_str' => $daySTR,
+                                       );
+                   
+                }
+                if ($sisa <= 180 && $sisa > 30) {
+                    $daySTR = 'Sisa STR tinggal '. $m . ' bulan '. $day . ' hari lagi';
+                    $arr['result'][]=array(
+                                       'id'=>$d->id_user,
+                                       'nama'=>$d->name,
+                                       'nama_group'=>$d->grup,
+                                       'nip'=>$d->nip,
+                                       'tgl_str' => $daySTR,
+                                       );
+                   
                 }
                 if ($sisa <= 0 && $sisa >= -14) {
                     $daySTR = 'STR Telah Berakhir Tanggal '. $tanggalN;
@@ -223,15 +258,33 @@ class Warning extends REST_Controller
                 $today = time();
                 $diff = $tanggal - $today ;
                 $sisa = floor($diff / (60 * 60 * 24));
-                if ($sisa <= 180 && $sisa > 0) {
-                    $daySIP = 'Sisa SIP tinggal '. $sisa . ' hari lagi';
-                    $arr['result'][]=array('id'=>$d->id_user,
-                                   'nama'=>$d->name,
-                                   'nama_group'=>$d->grup,
-                                   'nip'=>$d->nip,
-                                    'tgl_sip' => $daySIP,
-                                   );
+                $tanggal1 = new DateTime($tanggalSIP);
+                $today1 = new DateTime('today');
+                $y = $today1->diff($tanggal1)->y;
+                $m = $today1->diff($tanggal1)->m;
+                $day = $today1->diff($tanggal1)->d;
                 
+                if ($sisa <= 30 && $sisa > 0) {
+                    $daySIP = 'Sisa Masa Berlaku Pangkat tinggal '. $sisa . ' hari lagi';
+                    $arr['result'][]=array(
+                                       'id'=>$d->id_user,
+                                       'nama'=>$d->name,
+                                       'nama_group'=>$d->grup,
+                                       'nip'=>$d->nip,
+                                        'tgl_sip' => $daySIP,
+                                       );
+                   
+                }
+                if ($sisa <= 180 && $sisa > 30) {
+                    $daySIP = 'Sisa Masa Berlaku Pangkat tinggal '. $m . ' bulan '. $day . ' hari lagi';
+                    $arr['result'][]=array(
+                                       'id'=>$d->id_user,
+                                       'nama'=>$d->name,
+                                       'nama_group'=>$d->grup,
+                                       'nip'=>$d->nip,
+                                        'tgl_sip' => $daySIP,
+                                       );
+                   
                 }
                 if ($sisa <= 0 && $sisa >= -14) {
                     $daySIP = 'SIP Telah Berakhir Tanggal '. $tanggalN;

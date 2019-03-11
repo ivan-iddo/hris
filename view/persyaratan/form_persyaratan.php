@@ -74,7 +74,7 @@
 		</div> -->
 		  
 	   <div class="form-group">
-	     <label class="col-sm-4 control-label" for="tufoksi">Tufoksi</label>
+	     <label class="col-sm-4 control-label" for="tufoksi">Tupoksi</label>
 	      <div class="col-sm-8">
 	         <textarea placeholder="" class="form-control input-sm" id="tufoksi" name="tufoksi" type="text"></textarea>
 	     </div>

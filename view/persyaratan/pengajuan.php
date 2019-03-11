@@ -153,7 +153,7 @@
     {headerName: "Pendidikan Formal", field: "formal", width: 190, filterParams:{newRowsAction: "keep"}},
     {headerName: "Pendidikan Non Formal", field: "nonformal", width: 190, filterParams:{newRowsAction: "keep"}},
     {headerName: "Jabatan Sebelumnya", field: "jabatan_lama", width: 190, filterParams:{newRowsAction: "keep"}},
-    {headerName: "Tufoksi", field: "tufoksi", width: 190, filterParams:{newRowsAction: "keep"}},
+    {headerName: "Tupoksi", field: "tufoksi", width: 190, filterParams:{newRowsAction: "keep"}},
   ];
    
    

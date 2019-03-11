@@ -37,12 +37,12 @@
 	   <div class="form-group">
 			<label class="col-sm-4 control-label" for="txtjabatans">Jabatan Yang Telah Diemban</label>
 			<div class="col-sm-8">
-				<input class="form-control" type="text" id="txtjabatans" name="txtjabatans" style="border:none" readonly>
+				<textarea placeholder="" class="form-control input-sm" id="txtjabatans" name="txtjabatans" type="text" style="border:none" readonly></textarea>
 			</div>
 		</div>
 		  
 	   <div class="form-group">
-	     <label class="col-sm-4 control-label" for="tufoksi">Tufoksi</label>
+	     <label class="col-sm-4 control-label" for="tufoksi">Tupoksi</label>
 	      <div class="col-sm-8">
 	         <textarea placeholder="" class="form-control input-sm" id="tufoksi" name="tufoksi" type="text" style="border:none" readonly></textarea>
 	     </div>
@@ -98,12 +98,12 @@
 	   <div class="form-group">
 			<label class="col-sm-4 control-label" for="txtjabatanspengaju">Jabatan Yang Telah Diemban</label>
 			<div class="col-sm-8">
-				<input class="form-control" type="text" id="txtjabatanspengaju" name="txtjabatanspengaju" style="border:none" readonly>
+				<textarea placeholder="" class="form-control input-sm" id="txtjabatanspengaju" name="txtjabatanspengaju" type="text" style="border:none" readonly></textarea>
 			</div>
 		</div>
 		  
 	   <div class="form-group">
-	     <label class="col-sm-4 control-label" for="tufoksipengaju">Tufoksi</label>
+	     <label class="col-sm-4 control-label" for="tufoksipengaju">Tupoksi</label>
 	      <div class="col-sm-8">
 	         <textarea placeholder="" class="form-control input-sm" id="tufoksipengaju" name="tufoksipengaju" type="text" style="border:none" readonly></textarea>
 	     </div>
@@ -153,7 +153,7 @@ function getdata_pengajuan(result){
    $('#kompetensipengaju').val(result.result[0].kompetensi);
    $('#formalpengaju').val(result.result[0].formal);
    $('#nonformalpengaju').val(result.result[0].nonformal);
-   $('#txtjabatanspengaju').val(result.result[0].jabatan_lama);
+   $('#txtjabatanspengaju').val(result.result[0].jabatan);
    $('#tufoksipengaju').val(result.result[0].tufoksi);
    $('#status').val(result.result[0].status);
    $('#keterangan').val(result.result[0].keterangan);

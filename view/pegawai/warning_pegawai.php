@@ -62,7 +62,6 @@
                               </div>
                           </div>
                         </div> 
-                        <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
                         <div class="admininput">
                           <div class="row pad-top"> 
                             <div class="form-group">
@@ -74,7 +73,6 @@
                             </div>
                           </div>  
                         </div>
-                        <?php }?> 
   
                         <div class="row "> 
                           <div class="form-group">
@@ -146,7 +144,6 @@
                               </div>
                           </div>
                         </div> 
-                        <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
                         <div class="admininput">
                           <div class="row pad-top"> 
                             <div class="form-group">
@@ -158,7 +155,6 @@
                             </div>
                           </div>  
                         </div>
-                        <?php }?> 
   
                         <div class="row "> 
                           <div class="form-group">
@@ -230,7 +226,6 @@
                               </div>
                           </div>
                         </div> 
-                        <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
                         <div class="admininput">
                           <div class="row pad-top"> 
                             <div class="form-group">
@@ -242,7 +237,6 @@
                             </div>
                           </div>  
                         </div>
-                        <?php }?> 
   
                         <div class="row "> 
                           <div class="form-group">
@@ -285,21 +279,18 @@
     </div>
   </div>
 </div>
-<?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
- <script>
-    $('.select-chosen').chosen();
-     $('.chosen-container').css({"width": "100%"});
-    getOptions("txtdirektoratstr",BASE_URL+"master/direktoratSub");
-    getOptions("txtdirektoratkontrak",BASE_URL+"master/direktoratSub");
-    getOptions("txtdirektoratsip",BASE_URL+"master/direktoratSub");
- </script>
- <?php } ?> 
 <script type="text/javascript" charset="utf-8">
+
    $(document).ready(function(){
     $('.datepickerbootstrap').datepicker({
       format: 'dd/mm/yyyy',
       autoclose: true
     });     
+    $('.select-chosen').chosen();
+     $('.chosen-container').css({"width": "100%"});
+    getOptions("txtdirektoratstr",BASE_URL+"master/direktoratSub");
+    getOptions("txtdirektoratkontrak",BASE_URL+"master/direktoratSub");
+    getOptions("txtdirektoratsip",BASE_URL+"master/direktoratSub");
   })
 
   // specify the columns
