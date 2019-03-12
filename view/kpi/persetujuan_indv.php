@@ -1,4 +1,3 @@
-<?php session_start();?>
 <div class="row">
 	
     <div class="tab-base mar-all">
@@ -54,7 +53,6 @@
                                            
                                     </div> 
                                     </div>
-                                    <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
                                     <div class="admininput">
                                     <div class="row pad-top"> 
                                     <div class="form-group">
@@ -72,7 +70,6 @@
                                     
                                                      </div>
                                     
-                                    <?php }?>
                                     <div class="row "> 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="inputstatus"></label>
@@ -322,11 +319,7 @@
            
             }
   }
-  </script>
-<?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
- <script>
     $('.select-chosen').chosen();
      $('.chosen-container').css({"width": "100%"});
  getOptions("txtdirektorat",BASE_URL+"master/direktoratSub");
  </script>
- <?php } ?> 

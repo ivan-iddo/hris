@@ -1,37 +1,14 @@
-<div class="row">
-	
-    <div class="tab-base mar-all">
-      <!--Nav Tabs-->
-  
-      <ul class="nav nav-tabs">
-        <li class="active">
-                  <a href="#demo-lft-tab-1" data-toggle="tab">
-                          <span class="block text-center">
-                              <i class="fa fa-check-square-o fa-2x text-danger"></i> 
-                          </span>
-                          Persetujuan KPI Unit Kerja
-                      </a>
-              </li>
-  
-      
-   
-  
-        
-      </ul>
-  
-      <div class="tab-content">
-        <div class="tab-pane fade active in" id="demo-lft-tab-1">
-         
+<?php session_start();?>
             <div class="row"> 
                     <div class="col-md-6"> 
                             <div class="box box-primary"> 
                                 <div class="box-body">
                                
-                                <div class="row pad-top">
-									<div class="form-group">
+                                <div class="row pad-top"> 
+								 <div class="form-group">
                                         <label class="col-sm-2 control-label" for="inputstatus">Bulan</label>
                                             <div class="col-sm-3">
-                                                    <select class="form-control select2" id="bulan" name="bulan" style="width: 100%;">
+                                                    <select class="form-control select2" id="bulanpim" name="bulanpim" style="width: 100%;">
                                                     <option value="">Bulan</option>
                                                       <?php for($i=1;$i<=12;$i++){?>
                                                         <option value="<?php echo $i?>"><?php echo $i?></option>
@@ -39,11 +16,11 @@
                                                     </select> 
                                             </div>
                                            
-                                    </div> 								
+                                    </div> 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="inputstatus">Tahun</label>
                                             <div class="col-sm-3">
-                                                    <select class="form-control select2" id="thn" name="thn" style="width: 100%;">
+                                                    <select class="form-control select2" id="thnpim" name="thnpim" style="width: 100%;">
                                                     <option value="">--TAHUN--</option>
                                                       <?php for($i=date('Y');$i>=2010;$i--){?>
                                                         <option value="<?php echo $i?>"><?php echo $i?></option>
@@ -53,12 +30,13 @@
                                            
                                     </div> 
                                     </div>
+                                    <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
                                     <div class="admininput">
                                     <div class="row pad-top"> 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="inputstatus">Unit Kerja</label>
                                             <div class="col-sm-9">
-                                                    <select class="form-control select-chosen" id="txtdirektorat" name="txtdirektorat" style="width: 100%;">
+                                                    <select class="form-control select-chosen" id="txtdirektoratpim" name="txtdirektoratpim" style="width: 100%;">
                                                      
                                                       
                                                     </select> 
@@ -69,6 +47,8 @@
                                      
                                     
                                                      </div>
+                                    
+                                    <?php }?>
                                     <div class="row "> 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="inputstatus"></label>
@@ -85,41 +65,26 @@
                             </div>
                         </div>
                         
-            </div> 
-            
-             
-                        <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
-					            <div class="row">
-					                <div class="col-sm-6 table-toolbar-left">
-					                     <button style="margin-left:3px" class="btn btn-success" onclick="proses('2')"><i class="fa fa-file-excel-o"></i> Setujui Permohonan</button>
-                                         <button style="margin-left:3px" class="btn btn-danger" onclick="tolak('3')"><i class="fa fa-file-excel-o"></i> Tolak</button>
-                                       
-                                                      
-					                     
-					                </div>
-									<div class="col-sm-6 table-toolbar-right">
-					                      <button class="btn btn-default"  onCLick="downloadku();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
-					                </div>
-					            </div>
-					        </div>
-                                            
-            <div class="ag-theme-balham" id="gridTK" style="height: 300px;width:100%;">
+            </div>
+            <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
+				<div class="row">
+				<div class="col-sm-12 table-toolbar-right">
+					<button class="btn btn-default"  onCLick="downloadpimp();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
+				</div>
+				</div>
+			</div>                                
+            <div class="ag-theme-balham" id="gridpim" style="height: 300px;width:100%;">
         </div>
-        </div>
-      </div>
-    </div>
-      
-      
-  </div>
   <script>
-  $('.judul-menu').html('Persetujuan KPI Unit'); 
+  $('.judul-menu').html('Persetujuan KPI'); 
   
-  var headerTK = [
+  var listpim = [
   {headerName: "No", field: "no", width: 60, filterParams:{newRowsAction: "keep"}},
   {headerName: "No.Pegawai", field: "nopeg", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Nama Pegawai", field: "nama", width: 160, filterParams:{newRowsAction: "keep"}},
   {headerName: "Unit Kerja", field: "unit", width: 190, filterParams:{newRowsAction: "keep"}},
-  {headerName: "Nilai IKU", field: "nilai", width: 90, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Nilai IKP", field: "nilai", width: 90, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Nilai IKU", field: "iku", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Status", field: "status", width: 120, filterParams:{newRowsAction: "keep"}},
   {headerName: "Bulan", field: "bulan", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Tahun", field: "tahun", width: 90, filterParams:{newRowsAction: "keep"}},
@@ -147,7 +112,7 @@
 			}
 		 };
  
-		 var gridTK = {
+		 var gridpim = {
 			enableSorting: true,
 			enableFilter: true,
 			suppressRowClickSelection: false, 
@@ -156,10 +121,10 @@
 			 rowSelection: 'single', 
 	       enableColResize: true, 
 			rowGroupPanelShow: 'always',
-			onRowDoubleClicked: getkpi,
+			onRowDoubleClicked: pimdetail,
 			pivotPanelShow: 'always',
 			enableRangeSelection: true,
-			columnDefs: headerTK,
+			columnDefs: listpim,
 			pagination: false,
 			paginationPageSize: 50,   
 			defaultColDef:{
@@ -173,12 +138,11 @@
 	   
  
 		 // setup the grid after the page has finished loading 
-			var gridDiv = document.querySelector('#gridTK');
-			new agGrid.Grid(gridDiv,gridTK);
+			var gridDiv = document.querySelector('#gridpim');
+			new agGrid.Grid(gridDiv,gridpim);
 			
-			
-			function getkpi(){
-            var selectedRows = gridTK.api.getSelectedRows();
+			function pimdetail(){
+            var selectedRows = gridpim.api.getSelectedRows();
             // alert('>>'+selectedRows+'<<<');
             if(selectedRows == ''){
                onMessage('Silahkan Pilih Unit kerja Terlebih dahulu!');
@@ -195,7 +159,7 @@
            });
 
            bootbox.dialog({ 
-                 message:$('<div></div>').load('view/kpi/listkpi.php?id=16&pid='+selectedRowsString),
+                 message:$('<div></div>').load('view/kpi/listkpi.php?id=17&pid='+selectedRowsString),
                    animateIn: 'bounceIn',
                    animateOut : 'bounceOut',
 									 backdrop: false,
@@ -215,11 +179,12 @@
            
         }
                 }
-				
-			 function listFromtk(){
-			   var thn= $('#thn').val(); 
-			   var uk =  $('#txtdirektorat').val();
-			   var uri = BASE_URL+'kpi/mpenilaian/listiki?tahun='+thn+'&status=16';
+
+		   
+			 function listFrompim(){
+			   var thn= $('#thnpim').val(); 
+			   var uk =  $('#txtdirektoratpim').val();
+			   var uri = BASE_URL+'kpi/mpenilaian/listiki?tahun='+thn+'&status=17';
 			   if(empty(thn)){
 				 var d = new Date();
 				 var n = d.getFullYear();
@@ -227,34 +192,34 @@
 			   }
  
 			   if(!empty(thn)){
-				   uri = BASE_URL+'kpi/mpenilaian/listiki?tahun='+thn+'&id_uk='+uk+'&status=16';
+				   uri = BASE_URL+'kpi/mpenilaian/listiki?tahun='+thn+'&id_uk='+uk+'&status=17';
 			   }
  
-			   $('#thn').val(thn);
+			   $('#thnpim').val(thn);
  
-			 getJson(loadfrmtk,uri);
+			 getJson(loadfrmpim,uri);
 		   }
  
-		   function loadfrmtk(result){
+		   function loadfrmpim(result){
                if(!empty(result)){
 			   if(result.hasil ==='success'){
-                gridTK.api.setRowData(result.result);
+                gridpim.api.setRowData(result.result);
 			   }else{
-                gridTK.api.setRowData([]);
+                gridpim.api.setRowData([]);
                }
                }else{
-                gridTK.api.setRowData([]);
+                gridpim.api.setRowData([]);
                }
 		   }
  
-		   listFromtk();
+		   listFrompim();
  
 		   function searchtk(){
-			 var thn=$('#thn').val();
-			 var bulan=$('#bulan').val();
-			 var uk=$('#txtdirektorat').val();
+			 var thn=$('#thnpim').val();
+			 var bulan=$('#bulanpim').val();
+			 var uk=$('#txtdirektoratpim').val();
 			 var group = localStorage.getItem('group');
-			 var uri = BASE_URL+'kpi/mpenilaian/listiki?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk+'&status=16'; 
+			 var uri = BASE_URL+'kpi/mpenilaian/listiki?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk+'&status=17'; 
 			  if(empty(thn)){
 					 alert('Tahun harus dipilih');
 					 return false;
@@ -262,64 +227,21 @@
  
 		 
  
-			 getJson(loadfrmtk,uri);
+			 getJson(loadfrmpim,uri);
 		   }
- 
- function downloadku(){
+ function downloadpimp(){
 	 var params = { 
-		 fileName: 'KPI Unit',
-		 sheetName: 'KPI Unit'
+		 fileName: 'KPI Pimpinan',
+		 sheetName: 'KPI Pimpinan'
 	 };
  
-	 gridTK.api.exportDataAsExcel(params);
+	 gridpim.api.exportDataAsExcel(params);
  }
- 
-
-  function tolak(a){
-    var selectedRows = gridTK.api.getSelectedRows();
-            // alert('>>'+selectedRows+'<<<');
-            if(selectedRows == ''){
-               onMessage('Silahkan Pilih Data di Tabel Pegawai Terlebih dahulu!');
-               return false;
-            }else{
-                var selectedRowsString = '';
-           selectedRows.forEach( function(selectedRow, index) {
-            
-               if (index!==0) {
-                   selectedRowsString += ', ';
-               }
-               selectedRowsString += selectedRow.id;
-           }); 
-           submit_get(BASE_URL+'kpi/mpenilaian/updateiki/?id='+selectedRowsString+'&type='+a,listFromtk);
-           
-            }
-     
-  }
-
-  function proses(a){
-    var selectedRows = gridTK.api.getSelectedRows();
-            // alert('>>'+selectedRows+'<<<');
-            if(selectedRows == ''){
-               onMessage('Silahkan Pilih Data di Tabel Pegawai Terlebih dahulu!');
-               return false;
-            }else{
-                var selectedRowsString = '';
-           selectedRows.forEach( function(selectedRow, index) {
-            
-               if (index!==0) {
-                   selectedRowsString += ', ';
-               }
-               selectedRowsString += selectedRow.id;
-           });
-
-          submit_get(BASE_URL+'kpi/mpenilaian/updateiki/?id='+selectedRowsString+'&type='+a,listFromtk);
-
-           
-           
-            }
-  }
- 
+  </script>
+<?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
+ <script>
     $('.select-chosen').chosen();
      $('.chosen-container').css({"width": "100%"});
- getOptions("txtdirektorat",BASE_URL+"master/direktoratSub");
+ getOptions("txtdirektoratpim",BASE_URL+"master/direktoratSub");
  </script>
+ <?php } ?> 

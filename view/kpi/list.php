@@ -1,3 +1,4 @@
+<?php session_start();?>
 <div class="row">
 	
     <div class="tab-base mar-all">
@@ -9,9 +10,25 @@
                           <span class="block text-center">
                               <i class="fa fa-check-square-o fa-2x text-danger"></i> 
                           </span>
-                          Persetujuan KPI Unit Kerja
+                          Persetujuan KPI Individu
                       </a>
-              </li>
+		</li>
+		<li class="">
+                  <a href="#demo-lft-tab-2" data-toggle="tab" onClick="$('#page-uk').load('view/kpi/list_ku.php')">
+                          <span class="block text-center">
+                              <i class="fa fa-check-square-o fa-2x text-danger"></i> 
+                          </span>
+                          Persetujuan KPI Unit
+                      </a>
+		</li>
+		<li class="">
+                  <a href="#demo-lft-tab-3" data-toggle="tab" onClick="$('#page-pim').load('view/kpi/list_pim.php')">
+                          <span class="block text-center">
+                              <i class="fa fa-check-square-o fa-2x text-danger"></i> 
+                          </span>
+                          Persetujuan KPI Pimpinan
+                      </a>
+		</li>
   
       
    
@@ -27,8 +44,8 @@
                             <div class="box box-primary"> 
                                 <div class="box-body">
                                
-                                <div class="row pad-top">
-									<div class="form-group">
+                                <div class="row pad-top"> 
+								   <div class="form-group">
                                         <label class="col-sm-2 control-label" for="inputstatus">Bulan</label>
                                             <div class="col-sm-3">
                                                     <select class="form-control select2" id="bulan" name="bulan" style="width: 100%;">
@@ -39,7 +56,7 @@
                                                     </select> 
                                             </div>
                                            
-                                    </div> 								
+                                    </div> 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="inputstatus">Tahun</label>
                                             <div class="col-sm-3">
@@ -53,6 +70,7 @@
                                            
                                     </div> 
                                     </div>
+                                    <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
                                     <div class="admininput">
                                     <div class="row pad-top"> 
                                     <div class="form-group">
@@ -69,15 +87,16 @@
                                      
                                     
                                                      </div>
+                                    
+                                    <?php }?>
                                     <div class="row "> 
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="inputstatus"></label>
-                                            <div class="col-sm-5">
-                                             
-                                            <div class="row  text-left"> 
-                                    <button class="btn btn-primary mar-all" onClick="searchtk();return false;">Search</button> 
-                                   </div>
-                                            </div>
+                                    <label class="col-sm-2 control-label" for="inputstatus"></label>
+										<div class="col-sm-5">     
+											<div class="row  text-left"> 
+												<button class="btn btn-primary mar-all" onClick="searchtk();return false;">Search</button> 
+											</div>
+										</div>
                                     </div>
                                     </div>
                                     
@@ -88,23 +107,23 @@
             </div> 
             
              
-                        <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
-					            <div class="row">
-					                <div class="col-sm-6 table-toolbar-left">
-					                     <button style="margin-left:3px" class="btn btn-success" onclick="proses('2')"><i class="fa fa-file-excel-o"></i> Setujui Permohonan</button>
-                                         <button style="margin-left:3px" class="btn btn-danger" onclick="tolak('3')"><i class="fa fa-file-excel-o"></i> Tolak</button>
-                                       
-                                                      
-					                     
-					                </div>
-									<div class="col-sm-6 table-toolbar-right">
-					                      <button class="btn btn-default"  onCLick="downloadku();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
-					                </div>
-					            </div>
-					        </div>
+            <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
+				<div class="row">
+				<div class="col-sm-12 table-toolbar-right">
+					<button class="btn btn-default"  onCLick="downloadindv();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
+				</div>
+				</div>
+			</div>
                                             
             <div class="ag-theme-balham" id="gridTK" style="height: 300px;width:100%;">
         </div>
+        </div>
+		<div class="tab-pane fade" id="demo-lft-tab-2">
+        <div id="page-uk"></div>
+        </div>
+
+         <div class="tab-pane fade" id="demo-lft-tab-3">
+        <div id="page-pim"></div>
         </div>
       </div>
     </div>
@@ -112,14 +131,15 @@
       
   </div>
   <script>
-  $('.judul-menu').html('Persetujuan KPI Unit'); 
+  $('.judul-menu').html('Persetujuan KPI'); 
   
   var headerTK = [
   {headerName: "No", field: "no", width: 60, filterParams:{newRowsAction: "keep"}},
   {headerName: "No.Pegawai", field: "nopeg", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Nama Pegawai", field: "nama", width: 160, filterParams:{newRowsAction: "keep"}},
   {headerName: "Unit Kerja", field: "unit", width: 190, filterParams:{newRowsAction: "keep"}},
-  {headerName: "Nilai IKU", field: "nilai", width: 90, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Nilai IKI", field: "nilai", width: 90, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Nilai IKU", field: "iku", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Status", field: "status", width: 120, filterParams:{newRowsAction: "keep"}},
   {headerName: "Bulan", field: "bulan", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Tahun", field: "tahun", width: 90, filterParams:{newRowsAction: "keep"}},
@@ -176,7 +196,6 @@
 			var gridDiv = document.querySelector('#gridTK');
 			new agGrid.Grid(gridDiv,gridTK);
 			
-			
 			function getkpi(){
             var selectedRows = gridTK.api.getSelectedRows();
             // alert('>>'+selectedRows+'<<<');
@@ -195,7 +214,7 @@
            });
 
            bootbox.dialog({ 
-                 message:$('<div></div>').load('view/kpi/listkpi.php?id=16&pid='+selectedRowsString),
+                 message:$('<div></div>').load('view/kpi/listkpi.php?id=5&pid='+selectedRowsString),
                    animateIn: 'bounceIn',
                    animateOut : 'bounceOut',
 									 backdrop: false,
@@ -219,7 +238,7 @@
 			 function listFromtk(){
 			   var thn= $('#thn').val(); 
 			   var uk =  $('#txtdirektorat').val();
-			   var uri = BASE_URL+'kpi/mpenilaian/listiki?tahun='+thn+'&status=16';
+			   var uri = BASE_URL+'kpi/mpenilaian/listiki?tahun='+thn+'&status=5';
 			   if(empty(thn)){
 				 var d = new Date();
 				 var n = d.getFullYear();
@@ -227,7 +246,7 @@
 			   }
  
 			   if(!empty(thn)){
-				   uri = BASE_URL+'kpi/mpenilaian/listiki?tahun='+thn+'&id_uk='+uk+'&status=16';
+				   uri = BASE_URL+'kpi/mpenilaian/listiki?tahun='+thn+'&id_uk='+uk+'&status=5';
 			   }
  
 			   $('#thn').val(thn);
@@ -254,7 +273,7 @@
 			 var bulan=$('#bulan').val();
 			 var uk=$('#txtdirektorat').val();
 			 var group = localStorage.getItem('group');
-			 var uri = BASE_URL+'kpi/mpenilaian/listiki?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk+'&status=16'; 
+			 var uri = BASE_URL+'kpi/mpenilaian/listiki?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk+'&status=5'; 
 			  if(empty(thn)){
 					 alert('Tahun harus dipilih');
 					 return false;
@@ -265,10 +284,10 @@
 			 getJson(loadfrmtk,uri);
 		   }
  
- function downloadku(){
+	function downloadindv(){
 	 var params = { 
-		 fileName: 'KPI Unit',
-		 sheetName: 'KPI Unit'
+		 fileName: 'KPI Individu',
+		 sheetName: 'KPI Individu'
 	 };
  
 	 gridTK.api.exportDataAsExcel(params);
@@ -318,8 +337,11 @@
            
             }
   }
- 
+  </script>
+<?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
+ <script>
     $('.select-chosen').chosen();
      $('.chosen-container').css({"width": "100%"});
  getOptions("txtdirektorat",BASE_URL+"master/direktoratSub");
  </script>
+ <?php } ?> 
