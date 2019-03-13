@@ -17,13 +17,13 @@ class keluarga extends CI_Controller
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
 
-        /* ini untuk dump hasil post dari ajax
+        /* ini untuk dump hasil post dari ajax */
         var_dump($this->input->post());
         if (!$this->upload->do_upload('inputfileupload')) {
             print_r($this->upload->display_errors());
         }
         die;
-        */
+        
         $arrdata = array(
             'id_user' => ($this->input->post('id_user_baru')?$this->input->post('id_user_baru'):NULL),
             'nik' => ($this->input->post('txtNik')?$this->input->post('txtNik'):NULL),

@@ -189,7 +189,7 @@ class migrasi extends CI_Controller
 					$postarr2= array( 
 						'id_user'=> $id_user,
 						'nip'=> $dat2->nip,
-						'nik'=> $this->input->post('NIK'),
+						'nik'=> $this->input->post('nik'),
 						'gelar_depan'=>$dat2->glrdpn,
 						'gelar_belakang'=> $dat2->glrblk, 
 						'tempat_lahir'=> $dat2->tmplhr,

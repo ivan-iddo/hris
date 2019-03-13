@@ -16,11 +16,6 @@ require_once('../../connectdb.php');
                           Persetujuan Cuti SDM
                       </a>
               </li>
-  
-      
-   
-  
-        
       </ul>
   
       <div class="tab-content">
@@ -166,14 +161,14 @@ require_once('../../connectdb.php');
 					                    <table class="table table-striped">
 					                        <thead>
 					                            <tr>
-                                                    <th>Nama Pegawai</th>
+                                          <th>Nama Pegawai</th>
 					                                <th>Jenis Cuti</th>
-                                                    <th>Keterangan</th>
+                                          <th>Keterangan</th>
 					                                <th>Mulai</th>
 					                                <th>Sampai</th>
-                                                    <th>Hari</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
+                                          <th>Hari</th>
+                                          <th>Status</th>
+                                          <th>Action</th>
 					                            </tr>
 					                        </thead>
 					                        <tbody id="isicuti">
@@ -200,45 +195,53 @@ $('.judul-menu').html('Persetujuan Cuti SDM');
 			 var bulan=$('#bulan').val();
 			 var uk=$('#txtdirektorat').val();
 			    $.ajax({
-                                   url: BASE_URL+'pegawai/listcutisdm?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk,
-                                   headers: {
-                                       'Authorization': localStorage.getItem("Token"),
-                                       'X_CSRF_TOKEN':'donimaulana',
-                                       'Content-Type':'application/json'
-                                   },
-                                   dataType: 'json',
-                                   type: 'get',
-                                   contentType: 'application/json', 
-                                   processData: false,
-                                   success: function( res, textStatus, jQxhr ){
-                                    $('#isicuti').html(res.isi);
+               url: BASE_URL+'cuti/listcutisdm?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk,
+               headers: {
+                   'Authorization': localStorage.getItem("Token"),
+                   'X_CSRF_TOKEN':'donimaulana',
+                   'Content-Type':'application/json'
+               },
+               dataType: 'json',
+               type: 'get',
+               contentType: 'application/json', 
+               processData: false,
+               success: function( res, textStatus, jQxhr ){
+                $('#isicuti').html(res.isi);
 
-                                   }
+               }
 				});
 			
 			}
 
 
     function prosesCuti(idcuti,status){
-        $.ajax({
-                                   url: BASE_URL+'pegawai/beristratuscuti/?id='+idcuti+'&status='+status,
-                                   headers: {
-                                       'Authorization': localStorage.getItem("Token"),
-                                       'X_CSRF_TOKEN':'donimaulana',
-                                       'Content-Type':'application/json'
-                                   },
-                                   dataType: 'json',
-                                   type: 'get',
-                                   contentType: 'application/json', 
-                                   processData: false,
-                                   success: function( res, textStatus, jQxhr ){
-                                   search();
-                                        
-                                       
-                                   
+      var id_user = '<?php echo $_SESSION['userdata']['id'];?>';
+      swal({
+            title: 'Apakah Anda Yakin Mengubah Data Ini?',
+            text: 'Data segera di proses!',
+            type: "warning",
+            confirmButtonColor: '#d9534f',
+            confirmButtonText: "Ya, Segera proses!",
+            showCancelButton: true,
+            },function(){
+                $.ajax({
+                 url: BASE_URL+'cuti/beristratuscuti/?id='+idcuti+'&status='+status+'&id_user='+id_user,
+                 headers: {
+                     'Authorization': localStorage.getItem("Token"),
+                     'X_CSRF_TOKEN':'donimaulana',
+                     'Content-Type':'application/json'
+                 },
+                 dataType: 'json',
+                 type: 'get',
+                 contentType: 'application/json', 
+                 processData: false,
+                 success: function( res, textStatus, jQxhr ){
+                  listcuti();
 
-                                   }
-    });
+                 }
+            });
+        });
+        return false;
     }
 
   $('.select-chosen').chosen();

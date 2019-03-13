@@ -41,7 +41,9 @@ class Warning extends REST_Controller
         $sampai = $this->input->get('sampai');
         $dari = $this->input->get('dari');
         $direktorat = $this->uri->segment(4);
-        $this->db->select('his_golongan.*,sys_grup_user.id_grup,sys_grup_user.grup,m_golongan_peg.gol_romawi as nama_p,m_golongan_peg.pangkat,his_golongan.no_sk,sys_user.name');
+        $this->db->select('his_golongan.id_user, his_golongan.tmt_golongan, his_golongan.no_sk,  his_golongan.tgl_sk, sys_user.name, golongan_id,gol_angka,gol_romawi,pangkat, no_sk, 
+        sys_grup_user.id_grup, sys_grup_user.grup,
+        max(tmt_golongan_akhir) as max_akhir');
         // $this->db->join('m_golongan_pegawai', 'm_golongan_pegawai.id = his_golongan.golongan_id', 'LEFT');
         $this->db->join('sys_user','sys_user.id_user = his_golongan.id_user');
         $this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup');
@@ -60,13 +62,15 @@ class Warning extends REST_Controller
 
         // $this->db->where('sys_user.status','1');
         $this->db->where('his_golongan.tampilkan','1');
+        $this->db->where('tmt_golongan_akhir is not null');
         // $this->db->group_by('his_golongan.id_user');
-        $this->db->order_by('his_golongan.tmt_golongan_akhir','ACS');
+        $this->db->group_by('his_golongan.id_user, sys_user.name, golongan_id, gol_angka, gol_romawi,
+        pangkat, his_golongan.no_sk, sys_grup_user.id_grup, sys_grup_user.grup, his_golongan.tmt_golongan, his_golongan.tgl_sk');
         // $this->db->limit('1');
           $res = $this->db->get('his_golongan')->result();
           $arr['result']=array();
           foreach($res as $d){
-            $tanggalGolonganAkhir = $d->tmt_golongan_akhir;
+            $tanggalGolonganAkhir = $d->max_akhir;
             if ($tanggalGolonganAkhir != '') {
                 $tanggalN = date('d M Y',strtotime($tanggalGolonganAkhir));
                 $tanggal = strtotime($tanggalGolonganAkhir);

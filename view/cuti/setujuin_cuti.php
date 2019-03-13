@@ -101,47 +101,52 @@ $('.judul-menu').html('Pengajuan Cuti');
   
  listcuti();
  function listcuti(){
-    $.ajax({
-                                   url: BASE_URL+'pegawai/listcutiall/',
-                                   headers: {
-                                       'Authorization': localStorage.getItem("Token"),
-                                       'X_CSRF_TOKEN':'donimaulana',
-                                       'Content-Type':'application/json'
-                                   },
-                                   dataType: 'json',
-                                   type: 'get',
-                                   contentType: 'application/json', 
-                                   processData: false,
-                                   success: function( res, textStatus, jQxhr ){
-                                       $('#isicuti').html(res.isi);
-                                        
-                                       
-                                   
-
-                                   }
-    });
+       $.ajax({
+	   url: BASE_URL+'cuti/listcutiall/',
+	   headers: {
+	       'Authorization': localStorage.getItem("Token"),
+	       'X_CSRF_TOKEN':'donimaulana',
+	       'Content-Type':'application/json'
+	   },
+	   dataType: 'json',
+	   type: 'get',
+	   contentType: 'application/json', 
+	   processData: false,
+	   success: function( res, textStatus, jQxhr ){
+	       $('#isicuti').html(res.isi);
+	        
+		   }
+	    });
  }
  
 
     function prosesCuti(idcuti,status){
-        $.ajax({
-                                   url: BASE_URL+'pegawai/beristratuscuti/?id='+idcuti+'&status='+status,
-                                   headers: {
-                                       'Authorization': localStorage.getItem("Token"),
-                                       'X_CSRF_TOKEN':'donimaulana',
-                                       'Content-Type':'application/json'
-                                   },
-                                   dataType: 'json',
-                                   type: 'get',
-                                   contentType: 'application/json', 
-                                   processData: false,
-                                   success: function( res, textStatus, jQxhr ){
-                                    listcuti();
-                                        
-                                       
-                                   
+    	var id_user = '<?php echo $_SESSION['userdata']['id'];?>';
+    	swal({
+	          title: 'Apakah Anda Yakin Mengubah Data Ini?',
+	          text: 'Data segera di proses!',
+	          type: "warning",
+	          confirmButtonColor: '#d9534f',
+	          confirmButtonText: "Ya, Segera proses!",
+	          showCancelButton: true,
+	          },function(){
+	             	$.ajax({
+			           url: BASE_URL+'cuti/beristratuscuti/?id='+idcuti+'&status='+status+'&id_user='+id_user,
+			           headers: {
+			               'Authorization': localStorage.getItem("Token"),
+			               'X_CSRF_TOKEN':'donimaulana',
+			               'Content-Type':'application/json'
+			           },
+			           dataType: 'json',
+			           type: 'get',
+			           contentType: 'application/json', 
+			           processData: false,
+			           success: function( res, textStatus, jQxhr ){
+			            listcuti();
 
-                                   }
-    });
+			           }
+			    	});
+	      });
+	      return false;
     }
 </script>
