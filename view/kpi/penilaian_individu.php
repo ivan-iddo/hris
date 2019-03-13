@@ -101,12 +101,13 @@
                             
   </div>
   <div class="row">
-	<div class="col-sm-6 table-toolbar-left">
+	<div class="col-sm-8 table-toolbar-left">
 		<button id="demo-btn-addrow" class="btn btn-purple" onclick="onAddRow()"><i class="demo-pli-add"></i> Tambah Langkah Kerja</button>
 		<button style="margin-left:3px" class="btn btn-mint" onclick="getRowData()"><i class="fa fa-file-excel-o"></i> Simpan Perubahan</button>
 		<button class="btn btn-danger" onclick="hapus()"><i class="fa fa-file-excel-o"></i> Delete</button>                                                   				                     
+		<button class="btn btn-success" onclick="get()"><i class="fa fa-file-excel-o"></i> Selesai kirim ke SDM</button>                                                   				                     
 	</div>
-	<div class="col-sm-6 table-toolbar-right">				                   
+	<div class="col-sm-4 table-toolbar-right">				                   
 		<div class="btn-group">
 		<button class="btn btn-default"  onCLick="downloadKPI()"><i class="fa fa-file-excel-o"></i> Download Excel</button>
 		</div>
@@ -287,8 +288,6 @@ loadDataPI(0);
  {headerName: 'pid', field: 'pid',  hide:true},
  {headerName: 'child', field: 'child',  hide:true},
  {headerName: 'max', field: 'max',  hide:true},
- {headerName: 'total', field: 'total_bobot',  hide:true},
- {headerName: 'nilai', field: 'nil_bobot',  hide:true},
 
 ];
 
@@ -326,6 +325,15 @@ function getRowData() {
     });
     //console.log('Row Data:'); 
     save(BASE_URL+'kpi/mpenilaian/savedetail',rowData,tektok);
+}
+
+function get() {
+    var rowData = [];
+    gridOptions.api.forEachLeafNode( function(node) {
+        rowData.push(node.data);
+    });
+    //console.log('Row Data:'); 
+    save(BASE_URL+'kpi/mpenilaian/saveiku/',rowData,tektok);
 }
 
 function tektok(){
