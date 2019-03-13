@@ -138,7 +138,7 @@ require_once('../../connectdb.php');
                                     <div id="pesan"></div>
                                     </div>
 					                <div class="panel-footer text-left">
-					                    <button class="btn btn-primary" type="submit" onCLick="ajukan();return false;">Ajukan Cuti</button>
+					                    <button class="btn btn-primary" type="submit" href="javascript:void(0);" onCLick="ajukan();return false;">Ajukan Cuti</button>
 					                </div>
 					            </form>
 					            <!--===================================================-->
@@ -179,7 +179,6 @@ $('.select-chosen').chosen();
               onMessage(res.warning);
               getOptions("jenis_cuti",BASE_URL+"master/jenis_cuti");
             }
-            console.log(res.cuti);
             if (res.message != "") {
               $('#pesan').html(res.message);
                $('#jumlahCuti').empty();
@@ -379,9 +378,11 @@ function hitungTanggal(jml){
         var data = formJson('form-golongan'); //$("#form-upload").serializeArray();
         var jml = $('#jumlahCuti').val();
         var tgl = $('#tgl_cuti').val();
+        var sampai = $('#sampai').val();
         var jenis = $('#jenis_cuti').val();
         var keterangan = $('#keterangan').val();
-
+        var tglnew = tgl.split("/").reverse().join("-");
+        var sampainew = sampai.split("/").reverse().join("-");
   if(empty(jenis)){
       alert('jenis cuti wajib diisi');
       return false;
@@ -391,11 +392,14 @@ function hitungTanggal(jml){
   }else if(empty(jml)){
     alert('Jumlah cuti wajib diisi');
       return false;
-  }else{
+  }else if(empty(keterangan)){
+    alert('Keterangan wajib diisi');
+      return false;
+  } else {
     var data = formJson('form-cuti');
     var form = $("#form-cuti");
     $.ajax({
-       url: BASE_URL + 'cuti/savecuti',
+       url: BASE_URL + 'cuti/savecuti/?tgl_cuti='+tglnew+'&sampai='+sampainew,
        headers: {
            'Authorization': localStorage.getItem("Token"),
            'X_CSRF_TOKEN': 'donimaulana',

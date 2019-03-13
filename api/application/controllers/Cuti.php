@@ -31,7 +31,7 @@ class Cuti extends REST_Controller
                 $this->db->where('his_cuti.tampilkan', '1');
                 $this->db->order_by('tgl_cuti', 'DESC');
                 $resCek = $this->db->get('his_cuti')->result();
-
+                // print_r($resCek);die();
                 $da = '';
                 foreach ($resCek as $val) {
                     $text = 'text-success';
@@ -417,13 +417,15 @@ class Cuti extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                $tgl = ($this->input->post('tgl_cuti'))?$this->input->post('tgl_cuti'):null;
+                $tgl = ($this->input->post('tgl_cuti'))?$this->input->get('tgl_cuti'):null;
                 $jml = ($this->input->post('jumlahCuti'))?$this->input->post('jumlahCuti'):null;
-                $sampai = ($this->input->post('sampai'))?$this->input->post('sampai'):null;
+                $sampai = ($this->input->post('sampai'))?$this->input->get('sampai'):null;
                 // $datesampai = DateTime::createFromFormat('d/m/Y', $sampai);
-                $tglnew = date("Y-d-m", strtotime($tgl));
-                $sampainew = date("Y-d-m", strtotime($sampai));
-
+                $tglnew = date("Y-m-d", strtotime($tgl));
+                $sampainew = date("Y-m-d", strtotime($sampai));
+                // print_r($tglnew);
+                // echo " ";
+                // print_r($sampainew);die();
                 //cek lagi
                 $jenis_cuti = ($this->input->post('jenis_cuti'))?$this->input->post('jenis_cuti'):null;
                 $id_user = ($this->input->post('id_user'))?$this->input->post('id_user'):null;
