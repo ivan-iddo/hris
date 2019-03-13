@@ -511,7 +511,7 @@
         });
     }
 
-    loadUser("nopeg", BASE_URL + "users/list");
+    loadUser("nopeg", BASE_URL + "users/list_userlat");
 
     function loadPengembanganPelatihanKegiatan(id, url, valueEdit = null) {
         $('#' + id).children().remove();
@@ -684,7 +684,7 @@
             else {
                 var selectedRows = gridPI.api.getSelectedRows();
                 var selectedRow = selectedRows[0];
-                loadUser("nopeg", BASE_URL + "users/list", selectedRow.nopeg);
+                loadUser("nopeg", BASE_URL + "users/list_userlat", selectedRow.nopeg);
 
                 $('#nama_pegawai').val(selectedRow.nama_pegawai);
                 $('#jabatan').val(selectedRow.jabatan);

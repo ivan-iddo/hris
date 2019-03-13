@@ -415,7 +415,7 @@ function createNewRowData() {
         capaian_persen: 0,
         nilai: 0,
         nilai_bobot: 0,
-        Keterangan: '',
+        keterangan: '',
         }; 
         return newData;
     }
