@@ -198,9 +198,9 @@
         if ($('#search').val() !== '') {
             search = $('#search').val();
         }
-        var url = BASE_URL + 'users/list/' + search + '/' + jml;
+        var url = BASE_URL + 'users/list_user/' + search + '/' + jml;
         if ((group !== '1') && (group !== '6')) {
-            url = BASE_URL + 'users/list/' + search + '/' + jml + "/" + group;
+            url = BASE_URL + 'users/list_user/' + search + '/' + jml + "/" + group;
         }
 
 

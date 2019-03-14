@@ -534,7 +534,7 @@
         });
     }
 
-    loadUser("nopeg", BASE_URL + "users/list");
+    loadUser("nopeg", BASE_URL + "users/list_userlat");
 
     function loadPengembanganPelatihanKegiatan(id, url, valueEdit = null) {
         $('#' + id).children().remove();
