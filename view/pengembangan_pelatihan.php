@@ -390,11 +390,11 @@
             {headerName: "Tujuan", field: "tujuan", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Institusi", field: "institusi", width: 190, filterParams: {newRowsAction: 'keep'}},
 
-            {headerName: "Nopeg", field: "nopeg", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Nama pegawai", field: "nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Golongan", field: "golongan", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Jabatan", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Pangkat", field: "pangkat", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Nopeg", field: "pengembangan_pelatihan_detail.nopeg", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Nama pegawai", field: "pengembangan_pelatihan_detail.nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Golongan", field: "pengembangan_pelatihan_detail.golongan", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Jabatan", field: "pengembangan_pelatihan_detail.jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Pangkat", field: "pengembangan_pelatihan_detail.pangkat", width: 190, filterParams: {newRowsAction: 'keep'}},
 
             {headerName: "Kegiatan", field: "pengembangan_pelatihan_kegiatan.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Pengembangan Pelatihan Status", field: "pengembangan_pelatihan_kegiatan_status.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
@@ -679,6 +679,8 @@
         dataRow.uraian_total = uraian_total;
         dataRow.nopeg = $("#nopeg").val();
         dataRow.nip = $("#nik").val();
+        dataRow.pangkat = $("#pangkat").val();
+        dataRow.golongan = $("#golongan").val();
         dataRow.nama_pegawai = $("#nama_pegawai").val();
         dataRow.jabatan = $("#jabatan").val();
         dataRow.detail_uraian = detail_uraian;
@@ -715,6 +717,8 @@
                 $('#jabatan').val(selectedRow.jabatan);
                 $('#nip').val(selectedRow.nopeg);
                 $('#nik').val(selectedRow.nip);
+                $('#pangkat').val(selectedRow.pangkat);
+                $('#golongan').val(selectedRow.golongan);
                 selectedRow.detail_uraian.forEach(function (item, index) {
                     if (index == 0) {
                         $("#biaya_uraian").val(selectedRow.detail_uraian[index].uraian);
@@ -791,6 +795,8 @@
         $("#jabatan").val("");
         $("#nip").val("");
         $("#nik").val("");
+        $("#pangkat").val("");
+        $("#golongan").val("");
         $("#biaya_uraian").val("");
         $("#biaya_nominal").val(0);
         $(".btn-pegawai-remove").val("");
