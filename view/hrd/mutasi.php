@@ -197,7 +197,7 @@
               search = $('#search').val();
             }
            $.ajax({
-                                   url: BASE_URL+'pegawai/listmutasi?status=84',
+                                   url: BASE_URL+'pegawai/listmutasihrd?status=84',
                                    headers: {
                                        'Authorization': localStorage.getItem("Token"),
                                        'X_CSRF_TOKEN':'donimaulana',
@@ -419,7 +419,7 @@ bootbox.dialog({
    
            function loadMutasi(){
             $.ajax({
-                                   url: BASE_URL+'pegawai/listmutasi',
+                                   url: BASE_URL+'pegawai/listmutasihrd',
                                    headers: {
                                        'Authorization': localStorage.getItem("Token"),
                                        'X_CSRF_TOKEN':'donimaulana',

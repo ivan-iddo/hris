@@ -1,4 +1,3 @@
-<?php session_start();?>
 <div class="row">
 	
     <div class="tab-base mar-all">
@@ -42,8 +41,7 @@
                                            
                                     </div> 
                                     </div>
-                                    <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
-                                    <div class="admininput">
+                                   <div class="admininput">
                                     <div class="row pad-top"> 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="inputstatus">Unit Kerja</label>
@@ -60,7 +58,6 @@
                                     
                                                      </div>
                                     
-                                    <?php }?>
                                     <div class="row "> 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="inputstatus"></label>
@@ -216,7 +213,7 @@
 			 function listFromtk(){
 			   var thn= $('#thn').val(); 
 			   var uk =  $('#txtdirektorat').val();
-			   var uri = BASE_URL+'abk/abk/listtkdireksi?view=direktur&year='+thn+'&status=85';
+			   var uri = BASE_URL+'abk/abk/listtkhrd?view=direktur&year='+thn+'&status=85';
 			   if(empty(thn)){
 				 var d = new Date();
 				 var n = d.getFullYear();
@@ -224,7 +221,7 @@
 			   }
  
 			   if(!empty(thn)){
-				   uri = BASE_URL+'abk/abk/listtkdireksi?view=direktur&year='+thn+'&id_uk='+uk+'&status=85';
+				   uri = BASE_URL+'abk/abk/listtkhrd?view=direktur&year='+thn+'&id_uk='+uk+'&status=85';
 			   }
  
 			   $('#thn').val(thn);
@@ -250,7 +247,7 @@
 			 var thn=$('#thn').val();
 			 var uk=$('#txtdirektorat').val();
 			 var group = localStorage.getItem('group');
-			 var uri = BASE_URL+'abk/abk/listtkdireksi?view=direktur&year='+thn+'&id_uk='+uk+'&status=85'; 
+			 var uri = BASE_URL+'abk/abk/listtkhrd?view=direktur&year='+thn+'&id_uk='+uk+'&status=85'; 
 			  if(empty(thn)){
 					 alert('Tahun harus dipilih');
 					 return false;
@@ -431,7 +428,7 @@ return false;
   function gethasil(){
       var thn = $('#thnadd').val();
       var uk = $('#adduk').val();
-      var uri = BASE_URL+'abk/abk/listtkdireksi?view=direktur&year='+thn+'&status=85';
+      var uri = BASE_URL+'abk/abk/listtkhrd?view=direktur&year='+thn+'&status=85';
 			   if(empty(thn)){
 				 var d = new Date();
 				 var n = d.getFullYear();
@@ -439,7 +436,7 @@ return false;
 			   }
  
 			   if(!empty(thn)){
-				   uri = BASE_URL+'abk/abk/listtkdireksi?view=direktur&year='+thn+'&id_uk='+uk+'&status=85';
+				   uri = BASE_URL+'abk/abk/listtkhrd?view=direktur&year='+thn+'&id_uk='+uk+'&status=85';
 			   }
  
 			   $('#thn').val(thn);
@@ -557,13 +554,11 @@ return false;
 
   }
   </script>
-<?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
- <script>
+<script>
     $('.select-chosen').chosen();
      $('.chosen-container').css({"width": "100%"});
  getOptions("txtdirektorat",BASE_URL+"master/direktoratSub");
  </script>
- <?php } ?> 
 																			
   
        

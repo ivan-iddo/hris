@@ -498,7 +498,7 @@ function isKeyPressedNumeric(event) {
 
 function search(){
     bootbox.dialog({ 
-                   message:$('<div></div>').load('view/pegawai/search_unit.php'),
+                   message:$('<div></div>').load('view/pegawai/search_pim.php'),
                    animateIn: 'bounceIn',
                    animateOut : 'bounceOut',
 									 backdrop: false,

@@ -318,10 +318,11 @@ class Users extends REST_Controller
 		$total_rows = $this->db->count_all_results('sys_user');
 		$pagination = create_pagination_endless('/user/list_userlat/0/', $total_rows,$total_rows);
 				
-		$this->db->select('sys_user.*,sys_grup_user.grup,m_index_jabatan_asn_detail.ds_jabatan as nama,sys_user_profile.nip,sys_user_profile.nik,dm_term.nama as pendidikan,m_kode_profesi_group.ds_group_jabatan as profesi');
+		$this->db->select('sys_user.*,riwayat_kedinasan.*,m_golongan_peg.pangkat as pangkat,m_golongan_peg.gol_romawi as gol_romawi,sys_grup_user.grup,m_index_jabatan_asn_detail.ds_jabatan as nama,sys_user_profile.nip,sys_user_profile.nik,dm_term.nama as pendidikan,m_kode_profesi_group.ds_group_jabatan as profesi');
 		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup');
 		$this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
 		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+		$this->db->join('m_golongan_peg','m_golongan_peg.id = riwayat_kedinasan.golongan','LEFT');
 		$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
 		$this->db->where('riwayat_kedinasan.aktif','1');
 		$this->db->join('dm_term','sys_user_profile.pendidikan_akhir = dm_term.id','LEFT');
@@ -373,6 +374,8 @@ class Users extends REST_Controller
 								   'nama_group'=>$d->grup,
 								   'nip'=>$d->nip,
 								   'nik'=>$d->nik,
+								   'pangkat'=>$d->pangkat,
+								   'golongan'=>$d->gol_romawi,
 								   'pendidikan'=>$d->pendidikan,
 								   );
 		  }

@@ -14,15 +14,7 @@
 					</a>
 			</li>
 
-      <li class="active">
-				<a href="#demo-lft-tab-2" data-toggle="tab">
-						<span class="block text-center">
-							<i class="fa fa-laptop fa-2x text-danger"></i> 
-						</span>
-						Data Pegawai
-					</a> 
-			</li>
-            <li>
+            <li class="active">
 				<a href="#demo-lft-tab-mutasi" data-toggle="tab">
 						<span class="block text-center">
 							<i class="fa fa-mail-forward fa-2x text-danger"></i> 
@@ -43,7 +35,7 @@
     <div class="tab-content">
       <div class="tab-pane fade" id="demo-lft-tab-1"></div>
 
-      <div class="tab-pane fade active in" id="demo-lft-tab-2">
+      <div class="tab-pane fade" id="demo-lft-tab-2">
         <div class="fixed-table-toolbar">
          
         </div>
@@ -90,7 +82,7 @@
 </div>
       </div>
 </div>
-      <div class="tab-pane fade" id="demo-lft-tab-mutasi">
+      <div class="tab-pane fade active in" id="demo-lft-tab-mutasi">
       <div class="col-sm-6 table-toolbar-left">
 					                     <button style="margin-left:3px" class="btn btn-success" onclick="editmutasi()"><i class="fa fa-file-excel-o"></i> Proses  Permohonan</button>
                                         
@@ -414,7 +406,7 @@ bootbox.dialog({
    
            function loadMutasi(){
             $.ajax({
-                                   url: BASE_URL+'pegawai/listmutasi?status=90',
+                                   url: BASE_URL+'pegawai/listmutasihrd?status=90',
                                    headers: {
                                        'Authorization': localStorage.getItem("Token"),
                                        'X_CSRF_TOKEN':'donimaulana',

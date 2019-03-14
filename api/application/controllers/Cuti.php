@@ -657,7 +657,8 @@ class Cuti extends REST_Controller
 				}
 				$this->db->order_by('tgl_cuti', 'DESC');
                 $resCek = $this->db->get('his_cuti')->result();
-				
+				$count=count($resCek);
+                          
                 $da = '';
                 foreach ($resCek as $val) {
                     $text = 'text-success';
@@ -699,6 +700,7 @@ class Cuti extends REST_Controller
 
                 $arr['hasil'] = 'success';
                 $arr['isi'] = $da;
+                $arr['jum'] = $count;
                 $this->set_response($arr, REST_Controller::HTTP_OK);
 
                 return;
@@ -742,6 +744,7 @@ class Cuti extends REST_Controller
 				}
 				$this->db->order_by('tgl_cuti', 'DESC');
                 $resCek = $this->db->get('his_cuti')->result();
+				$count=count($resCek);
 				
                 $da = '';
                 foreach ($resCek as $val) {
@@ -784,6 +787,7 @@ class Cuti extends REST_Controller
 
                 $arr['hasil'] = 'success';
                 $arr['isi'] = $da;
+				$arr['jum'] = $count;
                 $this->set_response($arr, REST_Controller::HTTP_OK);
 
                 return;
