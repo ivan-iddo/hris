@@ -2942,6 +2942,7 @@ class Pegawai extends REST_Controller
                         'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null,
                         'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
                         'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
+                        'jabatan' => ($this->input->post('jabatan'))?$this->input->post('jabatan'):null,
                         'id_satker' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
                         'id_kelas' => ($this->input->post('kelas_jabatan'))?$this->input->post('kelas_jabatan'):null,
                         'aktif' => '0'
@@ -2998,6 +2999,7 @@ class Pegawai extends REST_Controller
                         'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null,
                         'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
                         'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
+                        'jabatan' => ($this->input->post('jabatan'))?$this->input->post('jabatan'):null,
                         'id_satker' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
                         'id_kelas' => ($this->input->post('kelas_jabatan'))?$this->input->post('kelas_jabatan'):null,
 

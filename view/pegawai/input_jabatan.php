@@ -54,6 +54,14 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-4 control-label" for="jabatan">Jabatan</label>
+							<div class="col-sm-8">
+								<select aria-hidden="true" class="select-chosen" id="jabatan" name="jabatan" style="width: 100%;" tabindex="-1">
+									 
+								</select>
+							</div>
+            			</div>
+						<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputpropinsi">Kelas Jabatan</label>
 							<div class="col-sm-8">
 								<select aria-hidden="true" class="select-chosen" id="kelas_jabatan" name="kelas_jabatan" style="width: 100%;" tabindex="-1">

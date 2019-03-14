@@ -235,13 +235,18 @@ class Pengajuan extends REST_Controller
         			}
 
         			//jabatan skrg
-        			$this->db->select('riwayat_kedinasan.*,m_index_jabatan_asn_detail.kd_jabatan,m_index_jabatan_asn_detail.ds_jabatan');
-					$this->db->join('m_index_jabatan_asn_detail','riwayat_kedinasan.jabatan_struktural = m_index_jabatan_asn_detail.migrasi_jabatan_detail_id');
-					$this->db->where('riwayat_kedinasan.id_user', $user_id);
-					$jabatan = $this->db->get('riwayat_kedinasan')->row();
-					$jabatan_sekarang = "";
+        			$this->db->select('his_mutasi_jabatan.*,m_index_jabatan_asn_detail.kd_jabatan,m_index_jabatan_asn_detail.ds_jabatan');
+					$this->db->join('m_index_jabatan_asn_detail','his_mutasi_jabatan.jabatan = m_index_jabatan_asn_detail.migrasi_jabatan_detail_id', 'LEFT');
+					$this->db->where('his_mutasi_jabatan.user_id', $user_id);
+					$jabatan = $this->db->get('his_mutasi_jabatan')->result();
+					$riwayat_jabatan = "";
 					if ($jabatan) {
-						$jabatan_sekarang = '['. $jabatan->kd_jabatan. '] '.$jabatan->ds_jabatan;
+						foreach($jabatan as $d){
+						$jabatans[]=array(
+								   'jabatan'=> '['. $d->kd_jabatan. '] '.$d->ds_jabatan,
+								   );
+					 	}
+					 	$riwayat_jabatan = implode(', ', array_column($jabatans, 'jabatan'));
 					}
 					
 					// pelatihan
@@ -265,7 +270,7 @@ class Pengajuan extends REST_Controller
 					'kompetensi'=> ($this->input->post('kompetensiAnda')?$this->input->post('kompetensiAnda'):NULL),
 					'formal'=> ($pendidikan_akhir?$pendidikan_akhir:NULL),
 					'nonformal'=> ($pendidikan_nonformal?$pendidikan_nonformal:NULL),
-					'jabatan'=> ($jabatan_sekarang?$jabatan_sekarang:NULL),
+					'jabatan'=> ($riwayat_jabatan?$riwayat_jabatan:NULL),
 					'tufoksi'=> ($this->input->post('tufoksipengaju')?$this->input->post('tufoksipengaju'):NULL),
 					);
 

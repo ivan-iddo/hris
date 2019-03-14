@@ -50,7 +50,11 @@ class Jabatan extends REST_Controller
 		f.grup as subbag_tujuan,
 		his_mutasi_jabatan.no_sk,
 		his_mutasi_jabatan.tgl_sk,
-		dm_term.nama as kelas,his_mutasi_jabatan.id as idhis');
+		dm_term.nama as kelas,his_mutasi_jabatan.id as idhis,
+		j.kd_jabatan,
+		j.ds_jabatan
+		');
+
 		$this->db->join('sys_grup_user as f','f.id_grup = his_mutasi_jabatan.sub_bagian_tujuan','LEFT');
 		$this->db->join('sys_grup_user as e','e.id_grup = his_mutasi_jabatan.bagian_tujuan','LEFT');
 		$this->db->join('sys_grup_user as d','d.id_grup = his_mutasi_jabatan.direktorat_tujuan','LEFT');
@@ -59,6 +63,7 @@ class Jabatan extends REST_Controller
 		$this->db->join('sys_grup_user as a','a.id_grup = his_mutasi_jabatan.direktorat_asal','LEFT');
 		
 		 $this->db->join('sys_user','sys_user.id_user = his_mutasi_jabatan.user_id','LEFT');
+		 $this->db->join('m_index_jabatan_asn_detail as j','j.migrasi_jabatan_detail_id = his_mutasi_jabatan.jabatan','LEFT');
 		 $this->db->join('dm_term','dm_term.id=his_mutasi_jabatan.id_kelas','LEFT');
 		$this->db->where('sys_user.status','1'); 
 		$this->db->where('his_mutasi_jabatan.tampilkan','1'); 
@@ -75,6 +80,7 @@ class Jabatan extends REST_Controller
 								   'tgl' => $d->tgl_mutasi,
 								   'no_sk' => $d->no_sk,
 								   'tgl_sk' => $d->tgl_sk,
+								   'jabatan' => '[Kode: '.$d->kd_jabatan.'] '.$d->ds_jabatan,
 								   'dir_tujuan' => $d->dir_tujuan,
 								   'bag_tujuan' => $d->bag_tujuan,
 								   'subbag_tujuan' => $d->subbag_tujuan,
@@ -122,7 +128,7 @@ class Jabatan extends REST_Controller
 		$this->db->join('sys_grup_user as c','c.id_grup = his_mutasi_jabatan.sub_bagian_asal','LEFT');
 		$this->db->join('sys_grup_user as b','b.id_grup = his_mutasi_jabatan.bagian_asal','LEFT');
 		$this->db->join('sys_grup_user as a','a.id_grup = his_mutasi_jabatan.direktorat_asal','LEFT');
-		
+		$this->db->join('m_index_jabatan_asn_detail as j','j.migrasi_jabatan_detail_id = his_mutasi_jabatan.jabatan','LEFT');
 		 $this->db->join('sys_user','sys_user.id_user = his_mutasi_jabatan.user_id','LEFT');
 		 $this->db->join('dm_term','dm_term.id=his_mutasi_jabatan.id_kelas','LEFT');
 		$this->db->where('sys_user.status','1'); 
@@ -135,6 +141,7 @@ class Jabatan extends REST_Controller
 								   'tgl' => $d->tgl_mutasi,
 								   'no_sk' => $d->no_sk,
 								   'tgl_sk' => $d->tgl_sk,
+								   'id_jabatan' => $d->jabatan,
 								   'dir_tujuan' => $d->dir_tujuan,
 								   'bag_tujuan' => $d->bag_tujuan,
 								   'subbag_tujuan' => $d->subbag_tujuan,

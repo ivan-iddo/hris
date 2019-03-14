@@ -236,7 +236,7 @@ $('.judul-menu').html('Persetujuan Cuti SDM');
                  contentType: 'application/json', 
                  processData: false,
                  success: function( res, textStatus, jQxhr ){
-                  listcuti();
+                  search();
 
                  }
             });
