@@ -3034,6 +3034,80 @@ class Pegawai extends REST_Controller
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
 
+    function setjabatan_get()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            $arr['hasil'] = 'error';
+            $arr['message'] = 'Data Gagal Ditambah!';
+            if ($decodedToken != false) {
+
+
+                $this->db->where('id', $_GET['id']);
+                $res = $this->db->get('his_mutasi_jabatan')->row();
+
+                $this->db->where('id_user', $this->input->get('user_id'));
+                $this->db->update('riwayat_kedinasan', array('jabatan_struktural' => $res->jabatan));
+
+
+                if ($this->db->affected_rows() == '1') {
+                    $arr['hasil'] = 'success';
+                    $arr['message'] = 'Data berhasil diupdate!';
+                } else {
+                    $arr['hasil'] = 'error';
+                    $arr['message'] = 'Data Gagal Dirubah!';
+                }
+
+
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
+
+    function setgolongan_get()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            $arr['hasil'] = 'error';
+            $arr['message'] = 'Data Gagal Ditambah!';
+            if ($decodedToken != false) {
+
+
+                $this->db->where('id', $_GET['id']);
+                $res = $this->db->get('his_golongan')->row();
+
+                $this->db->where('id_user', $this->input->get('user_id'));
+                $this->db->update('riwayat_kedinasan', array(
+                                                    'golongan' => $res->golongan_id,
+                                                    'tmt_golongan' => $res->tmt_golongan
+                                                ));
+
+
+                if ($this->db->affected_rows() == '1') {
+                    $arr['hasil'] = 'success';
+                    $arr['message'] = 'Data berhasil diupdate!';
+                } else {
+                    $arr['hasil'] = 'error';
+                    $arr['message'] = 'Data Gagal Dirubah!';
+                }
+
+
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
 
     function listfile_get()
     {

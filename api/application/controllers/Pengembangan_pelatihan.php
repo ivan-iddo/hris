@@ -188,8 +188,13 @@ class Pengembangan_pelatihan extends REST_Controller
                 $save["total_hari_kerja"] = ($total_hari_kerja)?$total_hari_kerja:null;
                 $save["pengembangan_pelatihan_kegiatan"] = ($pengembangan_pelatihan_kegiatan)?$pengembangan_pelatihan_kegiatan:null;
                 $save["pengembangan_pelatihan_kegiatan_status"] = ($pengembangan_pelatihan_kegiatan_status)?$pengembangan_pelatihan_kegiatan_status:null;
-                // 18 = direktur SDM
-                $id_parent = $this->System_auth_model->getparent($decodedToken->data->_pnc_id_grup, '18');
+                
+                // 195 = direktur SDM
+                $id_parent = $this->System_auth_model->getparent($decodedToken->data->_pnc_id_grup, '195');
+                // echo "<pre>";
+                // print_r($id_parent);
+                // echo "</pre>";
+                // die;
                 $save["id_atasan"] = $id_parent;
                 $save["id_uk"] = $decodedToken->data->_pnc_id_grup;
                 $save["status"] = 102;

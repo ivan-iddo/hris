@@ -6,6 +6,7 @@
 		    <div class="btn-group" style="padding-left:10px">
 		      <button class="btn btn-mint btn-labeled fa fa-plus-square btn-sm" onClick="addGolongan();">Add</button>
 		      <button class="btn btn-mint btn-labeled fa fa-edit btn-sm" onclick="editGolongan();">Edit</button>
+          <button class="btn btn-mint btn-labeled fa fa-edit btn-sm" onclick="setGolongan();">Set sbg Golongan Saat Ini</button>
 		      <button class="btn btn-warning btn-labeled fa fa-close btn-sm" onclick="deletGolongan();">Delete</button>
 		    </div>
 		  </div>

@@ -277,3 +277,35 @@ function deletJabatan(){
           
            }
           }
+
+    function setJabatan(){
+      var selectedRows = gridJabatanOpt.api.getSelectedRows();
+      var id_user = $('#id_user').val();
+    // alert('>>'+selectedRows+'<<<');
+    if(selectedRows == ''){
+       onMessage('Silahkan Pilih Jabatan Terlebih dahulu!');
+       return false;
+    }else{
+        var selectedRowsString = '';
+   selectedRows.forEach( function(selectedRow, index) {
+    
+       if (index!==0) {
+           selectedRowsString += ', ';
+       }
+       selectedRowsString += selectedRow.id;
+   });
+
+   getJson(reseditJabatan,BASE_URL+'pegawai/setjabatan/?id='+selectedRowsString+'&user_id='+id_user)
+ 
+   
+   
+    }
+    }
+    
+  function reseditJabatan(result){
+      if(result.hasil==='success'){
+        swal('BERHASIL!',result.message,'success');
+      }else{
+        swal('Oops!',result.message);
+      }
+  }

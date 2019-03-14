@@ -6,6 +6,7 @@
 		    <div class="btn-group" style="padding-left:10px">
 		      <button class="btn btn-mint btn-labeled fa fa-plus-square btn-sm" onClick="addJabatan();">Add</button>
 		      <button class="btn btn-mint btn-labeled fa fa-edit btn-sm" onclick="editJabatan();">Edit</button>
+          <button class="btn btn-mint btn-labeled fa fa-edit btn-sm" onclick="setJabatan();">Set sbg Jabatan Saat Ini</button>
 		      <button class="btn btn-warning btn-labeled fa fa-close btn-sm" onclick="deletJabatan();">Delete</button>
 		    </div>
 		  </div>

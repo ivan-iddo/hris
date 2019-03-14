@@ -248,6 +248,24 @@ class Pengajuan extends REST_Controller
 					 	}
 					 	$riwayat_jabatan = implode(', ', array_column($jabatans, 'jabatan'));
 					}
+
+					// if ($jabatan2) {
+					// 	foreach($jabatan as $d){
+					// 	$jabatans[]=array(
+					// 			   'jabatan'=> '['. $d->kd_jabatan. '] '.$d->ds_jabatan,
+					// 			   );
+					//  	}
+					//  	$riwayat_jabatan = implode(', ', array_column($jabatans, 'jabatan'));
+					// }
+
+					// if ($jabatan3) {
+					// 	foreach($jabatan as $d){
+					// 	$jabatans[]=array(
+					// 			   'jabatan'=> '['. $d->kd_jabatan. '] '.$d->ds_jabatan,
+					// 			   );
+					//  	}
+					//  	$riwayat_jabatan = implode(', ', array_column($jabatans, 'jabatan'));
+					// }
 					
 					// pelatihan
 					$this->db->where('his_pelatihan.tampilkan','1');
