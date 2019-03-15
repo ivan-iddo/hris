@@ -489,7 +489,7 @@
         changeDalamNegeri($(this).val());
     });
 
-    function loadUser(id, url, valueEdit = null) {
+      function loadUser(id, url, valueEdit = null) {
         $('#' + id).children().remove();
         $('#' + id).append('<option value="" selected="selected">Pilih</option>');
 
@@ -504,7 +504,7 @@
             dataType: "json",
             success: function (e) {
                 for (var i = 0; i < e.result.length; i++) {
-                    $('#' + id).append('<option ' + (e.result[i].nip == valueEdit ? 'selected' : '') + ' value="' + e.result[i].nip + '" data-nik="' + e.result[i].nik + '" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_group + '" >' + e.result[i].nip + ' - ' + e.result[i].nama + '</option>');
+                    $('#' + id).append('<option ' + (e.result[i].nip == valueEdit ? 'selected' : '') + ' value="' + e.result[i].nip + '" data-nik="' + e.result[i].nik + '" data-golongan="' + e.result[i].golongan + '" data-pangkat="' + e.result[i].pangkat +'" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_uk + '" >' + e.result[i].id + ' - ' + e.result[i].nama + '</option>');
                 }
                 $('#' + id).trigger("chosen:updated");
             }
@@ -621,6 +621,8 @@
             $("#jabatan").val($(this).find(':selected').attr("data-nama-group"));
             $("#nik").val($(this).find(':selected').attr("data-nik"));
             $("#nip").val($(this).find(':selected').val());
+            $("#pangkat").val($(this).find(':selected').attr("data-pangkat"));
+            $("#golongan").val($(this).find(':selected').attr("data-golongan"));
         }
     });
 
@@ -654,6 +656,8 @@
         dataRow.uraian_total = uraian_total;
         dataRow.nopeg = $("#nopeg").val();
         dataRow.nip = $("#nik").val();
+        dataRow.pangkat = $("#pangkat").val();
+        dataRow.golongan = $("#golongan").val();
         dataRow.nama_pegawai = $("#nama_pegawai").val();
         dataRow.jabatan = $("#jabatan").val();
         dataRow.detail_uraian = detail_uraian;
@@ -690,6 +694,8 @@
                 $('#jabatan').val(selectedRow.jabatan);
                 $('#nip').val(selectedRow.nopeg);
                 $('#nik').val(selectedRow.nip);
+                $('#pangkat').val(selectedRow.pangkat);
+                $('#golongan').val(selectedRow.golongan);
                 selectedRow.detail_uraian.forEach(function (item, index) {
                     if (index == 0) {
                         $("#biaya_uraian").val(selectedRow.detail_uraian[index].uraian);
@@ -721,7 +727,6 @@
             }
         }
     }
-
     function btnActionEdit(nopeg) {
         $(".btn-pegawai-add").addClass('hidden');
         $(".btn-pegawai-remove").attr('value', nopeg);
@@ -757,7 +762,7 @@
         gridPI.api.setRowData(dataTable);
     }
 
-    function clearAddPegawai() {
+     function clearAddPegawai() {
         $(".body-remove").remove();
         $(".body-remove-calendar").remove();
         $("#nopeg").prop('selectedIndex', 0);
@@ -766,6 +771,8 @@
         $("#jabatan").val("");
         $("#nip").val("");
         $("#nik").val("");
+        $("#pangkat").val("");
+        $("#golongan").val("");
         $("#biaya_uraian").val("");
         $("#biaya_nominal").val(0);
         $(".btn-pegawai-remove").val("");
@@ -773,6 +780,7 @@
         isClickRowTable = true;
         btnActionAdd();
     }
+
 
     function form_reset() {
         clearAddPegawai();

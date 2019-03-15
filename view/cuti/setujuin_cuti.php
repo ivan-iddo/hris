@@ -14,52 +14,17 @@ require_once('../../connectdb.php');
 					            <form>
 					                <div class="panel-body">
                                     <div class="row pad-top pad-all">
-                                        <?php 
-                                        // print_r($_SESSION['userdata'] );
-
-                                         $query= pg_query("select count(total)as jml from his_cuti where tampilkan=1
-                                         and tgl_cuti < '".date('Y-m-d')."' AND tgl_akhir_cuti >= '".date('Y-m-d')."'
-                                           ");
-                                          $rowcount=pg_num_rows($query);
-                                          $row   = pg_fetch_row($query);
-                                          $total_cuti =0;
-
-                                          if(!empty($rowcount)){
-                                            $total_cuti = $row[0];
-                                          }
-
-                                          $query2= pg_query("select count(*) from sys_user where status='1'");
-                                           $rowcount2=pg_num_rows($query2);
-                                           $row2   = pg_fetch_row($query2);
-
-
-                                          $persen = round(($total_cuti/$row2[0])*100);
-                                          //pg_close($con);
-                                          
-                                         ?>
-					
 					                    <div class="col-lg-4">
 					                        <p class="text-semibold text-main">Total Pegawai Sedang Cuti</p>
 					                        <ul class="list-unstyled">
 					                            <li>
 					                                <div class="media">
 					                                    <div class="media-left">
-					                                        <span class="text-2x text-semibold text-main">
-                                                            <?php echo $total_cuti?></span>
+					                                        <span id="jum" class="text-2x text-semibold text-main">
+                                                            </span>
 					                                    </div>
 					                                    <div class="media-body">
 					                                        <p class="mar-no">Orang</p>
-					                                    </div>
-					                                </div>
-					                            </li>
-					                            <li>
-					                                <div class="clearfix">
-					                                    <p class="pull-left mar-no">Karyawan</p>
-					                                    <p class="pull-right mar-no"><?php echo $persen?>%</p>
-					                                </div>
-					                                <div class="progress progress-xs">
-					                                    <div class="progress-bar progress-bar-info" style="width: <?php echo $persen?>%;">
-					                                        <span class="sr-only"><?php echo $persen?>%</span>
 					                                    </div>
 					                                </div>
 					                            </li>
@@ -114,6 +79,7 @@ $('.judul-menu').html('Pengajuan Cuti');
 	   processData: false,
 	   success: function( res, textStatus, jQxhr ){
 	       $('#isicuti').html(res.isi);
+		   $('#jum').html(res.jum);
 	        
 		   }
 	    });
