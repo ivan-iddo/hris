@@ -18,11 +18,11 @@ class keluarga extends CI_Controller
         $this->load->library('upload', $config);
 
         /* ini untuk dump hasil post dari ajax */
-        var_dump($this->input->post());
-        if (!$this->upload->do_upload('inputfileupload')) {
-            print_r($this->upload->display_errors());
-        }
-        die;
+        // var_dump($this->input->post());
+        // if (!$this->upload->do_upload('inputfileupload')) {
+        //     print_r($this->upload->display_errors());
+        // }
+        // die;
         
         $arrdata = array(
             'id_user' => ($this->input->post('id_user_baru')?$this->input->post('id_user_baru'):NULL),
