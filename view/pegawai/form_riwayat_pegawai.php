@@ -508,8 +508,8 @@
                                                                               id="txtjabatan" name="txtjabatan"
                                                                               style="width: 100%;"
                                                                               tabindex="-1"></select>
-                                                                            <span
-                                        class="text-xs text-danger">*Wajib diisi</span></div>
+                                                                            <!-- <span class="text-xs text-danger">*Wajib diisi</span> -->
+                                    </div>
                                             </div>
 											<div class="form-group"><label class="col-sm-4 control-label"
                                                                            for="inputkec">J.Internal 1</label>
@@ -544,7 +544,7 @@
                                                 <div class="col-sm-8"><input class="form-control" id="txttmtgolongan"
                                                                              name="txttmtgolongan"
                                                                              placeholder="yyyy-mm-dd" type="date"
-                                                                             value=""></div>
+                                                                             value="" readonly=""></div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-4 control-label"
                                                                            for="inputkel">Tgl Bergabung</label>
@@ -632,6 +632,13 @@
                 getOptions("txtpendidikan", BASE_URL + "master/getpen?id=29");
                 getOptions("subjabasn", BASE_URL + "master/getmaster?id=40");
                 getOptions("txtprov", BASE_URL + "master/provinsi");
+                $('#txtjabatan').prop('disabled', true);
+                $('#txtjabatan1').prop('disabled', true);
+                $('#txtjabatan2').prop('disabled', true);
+                $('#txtgolongan').prop('disabled', true);
+                $('#txtbagian').prop('disabled', true);
+                $('#unitkerja').prop('disabled', true);
+                $('#txtdirektorat').prop('disabled', true);
             }
         }
     }, 2000);

@@ -235,38 +235,40 @@ class Pengajuan extends REST_Controller
         			}
 
         			//jabatan skrg
-        			$this->db->select('his_mutasi_jabatan.*,m_index_jabatan_asn_detail.kd_jabatan,m_index_jabatan_asn_detail.ds_jabatan');
-					$this->db->join('m_index_jabatan_asn_detail','his_mutasi_jabatan.jabatan = m_index_jabatan_asn_detail.migrasi_jabatan_detail_id', 'LEFT');
+        			$this->db->select('his_mutasi_jabatan.*,j1.kd_jabatan as kd_jabatan1, j1.ds_jabatan as ds_jabatan1, j2.kd_jabatan as kd_jabatan2, j2.ds_jabatan as ds_jabatan2, j3.kd_jabatan as kd_jabatan3, j3.ds_jabatan as ds_jabatan3');
+					$this->db->join('m_index_jabatan_asn_detail as j1','his_mutasi_jabatan.jabatan = j1.migrasi_jabatan_detail_id', 'LEFT');
+					$this->db->join('m_index_jabatan_asn_detail as j2','his_mutasi_jabatan.jabatan2 = j2.migrasi_jabatan_detail_id', 'LEFT');
+					$this->db->join('m_index_jabatan_asn_detail as j3','his_mutasi_jabatan.jabatan3= j3.migrasi_jabatan_detail_id', 'LEFT');
 					$this->db->where('his_mutasi_jabatan.user_id', $user_id);
 					$jabatan = $this->db->get('his_mutasi_jabatan')->result();
+					
 					$riwayat_jabatan = "";
+					$riwayat_jabatan2 = "";
+					$riwayat_jabatan3 = "";
 					if ($jabatan) {
 						foreach($jabatan as $d){
 						$jabatans[]=array(
-								   'jabatan'=> '['. $d->kd_jabatan. '] '.$d->ds_jabatan,
+								   'jabatan'=> '['. $d->kd_jabatan1. '] '.$d->ds_jabatan1,
+								   'jabatan2'=> '['. $d->kd_jabatan2. '] '.$d->ds_jabatan2,
+								   'jabatan3'=> '['. $d->kd_jabatan3. '] '.$d->ds_jabatan3,
 								   );
 					 	}
 					 	$riwayat_jabatan = implode(', ', array_column($jabatans, 'jabatan'));
+					 	$riwayat_jabatan2 = implode(', ', array_column($jabatans, 'jabatan2'));
+					 	$riwayat_jabatan3 = implode(', ', array_column($jabatans, 'jabatan3'));
+					}
+					$string_replace = array('\'', ';', '[', ']', '{', '}', '|', '^', '~' , ',' , ' ');
+					$pesan2= str_replace($string_replace, '',$riwayat_jabatan2);
+					$pesan3= str_replace($string_replace, '',$riwayat_jabatan3);
+
+					$riwayat_jabatan_all = $riwayat_jabatan;
+					if ($pesan2 != "") {
+						$riwayat_jabatan_all .= ", " . $riwayat_jabatan2;
+					}
+					if ($pesan3 != "") {
+						$riwayat_jabatan_all .= ", " . $riwayat_jabatan3;
 					}
 
-					// if ($jabatan2) {
-					// 	foreach($jabatan as $d){
-					// 	$jabatans[]=array(
-					// 			   'jabatan'=> '['. $d->kd_jabatan. '] '.$d->ds_jabatan,
-					// 			   );
-					//  	}
-					//  	$riwayat_jabatan = implode(', ', array_column($jabatans, 'jabatan'));
-					// }
-
-					// if ($jabatan3) {
-					// 	foreach($jabatan as $d){
-					// 	$jabatans[]=array(
-					// 			   'jabatan'=> '['. $d->kd_jabatan. '] '.$d->ds_jabatan,
-					// 			   );
-					//  	}
-					//  	$riwayat_jabatan = implode(', ', array_column($jabatans, 'jabatan'));
-					// }
-					
 					// pelatihan
 					$this->db->where('his_pelatihan.tampilkan','1');
 					$this->db->where('his_pelatihan.id_user', $user_id);
@@ -288,7 +290,7 @@ class Pengajuan extends REST_Controller
 					'kompetensi'=> ($this->input->post('kompetensiAnda')?$this->input->post('kompetensiAnda'):NULL),
 					'formal'=> ($pendidikan_akhir?$pendidikan_akhir:NULL),
 					'nonformal'=> ($pendidikan_nonformal?$pendidikan_nonformal:NULL),
-					'jabatan'=> ($riwayat_jabatan?$riwayat_jabatan:NULL),
+					'jabatan'=> ($riwayat_jabatan_all?$riwayat_jabatan_all:NULL),
 					'tufoksi'=> ($this->input->post('tufoksipengaju')?$this->input->post('tufoksipengaju'):NULL),
 					);
 

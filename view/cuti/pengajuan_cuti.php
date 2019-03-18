@@ -173,6 +173,7 @@ $('.select-chosen').chosen();
        contentType: 'application/json', 
        processData: false,
        success: function( res, textStatus, jQxhr ){
+            $('#jumlahCuti').prop('disabled', false);
             $('#tgl_cuti').val('');
             $('#sampai').val('');
             if (res.warning != "") {
@@ -411,11 +412,11 @@ function hitungTanggal(jml){
        processData: false,
        data: data,
        success: function(data, textStatus, jQxhr) {
-           if(data.hasil ==='success'){
-            getOptions("jenis_cuti",BASE_URL+"master/jenis_cuti");
+             getOptions("jenis_cuti",BASE_URL+"master/jenis_cuti");
             $('#jumlahCuti').empty();
             $('#jumlahCuti').remove();
-            $('#jumlahCuti').val('');
+            $('#jumlahCuti').prop('disabled', true);
+           if(data.hasil ==='success'){
             $('#tgl_cuti').val('');
             $('#jenis_cuti').val('');
             $('#sampai').val('');

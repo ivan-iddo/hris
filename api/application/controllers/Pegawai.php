@@ -3028,6 +3028,9 @@ class Pegawai extends REST_Controller
                         'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null,
                         'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
                         'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
+                        'jabatan' => ($this->input->post('jabatan'))?$this->input->post('jabatan'):null,
+                        'jabatan2' => ($this->input->post('jabatan2'))?$this->input->post('jabatan2'):null,
+                        'jabatan3' => ($this->input->post('jabatan3'))?$this->input->post('jabatan3'):null,
                         'id_satker' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
                         'id_kelas' => ($this->input->post('kelas_jabatan'))?$this->input->post('kelas_jabatan'):null,
                         'aktif' => '0'
@@ -3084,6 +3087,9 @@ class Pegawai extends REST_Controller
                         'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null,
                         'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
                         'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
+                        'jabatan' => ($this->input->post('jabatan'))?$this->input->post('jabatan'):null,
+                        'jabatan2' => ($this->input->post('jabatan2'))?$this->input->post('jabatan2'):null,
+                        'jabatan3' => ($this->input->post('jabatan3'))?$this->input->post('jabatan3'):null,
                         'id_satker' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
                         'id_kelas' => ($this->input->post('kelas_jabatan'))?$this->input->post('kelas_jabatan'):null,
 
@@ -3130,7 +3136,15 @@ class Pegawai extends REST_Controller
                 $this->db->where('id', $_GET['id']);
                 $res = $this->db->get('his_mutasi_jabatan')->row();
                 $this->db->where('id_user', $this->input->get('user_id'));
-                $this->db->update('riwayat_kedinasan', array('jabatan_struktural' => $res->jabatan));
+                $updatekedinasan = array(
+                                        'jabatan_struktural' => $res->jabatan,
+                                        'jabatan2' => $res->jabatan2,
+                                        'jabatan3' => $res->jabatan3,
+                                        'direktorat' => $res->direktorat_tujuan,
+                                        'bagian' => $res->bagian_tujuan,
+                                        'sub_bagian' => $res->sub_bagian_tujuan
+                                        );
+                $this->db->update('riwayat_kedinasan', $updatekedinasan);
                 if ($this->db->affected_rows() == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil diupdate!';

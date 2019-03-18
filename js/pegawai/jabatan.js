@@ -160,6 +160,8 @@ function addJabatan(){
                       getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
                       getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
                       getOptions("jabatan",BASE_URL+"master/jabatan_struktural_fix");
+                      getOptions("jabatan2",BASE_URL+"master/jabatan_struktural_fix");
+                      getOptions("jabatan3",BASE_URL+"master/jabatan_struktural_fix");
                       
                      
                      
@@ -240,7 +242,9 @@ function editJabatan(){
                   getOptionsEdit("txtdirektorat",BASE_URL+"master/direktorat",data.direktorat_tujuan);
                   getOptionsEdit("satuan_kerja",BASE_URL+"master/getmaster?id=25",data.id_satker);
                   getOptionsEdit("kelas_jabatan",BASE_URL+"master/getmaster?id=24",data.id_kelas);
-                  getOptionsEdit("jabatan",BASE_URL+"master/jabatan_struktural_fix",data.id_jabatan);
+                  getOptionsEdit("jabatan",BASE_URL+"master/jabatan_struktural_fix",data.jabatan);
+                  getOptionsEdit("jabatan2",BASE_URL+"master/jabatan_struktural_fix",data.jabatan2);
+                  getOptionsEdit("jabatan3",BASE_URL+"master/jabatan_struktural_fix",data.jabatan3);
                   getOptionsEdit("txtbagian",BASE_URL+"master/jabatan_struktural_fix/"+data.direktorat_tujuan,data.bagian_tujuan);
                   getOptionsEdit("txtbagian",BASE_URL+"master/direktoratSub/"+data.direktorat_tujuan,data.bagian_tujuan);
 									getOptionsEdit("unitkerja",BASE_URL+"master/direktoratSub/"+data.bagian_tujuan,data.sub_bagian_tujuan);

@@ -422,12 +422,20 @@
        
         
 																			getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural_fix",res[0].jabatan_struktural);
+                                      
 																			getOptionsEdit("txtjabatan1",BASE_URL+"master/jabatan_struktural_fix",res[0].jabatan2);
 																			getOptionsEdit("txtjabatan2",BASE_URL+"master/jabatan_struktural_fix",res[0].jabatan3);
 																			getOptionsEdit("txtgolongan",BASE_URL+"master/golongan_pegawai",res[0].golongan);
 																			getOptionsEdit("txtbagian",BASE_URL+"master/direktoratSub/"+res[0].direktorat,res[0].bagian);
 																			getOptionsEdit("unitkerja",BASE_URL+"master/direktoratSub/"+res[0].bagian,res[0].sub_bagian);
-    getOptionsEdit("kategori_profesi",BASE_URL+'masterp/group_profesi/getoption',res[0].kategori_profesi);
+                                      getOptionsEdit("kategori_profesi",BASE_URL+'masterp/group_profesi/getoption',res[0].kategori_profesi);
+                    $('#txtjabatan').prop('disabled', true);
+                    $('#txtjabatan1').prop('disabled', true);
+                    $('#txtjabatan2').prop('disabled', true);
+                    $('#txtgolongan').prop('disabled', true);
+                    $('#txtbagian').prop('disabled', true);
+                    $('#unitkerja').prop('disabled', true);
+                    $('#txtdirektorat').prop('disabled', true);
 																			 
     }
   },1000);
@@ -535,7 +543,14 @@
                        acces       = $("#acces").get(0).value;
                        f_id_edit = $("#f_id_edit").get(0).value;
 											 txtjabatan = $("#txtjabatan").val();
-											 
+                       $('#txtjabatan').prop('disabled', false);
+                       $('#txtjabatan1').prop('disabled', false);
+                      $('#txtjabatan2').prop('disabled', false);
+                      $('#txtgolongan').prop('disabled', false);
+                      $('#txtbagian').prop('disabled', false);
+                      $('#unitkerja').prop('disabled', false);
+                      $('#txtdirektorat').prop('disabled', false);
+                  											 
 											var action ='pegawai/edit';
 											
 											if(f_id_edit===''){
@@ -547,13 +562,13 @@
                        if(!validateUsername(user_username)){ 
                            $("#username").focus();
                            return false;
-                       }else if(direktorat===""){
-                                           onMessage("Data 'Direktorat' is required");
+         //               }else if(direktorat===""){
+         //                                   onMessage("Data 'Direktorat' is required");
                            
-                           return false;
-                       }else if(txtjabatan === ''){
-						   onMessage("Data 'Jabatan Struktural' is required"); 
-                           return false;
+         //                   return false;
+         //               }else if(txtjabatan === ''){
+						   // onMessage("Data 'Jabatan Struktural' is required"); 
+         //                   return false;
 					   }else if(empty($('#txtnip').val())){
 						   onMessage("Data 'NIP' is required"); 
                            return false;
@@ -566,9 +581,9 @@
 					   }else if(empty($('#inputstatustetap').val())){
                onMessage("Data 'STATUS PEGAWAI TETAP' is required"); 
                            return false;
-             }else if(empty($('#txtjabatan').val())){
-						   onMessage("Data 'Jabatan struktural' is required"); 
-                           return false;
+         //     }else if(empty($('#txtjabatan').val())){
+						   // onMessage("Data 'Jabatan struktural' is required"); 
+         //                   return false;
 					   }else if(empty($('#kategori_profesi').val())){
 						   onMessage("Data 'Kelompok Profesi' is required"); 
                            return false;

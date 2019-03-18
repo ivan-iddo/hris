@@ -11,6 +11,11 @@ $_POST = json_decode($rest_json, true);
 
 class Cuti extends REST_Controller
 { 
+    function __construct(){
+            parent::__construct();
+            //load our second db and put in $db2
+            $this->db2 = $this->load->database('second', TRUE);
+        }
 
 	function listcuti_get()
     {
@@ -443,7 +448,7 @@ class Cuti extends REST_Controller
                 $this->db->where('id_grup', $id_group);
                 $this->db->where('tampilkan', '1');
                 $resGroup = $this->db->get('sys_grup_user')->row();
-                $kode_group = $resGroup->grup;
+                $kode_group = $resGroup->kode;
 
                 $this->db->where('id_user', $id_user);
                 $resShift = $this->db->get('sys_user')->row();
@@ -500,17 +505,30 @@ class Cuti extends REST_Controller
                         }
 
                         foreach ( $haricuti as $tgl_cuti ) {
+                            // $datadetail = array(
+                            //     'id_cuti' => $id_cuti,
+                            //     'id_user' => $id_user,
+                            //     'tgl_cuti' => date('Y-m-d', $tgl_cuti),
+                            //     'jenis_cuti' => $kd_jenis_cuti,
+                            //     'group' => $kode_group,
+                            //     'status' => '102',
+                            //     'keterangan' => $keterangan,
+                            //     );
+                            // $this->db->insert('his_cuti_detail', $datadetail);
+
+                            // db woowtime
                             $datadetail = array(
                                 'id_cuti' => $id_cuti,
-                                'id_user' => $id_user,
-                                'tgl_cuti' => date('Y-m-d', $tgl_cuti),
-                                'jenis_cuti' => $kd_jenis_cuti,
-                                'group' => $kode_group,
-                                'status' => '102',
-                                'keterangan' => $keterangan,
+                                'userid' => $id_user,
+                                'date' => date('Y-m-d', $tgl_cuti),
+                                'absence' => $kd_jenis_cuti,
+                                'deptid' => $kode_group,
+                                'status' => '1',
+                                'editby' => $id_user,
+                                'notes' => $keterangan,
                                 );
 
-                            $this->db->insert('his_cuti_detail', $datadetail);
+                            $this->db2->insert('approval', $datadetail);
                         }
 
                     } else if ($status_shift == '50'){
@@ -522,17 +540,30 @@ class Cuti extends REST_Controller
                         }
 
                         foreach ( $haricuti as $tgl_cuti ) {
+                            // $datadetail = array(
+                            //     'id_cuti' => $id_cuti,
+                            //     'id_user' => $id_user,
+                            //     'tgl_cuti' => date('Y-m-d', $tgl_cuti),
+                            //     'jenis_cuti' => $kd_jenis_cuti,
+                            //     'group' => $kode_group,
+                            //     'status' => '102',
+                            //     'keterangan' => $keterangan,
+                            //     );
+                            // $this->db->insert('his_cuti_detail', $datadetail);
+
+                            // db woowtime
                             $datadetail = array(
                                 'id_cuti' => $id_cuti,
-                                'id_user' => $id_user,
-                                'tgl_cuti' => date('Y-m-d', $tgl_cuti),
-                                'jenis_cuti' => $kd_jenis_cuti,
-                                'group' => $kode_group,
-                                'status' => '102',
-                                'keterangan' => $keterangan,
+                                'userid' => $id_user,
+                                'date' => date('Y-m-d', $tgl_cuti),
+                                'absence' => $kd_jenis_cuti,
+                                'deptid' => $kode_group,
+                                'status' => '1',
+                                'editby' => $id_user,
+                                'notes' => $keterangan,
                                 );
 
-                            $this->db->insert('his_cuti_detail', $datadetail);
+                            $this->db2->insert('approval', $datadetail);
                         }
                     }
 
@@ -542,17 +573,30 @@ class Cuti extends REST_Controller
                     }
 
                     foreach ( $haricuti as $tgl_cuti ) {
+                        // $datadetail = array(
+                        //     'id_cuti' => $id_cuti,
+                        //     'id_user' => $id_user,
+                        //     'tgl_cuti' => date('Y-m-d', $tgl_cuti),
+                        //     'jenis_cuti' => $kd_jenis_cuti,
+                        //     'group' => $kode_group,
+                        //     'status' => '102',
+                        //     'keterangan' => $keterangan,
+                        //     );
+                        // $this->db->insert('his_cuti_detail', $datadetail);
+
+                        // db woowtime
                         $datadetail = array(
                             'id_cuti' => $id_cuti,
-                            'id_user' => $id_user,
-                            'tgl_cuti' => date('Y-m-d', $tgl_cuti),
-                            'jenis_cuti' => $kd_jenis_cuti,
-                            'group' => $kode_group,
-                            'status' => '102',
-                            'keterangan' => $keterangan,
+                            'userid' => $id_user,
+                            'date' => date('Y-m-d', $tgl_cuti),
+                            'absence' => $kd_jenis_cuti,
+                            'deptid' => $kode_group,
+                            'status' => '1',
+                            'editby' => $id_user,
+                            'notes' => $keterangan,
                             );
 
-                        $this->db->insert('his_cuti_detail', $datadetail);
+                        $this->db2->insert('approval', $datadetail);
                     }
                 }
 
@@ -586,15 +630,23 @@ class Cuti extends REST_Controller
                 }
                 $this->db->update('his_cuti', $arraycuti);
 
-                $arraycutidetail['status'] = $status;
-                $this->db->where('id_cuti', $id);
+                if ($status == "107") {
+                    $arraycutidetail['status'] = "2";
+                } else if ($status == "103") {
+                    $arraycutidetail['status'] = "3";
+                } else if ($status == "108") {
+                    $arraycutidetail['status'] = "9";
+                }
+                $this->db2->where('id_cuti', $id);
                 if ($status == '0') {
                     $arraycutidetail['tampilkan'] = $status;
-                    $this->db->where('status', '102');
+                    $arraycutidetail['status'] = $status;
+                    $this->db2->where('status', '1');
                 } else {
-                	$arraycutidetail['approve'] = $id_user;
+                	$arraycutidetail['approved_by'] = $id_user;
+                    $arraycutidetail['editby'] = $id_user;
                 }
-                $this->db->update('his_cuti_detail', $arraycutidetail);
+                $this->db2->update('approval', $arraycutidetail);
                 
                 $arr['hasil'] = 'success';
                 $this->set_response($arr, REST_Controller::HTTP_OK);

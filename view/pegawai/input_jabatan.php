@@ -7,7 +7,7 @@
               <input id="txtIdUser" name="txtIdUser" style="display:none" type="text">
               <input id="idjabatan" name="idjabatan" style="display:none" type="text">
 								<select aria-hidden="true" class="select-chosen" id="txtdirektorat" name="txtdirektorat" onchange="getToSub(this.value,'txtbagian','master/direktoratSub/')" style="width: 70%;" tabindex="-1">
-									 
+									 <option value="" >Please select...</option>
 								</select>
 							</div>
 						</div>
@@ -15,6 +15,7 @@
 							<label class="col-sm-4 control-label" for="inputrw">Bagian</label>
 							<div class="col-sm-8">
 								<select aria-hidden="true" class="select-chosen" id="txtbagian" name="txtbagian" onchange="getToSub(this.value,'unitkerja','master/direktoratSub/')" style="width: 100%;" tabindex="-1">
+									
 								</select>
 							</div>
 						</div>
@@ -54,10 +55,26 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-4 control-label" for="jabatan">Jabatan</label>
+							<label class="col-sm-4 control-label" for="jabatan">Jabatan Struktural</label>
 							<div class="col-sm-8">
 								<select aria-hidden="true" class="select-chosen" id="jabatan" name="jabatan" style="width: 100%;" tabindex="-1">
-									 
+									 <option value="" >Please select...</option>
+								</select>
+							</div>
+            			</div>
+            			<div class="form-group">
+							<label class="col-sm-4 control-label" for="jabatan">Jabatan 2</label>
+							<div class="col-sm-8">
+								<select aria-hidden="true" class="select-chosen" id="jabatan2" name="jabatan2" style="width: 100%;" tabindex="-1">
+									 <option value="" >Please select...</option>
+								</select>
+							</div>
+            			</div>
+            			<div class="form-group">
+							<label class="col-sm-4 control-label" for="jabatan">Jabatan 3</label>
+							<div class="col-sm-8">
+								<select aria-hidden="true" class="select-chosen" id="jabatan3" name="jabatan3" style="width: 100%;" tabindex="-1">
+									 <option value="" >Please select...</option>
 								</select>
 							</div>
             			</div>
