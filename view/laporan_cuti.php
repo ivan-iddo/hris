@@ -86,7 +86,7 @@ chart = new Highcharts.chart('containers', {
 
 chart = new  Highcharts.chart('Jabatan', {
     chart: {
-        type: 'bar'
+        type: 'column'
     },
     title: {
         text: 'Laporan Tidak Hadir Tanpa Alasan'
@@ -114,22 +114,11 @@ chart = new  Highcharts.chart('Jabatan', {
         valueSuffix: ' millions'
     },
     plotOptions: {
-        bar: {
+        column: {
             dataLabels: {
                 enabled: true
             }
         }
-    },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-        shadow: true
     },
     credits: {
         enabled: false

@@ -108,7 +108,7 @@
 //<![CDATA[
            // specify the columns
            var columnDefs = [
-            {headerName: "ID", field: "id", width: 70, filterParams:{newRowsAction: 'keep'}},
+            {headerName: "Nopeg", field: "id", width: 70, filterParams:{newRowsAction: 'keep'}},
             {headerName: "NIP", field: "nip", width: 100, filterParams:{newRowsAction: 'keep'}},
 						 {headerName: "NIK", field: "nik", width: 100, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
@@ -391,7 +391,7 @@
 																	 
 																	 $('#txtnip').val(res[0].nip);
 																	 $('#txtnik').val(res[0].nik);
-																	 $('#txtnopeg').val(res[0].nopeg);
+																	 $('#txtnopeg').val(res[0].id);
 																	 $('#txtkarpeg').val(res[0].karpeg);
 																	 $('#txttglnikah').val(res[0].tgl_nikah);
 																	 $('#txtgelardepan').val(res[0].gelar_depan);
@@ -617,14 +617,8 @@
                                                                   loaddata(0);
 																																	// $('.modal').modal('hide');
 																														 }else{
-                                                                  ({
-																																	type: 'success',
-																																									 title: 'Success',
-																																									 message: message,
-																																									 container: 'floating',
-																																									 timer: 5000
-																																							 });	 
-																																	return false;	
+                                                                   onMessage(message);
+                                                                    return false;
 																														 }
 																		 
 																		 
