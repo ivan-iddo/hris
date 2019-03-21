@@ -166,9 +166,10 @@ class Pengembangan_pelatihan extends REST_Controller
                 $jenis_biaya = $this->input->post("jenis_biaya");
                 $jenis_perjalanan = $this->input->post("jenis_perjalanan");
                 $dalam_negeri = $this->input->post("dalam_negeri");
-                $surat_tugas_dalam_negeri_dalamkota = $this->input->post("surat_tugas_dalam_negeri_dalamkota");
-                $surat_tugas_dalam_negeri_luarkota = $this->input->post("surat_tugas_dalam_negeri_luarkota");
-                $surat_tugas_luar_negeri = $this->input->post("surat_tugas_luar_negeri");
+                $jenis_surat = $this->input->post("jenis_surat");
+                // $surat_tugas_dalam_negeri_dalamkota = $this->input->post("surat_tugas_dalam_negeri_dalamkota");
+                // $surat_tugas_dalam_negeri_luarkota = $this->input->post("surat_tugas_dalam_negeri_luarkota");
+                // $surat_tugas_luar_negeri = $this->input->post("surat_tugas_luar_negeri");
                 $total_hari_kerja = $this->input->post("total_hari_kerja");
                 $pengembangan_pelatihan_kegiatan = $this->input->post("pengembangan_pelatihan_kegiatan");
                 $pengembangan_pelatihan_kegiatan_status = $this->input->post("pengembangan_pelatihan_kegiatan_status");
@@ -183,9 +184,10 @@ class Pengembangan_pelatihan extends REST_Controller
                 $save["jenis_biaya"] = ($jenis_biaya)?$jenis_biaya:null;
                 $save["jenis_perjalanan"] = ($jenis_perjalanan)?$jenis_perjalanan:null;
                 $save["dalam_negeri"] = ($dalam_negeri)?$dalam_negeri:null;
-                $save["surat_tugas_dalam_negeri_dalamkota"] = ($surat_tugas_dalam_negeri_dalamkota)?$surat_tugas_dalam_negeri_dalamkota:null;
-                $save["surat_tugas_dalam_negeri_luarkota"] = ($surat_tugas_dalam_negeri_luarkota)?$surat_tugas_dalam_negeri_luarkota:null;
-                $save["surat_tugas_luar_negeri"] = ($surat_tugas_luar_negeri)?$surat_tugas_luar_negeri:null;
+                $save["jenis_surat"] = ($jenis_surat)?$jenis_surat:null;
+                // $save["surat_tugas_dalam_negeri_dalamkota"] = ($surat_tugas_dalam_negeri_dalamkota)?$surat_tugas_dalam_negeri_dalamkota:null;
+                // $save["surat_tugas_dalam_negeri_luarkota"] = ($surat_tugas_dalam_negeri_luarkota)?$surat_tugas_dalam_negeri_luarkota:null;
+                // $save["surat_tugas_luar_negeri"] = ($surat_tugas_luar_negeri)?$surat_tugas_luar_negeri:null;
                 $save["total_hari_kerja"] = ($total_hari_kerja)?$total_hari_kerja:null;
                 $save["pengembangan_pelatihan_kegiatan"] = ($pengembangan_pelatihan_kegiatan)?$pengembangan_pelatihan_kegiatan:null;
                 $save["pengembangan_pelatihan_kegiatan_status"] = ($pengembangan_pelatihan_kegiatan_status)?$pengembangan_pelatihan_kegiatan_status:null;
@@ -202,7 +204,7 @@ class Pengembangan_pelatihan extends REST_Controller
 
                 $detail = ($this->input->post("detail"))?$this->input->post("detail"):null;
                 $tanggal = ($this->input->post("tanggal"))?$this->input->post("tanggal"):null;
-                
+
                 $result = $this->Pengembangan_pelatihan_model->create($save);
                 // echo "<pre>";
                 // print_r($save);
@@ -291,9 +293,10 @@ class Pengembangan_pelatihan extends REST_Controller
                 $jenis_biaya = $this->input->post("jenis_biaya");
                 $jenis_perjalanan = $this->input->post("jenis_perjalanan");
                 $dalam_negeri = $this->input->post("dalam_negeri");
-                $surat_tugas_dalam_negeri_dalamkota = $this->input->post("surat_tugas_dalam_negeri_dalamkota");
-                $surat_tugas_dalam_negeri_luarkota = $this->input->post("surat_tugas_dalam_negeri_luarkota");
-                $surat_tugas_luar_negeri = $this->input->post("surat_tugas_luar_negeri");
+                $jenis_surat = $this->input->post("jenis_surat");
+                // $surat_tugas_dalam_negeri_dalamkota = $this->input->post("surat_tugas_dalam_negeri_dalamkota");
+                // $surat_tugas_dalam_negeri_luarkota = $this->input->post("surat_tugas_dalam_negeri_luarkota");
+                // $surat_tugas_luar_negeri = $this->input->post("surat_tugas_luar_negeri");
                 $total_hari_kerja = $this->input->post("total_hari_kerja");
                 $pengembangan_pelatihan_kegiatan = $this->input->post("pengembangan_pelatihan_kegiatan");
                 $pengembangan_pelatihan_kegiatan_status = $this->input->post("pengembangan_pelatihan_kegiatan_status");
@@ -309,9 +312,10 @@ class Pengembangan_pelatihan extends REST_Controller
                 $save["jenis_biaya"] = ($jenis_biaya)?$jenis_biaya:null;
                 $save["jenis_perjalanan"] = ($jenis_perjalanan)?$jenis_perjalanan:null;
                 $save["dalam_negeri"] = ($dalam_negeri)?$dalam_negeri:null;
-                $save["surat_tugas_dalam_negeri_dalamkota"] = ($surat_tugas_dalam_negeri_dalamkota)?$surat_tugas_dalam_negeri_dalamkota:null;
-                $save["surat_tugas_dalam_negeri_luarkota"] = ($surat_tugas_dalam_negeri_luarkota)?$surat_tugas_dalam_negeri_luarkota:null;
-                $save["surat_tugas_luar_negeri"] = ($surat_tugas_luar_negeri)?$surat_tugas_luar_negeri:null;
+                $save["jenis_surat"] = ($jenis_surat)?$jenis_surat:null;
+                // $save["surat_tugas_dalam_negeri_dalamkota"] = ($surat_tugas_dalam_negeri_dalamkota)?$surat_tugas_dalam_negeri_dalamkota:null;
+                // $save["surat_tugas_dalam_negeri_luarkota"] = ($surat_tugas_dalam_negeri_luarkota)?$surat_tugas_dalam_negeri_luarkota:null;
+                // $save["surat_tugas_luar_negeri"] = ($surat_tugas_luar_negeri)?$surat_tugas_luar_negeri:null;
                 $save["total_hari_kerja"] = ($total_hari_kerja)?$total_hari_kerja:null;
                 $save["pengembangan_pelatihan_kegiatan"] = ($pengembangan_pelatihan_kegiatan)?$pengembangan_pelatihan_kegiatan:null;
                 $save["pengembangan_pelatihan_kegiatan_status"] = ($pengembangan_pelatihan_kegiatan_status)?$pengembangan_pelatihan_kegiatan_status:null;
@@ -463,6 +467,8 @@ class Pengembangan_pelatihan extends REST_Controller
                         $pengembangan_pelatihan_detail_biaya["pengembangan_pelatihan_detail_id"] = $detail_id->id;
                         $pengembangan_pelatihan_detail_biaya["uraian"] = $value_detail_uraian["uraian"];
                         $pengembangan_pelatihan_detail_biaya["nominal"] = $value_detail_uraian["nominal"];
+                        $pengembangan_pelatihan_detail_biaya["pernominal"] = $value_detail_uraian["pernominal"];
+                        $pengembangan_pelatihan_detail_biaya["qty"] = $value_detail_uraian["qty"];
                         // insert detail biaya
                         $pengembangan_pelatihan_detail_biaya_id = $this->Pengembangan_pelatihan_model->create_detail_row("pengembangan_pelatihan_detail_biaya", $pengembangan_pelatihan_detail_biaya);
                     }

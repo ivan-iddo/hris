@@ -107,6 +107,7 @@ require_once('../../connectdb.php');
 					                        <label class="col-sm-3 control-label">Jumlah Cuti</label>
 					                        <div class="col-sm-9">
                                              <select class="select-chosen" name="jumlahCuti" id="jumlahCuti" style="width: 100%;" onChange="hitungTanggal(this.value)">
+                                              <option value="">Pilih Jumlah</option>
 									 
 								            </select>
 					                        </div>
@@ -415,6 +416,8 @@ function hitungTanggal(jml){
              getOptions("jenis_cuti",BASE_URL+"master/jenis_cuti");
             $('#jumlahCuti').empty();
             $('#jumlahCuti').remove();
+            $('#jumlahCuti').prop('selectedIndex', 0);
+            $("#jumlahCuti").trigger("chosen:updated");
             $('#jumlahCuti').prop('disabled', true);
            if(data.hasil ==='success'){
             $('#tgl_cuti').val('');

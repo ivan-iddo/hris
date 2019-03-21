@@ -23,7 +23,7 @@ class Pengembangan_pelatihan_model extends MY_Model
 	function create_detail($table, $data)
 	{
 		$this->db->insert_batch($table, $data);
-		$id = $this->db->insert_id('pengembangan_pelatihan_pelaksanaanid_seq');
+		$id = $this->db->insert_id($table.'id_seq');
 		return $this->db->where("id", $id)->get($table)->row();
 	}
 
@@ -34,7 +34,7 @@ class Pengembangan_pelatihan_model extends MY_Model
 								$this->data
 							);
 		$this->db->insert($table, $data);
-		$id = $this->db->insert_id('pengembangan_pelatihan_detailid_seq');
+		$id = $this->db->insert_id($table.'id_seq');
 		return $this->db->where("id", $id)->get($table)->row();
 	}
 

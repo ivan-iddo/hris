@@ -88,13 +88,33 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-sm-3 control-label">Jenis Biaya</label>
+                                        <div class="col-sm-5">
+                                            <select name="jenis_biaya" id="jenis_biaya" class="select-chosen">
+                                                <option value="">Pilih</option>
+                                                <option value="BLU">BLU</option>
+                                                <option value="Sponsor">Sponsor</option>
+                                                <option value="Sendiri">Sendiri</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Jenis Surat</label>
+                                        <div class="col-sm-5">
+                                            <select name="jenis_surat" id="jenis_surat"
+                                                    class="form-control select-chosen">
+                                                <option value="">Pilih</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="demo-hor-inputemail">Nama Pelatihan</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="nama_pelatihan" id="nama_pelatihan" class="form-control"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Tujuan</label>
+                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Tempat</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="tujuan" id="tujuan" class="form-control"/>
                                         </div>
@@ -176,14 +196,14 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group dalam_negeri-luarkota hidden">
+                                    <!-- <div class="form-group dalam_negeri-luarkota hidden">
                                         <label class="col-sm-3 control-label"></label>
                                         <div class="col-sm-5">
                                             <select name="surat_tugas_dalam_negeri_luarkota" id="surat_tugas_dalam_negeri_luarkota"
                                                     class="form-control select-chosen">
                                                 <option value="">Pilih</option>
                                                 <option>Surat Tugas</option>
-                                                <option>SPPD</option>
+                                                <option>SPD</option>
                                                 <option>RAK</option>
                                             </select>
                                         </div>
@@ -207,22 +227,12 @@
                                                 <option value="">Pilih</option>
                                                 <option>Surat Tugas</option>
                                                 <option>Surat Izin</option>
-                                                <option>SPPD</option>
+                                                <option>SPD</option>
                                                 <option>Surat Rekomendasi</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Jenis Biaya</label>
-                                        <div class="col-sm-5">
-                                            <select name="jenis_biaya" id="jenis_biaya" class="select-chosen">
-                                                <option value="">Pilih</option>
-                                                <option>BLU</option>
-                                                <option>Sponsor</option>
-                                                <option>Sendiri</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    </div> -->
+                                    
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Tipe</label>
                                         <div class="col-sm-5">
@@ -284,26 +294,63 @@
                                                    readonly="true"/>
                                         </div>
                                     </div>
-                                    <div class="body-content">
+                                    <!-- <div class="body-content"> -->
+                                        <!-- <div class="form-group" id="row_1">
+                                            <label class="col-sm-3 control-label">Uraian Biaya</label>
+                                            <div class="body-detail">
+                                                <div class="col-xs-2">
+                                                    <input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian" placeholder="Uraian"/>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <input type="text" name="qty_nominal[]" class="form-control qty_nominal numeric-only" id="qty_nominal_1" min="1" value="1" required onkeyup="getTotal(1)"/>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <input type="text" name="biaya_nominal[]" class="form-control biaya_nominal numeric-only" required onkeyup="getTotal(1)"/>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <input type="text" name="total_nominal[]" class="form-control total_nominal numeric-only" id="total_nominal_1" min="0" value="0"
+                                                           readonly/>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-1 pull right">
+                                                <div class="btn btn-default btn-sm" id="add-data">Add</div>
+                                            </div>
+                                        </div> -->
+                                    <!-- </div> -->
+                                    <table class="body-content">
+                                        <tbody>
+                                        <tr id="row_1">
+                                        <td>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Uraian Biaya</label>
                                             <div class="body-detail">
-                                                <div class="col-sm-3">
-                                                    <input type="text" name="biaya_uraian[]" class="form-control biaya_uraian"
-                                                           id="biaya_uraian"
-                                                           placeholder="Uraian"/>
+                                                <div class="col-xs-3">
+                                                    <input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_1" placeholder="Uraian"/>
                                                 </div>
-                                                <div class="col-sm-3">
-                                                    <input type="text" name="biaya_nominal[]"
-                                                           class="form-control biaya_nominal numeric-only" id="biaya_nominal" min="0" value="0"
-                                                           placeholder="Biaya"/>
+                                                <div class="col-xs-2">
+                                                    <input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_1" min="1" value="1" required onkeyup="getTotal(1)"/>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_1" min="0" value="0" required onkeyup="getTotal(1)"/>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-3 pull right">
+                                            <div class="col-xs-1 pull right">
                                                 <div class="btn btn-default btn-sm" id="add-data">Add</div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label"></label>
+                                            <div class="body-detail">
+                                                <div class="col-xs-5">
+                                                    <input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_1" min="0" value="0"
+                                                           readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                     <div class="panel-footer" style="border:none;background-color : #e9e9e9">
                                         <button type="button" class="btn btn-primary btn-pegawai-add" onclick="addRowTable()">
                                             <span class="fa fa-edit"></span>Tambah Pegawai
@@ -385,7 +432,7 @@
     new agGrid.Grid(gridDiv, gridPI);
 
     var columnListData = [
-            {headerName: "ID", field: "id", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "ID", field: "id", width: 70, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Nama Pelatihan", field: "nama_pelatihan", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Tujuan", field: "tujuan", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Institusi", field: "institusi", width: 190, filterParams: {newRowsAction: 'keep'}},
@@ -425,14 +472,14 @@
             field: 'athlete'
         },
         defaultColDef: {
-            editable: true,
+            editable: false,
             enableRowGroup: true,
             enablePivot: true,
             enableValue: true
         },
-        onGridReady: function (params) {
-            params.api.sizeColumnsToFit();
-        },
+        // onGridReady: function (params) {
+        //     params.api.sizeColumnsToFit();
+        // },
         onCellEditingStarted: function (event) {
             console.log('cellEditingStarted');
         },
@@ -440,6 +487,9 @@
             console.log('cellEditingStopped');
         }
     };
+
+    var myGrid = document.querySelector('#myGrid');
+    new agGrid.Grid(myGrid, gridOptionsList);
 
     var dataTable = [];
     var isClickRowTable = true;
@@ -452,6 +502,41 @@
     $('.chosen-container').css({"width": "100%"});
     $('.judul-menu').html('Pengajuan Pelatihan & Pengembangan');
     $('.buttoenedit').hide();
+
+    $("#jenis_biaya").on("change", function () {
+        jenis_biaya = $(this).val();
+        if (jenis_biaya == "BLU") {
+            console.log(jenis_biaya);
+            $("#jenis_surat").children().remove();
+            $("#jenis_surat").append('<option value="">Pilih</option>');
+            $("#jenis_surat").append('<option value="Surat Tugas">Surat Tugas</option>');
+            $("#jenis_surat").append('<option value="SPD">SPD</option>');
+            $("#jenis_surat").append('<option value="Surat Rekomendasi">Surat Rekomendasi</option>');
+            // reset value
+            // $("#jenis_surat").prop('selectedIndex', 0);
+            $("#jenis_surat").trigger("chosen:updated");
+        }
+        else if(jenis_biaya == "Sponsor"){
+            $("#jenis_surat").children().remove();
+            $("#jenis_surat").append('<option value="Surat Izin">Surat Izin</option>');
+            // reset value
+            $("#jenis_surat").prop('selectedIndex', 0);
+            $("#jenis_surat").trigger("chosen:updated");
+        }
+        else if(jenis_biaya == "Sendiri"){
+            $("#jenis_surat").children().remove();
+            $("#jenis_surat").append('<option value="Surat Izin">Surat Izin</option>');
+            // reset value
+            $("#jenis_surat").prop('selectedIndex', 0);
+            $("#jenis_surat").trigger("chosen:updated");
+        } else if(jenis_biaya == ""){
+            console.log(jenis_biaya);
+            $("#jenis_surat").children().remove();
+            $("#jenis_surat").append('<option value="">Pilih</option>');
+            $("#jenis_surat").prop('selectedIndex', 0);
+            $("#jenis_surat").trigger("chosen:updated");
+        }
+    });
 
     $("#jenis_perjalanan").on("change", function () {
         jenis_perjalanan = $(this).val();
@@ -483,34 +568,46 @@
             $("#surat_tugas_luar_negeri").prop('selectedIndex', 0);
             $("#surat_tugas_luar_negeri").trigger("chosen:updated");
         }
-        changeDalamNegeri();
+        // changeDalamNegeri();
     });
 
-    function changeDalamNegeri(argument = null) {
-        console.log("changeDalamNegeri" + argument);
-        if (argument == "Dalam Kota"){
-            $("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
-            $("#surat_tugas_dalam_negeri_luarkota").trigger('chosen:updated');
-            $(".dalam_negeri-dalamkota").removeClass('hidden');
-            $(".dalam_negeri-luarkota").addClass('hidden');
-        }
-        else if (argument == "Luar Kota"){
-            $("#surat_tugas_dalam_negeri_dalamkota").prop('selectedIndex', 0);
-            $("#surat_tugas_dalam_negeri_dalamkota").trigger('chosen:updated');
-            $(".dalam_negeri-dalamkota").addClass('hidden');
-            $(".dalam_negeri-luarkota").removeClass('hidden');
-        }
-        else{        
-            $("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
-            $("#surat_tugas_dalam_negeri_dalamkota").prop('selectedIndex', 0);
-            $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
-            $("#surat_tugas_dalam_negeri_dalamkota").trigger("chosen:updated");
-        }
-    }
-
-    $("#dalam_negeri").on("change", function(){
-        changeDalamNegeri($(this).val());
+    $("#jenis").on("change", function () {
+        jenis = $(this).val();
+        if (jenis =='Kelompok') {
+            $(".btn-pegawai-add").removeClass('hidden');
+        } 
+        // else if (jenis =='Individu'){
+        //     $(".btn-pegawai-add").addClass('hidden');
+        // } else {
+        //     $(".btn-pegawai-add").removeClass('hidden');
+        // }
     });
+
+    // function changeDalamNegeri(argument = null) {
+    //     console.log("changeDalamNegeri" + argument);
+    //     if (argument == "Dalam Kota"){
+    //         $("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
+    //         $("#surat_tugas_dalam_negeri_luarkota").trigger('chosen:updated');
+    //         $(".dalam_negeri-dalamkota").removeClass('hidden');
+    //         $(".dalam_negeri-luarkota").addClass('hidden');
+    //     }
+    //     else if (argument == "Luar Kota"){
+    //         $("#surat_tugas_dalam_negeri_dalamkota").prop('selectedIndex', 0);
+    //         $("#surat_tugas_dalam_negeri_dalamkota").trigger('chosen:updated');
+    //         $(".dalam_negeri-dalamkota").addClass('hidden');
+    //         $(".dalam_negeri-luarkota").removeClass('hidden');
+    //     }
+    //     else{        
+    //         $("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
+    //         $("#surat_tugas_dalam_negeri_dalamkota").prop('selectedIndex', 0);
+    //         $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
+    //         $("#surat_tugas_dalam_negeri_dalamkota").trigger("chosen:updated");
+    //     }
+    // }
+
+    // $("#dalam_negeri").on("change", function(){
+    //     changeDalamNegeri($(this).val());
+    // });
 
     function loadUser(id, url, valueEdit = null) {
         $('#' + id).children().remove();
@@ -589,30 +686,62 @@
     });
 
     $("#add-data").on("click", function () {
+        var count_body = $(".body-content tr").length;
+        var row_id = count_body + 1;
+        var row = 
+                '<tr id="row_'+row_id+'">'+
+                '<td>'+
+                '<div class="form-group body-remove">' +
+                   ' <label class="col-sm-3 control-label"></label>' +
+                   '<div class="body-detail">' +
+                        '<div class="col-xs-3">' +
+                            '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian"/>' +
+                        '</div>' +
+                        '<div class="col-xs-2">' +
+                            '<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" min="1" value="1" required onkeyup="getTotal('+row_id+')"/>' +
+                        '</div>' +
+                        '<div class="col-xs-3">' +
+                            '<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" value="0" required onkeyup="getTotal('+row_id+')"/>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="col-xs-1 pull right">' +
+                        '<div class="btn btn-default btn-sm btn-remove" onclick="removeRow(\''+row_id+'\')"><i class="fa fa-trash-o"></i></div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="form-group body-remove">' +
+                   ' <label class="col-sm-3 control-label"></label>' +
+                   '<div class="body-detail">' +
+                        '<div class="col-xs-5">' +
+                            '<input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" value="0" readonly/>' +
+                        '</div> '+
+                    '</div>' +
+                '</div>'
+                + '</td>'
+                + '</tr>'
+                ;
+        $(".body-content tbody").append(row);
+    });
 
-        var row = $(
-            '<div class="form-group body-remove">' +
-            '<label class="col-sm-3 control-label"></label>' +
-            '<div class="body-detail">' +
-            '<div class="col-sm-3">' +
-            '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" placeholder="Uraian" />' +
-            '</div>' +
-            '<div class="col-sm-3">' +
-            '<input type="text" name="biaya_nominal[]" class="form-control biaya_nominal numeric-only" min="0" value="0" placeholder="Biaya" />' +
-            '</div>' +
-            '</div>' +
-            '<div class="col-xs-3 pull right">' +
-            '<div class="btn btn-default btn-sm btn-remove">' +
-            '<i class="fa fa-trash-o"></i>' +
-            '</div>' +
-            '</div>' +
-            '</div>');
-        $(".body-content").append(row);
-    });
-    $(document).on('click', '.btn-remove', function (event) {
-        console.log("remove" + $(this));
-        $(this).parentsUntil(".body-remove").parent().remove();
-    });
+    // $(document).on('click', '.btn-remove', function (event) {
+    //     // console.log("remove" + $(this));
+    //     $(this).parentsUntil(".body-remove").parent().remove();
+    // });
+
+    function removeRow(tr_id)
+      {
+        $(".body-content tbody tr#row_"+tr_id).remove();
+      }
+
+    function getTotal(row = null) {
+        if(row) {
+          var total = Number($("#qty_nominal_"+row).val()) * Number($("#biaya_nominal_"+row).val());
+          // total = total.toFixed(2);
+          $("#total_nominal_"+row).val(total);
+          
+        } else {
+          alert('no row !! please refresh the page');
+        }
+      }
 
     $("#add-data-calendar").on("click", function () {
         var row = $(
@@ -660,13 +789,18 @@
         var dataRow = {};
         var itemUraian = {};
         var biaya_uraian = $(".biaya_uraian").serializeArray();
-        var biaya_nominal = $(".biaya_nominal").serializeArray();
+        // var biaya_nominal = $(".biaya_nominal").serializeArray();
+        var biaya_nominal = $(".total_nominal").serializeArray();
+        var biaya_pernominal = $(".biaya_nominal").serializeArray();
+        var qty_nominal = $(".qty_nominal").serializeArray();
         var uraian_total = 0;
         for (var i = 0; i < biaya_uraian.length; i++) {
             if (biaya_uraian[i].value.length > 0) {
                 itemUraian = {};
                 itemUraian.uraian = biaya_uraian[i].value;
                 itemUraian.nominal = parseFloat(biaya_nominal[i].value);
+                itemUraian.pernominal = parseFloat(biaya_pernominal[i].value);
+                itemUraian.qty = parseFloat(qty_nominal[i].value);
                 uraian_total += itemUraian.nominal;
                 detail_uraian.push(itemUraian);
             }
@@ -678,7 +812,7 @@
 
         dataRow.uraian_total = uraian_total;
         dataRow.nopeg = $("#nopeg").val();
-        dataRow.nip = $("#nik").val();
+        dataRow.nip = $("#nip").val();
         dataRow.pangkat = $("#pangkat").val();
         dataRow.golongan = $("#golongan").val();
         dataRow.nama_pegawai = $("#nama_pegawai").val();
@@ -688,10 +822,11 @@
             dataTable.push(dataRow);
         }
         else{
-            dataTable[idRow] = dataRow;
+            dataTable[idRow] = JSON.stringify(dataRow[idRow]);
         }
 
         console.log(dataRow);
+        console.log(dataTable);
         // return;
 
         gridPI.api.setRowData(dataTable);
@@ -716,33 +851,68 @@
                 $('#nama_pegawai').val(selectedRow.nama_pegawai);
                 $('#jabatan').val(selectedRow.jabatan);
                 $('#nip').val(selectedRow.nopeg);
-                $('#nik').val(selectedRow.nip);
+                $('#nik').val(selectedRow.nik);
                 $('#pangkat').val(selectedRow.pangkat);
                 $('#golongan').val(selectedRow.golongan);
                 selectedRow.detail_uraian.forEach(function (item, index) {
                     if (index == 0) {
-                        $("#biaya_uraian").val(selectedRow.detail_uraian[index].uraian);
-                        $("#biaya_nominal").val(selectedRow.detail_uraian[index].nominal);
+                        $("#biaya_uraian_1").val(selectedRow.detail_uraian[index].uraian);
+                        $("#total_nominal_1").val(selectedRow.detail_uraian[index].nominal);
+                        $("#biaya_nominal_1").val(selectedRow.detail_uraian[index].pernominal);
+                        $("#qty_nominal_1").val(selectedRow.detail_uraian[index].qty);
                     }
                     else {
-                        var row = $(
-                            '<div class="form-group body-remove">' +
-                            '<label class="col-sm-3 control-label"></label>' +
-                            '<div class="body-detail">' +
-                            '<div class="col-sm-3">' +
-                            '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" placeholder="Uraian" value=' + selectedRow.detail_uraian[index].uraian + ' />' +
-                            '</div>' +
-                            '<div class="col-sm-3">' +
-                            '<input type="text" name="biaya_nominal[]" class="form-control biaya_nominal" placeholder="Biaya" value=' + selectedRow.detail_uraian[index].nominal + ' />' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="col-xs-3 pull right">' +
-                            '<div class="btn btn-default btn-sm btn-remove">' +
-                            '<i class="fa fa-trash-o"></i>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>');
-                        $(".body-content").append(row);
+                        // var row = $(
+                        //     '<div class="form-group body-remove">' +
+                        //     '<label class="col-sm-3 control-label"></label>' +
+                        //     '<div class="body-detail">' +
+                        //     '<div class="col-sm-3">' +
+                        //     '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" placeholder="Uraian" value=' + selectedRow.detail_uraian[index].uraian + ' />' +
+                        //     '</div>' +
+                        //     '<div class="col-sm-3">' +
+                        //     '<input type="text" name="biaya_nominal[]" class="form-control biaya_nominal" placeholder="Biaya" value=' + selectedRow.detail_uraian[index].nominal + ' />' +
+                        //     '</div>' +
+                        //     '</div>' +
+                        //     '<div class="col-xs-3 pull right">' +
+                        //     '<div class="btn btn-default btn-sm btn-remove">' +
+                        //     '<i class="fa fa-trash-o"></i>' +
+                        //     '</div>' +
+                        //     '</div>' +
+                        //     '</div>');
+                        // $(".body-content").append(row);
+                        var row_id = index + 1
+                        var row = 
+                                '<tr id="row_'+row_id+'">'+
+                                '<td>'+
+                                '<div class="form-group body-remove">' +
+                                   ' <label class="col-sm-3 control-label"></label>' +
+                                   '<div class="body-detail">' +
+                                        '<div class="col-xs-3">' +
+                                            '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian" value=' + selectedRow.detail_uraian[index].uraian + ' />' +
+                                        '</div>' +
+                                        '<div class="col-xs-2">' +
+                                            '<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" min="1" value=' + selectedRow.detail_uraian[index].qty + ' required onkeyup="getTotal('+row_id+')"/>' +
+                                        '</div>' +
+                                        '<div class="col-xs-3">' +
+                                            '<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" value=' + selectedRow.detail_uraian[index].pernominal + ' required onkeyup="getTotal('+row_id+')"/>' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<div class="col-xs-1 pull right">' +
+                                        '<div class="btn btn-default btn-sm btn-remove" onclick="removeRow(\''+row_id+'\')"><i class="fa fa-trash-o"></i></div>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="form-group body-remove">' +
+                                   ' <label class="col-sm-3 control-label"></label>' +
+                                   '<div class="body-detail">' +
+                                        '<div class="col-xs-5">' +
+                                            '<input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" value=' + selectedRow.detail_uraian[index].nominal + ' readonly/>' +
+                                        '</div> '+
+                                    '</div>' +
+                                '</div>'
+                                + '</td>'
+                                + '</tr>'
+                                ;
+                        $(".body-content tbody").append(row);
                     }
                 });
                 isClickRowTable = false;
@@ -761,7 +931,13 @@
     }
 
     function btnActionAdd() {
-        $(".btn-pegawai-add").removeClass('hidden');
+        if ($('#jenis').val()=='Kelompok') {
+            $(".btn-pegawai-add").removeClass('hidden');
+        } else if ($('#jenis').val()=='Individu'){
+            $(".btn-pegawai-add").addClass('hidden');
+        } else {
+            $(".btn-pegawai-add").removeClass('hidden');
+        }
         $(".btn-pegawai-remove").addClass('hidden');
         $(".btn-pegawai-edit").addClass('hidden');
         $(".btn-pegawai-cancel").addClass('hidden');
@@ -788,7 +964,7 @@
 
     function clearAddPegawai() {
         $(".body-remove").remove();
-        $(".body-remove-calendar").remove();
+        // $(".body-remove-calendar").remove();
         $("#nopeg").prop('selectedIndex', 0);
         $("#nopeg").trigger("chosen:updated");
         $("#nama_pegawai").val("");
@@ -797,8 +973,10 @@
         $("#nik").val("");
         $("#pangkat").val("");
         $("#golongan").val("");
-        $("#biaya_uraian").val("");
-        $("#biaya_nominal").val(0);
+        $("#biaya_uraian_1").val("");
+        $("#biaya_nominal_1").val(0);
+        $("#total_nominal_1").val(0);
+        $("#qty_nominal_1").val(1);
         $(".btn-pegawai-remove").val("");
         $(".btn-pegawai-edit").val("");
         isClickRowTable = true;
@@ -822,8 +1000,8 @@
         $("#jenis_perjalanan").trigger('change');
         $("#jenis_biaya").prop('selectedIndex', 0);
         $("#jenis_biaya").trigger('chosen:updated');
-        $("#jenis").prop('selectedIndex', 0);
-        $("#jenis").trigger("chosen:updated");
+        $("#jenis_biaya").trigger('change');
+        $("#jenis_biaya").val('');
         $("#jenis").prop('selectedIndex', 0);
         $("#jenis").trigger("chosen:updated");
     }
@@ -851,10 +1029,11 @@
         obj.pengembangan_pelatihan_kegiatan = $("#pengembangan_pelatihan_kegiatan").val();
         obj.pengembangan_pelatihan_kegiatan_status = $("#pengembangan_pelatihan_kegiatan_status").val();
         obj.dalam_negeri = $("#dalam_negeri").val();
-        obj.surat_tugas_dalam_negeri = $("#surat_tugas_dalam_negeri").val();
-        obj.surat_tugas_dalam_negeri_dalamkota = $("#surat_tugas_dalam_negeri_dalamkota").val();
-        obj.surat_tugas_dalam_negeri_luarkota = $("#surat_tugas_dalam_negeri_luarkota").val();
-        obj.surat_tugas_luar_negeri = $("#surat_tugas_luar_negeri").val();
+        obj.jenis_surat = $("#jenis_surat").val();
+        // obj.surat_tugas_dalam_negeri = $("#surat_tugas_dalam_negeri").val();
+        // obj.surat_tugas_dalam_negeri_dalamkota = $("#surat_tugas_dalam_negeri_dalamkota").val();
+        // obj.surat_tugas_dalam_negeri_luarkota = $("#surat_tugas_dalam_negeri_luarkota").val();
+        // obj.surat_tugas_luar_negeri = $("#surat_tugas_luar_negeri").val();
         obj.total_hari_kerja = $("#total_hari_kerja").val();
         obj.detail = dataTable;
         console.log(obj);
@@ -869,8 +1048,7 @@
         save(URL, obj, loaddata);
     }
     // setup the grid after the page has finished loading
-    var myGrid = document.querySelector('#myGrid');
-    new agGrid.Grid(myGrid, gridOptionsList);
+    
 
     function loaddata(jml = 0) {
         var search = 0;
@@ -1042,8 +1220,39 @@
                     $("#jenis_biaya").trigger("chosen:updated");
                     $('#nama_pegawai').val(res.data.nama_pegawai);
                     $('#jabatan').val(res.data.jabatan);
-                    dataTable = res.data.detail;
 
+                    if (res.data.jenis_biaya == "BLU") {
+                        $("#jenis_surat").children().remove();
+                        $("#jenis_surat").append('<option value="">Pilih</option>');
+                        $("#jenis_surat").append('<option value="Surat Tugas">Surat Tugas</option>');
+                        $("#jenis_surat").append('<option value="SPD">SPD</option>');
+                        $("#jenis_surat").append('<option value="Surat Rekomendasi">Surat Rekomendasi</option>');
+                        // reset value
+                        // $("#jenis_surat").prop('selectedIndex', 0);
+                        $('#jenis_surat').val(res.data.jenis_surat);
+                        $("#jenis_surat").trigger("chosen:updated");
+                    }
+                    else if(res.data.jenis_biaya == "Sponsor"){
+                        $("#jenis_surat").children().remove();
+                        $("#jenis_surat").append('<option value="Surat Izin">Surat Izin</option>');
+                        // reset value
+                        $('#jenis_surat').val(res.data.jenis_surat);
+                        $("#jenis_surat").trigger("chosen:updated");
+                    }
+                    else if(res.data.jenis_biaya == "Sendiri"){
+                        $("#jenis_surat").children().remove();
+                        $("#jenis_surat").append('<option value="Surat Izin">Surat Izin</option>');
+                        // reset value
+                        $('#jenis_surat').val(res.data.jenis_surat);
+                        $("#jenis_surat").trigger("chosen:updated");
+                    } else if(res.data.jenis_biaya == ""){
+                        $("#jenis_surat").children().remove();
+                        $("#jenis_surat").append('<option value="">Pilih</option>');
+                        $('#jenis_surat').val(res.data.jenis_surat);
+                        $("#jenis_surat").trigger("chosen:updated");
+                    }
+
+                    dataTable = res.data.detail;
                     gridPI.api.setRowData(dataTable);
                     $('.nav-tabs a[href="#demo-lft-tab-2"]').tab('show');
 
