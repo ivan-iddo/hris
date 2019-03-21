@@ -69,7 +69,7 @@ class Pegawai extends REST_Controller
                 $f_user_email = ($this->input->post('f_user_email'))?$this->input->post('f_user_email'):null;
                 $f_user_password = ($this->input->post('f_user_password'))?$this->input->post('f_user_password'):null;
                 $acces = ($this->input->post('acces'))?$this->input->post('acces'):null;
-				$f_user_status_aktif = ($this->input->post('f_user_status_aktif'))?$this->input->post('f_user_status_aktif'):null;
+                $f_user_status_aktif = ($this->input->post('f_user_status_aktif'))?$this->input->post('f_user_status_aktif'):null;
                 $f_user_username = ($this->input->post('f_user_username'))?$this->input->post('f_user_username'):null;
                 $inputphone = ($this->input->post('inputphone'))?$this->input->post('inputphone'):null;
                 $inputphone2 = ($this->input->post('inputphone2'))?$this->input->post('inputphone2'):null;
@@ -133,6 +133,7 @@ class Pegawai extends REST_Controller
                 } elseif (!empty($txtdirektorat)) {
                     $group = $txtdirektorat;
                 }
+                 $group = 0;
 
 
                 $id_aplikasi = 1;
@@ -143,16 +144,17 @@ class Pegawai extends REST_Controller
 
                 $password = md5($f_user_password);
 
-                $this->db->where('username', $f_user_username);
-                $cek = $this->db->get('sys_user')->row();
+                $this->db->where('id_user', $txtnopeg);
+                $cek=$this->db->get('sys_user')->row();
                 if (empty($cek)) {
                     $param = array(
-                        "username" => $f_user_username
+                    "username" => $f_user_username
                     , "name" => $f_user_name
                     , "email" => $f_user_email
-					, "acces" => $acces
+                    , "acces" => $acces
                     , "id_aplikasi" => '1'
                     , "id_grup" => $group
+                    ,"id_user" => $txtnopeg
                     , "author" => $author
                     , "salt" => $salt
                     , "status" => $f_user_status_aktif
@@ -164,18 +166,16 @@ class Pegawai extends REST_Controller
                     );
 
 
-                    $this->db->insert('sys_user', $param);
-                    $saved_id = $this->db->insert_id('sys_userid_seq');
+                    $saved_id = $this->db->insert('sys_user', $param);
 
                     if (!empty($saved_id)) {
                         $param_profile = array(
-                            'id_user' => $saved_id,
+                            'id_user' => $txtnopeg,
                             'nip' => $txtnip,
                             'nik' => $txtnik,
-							'nopeg' => $txtnopeg,
-							'karpeg' => $txtkarpeg,
-							'sts_p' => $txtstp,
-							'tgl_nikah' => $txttglnikah,
+                            'karpeg' => $txtkarpeg,
+                            'sts_p' => $txtstp,
+                            'tgl_nikah' => $txttglnikah,
                             'gelar_depan' => $txtgelardepan,
                             'gelar_belakang' => $txtgelarbelakang,
                             'tgl_lahir' => $txttgllahir,
@@ -213,7 +213,7 @@ class Pegawai extends REST_Controller
                         $this->db->insert('sys_user_profile', $param_profile);
 
                         $param_rd = array(
-                            'id_user' => $saved_id,
+                            'id_user' => $txtnopeg,
                             'status_pegawai' => $inputstatus,
                             'status_pegawai_tetap' => $inputstatustetap,
                             'tmt_cpns' => $txttmtcpns,
@@ -254,11 +254,9 @@ class Pegawai extends REST_Controller
                     return;
                 } else {
                     $arr['hasil'] = 'error';
-                    $arr['message'] = 'Data Gagal Ditambah! username sudah pernah digunakan';
+                    $arr['message'] = 'Data Gagal Ditambah! No Pegawai sudah digunakan';
                     $this->set_response($arr, REST_Controller::HTTP_OK);
                 }
-
-
                 return;
             }
         }
@@ -500,6 +498,7 @@ class Pegawai extends REST_Controller
                 } elseif (!empty($txtdirektorat)) {
                     $group = $txtdirektorat;
                 }
+                $group = 0;
 
                 $salt = round(rand() * 1000);
                 if (!empty($f_user_password)) {

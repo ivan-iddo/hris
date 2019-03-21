@@ -22,7 +22,7 @@ function save(urlp, datas, loaddata) {
                 loaddata();
                 $('.modal').modal('hide');
             } else {
-                alert(message);
+                onMessage(message);
                 return false;
             }
 
