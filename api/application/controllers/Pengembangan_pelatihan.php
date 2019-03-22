@@ -60,7 +60,7 @@ class Pengembangan_pelatihan extends REST_Controller
             }
             $tanggal = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $result["id"]));
             $result["tanggal"] = $tanggal;
-            // print_r($result);die;
+            
             $result["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($result["pengembangan_pelatihan_kegiatan"]);
             $result["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($result["pengembangan_pelatihan_kegiatan_status"]);
             $result["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $result["id"]));
@@ -70,12 +70,15 @@ class Pengembangan_pelatihan extends REST_Controller
                 }
             }
         }
-
+        // print_r($result);die;
         $this->load->library("pdf");
         $data = "test";
-        $html = $this->load->view("view_pdf", array("result" => $result), true);
-
-
+        if ($result['jenis_surat'] == "Surat Tugas") {
+            $html = $this->load->view("view_pdf", array("result" => $result), true);
+        } else if ($result['jenis_surat'] == "Surat Izin") {
+            $html = $this->load->view("view_pdf_1", array("result" => $result), true);
+        }
+        
         // echo $html;
         // die;
 

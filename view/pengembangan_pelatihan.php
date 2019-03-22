@@ -819,14 +819,14 @@
         dataRow.jabatan = $("#jabatan").val();
         dataRow.detail_uraian = detail_uraian;
         if (idRow == ""){
-            dataTable.push(dataRow);
+            dataTable.push(dataRow);//disini masih ngak ada masalah, karena actionnya push, entah berapapun indexnya data di masukan di atas index terakhir
         }
         else{
-            dataTable[idRow] = JSON.stringify(dataRow[idRow]);
+            dataTable[idRow]/*seharusnya id row ini adalah index [x] nya kan?*/ = dataRow;//tapi di sini, ngak bisa main push kan, karena kita mau timpa data dengan index [x]
         }
 
-        console.log(dataRow);
-        console.log(dataTable);
+        console.log("dataRow",dataRow);
+        console.log("dataTable",dataTable);
         // return;
 
         gridPI.api.setRowData(dataTable);
@@ -835,9 +835,18 @@
     }
 
     function editRowTable() {
-        var selectedRows = gridPI.api.getSelectedRows();
+        var selectedRows = gridPI.api.getSelectedRows();//disini adalah mengambil data di row yg di select
         var selectedRow = selectedRows[0];
-        console.log(selectedRow);
+        var indexId = 0;
+        selectedRows.forEach( function(selectedRow, index) {
+            // if (index!==0) {
+            //     selectedRowsString += ', ';
+            // }
+            // selectedRowsString += selectedRow.athlete;
+            indexId = index;
+        });
+        console.log("Row Selected",indexId);
+        // console.log("Row Selected",selectedRow);//sampai sini data ngak ada index nya
         if (isClickRowTable) {
             if (selectedRows == '') {
                 onMessage('Silahkan Pilih Pegawai Terlebih dahulu!');
@@ -916,7 +925,7 @@
                     }
                 });
                 isClickRowTable = false;
-                btnActionEdit(selectedRow.nopeg);
+                btnActionEdit(indexId);
             }
         }
     }
@@ -945,18 +954,20 @@
 
     function updateRowTable() {
         var idRowDataTable = $(".btn-pegawai-edit").val();
-        dataTable = $.grep(dataTable, function(e){ 
-             return e.nopeg != idRowDataTable; 
-        });
+        // dataTable = $.grep(dataTable, function(e){ 
+        //      return e.nopeg != idRowDataTable; 
+        // });
+        // console.log('update dataTable', dataTable);
         btnActionAdd();
         addRowTable(idRowDataTable);
     }
 
     function removeRowTable(){
         var idRowDataTable = $(".btn-pegawai-remove").val();
-        dataTable = $.grep(dataTable, function(e){ 
-             return e.nopeg != idRowDataTable; 
+        dataTable = $.grep(dataTable, function(e, i){ 
+             return i != idRowDataTable; 
         });
+        console.log('delete dataTable', dataTable);
         btnActionAdd();
         clearAddPegawai();
         gridPI.api.setRowData(dataTable);
