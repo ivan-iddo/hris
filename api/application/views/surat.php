@@ -37,130 +37,175 @@
 	}
 	$angka = 10101000;
 ?>
-<html>
-<head>
-<meta charset="utf-8">
-<title></title>
-</head>
-
-<body>
-<button id="cetak" onclick="cetak()">Simpan</button>
-
-<table width="100%" border="0">
-  <tbody>
-  
-	<tr>
-      <td colspan="1" width="50"><img src="tes.jpg" width="60%"></td>
-      <td colspan="4"align="right"><h6>RUMAH SAKIT JANTUNG DAN PEMBULU DARAH<br>HARAPAN KITA<br>Jln. S. Parman Kv. 87 Slipi Jakarta, 11420<br>Telp. 5684085 - 5684093 Ext. 1154<br>Fax: 5684230<br>e-mail: website@pjnhk.go.id<br>http:www.pjnhk.go.id</h6></td>
-    </tr>
+<!doctype html>
+<html><head></head><body>
+<style type="text/css">
+  table{
+    width: 100%;
+  }
+</style>
+<table border="0" class="table-1" style="margin:30px">
     <tr>
-      <td colspan="5"><table width="100%" border="0" align="left" cellpadding="1" cellspacing="1">
-        <tbody>
-          <tr>
+      <td colspan="3">
+		<table width="100%" border="0" cellpadding="3">
+		<tbody>          
+		<tr>
             <td>Nomor</td>
             <td>:</td>
-            <td width="80%">&nbsp;</td>
+            <td width="50%">&nbsp;</td>
 			<td align="right">04 Februari 2019</td>
           </tr>
 		  <tr>
             <td>Lamp</td>
             <td>:</td>
-            <td width="80%">&nbsp;</td>
+            <td width="50%">&nbsp;</td>
 			<td>&nbsp;</td>
           </tr> 
 		  <tr>
             <td>Prihal</td>
             <td>:</td>
-            <td width="80%">&nbsp;</td>
+            <td width="50%">&nbsp;</td>
 			<td>&nbsp;</td>
           </tr>
-        </tbody>
-      </table></td>
-    </tr>
-	<td colspan="1">
+		</tbody>
+      </table></td></tr>
+    <tr>
+      <td colspan="3">
       <br>Yth. Direktur Keuangan<br>
       RS. Jantung dan Pembuluh Darah Harapan Kita<br>
       Jakarta
 	</td>
     </tr>
     <tr>
-      <td colspan="3" align="justify"><br><p>      Berdasarkan disposisi Direktur Umum dan SDM tanggal 15 Januari 2019, prihal Mengikiti Kegiatan Magang di Instansi Kedokteran Nuklir RSUP Dr. Hasan Sadikin Bandung, yang dilaksanakan pada tanggal 06 Februari sd 26 Februari 2019. Bertempat di RSUD Dr. Hasan Sadikin Bandung, an :</p><br></td>
+      <td colspan="3"><p align="justify">      Berdasarkan disposisi Direktur Umum dan SDM tanggal <?php echo date('d F Y',strtotime($result['created'])); ?>, prihal Mengikuti <?php echo $result['nama_pelatihan']; ?> di Instansi <?php echo $result["institusi"]; ?>, yang dilaksanakan pada tanggal <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s/d ". date('d F Y',strtotime($result["tanggal"][0]["tanggal_to"])) ?>, diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?>, an :</p></td>
     </tr>
-	<tr>
-	<tr>
-      <td colspan="5"><table width="100%" border="0" align="left" cellpadding="1" cellspacing="1">
-        <tbody>
+    <tr>
+      <td colspan="3">
+        <?php if ($result["jenis"] == "Individu"): ?> 
+        <table width="100%" border="0" cellpadding="3">
+          <?php if (!empty($result["detail"])): ?> 
+             <?php foreach ($result["detail"] as $key => $value): ?> 
+                <tr>
+                  <td width="7%" rowspan="4">
+                    &nbsp;            
+                  </td>
+                  <td width="21%">
+                    Nama              
+                  </td>
+                  <td width="2%">
+                    :
+                  </td>
+                  <td width="70%">
+                    <?php echo $value["nama_pegawai"] ?>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="21%">
+                    NIP              
+                  </td>
+                  <td width="2%">
+                    :
+                  </td>
+                  <td width="70%">
+                    <?php echo $value["nip"]; ?>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="21%">
+                    Pangkat / Gol              
+                  </td>
+                  <td width="2%">
+                    :
+                  </td>
+                  <td width="70%">
+                    <?php echo $value["pangkat"] ." - ". $value["golongan"] ?>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="21%">
+                    Jabatan              
+                  </td>
+                  <td width="2%">
+                    :
+                  </td>
+                  <td width="70%">
+                    <?php echo $value["jabatan"]; ?>
+                  </td>
+                </tr>
+              <?php endforeach ?>
+            <?php endif ?> 
+        </table>
+        <?php elseif ($result["jenis"] == "Kelompok"): ?> 
+        <table width="100%" border="1px solid" cellpadding="1" cellspacing="0" class="table2">
           <tr>
-            <td>Nama</td>
-            <td>:</td>
-            <td width="85%">&nbsp;</td>
-          </tr> 
-		  <tr>
-            <td>NIP</td>
-            <td>:</td>
-            <td width="85%">&nbsp;</td>
-          </tr> 
-		  <tr>
-            <td>Pangkat / Gol</td>
-            <td>:</td>
-            <td width="85%">&nbsp;</td>
-          </tr> 
-		  <tr>
-            <td>Jabatan</td>
-            <td>:</td>
-            <td width="85%">&nbsp;</td>
+            <th>No</th>
+            <!-- <th>NIP / Nopeg</th> -->
+            <th>Nama</th>
+            <th>Jabatan / Unit Kerja</th>
           </tr>
-        </tbody>
-      </table></td>
+          <?php if (!empty($result["detail"])): ?>
+            <?php foreach ($result["detail"] as $key => $value): ?>
+              <tr>
+                <td><?php echo $key+1 ?></td>
+                <!-- <td><?php echo $value["nip"] ." / ". $value["nopeg"] ?></td> -->
+                <td><?php echo $value["nama_pegawai"] ?></td>
+                <td><?php echo $value["jabatan"] ?></td>
+              </tr>
+            <?php endforeach ?>
+          <?php endif ?>
+        </table>
+        <?php endif ?> 
+      </td>
     </tr>
-	</tr>
 	<tr>
-      <td colspan="3"><br><p>Maka bersama ini mengajukan biaya dimaksud sebesar:</p></td>
+      <td colspan="3"><br>Maka bersama ini mengajukan biaya dimaksud sebesar:</td>
     </tr> 
     <tr>
-      <td colspan="5"><table width="100%" border="1px solid" align="left" cellpadding="1" cellspacing="1">
-        <tbody>
-           <tr>
+      <td colspan="3"><table width="100%" border="1px solid" cellpadding="1" cellspacing="0"  class="table2">
+		  <tr>
               <td><center><b>No</b></center></td>
-              <td><center><b>Pengajuan berdasarkan ketentuan Latbang</b></center></td>
+              <td><center><b>Pengajuan berdasarkan <br>ketentuan Latbang</b></center></td>
 			  <td><center><b>Uraian</b></center></td>
 			  <td><center><b>Jumlah</b></center></td>
           </tr>
+		<?php if (!empty($result["detail"][0]["detail_uraian"])): ?>
+            <?php foreach ($result["detail"][0]["detail_uraian"] as $key => $value): ?>
           <tr>
-            <td><center>1.</center></td>
-            <td>EKA WARA MARTHIANTI,  SAP</td>
-            <td>Sekretariat Pejabat</td>
-            <td>Rp. 10101000</td>
-          </tr> 
-		  <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>Rp. 10101000</td>
-          </tr> 
-		  <tr>
-            <td></td>
-            <td></td>
-            <td colspan="3">Terbilang : <?php $terbilang=terbilang($angka); echo ucfirst($terbilang);?> rupiah</td>
+            <td><center><?php echo $key+1 ?>.</center></td>
+            <td><?php echo $value["uraian"]?></td>
+            <td><?php echo $value["qty"]?> Orang x Rp. <?php echo number_format($value["pernominal"], 2, ",", ".")?></td>
+            <td>Rp. <?php echo number_format($value["nominal"], 2, ",", ".")?></td>
           </tr>
-        </tbody>
+		 <?php endforeach ?>
+          <?php endif ?>
+		  <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td colspan="1">Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".")?></td>
+          </tr> 
+		  <tr>
+            <td></td>
+            <td></td>
+            <td colspan="2">Terbilang : <?php $terbilang=terbilang($result["detail"][0]["uraian_total"]); echo ucfirst($terbilang);?> rupiah</td>
+          </tr>
       </table></td>
     </tr>
     <tr>
-      <td colspan="3"><p>Terlampir kami sampaikan bukti pendukung perminaan tersebut.</p><br></td>
+      <td colspan="3">Terlampir kami sampaikan bukti pendukung perminaan tersebut.</td>
     </tr> 
 	<tr>
-      <td colspan="3"><p>Demikian surat ini disampaikan, atas bantuan dan kerjasamanya diucapkan terima kasih.</p><br></td>
+      <td colspan="3"><p>Demikian surat ini disampaikan, atas bantuan dan kerjasamanya diucapkan terima kasih.</p></td>
     </tr>
-    <tr>
+	<tr>
       <td>Mengetahui</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>  
 	<tr>
-      <td width="34%">Kepala Bagian SDM dan Organisasi</td>
+      <td width="50%">Kepala Bagian SDM dan Organisasi</td>
       <td width="34%">&nbsp;</td>
-      <td width="34%"align="right">Kepala Sub Bagian Pengembangan SDM</td>
+      <td width="50%">Kepala Sub Bagian Pengembangan SDM</td>
     </tr>
     <tr>
       <td>&nbsp;</td>
@@ -175,17 +220,17 @@
     <tr>
       <td><b>drg. Sri Handayani, MARS</b></td>
       <td>&nbsp;</td>
-      <td align="right"><b>SUWASTINI, SAp, MM</b></td>
+      <td><b>SUWASTINI, SAp, MM</b></td>
     </tr>
     <tr>
       <td><b>NIP. 1963101519901020001</b></td>
       <td>&nbsp;</td>
-      <td align="right"><b>NIP 196611101986032004</b></td>
+      <td><b>NIP 196611101986032004</b></td>
     </tr> 
 	<tr>
-      <td width="34%">&nbsp;</td>
-      <td width="34%"><br><center>Direktur Umum & SDM</center></br></td>
-      <td width="50%">&nbsp;</td>
+      <td width="40%">&nbsp;</td>
+      <td width="65%"><br><center>Direktur Umum & SDM</center></br></td>
+      <td width="20%">&nbsp;</td>
     </tr>
     <tr>
       <td>&nbsp;</td>
@@ -199,20 +244,13 @@
     </tr>
     <tr>
 	  <td>&nbsp;</td>
-      <td><b><center>Dr.dr. Basuni Radi, SpJP(K),FIHA</center></b></td>
+      <td><center><b>Dr.dr. Basuni Radi, SpJP(K),FIHA</b></center></td>
       <td>&nbsp;</td>
     </tr>
     <tr>      
 	  <td>&nbsp;</td>
-      <td><b><center>NIP. 196606122000121001</center></b></td>
+      <td><center><b>NIP. 196606122000121001</b></center></td>
       <td>&nbsp;</td>
     </tr>
-  </tbody>
 </table>
-</body>
-</html>
-<script type="text/javascript" >
-function cetak(){
-	window.print();
-}
-</script>
+</body></html>
