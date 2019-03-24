@@ -7,16 +7,16 @@
 </style>
 <table border="0" class="table-1" style="margin:30px">
     <tr>
-      <td colspan="3" align="center" style="font-size: 20px"><u><strong>S U R A T   -   T U G A S</strong></u></td>
+      <td colspan="3" align="center" style="font-size: 20px"><u><strong>S U R A T   -   I Z I N</strong></u></td>
     </tr>
     <tr>
-      <td colspan="3" align="center" style="font-size: 15px">Nomor : KP.03.04/XX.4/       /2018</td>
+      <td colspan="3" align="center" style="font-size: 15px">Nomor : KP.03.04/4.2.1/       /2018</td>
     </tr>
     <tr>
       <td colspan="3" align="center">&nbsp;</td>
     </tr>
     <tr>
-      <td colspan="3"><p align="justify">      Sehubungan dengan surat dari Direktur Kesehatan Kerja dan Olahraga Nomor : DL.02.01/IV.2/2454/<?php echo date('Y'); ?> tanggal <?php echo date('d F Y',strtotime($result['created'])); ?> hal Undangan <?php echo '<i>'.$result["nama_pelatihan"];?>, dengan ini kami menugaskan kepada :</p></td>
+      <td colspan="3"><p align="justify">      Sehubungan dengan disposisi dari Direktur Umum dan SDM pada tanggal <?php echo date('d F Y',strtotime($result['created'])); ?>, dengan ini menugaskan kepada :</p></td>
     </tr>
     <tr>
       <td colspan="3">
@@ -79,7 +79,6 @@
           <tr>
             <th>No</th>
             <!-- <th>NIP / Nopeg</th> -->
-            <th>NIP</th>
             <th>Nama</th>
             <th>Jabatan / Unit Kerja</th>
           </tr>
@@ -88,7 +87,6 @@
               <tr>
                 <td><?php echo $key+1 ?></td>
                 <!-- <td><?php echo $value["nip"] ." / ". $value["nopeg"] ?></td> -->
-                <td><?php echo $value["nip"] ?></td>
                 <td><?php echo $value["nama_pegawai"] ?></td>
                 <td><?php echo $value["jabatan"] ?></td>
               </tr>
@@ -102,41 +100,33 @@
       <td colspan="3">
       <table width="100%" border="0" style="margin-top : 15px">
         <tr>
-          <td width="9%" valign="top" rowspan="3">
+          <td width="17%" valign="top" rowspan="3">
             <p>Untuk</p>
           </td>
-          <td width="2%" valign="top" rowspan="3">
+          <td width="3%" valign="top" rowspan="3">
             <p>:</p>
           </td>
-          <td width="2%" valign="top">
+          <td width="3%" valign="top">
             <p>1.</p>
           </td>
-          <td width="87%" valign="top">
-            <p align="justify">Menjadi <?php echo $result["pengembangan_pelatihan_kegiatan_status"]->nama;?> dalam kegiatan tersebut di <?php echo $result["tujuan"]; ?> tanggal <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s/d ". date('d F Y',strtotime($result["tanggal"][0]["tanggal_to"])) ?>.</p>
+          <td width="77%" valign="top">
+            <p align="justify">Mengikuti <?php echo '<i>'.$result["nama_pelatihan"] .'</i> '. date('Y');?>, sebagai <?php echo $result["pengembangan_pelatihan_kegiatan_status"]->nama;?>, yang dilaksanakan pada tanggal <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s/d ". date('d F Y',strtotime($result["tanggal"][0]["tanggal_to"])) ?>, diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?> .</p>
           </td>
         </tr>
         <tr>
-          <td width="2%" valign="top">
+          <td width="3%" valign="top">
             <p>2.</p>
           </td>
-          <td width="87%" valign="top">
-            <p align="justify">Melaporkan hasil kegiatan secara tertulis kepada atasan.</p>
+          <td width="77%" valign="top">
+            <p align="justify">Melaporkan kepada UPG tentang penerimaan sponsorship dalam kegiatan tersebut paling lambat 5 hari setelah pelaksanaan.</p>
           </td>
         </tr>
         <tr>
-          <td width="2%" valign="top">
+          <td width="3%" valign="top">
             <p>3.</p>
           </td>
-          <td width="87%" valign="top">
-            <p align="justify">Tidak melakukan rekam kehadiran pada tanggal tersebut.</p>
-          </td>
-        </tr>
-        <tr>
-          <td width="2%" valign="top">
-            <p>3.</p>
-          </td>
-          <td width="87%" valign="top">
-            <p align="justify">Biaya yang dikeluarkan sebagai akibat Surat Tugas ini dibebankan pada Satker Direktorat Kesehatan Kerja Dan Olahraga TA <?php echo date('Y') ?></p>
+          <td width="77%" valign="top">
+            <p align="justify">RSJPDHK tidak bertanggung jawab atas kelalaian melaksanakan kewajiban melaporkan ke pihak UPG sebagaimana butir No. 2.</p>
           </td>
         </tr>
       </table>

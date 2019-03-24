@@ -46,10 +46,10 @@ class Pengembangan_pelatihan extends REST_Controller
     public function cetak_get()
     {
         $id = $this->input->get("id");
-        $result = $this->Pengembangan_pelatihan_model->get_all(array("pengembangan_pelatihan.id" => $id), null, $offset, $limit);
-
-        if (count($result) == 1) {
-            $result = $result[0];
+        $results = $this->Pengembangan_pelatihan_model->get_all(array("pengembangan_pelatihan.id" => $id), null, $offset, $limit);
+        // print_r($results);die;
+        if (!empty($results)) {
+            $result = $results[0];
             $createdby = $this->db->select("username")->where(array("id_user" => $result["createdby"]))->get("sys_user")->result_array();
             $updatedby = $this->db->select("username")->where(array("id_user" => $result["updatedby"]))->get("sys_user")->result_array();
             if (count($createdby) == 1) {
@@ -60,13 +60,15 @@ class Pengembangan_pelatihan extends REST_Controller
             }
             $tanggal = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $result["id"]));
             $result["tanggal"] = $tanggal;
-            
+            // print_r($result);die;
             $result["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($result["pengembangan_pelatihan_kegiatan"]);
             $result["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($result["pengembangan_pelatihan_kegiatan_status"]);
-            $result["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $result["id"]));
-            if (!empty($result["detail"])) {
-                foreach ($result["detail"] as $key_detail_biaya => $value_detail_biaya) {
-                    $result["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
+            foreach ($results as $key => $value) {
+                $result["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
+                if (!empty($result["detail"])) {
+                    foreach ($result["detail"] as $key_detail_biaya => $value_detail_biaya) {
+                        $result["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
+                    }
                 }
             }
         }
@@ -74,9 +76,9 @@ class Pengembangan_pelatihan extends REST_Controller
         $this->load->library("pdf");
         $data = "test";
         if ($result['jenis_surat'] == "Surat Tugas") {
-            $html = $this->load->view("view_pdf", array("result" => $result), true);
-        } else if ($result['jenis_surat'] == "Surat Izin") {
             $html = $this->load->view("view_pdf_1", array("result" => $result), true);
+        } else if ($result['jenis_surat'] == "Surat Izin") {
+            $html = $this->load->view("view_pdf_2", array("result" => $result), true);
         }
         
         // echo $html;

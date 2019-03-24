@@ -434,6 +434,7 @@
     var columnListData = [
             {headerName: "ID", field: "id", width: 70, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Nama Pelatihan", field: "nama_pelatihan", width: 190, filterParams: {newRowsAction: 'keep'}},
+            // , rowGroup:true
             {headerName: "Tujuan", field: "tujuan", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Institusi", field: "institusi", width: 190, filterParams: {newRowsAction: 'keep'}},
 
@@ -457,7 +458,7 @@
         enableSorting: true,
         enableFilter: true,
         suppressRowClickSelection: false,
-        groupDefaultExpanded: 2,
+        // groupDefaultExpanded: 2,
         groupSelectsChildren: true,
         debug: true,
         rowSelection: 'single',
@@ -1057,6 +1058,7 @@
             URL = BASE_URL + "pengembangan_pelatihan/edit";
         }
         save(URL, obj, loaddata);
+        $('.nav-tabs a[href="#demo-lft-tab-1"]').tab('show');
     }
     // setup the grid after the page has finished loading
     
