@@ -134,9 +134,9 @@
                                                        id="tanggal"
                                                 />
                                             </div>
-                                            <div class="col-xs-3 pull right">
+                                            <!-- <div class="col-xs-3 pull right">
                                                 <div class="btn btn-default btn-sm" id="add-data-calendar">Add</div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
 <!--                                     <div class="form-group">

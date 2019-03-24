@@ -102,10 +102,10 @@
       <td colspan="3">
       <table width="100%" border="0" style="margin-top : 15px">
         <tr>
-          <td width="9%" valign="top" rowspan="3">
+          <td width="9%" valign="top" rowspan="4">
             <p>Untuk</p>
           </td>
-          <td width="2%" valign="top" rowspan="3">
+          <td width="2%" valign="top" rowspan="4">
             <p>:</p>
           </td>
           <td width="2%" valign="top">
@@ -133,7 +133,7 @@
         </tr>
         <tr>
           <td width="2%" valign="top">
-            <p>3.</p>
+            <p>4.</p>
           </td>
           <td width="87%" valign="top">
             <p align="justify">Biaya yang dikeluarkan sebagai akibat Surat Tugas ini dibebankan pada Satker Direktorat Kesehatan Kerja Dan Olahraga TA <?php echo date('Y') ?></p>
