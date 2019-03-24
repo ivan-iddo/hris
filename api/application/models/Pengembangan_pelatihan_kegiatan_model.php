@@ -41,7 +41,7 @@ class Pengembangan_pelatihan_kegiatan_model extends MY_Model
 	{
 		$this->db->select("*");
 		$this->db->from($this->table1);
-		$this->db->where("pengembangan_pelatihan_id", $id);
+		$this->db->where("id", $id);
 		$this->db->where("statue", $statue);
 		$query = $this->db->get();
 
