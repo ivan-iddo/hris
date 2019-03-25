@@ -37,58 +37,47 @@
 	}
 	$angka = 10101000;
 ?>
-<html>
-<head>
-<meta charset="utf-8">
-<title></title>
-</head>
-
-<body>
-<button id="cetak" onclick="cetak()">Simpan</button>
-
-<table width="100%" border="0">
-  <tbody>
+<!doctype html>
+<html><head></head><body>
+<table border="0" class="table-1" style="margin:30px">
 	<tr>
       <td colspan="3"><br><center><u><b>RINCIAN PENGHITUNGAN BIAYA PELATIHAN</b></u></center><br></td>
     </tr> 
     <tr>
-      <td colspan="5"><table width="100%" border="1px solid" align="left" cellpadding="1" cellspacing="1">
-        <tbody>
-           <tr>
+      <td colspan="3"><table width="100%" border="1px solid" cellpadding="1" cellspacing="0"  class="table2">
+		  <tr>
               <td><center><b>No</b></center></td>
-              <td><center><b>Perincian Biaya</b></center></td>
+			  <td><center><b>Perincian Biaya</b></center></td>
 			  <td><center><b>Jumlah</b></center></td>
 			  <td><center><b>Keterangan</b></center></td>
           </tr>
+		<?php if (!empty($result["detail"][0]["detail_uraian"])): ?>
+            <?php foreach ($result["detail"][0]["detail_uraian"] as $key => $value): ?>
           <tr>
-            <td><center>1.</center></td>
-            <td>EKA WARA MARTHIANTI,  SAP</td>
-            <td>Sekretariat Pejabat</td>
-            <td>Rp. 10101000</td>
-          </tr> 
-		  <tr>
+            <td><center><?php echo $key+1 ?>.</center></td>
+            <td><?php echo $value["uraian"]?>
+            <br><?php echo $value["qty"]?> Orang x Rp. <?php echo number_format($value["pernominal"], 2, ",", ".")?></td>
+            <td>Rp. <?php echo number_format($value["nominal"], 2, ",", ".")?></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td>Rp. 10101000</td>
-          </tr> 
-		  <tr>
-            <td></td>
-            <td></td>
-            <td colspan="3">Terbilang : <?php $terbilang=terbilang($angka); echo ucfirst($terbilang);?> rupiah</td>
           </tr>
-        </tbody>
+		 <?php endforeach ?>
+          <?php endif ?>
+		  <tr>
+            <td></td>
+            <td>Jumlah</td>
+            <td colspan="2">Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".")?></td>
+          </tr>
       </table></td>
     </tr>
-	<tr>
-      <td width="34%"><br><br>Telah dibayar<br>Rp.222222<br>eed</td>
-      <td width="45%">&nbsp;</td>
-      <td width="34%"><br>Jakarta,  Februari 2019<br>Telah menerima sejumlah uang sebesar,<br>Rp. 200000<br>ddd</td>
+   <tr>
+      <td width="40%"><br><br>Telah dibayar<br>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".")?><br>(<?php $terbilang=terbilang($result["detail"][0]["uraian_total"]); echo ucfirst($terbilang);?> rupiah)</td>
+      <td width="10%">&nbsp;</td>
+      <td width="60%"><br>Jakarta,  Februari 2019<br>Telah menerima sejumlah uang sebesar,<br>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".")?><br>(<?php $terbilang=terbilang($result["detail"][0]["uraian_total"]); echo ucfirst($terbilang);?> rupiah)</td>
     </tr>
 	<tr>
-      <td width="34%">Kepala Bagian SDM dan Organisasi</td>
-      <td width="45%">&nbsp;</td>
-      <td width="34%">Kepala Sub Bagian Pengembangan SDM</td>
+      <td width="40%">Bendahara Pengeluaran</td>
+      <td width="10%">&nbsp;</td>
+      <td width="60%">Yang berpergian,</td>
     </tr>
     <tr>
       <td>&nbsp;</td>
@@ -101,21 +90,14 @@
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td><b>drg. Sri Handayani, MARS</b></td>
+      <td><b>WIHARSA, S.E</b></td>
       <td>&nbsp;</td>
-      <td><b>SUWASTINI, SAp, MM</b></td>
+      <td><b><?php echo $result["detail"][0]["nama_pegawai"]?></b></td>
     </tr>
     <tr>
-      <td><b>NIP. 1963101519901020001</b></td>
+      <td><b>NIP. 197402092008121001</b></td>
       <td>&nbsp;</td>
-      <td><b>NIP 196611101986032004</b></td>
+      <td><b>NIP/Nopeg. <?php echo $result["detail"][0]["nip"]?></b></td>
     </tr>
-  </tbody>
 </table>
-</body>
-</html>
-<script type="text/javascript" >
-function cetak(){
-	window.print();
-}
-</script>
+</body></html>

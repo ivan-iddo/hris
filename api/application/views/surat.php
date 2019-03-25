@@ -39,11 +39,6 @@
 ?>
 <!doctype html>
 <html><head></head><body>
-<style type="text/css">
-  table{
-    width: 100%;
-  }
-</style>
 <table border="0" class="table-1" style="margin:30px">
     <tr>
       <td colspan="3">

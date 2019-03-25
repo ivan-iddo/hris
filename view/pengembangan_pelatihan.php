@@ -1298,7 +1298,17 @@
             return false;
         } 
         else {
-            window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id);
+            gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id,pdf,'large');
         }
     }
+	function pdf(){
+	 var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } 
+        else {
+		window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id);
+	}
+	}
 </script>
