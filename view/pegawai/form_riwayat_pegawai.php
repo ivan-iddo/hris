@@ -135,7 +135,9 @@
 											 <div class="form-group"><label class="col-sm-4 control-label" for="txtnopeg">No Pegawai</label>
                                                 <div class="col-sm-8"><input class="form-control" id="txtnopeg"
                                                                              name="txtnopeg" placeholder="" type="text"
-                                                                             value=""></div>
+                                                                             value="">
+																				<span
+                                        class="text-xs text-danger">*Wajib diisi</span></div>
                                             </div>
 											 <div class="form-group"><label class="col-sm-4 control-label" for="txtkarpeg">Kartu Pegawai</label>
                                                 <div class="col-sm-8"><input class="form-control" id="txtkarpeg"

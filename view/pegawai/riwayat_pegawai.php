@@ -569,6 +569,9 @@
          //               }else if(txtjabatan === ''){
 						   // onMessage("Data 'Jabatan Struktural' is required"); 
          //                   return false;
+					   }else if(empty($('#txtnopeg').val())){
+						   onMessage("Data 'Nopeg' is required"); 
+                           return false;
 					   }else if(empty($('#txtnip').val())){
 						   onMessage("Data 'NIP' is required"); 
                            return false;

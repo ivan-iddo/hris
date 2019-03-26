@@ -490,15 +490,16 @@ class Pegawai extends REST_Controller
                 $inputkpos = ($this->input->post('inputkpos'))?$this->input->post('inputkpos'):null;
                 $inputkposktp = ($this->input->post('inputkposktp'))?$this->input->post('inputkposktp'):null;
 
-
+				
                 if (!empty($unitkerja)) {
                     $group = $unitkerja;
                 } elseif (!empty($txtbagian)) {
                     $group = $txtbagian;
                 } elseif (!empty($txtdirektorat)) {
                     $group = $txtdirektorat;
-                }
+                }else{
                 $group = 0;
+				}
 
                 $salt = round(rand() * 1000);
                 if (!empty($f_user_password)) {
