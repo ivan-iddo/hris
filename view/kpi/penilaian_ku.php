@@ -40,17 +40,17 @@
 					                        </div>
                                             </div>
                                             <div class="row">
-					                        <div class="col-sm-4">
+					                        <div class="col-sm-5">
 					                            <div class="form-group">
 					                                <label class="control-label">Periode </label>
-					                                <input  id="awal" name="awal" class="form-control" type="date">
+					                                <input  id="awal" name="awal" class="form-control" placeholder="dd-mm-yyyy" type="text">
 					                            </div>
 					                        </div>
-					                        <div class="col-sm-4">
+					                        <div class="col-sm-5">
 					                            <div class="form-group">
 					                                <label class="control-label">Sampai</label>
                                                     <div class="input-group mar-btm">
-                                                    <input  name="akhir" id="akhir" placeholder="Search" class="form-control" type="date">
+                                                    <input  name="akhir" id="akhir" placeholder="dd-mm-yyyy" class="form-control" type="text">
                                                     
                                                     </div>
 					                            </div>
@@ -521,5 +521,14 @@ function search(){
                    }
                        });
 }
-
+			$(document).ready(function () {
+                $('#awal').datepicker({
+                    format: "dd-mm-yyyy",
+                    autoclose: true
+                });
+				$('#akhir').datepicker({
+                    format: "dd-mm-yyyy",
+                    autoclose: true
+                });
+            });
 </script>

@@ -130,7 +130,7 @@ class Pengembangan_pelatihan_model extends MY_Model
 
 	function get_all($params_array = array(), $like = array(), $offset = "", $limit = "", $from = "", $to = "", $where_in = "", $order_by = "")
 	{	
-		$this->db->select("$this->table.*, dm_term.nama AS nama_status");
+		$this->db->select("$this->table.*,pengembangan_pelatihan_detail.id as kode, dm_term.nama AS nama_status");
 		$this->db->from($this->table);
 		$this->db->join("pengembangan_pelatihan_detail", "$this->table.id = pengembangan_pelatihan_detail.pengembangan_pelatihan_id AND pengembangan_pelatihan_detail.statue = 1");
 		$this->db->join("dm_term", "$this->table.status = dm_term.id", "left");
