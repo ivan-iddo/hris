@@ -11,7 +11,7 @@
       <td colspan="3" align="center">&nbsp;</td>
     </tr>
     <tr>
-      <td colspan="3"><p align="justify">      Sehubungan dengan surat dari Direktur Kesehatan Kerja dan Olahraga Nomor : DL.02.01/IV.2/2454/<?php echo date('Y'); ?> tanggal <?php echo date('d F Y',strtotime($result['created'])); ?> hal Undangan <?php echo '<i>'.$result["nama_pelatihan"];?>, dengan ini kami menugaskan kepada :</p></td>
+      <td colspan="3"><p align="justify">      Sehubungan dengan surat dari Direktur Kesehatan Kerja dan Olahraga Nomor : DL.02.01/IV.2/2454/<?php echo date('Y'); ?> tanggal <?php echo $result["tanggal"]["tanggal_now"] ?> hal Undangan <?php echo '<i>'.$result["nama_pelatihan"];?>, dengan ini kami menugaskan kepada :</p></td>
     </tr>
     <tr>
       <td colspan="3">
@@ -107,7 +107,7 @@
             <p>1.</p>
           </td>
           <td width="87%" valign="top">
-            <p align="justify">Menjadi <?php echo $result["pengembangan_pelatihan_kegiatan_status"]->nama;?> dalam kegiatan tersebut di <?php echo $result["tujuan"]; ?> tanggal <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s/d ". date('d F Y',strtotime($result["tanggal"][0]["tanggal_to"])) ?>.</p>
+            <p align="justify">Menjadi <?php echo $result["pengembangan_pelatihan_kegiatan_status"]->nama;?> dalam kegiatan tersebut di <?php echo $result["tujuan"]; ?> tanggal <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s/d ". $result["tanggal"]["tanggal_to"]; ?>.</p>
           </td>
         </tr>
         <tr>

@@ -10,6 +10,7 @@ header("Access-Control-Allow-Methods: PUT, GET, POST");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
 require APPPATH . '/libraries/REST_Controller.php';
+require APPPATH . '/controllers/Monitoring.php';
 $rest_json = file_get_contents("php://input");
 $_POST = json_decode($rest_json, true);
 
@@ -60,6 +61,9 @@ class Pengembangan_pelatihan extends REST_Controller
             }
             $tanggal = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $result["id"]));
             $result["tanggal"] = $tanggal;
+            $result["tanggal"]["tanggal_now"] = date("d") ." ". bulan(date("m")) ." ". date("Y");
+            $result["tanggal"]["tanggal_to"] = date("d",strtotime($result["tanggal"][0]["tanggal_to"]))." ".bulan(date("m",strtotime($result["tanggal"][0]["tanggal_to"]))) ." ".date("Y",strtotime($result["tanggal"][0]["tanggal_to"]));
+            $result["created"]["date"] = date("d",strtotime($result["created"]))." ".bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]));
             // print_r($result);die;
             $result["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($result["pengembangan_pelatihan_kegiatan"]);
             $result["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($result["pengembangan_pelatihan_kegiatan_status"]);
@@ -106,6 +110,9 @@ class Pengembangan_pelatihan extends REST_Controller
             }
             $tanggal = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $result["id"]));
             $result["tanggal"] = $tanggal;
+            $result["tanggal"]["tanggal_now"] = date("d") ." ". bulan(date("m")) ." ". date("Y");
+            $result["tanggal"]["tanggal_to"] = date("d",strtotime($result["tanggal"][0]["tanggal_to"]))." ".bulan(date("m",strtotime($result["tanggal"][0]["tanggal_to"]))) ." ".date("Y",strtotime($result["tanggal"][0]["tanggal_to"]));
+            $result["created"]["date"] = date("d",strtotime($result["created"]))." ".bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]));
             // print_r($result);die;
             $result["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($result["pengembangan_pelatihan_kegiatan"]);
             $result["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($result["pengembangan_pelatihan_kegiatan_status"]);
@@ -136,7 +143,7 @@ class Pengembangan_pelatihan extends REST_Controller
         // die;
 
         $this->pdf->loadHtml($html);
-        $this->pdf->setPaper("A4", ($orientation = "P" ));
+        $this->pdf->setPaper("legal", ($orientation = "P" ));
         $this->pdf->set_option("isPhpEnabled", true);
         $this->pdf->set_option("isHtml5ParserEnabled", true);
         $this->pdf->render();
@@ -147,6 +154,7 @@ class Pengembangan_pelatihan extends REST_Controller
 
     public function cetak_rekomendasi_get()
     {
+        // echo date("d") ." ". bulan(date("m")) ." ". date("Y"); die();
         $id = $this->input->get("id");
         $results = $this->Pengembangan_pelatihan_model->get_all(array("pengembangan_pelatihan.id" => $id), null, $offset, $limit);
         // print_r($results);die;
@@ -163,7 +171,10 @@ class Pengembangan_pelatihan extends REST_Controller
             }
             $tanggal = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $result["id"]));
             $result["tanggal"] = $tanggal;
-            // print_r($result);die;
+            $result["tanggal"]["tanggal_now"] = date("d") ." ". bulan(date("m")) ." ". date("Y");
+            $result["tanggal"]["tanggal_to"] = date("d",strtotime($result["tanggal"][0]["tanggal_to"]))." ".bulan(date("m",strtotime($result["tanggal"][0]["tanggal_to"]))) ." ".date("Y",strtotime($result["tanggal"][0]["tanggal_to"]));
+            $result["created"]["date"] = date("d",strtotime($result["created"]))." ".bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]));
+            // print_r($result["tanggal"]["tanggal_to"]);die;
             $result["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($result["pengembangan_pelatihan_kegiatan"]);
             $result["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($result["pengembangan_pelatihan_kegiatan_status"]);
             foreach ($results as $key => $value) {
@@ -176,8 +187,10 @@ class Pengembangan_pelatihan extends REST_Controller
                         $html = $this->load->view("view_pdf_3", array("result" => $result), true);
                         // echo $html;
                         // die;
+                        $customPaper = array(0,0,210,330);
                         $this->pdf->loadHtml($html);
-                        $this->pdf->setPaper("A4", ($orientation = "P" ));
+                        // $this->pdf->setPaper($customPaper);
+                        $this->pdf->setPaper("legal", ($orientation = "P" ));
                         $this->pdf->set_option("isPhpEnabled", true);
                         $this->pdf->set_option("isHtml5ParserEnabled", true);
                         $this->pdf->render();

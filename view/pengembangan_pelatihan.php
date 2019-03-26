@@ -437,7 +437,7 @@
 
     var columnListData = [
             {headerName: "ID", field: "id", width: 70, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Nama Pelatihan", field: "nama_pelatihan", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Nama Pelatihan", field: "nama_pelatihan", width: 190, rowGroup:true, filterParams: {newRowsAction: 'keep'}},
             // , rowGroup:true
             {headerName: "Tujuan", field: "tujuan", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Institusi", field: "institusi", width: 190, filterParams: {newRowsAction: 'keep'}},

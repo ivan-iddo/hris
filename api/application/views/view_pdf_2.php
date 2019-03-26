@@ -11,7 +11,7 @@
       <td colspan="3" align="center">&nbsp;</td>
     </tr>
     <tr>
-      <td colspan="3"><p align="justify">      Sehubungan dengan disposisi dari Direktur Umum dan SDM pada tanggal <?php echo date('d F Y',strtotime($result['created'])); ?>, dengan ini menugaskan kepada :</p></td>
+      <td colspan="3"><p align="justify">      Sehubungan dengan disposisi dari Direktur Umum dan SDM pada tanggal <?php echo $result['created']['date']); ?>, dengan ini menugaskan kepada :</p></td>
     </tr>
     <tr>
       <td colspan="3">
@@ -105,7 +105,7 @@
             <p>1.</p>
           </td>
           <td width="77%" valign="top">
-            <p align="justify">Mengikuti <?php echo '<i>'.$result["nama_pelatihan"] .'</i> '. date('Y');?>, sebagai <?php echo $result["pengembangan_pelatihan_kegiatan_status"]->nama;?>, yang dilaksanakan pada tanggal <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s/d ". date('d F Y',strtotime($result["tanggal"][0]["tanggal_to"])) ?>, diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?> .</p>
+            <p align="justify">Mengikuti <?php echo '<i>'.$result["nama_pelatihan"] .'</i> '. date('Y');?>, sebagai <?php echo $result["pengembangan_pelatihan_kegiatan_status"]->nama;?>, yang dilaksanakan pada tanggal <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s/d ". $result["tanggal"]["tanggal_to"]; ?>, diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?> .</p>
           </td>
         </tr>
         <tr>

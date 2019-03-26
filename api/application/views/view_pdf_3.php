@@ -13,7 +13,7 @@
             <td width="11%">Nomor</td>
               <td width="2%">:</td>
               <td width="46%">UM.01.05/XX.4/ &nbsp; &nbsp; &nbsp;  &nbsp; /<?php echo date('Y'); ?></td>
-              <td width="41%" align="right"><?php echo date('d F Y'); ?></td>
+              <td width="41%" align="right"><?php echo $result["tanggal"]["tanggal_now"] ?></td>
           </tr>
           <tr>
             <td width="11%">Hal</td>
@@ -88,7 +88,7 @@
                   :
                 </td>
                 <td width="77%">
-                  <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s/d ". date('d F Y',strtotime($result["tanggal"][0]["tanggal_to"])) ?>
+                  <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s/d ". $result["tanggal"]["tanggal_to"] ?>
                 </td>
               </tr>
               <tr>
