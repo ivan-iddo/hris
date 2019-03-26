@@ -10,7 +10,7 @@
       <td colspan="3" align="center" style="font-size: 20px"><u><strong>S U R A T   -   I Z I N</strong></u></td>
     </tr>
     <tr>
-      <td colspan="3" align="center" style="font-size: 15px">Nomor : KP.03.04/4.2.1/       /2018</td>
+      <td colspan="3" align="center" style="font-size: 15px">Nomor : KP.03.04/4.2.1/       /<?php echo date('Y'); ?></td>
     </tr>
     <tr>
       <td colspan="3" align="center">&nbsp;</td>
@@ -139,44 +139,44 @@
       <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
-      <td>Mengetahui</td>
+      <td></td>
       <td width="34%">&nbsp;</td>
-      <td width="36%">Direktur Utama,</td>
+      <td width="36%">Dikeluarkan di  : Jakarta</td>
+    </tr>
+     <tr>
+      <td></td>
+      <td width="34%">&nbsp;</td>
+      <td width="36%">Pada tanggal    : <?php echo date('d F Y'); ?></td>
     </tr>
     <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="2" width="40%">&nbsp;</td>
+      <td width="60%">Direktur Utama,</td>
     </tr>
     <tr>
-      <td>(……………………)</td>
-      <td>&nbsp;</td>
-      <td>Dr. dr. Iwan Dakota,  SpJP(K), MARS,FACC,FESC</td>
+      <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
-      <td><em>dimulai jam :</em></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
-      <td><em>Selesai  jam :</em></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="2" width="40%">&nbsp;</td>
+      <td width="60%">Dr. dr. Iwan Dakota,  SpJP(K), MARS,FACC,FESC</td>
     </tr>
     <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="2" width="40%">&nbsp;</td>
+      <td width="60%">NIP 196601011996031001</td>
     </tr>
     <tr>
-      <td>  </td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="3">&nbsp;</td>
     </tr>
 </table>
 </body></html>

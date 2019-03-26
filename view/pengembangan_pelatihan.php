@@ -41,7 +41,11 @@
                             </button>
                             <button class=
                                     "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                    "cetak();">Cetak
+                                    "cetak();">Cetak Surat 
+                            </button>
+                            <button class=
+                                    "btn btn-mint btn-labeled fa fa-check btn-sm" onclick=
+                                    "cetak_rekomendasi();">Cetak Rekomendasi
                             </button>
                             <button class=
                                     "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
@@ -512,7 +516,7 @@
             $("#jenis_surat").append('<option value="">Pilih</option>');
             $("#jenis_surat").append('<option value="Surat Tugas">Surat Tugas</option>');
             $("#jenis_surat").append('<option value="SPD">SPD</option>');
-            $("#jenis_surat").append('<option value="Surat Rekomendasi">Surat Rekomendasi</option>');
+            $("#jenis_surat").append('<option value="RAK">RAK</option>');
             // reset value
             // $("#jenis_surat").prop('selectedIndex', 0);
             $("#jenis_surat").trigger("chosen:updated");
@@ -1299,6 +1303,17 @@
         } 
         else {
             window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id);
+        }
+    }
+
+    function cetak_rekomendasi() {
+        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } 
+        else {
+            window.open(BASE_URL + 'pengembangan_pelatihan/cetak_rekomendasi/?id=' + selectedRowsSelesai[0].id);
         }
     }
 </script>

@@ -10,7 +10,7 @@
       <td colspan="3" align="center" style="font-size: 20px"><u><strong>S U R A T   -   T U G A S</strong></u></td>
     </tr>
     <tr>
-      <td colspan="3" align="center" style="font-size: 15px">Nomor : KP.03.04/XX.4/       /2018</td>
+      <td colspan="3" align="center" style="font-size: 15px">Nomor : KP.03.04/XX.4/       /<?php echo date('Y'); ?></td>
     </tr>
     <tr>
       <td colspan="3" align="center">&nbsp;</td>
@@ -154,14 +154,10 @@
       <td width="36%">Direktur Utama,</td>
     </tr>
     <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
       <td>(……………………)</td>
@@ -171,22 +167,17 @@
     <tr>
       <td><em>dimulai jam :</em></td>
       <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>NIP 196601011996031001</td>
     </tr>
     <tr>
       <td><em>Selesai  jam :</em></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
     </tr>
     <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
-      <td>  </td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="3">&nbsp;</td>
     </tr>
 </table>
 </body></html>
