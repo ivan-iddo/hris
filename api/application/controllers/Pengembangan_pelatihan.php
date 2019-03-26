@@ -152,7 +152,8 @@ class Pengembangan_pelatihan extends REST_Controller
         // print_r($results);die;
         if (!empty($results)) {
             $result = $results[0];
-            $createdby = $this->db->select("username")->where(array("id_user" => $result["createdby"]))->get("sys_user")->result_array();
+            if ($result["jenis_biaya"] == "Sponsor") {
+                $createdby = $this->db->select("username")->where(array("id_user" => $result["createdby"]))->get("sys_user")->result_array();
             $updatedby = $this->db->select("username")->where(array("id_user" => $result["updatedby"]))->get("sys_user")->result_array();
             if (count($createdby) == 1) {
                 $result["createdby"] = $createdby[0]["username"];
@@ -185,6 +186,8 @@ class Pengembangan_pelatihan extends REST_Controller
                 //     // }
                 // }
             }
+            
+        }
 
             // for ($i=0; $i < count($result["detail"]); $i++) { 
             //     # code...
@@ -194,7 +197,7 @@ class Pengembangan_pelatihan extends REST_Controller
             // die;
             // echo $html;
             // die;
-        }
+    }
 
 
         
@@ -228,7 +231,7 @@ class Pengembangan_pelatihan extends REST_Controller
                         }
                         $results["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
                         $results["result"][$key]["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($value["pengembangan_pelatihan_kegiatan_status"]);
-                        $results["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($value["id"]);
+                        $results["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($value["kode"]);
                         $results["result"][$key]["tanggal"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $value["id"]));
                         $results["result"][$key]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
                         if (!empty($results["result"][$key]["detail"])) {

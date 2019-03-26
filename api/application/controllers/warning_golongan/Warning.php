@@ -87,7 +87,7 @@ class Warning extends REST_Controller
                     $arr['result'][]=array(
                                        'id'=>$d->id_user,
                                        'id_user' => $d->id_user,
-                                        'pangkat_id' => $d->nama_p.' / '.$d->pangkat,
+                                        'pangkat_id' => $d->golongan_id,
                                         'tmt_golongan' => $d->tmt_golongan,
                                         'tmt_golongan_akhir' => $dayGolongan,
                                         'no_sk' => $d->no_sk,
@@ -102,7 +102,7 @@ class Warning extends REST_Controller
                     $arr['result'][]=array(
                                        'id'=>$d->id_user,
                                        'id_user' => $d->id_user,
-                                        'pangkat_id' => $d->nama_p.' / '.$d->pangkat,
+                                        'pangkat_id' => $d->golongan_id,
                                         'tmt_golongan' => $d->tmt_golongan,
                                         'tmt_golongan_akhir' => $dayGolongan,
                                         'no_sk' => $d->no_sk,
