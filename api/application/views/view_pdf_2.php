@@ -11,7 +11,7 @@
       <td colspan="3" align="center">&nbsp;</td>
     </tr>
     <tr>
-      <td colspan="3"><p align="justify">      Sehubungan dengan disposisi dari Direktur Umum dan SDM pada tanggal <?php echo $result['created']['date']); ?>, dengan ini menugaskan kepada :</p></td>
+      <td colspan="3"><p align="justify">      Sehubungan dengan disposisi dari Direktur Umum dan SDM pada tanggal <?php echo $result['created']['date']; ?>, dengan ini menugaskan kepada :</p></td>
     </tr>
     <tr>
       <td colspan="3">
