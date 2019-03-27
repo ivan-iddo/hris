@@ -608,6 +608,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 $pengembangan_pelatihan_detail["pengembangan_pelatihan_id"] = $pengembangan_pelatihan_id;
                 $pengembangan_pelatihan_detail["nopeg"] = $value["nopeg"];
                 $pengembangan_pelatihan_detail["nip"] = $value["nip"];
+                $pengembangan_pelatihan_detail["nik"] = $value["nik"];
                 $pengembangan_pelatihan_detail["nama_pegawai"] = $value["nama_pegawai"];
                 $pengembangan_pelatihan_detail["pangkat"] = $value["pangkat"];
                 $pengembangan_pelatihan_detail["golongan"] = $value["golongan"];

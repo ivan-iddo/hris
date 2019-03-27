@@ -643,7 +643,7 @@
             dataType: "json",
             success: function (e) {
                 for (var i = 0; i < e.result.length; i++) {
-                    $('#' + id).append('<option ' + (e.result[i].nip == valueEdit ? 'selected' : '') + ' value="' + e.result[i].nip + '" data-nik="' + e.result[i].nik + '" data-golongan="' + e.result[i].golongan + '" data-pangkat="' + e.result[i].pangkat +'" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_uk + '" >' + e.result[i].id + ' - ' + e.result[i].nama + '</option>');
+                    $('#' + id).append('<option ' + (e.result[i].id == valueEdit ? 'selected' : '') + ' value="' + e.result[i].id + '" data-nik="' + e.result[i].nik + '" data-nip="' + e.result[i].nip + '" data-golongan="' + e.result[i].golongan + '" data-pangkat="' + e.result[i].pangkat +'" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_uk + '" >' + e.result[i].id + ' - ' + e.result[i].nama + '</option>');
                 }
                 $('#' + id).trigger("chosen:updated");
             }
@@ -791,7 +791,8 @@
             $("#nama_pegawai").val($(this).find(':selected').attr("data-nama"));
             $("#jabatan").val($(this).find(':selected').attr("data-nama-group"));
             $("#nik").val($(this).find(':selected').attr("data-nik"));
-            $("#nip").val($(this).find(':selected').val());
+            $("#nip").val($(this).find(':selected').attr("data-nip"));
+            // $("#nip").val($(this).find(':selected').val());
             $("#pangkat").val($(this).find(':selected').attr("data-pangkat"));
             $("#golongan").val($(this).find(':selected').attr("data-golongan"));
         }
@@ -864,7 +865,7 @@
             // selectedRowsString += selectedRow.athlete;
             indexId = index;
         });
-        console.log("Row Selected",indexId);
+        console.log("Row Selected",selectedRow);
         // console.log("Row Selected",selectedRow);//sampai sini data ngak ada index nya
         if (isClickRowTable) {
             if (selectedRows == '') {
@@ -878,7 +879,7 @@
 
                 $('#nama_pegawai').val(selectedRow.nama_pegawai);
                 $('#jabatan').val(selectedRow.jabatan);
-                $('#nip').val(selectedRow.nopeg);
+                $('#nip').val(selectedRow.nip);
                 $('#nik').val(selectedRow.nik);
                 $('#pangkat').val(selectedRow.pangkat);
                 $('#golongan').val(selectedRow.golongan);
@@ -1150,6 +1151,7 @@
         } 
         else {
             var selectedRow = selectedRows[0];
+            console.log(selectedRow);
             var selectedRowsString = selectedRow.id;
             $.ajax({
                 url: BASE_URL + 'pengembangan_pelatihan/get/?id=' + selectedRowsString,
