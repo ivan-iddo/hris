@@ -15,7 +15,6 @@
     </tr>
     <tr>
       <td colspan="3">
-        <?php if ($result["jenis"] == "Individu"): ?> 
         <table width="100%" border="0" cellpadding="3">
           <?php if (!empty($result["detail"])): ?> 
              <?php foreach ($result["detail"] as $key => $value): ?> 
@@ -69,28 +68,6 @@
               <?php endforeach ?>
             <?php endif ?> 
         </table>
-        <?php elseif ($result["jenis"] == "Kelompok"): ?> 
-        <table width="100%" border="1px solid" cellpadding="1" cellspacing="0" class="table2">
-          <tr>
-            <th>No</th>
-            <!-- <th>NIP / Nopeg</th> -->
-            <th>NIP</th>
-            <th>Nama</th>
-            <th>Jabatan / Unit Kerja</th>
-          </tr>
-          <?php if (!empty($result["detail"])): ?>
-            <?php foreach ($result["detail"] as $key => $value): ?>
-              <tr>
-                <td><?php echo $key+1 ?></td>
-                <!-- <td><?php echo $value["nip"] ." / ". $value["nopeg"] ?></td> -->
-                <td><?php echo $value["nip"] ?></td>
-                <td><?php echo $value["nama_pegawai"] ?></td>
-                <td><?php echo $value["jabatan"] ?></td>
-              </tr>
-            <?php endforeach ?>
-          <?php endif ?>
-        </table>
-        <?php endif ?> 
       </td>
     </tr>
     <tr>

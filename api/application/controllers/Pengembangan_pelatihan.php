@@ -64,6 +64,8 @@ class Pengembangan_pelatihan extends REST_Controller
             $result["tanggal"]["tanggal_now"] = date("d") ." ". bulan(date("m")) ." ". date("Y");
             $result["tanggal"]["tanggal_to"] = date("d",strtotime($result["tanggal"][0]["tanggal_to"]))." ".bulan(date("m",strtotime($result["tanggal"][0]["tanggal_to"]))) ." ".date("Y",strtotime($result["tanggal"][0]["tanggal_to"]));
             $result["created"]["date"] = date("d",strtotime($result["created"]))." ".bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]));
+            $result["tanggal"]["day_to"] = hari_indo(date("D",strtotime($result["tanggal"][0]["tanggal_to"])));
+            $result["tanggal"]["day_from"] = hari_indo(date("D",strtotime($result["tanggal"][0]["tanggal_from"])));
             // print_r($result);die;
             $result["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($result["pengembangan_pelatihan_kegiatan"]);
             $result["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($result["pengembangan_pelatihan_kegiatan_status"]);
@@ -80,7 +82,11 @@ class Pengembangan_pelatihan extends REST_Controller
         //$this->load->library("pdf");
         $data = "test";
         if ($result['jenis_surat'] == "Surat Tugas") {
-            $html = $this->load->view("view_pdf_1", array("result" => $result), true);
+            if ($result["jenis"] == "Kelompok") {
+                $html = $this->load->view("view_pdf_0", array("result" => $result), true);
+            } else if ($result["jenis"] == "Individu"){
+                $html = $this->load->view("view_pdf_1", array("result" => $result), true);
+            }
         } else if ($result['jenis_surat'] == "Surat Izin") {
             $html = $this->load->view("view_pdf_2", array("result" => $result), true);
         } else if ($result['jenis_surat'] == "SPD") {
@@ -113,6 +119,8 @@ class Pengembangan_pelatihan extends REST_Controller
             $result["tanggal"]["tanggal_now"] = date("d") ." ". bulan(date("m")) ." ". date("Y");
             $result["tanggal"]["tanggal_to"] = date("d",strtotime($result["tanggal"][0]["tanggal_to"]))." ".bulan(date("m",strtotime($result["tanggal"][0]["tanggal_to"]))) ." ".date("Y",strtotime($result["tanggal"][0]["tanggal_to"]));
             $result["created"]["date"] = date("d",strtotime($result["created"]))." ".bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]));
+            $result["tanggal"]["day_to"] = hari_indo(date("D",strtotime($result["tanggal"][0]["tanggal_to"])));
+            $result["tanggal"]["day_from"] = hari_indo(date("D",strtotime($result["tanggal"][0]["tanggal_from"])));
             // print_r($result);die;
             $result["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($result["pengembangan_pelatihan_kegiatan"]);
             $result["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($result["pengembangan_pelatihan_kegiatan_status"]);
@@ -130,7 +138,11 @@ class Pengembangan_pelatihan extends REST_Controller
         $data = "test";
 
         if ($result['jenis_surat'] == "Surat Tugas") {
-            $html = $this->load->view("view_pdf_1", array("result" => $result), true);
+            if ($result["jenis"] == "Kelompok") {
+                $html = $this->load->view("view_pdf_0", array("result" => $result), true);
+            } else if ($result["jenis"] == "Individu"){
+                $html = $this->load->view("view_pdf_1", array("result" => $result), true);
+            }
         } else if ($result['jenis_surat'] == "Surat Izin") {
             $html = $this->load->view("view_pdf_2", array("result" => $result), true);
         } else if ($result['jenis_surat'] == "SPD") {
@@ -294,6 +306,8 @@ class Pengembangan_pelatihan extends REST_Controller
                 $jenis_perjalanan = $this->input->post("jenis_perjalanan");
                 $dalam_negeri = $this->input->post("dalam_negeri");
                 $jenis_surat = $this->input->post("jenis_surat");
+                $jam_mulai = $this->input->post("jam_mulai");
+                $jam_sampai = $this->input->post("jam_sampai");
                 // $surat_tugas_dalam_negeri_dalamkota = $this->input->post("surat_tugas_dalam_negeri_dalamkota");
                 // $surat_tugas_dalam_negeri_luarkota = $this->input->post("surat_tugas_dalam_negeri_luarkota");
                 // $surat_tugas_luar_negeri = $this->input->post("surat_tugas_luar_negeri");
@@ -312,6 +326,8 @@ class Pengembangan_pelatihan extends REST_Controller
                 $save["jenis_perjalanan"] = ($jenis_perjalanan)?$jenis_perjalanan:null;
                 $save["dalam_negeri"] = ($dalam_negeri)?$dalam_negeri:null;
                 $save["jenis_surat"] = ($jenis_surat)?$jenis_surat:null;
+                $save["jam_mulai"] = ($jam_mulai)?$jam_mulai:null;
+                $save["jam_sampai"] = ($jam_sampai)?$jam_sampai:null;
                 // $save["surat_tugas_dalam_negeri_dalamkota"] = ($surat_tugas_dalam_negeri_dalamkota)?$surat_tugas_dalam_negeri_dalamkota:null;
                 // $save["surat_tugas_dalam_negeri_luarkota"] = ($surat_tugas_dalam_negeri_luarkota)?$surat_tugas_dalam_negeri_luarkota:null;
                 // $save["surat_tugas_luar_negeri"] = ($surat_tugas_luar_negeri)?$surat_tugas_luar_negeri:null;
@@ -421,6 +437,8 @@ class Pengembangan_pelatihan extends REST_Controller
                 $jenis_perjalanan = $this->input->post("jenis_perjalanan");
                 $dalam_negeri = $this->input->post("dalam_negeri");
                 $jenis_surat = $this->input->post("jenis_surat");
+                $jam_mulai = $this->input->post("jam_mulai");
+                $jam_sampai = $this->input->post("jam_sampai");
                 // $surat_tugas_dalam_negeri_dalamkota = $this->input->post("surat_tugas_dalam_negeri_dalamkota");
                 // $surat_tugas_dalam_negeri_luarkota = $this->input->post("surat_tugas_dalam_negeri_luarkota");
                 // $surat_tugas_luar_negeri = $this->input->post("surat_tugas_luar_negeri");
@@ -440,6 +458,8 @@ class Pengembangan_pelatihan extends REST_Controller
                 $save["jenis_perjalanan"] = ($jenis_perjalanan)?$jenis_perjalanan:null;
                 $save["dalam_negeri"] = ($dalam_negeri)?$dalam_negeri:null;
                 $save["jenis_surat"] = ($jenis_surat)?$jenis_surat:null;
+                $save["jam_mulai"] = ($jam_mulai)?$jam_mulai:null;
+                $save["jam_sampai"] = ($jam_sampai)?$jam_sampai:null;
                 // $save["surat_tugas_dalam_negeri_dalamkota"] = ($surat_tugas_dalam_negeri_dalamkota)?$surat_tugas_dalam_negeri_dalamkota:null;
                 // $save["surat_tugas_dalam_negeri_luarkota"] = ($surat_tugas_dalam_negeri_luarkota)?$surat_tugas_dalam_negeri_luarkota:null;
                 // $save["surat_tugas_luar_negeri"] = ($surat_tugas_luar_negeri)?$surat_tugas_luar_negeri:null;
@@ -575,7 +595,14 @@ class Pengembangan_pelatihan extends REST_Controller
     }
 
     public function insert_detail($pengembangan_pelatihan_id, $detail)
-    {
+    {   
+        // echo "<pre>";
+        // print_r($pengembangan_pelatihan_id);
+        // echo "</pre>";
+        // echo "<pre>";
+        // print_r($detail);
+        // echo "</pre>";
+        // die();
         if (!empty($detail) && is_array($detail)) {
             foreach ($detail as $key => $value) {
                 $pengembangan_pelatihan_detail["pengembangan_pelatihan_id"] = $pengembangan_pelatihan_id;
@@ -588,7 +615,10 @@ class Pengembangan_pelatihan extends REST_Controller
                 $pengembangan_pelatihan_detail["uraian_total"] = $value["uraian_total"];
 
                 $detail_id = $this->Pengembangan_pelatihan_model->create_detail_row("pengembangan_pelatihan_detail", $pengembangan_pelatihan_detail);
-
+                // echo "<pre>";
+                // print_r($detail_id);
+                // echo "</pre>";
+                // die();
                 if ($detail_id) {
                     foreach ($value["detail_uraian"] as $key_detail_uraian => $value_detail_uraian) {
                         $pengembangan_pelatihan_detail_biaya["pengembangan_pelatihan_detail_id"] = $detail_id->id;

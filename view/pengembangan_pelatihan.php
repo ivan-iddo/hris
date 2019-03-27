@@ -114,7 +114,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="demo-hor-inputemail">Nama Pelatihan</label>
                                         <div class="col-sm-5">
-                                            <input type="text" name="nama_pelatihan" id="nama_pelatihan" class="form-control"/>
+                                            <input type="text" name="nama_pelatihan" id="nama_pelatihan" class="form-control" autocomplete="off" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -141,6 +141,20 @@
                                             <!-- <div class="col-xs-3 pull right">
                                                 <div class="btn btn-default btn-sm" id="add-data-calendar">Add</div>
                                             </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Acara di Mulai</label>
+                                        <div class="body-detail">
+                                            <div class="col-xs-4">
+                                                <input type="text" name="jam_mulai" class="form-control jam_mulai" id="jam_mulai" placeholder="Jam Mulai" required/>
+                                            </div>
+                                            <div class="col-xs-1">
+                                                s/d
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <input type="text" name="jam_sampai" class="form-control jam_sampai" id="jam_sampai" placeholder="Jam Selesai" required/>
+                                            </div>
                                         </div>
                                     </div>
 <!--                                     <div class="form-group">
@@ -1031,6 +1045,8 @@
         obj.tujuan = $("#tujuan").val();
         obj.institusi = $("#institusi").val();
         obj.tanggal = $(".tanggal").serializeArray();
+        obj.jam_mulai = $("#jam_mulai").val();
+        obj.jam_sampai = $("#jam_sampai").val();
         obj.laporan = 0;
         obj.monev = 0;
         if ($('#laporan').is(":checked")){
@@ -1163,6 +1179,8 @@
                     $("#nama_pelatihan").val(res.data.nama_pelatihan);
                     $("#tujuan").val(res.data.tujuan);
                     $("#institusi").val(res.data.institusi);
+                    $("#jam_mulai").val(res.data.jam_mulai);
+                    $("#jam_sampai").val(res.data.jam_sampai);
 
                     $('#jenis').val(res.data.jenis);
                     $("#jenis").trigger("chosen:updated");
@@ -1283,6 +1301,7 @@
 
     function proses_add() {
         form_reset();
+        btnActionAdd();
     }
 
     function laporan_selesai() {
