@@ -528,6 +528,42 @@ class Pengembangan_pelatihan extends REST_Controller
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
 
+    public function upload_file_post()
+    {   print_r($_POST);die();
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+
+                $config['upload_path'] = 'upload/data';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
+                $config['max_size'] = '50000000';
+                $this->load->library('upload', $config);
+                $arrdata = array(
+                                "statue" => 2,
+                            );
+                if (!$this->upload->do_upload('inputfileupload')) {
+                    $error = array('error' => $this->upload->display_errors());
+                } else {
+                    $upload = $this->upload->data();
+                    $arrdata["file"] = $upload['file_name'];
+                }
+                print_r($arrdata);die();
+
+                $id = $this->input->get("id");
+
+                $this->Pengembangan_pelatihan_model->update($id, $arrdata);
+
+                $response['hasil'] = 'success';
+                $response['message'] = 'Data berhasil diupdate!';
+                $this->set_response($response, REST_Controller::HTTP_OK);
+                return;
+            }
+        }
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
+    
     public function laporan_selesai_get()
     {
         $headers = $this->input->request_headers();

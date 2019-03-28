@@ -8,7 +8,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 // $rest_json = file_get_contents("php://input");
 // $_POST = json_decode($rest_json, true);
 class keluarga extends CI_Controller
-{
+{   
 
     public function savekeluarga()
     {
@@ -60,6 +60,42 @@ class keluarga extends CI_Controller
             $arr['message'] = 'Data Gagal Ditambah!';
         }
         echo json_encode($arr);
+    }
+
+    public function upload_file()
+    {   
+        // print_r($_POST);die();
+
+        $config['upload_path'] = 'upload/data/latbang';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
+        $config['max_size'] = '50000000';
+        $this->load->library('upload', $config);
+        $arrdata = array(
+                        "statue" => 2,
+                    );
+        if (!$this->upload->do_upload('inputfileupload')) {
+            $error = array('error' => $this->upload->display_errors());
+        } else {
+            $upload = $this->upload->data();
+            $arrdata["file"] = $upload['file_name'];
+        }
+        // print_r($arrdata);die();
+
+        $id = $this->input->post("id_latbang");
+
+        $this->db->where("id", $id);
+        $result = $this->db->update('pengembangan_pelatihan', $arrdata);
+
+
+        if ($result) {
+            $response['hasil'] = 'success';
+            $response['message'] = 'File berhasil diuload!';
+        } else {
+            $response['hasil'] = 'error';
+            $response['message'] = 'File gagal diuload!';
+        }
+
+        echo json_encode($response);
     }
 
     public function editkeluarga()

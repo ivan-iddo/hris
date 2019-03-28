@@ -48,8 +48,8 @@
                                     "cetak_rekomendasi();">Cetak Rekomendasi
                             </button>
                             <button class=
-                                    "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
-                                    "laporan_selesai();">Laporan selesai
+                                    "btn btn-success btn-labeled fa fa-check btn-sm" id="id_upload" value="" onclick=
+                                    "uploadFile();">Upload File
                             </button>
                         </div>
                     </div>
@@ -469,7 +469,12 @@
             {headerName: "Jenis Biaya", field: "jenis_biaya", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Status Pengajuan", field: "nama_status", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Created Date", field: "created", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}}
+            {headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Dokumen", field: "file", 
+              cellRenderer: function(params) {
+                  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Lihat Dokumen</a>'
+              }
+            },
     ];
 
     var gridOptionsList = {
@@ -833,6 +838,7 @@
         dataRow.uraian_total = uraian_total;
         dataRow.nopeg = $("#nopeg").val();
         dataRow.nip = $("#nip").val();
+        dataRow.nik = $("#nik").val();
         dataRow.pangkat = $("#pangkat").val();
         dataRow.golongan = $("#golongan").val();
         dataRow.nama_pegawai = $("#nama_pegawai").val();
@@ -1347,4 +1353,38 @@
             window.open(BASE_URL + 'pengembangan_pelatihan/cetak_rekomendasi/?id=' + selectedRowsSelesai[0].id);
         }
     }
+
+    function uploadFile() {
+        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+        $('#id_upload').val(selectedRowsSelesai[0].id);
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } 
+        else {
+            bootbox.dialog({
+            message: $('<div></div>').load('view/pengembangan_pelatihan_upload.php'),
+            animateIn: 'bounceIn',
+            animateOut: 'bounceOut',
+            backdrop: false,
+            size: 'medium',
+            buttons: {
+                success: {
+                    label: "Save", className: "btn-success", callback: function () {
+                        // simpanKeluarga('save'); ini bisa di hapus
+                        $('#form-latbang-upload').submit(); //ini untuk submit form-keluarga
+                        return false;
+                    }
+                }, main: {
+                    label: "Close", className: "btn-warning", callback: function () {
+                        $.niftyNoty({type: 'dark', message: "Bye Bye", container: 'floating', timer: 5000});
+                    }
+                }
+            }
+        });
+            
+            // submit_get(BASE_URL + 'pengembangan_pelatihan/laporan_selesai/?id=' + selectedRowsSelesai[0].id, loaddata);
+        }
+    
+}
 </script>
