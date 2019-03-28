@@ -172,6 +172,7 @@ class Pengembangan_pelatihan extends REST_Controller
         $this->pdf->setPaper("legal", ($orientation = "P" ));
         $this->pdf->set_option("isPhpEnabled", true);
         $this->pdf->set_option("isHtml5ParserEnabled", true);
+        $this->pdf->set_option("isRemoteEnabled", true);
         $this->pdf->render();
         $name = "download jenis surat";
         $this->pdf->stream($name, array("Attachment" => 1));
@@ -221,6 +222,7 @@ class Pengembangan_pelatihan extends REST_Controller
                         $this->pdf->setPaper("legal", ($orientation = "P" ));
                         $this->pdf->set_option("isPhpEnabled", true);
                         $this->pdf->set_option("isHtml5ParserEnabled", true);
+                        $this->pdf->set_option("isRemoteEnabled", true);
                         $this->pdf->render();
                         $name = "download rekomendasi";
                         $this->pdf->stream($name, array("Attachment" => 1));
@@ -276,6 +278,7 @@ class Pengembangan_pelatihan extends REST_Controller
                         $this->pdf->setPaper("legal", ($orientation = "P" ));
                         $this->pdf->set_option("isPhpEnabled", true);
                         $this->pdf->set_option("isHtml5ParserEnabled", true);
+                        $this->pdf->set_option("isRemoteEnabled", true);
                         $this->pdf->render();
                         $name = "download rekomendasi";
                         $this->pdf->stream($name, array("Attachment" => 1));

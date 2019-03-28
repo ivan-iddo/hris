@@ -10,9 +10,9 @@
     <table width="100%" class="table-1" border="0">
 	<tbody>
 	<tr>
-      <td colspan="1" width="30"><img src="logo.png" width="60%"></td>
+      <td colspan="1" width="30"><img src="http://localhost/project/hris/logo.png" width="60%"></td>
       <td colspan="2"align="center"><b>KEMENTRIAN KESEHATAN<br>DIREKTORAT JENDRAL PELAYANAN KESEHATAN<br>RUMAH SAKIT JANTUNG DAN PEMBULU DARAH HARAPAN KITA</b></td>
-	  <td colspan="1" width="30"><img src="logo.png" width="60%"></td>
+	  <td colspan="1" width="30"><img src="http://localhost/project/hris/logo.png" width="60%"></td>
 	</tr>
 	<tr>
 	<td colspan="1" width="30">&nbsp;</td>

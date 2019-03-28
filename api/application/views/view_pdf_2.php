@@ -1,6 +1,15 @@
 <!doctype html>
 <html><head></head><body>
 <style>
+    .logo::after{
+       content: "";
+       background: url(http://localhost/project/hris/logo.jpg) no-repeat;
+       position:absolute;
+       top: 0;
+       left: 0;
+       width: 50%;
+       height: 300px;
+    }
      @page { margin: 180px 50px; }
      #header { position: fixed; left: -10px; top: -150px; right: -10px; bottom: -180px; height: 0px; text-align: center; }
      #foote { position: fixed; left: 0px; bottom: -180px; right: 0px; height: 150px; }
@@ -10,9 +19,9 @@
     <table width="100%" class="table-1" border="0">
 	<tbody>
 	<tr>
-      <td colspan="1" width="30"><img src="http://localhost/project/hris/logo-.php" width="60%"></td>
+      <td colspan="1" width="30"><img src="http://localhost/project/hris/logo.jpg" width="60%"/></td>
       <td colspan="2"align="center"><b>KEMENTRIAN KESEHATAN<br>DIREKTORAT JENDRAL PELAYANAN KESEHATAN<br>RUMAH SAKIT JANTUNG DAN PEMBULU DARAH HARAPAN KITA</b></td>
-	  <td colspan="1" width="30"><img src="logo.png" width="60%"></td>
+	  <td colspan="1" width="30"><img src="http://localhost/project/hris/logo.jpg" width="60%"/></td>
 	</tr>
 	<tr>
 	<td colspan="1" width="30">&nbsp;</td>
