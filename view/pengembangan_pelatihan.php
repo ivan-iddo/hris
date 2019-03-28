@@ -41,11 +41,23 @@
                             </button>
                             <button class=
                                     "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                    "cetak();">Cetak Surat 
+                                    "cetak();">Surat Izin / Tugas
+                            </button>
+							<button class=
+                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
+                                    "cetak_rak();">Surat RAK
+                            </button>
+							<button class=
+                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
+                                    "cetak_dft_rak();">Peserta RAK
+                            </button>
+							<button class=
+                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
+                                    "cetak_spd();">Surat SPD
                             </button>
                             <button class=
                                     "btn btn-mint btn-labeled fa fa-check btn-sm" onclick=
-                                    "cetak_rekomendasi();">Cetak Rekomendasi
+                                    "cetak_rekomendasi();">Rekomendasi
                             </button>
                             <button class=
                                     "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
@@ -527,10 +539,7 @@
         if (jenis_biaya == "BLU") {
             console.log(jenis_biaya);
             $("#jenis_surat").children().remove();
-            $("#jenis_surat").append('<option value="">Pilih</option>');
             $("#jenis_surat").append('<option value="Surat Tugas">Surat Tugas</option>');
-            $("#jenis_surat").append('<option value="SPD">SPD</option>');
-            $("#jenis_surat").append('<option value="RAK">RAK</option>');
             // reset value
             // $("#jenis_surat").prop('selectedIndex', 0);
             $("#jenis_surat").trigger("chosen:updated");
@@ -1260,11 +1269,8 @@
 
                     if (res.data.jenis_biaya == "BLU") {
                         $("#jenis_surat").children().remove();
-                        $("#jenis_surat").append('<option value="">Pilih</option>');
                         $("#jenis_surat").append('<option value="Surat Tugas">Surat Tugas</option>');
-                        $("#jenis_surat").append('<option value="SPD">SPD</option>');
-                        $("#jenis_surat").append('<option value="Surat Rekomendasi">Surat Rekomendasi</option>');
-                        // reset value
+						// reset value
                         // $("#jenis_surat").prop('selectedIndex', 0);
                         $('#jenis_surat').val(res.data.jenis_surat);
                         $("#jenis_surat").trigger("chosen:updated");
@@ -1344,7 +1350,76 @@
             return false;
         } 
         else {
-            window.open(BASE_URL + 'pengembangan_pelatihan/cetak_rekomendasi/?id=' + selectedRowsSelesai[0].id);
+			if (selectedRowsSelesai[0].jenis_biaya!='Sponsor') {
+            onMessage('Tidak mencetak Rekomendasi, hanya untuk pegawai yang dibiayai Sponsor');
+            return false;
+			}else{
+            window.open(BASE_URL + 'pengembangan_pelatihan/cetak_rekomendasi/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode);
+			}
+        }
+    }
+	
+	function cetak_spd(){
+     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } 
+        else {
+			if (selectedRowsSelesai[0].jenis_biaya!='BLU') {
+            onMessage('Tidak mencetak SPD, hanya untuk pegawai yang dibiayai BLU');
+            return false;
+			}else {
+            window.open(BASE_URL + 'pengembangan_pelatihan/cetak_spd/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode);
+			}
+        }
+    }
+	
+	
+	function cetak_rak(){
+     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } 
+        else {
+			if (selectedRowsSelesai[0].jenis_biaya!='BLU') {
+            onMessage('Tidak mencetak RAK, hanya untuk pegawai yang dibiayai BLU');
+            return false;
+			}else{
+             gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id + '&surat=RAK',pdf_rak,'large');
+			}
+        }
+    }
+	
+	function pdf_rak() {
+        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+	   if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } else {
+            window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id + '&surat=RAK');
+        }
+	}
+	
+	function cetak_dft_rak(){
+     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } 
+        else {
+			if (selectedRowsSelesai[0].jenis_biaya!='BLU') {
+            onMessage('Tidak mencetak Daftar RAK, hanya untuk pegawai yang dibiayai BLU');
+            return false;
+			}else{
+				if (selectedRowsSelesai[0].jenis=='Individu') {
+				onMessage('Tidak mencetak Daftar RAK, hanya untuk kelompok');
+				return false;
+				}else{
+				window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id + '&surat=dft');
+				}
+			}
         }
     }
 </script>

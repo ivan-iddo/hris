@@ -39,6 +39,26 @@
 ?>
 <!doctype html>
 <html><head></head><body>
+<style>
+     @page { margin: 120px 50px; }
+     #header { position: fixed; left: -10px; top: -110px; right: -10px; bottom: -160px; height: 0px; text-align: center; }
+     #foote { position: fixed; left: 0px; bottom: -80px; right: 0px; height: 20px; }
+     #foote { content: counter(upper-roman); }
+</style>
+ <div id="header">
+    <table width="100%" class="table-1" border="0">
+	<tbody>
+	<tr>
+      <td colspan="1" width="50"><img src="logo.png" width="60%"></td>
+      <td colspan="4"align="right"><h6>RUMAH SAKIT JANTUNG DAN PEMBULU DARAH<br>HARAPAN KITA<br>Jln. S. Parman Kv. 87 Slipi Jakarta, 11420<br>Telp. 5684085 - 5684093 Ext. 1154<br>Fax: 5684230<br>e-mail: website@pjnhk.go.id<br>http:www.pjnhk.go.id</h6></td>
+    </tr>
+	</tbody>
+	</table>
+   </div>
+   <div hidden="<?php echo $result["footer"]; ?>" id="foote">
+     <p><h6>Latbang_4:RAK_<?php echo $result["tanggal"]["tanggal_now"] ?></h6></p>
+   </div>
+<div id="content">
 <table border="0" class="table-1" style="margin:30px">
     <tr>
       <td colspan="3">
@@ -47,20 +67,20 @@
 		<tr>
             <td>Nomor</td>
             <td>:</td>
-            <td width="50%">&nbsp;</td>
-			<td align="right">04 Februari 2019</td>
+            <td width="70%">KU.02.04/4.2.1/ &nbsp; &nbsp; &nbsp;  &nbsp; /<?php echo date('Y'); ?></td>
+			<td width="20%"align="right"><?php echo $result["tanggal"]["tanggal_now"] ?></td>
           </tr>
 		  <tr>
             <td>Lamp</td>
             <td>:</td>
-            <td width="50%">&nbsp;</td>
-			<td>&nbsp;</td>
+            <td width="70%">1 (Satu) berkas</td>
+			<td width="20%">&nbsp;</td>
           </tr> 
 		  <tr>
             <td>Prihal</td>
             <td>:</td>
-            <td width="50%">&nbsp;</td>
-			<td>&nbsp;</td>
+            <td width="70%"><b>Permohonan Biaya</b></td>
+			<td width="20%">&nbsp;</td>
           </tr>
 		</tbody>
       </table></td></tr>
@@ -72,7 +92,7 @@
 	</td>
     </tr>
     <tr>
-      <td colspan="3"><p align="justify">      Berdasarkan disposisi Direktur Umum dan SDM tanggal <?php echo date('d F Y',strtotime($result['created'])); ?>, prihal Mengikuti <?php echo $result['nama_pelatihan']; ?> di Instansi <?php echo $result["institusi"]; ?>, yang dilaksanakan pada tanggal <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s/d ". date('d F Y',strtotime($result["tanggal"][0]["tanggal_to"])) ?>, diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?>, an :</p></td>
+      <td colspan="3"><p align="justify">      Berdasarkan disposisi Direktur Umum dan SDM tanggal <?php echo $result["tanggal"]["tanggal_now"] ?>, prihal Mengikuti <?php echo $result['nama_pelatihan']; ?> di Instansi <?php echo $result["institusi"]; ?>, yang dilaksanakan pada tanggal <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s/d ". $result["tanggal"]["tanggal_to"]; ?>, diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?>, an :</p></td>
     </tr>
     <tr>
       <td colspan="3">
@@ -131,24 +151,7 @@
             <?php endif ?> 
         </table>
         <?php elseif ($result["jenis"] == "Kelompok"): ?> 
-        <table width="100%" border="1px solid" cellpadding="1" cellspacing="0" class="table2">
-          <tr>
-            <th>No</th>
-            <!-- <th>NIP / Nopeg</th> -->
-            <th>Nama</th>
-            <th>Jabatan / Unit Kerja</th>
-          </tr>
-          <?php if (!empty($result["detail"])): ?>
-            <?php foreach ($result["detail"] as $key => $value): ?>
-              <tr>
-                <td><?php echo $key+1 ?></td>
-                <!-- <td><?php echo $value["nip"] ." / ". $value["nopeg"] ?></td> -->
-                <td><?php echo $value["nama_pegawai"] ?></td>
-                <td><?php echo $value["jabatan"] ?></td>
-              </tr>
-            <?php endforeach ?>
-          <?php endif ?>
-        </table>
+			<center>(Nopeg, Nama Pegawai, dan Unit Kerja Terlampir)</center>
         <?php endif ?> 
       </td>
     </tr>
@@ -246,6 +249,12 @@
 	  <td>&nbsp;</td>
       <td><center><b>NIP. 196606122000121001</b></center></td>
       <td>&nbsp;</td>
+    </tr>
+	<tr>
+      <td colspan="3">&nbsp;</td>
+    </tr>
+	<tr>
+      <td colspan="3">&nbsp;</td>
     </tr>
 </table>
 </body></html>

@@ -1,10 +1,32 @@
 <!doctype html>
 <html><head></head><body>
-<style type="text/css">
-  table{
-    width: 100%;
-  }
+<style>
+     @page { margin: 180px 50px; }
+     #header { position: fixed; left: -10px; top: -150px; right: -10px; bottom: -180px; height: 0px; text-align: center; }
+     #foote { position: fixed; left: 0px; bottom: -100px; right: 0px; height: 50px; }
+     #foote { content: counter(upper-roman); }
 </style>
+ <div id="header">
+    <table width="100%" class="table-1" border="0">
+	<tbody>
+	<tr>
+      <td colspan="1" width="30"><img src="logo.png" width="60%"></td>
+      <td colspan="2"align="center"><b>KEMENTRIAN KESEHATAN<br>DIREKTORAT JENDRAL PELAYANAN KESEHATAN<br>RUMAH SAKIT JANTUNG DAN PEMBULU DARAH HARAPAN KITA</b></td>
+	  <td colspan="1" width="30"><img src="logo.png" width="60%"></td>
+	</tr>
+	<tr>
+	<td colspan="1" width="30">&nbsp;</td>
+	<td colspan="2"align="center">Jalan Let. Jend. S. Parman Kv. 87 Slipi Jakarta, 11420<br>Telp. 5684085 - 093, 5684093, Faksimile: 5684230<br>Surat Elektronik: <u>website@pjnhk.go.id</u><br><u>http:www.pjnhk.go.id</u></td>
+	<td colspan="1" width="30">&nbsp;</td>
+	<hr/>
+	</tr>
+	</tbody>
+	</table>
+   </div>
+   <div hidden="<?php echo $result["footer"]; ?>" id="foote">
+     <p>Tembusan : <br>- Atasan Ybs <br>- Kepala Unit Pengendalian Garatifikasi</p>
+  </div>
+<div id="content">
 <table border="0" class="table-1" style="margin:30px">
     <tr>
       <td colspan="3">
@@ -13,7 +35,7 @@
             <td width="11%">Nomor</td>
               <td width="2%">:</td>
               <td width="46%">UM.01.05/XX.4/ &nbsp; &nbsp; &nbsp;  &nbsp; /<?php echo date('Y'); ?></td>
-              <td width="41%" align="right"><?php echo $result["tanggal"]["tanggal_now"] ?></td>
+              <td width="41%" align="right"><?php echo $result["tanggal"]["now"] ?></td>
           </tr>
           <tr>
             <td width="11%">Hal</td>
@@ -24,13 +46,7 @@
       </td>
     </tr>
     <tr>
-      <td colspan="3" align="center">&nbsp;</td>
-    </tr>
-    <tr>
-      <td colspan="3">Yth. <?php echo $result["institusi"] ?></td>
-    </tr>
-    <tr>
-      <td colspan="3" align="center">&nbsp;</td>
+      <td colspan="3"><br>Yth. <?php echo $result["institusi"] ?></td>
     </tr>
     <tr>
       <td colspan="3"><p align="justify">       Dengan ini, kami memberikan rekomendasi kepada Pegawai RS Jantung Dan Pembuluh Darah Harapan KIta (RSJPDHK) :</p></td>
@@ -47,8 +63,7 @@
                   :
                 </td>
                 <td width="77%">
-                  <!-- <?php echo $value["nama_pegawai"] ?> -->
-                  <?php echo $result["detail"][0]["nama_pegawai"] ?>
+                  <?php echo $result["pengembangan_pelatihan_detail"]->nama_pegawai;?>
                 </td>
               </tr>
               <tr>
@@ -59,8 +74,7 @@
                   :
                 </td>
                 <td width="77%">
-                  <!-- <?php echo $value["jabatan"]; ?> -->
-                  <?php echo $result["detail"][0]["jabatan"] ?>
+                  <?php echo $result["pengembangan_pelatihan_detail"]->jabatan;?>
                 </td>
               </tr>
               <tr>
@@ -88,7 +102,7 @@
                   :
                 </td>
                 <td width="77%">
-                  <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s/d ". $result["tanggal"]["tanggal_to"] ?>
+                 <?php echo date("d",strtotime($result["tanggal"][0]["tanggal_from"])) ?> s/d <?php echo $result["tanggal"]["to"] ?>
                 </td>
               </tr>
               <tr>
@@ -156,13 +170,7 @@
       </td>
     </tr>
     <tr>
-      <td colspan="3">&nbsp;</td>
-    </tr>
-    <tr>
-      <td colspan="3"><p>Demikian Surat Rekomendasi ini dibuat, untuk dapat dipergunakan sebagaimana mestinya.</p></td>
-    </tr>
-    <tr>
-      <td colspan="3">&nbsp;</td>
+      <td colspan="3"><p>Demikian Surat Rekomendasi ini dibuat, untuk dapat dipergunakan sebagaimana mestinya.</p><br></td>
     </tr>
     <tr>
       <td colspan="2" width="40%">&nbsp;</td>
@@ -186,4 +194,5 @@
       <td colspan="3">&nbsp;</td>
     </tr> -->
 </table>
+</div>
 </body></html>
