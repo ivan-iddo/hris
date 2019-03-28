@@ -1,5 +1,33 @@
 <!doctype html>
 <html><head></head><body>
+<style>
+     @page { margin: 200px 50px; }
+     #header { position: fixed; left: -10px; top: -150px; right: -10px; bottom: -180px; height: 0px; text-align: center; }
+     #foote { position: fixed; left: 0px; bottom: -180px; right: 0px; height: 150px; }
+     #foote { content: counter(upper-roman); }
+</style>
+ <div id="header">
+    <table width="100%" class="table-1" border="0">
+	<tbody>
+	<tr>
+      <td colspan="1" width="30"><img src="logo.png" width="60%"></td>
+      <td colspan="2"align="center"><b>KEMENTRIAN KESEHATAN<br>DIREKTORAT JENDRAL PELAYANAN KESEHATAN<br>RUMAH SAKIT JANTUNG DAN PEMBULU DARAH HARAPAN KITA</b></td>
+	  <td colspan="1" width="30"><img src="logo.png" width="60%"></td>
+	</tr>
+	<tr>
+	<td colspan="1" width="30">&nbsp;</td>
+	<td colspan="2"align="center">Jalan Let. Jend. S. Parman Kv. 87 Slipi Jakarta, 11420<br>Telp. 5684085 - 093, 5684093, Faksimile: 5684230<br>Surat Elektronik: <u>website@pjnhk.go.id</u><br><u>http:www.pjnhk.go.id</u></td>
+	<td colspan="1" width="30">&nbsp;</td>
+	<hr/>
+	</tr>
+	</tbody>
+	</table>
+   </div>
+   <div hidden="<?php echo $result["footer"]; ?>" id="foote">
+     <p>Tembusan : <br>- Atasan Ybs <br>- Para Direktur RSJPDHK</p>
+     <p><h6>Latbang_4 G:SrtTgs Intern <?php echo $result["tanggal"]["tanggal_now"] ?></h6></p>
+   </div>
+<div id="content">
 <table border="0" class="table-1" style="margin:30px">
     <tr>
       <td colspan="3" align="center" style="font-size: 20px"><u><strong>S U R A T   -   T U G A S</strong></u></td>
@@ -14,7 +42,7 @@
       <td colspan="3"><p align="justify">      Yang bertanda tangan di bawah ini memberikan tugas kepada :</p></td>
     </tr>
     <tr>
-      <td colspan="3" align="center">&nbsp;</td>
+      <td colspan="3" align="center"><center>(Nopeg, Nama Pegawai, dan Unit Kerja Terlampir)</center></td>
     </tr>
     
     <tr>
@@ -71,22 +99,6 @@
       <td width="60%">NIP 196601011996031001</td>
     </tr>
     <tr>
-      <td colspan="3">&nbsp;</td>
-    </tr><tr>
-      <td colspan="3">&nbsp;</td>
-    </tr><tr>
-      <td colspan="3">&nbsp;</td>
-    </tr><tr>
-      <td colspan="3">&nbsp;</td>
-    </tr><tr>
-      <td colspan="3">&nbsp;</td>
-    </tr><tr>
-      <td colspan="3">&nbsp;</td>
-    </tr><tr>
-      <td colspan="3">&nbsp;</td>
-    </tr><tr>
-      <td colspan="3">&nbsp;</td>
-    </tr><tr>
       <td colspan="3">&nbsp;</td>
     </tr><tr>
       <td colspan="3">&nbsp;</td>
@@ -181,4 +193,5 @@
       </td>
     </tr>
 </table>
+</div>
 </body></html>
