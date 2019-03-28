@@ -49,7 +49,7 @@
     <table width="100%" class="table-1" border="0">
 	<tbody>
 	<tr>
-      <td colspan="1" width="50%" align="right"><img src="keuangan.jpg" width="15%"></td>
+      <td colspan="1" width="50%" align="right"><img src="http://localhost/project/hris/logo.png" width="15%"></td>
 	  <td colspan="1"><h6>LAMPIRAN 1<br>PERATURAN MENTRI KEUANGAN REPUBLIK INDONESIA<br>NOMOR 113/PMK.05/2012<br>TENTANG<br>PERJALANAN DINAS JABATAN DALAM NEGERI BAGI PEJABAT<br>NEGARA, PEGAWAI NEGERI, DAN PEGAWAI TIDAK TETAP</h6></td>
 	</tr>
 	</tbody>
@@ -178,6 +178,12 @@
       <td>&nbsp;</td>
       <td>NIP. 196606122000121001</td>
     </tr>
+	<tr>
+      <td colspan="3">&nbsp;</td>
+    </tr>
+	<tr>
+      <td colspan="3">&nbsp;</td>
+    </tr> 
 	<tr>
       <td colspan="3"><br><center><u><b>RINCIAN PENGHITUNGAN BIAYA PELATIHAN</b></u></center><br></td>
     </tr> 

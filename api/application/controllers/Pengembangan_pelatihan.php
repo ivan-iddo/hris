@@ -269,9 +269,9 @@ class Pengembangan_pelatihan extends REST_Controller
                         }
 						//print_r($results["result"][$key]);die;
 						$this->load->library("pdf");
-                        $html = $this->load->view("suratspd", array("result" => $results["result"][$key]), true);
-						// echo $html;
-                        // die;
+                        $html = $this->load->view("spd", array("result" => $results["result"][$key]), true);
+                        //echo $html;
+                        //die;
                         $customPaper = array(0,0,210,330);
                         $this->pdf->loadHtml($html);
                         // $this->pdf->setPaper($customPaper);
