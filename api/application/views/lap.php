@@ -10,11 +10,11 @@
 <table width="100%" border="0">
   <tbody>
 	<tr>
-	  <td colspan="1" align="right"><img src="http://localhost/project/hris/logo.png" width="100%"></td>
+	  <td colspan="1" align="right"><img src="<?php echo base_url(); ?>/logo.png" width="100%"></td>
       <td colspan="2" width="50%">
 	  <u><b>Rekapitulasi Laporan Keuangan Pelatihan dan Pengembangan Tahun 2019<br>Sub. Bag. SDM & Organisasi<br>Rs. Jantung & Pembulu Darah Harapan Kita</b></u><br>
 	  </td>
-      <td colspan="2" width="60%"><img src="tes.jpg" width="30%"></td>
+      <td colspan="2" width="60%"><img src="<?php echo base_url(); ?>/logo.png" width="30%"></td>
 	  
 	</tr>
 	<tr>

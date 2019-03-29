@@ -167,8 +167,8 @@ class Pengembangan_pelatihan extends REST_Controller
             $html = $this->load->view("view_pdf_2", array("result" => $result), true);
         }
         
-        // echo $html;
-        // die;
+        //echo $html;
+        //die;
 
         $this->pdf->loadHtml($html);
         $this->pdf->setPaper("legal", ($orientation = "P" ));

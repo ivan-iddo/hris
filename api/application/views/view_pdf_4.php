@@ -12,7 +12,7 @@
     <table width="100%" class="table-1" border="0">
 	<tbody>
 	<tr>
-      <td colspan="1" width="50%" align="right"><img src="http://localhost/project/hris/logo.png" width="100"/></td>
+      <td colspan="1" width="50%" align="right"><img src="<?php echo base_url(); ?>/logo.png" width="100"/></td>
 	  <td colspan="1"><h6>LAMPIRAN 1<br>PERATURAN MENTRI KEUANGAN REPUBLIK INDONESIA<br>NOMOR 113/PMK.05/2012<br>TENTANG<br>PERJALANAN DINAS JABATAN DALAM NEGERI BAGI PEJABAT<br>NEGARA, PEGAWAI NEGERI, DAN PEGAWAI TIDAK TETAP</h6></td>
 	</tr>
 	</tbody>
