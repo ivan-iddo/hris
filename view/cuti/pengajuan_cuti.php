@@ -149,6 +149,7 @@ require_once('../../connectdb.php');
 					    </div>
 					</div>
 <script>
+$('.judul-menu').html('Pengajuan Cuti'); 
   $(document).ready(function(){
     $('.datepickerbootstrap').datepicker({
       format: 'dd/mm/yyyy',

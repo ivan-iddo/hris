@@ -639,7 +639,7 @@ class Cuti extends REST_Controller
                 }
                 $this->db2->where('id_cuti', $id);
                 if ($status == '0') {
-                    $arraycutidetail['tampilkan'] = $status;
+                    //$arraycutidetail['tampilkan'] = $status;
                     $arraycutidetail['status'] = $status;
                     $this->db2->where('status', '1');
                 } else {
@@ -688,12 +688,15 @@ class Cuti extends REST_Controller
 				//}
 				$this->db->where('sys_user.id_user !=', $id_user);
 				if($sub_bag==0){
+				$user=$bagian;
 				$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
 				if($bagian==0){
+				$user=$dir;
 				$this->db->where_in('riwayat_kedinasan.direktorat', $dir);
 				$this->db->like("m_index_jabatan_asn_detail.ds_jabatan",'Kepala Bagian');
 				}
 				}else{
+				$user=$sub_bag;
 				$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
 				$this->db->where_in('riwayat_kedinasan.sub_bagian', $sub_bag);
 				}
@@ -712,6 +715,45 @@ class Cuti extends REST_Controller
 				$count=count($resCek);
                           
                 $da = '';
+				if($user==$dir){
+				  foreach ($resCek as $val) {
+                    $text = 'text-success';
+                    if ($val->status == '108') {
+                        $text = 'text-danger';
+                    }
+                    $da .= '<tr>';
+                    $da .= '<td>';
+                    $da .= $val->namapegawai;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= $val->namcut;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= $val->keterangan;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= date_format(date_create($val->tgl_cuti), "d-m-Y");
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= date_format(date_create($val->tgl_akhir_cuti), "d-m-Y");
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= $val->total;
+                    $da .= '</td>';
+                    $da .= '<td class="' . $text . '">';
+                    $da .= $val->statuspros;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= '<a class="label label-success" href="javascript:void(0);" onClick="prosesCuti(\'' . $val->id . '\',\'103\')">';
+                    $da .= 'Setujui';
+                    $da .= '</a>';
+                    $da .= '<a class="label label-danger" href="javascript:void(0);" onClick="prosesCuti(\'' . $val->id . '\',\'108\')">';
+                    $da .= 'Tolak';
+                    $da .= '</a>';
+                    $da .= '</td>';
+                    $da .= '</tr>';
+                }
+				}else{
                 foreach ($resCek as $val) {
                     $text = 'text-success';
                     if ($val->status == '108') {
@@ -749,6 +791,7 @@ class Cuti extends REST_Controller
                     $da .= '</td>';
                     $da .= '</tr>';
                 }
+				}
 
                 $arr['hasil'] = 'success';
                 $arr['isi'] = $da;

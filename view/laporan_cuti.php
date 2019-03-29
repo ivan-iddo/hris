@@ -23,6 +23,7 @@
 
 
 <script type="text/javascript">
+$('.judul-menu').html('Dashbord Cuti'); 
 var chart;
 chart = new Highcharts.chart('containers', {
     chart: {

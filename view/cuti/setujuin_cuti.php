@@ -61,7 +61,7 @@ require_once('../../connectdb.php');
 					     
 					</div>
 <script>
-$('.judul-menu').html('Pengajuan Cuti'); 
+$('.judul-menu').html('Persetujuan Cuti'); 
 
   
  listcuti();
