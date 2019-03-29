@@ -1,44 +1,7 @@
-<?php
-	function penyebut($nilai) {
-		$nilai = abs($nilai);
-		$huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
-		$temp = "";
-		if ($nilai < 12) {
-			$temp = " ". $huruf[$nilai];
-		} else if ($nilai <20) {
-			$temp = penyebut($nilai - 10). " belas";
-		} else if ($nilai < 100) {
-			$temp = penyebut($nilai/10)." puluh". penyebut($nilai % 10);
-		} else if ($nilai < 200) {
-			$temp = " seratus" . penyebut($nilai - 100);
-		} else if ($nilai < 1000) {
-			$temp = penyebut($nilai/100) . " ratus" . penyebut($nilai % 100);
-		} else if ($nilai < 2000) {
-			$temp = " seribu" . penyebut($nilai - 1000);
-		} else if ($nilai < 1000000) {
-			$temp = penyebut($nilai/1000) . " ribu" . penyebut($nilai % 1000);
-		} else if ($nilai < 1000000000) {
-			$temp = penyebut($nilai/1000000) . " juta" . penyebut($nilai % 1000000);
-		} else if ($nilai < 1000000000000) {
-			$temp = penyebut($nilai/1000000000) . " milyar" . penyebut(fmod($nilai,1000000000));
-		} else if ($nilai < 1000000000000000) {
-			$temp = penyebut($nilai/1000000000000) . " trilyun" . penyebut(fmod($nilai,1000000000000));
-		}     
-		return $temp;
-	}
- 
-	function terbilang($nilai) {
-		if($nilai<0) {
-			$hasil = "minus ". trim(penyebut($nilai));
-		} else {
-			$hasil = trim(penyebut($nilai));
-		}     		
-		return $hasil;
-	}
-	$angka = 10101000;
-?>
+
 <!doctype html>
 <html><head></head><body>
+
 <style>
       @page { margin: 120px 50px; }
      #header { position: fixed; left: -10px; top: -100px; right: -10px; bottom: -180px; height: 0px; text-align: center; }
@@ -49,7 +12,7 @@
     <table width="100%" class="table-1" border="0">
 	<tbody>
 	<tr>
-      <td colspan="1" width="50%" align="right"><img src="http://localhost/project/hris/logo.png" width="15%"></td>
+      <td colspan="1" width="50%" align="right"><img src="http://localhost/project/hris/logo.png" width="100"/></td>
 	  <td colspan="1"><h6>LAMPIRAN 1<br>PERATURAN MENTRI KEUANGAN REPUBLIK INDONESIA<br>NOMOR 113/PMK.05/2012<br>TENTANG<br>PERJALANAN DINAS JABATAN DALAM NEGERI BAGI PEJABAT<br>NEGARA, PEGAWAI NEGERI, DAN PEGAWAI TIDAK TETAP</h6></td>
 	</tr>
 	</tbody>
@@ -115,7 +78,7 @@
 		  <tr>
               <td><center><b>7.</b></center></td>
               <td>a. Lama Perjalanan Dinas<br><br>b. Tanggal berangkat<br><br>c. Tanggal harus kembali/tiba ditempat baru</td>
-              <td>a. <?php echo $result["total_hari_kerja"]; ?> (<?php $hari=terbilang($result["total_hari_kerja"]); echo ucfirst($hari);?>) Hari<br><br>b. <?php echo $result["tanggal"]["from"] ?><br><br>c. <?php echo $result["tanggal"]["to"] ?></td>
+              <td>a. <?php echo $result["total_hari_kerja"]; ?> (<?php echo ucfirst($result["total_hari_kerja_baru"]);?>) Hari<br><br>b. <?php echo $result["tanggal"]["from"] ?><br><br>c. <?php echo $result["tanggal"]["to"] ?></td>
           </tr>
 		  <tr>
               <td><center><b>8.</b></center></td>
@@ -214,9 +177,9 @@
       </table></td>
     </tr>
    <tr>
-      <td width="40%"><br><br>Telah dibayar<br>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".")?><br>(<?php $terbilang=terbilang($result["detail"][0]["uraian_total"]); echo ucfirst($terbilang);?> rupiah)</td>
+      <td width="40%"><br><br>Telah dibayar<br>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".")?><br>(<?php echo ucfirst($result["total_biaya"]);?> rupiah)</td>
       <td width="10%">&nbsp;</td>
-      <td width="60%"><br>Jakarta,         <?php echo bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]))?><br>Telah menerima sejumlah uang sebesar,<br>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".")?><br>(<?php $terbilang=terbilang($result["detail"][0]["uraian_total"]); echo ucfirst($terbilang);?> rupiah)</td>
+      <td width="60%"><br>Jakarta,         <?php echo bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]))?><br>Telah menerima sejumlah uang sebesar,<br>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".")?><br>(<?php echo ucfirst($result["total_biaya"]);?> rupiah)</td>
     </tr>
 	<tr>
       <td width="40%">Bendahara Pengeluaran</td>

@@ -51,7 +51,7 @@ function penyebut($nilai) {
 	} else if ($nilai < 2000) {
 		$temp = " seribu" . penyebut($nilai - 1000);
 	} else if ($nilai < 1000000) {
-		$temp = penyebut($nilai/1000) . " ribu" . penyebut($nilai % 1000);
+		$temp = penyebut($nilai/1000) . "ribu" . penyebut($nilai % 1000);
 	} else if ($nilai < 1000000000) {
 		$temp = penyebut($nilai/1000000) . " juta" . penyebut($nilai % 1000000);
 	} else if ($nilai < 1000000000000) {
