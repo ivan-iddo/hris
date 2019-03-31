@@ -73,7 +73,7 @@
                     :
                   </td>
                   <td width="70%">
-                    <?php echo $value["nama_pegawai"] ?>
+                    <?php echo $result["gelar_depan"].' '.$value["nama_pegawai"].', '.$result["gelar_belakang"] ?>
                   </td>
                 </tr>
                 <tr>
@@ -119,9 +119,10 @@
     </tr>
 	<tr>
       <td colspan="3"><br>Maka bersama ini mengajukan biaya dimaksud sebesar:</td>
-    </tr> 
+    </tr>  
     <tr>
       <td colspan="3"><table width="100%" border="1px solid" cellpadding="1" cellspacing="0"  class="table2">
+		  <?php if ($result["jenis"] == "Individu"): ?>
 		  <tr>
               <td><center><b>No</b></center></td>
               <td><center><b>Pengajuan berdasarkan <br>ketentuan Latbang</b></center></td>
@@ -133,7 +134,7 @@
           <tr>
             <td><center><?php echo $key+1 ?>.</center></td>
             <td><?php echo $value["uraian"]?></td>
-            <td><?php echo $value["qty"]?> Orang x Rp. <?php echo number_format($value["pernominal"], 2, ",", ".")?></td>
+            <td>1 Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 2, ",", ".")?></td>
             <td>Rp. <?php echo number_format($value["nominal"], 2, ",", ".")?></td>
           </tr>
 		 <?php endforeach ?>
@@ -149,8 +150,38 @@
             <td></td>
             <td colspan="2">Terbilang : <?php echo ucfirst($result["total_biaya"]);?> rupiah</td>
           </tr>
+		<?php endif ?>
+		<?php if ($result["jenis"] == "Kelompok"): ?>
+		  <tr>
+              <td><center><b>No</b></center></td>
+              <td><center><b>Pengajuan berdasarkan <br>ketentuan Latbang</b></center></td>
+			  <td><center><b>Uraian</b></center></td>
+			  <td><center><b>Jumlah</b></center></td>
+          </tr>
+		<?php if (!empty($result["detail"][0]["detail_uraian"])): ?>
+            <?php foreach ($result["detail"][0]["detail_uraian"] as $key => $value): ?>
+          <tr>
+            <td><center><?php echo $key+1 ?>.</center></td>
+            <td><?php echo $value["uraian"]?></td>
+            <td>1 Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 2, ",", ".")?></td>
+            <td>Rp. <?php echo number_format($value["nominal"], 2, ",", ".")?></td>
+          </tr>
+		 <?php endforeach ?>
+          <?php endif ?>
+		  <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td colspan="1">Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".")?></td>
+          </tr> 
+		  <tr>
+            <td></td>
+            <td></td>
+            <td colspan="2">Terbilang : <?php echo ucfirst($result["total_biaya"]);?> rupiah</td>
+          </tr>
+		<?php endif ?>
       </table></td>
-    </tr>
+    </tr> 
     <tr>
       <td colspan="3">Terlampir kami sampaikan bukti pendukung perminaan tersebut.</td>
     </tr> 

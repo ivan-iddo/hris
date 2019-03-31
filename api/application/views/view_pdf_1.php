@@ -57,7 +57,7 @@
                     :
                   </td>
                   <td width="70%">
-                    <?php echo $value["nama_pegawai"] ?>
+                    <?php echo $result["gelar_depan"].' '.$value["nama_pegawai"].', '.$result["gelar_belakang"] ?>
                   </td>
                 </tr>
                 <tr>
@@ -90,7 +90,7 @@
                     :
                   </td>
                   <td width="70%">
-                    <?php echo $value["jabatan"]; ?>
+                    <?php if(!empty($result["grup"])){echo $result["grup"];}else{echo $value["jabatan"];} ?>
                   </td>
                 </tr>
               <?php endforeach ?>

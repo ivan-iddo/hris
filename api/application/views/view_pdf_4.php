@@ -25,7 +25,7 @@
 		<table width="100%" border="0" cellpadding="3">
 		<tbody>          
 		  <tr>
-            <td>Kementrian Negara/Lembaga :<br>RUMAH SAKIT JANTUNG DAN PEMBULU DARAH<br>HARAPAN KITA<br>Jl. Let. Jend. S. Parman Kav, 87, Slip<br>JAKARTA 11420</td>
+            <td>Kementrian Negara/Lembaga :<br>RUMAH SAKIT JANTUNG DAN PEMBULU DARAH<br>HARAPAN KITA<br>Jl. Let. Jend. S. Parman Kav, 87, Slipi<br>JAKARTA 11420</td>
 			<td><table width="100%" border="0" cellpadding="3">
 			<tbody>
 			  <tr>
@@ -52,13 +52,13 @@
            <tr>
               <td><center><b>2.</b></center></td>
               <td>Nama/NIP Pegawai yang melaksanakan perjalanan dinas</td>
-			  <td><?php if(!empty($result["total_hari_kerja"])){echo $result["pengembangan_pelatihan_detail"]->nama_pegawai;}else{echo $result["pengembangan_pelatihan_detail"]->nip;}?>
                 </td>
+			  <td><?php if(!empty($result["pengembangan_pelatihan_detail"]->nama_pegawai)){echo $result["gelar_depan"].' '.$result["pengembangan_pelatihan_detail"]->nama_pegawai.', '.$result["gelar_belakang"];}else{echo $result["pengembangan_pelatihan_detail"]->nip;}?>
           </tr> 
 		  <tr>
               <td><center><b>3.</b></center></td>
 			  <td>a. Pangkat dan golongan<br><br>b. Jabatan/Instansi/Unit Kerja<br><br>c. Tingkat Biaya Perjalanan Dinas</td>
-              <td>a. <?php echo $result["pengembangan_pelatihan_detail"]->pangkat;?> - <?php echo $result["pengembangan_pelatihan_detail"]->golongan;?><br><br>b. <?php echo $result["pengembangan_pelatihan_detail"]->jabatan;?><br><br>c. </td>
+              <td>a. <?php echo $result["pengembangan_pelatihan_detail"]->pangkat;?> - <?php echo $result["pengembangan_pelatihan_detail"]->golongan;?><br><br>b. <?php if(!empty($result["pengembangan_pelatihan_detail"]->jabatan)){echo $result["pengembangan_pelatihan_detail"]->jabatan;}else{echo $result["grup"];}?><br><br>c. </td>
           </tr>
 		  <tr>
               <td><center><b>4.</b></center></td>
@@ -162,9 +162,9 @@
             <?php foreach ($result["detail"][0]["detail_uraian"] as $key => $value): ?>
           <tr>
             <td><center><?php echo $key+1 ?>.</center></td>
-            <td><?php echo $value["uraian"]?>
-            <br><?php echo $value["qty"]?> Orang x Rp. <?php echo number_format($value["pernominal"], 2, ",", ".")?></td>
-            <td>Rp. <?php echo number_format($value["nominal"], 2, ",", ".")?></td>
+            <td><?php echo $value["uraian"]?> :
+            <br>1 Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 2, ",", ".")?></td>
+			<td>Rp. <?php echo number_format($value["nominal"], 2, ",", ".")?></td>
             <td></td>
           </tr>
 		 <?php endforeach ?>
@@ -204,7 +204,7 @@
     <tr>
       <td>NIP. 197402092008121001</td>
       <td>&nbsp;</td>
-      <td>NIP/Nopeg. <?php if(!empty($result["total_hari_kerja"])){echo $result["pengembangan_pelatihan_detail"]->nip;}else{echo $result["pengembangan_pelatihan_detail"]->nopeg;}?></td>
+      <td>NIP/Nopeg. <?php if(!empty($result["pengembangan_pelatihan_detail"]->nip)){echo $result["pengembangan_pelatihan_detail"]->nip;}else{echo $result["pengembangan_pelatihan_detail"]->nopeg;}?></td>
     </tr>
 </table>
 </div>

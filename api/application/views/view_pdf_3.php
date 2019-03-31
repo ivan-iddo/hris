@@ -63,7 +63,7 @@
                   :
                 </td>
                 <td width="77%">
-                  <?php echo $result["pengembangan_pelatihan_detail"]->nama_pegawai;?>
+                  <?php echo $result["gelar_depan"].' '.$result["pengembangan_pelatihan_detail"]->nama_pegawai.', '.$result["gelar_belakang"];?>
                 </td>
               </tr>
               <tr>
@@ -74,7 +74,7 @@
                   :
                 </td>
                 <td width="77%">
-                  <?php echo $result["pengembangan_pelatihan_detail"]->jabatan;?>
+                  <?php echo $result["grup"];?>
                 </td>
               </tr>
               <tr>

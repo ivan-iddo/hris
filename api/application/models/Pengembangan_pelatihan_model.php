@@ -130,10 +130,13 @@ class Pengembangan_pelatihan_model extends MY_Model
 
 	function get_all($params_array = array(), $like = array(), $offset = "", $limit = "", $from = "", $to = "", $where_in = "", $order_by = "")
 	{	
-		$this->db->select("$this->table.*,pengembangan_pelatihan_detail.id as kode, dm_term.nama AS nama_status");
+		$this->db->select("$this->table.*,pengembangan_pelatihan_detail.id as kode, dm_term.nama AS nama_status, sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_grup_user.grup");
 		$this->db->from($this->table);
 		$this->db->join("pengembangan_pelatihan_detail", "$this->table.id = pengembangan_pelatihan_detail.pengembangan_pelatihan_id AND pengembangan_pelatihan_detail.statue = 1");
-		$this->db->join("dm_term", "$this->table.status = dm_term.id", "left");
+		$this->db->join("sys_user_profile", "pengembangan_pelatihan_detail.nopeg = sys_user_profile.id_user", "left");
+		$this->db->join("sys_user", "pengembangan_pelatihan_detail.nopeg = sys_user.id_user", "left");
+		$this->db->join("sys_grup_user", "sys_user.id_grup = sys_grup_user.id_grup", "left");
+		$this->db->join("dm_term", "pengembangan_pelatihan_detail.id = dm_term.id", "left");
 		$this->db->where("$this->table.statue !=", 0);
 		if (!empty($params_array) && is_array($params_array)) {
 			$this->db->where($params_array);

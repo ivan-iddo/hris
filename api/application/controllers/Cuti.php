@@ -642,12 +642,13 @@ class Cuti extends REST_Controller
                     //$arraycutidetail['tampilkan'] = $status;
                     $arraycutidetail['status'] = $status;
                     $this->db2->where('status', '1');
+					//$this->db2->delete('approval');
                 } else {
                 	$arraycutidetail['approved_by'] = $id_user;
                     $arraycutidetail['editby'] = $id_user;
+					//$this->db2->update('approval', $arraycutidetail);
                 }
                 $this->db2->update('approval', $arraycutidetail);
-                
                 $arr['hasil'] = 'success';
                 $this->set_response($arr, REST_Controller::HTTP_OK);
 

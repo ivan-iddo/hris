@@ -20,7 +20,7 @@
      <p><h6>Latbang_4:RAK_<?php echo $result["tanggal"]["tanggal_now"] ?></h6></p>
    </div>
 <div id="content">
-<table border="0" class="table-1" style="margin:30px">
+<table border="0" width="100%" class="table-1" style="margin:30px">
     <tr>
       <td colspan="3">
         <table border="0" width="100%">
@@ -70,8 +70,8 @@
               <tr>
                 <td><?php echo $key+1 ?></td>
                 <td><?php echo $value["nopeg"] ?></td>
-                <td><?php echo $value["nama_pegawai"] ?></td>
-                <td><?php echo $value["jabatan"] ?></td>
+                <td><?php echo $result["gelar_depan"].' '.$value["nama_pegawai"].' '.$result["gelar_belakang"] ?></td>
+                <td><?php if(!empty($result["grup"])){echo $result["grup"];}else{echo $value["jabatan"];} ?></td>
               </tr>
             <?php endforeach ?>
           <?php endif ?>

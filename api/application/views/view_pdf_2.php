@@ -67,7 +67,7 @@
                     :
                   </td>
                   <td width="70%">
-                    <?php echo $value["nama_pegawai"] ?>
+                    <?php echo $result["gelar_depan"].' '.$value["nama_pegawai"].' '.$result["gelar_belakang"] ?>
                   </td>
                 </tr>
                 <tr>
@@ -100,7 +100,7 @@
                     :
                   </td>
                   <td width="70%">
-                    <?php echo $value["jabatan"]; ?>
+                    <?php if(!empty($result["grup"])){echo $result["grup"];}else{echo $value["jabatan"];} ?>
                   </td>
                 </tr>
               <?php endforeach ?>
@@ -119,8 +119,8 @@
               <tr>
                 <td><?php echo $key+1 ?></td>
                 <!-- <td><?php echo $value["nip"] ." / ". $value["nopeg"] ?></td> -->
-                <td><?php echo $value["nama_pegawai"] ?></td>
-                <td><?php echo $value["jabatan"] ?></td>
+                <td><?php echo $result["gelar_depan"].' '.$value["nama_pegawai"].', '.$result["gelar_belakang"] ?></td>
+                <td><?php if(!empty($result["grup"])){echo $result["grup"];}else{echo $value["jabatan"];} ?></td>
               </tr>
             <?php endforeach ?>
           <?php endif ?>

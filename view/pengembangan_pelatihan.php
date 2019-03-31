@@ -88,7 +88,7 @@
     <div class="tab-pane fade" id="demo-lft-tab-2">
         <div class="row">
             <div class="eq-height">
-                <div class="col-sm-3 eq-box-sm ">
+                <div class="col-sm-4 eq-box-sm ">
                     <!--Basic Panel-->
                     <!--===================================================-->
                     <div class="panel pad-all">
@@ -354,13 +354,16 @@
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label">Uraian Biaya</label>
                                             <div class="body-detail">
-                                                <div class="col-xs-3">
+                                                <div class="col-xs-2">
                                                     <input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_1" placeholder="Uraian"/>
                                                 </div>
                                                 <div class="col-xs-2">
                                                     <input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_1" min="1" value="1" required onkeyup="getTotal(1)"/>
                                                 </div>
-                                                <div class="col-xs-3">
+												<div class="col-xs-2">
+                                                    <input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal" placeholder="Ket nominal"/>
+                                                </div>
+                                                <div class="col-xs-2">
                                                     <input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_1" min="0" value="0" required onkeyup="getTotal(1)"/>
                                                 </div>
                                             </div>
@@ -727,13 +730,16 @@
                 '<div class="form-group body-remove">' +
                    ' <label class="col-sm-3 control-label"></label>' +
                    '<div class="body-detail">' +
-                        '<div class="col-xs-3">' +
+                        '<div class="col-xs-2">' +
                             '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian"/>' +
                         '</div>' +
                         '<div class="col-xs-2">' +
                             '<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" min="1" value="1" required onkeyup="getTotal('+row_id+')"/>' +
                         '</div>' +
-                        '<div class="col-xs-3">' +
+						'<div class="col-xs-2">' +
+                            '<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal'+row_id+'" placeholder="Ket uraian"/>' +
+                        '</div>' +
+                        '<div class="col-xs-2">' +
                             '<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" value="0" required onkeyup="getTotal('+row_id+')"/>' +
                         '</div>' +
                     '</div>' +
@@ -823,6 +829,7 @@
         var dataRow = {};
         var itemUraian = {};
         var biaya_uraian = $(".biaya_uraian").serializeArray();
+        var uraian_nominal = $(".uraian_nominal").serializeArray();
         // var biaya_nominal = $(".biaya_nominal").serializeArray();
         var biaya_nominal = $(".total_nominal").serializeArray();
         var biaya_pernominal = $(".biaya_nominal").serializeArray();
@@ -832,6 +839,7 @@
             if (biaya_uraian[i].value.length > 0) {
                 itemUraian = {};
                 itemUraian.uraian = biaya_uraian[i].value;
+                itemUraian.uraian_nominal = uraian_nominal[i].value;
                 itemUraian.nominal = parseFloat(biaya_nominal[i].value);
                 itemUraian.pernominal = parseFloat(biaya_pernominal[i].value);
                 itemUraian.qty = parseFloat(qty_nominal[i].value);
@@ -902,6 +910,7 @@
                     if (index == 0) {
                         $("#biaya_uraian_1").val(selectedRow.detail_uraian[index].uraian);
                         $("#total_nominal_1").val(selectedRow.detail_uraian[index].nominal);
+                        $("#uraian_nominal_1").val(selectedRow.detail_uraian[index].uraian_nominal);
                         $("#biaya_nominal_1").val(selectedRow.detail_uraian[index].pernominal);
                         $("#qty_nominal_1").val(selectedRow.detail_uraian[index].qty);
                     }
@@ -931,13 +940,16 @@
                                 '<div class="form-group body-remove">' +
                                    ' <label class="col-sm-3 control-label"></label>' +
                                    '<div class="body-detail">' +
-                                        '<div class="col-xs-3">' +
+                                        '<div class="col-xs-2">' +
                                             '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian" value=' + selectedRow.detail_uraian[index].uraian + ' />' +
                                         '</div>' +
                                         '<div class="col-xs-2">' +
                                             '<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" min="1" value=' + selectedRow.detail_uraian[index].qty + ' required onkeyup="getTotal('+row_id+')"/>' +
                                         '</div>' +
-                                        '<div class="col-xs-3">' +
+										'<div class="col-xs-2">' +
+                                            '<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_'+row_id+'" placeholder="Ket uraian" value=' + selectedRow.detail_uraian[index].uraian_nominal + ' />' +
+                                        '</div>' +
+                                        '<div class="col-xs-2">' +
                                             '<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" value=' + selectedRow.detail_uraian[index].pernominal + ' required onkeyup="getTotal('+row_id+')"/>' +
                                         '</div>' +
                                     '</div>' +
