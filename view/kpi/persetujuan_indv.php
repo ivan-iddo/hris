@@ -257,7 +257,7 @@
 			 var group = localStorage.getItem('group');
 			 var uri = BASE_URL+'kpi/mpenilaian/listiki?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk+'&status=5'; 
 			  if(empty(thn)){
-					 alert('Tahun harus dipilih');
+					 onMessage('Tahun harus dipilih');
 					 return false;
 				 }
  
