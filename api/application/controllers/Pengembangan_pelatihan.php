@@ -73,7 +73,10 @@ class Pengembangan_pelatihan extends REST_Controller
             $result["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($result["pengembangan_pelatihan_kegiatan_status"]);
             foreach ($results as $key => $value) {
                 $result["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
-                $result["total_biaya"] = terbilang($result["detail"][0]["uraian_total"]);
+                $result["total_biaya"] = terbilang($result["detail"][$key]["uraian_total"]);
+				$result["total"] += $result["detail"][$key]["uraian_total"];
+                $result["total_biaya_k"] = terbilang($result["total"]);
+				$result["count"] = count($result["detail"]);
 				if (!empty($result["detail"])) {
                     foreach ($result["detail"] as $key_detail_biaya => $value_detail_biaya) {
                         $result["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
@@ -136,7 +139,10 @@ class Pengembangan_pelatihan extends REST_Controller
             foreach ($results as $key => $value) {
                 $result["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
                 $result["total_biaya"] = terbilang($result["detail"][0]["uraian_total"]);
-                if (!empty($result["detail"])) {
+                $result["total"] += $result["detail"][$key]["uraian_total"];
+                $result["total_biaya_k"] = terbilang($result["total"]);
+				$result["count"] = count($result["detail"]);
+				if (!empty($result["detail"])) {
                     foreach ($result["detail"] as $key_detail_biaya => $value_detail_biaya) {
                         $result["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
 

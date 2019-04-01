@@ -159,13 +159,13 @@
                                         <label class="col-sm-3 control-label">Acara di Mulai</label>
                                         <div class="body-detail">
                                             <div class="col-xs-4">
-                                                <input type="text" name="jam_mulai" class="form-control jam_mulai" id="jam_mulai" placeholder="Jam Mulai" required/>
+                                                <input type="time" name="jam_mulai" class="form-control jam_mulai" id="jam_mulai" placeholder="Jam Mulai" required/>
                                             </div>
                                             <div class="col-xs-1">
                                                 s/d
                                             </div>
                                             <div class="col-xs-4">
-                                                <input type="text" name="jam_sampai" class="form-control jam_sampai" id="jam_sampai" placeholder="Jam Selesai" required/>
+                                                <input type="time" name="jam_sampai" class="form-control jam_sampai" id="jam_sampai" placeholder="Jam Selesai" required/>
                                             </div>
                                         </div>
                                     </div>
