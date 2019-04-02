@@ -3145,6 +3145,20 @@ class Pegawai extends REST_Controller
                                         'sub_bagian' => $res->sub_bagian_tujuan
                                         );
                 $this->db->update('riwayat_kedinasan', $updatekedinasan);
+				if (!empty($res->sub_bagian_tujuan)) {
+                    $group = $res->sub_bagian_tujuan;
+                } elseif (!empty($res->bagian_tujuan)) {
+                    $group = $res->bagian_tujuan;
+                } elseif (!empty($res->direktorat_tujuan)) {
+                    $group = $res->direktorat_tujuan;
+                }else{
+                $group = 0;
+				}
+				$this->db->where('id_user', $this->input->get('user_id'));
+                $updatekedinasan = array(
+                                        'id_grup' => $group,
+                                        );
+                $this->db->update('sys_user', $updatekedinasan);
                 if ($this->db->affected_rows() == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil diupdate!';
