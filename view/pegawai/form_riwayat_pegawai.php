@@ -494,7 +494,28 @@
                                                                               id="unitkerja" name="unitkerja"
                                                                               style="width: 100%;"
                                                                               tabindex="-1"></select></div>
+												<!--<div class="col-sm-8"><select aria-hidden="true" class="select-chosen"
+                                                                              id="unitkerja" name="unitkerja"
+																			  onchange="getToSub(this.value,'kaunit','master/unit/')"
+                                                                              style="width: 100%;"
+                                                                              tabindex="-1"></select></div>-->
                                             </div>
+											<!--Tambah hirarki-->
+											<!--<div class="form-group"><label class="col-sm-4 control-label"
+                                                                           for="inputpropinsi">Ka Unit</label>
+                                                <div class="col-sm-8"><select aria-hidden="true" class="select-chosen"
+                                                                              id="kaunit" name="kaunit"
+																			  onchange="getToSub(this.value,'staff','master/substaff/')"
+                                                                              style="width: 100%;"
+                                                                              tabindex="-1"></select></div>
+                                            </div> 
+											<div class="form-group"><label class="col-sm-4 control-label"
+                                                                           for="inputpropinsi">Staff</label>
+                                                <div class="col-sm-8"><select aria-hidden="true" class="select-chosen"
+                                                                              id="staff" name="staff"
+																			  style="width: 100%;"
+                                                                              tabindex="-1"></select></div>
+                                            </div>-->
                                         </div>
                                     </div><!-- /.box --><!-- Form Element sizes --><!-- /.box --><!-- Input addon -->
                                     <div class="box box-info"><!-- /.box-body --></div><!-- /.box --></div>

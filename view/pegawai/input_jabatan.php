@@ -26,8 +26,30 @@
 									 
 								</select>
 							</div>
-            </div>
-            <div class="form-group">
+							<!--<div class="col-sm-8">
+								<select aria-hidden="true" class="select-chosen" id="unitkerja" name="unitkerja" onchange="getToSub(this.value,'kaunit','master/unit/')" style="width: 100%;" tabindex="-1">
+									 
+								</select>
+							</div>-->
+						</div>
+						<!--Tambah hirarki-->
+						<!--<div class="form-group">
+							<label class="col-sm-4 control-label" for="inputrw">Ka Unit</label>
+							<div class="col-sm-8">
+								<select aria-hidden="true" class="select-chosen" id="kaunit" name="kaunit" onchange="getToSub(this.value,'staff','master/substaff/')" style="width: 100%;" tabindex="-1">
+									
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="inputpropinsi">Staff</label>
+							<div class="col-sm-8">
+								<select aria-hidden="true" class="select-chosen" id="staff" name="staff" style="width: 100%;" tabindex="-1">
+									 
+								</select>
+							</div>
+						</div>-->
+						<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrw">Tgl.Mutasi</label>
 							<div class="col-sm-8">
 							 <input class="form-control" type="date" id="tgl_mutasi" name="tgl_mutasi">

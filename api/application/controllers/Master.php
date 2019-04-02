@@ -410,7 +410,7 @@ public function agama_get(){
 					 
 			  $res = $this->db->get('m_index_jabatan_asn_detail')->result();
 			  foreach($res as $d){
-				$arr['result'][]=array('label'=>' [Kode: '.$d->kd_jabatan.'] '.$d->ds_jabatan,'value'=>$d->migrasi_jabatan_detail_id);
+				$arr['result'][]=array('label'=>$d->ds_jabatan.' [Kode: '.$d->kd_jabatan.']','value'=>$d->migrasi_jabatan_detail_id);
 			  }
 			  	
 			  $this->set_response($arr, REST_Controller::HTTP_OK);
