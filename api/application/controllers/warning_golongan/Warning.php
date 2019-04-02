@@ -38,9 +38,17 @@ class Warning extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
+		$id_user = $decodedToken->data->id;
+		$user_froup = $decodedToken->data->_pnc_id_grup;
         $sampai = $this->input->get('sampai');
         $dari = $this->input->get('dari');
         $direktorat = $this->uri->segment(4);
+		$this->db->select('riwayat_kedinasan.direktorat,riwayat_kedinasan.bagian,riwayat_kedinasan.sub_bagian');
+		$this->db->where('id_user',$id_user);
+		$uk = $this->db->get('riwayat_kedinasan')->row();
+		$dir = $uk->direktorat;
+		$bagian = $uk->bagian;
+		$sub_bag = $uk->sub_bagian;
         $this->db->select('his_golongan.id_user, his_golongan.tmt_golongan, his_golongan.no_sk,  his_golongan.tgl_sk, sys_user.name, golongan_id,gol_angka,gol_romawi,pangkat, no_sk, 
         sys_grup_user.id_grup, sys_grup_user.grup,
         max(tmt_golongan_akhir) as max_akhir');
@@ -48,7 +56,8 @@ class Warning extends REST_Controller
         $this->db->join('sys_user','sys_user.id_user = his_golongan.id_user');
         $this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup');
         $this->db->join('m_golongan_peg', 'm_golongan_peg.id = his_golongan.golongan_id', 'LEFT');
-        $this->db->where('his_golongan.tampilkan', '1');
+        $this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+		$this->db->where('his_golongan.tampilkan', '1');
 
         if(!empty($dari)){
             $this->db->where('tmt_golongan_akhir >=', $dari);
@@ -59,7 +68,18 @@ class Warning extends REST_Controller
          if(!empty($direktorat) && $direktorat != "null"){
             $this->db->where("sys_grup_user.id_grup",$direktorat);
          }
-
+		
+		if($user_froup!=1){
+		 if($sub_bag==0){
+			$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+			if($bagian==0){
+			$this->db->where_in('riwayat_kedinasan.direktorat', $dir);
+			}
+		 }else{
+			$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+			$this->db->where_in('riwayat_kedinasan.sub_bagian', $sub_bag);
+		 }
+		}
         // $this->db->where('sys_user.status','1');
         $this->db->where('his_golongan.tampilkan','1');
         $this->db->where('tmt_golongan_akhir is not null');
