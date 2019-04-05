@@ -428,14 +428,20 @@
 																			getOptionsEdit("txtgolongan",BASE_URL+"master/golongan_pegawai",res[0].golongan);
 																			getOptionsEdit("txtbagian",BASE_URL+"master/direktoratSub/"+res[0].direktorat,res[0].bagian);
 																			getOptionsEdit("unitkerja",BASE_URL+"master/direktoratSub/"+res[0].bagian,res[0].sub_bagian);
+																			getOptionsEdit("kaunit",BASE_URL+"master/direktoratSub/"+res[0].sub_bagian,res[0].kaunit);
+																			getOptionsEdit("staff",BASE_URL+"master/direktoratSub/"+res[0].kaunit,res[0].staff);
                                       getOptionsEdit("kategori_profesi",BASE_URL+'masterp/group_profesi/getoption',res[0].kategori_profesi);
                     $('#txtjabatan').prop('disabled', true);
                     $('#txtjabatan1').prop('disabled', true);
                     $('#txtjabatan2').prop('disabled', true);
                     $('#txtgolongan').prop('disabled', true);
+					$('#staff').prop('disabled', true);
+					$('#kaunit').prop('disabled', true);
                     $('#txtbagian').prop('disabled', true);
                     $('#unitkerja').prop('disabled', true);
                     $('#txtdirektorat').prop('disabled', true);
+					
+                    
 																			 
     }
   },1000);
@@ -547,6 +553,8 @@
                        $('#txtjabatan1').prop('disabled', false);
                       $('#txtjabatan2').prop('disabled', false);
                       $('#txtgolongan').prop('disabled', false);
+					  $('#staff').prop('disabled', false);
+					  $('#kaunit').prop('disabled', false);
                       $('#txtbagian').prop('disabled', false);
                       $('#unitkerja').prop('disabled', false);
                       $('#txtdirektorat').prop('disabled', false);

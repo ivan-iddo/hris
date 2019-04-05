@@ -375,7 +375,7 @@ bootbox.dialog({
   var columnDefsHis = [
          {headerName: "Status", field: "status", width: 190, filterParams:{newRowsAction: 'keep'}},
             {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
-            {headerName: "Tgl.Mutasi", field: "tgl", width: 190, filterParams:{newRowsAction: 'keep'}},
+            {headerName: "Tgl.Mutasi", field: "tgl", width: 190, rowGroup:true, filterParams:{newRowsAction: 'keep'}},
             {headerName: "Keterangan", field: "keterangan", width: 190, filterParams:{newRowsAction: 'keep'}},
             {headerName: "Direktorat Tujuan", field: "dir_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Bagian Tujuan", field: "bag_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
@@ -648,7 +648,19 @@ function hasilstat(){
 }
 
 function cetak(){
-    window.open(BASE_URL+'hrd/supplier/cetak');
+	var selectedRowsSelesai = gridOptionsMutasi.api.getSelectedRows();
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        }
+        else {
+		if (selectedRowsSelesai[0].stat!='91') {
+            onMessage('Maaf tidak dapat di cetak belom di setujui direktur!');
+            return false;
+        }else {
+           window.open(BASE_URL+'hrd/Supplier/cetak/?tgl_mutasi=' + selectedRowsSelesai[0].tgl_mutasi);
+        }
+		}
 }
 
   </script><script src="js/login.js" type="text/javascript">

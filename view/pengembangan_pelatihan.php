@@ -1357,7 +1357,7 @@
             onMessage('Silahkan Pilih Data Terlebih dahulu!');
             return false;
         } else {
-            window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id);
+            window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id+ '&surat='+ selectedRowsSelesai[0].jenis_surat);
         }
 	}
 

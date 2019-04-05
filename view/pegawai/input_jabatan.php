@@ -21,22 +21,22 @@
 						</div>
 						<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputpropinsi">Sub Bagian</label>
-							<div class="col-sm-8">
+							<!--<div class="col-sm-8">
 								<select aria-hidden="true" class="select-chosen" id="unitkerja" name="unitkerja" style="width: 100%;" tabindex="-1">
 									 
 								</select>
-							</div>
-							<!--<div class="col-sm-8">
-								<select aria-hidden="true" class="select-chosen" id="unitkerja" name="unitkerja" onchange="getToSub(this.value,'kaunit','master/unit/')" style="width: 100%;" tabindex="-1">
+							</div>-->
+							<div class="col-sm-8">
+								<select aria-hidden="true" class="select-chosen" id="unitkerja" name="unitkerja" onchange="getToSub(this.value,'kaunit','master/direktoratSub/')" style="width: 100%;" tabindex="-1">
 									 
 								</select>
-							</div>-->
+							</div>
 						</div>
 						<!--Tambah hirarki-->
-						<!--<div class="form-group">
+						<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrw">Ka Unit</label>
 							<div class="col-sm-8">
-								<select aria-hidden="true" class="select-chosen" id="kaunit" name="kaunit" onchange="getToSub(this.value,'staff','master/substaff/')" style="width: 100%;" tabindex="-1">
+								<select aria-hidden="true" class="select-chosen" id="kaunit" name="kaunit" onchange="getToSub(this.value,'staff','master/direktoratSub/')" style="width: 100%;" tabindex="-1">
 									
 								</select>
 							</div>
@@ -48,7 +48,7 @@
 									 
 								</select>
 							</div>
-						</div>-->
+						</div>
 						<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrw">Tgl.Mutasi</label>
 							<div class="col-sm-8">

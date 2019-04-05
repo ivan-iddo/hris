@@ -10,7 +10,7 @@
             <div class="form-group">
               <label class="col-sm-4 control-label" for="inputpropinsi">Jenjang Pendidikan</label>
               <div class="col-sm-8">
-                <select class="form-control select2" id="txtJPend" name="txtJPend" style="width: 100%;">
+                <select class="form-control select2" id="txtJPend" name="txtJPend" style="width: 100%;" onChange="getpendidikan(this.value);">
                 </select>
               </div>
             </div>
@@ -20,13 +20,13 @@
 				<input class="form-control" id="txtJjurusan" name="txtJjurusan"  placeholder="" type="text">
               </div>
             </div>
-			<div class="form-group Spesialis hidden">
+			<div class="form-group" id="Spesialis">
               <label class="col-sm-4 control-label" for="inputpropinsi">Spesialis</label>
               <div class="col-sm-8">
 				<input class="form-control" id="txtJspesialis" name="txtJspesialis"  placeholder="" type="text" >
               </div>
             </div>
-			<div class="form-group">
+			<div class="form-group ">
               <label class="col-sm-4 control-label" for="inputpropinsi">Akreditasi</label>
               <div class="col-sm-8">
                 <select class="form-control select2" id="txtJakreditasi" name="txtJakreditasi" style="width: 100%;">
@@ -122,16 +122,14 @@
     </div>
   </form>
 <script>
-   $("#txtJPend").on("change", function () {
-        txtJPend = $(this).val();
-        if (txtJPend == "57") {
-            $(".Spesialis").addClass('hidden');
-            $(".Spesialis").removeClass('hidden');
-        }
-        else {
-            $(".Spesialis").addClass('hidden');
-        }
-    });
+	function getpendidikan(a){
+
+		if((a==='101') || (a==='105')){
+		 $('#Spesialis').show('slow');
+		}else{
+		 $('#Spesialis').hide('slow');
+		}
+	}
 	
     function upload_file(){
                 var form = $("#form-pendidikan");

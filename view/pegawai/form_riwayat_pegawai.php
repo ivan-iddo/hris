@@ -490,22 +490,22 @@
                                             </div>
                                             <div class="form-group"><label class="col-sm-4 control-label"
                                                                            for="inputpropinsi">Sub Bagian</label>
-                                                <div class="col-sm-8"><select aria-hidden="true" class="select-chosen"
+                                                <!--<div class="col-sm-8"><select aria-hidden="true" class="select-chosen"
                                                                               id="unitkerja" name="unitkerja"
-                                                                              style="width: 100%;"
-                                                                              tabindex="-1"></select></div>
-												<!--<div class="col-sm-8"><select aria-hidden="true" class="select-chosen"
-                                                                              id="unitkerja" name="unitkerja"
-																			  onchange="getToSub(this.value,'kaunit','master/unit/')"
                                                                               style="width: 100%;"
                                                                               tabindex="-1"></select></div>-->
+												<div class="col-sm-8"><select aria-hidden="true" class="select-chosen"
+                                                                              id="unitkerja" name="unitkerja"
+																			  onchange="getToSub(this.value,'kaunit','master/direktoratSub/')"
+                                                                              style="width: 100%;"
+                                                                              tabindex="-1"></select></div>
                                             </div>
 											<!--Tambah hirarki-->
-											<!--<div class="form-group"><label class="col-sm-4 control-label"
+											<div class="form-group"><label class="col-sm-4 control-label"
                                                                            for="inputpropinsi">Ka Unit</label>
                                                 <div class="col-sm-8"><select aria-hidden="true" class="select-chosen"
                                                                               id="kaunit" name="kaunit"
-																			  onchange="getToSub(this.value,'staff','master/substaff/')"
+																			  onchange="getToSub(this.value,'staff','master/direktoratSub/')"
                                                                               style="width: 100%;"
                                                                               tabindex="-1"></select></div>
                                             </div> 
@@ -515,7 +515,7 @@
                                                                               id="staff" name="staff"
 																			  style="width: 100%;"
                                                                               tabindex="-1"></select></div>
-                                            </div>-->
+                                            </div>
                                         </div>
                                     </div><!-- /.box --><!-- Form Element sizes --><!-- /.box --><!-- Input addon -->
                                     <div class="box box-info"><!-- /.box-body --></div><!-- /.box --></div>
@@ -659,6 +659,8 @@
                 $('#txtjabatan1').prop('disabled', true);
                 $('#txtjabatan2').prop('disabled', true);
                 $('#txtgolongan').prop('disabled', true);
+				$('#staff').prop('disabled', true);
+				$('#kaunit').prop('disabled', true);
                 $('#txtbagian').prop('disabled', true);
                 $('#unitkerja').prop('disabled', true);
                 $('#txtdirektorat').prop('disabled', true);

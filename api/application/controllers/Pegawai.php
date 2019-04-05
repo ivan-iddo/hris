@@ -94,6 +94,8 @@ class Pegawai extends REST_Controller
                 $txtjabatan2 = ($this->input->post('txtjabatan2'))?$this->input->post('txtjabatan2'):null;
                 $txtjabfung = ($this->input->post('txtjabfung'))?$this->input->post('txtjabfung'):null;
                 $unitkerja = ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null;
+                $kaunit = ($this->input->post('kaunit'))?$this->input->post('kaunit'):null;
+                $staff = ($this->input->post('staff'))?$this->input->post('staff'):null;
                 $txtkecamatan = ($this->input->post('txtkecamatan'))?$this->input->post('txtkecamatan'):null;
                 $txtkecamatanktp = ($this->input->post('txtkecamatanktp'))?$this->input->post('txtkecamatanktp'):null;
                 $txtkelamin = ($this->input->post('txtkelamin'))?$this->input->post('txtkelamin'):null;
@@ -126,7 +128,11 @@ class Pegawai extends REST_Controller
                 $inputkposktp = ($this->input->post('inputkposktp'))?$this->input->post('inputkposktp'):null;
 
 
-                if (!empty($unitkerja)) {
+                if (!empty($staff)) {
+                    $group = $staff;
+                } elseif (!empty($kaunit)) {
+                    $group = $kaunit;
+                }elseif(!empty($unitkerja)) {
                     $group = $unitkerja;
                 } elseif (!empty($txtbagian)) {
                     $group = $txtbagian;
@@ -221,6 +227,8 @@ class Pegawai extends REST_Controller
                             'direktorat' => $txtdirektorat,
                             'bagian' => $txtbagian,
                             'sub_bagian' => $unitkerja,
+							'kaunit' => $kaunit,
+                            'staff' => $staff,
                             'jabatan_asn' => $txtjabfung,
                             'subjabasn' => ($this->input->post('subjabasn'))?$this->input->post('subjabasn'):null,
                             'ketahli' => ($this->input->post('ketahli'))?$this->input->post('ketahli'):null,
@@ -297,6 +305,8 @@ class Pegawai extends REST_Controller
                                riwayat_kedinasan.golongan,
                                riwayat_kedinasan.bagian,
                                riwayat_kedinasan.sub_bagian,
+							   riwayat_kedinasan.kaunit,
+                               riwayat_kedinasan.staff,
                                riwayat_kedinasan.tmt_cpns,
                                riwayat_kedinasan.tmt_pns,
                                 riwayat_kedinasan.tmt_jabatan,
@@ -351,6 +361,8 @@ class Pegawai extends REST_Controller
                             'golongan' => $d->golongan,
                             'bagian' => $d->bagian,
                             'sub_bagian' => $d->sub_bagian,
+							'kaunit' => $d->kaunit,
+                            'staff' => $d->staff,
                             'tmt_cpns' => $d->tmt_cpns,
                             'tmt_pns' => $d->tmt_pns,
                             'tmt_jabatan' => $d->tmt_jabatan,
@@ -448,7 +460,9 @@ class Pegawai extends REST_Controller
                 $txtagama = ($this->input->post('txtagama'))?$this->input->post('txtagama'):null;
                 $txtAlamat = ($this->input->post('txtAlamat'))?$this->input->post('txtAlamat'):null;
                 $txtAlamatKtp = ($this->input->post('txtAlamatKtp'))?$this->input->post('txtAlamatKtp'):null;
-                $txtbagian = ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null;
+                $kaunit = ($this->input->post('kaunit'))?$this->input->post('kaunit'):null;
+                $staff = ($this->input->post('staff'))?$this->input->post('staff'):null;
+				$txtbagian = ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null;
                 $txtdirektorat = ($this->input->post('txtdirektorat'))?$this->input->post('txtdirektorat'):null;
                 $txtgelarbelakang = ($this->input->post('txtgelarbelakang'))?$this->input->post('txtgelarbelakang'):null;
                 $txtgelardepan = ($this->input->post('txtgelardepan'))?$this->input->post('txtgelardepan'):null;
@@ -491,7 +505,11 @@ class Pegawai extends REST_Controller
                 $inputkposktp = ($this->input->post('inputkposktp'))?$this->input->post('inputkposktp'):null;
 
 				
-                if (!empty($unitkerja)) {
+                if (!empty($staff)) {
+                    $group = $staff;
+                } elseif (!empty($kaunit)) {
+                    $group = $kaunit;
+                } elseif(!empty($unitkerja)) {
                     $group = $unitkerja;
                 } elseif (!empty($txtbagian)) {
                     $group = $txtbagian;
@@ -500,7 +518,7 @@ class Pegawai extends REST_Controller
                 }else{
                 $group = 0;
 				}
-
+				//print_r($group);die();
                 $salt = round(rand() * 1000);
                 if (!empty($f_user_password)) {
                     $password = md5($f_user_password);
@@ -597,6 +615,8 @@ class Pegawai extends REST_Controller
                         'direktorat' => $txtdirektorat,
                         'bagian' => $txtbagian,
                         'sub_bagian' => $unitkerja,
+						'kaunit' => $kaunit,
+                        'staff' => $staff,
                         'jabatan_asn' => $txtjabfung,
                         'subjabasn' => ($this->input->post('subjabasn'))?$this->input->post('subjabasn'):null,
                         'ketahli' => ($this->input->post('ketahli'))?$this->input->post('ketahli'):null,
@@ -1586,7 +1606,9 @@ class Pegawai extends REST_Controller
                             'bag_tujuan' => $d->bag_tujuan,
                             'subbag_tujuan' => $d->subbag_tujuan,
                             'keterangan' => $d->keterangan,
+                            'stat' => $d->stat,
                             'status' => $d->namastatus,
+                            'tgl_mutasi' => $d->tgl_mutasi,
                             'jm' => $d->namamutasi
                         );
                     }
@@ -1677,7 +1699,9 @@ class Pegawai extends REST_Controller
                             'bag_tujuan' => $d->bag_tujuan,
                             'subbag_tujuan' => $d->subbag_tujuan,
                             'keterangan' => $d->keterangan,
+							'stat' => $d->stat,
                             'status' => $d->namastatus,
+                            'tgl_mutasi' => $d->tgl_mutasi,
                             'jm' => $d->namamutasi
                         );
                     }
@@ -3024,6 +3048,8 @@ class Pegawai extends REST_Controller
                         'direktorat_tujuan' => ($this->input->post('txtdirektorat'))?$this->input->post('txtdirektorat'):null,
                         'bagian_tujuan' => ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null,
                         'sub_bagian_tujuan' => ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null,
+                        'kaunit_tujuan' => ($this->input->post('kaunit'))?$this->input->post('kaunit'):null,
+                        'staff_tujuan' => ($this->input->post('staff'))?$this->input->post('staff'):null,
                         'tgl_mutasi' => ($this->input->post('tgl_mutasi'))?$this->input->post('tgl_mutasi'):null,
                         'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null,
                         'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
@@ -3083,7 +3109,9 @@ class Pegawai extends REST_Controller
                         'direktorat_tujuan' => ($this->input->post('txtdirektorat'))?$this->input->post('txtdirektorat'):null,
                         'bagian_tujuan' => ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null,
                         'sub_bagian_tujuan' => ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null,
-                        'tgl_mutasi' => ($this->input->post('tgl_mutasi'))?$this->input->post('tgl_mutasi'):null,
+                        'kaunit_tujuan' => ($this->input->post('kaunit'))?$this->input->post('kaunit'):null,
+                        'staff_tujuan' => ($this->input->post('staff'))?$this->input->post('staff'):null,
+						'tgl_mutasi' => ($this->input->post('tgl_mutasi'))?$this->input->post('tgl_mutasi'):null,
                         'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null,
                         'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
                         'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
@@ -3142,10 +3170,16 @@ class Pegawai extends REST_Controller
                                         'jabatan3' => $res->jabatan3,
                                         'direktorat' => $res->direktorat_tujuan,
                                         'bagian' => $res->bagian_tujuan,
-                                        'sub_bagian' => $res->sub_bagian_tujuan
+                                        'sub_bagian' => $res->sub_bagian_tujuan,
+										'kaunit' => $res->kaunit_tujuan,
+                                        'staff' => $res->staff_tujuan
                                         );
                 $this->db->update('riwayat_kedinasan', $updatekedinasan);
-				if (!empty($res->sub_bagian_tujuan)) {
+				if (!empty($res->staff_tujuan)) {
+                    $group = $res->staff_tujuan;
+                } elseif (!empty($res->kaunit_tujuan)) {
+					$group = $res->kaunit_tujuan;
+                }elseif (!empty($res->sub_bagian_tujuan)) {
                     $group = $res->sub_bagian_tujuan;
                 } elseif (!empty($res->bagian_tujuan)) {
                     $group = $res->bagian_tujuan;

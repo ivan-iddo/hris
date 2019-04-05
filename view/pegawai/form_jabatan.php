@@ -32,6 +32,8 @@ var columnJabatan = [
             {headerName: "Direktorat Tujuan", field: "dir_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Bagian Tujuan", field: "bag_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Sub Bagian Tujuan", field: "subbag_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Ka Unit Tujuan", field: "kaunit_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Staff Tujuan", field: "staff_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Jabatan", field: "jabatan", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "No.SK", field: "no_sk", width: 190, filterParams:{newRowsAction: 'keep'}},
 		  {headerName: "Tgl.SK", field: "tgl_sk", width: 190, filterParams:{newRowsAction: 'keep'}},

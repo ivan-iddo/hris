@@ -38,7 +38,7 @@ class Users extends REST_Controller
 				//$this->db->limit('100');
 				//$this->db->order_by();
 		
-		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup');
+		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup','LEFT');
 		$this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
 		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 		$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
@@ -71,7 +71,7 @@ class Users extends REST_Controller
 		$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,4);
 				
 		$this->db->select('sys_user.*,sys_grup_user.grup,m_index_jabatan_asn_detail.ds_jabatan as nama,sys_user_profile.nip,sys_user_profile.nik,dm_term.nama as pendidikan,m_kode_profesi_group.ds_group_jabatan as profesi');
-		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup');
+		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup','LEFT');
 		$this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
 		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 		$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
@@ -189,7 +189,7 @@ class Users extends REST_Controller
 		$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,4);
 				
 		$this->db->select('sys_user.*,sys_grup_user.grup,m_index_jabatan_asn_detail.ds_jabatan as nama,sys_user_profile.nip,sys_user_profile.nik,dm_term.nama as pendidikan,m_kode_profesi_group.ds_group_jabatan as profesi');
-		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup');
+		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup','LEFT');
 		$this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
 		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 		$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
@@ -274,7 +274,7 @@ class Users extends REST_Controller
 		$bagian = $uk->bagian;
 		$sub_bag = $uk->sub_bagian;
 		
-		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup');
+		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup','LEFT');
 		$this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
 		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 		$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
@@ -319,7 +319,7 @@ class Users extends REST_Controller
 		$pagination = create_pagination_endless('/user/list_userlat/0/', $total_rows,$total_rows);
 				
 		$this->db->select('sys_user.*,riwayat_kedinasan.*,m_golongan_peg.pangkat as pangkat,m_golongan_peg.gol_romawi as gol_romawi,sys_grup_user.grup,m_index_jabatan_asn_detail.ds_jabatan as nama,sys_user_profile.nip,sys_user_profile.nik,dm_term.nama as pendidikan,m_kode_profesi_group.ds_group_jabatan as profesi');
-		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup');
+		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup','LEFT');
 		$this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
 		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 		$this->db->join('m_golongan_peg','m_golongan_peg.id = riwayat_kedinasan.golongan','LEFT');
@@ -402,7 +402,7 @@ class Users extends REST_Controller
 		$user_froup = $decodedToken->data->_pnc_id_grup;
 				   
 		
-		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup');
+		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup','LEFT');
 		$this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
 		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 		$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
@@ -436,7 +436,7 @@ class Users extends REST_Controller
 		$pagination = create_pagination_endless('/user/list_userlat/0/', $total_rows,$total_rows);
 				
 		$this->db->select('sys_user.*,riwayat_kedinasan.*,m_golongan_peg.pangkat as pangkat,m_golongan_peg.gol_romawi as gol_romawi,sys_grup_user.grup,m_index_jabatan_asn_detail.ds_jabatan as nama,sys_user_profile.nip,sys_user_profile.nik,dm_term.nama as pendidikan,m_kode_profesi_group.ds_group_jabatan as profesi');
-		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup');
+		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup','LEFT');
 		$this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
 		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 		$this->db->join('m_golongan_peg','m_golongan_peg.id = riwayat_kedinasan.golongan','LEFT');
@@ -527,7 +527,7 @@ class Users extends REST_Controller
 		his_pegawai_resign.tgl_keluar,his_pegawai_resign.no_sk,his_pegawai_resign.alasan,
 		m_kode_keluar.ds_keluar as karena,his_pegawai_resign.no_sk
 		');
-		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup');
+		$this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup','LEFT');
 		$this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
 		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 		$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');

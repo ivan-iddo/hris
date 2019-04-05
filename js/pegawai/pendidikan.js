@@ -238,7 +238,7 @@ if(!empty(data.file)){
                getOptionsEdit("txtJPend",BASE_URL+"master/getpen?id=29",data.pen_code);
 			   getOptionsEdit("txtJakreditasi",BASE_URL+"master/akreditas",data.pen_akr);
                getOptionsEdit("txtStatusLulus",BASE_URL+"master/statuslulus",data.pen_desc);
-               
+               getpendidikan(data.pen_code);
                                    } 
                                });
                

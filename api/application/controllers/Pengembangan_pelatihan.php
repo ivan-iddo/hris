@@ -183,7 +183,7 @@ class Pengembangan_pelatihan extends REST_Controller
         $this->pdf->set_option("isHtml5ParserEnabled", true);
         $this->pdf->set_option("isRemoteEnabled", true);
         $this->pdf->render();
-        $name = "download jenis surat";
+        $name = "download ".$jenis_surat;
         $this->pdf->stream($name, array("Attachment" => 1));
         // return true;
     }
@@ -296,7 +296,7 @@ class Pengembangan_pelatihan extends REST_Controller
                         $this->pdf->set_option("isHtml5ParserEnabled", true);
                         $this->pdf->set_option("isRemoteEnabled", true);
                         $this->pdf->render();
-                        $name = "download rekomendasi";
+                        $name = "download SPD";
                         $this->pdf->stream($name, array("Attachment" => 1));
                     }
                     }

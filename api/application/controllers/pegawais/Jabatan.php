@@ -48,6 +48,8 @@ class Jabatan extends REST_Controller
 		d.grup as dir_tujuan,
 		e.grup as bag_tujuan,
 		f.grup as subbag_tujuan,
+		g.grup as kaunit_tujuan,
+		h.grup as staff_tujuan,
 		his_mutasi_jabatan.no_sk,
 		his_mutasi_jabatan.tgl_sk,
 		dm_term.nama as kelas,his_mutasi_jabatan.id as idhis,
@@ -55,6 +57,8 @@ class Jabatan extends REST_Controller
 		j.ds_jabatan
 		');
 
+		$this->db->join('sys_grup_user as h','h.id_grup = his_mutasi_jabatan.staff_tujuan','LEFT');
+		$this->db->join('sys_grup_user as g','g.id_grup = his_mutasi_jabatan.kaunit_tujuan','LEFT');
 		$this->db->join('sys_grup_user as f','f.id_grup = his_mutasi_jabatan.sub_bagian_tujuan','LEFT');
 		$this->db->join('sys_grup_user as e','e.id_grup = his_mutasi_jabatan.bagian_tujuan','LEFT');
 		$this->db->join('sys_grup_user as d','d.id_grup = his_mutasi_jabatan.direktorat_tujuan','LEFT');
@@ -84,6 +88,8 @@ class Jabatan extends REST_Controller
 								   'dir_tujuan' => $d->dir_tujuan,
 								   'bag_tujuan' => $d->bag_tujuan,
 								   'subbag_tujuan' => $d->subbag_tujuan,
+								   'kaunit_tujuan' => $d->kaunit_tujuan,
+								   'staff_tujuan' => $d->staff_tujuan,
 								   'keterangan' => $d->keterangan,
 								   'kelas' => $d->kelas,
 								   );
@@ -119,9 +125,13 @@ class Jabatan extends REST_Controller
 		c.grup as subbag_asal,
 		d.grup as dir_tujuan,
 		e.grup as bag_tujuan,
-		f.grup as subbag_tujuan, 
+		f.grup as subbag_tujuan,
+		g.grup as unit_tujuan,
+		h.grup as staf_tujuan,
 		dm_term.nama as kelas, 
 		');
+		$this->db->join('sys_grup_user as h','h.id_grup = his_mutasi_jabatan.staff_tujuan','LEFT');
+		$this->db->join('sys_grup_user as g','g.id_grup = his_mutasi_jabatan.kaunit_tujuan','LEFT');
 		$this->db->join('sys_grup_user as f','f.id_grup = his_mutasi_jabatan.sub_bagian_tujuan','LEFT');
 		$this->db->join('sys_grup_user as e','e.id_grup = his_mutasi_jabatan.bagian_tujuan','LEFT');
 		$this->db->join('sys_grup_user as d','d.id_grup = his_mutasi_jabatan.direktorat_tujuan','LEFT');
@@ -147,11 +157,17 @@ class Jabatan extends REST_Controller
 								   'dir_tujuan' => $d->dir_tujuan,
 								   'bag_tujuan' => $d->bag_tujuan,
 								   'subbag_tujuan' => $d->subbag_tujuan,
+								   'unit_tujuan' => $d->unit_tujuan,
+								   'staf_tujuan' => $d->staf_tujuan,
 								   'keterangan' => $d->keterangan,
 								   'kelas' => $d->kelas,
 								   'direktorat_asal' => $d->direktorat_asal,
 								   'bagian_tujuan'=> $d->bagian_tujuan,
 								   'sub_bagian_tujuan' => $d->sub_bagian_tujuan,
+								   'bagian_tujuan'=> $d->bagian_tujuan,
+								   'sub_bagian_tujuan' => $d->sub_bagian_tujuan,
+								   'kaunit_tujuan' => $d->kaunit_tujuan,
+								   'staff_tujuan' => $d->staff_tujuan,
 								   'id_satker'=> $d->id_satker,
 								   'id_kelas'=> $d->id_kelas,
 								   'direktorat_tujuan' => $d->direktorat_tujuan
