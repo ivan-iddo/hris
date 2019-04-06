@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
                <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="date" placeholder="Tanggal" class="form-control" id="tanggal"
+               <div class="col-sm-6"><input type="text" placeholder="Tanggal" class="form-control tgl" id="tanggal"
                                            name="tanggal"></div>
                <div class="col-sm-3"></div>
             </div>
@@ -144,4 +144,11 @@ function hapusfile(a) {
         getJson(filedelete, BASE_URL + 'pegawais/penghargaan/delete/' + a + "?id_userfile=" + id);
     });
 }
+	$(document).ready(function () {
+	  $('.tgl').datepicker({
+		format: "dd-mm-yyyy",
+	  }).on('change', function(){
+		$('.datepicker').hide();
+	  });
+	 });
 </script>

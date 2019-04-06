@@ -61,13 +61,13 @@
                         <div class="form-group">
                           <label class="col-sm-4 control-label" for="inputpropinsi">Mulai</label>
                           <div class="col-sm-8">
-                            <input class="form-control" id="mulai" name="mulai" placeholder="" type="date">
+                            <input class="form-control tgl" id="mulai" name="mulai" placeholder="dd-mm-yyyy" type="text">
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="col-sm-4 control-label" for="inputpropinsi">Sampai</label>
                           <div class="col-sm-8">
-                            <input class="form-control" id="sampai" name="sampai" placeholder="" type="date">
+                            <input class="form-control tgl" id="sampai" name="sampai" placeholder="dd-mm-yyyy" type="text">
                           </div>
                         </div>
                         <div class="form-group">
@@ -178,5 +178,11 @@
                     alert('Anda harus menyimpan data pelatihan terlebih dahulu sebelum melakukan upload ijazah!');
                 }
     }
-     
+    $(document).ready(function () {
+	  $('.tgl').datepicker({
+		format: "dd-mm-yyyy",
+	  }).on('change', function(){
+		$('.datepicker').hide();
+	  });
+	 }); 
 </script>

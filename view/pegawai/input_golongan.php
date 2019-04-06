@@ -19,13 +19,13 @@
                         <div class="form-group">
                           <label class="col-sm-4 control-label" for="tmt_golongan">TMT Golongan</label>
                           <div class="col-sm-8">
-                            <input class="form-control" id="tmt_golongan" name="tmt_golongan" placeholder="" type="date">
+                            <input class="form-control tgl" id="tmt_golongan" name="tmt_golongan" placeholder="dd-mm-yyyy" type="text">
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="col-sm-4 control-label" for="tmt_golongan_akhir">TMT Akhir</label>
                           <div class="col-sm-8">
-                            <input class="form-control" id="tmt_golongan_akhir" name="tmt_golongan_akhir" placeholder="" type="date" readonly>
+                            <input class="form-control tgl" id="tmt_golongan_akhir" name="tmt_golongan_akhir" placeholder="dd-mm-yyyy" type="text" readonly>
                           </div>
                         </div>
                         <div class="form-group">
@@ -57,7 +57,7 @@
                         <div class="form-group">
                           <label class="col-sm-4 control-label" for="inputpropinsi">Tgl. SK</label>
                           <div class="col-sm-8">
-                            <input class="form-control" id="tgl_sk" name="tgl_sk" placeholder="" type="date">
+                            <input class="form-control tgl" id="tgl_sk" name="tgl_sk" placeholder="dd-mm-yyyy" type="text">
                           </div>
                         </div>
                         <div class="form-group">
@@ -198,7 +198,7 @@
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
 
-    return [year, month, day].join('-');
+    return [month, day, year].join('-');
     }
 
      function getTmtakhir(a){
@@ -229,4 +229,11 @@
         // alert(date.addDays(5));
 
      }
+	 $(document).ready(function () {
+	  $('.tgl').datepicker({
+		format: "dd-mm-yyyy",
+	  }).on('change', function(){
+		$('.datepicker').hide();
+	  });
+	 });
 </script>

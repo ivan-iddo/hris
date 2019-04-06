@@ -42,13 +42,13 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="date" placeholder="Tmt Awal" class="form-control" id="Tmt Awal"
+                <div class="col-sm-6"><input type="text" placeholder="Tmt Awal" class="form-control tgl" id="Tmt Awal"
                                             required name="date_start"></div>
                 <div class="col-sm-3"></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="date" placeholder="Tmt Akhir" class="form-control" id="Tmt Akhir"
+                <div class="col-sm-6"><input type="text" placeholder="Tmt Akhir" class="form-control tgl" id="Tmt Akhir"
                                             required name="date_end"></div>
                 <div class="col-sm-3"></div>
             </div>
@@ -151,4 +151,11 @@ function hapusfile(a) {
         getJson(filedelete, BASE_URL + 'pegawais/punishment/delete/' + a + '?id_userfile=' + id);
     });
 }
+	$(document).ready(function () {
+	  $('.tgl').datepicker({
+		format: "dd-mm-yyyy",
+	  }).on('change', function(){
+		$('.datepicker').hide();
+	  });
+	 });
 </script>

@@ -6,7 +6,7 @@
                                             <div class="col-sm-5">
                                                     <select class="form-control select2" id="thnfrm3add" name="thnfrm3add" style="width: 100%;">
                                                     <option value="">--TAHUN--</option>
-                                                     <?php for($i=2010;$i<= date('Y');$i++){?>
+                                                     <?php for($i=date('Y')+9;$i>=date('Y')-1;$i--){?>
                                                         <option value="<?php echo $i?>"><?php echo $i?></option>
                                                         <?php }?>
                                                     </select> 

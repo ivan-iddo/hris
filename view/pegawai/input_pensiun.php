@@ -16,7 +16,7 @@
 						<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrw">T.M.T</label>
 							<div class="col-sm-8">
-							<input class="form-control" type="date" id="tgl_keluar" name="tgl_keluar">
+							<input class="form-control" type="text" id="tgl_keluar" name="tgl_keluar" placeholder="dd-mm-yyyy">
 							</div>
 						</div>
 						<div class="form-group">
@@ -48,7 +48,11 @@
               <script>
  $('.select-chosen').chosen();
  $('.chosen-container').css({"width": "100%"});
-
-      
-     
+$(document).ready(function () {
+  $('#tgl_keluar').datepicker({
+    format: "dd-mm-yyyy",
+  }).on('change', function(){
+	$('.datepicker').hide();
+  });
+ });    
 </script>

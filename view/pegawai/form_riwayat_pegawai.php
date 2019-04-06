@@ -159,7 +159,7 @@
 											 <div class="form-group">
 												<label class="col-sm-4 control-label" for="inputstatus">Tanggal Nikah</label>
 												<div class="col-sm-8">
-													<input type="date" class="form-control" id="txttglnikah" name="txttglnikah" placeholder="">
+													<input type="text" class="form-control tgl" id="txttglnikah" name="txttglnikah" placeholder="dd-mm-yyyy">
 												</div>
 											</div>
                                             <div class="form-group"><label class="col-sm-4 control-label"
@@ -184,8 +184,8 @@
                                                                            for="inputkel">Tanggal Lahir</label>
                                                 <div class="col-sm-8"><input class="form-control tgl" id="txttgllahir"
                                                                              name="txttgllahir"
-                                                                             placeholder="Tanggal-Bulan-Tahun"
-                                                                             type="date" value=""></div>
+                                                                             placeholder="dd-mm-yyyy"
+                                                                             type="text" value=""></div>
                                             </div>
                                         </div>
                                     </div><!-- /.box --><!-- Form Element sizes --><!-- /.box --><!-- Input addon -->
@@ -454,23 +454,23 @@
                                                 </div>
                                                 <div class="form-group"><label class="col-sm-4 control-label"
                                                                                for="inputkel">TMT Jabatan ASN</label>
-                                                    <div class="col-sm-8"><input class="form-control" id="txttmtjabfung"
+                                                    <div class="col-sm-8"><input class="form-control tgl" id="txttmtjabfung"
                                                                                  name="txttmtjabfung"
-                                                                                 placeholder="yyyy-mm-dd" type="date"
+                                                                                 placeholder="dd-mm-yyyy" type="text"
                                                                                  value=""></div>
                                                 </div><!-- End Hori sontal -->
                                                 <div class="form-group"><label class="col-sm-4 control-label"
                                                                                for="inputkel">TMT CPNS</label>
                                                     <div class="col-sm-8"><input class="form-control tgl"
                                                                                  id="txttmtcpns" name="txttmtcpns"
-                                                                                 placeholder="yyyy-mm-dd" type="date"
+                                                                                 placeholder="dd-mm-yyyy" type="text"
                                                                                  value=""></div>
                                                 </div>
                                                 <div class="form-group"><label class="col-sm-4 control-label"
                                                                                for="inputkel">TMT PNS</label>
                                                     <div class="col-sm-8"><input class="form-control tgl" id="txttmtpns"
                                                                                  name="txttmtpns"
-                                                                                 placeholder="yyyy-mm-dd" type="date"
+                                                                                 placeholder="dd-mm-yyyy" type="text"
                                                                                  value=""></div>
                                                 </div>
                                             </div>
@@ -550,9 +550,9 @@
                                             </div>
                                             <div class="form-group"><label class="col-sm-4 control-label"
                                                                            for="inputkel">TMT Jabatan</label>
-                                                <div class="col-sm-8"><input class="form-control" id="txttmtjabatan"
+                                                <div class="col-sm-8"><input class="form-control tgl" id="txttmtjabatan"
                                                                              name="txttmtjabatan"
-                                                                             placeholder="yyyy-mm-dd" type="date"
+                                                                             placeholder="dd-mm-yyyy" type="text"
                                                                              value=""></div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-4 control-label"
@@ -564,16 +564,16 @@
                                             </div>
                                             <div class="form-group"><label class="col-sm-4 control-label"
                                                                            for="inputkel">TMT Golongan</label>
-                                                <div class="col-sm-8"><input class="form-control" id="txttmtgolongan"
+                                                <div class="col-sm-8"><input disabled class="form-control tgl" id="txttmtgolongan"
                                                                              name="txttmtgolongan"
-                                                                             placeholder="yyyy-mm-dd" type="date"
+                                                                             placeholder="dd-mm-yyyy" type="text"
                                                                              value="" readonly=""></div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-4 control-label"
                                                                            for="inputkel">Tgl Bergabung</label>
-                                                <div class="col-sm-8"><input class="form-control" id="txttmtbergabung"
+                                                <div class="col-sm-8"><input class="form-control tgl" id="txttmtbergabung"
                                                                              name="txttmtbergabung"
-                                                                             placeholder="yyyy-mm-dd" type="date"
+                                                                             placeholder="dd-mm-yyyy" type="text"
                                                                              value=""></div>
                                             </div>
                                             <div class="form-group"><label class="col-sm-4 control-label" for="inputrw">Kelompok
@@ -713,7 +713,13 @@
             return false;
         }
     }
-
+	$(document).ready(function () {
+	  $('.tgl').datepicker({
+		format: "dd-mm-yyyy",
+	  }).on('change', function(){
+		$('.datepicker').hide();
+	  });
+	 });
 	function copykpos(){
 	 
 		$("#inputkposktp").val($("#inputkpos").val());

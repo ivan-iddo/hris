@@ -99,8 +99,8 @@ class Pelatihan extends REST_Controller
 					   'tempat'=> $d->tempat,
 					   'penyelenggara'=> $d->penyelenggara, 
 					   'durasi' => $d->durasi,
-					   'mulai' => $d->mulai,
-					   'sampai' => $d->sampai,
+					   'mulai' => date_format(date_create($d->mulai), "d-m-Y"),
+					   'sampai' => date_format(date_create($d->sampai), "d-m-Y"),
 					   'jenis_sertifikat' => $d->jenis_sertifikat,
 					   'no_sertifikat' => $d->no_sertifikat 
 					   );

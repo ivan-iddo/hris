@@ -363,12 +363,12 @@ class Pegawai extends REST_Controller
                             'sub_bagian' => $d->sub_bagian,
 							'kaunit' => $d->kaunit,
                             'staff' => $d->staff,
-                            'tmt_cpns' => $d->tmt_cpns,
-                            'tmt_pns' => $d->tmt_pns,
-                            'tmt_jabatan' => $d->tmt_jabatan,
-                            'tmt_jabatan_asn' => $d->tmt_jabatan_asn,
-                            'tmt_golongan' => $d->tmt_golongan,
-                            'tgl_bergabung' => $d->tgl_bergabung,
+                            'tmt_cpns' => date_format(date_create($d->tmt_cpns), "d-m-Y"),
+                            'tmt_pns' => date_format(date_create($d->tmt_pns), "d-m-Y"),
+                            'tmt_jabatan' => date_format(date_create($d->tmt_jabatan), "d-m-Y"),
+                            'tmt_jabatan_asn' => date_format(date_create($d->tmt_jabatan_asn), "d-m-Y"),
+                            'tmt_golongan' => date_format(date_create($d->tmt_golongan), "d-m-Y"),
+                            'tgl_bergabung' => date_format(date_create($d->tgl_bergabung), "d-m-Y"),
                             'peringkat' => $d->peringkat,
                             'no_index_dok' => $d->no_index_dok,
                             'rt_tinggal' => $d->rt_tinggal,
@@ -381,13 +381,13 @@ class Pegawai extends REST_Controller
 							'nopeg' => $d->nopeg,
 							'karpeg' => $d->karpeg,
 							'sts_p' => $d->sts_p,
-							'tgl_nikah' => $d->tgl_nikah,
+							'tgl_nikah' => date_format(date_create($d->tgl_nikah), "d-m-Y"),
                             'kode_pos' => $d->kode_pos,
                             'kode_posktp' => $d->kode_posktp,
                             'gelar_depan' => $d->gelar_depan,
                             'kategori_profesi' => $d->kategori_profesi,
                             'gelar_belakang' => $d->gelar_belakang,
-                            'tgl_lahir' => $d->tgl_lahir,
+                            'tgl_lahir' => date_format(date_create($d->tgl_lahir), "d-m-Y"),
                             'tempat_lahir' => $d->tempat_lahir,
                             'phone' => $d->phone,
                             'phone2' => $d->phone2,
@@ -407,9 +407,9 @@ class Pegawai extends REST_Controller
                             'subjabasn' => $d->subjabasn,
                             'ketahli' => $d->ketahli,
                             'id_user' => $d->id_user,
-                            'tgl_kontrak' => $d->tglakhir,
-                            'tgl_str' => $d->date_end_str,
-                            'tgl_sip' => $d->date_end,
+                            'tgl_kontrak' => date_format(date_create($d->tglakhir), "d-m-Y"),
+                            'tgl_str' => date_format(date_create($d->date_end_str), "d-m-Y"),
+                            'tgl_sip' => date_format(date_create($d->date_end), "d-m-Y"),
 
                         );
                     }
@@ -763,7 +763,7 @@ class Pegawai extends REST_Controller
                         'hubkel' => $d->hubkel,
                         'pekerjaan' => $d->pekerjaan,
                         'tpt_lahir' => $d->tempat_lahir,
-                        'tgl_lahir' => $d->tgl_lahir,
+                        'tgl_lahir' => date_format(date_create($d->tgl_lahir), "d-m-Y"),
                         'karn' => $d->karn,
                         'url' => $d->url
                     );
@@ -939,7 +939,7 @@ class Pegawai extends REST_Controller
                         'jenjang' => $d->namaPendidikan,
                         'tahun' => $d->pen_tahn,
                         'no_ijazah' => $d->pen_nijz,
-                        'tgl_ijazah' => $d->pen_dijz,
+                        'tgl_ijazah' => date_format(date_create($d->pen_dijz), "d-m-Y"),
                         'pen_nkep' => $d->pen_nkep
                     );
                 }
@@ -1505,7 +1505,7 @@ class Pegawai extends REST_Controller
                         'id' => $d->idmutasi,
                         'nama' => $d->name,
                         'dir_asal' => $d->dir_asal,
-                        'tgl' => $d->tgl_mutasi,
+                        'tgl' => date_format(date_create($d->tgl_mutasi), "d-m-Y"),
                         'bag_asal' => $d->bag_asal,
                         'subbag_asal' => $d->subbag_asal,
                         'dir_tujuan' => $d->dir_tujuan,
@@ -1599,7 +1599,7 @@ class Pegawai extends REST_Controller
                             'id' => $d->idmutasi,
                             'nama' => $d->name,
                             'dir_asal' => $d->dir_asal,
-                            'tgl' => $d->tgl_mutasi,
+                            'tgl' => date_format(date_create($d->tgl_mutasi), "d-m-Y"),
                             'bag_asal' => $d->bag_asal,
                             'subbag_asal' => $d->subbag_asal,
                             'dir_tujuan' => $d->dir_tujuan,
@@ -1608,7 +1608,7 @@ class Pegawai extends REST_Controller
                             'keterangan' => $d->keterangan,
                             'stat' => $d->stat,
                             'status' => $d->namastatus,
-                            'tgl_mutasi' => $d->tgl_mutasi,
+                            'tgl_mutasi' => date_format(date_create($d->tgl_mutasi), "d-m-Y"),
                             'jm' => $d->namamutasi
                         );
                     }
@@ -1692,7 +1692,7 @@ class Pegawai extends REST_Controller
                             'id' => $d->idmutasi,
                             'nama' => $d->name,
                             'dir_asal' => $d->dir_asal,
-                            'tgl' => $d->tgl_mutasi,
+                            'tgl' => date_format(date_create($d->tgl_mutasi), "d-m-Y"),
                             'bag_asal' => $d->bag_asal,
                             'subbag_asal' => $d->subbag_asal,
                             'dir_tujuan' => $d->dir_tujuan,
@@ -1701,7 +1701,7 @@ class Pegawai extends REST_Controller
                             'keterangan' => $d->keterangan,
 							'stat' => $d->stat,
                             'status' => $d->namastatus,
-                            'tgl_mutasi' => $d->tgl_mutasi,
+                            'tgl_mutasi' => date_format(date_create($d->tgl_mutasi), "d-m-Y"),
                             'jm' => $d->namamutasi
                         );
                     }

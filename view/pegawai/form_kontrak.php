@@ -29,13 +29,13 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="date" placeholder="TMT Awal Kotrak" class="form-control" id="tmtawal"
+                <div class="col-sm-6"><input type="text" placeholder="TMT Awal Kotrak" class="form-control tgl" id="tmtawal"
                                             required name="tmtawal"></div>
                 <div class="col-sm-3"></div>
             </div>
             <div class="form-group">
                <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="date" placeholder="Tanggal Kontrak" class="form-control" id="tglktr"
+               <div class="col-sm-6"><input type="text" placeholder="Tanggal Kontrak" class="form-control tgl" id="tglktr"
                                            required name="tglktr"></div>
                <div class="col-sm-3"></div>
             </div>
@@ -47,7 +47,7 @@
             </div>
             <div class="form-group">
                <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="date" placeholder="Tanggal Akhir Kontrak" class="form-control" id="tglakhir"
+               <div class="col-sm-6"><input type="text" placeholder="Tanggal Akhir Kontrak" class="form-control tgl" id="tglakhir"
                                            name="tglakhir"></div>
                <div class="col-sm-3"></div>
             </div>
@@ -152,4 +152,11 @@ function hapusfile(a) {
         getJson(filedelete, BASE_URL + 'pegawais/kontrak/delete/' + a + "?id_userfile=" + id);
     });
 }
+	$(document).ready(function () {
+	  $('.tgl').datepicker({
+		format: "dd-mm-yyyy",
+	  }).on('change', function(){
+		$('.datepicker').hide();
+	  });
+	 });
 </script>

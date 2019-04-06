@@ -29,13 +29,13 @@
             </div>
             <div class="form-group">
                <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="date" placeholder="Tanggal Dikeluarkan" class="form-control" id="date_start"
+               <div class="col-sm-6"><input type="text" placeholder="Tanggal Dikeluarkan" class="form-control tgl" id="date_start"
                                            required name="date_start"></div>
                <div class="col-sm-3"></div>
             </div>
             <div class="form-group">
                <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="date" placeholder="Tanggal Berakhir" class="form-control" id="date_end"
+               <div class="col-sm-6"><input type="text" placeholder="Tanggal Berakhir" class="form-control tgl" id="date_end"
                                            required name="date_end"></div>
                <div class="col-sm-3"></div>
             </div>
@@ -138,4 +138,11 @@ function hapusfile(a) {
         getJson(filedelete, BASE_URL + 'pegawais/sip/delete/' + a + '?id_userfile=' + id);
     });
 }
+	$(document).ready(function () {
+	  $('.tgl').datepicker({
+		format: "dd-mm-yyyy",
+	  }).on('change', function(){
+		$('.datepicker').hide();
+	  });
+	 });
 </script>

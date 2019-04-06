@@ -29,7 +29,7 @@
 						<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrw">TMT JabFung</label>
 							<div class="col-sm-8">
-								<input class="form-control" type="date" id="tmt_jabfung" name="tmt_jabfung">
+								<input class="form-control tgl" type="text" id="tmt_jabfung" name="tmt_jabfung" placeholder="dd-mm-yyyy">
 							</div>
 						</div>
 						<div class="form-group">
@@ -41,7 +41,7 @@
             <div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrw">Tgl SK JabFung</label>
 							<div class="col-sm-8">
-							 <input class="form-control" type="date" id="tgl_skjafung" name="tgl_skjafung">
+							 <input class="form-control tgl" type="text" id="tgl_skjafung" name="tgl_skjafung" placeholder="dd-mm-yyyy">
 							</div>
 						</div>
 						<div class="form-group">
@@ -53,7 +53,7 @@
 						<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrw">TMT PAK</label>
 							<div class="col-sm-8">
-							 <input class="form-control" type="date" id="tmt_pak" name="tmt_pak">
+							 <input class="form-control tgl" type="text" id="tmt_pak" name="tmt_pak" placeholder="dd-mm-yyyy">
 							</div>
 						</div>
 </div>
@@ -61,7 +61,7 @@
 <div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrw">Tgl PAK</label>
 							<div class="col-sm-8">
-							 <input class="form-control" type="date" id="tgl_pak" name="tgl_pak">
+							 <input class="form-control tgl" type="text" id="tgl_pak" name="tgl_pak" placeholder="dd-mm-yyyy">
 							</div>
 						</div>
 						<div class="form-group">
@@ -179,5 +179,11 @@
     }
       $('.select-chosen').chosen();
  $('.chosen-container').css({"width": "100%"});
-
+	$(document).ready(function () {
+	  $('.tgl').datepicker({
+		format: "dd-mm-yyyy",
+	  }).on('change', function(){
+		$('.datepicker').hide();
+	  });
+	 });
 </script>

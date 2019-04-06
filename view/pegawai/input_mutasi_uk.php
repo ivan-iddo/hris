@@ -47,7 +47,7 @@
             <div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrw">Tgl.Mutasi</label>
 							<div class="col-sm-8">
-							 <input class="form-control" type="date" id="tgl_mutasi" name="tgl_mutasi">
+							 <input class="form-control" type="text" id="tgl_mutasi" name="tgl_mutasi" placeholder="dd-mm-yyyy">
 							</div>
 						</div>
                               <div class="form-group">
@@ -66,7 +66,7 @@
 <div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrw">Tgl.SK</label>
 							<div class="col-sm-8">
-							 <input class="form-control" type="date" id="tgl_sk" name="tgl_sk">
+							 <input class="form-control" type="text" id="tgl_sk" name="tgl_sk" placeholder="dd-mm-yyyy">
 							</div>
 						</div>
 						<div class="form-group">
@@ -149,11 +149,16 @@
               <script>
  $('.select-chosen').chosen();
  $('.chosen-container').css({"width": "100%"});
- 
- 
-	 
-			
-
-			  
-
+$(document).ready(function () {
+  $('#tgl_mutasi').datepicker({
+    format: "dd-mm-yyyy",
+  }).on('change', function(){
+	$('.datepicker').hide();
+  });
+ $('#tgl_sk').datepicker({
+	format: "dd-mm-yyyy",
+  }).on('change', function(){
+	$('.datepicker').hide();
+  });
+ });
 </script>

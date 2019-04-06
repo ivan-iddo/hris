@@ -6,7 +6,7 @@
      #foote { position: fixed; left: 0px; bottom: -180px; right: 0px; height: 150px; }
      #foote { content: counter(upper-roman); }
 </style>
- <div id="header">
+ <div hidden="<?php echo $result["footer"]; ?>" id="header">
     <table width="100%" class="table-1" border="0">
 	<tbody>
 	<tr>

@@ -43,8 +43,8 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="inputtgllahirkel">Tanggal Lahir</label>
                             <div class="col-sm-8">
-                                <input class="form-control" id="txtTglLahir" name="txtTglLahir" placeholder=""
-                                       type="date">
+                                <input class="form-control tgl" id="txtTglLahir" name="txtTglLahir" placeholder="dd-mm-yyyy"
+                                       type="text">
                             </div>
                         </div><!-- End Hori sontal -->
                     </div>
@@ -166,4 +166,11 @@
         }
       }); 
     });
+	$(document).ready(function () {
+	  $('.tgl').datepicker({
+		format: "dd-mm-yyyy",
+	  }).on('change', function(){
+		$('.datepicker').hide();
+	  });
+	 });
 </script>

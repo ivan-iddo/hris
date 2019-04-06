@@ -547,7 +547,7 @@ class Users extends REST_Controller
 		  $res = $this->db->get('sys_user')->result();
 		  foreach($res as $d){
 			$arr['result'][]=array('nama'=>$d->name,
-								   'tgl_keluar'=>$d->tgl_keluar,
+								   'tgl_keluar'=>date_format(date_create($d->tgl_keluar), "d-m-Y"),
 								   'alasan'=>$d->karena,
 								   'keterangan'=>$d->alasan,
 								   'no_sk'=>$d->no_sk,

@@ -534,7 +534,7 @@
     var isClickRowTable = true;
     $('.daterangepicker').daterangepicker({
            locale: {
-             format: 'YYYY-MM-DD'
+             format: 'DD-MM-YYYY'
            }
     });
     $('.select-chosen').chosen();
@@ -798,7 +798,7 @@
         $(".body-content-calendar").append(row);
         $('.daterangepicker').daterangepicker({
             locale: {
-                format: 'YYYY-MM-DD'
+                format: 'DD-MM-YYYY'
             }
         });
     });
@@ -1249,7 +1249,7 @@
                             $(".body-content-calendar").append(row);
                             $('.daterangepicker').daterangepicker({
                                    locale: {
-                                     format: 'YYYY-MM-DD'
+                                     format: 'DD-MM-YYYY'
                                    }
                             });
                         }

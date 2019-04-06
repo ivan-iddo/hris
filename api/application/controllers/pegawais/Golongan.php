@@ -95,10 +95,10 @@ class Golongan extends REST_Controller
                     $arr[] = array('id' => $d->id,
                         'id_user' => $d->id_user,
                         'pangkat_id' => $d->nama_p.' / '.$d->pangkat,
-                        'tmt_golongan' => $d->tmt_golongan,
-                        'tmt_golongan_akhir' => $d->tmt_golongan_akhir,
+                        'tmt_golongan' => date_format(date_create($d->tmt_golongan), "d-m-Y"),
+                        'tmt_golongan_akhir' => date_format(date_create($d->tmt_golongan_akhir), "d-m-Y"),
                         'no_sk' => $d->no_sk,
-                        'tgl_sk' => $d->tgl_sk,
+                        'tgl_sk' => date_format(date_create($d->tgl_sk), "d-m-Y"),
                         'penanda_tanganan' => $d->penanda_tanganan,
                         'status' => $d->status,
                         'namaGolongan' => $d->nama_p
@@ -134,7 +134,7 @@ class Golongan extends REST_Controller
                     'status' => ($this->input->post('status'))?$this->input->post('status'):null,
                 );
 
-
+				//print_r($arrdata);die();
                 $this->db->where('id', $this->uri->segment(4));
                 $test = $this->db->update('his_golongan', $arrdata);
                 if ($test == '1') {
@@ -175,10 +175,10 @@ class Golongan extends REST_Controller
                     $arr = array('id' => $d->id,
                         'id_user' => $d->id_user,
                         'pangkat_id' => $d->golongan_id,
-                        'tmt_golongan' => $d->tmt_golongan,
-                        'tmt_golongan_akhir' => $d->tmt_golongan_akhir,
+                        'tmt_golongan' => date_format(date_create($d->tmt_golongan), "d-m-Y"),
+                        'tmt_golongan_akhir' => date_format(date_create($d->tmt_golongan_akhir), "d-m-Y"),
                         'no_sk' => $d->no_sk,
-                        'tgl_sk' => $d->tgl_sk,
+                        'tgl_sk' => date_format(date_create($d->tgl_sk), "d-m-Y"),
                         'penanda_tanganan' => $d->penanda_tanganan,
                         'status' => $d->status,
                         'file' => $d->file_url

@@ -16,43 +16,43 @@
     </div>
   	<div class="table-toolbar-left" id="demo-custom-toolbar2">
 				<div class="btn-group">
-                    <button class="btn btn-success btn-sm" onclick="filter1()">Filter Data 1
+                    <button class="btn btn-success btn-sm" onclick="filter1()">Biaya & Pelatihan
                     </button>
                 </div>
 				<div class="btn-group">
-                    <button class="btn btn-success btn-sm" onclick="filter2()">Filter Data 2
+                    <button class="btn btn-success btn-sm" onclick="filter2()">Unit
                     </button>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-success btn-sm" onclick="filter3()">Filter Data 3
+                    <button class="btn btn-success btn-sm" onclick="filter3()">Profesi & Biaya
                     </button>
                 </div>
 				<div class="btn-group">
-                    <button class="btn btn-success btn-sm" onclick="filter4()">Filter Data 4
+                    <button class="btn btn-success btn-sm" onclick="filter4()">Profesi & Unit
                     </button>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-success btn-sm" onclick="filter5()">Filter Data 5
+                    <button class="btn btn-success btn-sm" onclick="filter5()">Pegawai
                     </button>
                 </div>
 				<div class="btn-group">
-                    <button class="btn btn-success btn-sm" onclick="filter6()">Filter Data 6
+                    <button class="btn btn-success btn-sm" onclick="filter6()">Kegiatan
                     </button>
                 </div>
 				<div class="btn-group">
-                    <button class="btn btn-success btn-sm" onclick="filter7()">Filter Data 7
+                    <button class="btn btn-success btn-sm" onclick="filter7()">Kegiatan & Profesi
                     </button>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-success btn-sm" onclick="filter8()">Filter Data 8
+                    <button class="btn btn-success btn-sm" onclick="filter8()">Unit Profesi & Biaya
                     </button>
                 </div>
 				<div class="btn-group">
-                    <button class="btn btn-success btn-sm" onclick="filter9()">Filter Data 9
+                    <button class="btn btn-success btn-sm" onclick="filter9()">Tipe biaya & Profesi
                     </button>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-success btn-sm" onclick="filter10()">Filter Data 10
+                    <button class="btn btn-success btn-sm" onclick="filter10()">Tipe & Profesi
                     </button>
                 </div>
             </div>

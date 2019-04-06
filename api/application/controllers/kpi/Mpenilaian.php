@@ -340,8 +340,8 @@ class Mpenilaian extends REST_Controller
 								   'nama_group'=>$d->grup,
 								   'nip'=>$d->nip,
 								   'nik'=>$d->nik,
-								   'awal' => $d->awal,
-								   'akhir'=> $d->akhir,
+								   'awal' => date_format(date_create($d->awal), "d-m-Y"),
+								   'akhir'=> date_format(date_create($d->akhir), "d-m-Y"),
 								   'profesi' => $d->profesi
 								   );
 		  }

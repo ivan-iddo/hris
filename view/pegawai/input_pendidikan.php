@@ -56,7 +56,7 @@
             <div class="form-group">
               <label class="col-sm-4 control-label" for="inputtgllahirkel">Tanggal Ijazah</label>
               <div class="col-sm-8">
-                <input class="form-control" id="txtTglIjazah" name="txtTglIjazah" placeholder="" type="date">
+                <input class="form-control tgl" id="txtTglIjazah" name="txtTglIjazah" placeholder="dd-mm-yyyy" type="text">
               </div>
             </div><!-- End Hori sontal -->
             <div class="form-group">
@@ -179,5 +179,11 @@
                     alert('Anda harus menyimpan data pendidikan terlebih dahulu sebelum melakukan upload ijazah!');
                 }
     }
-  
+	$(document).ready(function () {
+	  $('.tgl').datepicker({
+		format: "dd-mm-yyyy",
+	  }).on('change', function(){
+		$('.datepicker').hide();
+	  });
+	 });
 </script>
