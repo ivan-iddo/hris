@@ -1700,6 +1700,107 @@ class Abk extends REST_Controller
 
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
+	
+	public function listlaptk_get()
+    {
+        $headers = $this->input->request_headers();
+        $arr['hasil'] = 'error';
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+
+
+            if ($decodedToken != false) {
+                $this->db->select('abk_pengajuan_tn.*,dm_term.nama as profesi,a.nama as kompi
+                ,b.nama as kompi_level
+                ,c.nama as kelaminsaya
+                ,d.nama as pendidikan
+                ,e.nama as bahasa
+                ,f.nama as bahasa_level,
+                g.nama as pengalaman,
+                h.nama as buta_warna, 
+                i.nama as kacamata,
+               j.nama as fisik_lain,
+               uk_master.nama as sdm,
+               group.grup as namauk,
+               k.nama as statusnama');
+                $this->db->where('abk_pengajuan_tn.tampilkan', '1');
+                $this->db->join('dm_term as a', 'abk_pengajuan_tn.komputer = a.id', 'LEFT');
+                $this->db->join('dm_term as b', 'abk_pengajuan_tn.komputer_level = b.id', 'LEFT');
+                $this->db->join('dm_term as c', 'abk_pengajuan_tn.kelamin = c.id', 'LEFT');
+                $this->db->join('dm_term as d', 'abk_pengajuan_tn.pendidikan = d.id', 'LEFT');
+                $this->db->join('dm_term as e', 'abk_pengajuan_tn.bahasa = e.id', 'LEFT');
+                $this->db->join('dm_term as f', 'abk_pengajuan_tn.bahasa_level = f.id', 'LEFT');
+                $this->db->join('dm_term as g', 'abk_pengajuan_tn.pengalaman = g.id', 'LEFT');
+                $this->db->join('dm_term as h', 'abk_pengajuan_tn.buta_warna = h.id', 'LEFT');
+                $this->db->join('dm_term as i', 'abk_pengajuan_tn.kacamata = i.id', 'LEFT');
+                $this->db->join('dm_term as j', 'abk_pengajuan_tn.fisik_lain = j.id', 'LEFT');
+                $this->db->join('dm_term as k', 'abk_pengajuan_tn.status = k.id', 'LEFT');
+                $this->db->join('uk_master', 'abk_pengajuan_tn.kategori_sdm = uk_master.id', 'LEFT');
+                $this->db->join('abk_pengajuan_det', 'abk_pengajuan_tn.id = abk_pengajuan_det.id_pengajuan', 'LEFT');
+                $this->db->join('dm_term', 'abk_pengajuan_det.id_kp = dm_term.id', 'LEFT');
+                $this->db->join('sys_grup_user as group', 'abk_pengajuan_tn.id_uk = group.id_grup', 'LEFT');
+
+
+                $res = $this->db->get('abk_pengajuan_tn')->result();
+                // echo $this->db->last_query();die;
+                if (!empty($res)) {
+                    $i = 0;
+                    foreach ($res as $d) {
+
+
+                        $arr['result'][] = array(
+                            'no' => ++$i,
+                            'id' => $d->id,
+                            'kompi' => $d->kompi,
+                            'kompi_lvl' => $d->kompi_level,
+                            'tahun' => $d->tahun,
+                            'kelamin' => $d->kelaminsaya,
+                            'max_usia' => $d->max_usia,
+                            'min_usia' => $d->min_usia,
+                            'pendidikan' => $d->pendidikan,
+                            'jurusan_1' => $d->jurusan_1,
+                            'jrusan_2' => $d->jrusan_2,
+                            'jrusan_3' => $d->jrusan_3,
+                            'bahasa' => $d->bahasa,
+                            'bahasa_level' => $d->bahasa_level,
+                            'tinggi_b_min' => $d->tinggi_b_min,
+                            'tinggi_b_max' => $d->tinggi_b_max,
+                            'berat_b_min' => $d->berat_b_min,
+                            'berat_b_max' => $d->berat_b_max,
+                            'buta_warna' => $d->buta_warna,
+                            'kacamata' => $d->kacamata,
+                            'fisik_lain' => $d->fisik_lain,
+                            'fisik_lain_detail' => $d->fisik_lain_detail,
+                            'kompetensi' => $d->kompetensi,
+                            'syarat_khusus' => $d->syarat_khusus,
+                            'test_khusus' => $d->test_khusus,
+                            'lain_lain' => $d->lain_lain,
+                            'kategori_sdm' => $d->sdm,
+                            'id_uk' => $d->namauk,
+                            'pengalaman' => $d->pengalaman,
+                            'id_unit' => $d->id_uk,
+							'profesi' => $d->profesi,
+                            'status' => $d->statusnama
+
+
+                        );
+                    }
+
+                    $arr['hasil'] = 'success';
+
+
+                } else {
+
+                    $arr['hasil'] = 'error';
+                }
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
 
     public function listtkdireksi_get()
     {

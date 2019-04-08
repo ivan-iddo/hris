@@ -357,9 +357,6 @@
            contentType: 'application/json', 
            processData: false,
            success: function( data, textStatus, jQxhr ){
-            $('#txtdarikontrak').val('');
-            $('#txtsampaikontrak').val('');
-            $('#txtdirektoratkontrak').val('');
             if(data.result !== 'empty'){
                     gridOptions_warning.api.setRowData(data.result);
                     // paging(data.total,'loaddata_warning',data.perpage);
@@ -453,9 +450,6 @@
            contentType: 'application/json', 
            processData: false,
            success: function( data, textStatus, jQxhr ){
-            $('#txtdaristr').val('');
-            $('#txtsampaistr').val('');
-            $('#txtdirektoratstr').val('');
             if(data.result !== 'empty'){
                     gridOptions_warning_str.api.setRowData(data.result);
                     // paging(data.total,'loaddata_warning',data.perpage);
@@ -551,9 +545,6 @@
            contentType: 'application/json', 
            processData: false,
            success: function( data, textStatus, jQxhr ){
-            $('#txtdarisip').val('');
-            $('#txtsampaisip').val('');
-            $('#txtdirektoratsip').val('');
             if(data.result !== 'empty'){
                     gridOptions_warning_sip.api.setRowData(data.result);
                     // paging(data.total,'loaddata_warning',data.perpage);

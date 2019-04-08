@@ -200,9 +200,6 @@
            contentType: 'application/json', 
            processData: false,
            success: function( data, textStatus, jQxhr ){
-            $('#txtdari').val('');
-            $('#txtsampai').val('');
-            $('#txtdirektorat').val('');
             if(data.result !== 'empty'){
                     gridOptions_warning.api.setRowData(data.result);
                     // paging(data.total,'loaddata_warning',data.perpage);

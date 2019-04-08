@@ -407,9 +407,9 @@ class Pegawai extends REST_Controller
                             'subjabasn' => $d->subjabasn,
                             'ketahli' => $d->ketahli,
                             'id_user' => $d->id_user,
-                            'tgl_kontrak' => date_format(date_create($d->tglakhir), "d-m-Y"),
-                            'tgl_str' => date_format(date_create($d->date_end_str), "d-m-Y"),
-                            'tgl_sip' => date_format(date_create($d->date_end), "d-m-Y"),
+                            'tgl_kontrak' => $d->tglakhir,
+                            'tgl_str' => $d->date_end_str,
+                            'tgl_sip' => $d->date_end,
 
                         );
                     }

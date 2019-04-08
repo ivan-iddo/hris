@@ -360,6 +360,132 @@ class Pengembangan_pelatihan extends REST_Controller
         }
 
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }    
+	
+	public function listlap_get($offset = 0, $param_search = "", $awal = "", $akhir = "")
+    {
+        $search = null;
+        $limit = 25;
+        $headers = $this->input->request_headers();
+        
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+                if (!empty($param_search)) {
+                    $search["field"] = array("jenis_perjalanan", "nama_pegawai", "jabatan");
+                    $search["search"] = $param_search;
+                }
+				if(!empty($awal)){
+					$from= $awal;
+				}
+				if(!empty($akhir)){
+					$to= $akhir;
+				}
+                $results['result'] = $this->Pengembangan_pelatihan_model->get_all(null, $search, $offset, $limit, $from, $to);
+                // echo $this->db->last_query();die;
+                // print_r($results);die;
+                if (!empty($results['result'])) {
+                    foreach ($results["result"] as $key => $value) {
+                        $createdby = $this->db->select("username")->where(array("id_user" => $value["createdby"]))->get("sys_user")->result_array();
+                        $updatedby = $this->db->select("username")->where(array("id_user" => $value["updatedby"]))->get("sys_user")->result_array();
+                        if (count($createdby) == 1) {
+                            $results["result"][$key]["createdby"] = $createdby[0]["username"];
+                        }
+                        if (count($updatedby) == 1) {
+                            $results["result"][$key]["updatedby"] = $updatedby[0]["username"];
+                        }
+						
+                        $results["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
+                        $results["result"][$key]["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($value["pengembangan_pelatihan_kegiatan_status"]);
+                        $results["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($value["kode"]);
+                        $results["result"][$key]["tanggal"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $value["id"]));
+                        $results["result"][$key]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
+                        if (!empty($results["result"][$key]["detail"])) {
+                            foreach ($results["result"][$key]["detail"] as $key_detail_biaya => $value_detail_biaya) {
+                                $results["result"][$key]["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
+                            }
+                        }
+                    }
+                }
+
+                $results['total'] = count($this->Pengembangan_pelatihan_model->get_all());
+                $results["query"] = $this->db->last_query();
+                $results['limit'] = $limit;
+                $results["is_blocked"] = $this->Pengembangan_pelatihan_model->is_blocked($decodedToken->data->NIP);
+                $results["is_monev"] = $this->Pengembangan_pelatihan_model->is_monev($decodedToken->data->NIP);
+                // echo "<pre>";
+                //print_r($results);
+                // echo "</pre>";
+                // die;
+                $this->set_response($results, REST_Controller::HTTP_OK);
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
+	
+	public function listlapdel_get($offset = 0, $param_search = "", $awal = "", $akhir = "")
+    {
+        $search = null;
+        $limit = 25;
+        $headers = $this->input->request_headers();
+        
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+                if (!empty($param_search)) {
+                    $search["field"] = array("jenis_perjalanan", "nama_pegawai", "jabatan");
+					$search["search"] = $param_search;
+                }
+				if(!empty($awal)){
+					$from= $awal;
+				}
+				if(!empty($akhir)){
+					$to= $akhir;
+				}
+                $results['result'] = $this->Pengembangan_pelatihan_model->getdel_all(null, $search, $offset, $limit, $from, $to);
+                // echo $this->db->last_query();die;
+                // print_r($results);die;
+                if (!empty($results['result'])) {
+                    foreach ($results["result"] as $key => $value) {
+                        $createdby = $this->db->select("username")->where(array("id_user" => $value["createdby"]))->get("sys_user")->result_array();
+                        $updatedby = $this->db->select("username")->where(array("id_user" => $value["updatedby"]))->get("sys_user")->result_array();
+                        if (count($createdby) == 1) {
+                            $results["result"][$key]["createdby"] = $createdby[0]["username"];
+                        }
+                        if (count($updatedby) == 1) {
+                            $results["result"][$key]["updatedby"] = $updatedby[0]["username"];
+                        }
+						
+                        $results["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
+                        $results["result"][$key]["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($value["pengembangan_pelatihan_kegiatan_status"]);
+                        $results["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($value["kode"]);
+                        $results["result"][$key]["tanggal"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $value["id"]));
+                        $results["result"][$key]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
+                        if (!empty($results["result"][$key]["detail"])) {
+                            foreach ($results["result"][$key]["detail"] as $key_detail_biaya => $value_detail_biaya) {
+                                $results["result"][$key]["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
+                            }
+                        }
+                    }
+                }
+
+                $results['total'] = count($this->Pengembangan_pelatihan_model->getdel_all());
+                $results["query"] = $this->db->last_query();
+                $results['limit'] = $limit;
+                $results["is_blocked"] = $this->Pengembangan_pelatihan_model->is_blocked($decodedToken->data->NIP);
+                $results["is_monev"] = $this->Pengembangan_pelatihan_model->is_monev($decodedToken->data->NIP);
+                // echo "<pre>";
+				//print_r($results);
+                // echo "</pre>";
+                // die;
+                $this->set_response($results, REST_Controller::HTTP_OK);
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
 
     public function save_post()

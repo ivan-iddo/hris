@@ -150,11 +150,74 @@ class Pengembangan_pelatihan_model extends MY_Model
 		}
 
 		if (!empty($from)) {
-			$this->db->where("$this->table.created >=", $from);
+			$this->db->where("pengembangan_pelatihan.created >=", $from);
 		}
 
 		if (!empty($to)) {
-			$this->db->where("$this->table.created <=", $to);
+			$this->db->where("pengembangan_pelatihan.created <=", $to);
+		}
+
+		if (is_array($like) && !empty($like)) {
+			foreach ($like["field"] as $key => $value) {
+				if ($key == 0) {
+					$this->db->like($value, $like["search"]);
+				}
+				else{
+					$this->db->or_like($value, $like["search"]);
+				}
+			}
+		}
+
+		if (is_array($order_by) && !empty($order_by)) {
+			foreach ($order_by as $key => $value) {
+				$this->db->order_by($key, $value);
+			}
+		}
+		if (!empty($offset)) {
+			$this->db->offset($offset);
+		}
+
+		if (!empty($limit)) {
+			$this->db->limit($limit);
+		}
+
+		$query = $this->db->get();
+		// echo $this->db->last_query();die;
+		if($query->num_rows()<1){
+			return null;
+		}
+		else{
+			return $query->result_array();
+		}
+	}
+	
+	function getdel_all($params_array = array(), $like = array(), $offset = "", $limit = "", $from = "", $to = "", $where_in = "", $order_by = "")
+	{	
+		$this->db->select("$this->table.*,pengembangan_pelatihan_detail.id as kode,pengembangan_pelatihan_detail.uraian_total,m_kode_profesi_group.ds_group_jabatan as profesi, dm_term.nama AS nama_status, sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_grup_user.grup");
+		$this->db->from($this->table);
+		$this->db->join("pengembangan_pelatihan_detail", "$this->table.id = pengembangan_pelatihan_detail.pengembangan_pelatihan_id AND pengembangan_pelatihan_detail.statue = 1");
+		$this->db->join("sys_user_profile", "pengembangan_pelatihan_detail.nopeg = sys_user_profile.id_user", "left");
+		$this->db->join("m_kode_profesi_group", "sys_user_profile.kategori_profesi = m_kode_profesi_group.id", "left");
+		$this->db->join("sys_user", "pengembangan_pelatihan_detail.nopeg = sys_user.id_user", "left");
+		$this->db->join("sys_grup_user", "sys_user.id_grup = sys_grup_user.id_grup", "left");
+		$this->db->join("dm_term", "pengembangan_pelatihan_detail.id = dm_term.id", "left");
+		$this->db->where("$this->table.statue =", 0);
+		if (!empty($params_array) && is_array($params_array)) {
+			$this->db->where($params_array);
+		}
+		if (!empty($where_in) && is_array($where_in)) {
+           // debug($where_in);die;
+            foreach ($where_in as $key => $value){
+                $this->db->where_in($value["key"], $value["value_array"]);
+            }
+		}
+
+		if (!empty($from)) {
+			$this->db->where("pengembangan_pelatihan.created >=", $from);
+		}
+
+		if (!empty($to)) {
+			$this->db->where("pengembangan_pelatihan.created <=", $to);
 		}
 
 		if (is_array($like) && !empty($like)) {
