@@ -245,10 +245,6 @@
                                             <select name="surat_tugas_dalam_negeri_luarkota" id="surat_tugas_dalam_negeri_luarkota"
                                                     class="form-control select-chosen">
                                                 <option value="">Pilih</option>
-                                                <option>Angkutan Umum</option>
-												<option>BIS</option>
-												<option>Kendaraan Dinas</option>
-												<option>Pesawat Udara</option>
                                             </select>
                                         </div>
                                     </div>
@@ -501,32 +497,32 @@
             {headerName: "Tipe", field: "jenis", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Jenis Perjalanan", field: "jenis_perjalanan", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Jenis Biaya", field: "jenis_biaya", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Status Pengajuan", field: "nama_status", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Created Date", field: "created", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}},
-				{headerName: "Dokumen",field: "Tugas", 
+            {headerName: "Laporan", field: "pengembangan_pelatihan_detail.laporan_kegiatan", width: 190, filterParams: {newRowsAction: 'keep'}},
+				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file", 
 				  cellRenderer: function(params) {
 					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Tugas</a>'
 				  }
 				},
-				{headerName: "Dokumen",field: "Izin", 
+				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_izn", 
 				  cellRenderer: function(params) {
 					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Izin</a>'
 				  }
 				},
-				{headerName: "Dokumen",field: "SPD", 
+				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_spd", 
 				  cellRenderer: function(params) {
 					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> SPD</a>'
 				  }
 				},
-				{headerName: "Dokumen",field: "RAK", 
+				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_rak", 
 				  cellRenderer: function(params) {
 					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> RAK</a>'
 				  }
 				},
-				{headerName: "Dokumen",field: "Usulan", 
+				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_rkm", 
 				  cellRenderer: function(params) {
-					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Usulan</a>'
+					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Rekomendasi</a>'
 				  }
 				},
     ];
@@ -578,6 +574,7 @@
     });
 	
 	getOptions("phl", BASE_URL + "master/plh");
+	getOptions("surat_tugas_dalam_negeri_luarkota", BASE_URL + "master/alat_angkut");
     $('.select-chosen').chosen();
     $('.chosen-container').css({"width": "100%"});
     $('.judul-menu').html('Pengajuan Pelatihan & Pengembangan');
@@ -1269,6 +1266,7 @@
                     $("#jam_mulai").val(res.data.jam_mulai);
                     $("#jam_sampai").val(res.data.jam_sampai);
 					getOptionsEdit("phl", BASE_URL + "master/plh",res.data.phl);
+					getOptionsEdit("surat_tugas_dalam_negeri_luarkota", BASE_URL + "master/alat_angkut",res.data.alat_angkut);
 																	 
                     $('#jenis').val(res.data.jenis);
                     $("#jenis").trigger("chosen:updated");

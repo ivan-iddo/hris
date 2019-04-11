@@ -69,14 +69,14 @@
 <script type="text/javascript">
 
     var id_upload = $('#id_upload').val();
-    var perjalanan = $('#perjalanan').val();
+    //var perjalanan = $('#perjalanan').val();
     var id_latbang = $('#id_latbang').val(id_upload);
 
-	if(jenis_perjalanan==='Dalam Negeri'){
-		$('.rak').show('slow');
-	}else{
-		$('.spd').hide('slow');
-	}
+	//if(jenis_perjalanan==='Dalam Negeri'){
+	//	$('.rak').show('slow');
+	//}else{
+		//$('.spd').hide('slow');
+	//}
 	
 	
     $('#form-latbang-upload').submit(function(e){
