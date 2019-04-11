@@ -35,6 +35,63 @@ class Upload extends CI_Controller
         }
         echo json_encode($arr);
     }
+	
+	public function upload_latbang_file()
+    {   
+        // print_r($_POST);die();
+
+        $config['upload_path'] = 'upload/data/latbang';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
+        $config['max_size'] = '50000000';
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('inputfileuploadtgs')) {
+            $error = array('error' => $this->upload->display_errors());
+        } else {
+            $upload = $this->upload->data();
+            $arrdata["file"] = $upload['file_name'];
+        }
+		if (!$this->upload->do_upload('inputfileuploadizn')) {
+            $error = array('error' => $this->upload->display_errors());
+        } else {
+            $upload = $this->upload->data();
+            $arrdata["file_izn"] = $upload['file_name'];
+        }
+		if (!$this->upload->do_upload('inputfileuploadspd')) {
+            $error = array('error' => $this->upload->display_errors());
+        } else {
+            $upload = $this->upload->data();
+            $arrdata["file_spd"] = $upload['file_name'];
+        }
+		if (!$this->upload->do_upload('inputfileuploadrak')) {
+            $error = array('error' => $this->upload->display_errors());
+        } else {
+            $upload = $this->upload->data();
+            $arrdata["file_rak"] = $upload['file_name'];
+        }
+		if (!$this->upload->do_upload('inputfileuploadrkm')) {
+            $error = array('error' => $this->upload->display_errors());
+        } else {
+            $upload = $this->upload->data();
+            $arrdata["file_rkm"] = $upload['file_name'];
+        }
+        //print_r($arrdata);die();
+
+        $id = $this->input->post("id_latbang");
+
+        $this->db->where("id", $id);
+        $result = $this->db->update('pengembangan_pelatihan_detail', $arrdata);
+
+	
+        if ($result) {
+            $response['hasil'] = 'success';
+            $response['message'] = 'File berhasil diuload!';
+        } else {
+            $response['hasil'] = 'error';
+            $response['message'] = 'File gagal diuload!';
+        }
+
+        echo json_encode($response);
+    }
 
     public function upload_pelatihan()
     {

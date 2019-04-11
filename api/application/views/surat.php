@@ -2,9 +2,9 @@
 <!doctype html>
 <html><head></head><body>
 <style>
-     @page { margin: 120px 50px; }
+     @page { margin: 100px 30px 40px; }
      #header { position: fixed; left: -10px; top: -110px; right: -10px; bottom: -160px; height: 0px; text-align: center; }
-     #foote { position: fixed; left: 0px; bottom: -80px; right: 0px; height: 20px; }
+     #foote { position: fixed; left: 0px; bottom: -0px; right: 0px; }
      #foote { content: counter(upper-roman); }
 </style>
  <div hidden="<?php echo $result["footer"]; ?>" id="header">
@@ -18,10 +18,10 @@
 	</table>
    </div>
    <div hidden="<?php echo $result["footer"]; ?>" id="foote">
-     <p><h6>Latbang_4:RAK_<?php echo $result["tanggal"]["tanggal_now"] ?></h6></p>
+     <p><h6>Latbang_3:RAK Intern <?php echo date("d")." ". $result["tanggal"]["tanggal_now"] ?> <?php echo $result["createdby"]; ?></h6></p>
    </div>
 <div id="content">
-<table border="0" class="table-1" style="margin:30px">
+<table border="0" class="table-1" style="margin:20px">
     <tr>
       <td colspan="3">
 		<table width="100%" border="0" cellpadding="3">
@@ -54,64 +54,33 @@
 	</td>
     </tr>
     <tr>
-      <td colspan="3"><p align="justify">      Berdasarkan disposisi Direktur Umum dan SDM tanggal <?php echo $result["tanggal"]["tanggal_now"] ?>, prihal Mengikuti <?php echo $result['nama_pelatihan']; ?> di Instansi <?php echo $result["institusi"]; ?>, yang dilaksanakan pada tanggal <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s/d ". $result["tanggal"]["tanggal_to"]; ?>, diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?>, an :</p></td>
+      <td colspan="3"><p align="justify">      Dengan ini kami usulkan biaya pelatihan <?php echo $result['nama_pelatihan']; ?> tanggal <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s/d ". $result["tanggal"]["tanggal_to"]; ?> yang diselenggarakan oleh <?php echo $result["institusi"]; ?> bertempat di <?php echo $result["tujuan"]; ?> an :</p></td>
     </tr>
     <tr>
       <td colspan="3">
         <?php if ($result["jenis"] == "Individu"): ?> 
-        <table width="100%" border="0" cellpadding="3">
-          <?php if (!empty($result["detail"])): ?> 
-             <?php foreach ($result["detail"] as $key => $value): ?> 
-                <tr>
-                  <td width="7%" rowspan="4">
-                    &nbsp;            
-                  </td>
-                  <td width="21%">
-                    Nama              
-                  </td>
-                  <td width="2%">
-                    :
-                  </td>
-                  <td width="70%">
-                    <?php echo $result["gelar_depan"].' '.$value["nama_pegawai"].', '.$result["gelar_belakang"] ?>
-                  </td>
-                </tr>
-                <tr>
-                  <td width="21%">
-                    NIP              
-                  </td>
-                  <td width="2%">
-                    :
-                  </td>
-                  <td width="70%">
-                    <?php echo $value["nip"]; ?>
-                  </td>
-                </tr>
-                <tr>
-                  <td width="21%">
-                    Pangkat / Gol              
-                  </td>
-                  <td width="2%">
-                    :
-                  </td>
-                  <td width="70%">
-                    <?php echo $value["pangkat"] ." - ". $value["golongan"] ?>
-                  </td>
-                </tr>
-                <tr>
-                  <td width="21%">
-                    Jabatan              
-                  </td>
-                  <td width="2%">
-                    :
-                  </td>
-                  <td width="70%">
-                    <?php echo $value["jabatan"]; ?>
-                  </td>
-                </tr>
-              <?php endforeach ?>
-            <?php endif ?> 
-        </table>
+        <table width="100%" border="1px solid" cellpadding="1" cellspacing="0" class="table2" style="margin-top: 15px">
+          <tr>
+				<th align="center">No</th>
+				<th align="center">Nopeg</th>
+				<th align="center">Nama</th>
+				<th align="center">NIP</th>
+				<th align="center">Jabatan</th>
+			  </tr>
+			  <?php if (!empty($result["detail"])): ?>
+				<?php foreach ($result["detail"] as $key => $value): ?>
+				  <tr>
+					<td align="center"><?php echo $key+1 ?></td>
+					<td align="center"><?php echo $value["nopeg"] ?></td>
+					<td><?php echo $result["gelar_depan"].' '.$value["nama_pegawai"].', '.$result["gelar_belakang"] ?></td>
+					<td><?php echo $value["nip"]; ?></td>
+					<td><?php echo $value["jabatan"]; ?></td>
+				  </tr>
+				<?php endforeach ?>
+			  <?php endif ?>
+			</table>
+		  </td>
+		</tr>
         <?php elseif ($result["jenis"] == "Kelompok"): ?> 
 			<center>(Nopeg, Nama Pegawai, dan Unit Kerja Terlampir)</center>
         <?php endif ?> 
@@ -183,13 +152,13 @@
       </table></td>
     </tr> 
     <tr>
-      <td colspan="3">Terlampir kami sampaikan bukti pendukung perminaan tersebut.</td>
+      <td colspan="3">Terlampir kami sampaikan bukti pendukung permintaan tersebut.</td>
     </tr> 
 	<tr>
-      <td colspan="3"><p>Demikian surat ini disampaikan, atas bantuan dan kerjasamanya diucapkan terima kasih.</p></td>
+      <td colspan="3"><p>Demikian permohonan ini kami sampaikan, atas kebijakan kami diucapkan terima kasih.</p></td>
     </tr>
 	<tr>
-      <td>Mengetahui</td>
+      <td><b>Mengetahui</b></td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>  
@@ -214,7 +183,7 @@
       <td><b>SUWASTINI, SAp, MM</b></td>
     </tr>
     <tr>
-      <td><b>NIP. 1963101519901020001</b></td>
+      <td><b>NIP 1963101519901020001</b></td>
       <td>&nbsp;</td>
       <td><b>NIP 196611101986032004</b></td>
     </tr> 
@@ -240,14 +209,8 @@
     </tr>
     <tr>      
 	  <td>&nbsp;</td>
-      <td><center><b>NIP. 196606122000121001</b></center></td>
+      <td><center><b>NIP 196606122000121001</b></center></td>
       <td>&nbsp;</td>
-    </tr>
-	<tr>
-      <td colspan="3">&nbsp;</td>
-    </tr>
-	<tr>
-      <td colspan="3">&nbsp;</td>
     </tr>
 </table>
 </body></html>

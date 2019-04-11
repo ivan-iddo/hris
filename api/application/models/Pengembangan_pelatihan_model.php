@@ -111,6 +111,23 @@ class Pengembangan_pelatihan_model extends MY_Model
 			return $query->row();
 		}
 	}
+	
+	function get_phl($phl)
+	{
+		$this->db->select("pengembangan_pelatihan.phl,sys_user_profile.nip,sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang,sys_user.name");
+		$this->db->from($this->table);
+		$this->db->join("sys_user_profile", "pengembangan_pelatihan.phl = sys_user_profile.id_user", "left");
+		$this->db->join("sys_user", "pengembangan_pelatihan.phl = sys_user.id_user", "left");
+		$this->db->where("phl", $phl);
+		$query = $this->db->get();
+
+		if($query->num_rows()<1){
+			return null;
+		}
+		else{
+			return $query->row();
+		}
+	}
 
 	function get_by_uniq_value($uniq_value, $statue = 1)
 	{

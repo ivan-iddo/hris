@@ -3,9 +3,9 @@
 <html><head></head><body>
 
 <style>
-      @page { margin: 120px 50px; }
+      @page { margin: 100px 30px 40px; }
      #header { position: fixed; left: -10px; top: -100px; right: -10px; bottom: -180px; height: 0px; text-align: center; }
-     #foote { position: fixed; left: 0px; bottom: -180px; right: 0px; height: 50px; }
+     #foote { position: fixed; left: 0px; bottom: -0px; right: 0px; }
      #foote { content: counter(upper-roman); }
 </style>
 	<div id="header">
@@ -18,6 +18,9 @@
 	</tbody>
 	</table>
    </div>
+   <div hidden="<?php echo $result["footer"]; ?>" id="foote">
+     <p><h6>Latbang_1:SPD Intern <?php echo date("d")." ". $result["tanggal"]["now"] ?> <?php echo $result["createdby"]; ?></h6></p>
+  </div>
 <div id="content">
 <table border="0" class="table-1" style="margin:30px">
     <tr>
@@ -57,38 +60,38 @@
           </tr> 
 		  <tr>
               <td><center><b>3.</b></center></td>
-			  <td>a. Pangkat dan golongan<br><br>b. Jabatan/Instansi/Unit Kerja<br><br>c. Tingkat Biaya Perjalanan Dinas</td>
-              <td>a. <?php echo $result["pengembangan_pelatihan_detail"]->pangkat;?> - <?php echo $result["pengembangan_pelatihan_detail"]->golongan;?><br><br>b. <?php if(!empty($result["pengembangan_pelatihan_detail"]->jabatan)){echo $result["pengembangan_pelatihan_detail"]->jabatan;}else{echo $result["grup"];}?><br><br>c. </td>
+			  <td>a. Pangkat dan golongan<br>b. Jabatan/Instansi/Unit Kerja<br><br>c. Tingkat Biaya Perjalanan Dinas</td>
+              <td>a. <?php echo $result["pengembangan_pelatihan_detail"]->pangkat;?> - <?php echo $result["pengembangan_pelatihan_detail"]->golongan;?><br>b. <?php if(!empty($result["pengembangan_pelatihan_detail"]->jabatan)){echo $result["pengembangan_pelatihan_detail"]->jabatan;}else{echo $result["grup"];}?><br>c. </td>
           </tr>
 		  <tr>
               <td><center><b>4.</b></center></td>
               <td>Maksud perjalanan dinas</td>
-			  <td align="justify">Berdasarkan disposisi Direktur Umum dan SDM tanggal <?php echo $result["tanggal"]->now; ?>, prihal Mengikuti <?php echo $result['nama_pelatihan']; ?> di Instansi <?php echo $result["institusi"]; ?>, yang dilaksanakan pada tanggal <?php echo $result["tanggal"]["from"] ?> s.d <?php echo $result["tanggal"]["to"] ?>, diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?></td>
+			  <td align="justify">Mengikuti <?php echo $result["nama_pelatihan"] ?>, yang akan dilaksanakan pada tanggal <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["tanggal_to"]; ?>. Yang diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?></td>
           </tr>
 		  <tr>
               <td><center><b>5.</b></center></td>
               <td>Alat angkutan yang digunakan</td>
-			  <td> Angkutan Umum</td>
+			  <td> <?php echo $result["alat_angkut"]; ?></td>
           </tr>
 		  <tr>
               <td><center><b>6.</b></center></td>
-              <td>a. Tempat berangkat<br><br>b. Tempat tujuan</td>
-              <td>a. Jakarta<br><br>b. <?php echo $result["tujuan"]; ?></td>
+              <td>a. Tempat berangkat<br>b. Tempat tujuan</td>
+              <td>a. Jakarta<br>b. <?php echo $result["tujuan"]; ?></td>
           </tr>
 		  <tr>
               <td><center><b>7.</b></center></td>
-              <td>a. Lama Perjalanan Dinas<br><br>b. Tanggal berangkat<br><br>c. Tanggal harus kembali/tiba ditempat baru</td>
-              <td>a. <?php echo $result["total_hari_kerja"]; ?> (<?php echo ucfirst($result["total_hari_kerja_baru"]);?>) Hari<br><br>b. <?php echo $result["tanggal"]["from"] ?><br><br>c. <?php echo $result["tanggal"]["to"] ?></td>
+              <td>a. Lama Perjalanan Dinas<br>b. Tanggal berangkat<br>c. Tanggal harus kembali/tiba ditempat</td>
+              <td>a. <?php echo $result["total_hari_kerja"]; ?> (<?php echo ucfirst($result["total_hari_kerja_baru"]);?>) Hari<br>b. <?php echo $result["tanggal"]["from"] ?><br>c. <?php echo $result["tanggal"]["to"] ?></td>
           </tr>
 		  <tr>
               <td><center><b>8.</b></center></td>
-			  <td>Pengikut : Nama<br>1.<br>2.<br>3.<br>4.<br>5.</td>
-			  <td>Tanggal Lahir  : Keterangan<br><br><br><br><br></td>
+			  <td>Pengikut : Nama<br>1.<br>2.</td>
+			  <td>Tanggal Lahir  : Keterangan<br><br><br></td>
           </tr>
 		  <tr>
               <td><center><b>9.</b></center></td>
-              <td>a. Instansi<br><br>b. Akun</td>
-              <td>a. RS. Jantung & Pembuluh Darah Harapan Kita<br><br>b. <?php echo $result["pengembangan_pelatihan_detail"]->nopeg; ?></td>
+              <td>Pembebanan Anggaran :<br>a. Instansi<br>b. Akun</td>
+              <td><br>a. RS. Jantung & Pembuluh Darah Harapan Kita<br>b. <?php echo $result["pengembangan_pelatihan_detail"]->nopeg; ?></td>
           </tr><tr>
               <td><center><b>10.</b></center></td>
               <td>Keterangan lain-lain</td>
@@ -139,14 +142,11 @@
     <tr>
       <td><b>&nbsp;</b></td>
       <td>&nbsp;</td>
-      <td>NIP. 196606122000121001</td>
+      <td>NIP 196606122000121001</td>
     </tr>
 	<tr>
       <td colspan="3">&nbsp;</td>
     </tr>
-	<tr>
-      <td colspan="3">&nbsp;</td>
-    </tr> 
 	<tr>
       <td colspan="3"><br><center><u><b>RINCIAN PENGHITUNGAN BIAYA PELATIHAN</b></u></center><br></td>
     </tr> 
@@ -161,11 +161,12 @@
 		<?php if (!empty($result["detail"][0]["detail_uraian"])): ?>
             <?php foreach ($result["detail"][0]["detail_uraian"] as $key => $value): ?>
           <tr>
-            <td><center><?php echo $key+1 ?>.</center></td>
+            <td width="4%"><center><?php echo $key+1 ?>.</center></td>
             <td><?php echo $value["uraian"]?> :
             <br>1 Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 2, ",", ".")?></td>
 			<td>Rp. <?php echo number_format($value["nominal"], 2, ",", ".")?></td>
-            <td></td>
+            <!--<td width="40%">Dengan catatan bahwa untuk tarif satuan biaya seperti diatas, saya tidak mengajukan klaim</td>-->
+            <td width="40%"></td>
           </tr>
 		 <?php endforeach ?>
           <?php endif ?>
@@ -202,9 +203,9 @@
       <td><?php echo $result["pengembangan_pelatihan_detail"]->nama_pegawai;?></td>
     </tr>
     <tr>
-      <td>NIP. 197402092008121001</td>
+      <td>NIP 197402092008121001</td>
       <td>&nbsp;</td>
-      <td>NIP/Nopeg. <?php if(!empty($result["pengembangan_pelatihan_detail"]->nip)){echo $result["pengembangan_pelatihan_detail"]->nip;}else{echo $result["pengembangan_pelatihan_detail"]->nopeg;}?></td>
+      <td>NIP/Nopeg <?php if(!empty($result["pengembangan_pelatihan_detail"]->nip)){echo $result["pengembangan_pelatihan_detail"]->nip;}else{echo $result["pengembangan_pelatihan_detail"]->nopeg;}?></td>
     </tr>
 </table>
 </div>

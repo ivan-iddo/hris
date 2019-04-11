@@ -83,6 +83,29 @@ public function agama_get(){
 		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 }
 
+public function plh_get(){
+	$headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+				 $this->db->order_by('name','ASC');
+				 $this->db->where('id_grup','263');
+				 $this->db->where('kd_keluar','12');
+		  $res = $this->db->get('sys_user')->result();
+		  foreach($res as $d){
+			$arr['result'][]=array('label'=>$d->name,'value'=>$d->id_user);
+		  }
+		  
+		  $this->set_response($arr, REST_Controller::HTTP_OK);
+			
+                return;
+			}
+		}
+		
+		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
 	public function pendidikan_get(){
 		$headers = $this->input->request_headers();
 	

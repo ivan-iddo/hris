@@ -6,7 +6,7 @@
      #foote { position: fixed; left: 0px; bottom: -130px; right: 0px; height: 50px; }
      #foote { content: counter(upper-roman); }
 </style>
- <div id="header">
+ <div hidden="<?php echo $result["footer"]; ?>" id="header">
     <table width="100%" class="table-1" border="0">
 	<tbody>
 	<tr>
@@ -17,7 +17,7 @@
 	</table>
    </div>
    <div hidden="<?php echo $result["footer"]; ?>" id="foote">
-     <p><h6>Latbang_4:RAK_<?php echo $result["tanggal"]["tanggal_now"] ?></h6></p>
+     <p><h6>Latbang_3:RAK Intern <?php echo date("d")." ". $result["tanggal"]["tanggal_now"] ?> <?php echo $result["createdby"]; ?></h6></p>
    </div>
 <div id="content">
 <table border="0" width="100%" class="table-1" style="margin:30px">
@@ -50,9 +50,9 @@
     </tr>
     <tr>
       <?php if ($result["tanggal"][0]["tanggal_to"] != $result["tanggal"][0]["tanggal_from"]): ?>
-        <td colspan="3" align="center"><b>DAFTAR NAMA PESERTA ACLS (<?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["tanggal_to"]; ?>)</b></td>
+        <td colspan="3" align="center"><b>DAFTAR NAMA <?php echo $result["pengembangan_pelatihan_kegiatan_status"]->nama;?> <?php echo $result["nama_pelatihan"] ?>  (<?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["tanggal_to"]; ?>)</b></td>
       <?php else: ?>
-        <td colspan="3" align="center"><b>DAFTAR NAMA PESERTA ACLS (<?php echo $result["tanggal"]["tanggal_to"]; ?>)</b></td>
+        <td colspan="3" align="center"><b>DAFTAR NAMA <?php echo $result["pengembangan_pelatihan_kegiatan_status"]->nama;?> <?php echo $result["nama_pelatihan"] ?>  (<?php echo $result["tanggal"]["tanggal_to"]; ?>)</b></td>
       <?php endif ?>
       
     </tr>

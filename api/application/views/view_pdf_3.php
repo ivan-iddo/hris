@@ -1,30 +1,14 @@
 <!doctype html>
 <html><head></head><body>
 <style>
-     @page { margin: 180px 50px; }
+     @page { margin: 80px 50px; }
      #header { position: fixed; left: -10px; top: -150px; right: -10px; bottom: -180px; height: 0px; text-align: center; }
-     #foote { position: fixed; left: 0px; bottom: -100px; right: 0px; height: 50px; }
+     #foote { position: fixed; left: 0px; bottom: -30px; right: 0px; height: 50px; }
      #foote { content: counter(upper-roman); }
 </style>
- <div id="header">
-    <table width="100%" class="table-1" border="0">
-	<tbody>
-	<tr>
-      <td colspan="1" width="60"><img src="http://localhost/project/hris/logo2.png" width="80%"></td>
-      <td colspan="2"align="center"><b>KEMENTRIAN KESEHATAN<br>DIREKTORAT JENDRAL PELAYANAN KESEHATAN<br>RUMAH SAKIT JANTUNG DAN PEMBULU DARAH HARAPAN KITA</b></td>
-	  <td colspan="1" width="70"><img src="http://localhost/project/hris/logo.png" width="100%"></td>
-	</tr>
-	<tr>
-	<td colspan="1" width="30">&nbsp;</td>
-	<td colspan="2"align="center">Jalan Let. Jend. S. Parman Kv. 87 Slipi Jakarta, 11420<br>Telp. 5684085 - 093, 5684093, Faksimile: 5684230<br>Surat Elektronik: <u>website@pjnhk.go.id</u><br><u>http:www.pjnhk.go.id</u></td>
-	<td colspan="1" width="30">&nbsp;</td>
-	<hr/>
-	</tr>
-	</tbody>
-	</table>
-   </div>
    <div hidden="<?php echo $result["footer"]; ?>" id="foote">
-     <p>Tembusan : <br>- Atasan Ybs <br>- Kepala Unit Pengendalian Garatifikasi</p>
+     <p><h6>Tembusan : <br>- Atasan Ybs <br>- Kepala Unit Pengendalian Garatifikasi</h6></p>
+	 <p><h6>Latbang_2 C:SrtTgs Intern <?php echo $result["tanggal"]["tanggal_now"] ?> <?php echo $result["createdby"]; ?></h6></p>
   </div>
 <div id="content">
 <table border="0" class="table-1" style="margin:30px">
@@ -46,10 +30,7 @@
       </td>
     </tr>
     <tr>
-      <td colspan="3"><br>Yth. <?php echo $result["institusi"] ?></td>
-    </tr>
-    <tr>
-      <td colspan="3"><p align="justify">       Dengan ini, kami memberikan rekomendasi kepada Pegawai RS Jantung Dan Pembuluh Darah Harapan KIta (RSJPDHK) :</p></td>
+      <td colspan="3"><br>Yth. <?php echo $result["institusi"] ?><br><p align="justify">       Dengan ini, kami memberikan rekomendasi kepada Pegawai RS Jantung Dan Pembuluh Darah Harapan KIta (RSJPDHK) :</p></td>
     </tr>
     <tr>
       <td colspan="3">
@@ -68,13 +49,13 @@
               </tr>
               <tr>
                 <td width="21%">
-                  Unit Kerja           
+                  Jabatan           
                 </td>
                 <td width="2%">
                   :
                 </td>
                 <td width="77%">
-                  <?php echo $result["grup"];?>
+                  <?php echo $result["pengembangan_pelatihan_detail"]->jabatan;?>
                 </td>
               </tr>
               <tr>
@@ -136,35 +117,17 @@
         <table width="100%" border="0">
           <tr>
             <td width="3%" valign="top">
-              <p>1.</p>
+              <p>1.<br><br><br></p>
+			  <p>2.<br><br></p>
+			  <p>3.<br><br></p>
+			  <p>4.<br><br><br></p>
             </td>
             <td width="97%" valign="top">
               <p align="justify">Dengan syarat bahwa apabila pegawai tersebut di atas mendapatkan sponsorship, hal tersebut tidak mempengaruhi independensi dan kemungkinan benturan kepentingan bagi institusi RSJPDHK maupun yang bersangkutan dalam menjalankan tugasnya di RSJPDHK.</p>
-            </td>
-          </tr>
-          <tr>
-            <td width="3%" valign="top">
-              <p>2.</p>
-            </td>
-            <td width="97%" valign="top">
               <p align="justify">Memberikan rincian biaya/sponsorship yang akan diberikan kepada ybs untuk bukti/laporan pertanggung jawaban.</p>
-            </td>
-          </tr>
-          <tr>
-            <td width="3%" valign="top">
-              <p>3.</p>
-            </td>
-            <td width="97%" valign="top">
-              <p align="justify">Setelah mengikuti penugasan kegiatan tersebut yang bersangkutan diwajibkan membuat laporan sesuai ketentuan yang berlaku.</p>
-            </td>
-          </tr>
-          <tr>
-            <td width="3%" valign="top">
-              <p>3.</p>
-            </td>
-            <td width="97%" valign="top">
+			  <p align="justify">Setelah mengikuti penugasan kegiatan tersebut yang bersangkutan diwajibkan membuat laporan sesuai ketentuan yang berlaku.</p>
               <p align="justify">Pegawai yang bersangkutan dapat menjalankan kegiatan tersebut di atas setelah ada Surat Izin atau Persetujuan sesuai ketentuan yang berlaku.</p>
-            </td>
+			</td>
           </tr>
         </table>
       </td>
@@ -190,9 +153,6 @@
       <td colspan="2" width="40%">&nbsp;</td>
       <td width="60%">NIP 196601011996031001</td>
     </tr>
-<!--     <tr>
-      <td colspan="3">&nbsp;</td>
-    </tr> -->
 </table>
 </div>
 </body></html>

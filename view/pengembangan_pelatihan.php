@@ -55,6 +55,10 @@
                                     "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
                                     "cetak_spd();">Surat SPD
                             </button>
+							<button class=
+                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
+                                "cetak_c_spd();">Catatan SPD
+                            </button>
                             <button class=
                                     "btn btn-mint btn-labeled fa fa-check btn-sm" onclick=
                                     "cetak_rekomendasi();">Rekomendasi
@@ -88,7 +92,7 @@
     <div class="tab-pane fade" id="demo-lft-tab-2">
         <div class="row">
             <div class="eq-height">
-                <div class="col-sm-4 eq-box-sm ">
+                <div class="col-sm-7 eq-box-sm ">
                     <!--Basic Panel-->
                     <!--===================================================-->
                     <div class="panel pad-all">
@@ -96,7 +100,7 @@
                             <form class="form-horizontal" id="form-add">
                                 <div class="panel-body">
                                     <div class="form-group hidden">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">No. Indeks</label>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">No. Indeks</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="id" id="id" style="width: 220px;display:none"
                                                    class="form-control"/>
@@ -104,7 +108,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Jenis Biaya</label>
+                                        <label class="col-sm-2 control-label">Jenis Biaya</label>
                                         <div class="col-sm-5">
                                             <select name="jenis_biaya" id="jenis_biaya" class="select-chosen">
                                                 <option value="">Pilih</option>
@@ -115,35 +119,44 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Jenis Surat</label>
+                                        <label class="col-sm-2 control-label">Jenis Surat</label>
                                         <div class="col-sm-5">
                                             <select name="jenis_surat" id="jenis_surat"
                                                     class="form-control select-chosen">
                                                 <option value="">Pilih</option>
                                             </select>
                                         </div>
+                                    </div> 
+									<div class="form-group">
+                                        <label class="col-sm-2 control-label">Plh</label>
+                                        <div class="col-sm-5">
+                                         <select name="phl" id="phl"
+                                                    class="form-control select-chosen">
+													<option value="">Pilih</option>
+                                         </select>
+										</div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Nama Pelatihan</label>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Nama Pelatihan</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="nama_pelatihan" id="nama_pelatihan" class="form-control" autocomplete="off" />
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Tempat</label>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Tempat</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="tujuan" id="tujuan" class="form-control"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Institusi Latbang</label>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Institusi Latbang</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="institusi" id="institusi" class="form-control"/>
                                         </div>
                                     </div>
                                     <div class="body-content-calendar">
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label" for="demo-hor-inputemail">Tgl
+                                            <label class="col-sm-2 control-label" for="demo-hor-inputemail">Tgl
                                                 Pelaksanaan</label>
                                             <div class="col-sm-5">
                                                 <input type="text" name="tanggal[]" class="form-control tanggal daterangepicker"
@@ -156,7 +169,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Acara di Mulai</label>
+                                        <label class="col-sm-2 control-label">Acara di Mulai</label>
                                         <div class="body-detail">
                                             <div class="col-xs-4">
                                                 <input type="time" name="jam_mulai" class="form-control jam_mulai" id="jam_mulai" placeholder="Jam Mulai" required/>
@@ -182,7 +195,7 @@
                                         </div>
                                     </div> -->
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Total Hari Kerja</label>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Total Hari Kerja</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="id" id="id" style="width: 220px;display:none"
                                                    class="form-control"/>
@@ -190,7 +203,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Jenis Kegiatan</label>
+                                        <label class="col-sm-2 control-label">Jenis Kegiatan</label>
                                         <div class="col-sm-5">
                                             <select name="pengembangan_pelatihan_kegiatan" id="pengembangan_pelatihan_kegiatan"
                                                     class="form-control select-chosen">
@@ -198,7 +211,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Status</label>
+                                        <label class="col-sm-2 control-label">Status</label>
                                         <div class="col-sm-5">
                                             <select name="pengembangan_pelatihan_kegiatan_status" id="pengembangan_pelatihan_kegiatan_status"
                                                     class="form-control select-chosen">
@@ -206,7 +219,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Jenis Perjalanan</label>
+                                        <label class="col-sm-2 control-label">Jenis Perjalanan</label>
                                         <div class="col-sm-5">
                                             <select name="jenis_perjalanan" id="jenis_perjalanan"
                                                     class="form-control select-chosen">
@@ -217,7 +230,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group jenis_perjalanan_dalam_negeri hidden">
-                                        <label class="col-sm-3 control-label"></label>
+                                        <label class="col-sm-2 control-label"></label>
                                         <div class="col-sm-5">
                                             <select name="dalam_negeri" id="dalam_negeri" class="form-control select-chosen">
                                                 <option value="">Pilih</option>
@@ -225,20 +238,21 @@
                                                 <option>Luar Kota</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <!-- <div class="form-group dalam_negeri-luarkota hidden">
-                                        <label class="col-sm-3 control-label"></label>
+                                    </div> 
+                                    <div class="form-group dalam_negeri-luarkota hidden">
+                                        <label class="col-sm-2 control-label">Alat Angkut</label>
                                         <div class="col-sm-5">
                                             <select name="surat_tugas_dalam_negeri_luarkota" id="surat_tugas_dalam_negeri_luarkota"
                                                     class="form-control select-chosen">
                                                 <option value="">Pilih</option>
-                                                <option>Surat Tugas</option>
-                                                <option>SPD</option>
-                                                <option>RAK</option>
+                                                <option>Angkutan Umum</option>
+												<option>BIS</option>
+												<option>Kendaraan Dinas</option>
+												<option>Pesawat Udara</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group dalam_negeri-dalamkota hidden">
+                                    <!--<div class="form-group dalam_negeri-dalamkota hidden">
                                         <label class="col-sm-3 control-label"></label>
                                         <div class="col-sm-5">
                                             <select name="surat_tugas_dalam_negeri_dalamkota" id="surat_tugas_dalam_negeri_dalamkota"
@@ -261,10 +275,10 @@
                                                 <option>Surat Rekomendasi</option>
                                             </select>
                                         </div>
-                                    </div> -->
+                                    </div>-->
                                     
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Tipe</label>
+                                        <label class="col-sm-2 control-label">Tipe</label>
                                         <div class="col-sm-5">
                                             <select name="jenis" id="jenis" class="form-control select-chosen">
                                                 <option value="">Pilih</option>
@@ -274,7 +288,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Nopeg</label>
+                                        <label class="col-sm-2 control-label">Nopeg</label>
                                         <div class="col-sm-5">
                                             <select name="nopeg" id="nopeg" class="select-chosen">
                                             </select>
@@ -282,46 +296,51 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">NIP</label>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">NIP</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="nip" id="nip" class="form-control"
                                                    readonly="true"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">NIK</label>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">NIK</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="nik" id="nik" class="form-control"
                                                    readonly="true"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Nama Pegawai</label>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Nama Pegawai</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control"
                                                    readonly="true"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Jabatan/Unit
-                                            Kerja</label>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Jabatan</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="jabatan" id="jabatan" class="form-control"
                                                    readonly="true"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Pangkat</label>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Pangkat</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="pangkat" id="pangkat" class="form-control"
                                                    readonly="true"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Golongan</label>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Golongan</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="golongan" id="golongan" class="form-control"
                                                    readonly="true"/>
+                                        </div>
+                                    </div>
+									<div class="form-group">
+									<label class="col-sm-2 control-label" for="demo-hor-inputemail"></label>
+                                        <div class="col-sm-5">
+                                            <input type="checkbox" name="laporan_kegiatan" id="laporan_kegiatan">Laporan Kegiatan
                                         </div>
                                     </div>
                                     <!-- <div class="body-content"> -->
@@ -352,7 +371,7 @@
                                         <tr id="row_1">
                                         <td>
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label">Uraian Biaya</label>
+                                            <label class="col-sm-2 control-label">Uraian Biaya</label>
                                             <div class="body-detail">
                                                 <div class="col-xs-2">
                                                     <input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_1" placeholder="Uraian"/>
@@ -363,7 +382,7 @@
 												<div class="col-xs-2">
                                                     <input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal" placeholder="Ket nominal"/>
                                                 </div>
-                                                <div class="col-xs-2">
+                                                <div class="col-xs-3">
                                                     <input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_1" min="0" value="0" required onkeyup="getTotal(1)"/>
                                                 </div>
                                             </div>
@@ -372,7 +391,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label"></label>
+                                            <label class="col-sm-2 control-label"></label>
                                             <div class="body-detail">
                                                 <div class="col-xs-5">
                                                     <input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_1" min="0" value="0"
@@ -485,11 +504,31 @@
             {headerName: "Status Pengajuan", field: "nama_status", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Created Date", field: "created", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Dokumen", field: "file", 
-              cellRenderer: function(params) {
-                  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Lihat Dokumen</a>'
-              }
-            },
+				{headerName: "Dokumen",field: "Tugas", 
+				  cellRenderer: function(params) {
+					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Tugas</a>'
+				  }
+				},
+				{headerName: "Dokumen",field: "Izin", 
+				  cellRenderer: function(params) {
+					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Izin</a>'
+				  }
+				},
+				{headerName: "Dokumen",field: "SPD", 
+				  cellRenderer: function(params) {
+					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> SPD</a>'
+				  }
+				},
+				{headerName: "Dokumen",field: "RAK", 
+				  cellRenderer: function(params) {
+					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> RAK</a>'
+				  }
+				},
+				{headerName: "Dokumen",field: "Usulan", 
+				  cellRenderer: function(params) {
+					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Usulan</a>'
+				  }
+				},
     ];
 
     var gridOptionsList = {
@@ -537,6 +576,8 @@
              format: 'DD-MM-YYYY'
            }
     });
+	
+	getOptions("phl", BASE_URL + "master/plh");
     $('.select-chosen').chosen();
     $('.chosen-container').css({"width": "100%"});
     $('.judul-menu').html('Pengajuan Pelatihan & Pengembangan');
@@ -619,31 +660,31 @@
         // }
     });
 
-    // function changeDalamNegeri(argument = null) {
-    //     console.log("changeDalamNegeri" + argument);
-    //     if (argument == "Dalam Kota"){
-    //         $("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
-    //         $("#surat_tugas_dalam_negeri_luarkota").trigger('chosen:updated');
-    //         $(".dalam_negeri-dalamkota").removeClass('hidden');
-    //         $(".dalam_negeri-luarkota").addClass('hidden');
-    //     }
-    //     else if (argument == "Luar Kota"){
-    //         $("#surat_tugas_dalam_negeri_dalamkota").prop('selectedIndex', 0);
-    //         $("#surat_tugas_dalam_negeri_dalamkota").trigger('chosen:updated');
-    //         $(".dalam_negeri-dalamkota").addClass('hidden');
-    //         $(".dalam_negeri-luarkota").removeClass('hidden');
-    //     }
-    //     else{        
-    //         $("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
-    //         $("#surat_tugas_dalam_negeri_dalamkota").prop('selectedIndex', 0);
-    //         $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
-    //         $("#surat_tugas_dalam_negeri_dalamkota").trigger("chosen:updated");
-    //     }
-    // }
+    function changeDalamNegeri(argument = null) {
+         console.log("changeDalamNegeri" + argument);
+         if (argument == "Dalam Kota"){
+             $("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
+             $("#surat_tugas_dalam_negeri_luarkota").trigger('chosen:updated');
+             $(".dalam_negeri-dalamkota").removeClass('hidden');
+             $(".dalam_negeri-luarkota").addClass('hidden');
+         }
+         else if (argument == "Luar Kota"){
+             $("#surat_tugas_dalam_negeri_dalamkota").prop('selectedIndex', 0);
+             $("#surat_tugas_dalam_negeri_dalamkota").trigger('chosen:updated');
+             $(".dalam_negeri-dalamkota").addClass('hidden');
+             $(".dalam_negeri-luarkota").removeClass('hidden');
+         }
+         else{        
+             $("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
+             $("#surat_tugas_dalam_negeri_dalamkota").prop('selectedIndex', 0);
+             $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
+             $("#surat_tugas_dalam_negeri_dalamkota").trigger("chosen:updated");
+         }
+     }
 
-    // $("#dalam_negeri").on("change", function(){
-    //     changeDalamNegeri($(this).val());
-    // });
+     $("#dalam_negeri").on("change", function(){
+         changeDalamNegeri($(this).val());
+     });
 
     function loadUser(id, url, valueEdit = null) {
         $('#' + id).children().remove();
@@ -660,7 +701,7 @@
             dataType: "json",
             success: function (e) {
                 for (var i = 0; i < e.result.length; i++) {
-                    $('#' + id).append('<option ' + (e.result[i].id == valueEdit ? 'selected' : '') + ' value="' + e.result[i].id + '" data-nik="' + e.result[i].nik + '" data-nip="' + e.result[i].nip + '" data-golongan="' + e.result[i].golongan + '" data-pangkat="' + e.result[i].pangkat +'" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_uk + '" >' + e.result[i].id + ' - ' + e.result[i].nama + '</option>');
+                    $('#' + id).append('<option ' + (e.result[i].id == valueEdit ? 'selected' : '') + ' value="' + e.result[i].id + '" data-nik="' + e.result[i].nik + '" data-laporan="' + e.result[i].laporan_kegiatan + '" data-nip="' + e.result[i].nip + '" data-golongan="' + e.result[i].golongan + '" data-pangkat="' + e.result[i].pangkat +'" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_uk + '" >' + e.result[i].id + ' - ' + e.result[i].nama + '</option>');
                 }
                 $('#' + id).trigger("chosen:updated");
             }
@@ -728,7 +769,7 @@
                 '<tr id="row_'+row_id+'">'+
                 '<td>'+
                 '<div class="form-group body-remove">' +
-                   ' <label class="col-sm-3 control-label"></label>' +
+                   ' <label class="col-sm-2 control-label"></label>' +
                    '<div class="body-detail">' +
                         '<div class="col-xs-2">' +
                             '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian"/>' +
@@ -739,7 +780,7 @@
 						'<div class="col-xs-2">' +
                             '<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal'+row_id+'" placeholder="Ket uraian"/>' +
                         '</div>' +
-                        '<div class="col-xs-2">' +
+                        '<div class="col-xs-3">' +
                             '<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" value="0" required onkeyup="getTotal('+row_id+')"/>' +
                         '</div>' +
                     '</div>' +
@@ -748,7 +789,7 @@
                     '</div>' +
                 '</div>' +
                 '<div class="form-group body-remove">' +
-                   ' <label class="col-sm-3 control-label"></label>' +
+                   ' <label class="col-sm-2 control-label"></label>' +
                    '<div class="body-detail">' +
                         '<div class="col-xs-5">' +
                             '<input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" value="0" readonly/>' +
@@ -812,6 +853,7 @@
             $("#jabatan").val($(this).find(':selected').attr("data-nama-group"));
             $("#nik").val($(this).find(':selected').attr("data-nik"));
             $("#nip").val($(this).find(':selected').attr("data-nip"));
+            $("#laporan_kegiatan").val($(this).find(':selected').attr("data-laporan"));
             // $("#nip").val($(this).find(':selected').val());
             $("#pangkat").val($(this).find(':selected').attr("data-pangkat"));
             $("#golongan").val($(this).find(':selected').attr("data-golongan"));
@@ -856,6 +898,10 @@
         dataRow.nopeg = $("#nopeg").val();
         dataRow.nip = $("#nip").val();
         dataRow.nik = $("#nik").val();
+		dataRow.laporan_kegiatan = 0;
+        if ($('#laporan_kegiatan').is(":checked")){
+            dataRow.laporan_kegiatan = 1;
+        };
         dataRow.pangkat = $("#pangkat").val();
         dataRow.golongan = $("#golongan").val();
         dataRow.nama_pegawai = $("#nama_pegawai").val();
@@ -906,6 +952,13 @@
                 $('#nik').val(selectedRow.nik);
                 $('#pangkat').val(selectedRow.pangkat);
                 $('#golongan').val(selectedRow.golongan);
+				
+				if (selectedRow.laporan_kegiatan == "1"){
+                   $('#laporan_kegiatan').prop("checked", true);
+                }
+                else{
+                    $('#laporan_kegiatan').prop("checked", false);
+                }
                 selectedRow.detail_uraian.forEach(function (item, index) {
                     if (index == 0) {
                         $("#biaya_uraian_1").val(selectedRow.detail_uraian[index].uraian);
@@ -1029,6 +1082,7 @@
         $("#jabatan").val("");
         $("#nip").val("");
         $("#nik").val("");
+        $('#laporan_kegiatan').prop("checked", false);
         $("#pangkat").val("");
         $("#golongan").val("");
         $("#biaya_uraian_1").val("");
@@ -1062,6 +1116,8 @@
         $("#jenis_biaya").val('');
         $("#jenis").prop('selectedIndex', 0);
         $("#jenis").trigger("chosen:updated");
+		$("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
+        $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
     }
 
     // CRUD
@@ -1094,6 +1150,8 @@
         // obj.surat_tugas_dalam_negeri_dalamkota = $("#surat_tugas_dalam_negeri_dalamkota").val();
         // obj.surat_tugas_dalam_negeri_luarkota = $("#surat_tugas_dalam_negeri_luarkota").val();
         // obj.surat_tugas_luar_negeri = $("#surat_tugas_luar_negeri").val();
+        obj.phl = $("#phl").val();
+        obj.surat_tugas_dalam_negeri_luarkota = $("#surat_tugas_dalam_negeri_luarkota").val();
         obj.total_hari_kerja = $("#total_hari_kerja").val();
         obj.detail = dataTable;
         console.log(obj);
@@ -1210,7 +1268,8 @@
                     $("#institusi").val(res.data.institusi);
                     $("#jam_mulai").val(res.data.jam_mulai);
                     $("#jam_sampai").val(res.data.jam_sampai);
-
+					getOptionsEdit("phl", BASE_URL + "master/plh",res.data.phl);
+																	 
                     $('#jenis').val(res.data.jenis);
                     $("#jenis").trigger("chosen:updated");
 
@@ -1258,16 +1317,16 @@
                     if (res.data.jenis_perjalanan == "Dalam Negeri") {
                         $("#dalam_negeri").val(res.data.dalam_negeri);
                         $("#dalam_negeri").trigger("chosen:updated");
-
-                        $("#surat_tugas_dalam_negeri").val(res.data.surat_tugas_dalam_negeri);
-                        $("#dalam_negeri").trigger("chosen:updated");
-                        $("#surat_tugas_dalam_negeri").trigger('chosen:updated');
-
-                        $(".dalam_negeri").removeClass('hidden');
-                        $(".jenis_perjalanan_dalam_negeri").removeClass('hidden');
-                        // hide
-                        $(".jenis_perjalanan_luar_negeri").addClass('hidden');
-                    }
+						if (res.data.dalam_negeri == "Luar Kota") {
+						$(".dalam_negeri").removeClass('hidden');
+						$('#surat_tugas_dalam_negeri_luarkota').val(res.data.alat_angkut);
+                        $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
+						$(".dalam_negeri-luarkota").removeClass('hidden');
+						$(".jenis_perjalanan_dalam_negeri").removeClass('hidden');
+						}else if (res.data.dalam_negeri == "Dalam Kota") {
+						$(".jenis_perjalanan_dalam_negeri").removeClass('hidden');
+						}
+                        } 
                     else {
                         $(".jenis_perjalanan_dalam_negeri").addClass('hidden');
                         $(".dalam_negeri").addClass('hidden');
@@ -1377,6 +1436,27 @@
         }
     }
 	
+	function cetak_c_spd(){
+     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } 
+        else {
+			if (selectedRowsSelesai[0].jenis_biaya!='BLU') {
+            onMessage('Tidak mencetak SPD, hanya untuk pegawai yang dibiayai BLU');
+            return false;
+			}else {
+				if (selectedRowsSelesai[0].dalam_negeri!='Luar Kota') {
+				onMessage('Tidak mencetak SPD, hanya untuk pegawai yang dibiayai BLU dan Luar Kota');
+				return false;
+				}else{
+				 gopop(BASE_URL + 'pengembangan_pelatihan/preview_c_spd/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf_spd,'large');
+				}
+			}
+        }
+    }
+	
 	function cetak_spd(){
      var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
         if (selectedRowsSelesai.length <= 0) {
@@ -1388,11 +1468,25 @@
             onMessage('Tidak mencetak SPD, hanya untuk pegawai yang dibiayai BLU');
             return false;
 			}else {
-            window.open(BASE_URL + 'pengembangan_pelatihan/cetak_spd/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode);
+				if (selectedRowsSelesai[0].dalam_negeri!='Luar Kota') {
+				onMessage('Tidak mencetak SPD, hanya untuk pegawai yang dibiayai BLU dan Luar Kota');
+				return false;
+				}else{
+				 gopop(BASE_URL + 'pengembangan_pelatihan/preview_spd/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf_spd,'large');
+				}
 			}
         }
     }
 	
+	function pdf_spd() {
+        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+	   if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } else {
+         window.open(BASE_URL + 'pengembangan_pelatihan/cetak_spd/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode);
+		}
+	}
 	
 	function cetak_rak(){
      var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
@@ -1435,15 +1529,25 @@
 				onMessage('Tidak mencetak Daftar RAK, hanya untuk kelompok');
 				return false;
 				}else{
-				window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id + '&surat=dft');
+				gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id + '&surat=dft',pdf_dft,'large');
 				}
 			}
         }
     }
+	
+	function pdf_dft() {
+        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+	   if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } else {
+         window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id + '&surat=dft');
+		}
+	}
 
     function uploadFile() {
         var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        $('#id_upload').val(selectedRowsSelesai[0].id);
+        $('#id_upload').val(selectedRowsSelesai[0].kode);
         if (selectedRowsSelesai.length <= 0) {
             onMessage('Silahkan Pilih Data Terlebih dahulu!');
             return false;
