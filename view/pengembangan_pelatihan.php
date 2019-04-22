@@ -18,6 +18,18 @@
       </i> Add
     </a>
   </li>
+    <button class=
+        "btn btn-warning btn-labeled fa fa-edit btn-sm" onclick=
+        "proses_edit();">Edit
+    </button>
+    <button class=
+        "btn btn-danger btn-labeled fa fa-close btn-sm" onclick=
+        "proses_delete();">Delete
+    </button>
+    <button class=
+        "btn btn-success btn-labeled fa fa-check btn-sm" id="id_upload" value="" onclick=
+        "uploadFile();">Upload File
+    </button>	
 </ul>
 <div class="tab-content">
     <div class="tab-pane fade active in" id="demo-lft-tab-1">
@@ -32,16 +44,12 @@
                             "demo-bootbox-bounce">Add
                             </button> -->
                             <button class=
-                                    "btn btn-warning btn-labeled fa fa-edit btn-sm" onclick=
-                                    "proses_edit();">Edit
-                            </button>
-                            <button class=
-                                    "btn btn-danger btn-labeled fa fa-close btn-sm" onclick=
-                                    "proses_delete();">Delete
-                            </button>
-                            <button class=
                                     "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                    "cetak();">Surat Izin / Tugas
+                                    "cetak_pengantar();">Surat Pengantar
+                            </button>
+							<button class=
+                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
+                                    "cetak();">Surat Tugas / Izin
                             </button>
 							<button class=
                                     "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
@@ -57,15 +65,15 @@
                             </button>
 							<button class=
                                     "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                "cetak_c_spd();">Catatan SPD
+                                "nota();">Nota Dinas
+                            </button>
+							<button class=
+                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
+                                "ikatan();">Ikatan Dinas
                             </button>
                             <button class=
-                                    "btn btn-mint btn-labeled fa fa-check btn-sm" onclick=
+                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
                                     "cetak_rekomendasi();">Rekomendasi
-                            </button>
-                            <button class=
-                                    "btn btn-success btn-labeled fa fa-check btn-sm" id="id_upload" value="" onclick=
-                                    "uploadFile();">Upload File
                             </button>
                         </div>
                     </div>
@@ -154,6 +162,12 @@
                                             <input type="text" name="institusi" id="institusi" class="form-control"/>
                                         </div>
                                     </div>
+									<div class="form-group">
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Alamat</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" name="alamat" id="alamat" class="form-control"/>
+                                        </div>
+                                    </div>
                                     <div class="body-content-calendar">
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="demo-hor-inputemail">Tgl
@@ -200,7 +214,7 @@
                                             <input type="text" name="id" id="id" style="width: 220px;display:none"
                                                    class="form-control"/>
                                             <input type="text" name="total_hari_kerja" id="total_hari_kerja" class="form-control numeric-only"/>
-                                        </div>
+										</div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Jenis Kegiatan</label>
@@ -222,7 +236,8 @@
                                         <label class="col-sm-2 control-label">Jenis Perjalanan</label>
                                         <div class="col-sm-5">
                                             <select name="jenis_perjalanan" id="jenis_perjalanan"
-                                                    class="form-control select-chosen">
+                                                    class="form-control select-chosen"
+													onChange="getperjalanan(this.value);">
                                                 <option value="">Pilih</option>
                                                 <option>Dalam Negeri</option>
                                                 <option>Luar Negeri</option>
@@ -248,6 +263,42 @@
                                             </select>
                                         </div>
                                     </div>
+									<div class="luar">
+									<div class="form-group target_kinerja">
+                                        <label class="col-sm-2 control-label">Target Kinerja </label>
+                                        <div class="col-sm-10">
+                                            <input type="text area" name="target_kinerja" id="target_kinerja" class="form-control"/>
+                                        </div>
+                                    </div>
+									<div class="form-group">
+                                        <label class="col-sm-2 control-label">Tanggal Pergi</label>
+                                        <div class="body-detail">
+                                            <div class="col-sm-4">
+                                                <input type="text" name="tanggal_go[]" class="form-control tanggal_go daterangepicker"
+                                                       id="tanggal_go"
+                                                />
+                                            </div>
+											<label class="col-sm-2 control-label">Hari Pergi</label>
+											<div class="col-xs-4">
+                                                <input type="text" name="hari_go" id="hari_go" class="form-control numeric-only"/>
+											</div>
+                                        </div>
+                                    </div>
+									<div class="form-group">
+                                        <label class="col-sm-2 control-label">Tanggal Pulang</label>
+                                        <div class="body-detail">
+                                            <div class="col-sm-4">
+                                                <input type="text" name="tanggal_back[]" class="form-control tanggal_back daterangepicker"
+                                                       id="tanggal_back"
+                                                />
+                                            </div>
+											<label class="col-sm-2 control-label">Hari Pulang</label>
+											<div class="col-xs-4">
+                                                <input type="text" name="hari_back" id="hari_back" class="form-control numeric-only"/>
+                                            </div>
+                                        </div>
+                                    </div>
+									</div>
                                     <!--<div class="form-group dalam_negeri-dalamkota hidden">
                                         <label class="col-sm-3 control-label"></label>
                                         <div class="col-sm-5">
@@ -502,22 +553,22 @@
             {headerName: "Laporan", field: "pengembangan_pelatihan_detail.laporan_kegiatan", width: 190, filterParams: {newRowsAction: 'keep'}},
 				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file", 
 				  cellRenderer: function(params) {
-					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Tugas</a>'
+					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Usulan</a>'
 				  }
 				},
 				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_izn", 
 				  cellRenderer: function(params) {
-					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Izin</a>'
-				  }
-				},
-				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_spd", 
-				  cellRenderer: function(params) {
-					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> SPD</a>'
+					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Tugas/Izin</a>'
 				  }
 				},
 				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_rak", 
 				  cellRenderer: function(params) {
 					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> RAK</a>'
+				  }
+				},
+				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_spd", 
+				  cellRenderer: function(params) {
+					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> SPD</a>'
 				  }
 				},
 				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_rkm", 
@@ -1125,7 +1176,10 @@
         obj.nama_pelatihan = $("#nama_pelatihan").val();
         obj.tujuan = $("#tujuan").val();
         obj.institusi = $("#institusi").val();
+        obj.alamat = $("#alamat").val();
         obj.tanggal = $(".tanggal").serializeArray();
+        obj.tanggal_go = $(".tanggal_go").serializeArray();
+        obj.tanggal_back = $(".tanggal_back").serializeArray();
         obj.jam_mulai = $("#jam_mulai").val();
         obj.jam_sampai = $("#jam_sampai").val();
         obj.laporan = 0;
@@ -1148,6 +1202,9 @@
         // obj.surat_tugas_dalam_negeri_luarkota = $("#surat_tugas_dalam_negeri_luarkota").val();
         // obj.surat_tugas_luar_negeri = $("#surat_tugas_luar_negeri").val();
         obj.phl = $("#phl").val();
+		obj.hari_go = $("#hari_go").val();
+        obj.hari_back = $("#hari_back").val();
+        obj.target_kinerja = $("#target_kinerja").val();
         obj.surat_tugas_dalam_negeri_luarkota = $("#surat_tugas_dalam_negeri_luarkota").val();
         obj.total_hari_kerja = $("#total_hari_kerja").val();
         obj.detail = dataTable;
@@ -1262,12 +1319,14 @@
 
                     $("#nama_pelatihan").val(res.data.nama_pelatihan);
                     $("#tujuan").val(res.data.tujuan);
+                    $("#target_kinerja").val(res.data.target_kinerja);
                     $("#institusi").val(res.data.institusi);
+                    $("#alamat").val(res.data.alamat);
                     $("#jam_mulai").val(res.data.jam_mulai);
                     $("#jam_sampai").val(res.data.jam_sampai);
 					getOptionsEdit("phl", BASE_URL + "master/plh",res.data.phl);
 					getOptionsEdit("surat_tugas_dalam_negeri_luarkota", BASE_URL + "master/alat_angkut",res.data.alat_angkut);
-																	 
+					getperjalanan(res.data.jenis_perjalanan);
                     $('#jenis').val(res.data.jenis);
                     $("#jenis").trigger("chosen:updated");
 
@@ -1287,6 +1346,8 @@
                     $("#jenis_perjalanan").trigger("chosen:updated");
 
                     for (var i = 0; i < res.data.tanggal.length; i++) {
+						$('#hari_go').val(res.data.tanggal[i].hari_go);
+						$('#hari_back').val(res.data.tanggal[i].hari_back);
                         if (i == 0){
                             $("#tanggal").val(res.data.tanggal[i].tanggal_from +" - "+ res.data.tanggal[i].tanggal_to);
                         }
@@ -1296,6 +1357,50 @@
                                 '<label class="col-sm-3 control-label" for="demo-hor-inputemail"></label>' +
                                 '<div class="col-sm-5">' +
                                 '<input type="text" name="tanggal[]" class="form-control tanggal daterangepicker" value="'+ res.data.tanggal[i].tanggal_from +" - "+ res.data.tanggal[i].tanggal_to +'" />' +
+                                '</div>' +
+                                '<div class="col-xs-3 pull right">' +
+                                '<div class="btn btn-default btn-sm btn-remove-calendar">' +
+                                '<i class="fa fa-trash-o"></i>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>');
+                            $(".body-content-calendar").append(row);
+                            $('.daterangepicker').daterangepicker({
+                                   locale: {
+                                     format: 'DD-MM-YYYY'
+                                   }
+                            });
+                        }if (i == 0){
+                            $("#tanggal_go").val(res.data.tanggal[i].tanggal_go +" - "+ res.data.tanggal[i].tanggal_go1);
+                        }
+                        else{
+                            var row = $(
+                                '<div class="form-group body-remove-calendar">' +
+                                '<label class="col-sm-3 control-label" for="demo-hor-inputemail"></label>' +
+                                '<div class="col-sm-5">' +
+                                '<input type="text" name="tanggal_go[]" class="form-control tanggal_go daterangepicker" value="'+ res.data.tanggal[i].tanggal_go +" - "+ res.data.tanggal[i].tanggal_go1 +'" />' +
+                                '</div>' +
+                                '<div class="col-xs-3 pull right">' +
+                                '<div class="btn btn-default btn-sm btn-remove-calendar">' +
+                                '<i class="fa fa-trash-o"></i>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>');
+                            $(".body-content-calendar").append(row);
+                            $('.daterangepicker').daterangepicker({
+                                   locale: {
+                                     format: 'DD-MM-YYYY'
+                                   }
+                            });
+                        }if (i == 0){
+                            $("#tanggal_back").val(res.data.tanggal[i].tanggal_back +" - "+ res.data.tanggal[i].tanggal_back);
+                        }
+                        else{
+                            var row = $(
+                                '<div class="form-group body-remove-calendar">' +
+                                '<label class="col-sm-3 control-label" for="demo-hor-inputemail"></label>' +
+                                '<div class="col-sm-5">' +
+                                '<input type="text" name="tanggal_back[]" class="form-control tanggal_back daterangepicker" value="'+ res.data.tanggal[i].tanggal_back +" - "+ res.data.tanggal[i].tanggal_back1 +'" />' +
                                 '</div>' +
                                 '<div class="col-xs-3 pull right">' +
                                 '<div class="btn btn-default btn-sm btn-remove-calendar">' +
@@ -1387,6 +1492,14 @@
         btnActionAdd();
     }
 
+	function getperjalanan(a){
+		if((a==='Luar Negeri')){
+			$('.luar').show('slow');
+		}else{
+			$('.luar').hide('slow');
+		}
+	}
+	
     function laporan_selesai() {
         var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
         if (selectedRowsSelesai.length <= 0) {
@@ -1404,8 +1517,12 @@
             return false;
         } 
         else {
-            gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id,pdf,'large');
-        }
+			if (selectedRowsSelesai[0].jenis_perjalanan!='Dalam Negeri') {
+			gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf,'large');
+			}else{
+			gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id,pdf,'large');
+			}
+		}
     }
 
     function pdf() {
@@ -1414,8 +1531,12 @@
             onMessage('Silahkan Pilih Data Terlebih dahulu!');
             return false;
         } else {
-            window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id+ '&surat='+ selectedRowsSelesai[0].jenis_surat);
-        }
+			if (selectedRowsSelesai[0].jenis_perjalanan!='Dalam Negeri') {
+            window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id+ '&surat='+ selectedRowsSelesai[0].jenis_surat+ '&kode=' + selectedRowsSelesai[0].kode);
+            }else{
+			window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id+ '&surat='+ selectedRowsSelesai[0].jenis_surat);
+			}
+		}
 	}
 
     function cetak_rekomendasi(){
@@ -1425,33 +1546,27 @@
             return false;
         } 
         else {
+			if (selectedRowsSelesai[0].jenis_perjalanan!='Luar Negeri') {
 			if (selectedRowsSelesai[0].jenis_biaya!='Sponsor') {
             onMessage('Tidak mencetak Rekomendasi, hanya untuk pegawai yang dibiayai Sponsor');
             return false;
 			}else{
-            window.open(BASE_URL + 'pengembangan_pelatihan/cetak_rekomendasi/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode);
+            gopop(BASE_URL + 'pengembangan_pelatihan/preview_rekomendasi/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf_rekomendasi,'large');
+			}
+			}else{
+			gopop(BASE_URL + 'pengembangan_pelatihan/preview_rekomendasi/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf_rekomendasi,'large');
 			}
         }
-    }
+    } 
 	
-	function cetak_c_spd(){
+	function pdf_rekomendasi(){
      var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
         if (selectedRowsSelesai.length <= 0) {
             onMessage('Silahkan Pilih Data Terlebih dahulu!');
             return false;
         } 
         else {
-			if (selectedRowsSelesai[0].jenis_biaya!='BLU') {
-            onMessage('Tidak mencetak SPD, hanya untuk pegawai yang dibiayai BLU');
-            return false;
-			}else {
-				if (selectedRowsSelesai[0].dalam_negeri!='Luar Kota') {
-				onMessage('Tidak mencetak SPD, hanya untuk pegawai yang dibiayai BLU dan Luar Kota');
-				return false;
-				}else{
-				 gopop(BASE_URL + 'pengembangan_pelatihan/preview_c_spd/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf_spd,'large');
-				}
-			}
+            window.open(BASE_URL + 'pengembangan_pelatihan/cetak_rekomendasi/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode);
         }
     }
 	
@@ -1462,6 +1577,7 @@
             return false;
         } 
         else {
+			if (selectedRowsSelesai[0].jenis_perjalanan!='Luar Negeri') {
 			if (selectedRowsSelesai[0].jenis_biaya!='BLU') {
             onMessage('Tidak mencetak SPD, hanya untuk pegawai yang dibiayai BLU');
             return false;
@@ -1473,8 +1589,11 @@
 				 gopop(BASE_URL + 'pengembangan_pelatihan/preview_spd/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf_spd,'large');
 				}
 			}
+			}else{
+				gopop(BASE_URL + 'pengembangan_pelatihan/preview_spd/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf_spd,'large');
+			}
+			}
         }
-    }
 	
 	function pdf_spd() {
         var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
@@ -1483,6 +1602,84 @@
             return false;
         } else {
          window.open(BASE_URL + 'pengembangan_pelatihan/cetak_spd/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode);
+		}
+	}
+	
+	function cetak_pengantar(){
+     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } 
+        else {
+			if (selectedRowsSelesai[0].jenis_perjalanan!='Luar Negeri') {
+            onMessage('Tidak mencetak pengantar, hanya untuk pegawai yang perjalanan luar negeri');
+            return false;
+			}else{
+			gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id + '&surat=Surat_pengantar&kode=' + selectedRowsSelesai[0].kode,pdf_cetak_pengantar,'large');
+        }
+		}
+    }
+	
+	function pdf_cetak_pengantar() {
+        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+	   if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } else {
+         window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id + '&surat=Surat_pengantar&kode=' + selectedRowsSelesai[0].kode);
+		}
+	}
+	
+	function nota(){
+     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } 
+        else {
+			if (selectedRowsSelesai[0].jenis_perjalanan!='Luar Negeri') {
+            onMessage('Tidak mencetak nota, hanya untuk pegawai yang perjalanan luar negeri');
+            return false;
+			}else{
+			gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id + '&surat=nota&kode=' + selectedRowsSelesai[0].kode,pdf_cetak_nota,'large');
+        }
+		}
+    }
+	
+	function pdf_cetak_nota() {
+        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+	   if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } else {
+         window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id + '&surat=nota&kode=' + selectedRowsSelesai[0].kode);
+		}
+	}
+	
+	function ikatan(){
+     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } 
+        else {
+			if (selectedRowsSelesai[0].jenis_perjalanan!='Luar Negeri') {
+            onMessage('Tidak mencetak ikatan, hanya untuk pegawai yang perjalanan luar negeri');
+            return false;
+			}else{
+			gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id + '&surat=ikatan&kode=' + selectedRowsSelesai[0].kode,pdf_cetak_ikatan,'large');
+        }
+		}
+    }
+	
+	function pdf_cetak_ikatan() {
+        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+	   if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } else {
+         window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id + '&surat=ikatan&kode=' + selectedRowsSelesai[0].kode);
 		}
 	}
 	

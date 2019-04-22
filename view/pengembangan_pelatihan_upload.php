@@ -9,9 +9,9 @@
                     <!-- /.box-header -->
                     <!-- form start -->
                     <div class="box-body">
-                        <div class="form-group tugas">
+                        <div class="form-group usulan">
                             <div class="col-sm-4" align="right">
-                                <label>Upload Surat Tugas</label>
+                                <label>Upload Surat Usulan</label>
                             </div>
                             <div class="col-sm-8" align="center">
                                 <input required="" name="inputfileuploadtgs" id="inputfileuploadtgs" type="file"
@@ -20,7 +20,7 @@
                         </div>  
 						<div class="form-group izin">
                             <div class="col-sm-4" align="right">
-                                <label>Upload Surat Izin</label>
+                                <label>Upload Surat Tugas/Izin</label>
                             </div>
                             <div class="col-sm-8" align="center">
                                 <input required="" name="inputfileuploadizn" id="inputfileuploadizn" type="file"

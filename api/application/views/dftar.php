@@ -17,7 +17,7 @@
 	</table>
    </div>
    <div hidden="<?php echo $result["footer"]; ?>" id="foote">
-     <p><h6>Latbang_3:RAK Intern <?php echo date("d")." ". $result["tanggal"]["tanggal_now"] ?> <?php echo $result["createdby"]; ?></h6></p>
+     <p><h6><?php echo $result["createdby"]; ?>:Intern <?php echo date("d")." ".$result["tanggal"]["tanggal_now"] ?></h6></p>
    </div>
 <div id="content">
 <table border="0" width="100%" class="table-1" style="margin:30px">
@@ -32,7 +32,7 @@
           <tr>
             <td width="55%">&nbsp;</td>
             <td width="15%">Lampiran</td>
-            <td width="30%">: <?php echo $result["jenis_surat"]; ?></td>
+            <td width="30%">: Surat RAK</td>
           </tr>
           <tr>
             <td width="55%">&nbsp;</td>
@@ -58,12 +58,12 @@
     </tr>
     <tr>
       <td colspan="3">
-        <table width="100%" border="1px solid" cellpadding="1" cellspacing="0" class="table2" style="margin-top: 15px">
+        <table width="100%" border="1px solid" cellpadding="1" cellspacing="0" class="table2">
           <tr>
             <th>No</th>
             <th>Nopeg</th>
             <th>Nama</th>
-            <th>Unit Kerja</th>
+            <th>Jabatan</th>
           </tr>
           <?php if (!empty($result["detail"])): ?>
             <?php foreach ($result["detail"] as $key => $value): ?>

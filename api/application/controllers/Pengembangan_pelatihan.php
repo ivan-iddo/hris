@@ -48,8 +48,9 @@ class Pengembangan_pelatihan extends REST_Controller
     {
         $jenis_surat = $this->input->get("surat");
 		$id = $this->input->get("id");
+		$kode = $this->input->get("kode");
         $results = $this->Pengembangan_pelatihan_model->get_all(array("pengembangan_pelatihan.id" => $id), null, $offset, $limit);
-        // print_r($results);die;
+        // print_r($jenis_surat);die;
         if (!empty($results)) {
             $result = $results[0];
             $createdby = $this->db->select("username")->where(array("id_user" => $result["createdby"]))->get("sys_user")->result_array();
@@ -64,6 +65,7 @@ class Pengembangan_pelatihan extends REST_Controller
             $result["tanggal"] = $tanggal;
             $result["tanggal"]["tanggal_now"] = bulan(date("m")) ." ". date("Y");
             $result["tanggal"]["tanggal_to"] = date("d",strtotime($result["tanggal"][0]["tanggal_to"]))." ".bulan(date("m",strtotime($result["tanggal"][0]["tanggal_to"]))) ." ".date("Y",strtotime($result["tanggal"][0]["tanggal_to"]));
+            $result["tanggal"]["tanggal_from"] = date("d",strtotime($result["tanggal"][0]["tanggal_from"]))." ".bulan(date("m",strtotime($result["tanggal"][0]["tanggal_from"]))) ." ".date("Y",strtotime($result["tanggal"][0]["tanggal_from"]));
             $result["created"]["date"] = date("d",strtotime($result["created"]))." ".bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]));
             $result["tanggal"]["day_to"] = hari_indo(date("D",strtotime($result["tanggal"][0]["tanggal_to"])));
             $result["tanggal"]["day_from"] = hari_indo(date("D",strtotime($result["tanggal"][0]["tanggal_from"])));
@@ -73,7 +75,11 @@ class Pengembangan_pelatihan extends REST_Controller
 			$result["footer"]=true;
             $result["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($result["pengembangan_pelatihan_kegiatan"]);
             $result["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($result["pengembangan_pelatihan_kegiatan_status"]);
-            foreach ($results as $key => $value) {
+            if(!empty($kode)){
+			$result["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($kode);
+			}
+			//print_r($kode);die;
+			foreach ($results as $key => $value) {
                 $result["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
                 $result["total_biaya"] = terbilang($result["detail"][$key]["uraian_total"]);
 				$result["total"] += $result["detail"][$key]["uraian_total"];
@@ -82,13 +88,15 @@ class Pengembangan_pelatihan extends REST_Controller
 				if (!empty($result["detail"])) {
                     foreach ($result["detail"] as $key_detail_biaya => $value_detail_biaya) {
                         $result["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
-                    }
+						$result["count_detail"] = count($result["detail"][$key_detail_biaya]["detail_uraian"]);
+					}
                 }
             }
         }
        //print_r($result);die;
         //$this->load->library("pdf");
         $data = "test";
+        if ($result['jenis_perjalanan'] == "Dalam Negeri") {
         if ($result['jenis_surat'] == "Surat Tugas") {
             if ($result["jenis"] == "Kelompok") {
 				if ($jenis_surat == "RAK") {
@@ -112,6 +120,33 @@ class Pengembangan_pelatihan extends REST_Controller
 			$html = $this->load->view("view_pdf_5", array("result" => $result), true);
 			}
 		}
+		}else{
+		if ($result['jenis_surat'] == "Surat Tugas") {
+			if ($jenis_surat == "RAK") {
+				$html = $this->load->view("surat", array("result" => $result), true);
+			}else if ($jenis_surat == "dft") {
+				$html = $this->load->view("dftar", array("result" => $result), true);
+			}else if ($jenis_surat == "Surat_pengantar") {
+				$html = $this->load->view("view_pdf_11", array("result" => $result), true);
+			}else if ($jenis_surat == "nota") {
+				$html = $this->load->view("view_pdf_12", array("result" => $result), true);
+			}else if ($jenis_surat == "ikatan") {
+				$html = $this->load->view("view_pdf_13", array("result" => $result), true);
+			}else{
+                $html = $this->load->view("view_pdf_9", array("result" => $result), true);
+			}
+        } else if ($result['jenis_surat'] == "Surat Izin") {
+			if ($jenis_surat == "Surat_pengantar") {
+				$html = $this->load->view("view_pdf_11", array("result" => $result), true);
+			}else if ($jenis_surat == "nota") {
+				$html = $this->load->view("view_pdf_12", array("result" => $result), true);
+			}else if ($jenis_surat == "ikatan") {
+				$html = $this->load->view("view_pdf_13", array("result" => $result), true);
+			}else{
+				$html = $this->load->view("view_pdf_10", array("result" => $result), true);
+			}
+			}
+		}
         
         echo $html;
         die;
@@ -121,6 +156,7 @@ class Pengembangan_pelatihan extends REST_Controller
     {
         $id = $this->input->get("id");
         $jenis_surat = $this->input->get("surat");
+		$kode = $this->input->get("kode");
         $results = $this->Pengembangan_pelatihan_model->get_all(array("pengembangan_pelatihan.id" => $id), null, $offset, $limit);
         // print_r($results);die;
         if (!empty($results)) {
@@ -137,7 +173,8 @@ class Pengembangan_pelatihan extends REST_Controller
             $result["tanggal"] = $tanggal;
             $result["tanggal"]["tanggal_now"] = bulan(date("m")) ." ". date("Y");
             $result["tanggal"]["tanggal_to"] = date("d",strtotime($result["tanggal"][0]["tanggal_to"]))." ".bulan(date("m",strtotime($result["tanggal"][0]["tanggal_to"]))) ." ".date("Y",strtotime($result["tanggal"][0]["tanggal_to"]));
-            $result["created"]["date"] = date("d",strtotime($result["created"]))." ".bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]));
+            $result["tanggal"]["tanggal_from"] = date("d",strtotime($result["tanggal"][0]["tanggal_from"]))." ".bulan(date("m",strtotime($result["tanggal"][0]["tanggal_from"]))) ." ".date("Y",strtotime($result["tanggal"][0]["tanggal_from"]));
+			$result["created"]["date"] = date("d",strtotime($result["created"]))." ".bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]));
             $result["tanggal"]["day_to"] = hari_indo(date("D",strtotime($result["tanggal"][0]["tanggal_to"])));
             $result["tanggal"]["day_from"] = hari_indo(date("D",strtotime($result["tanggal"][0]["tanggal_from"])));
             // print_r($result);die;
@@ -145,7 +182,10 @@ class Pengembangan_pelatihan extends REST_Controller
             $result["aprove_phl"] = $this->Pengembangan_pelatihan_model->get_phl($result["phl"]);
             $result["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($result["pengembangan_pelatihan_kegiatan"]);
             $result["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($result["pengembangan_pelatihan_kegiatan_status"]);
-            foreach ($results as $key => $value) {
+            if(!empty($kode)){
+			$result["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($kode);
+			}
+			foreach ($results as $key => $value) {
                 $result["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
                 $result["total_biaya"] = terbilang($result["detail"][0]["uraian_total"]);
                 $result["total"] += $result["detail"][$key]["uraian_total"];
@@ -154,7 +194,7 @@ class Pengembangan_pelatihan extends REST_Controller
 				if (!empty($result["detail"])) {
                     foreach ($result["detail"] as $key_detail_biaya => $value_detail_biaya) {
                         $result["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
-
+						$result["count_detail"] = count($result["detail"][$key_detail_biaya]["detail_uraian"]);
                     }
                 }
             }
@@ -162,7 +202,8 @@ class Pengembangan_pelatihan extends REST_Controller
         //print_r($result);die;
         $this->load->library("pdf");
         $data = "test";
-
+		$kertas="A4";
+		if ($result['jenis_perjalanan'] == "Dalam Negeri") {
         if ($result['jenis_surat'] == "Surat Tugas") {
             if ($result["jenis"] == "Kelompok") {
 				if ($jenis_surat == "RAK") {
@@ -184,13 +225,43 @@ class Pengembangan_pelatihan extends REST_Controller
             $html = $this->load->view("view_pdf_2", array("result" => $result), true);
 			}else{
 			$html = $this->load->view("view_pdf_5", array("result" => $result), true);
-			}}
+			}
+			}
+		}else{
+		if ($result['jenis_surat'] == "Surat Tugas") {
+			if ($jenis_surat == "RAK") {
+				$html = $this->load->view("surat", array("result" => $result), true);
+			}else if ($jenis_surat == "dft") {
+				$html = $this->load->view("dftar", array("result" => $result), true);
+			}else if ($jenis_surat == "Surat_pengantar") {
+				$html = $this->load->view("view_pdf_11", array("result" => $result), true);
+			}else if ($jenis_surat == "nota") {
+				$html = $this->load->view("view_pdf_12", array("result" => $result), true);
+			}else if ($jenis_surat == "ikatan") {
+				$html = $this->load->view("view_pdf_13", array("result" => $result), true);
+			}else{
+                $html = $this->load->view("view_pdf_9", array("result" => $result), true);
+				$kertas="Legal";
+			}
+        } else if ($result['jenis_surat'] == "Surat Izin") {
+            if ($jenis_surat == "Surat_pengantar") {
+				$html = $this->load->view("view_pdf_11", array("result" => $result), true);
+			}else if ($jenis_surat == "nota") {
+				$html = $this->load->view("view_pdf_12", array("result" => $result), true);
+			}else if ($jenis_surat == "ikatan") {
+				$html = $this->load->view("view_pdf_13", array("result" => $result), true);
+			}else{
+				$html = $this->load->view("view_pdf_10", array("result" => $result), true);
+				$kertas="Legal";
+			}
+		}
+		}
         
-        //echo $html;
+        //echo $kertas;
         //die;
 
         $this->pdf->loadHtml($html);
-        $this->pdf->setPaper("A4", ($orientation = "P" ));
+        $this->pdf->setPaper($kertas, ($orientation = "P" ));
         $this->pdf->set_option("isPhpEnabled", true);
         $this->pdf->set_option("isHtml5ParserEnabled", true);
         $this->pdf->set_option("isRemoteEnabled", true);
@@ -200,7 +271,7 @@ class Pengembangan_pelatihan extends REST_Controller
         // return true;
     }
 
-    public function cetak_rekomendasi_get()
+    public function preview_rekomendasi_get()
     {
         // echo date("d") ." ". bulan(date("m")) ." ". date("Y"); die();
         $id = $this->input->get("id");
@@ -211,6 +282,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 if (!empty($results['result'])) {
                     foreach ($results["result"] as $key => $value) {
 						//print_r($results["result"][$key]["jenis_biaya"]);die;
+						if ($results["result"][$key]["jenis_perjalanan"] != "Luar Negeri") {
 						if ($results["result"][$key]["jenis_biaya"] == "Sponsor") {
                         $createdby = $this->db->select("username")->where(array("id_user" => $value["createdby"]))->get("sys_user")->result_array();
                         $updatedby = $this->db->select("username")->where(array("id_user" => $value["updatedby"]))->get("sys_user")->result_array();
@@ -225,8 +297,10 @@ class Pengembangan_pelatihan extends REST_Controller
 						$results["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($kode);
                         $results["result"][$key]["tanggal"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $value["id"]));
                         $results["result"][$key]["tanggal"]["now"] = bulan(date("m")) ." ". date("Y");
+						$results["result"][$key]["aprove_phl"] = $this->Pengembangan_pelatihan_model->get_phl($results["result"][$key]["phl"]);
 						$results["result"][$key]["tanggal"]["to"] = date("d",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]))." ".bulan(date("m",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]))) ." ".date("Y",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]));
-                        $results["result"][$key]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
+                        $results["result"][$key]["tanggal"]["from"] = date("d",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]))." ".bulan(date("m",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]))) ." ".date("Y",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]));
+						$results["result"][$key]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
                         if (!empty($results["result"][$key]["detail"])) {
                             foreach ($results["result"][$key]["detail"] as $key_detail_biaya => $value_detail_biaya) {
                                 $results["result"][$key]["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
@@ -235,19 +309,38 @@ class Pengembangan_pelatihan extends REST_Controller
 						//print_r($results["result"][$key]);die;
 						$this->load->library("pdf");
                         $html = $this->load->view("view_pdf_3", array("result" => $results["result"][$key]), true);
-                        // echo $html;
-                        // die;
-                        $customPaper = array(0,0,210,330);
-                        $this->pdf->loadHtml($html);
-                        // $this->pdf->setPaper($customPaper);
-                        $this->pdf->setPaper("A4", ($orientation = "P" ));
-                        $this->pdf->set_option("isPhpEnabled", true);
-                        $this->pdf->set_option("isHtml5ParserEnabled", true);
-                        $this->pdf->set_option("isRemoteEnabled", true);
-                        $this->pdf->render();
-                        $name = "download rekomendasi";
-                        $this->pdf->stream($name, array("Attachment" => 1));
-                    }
+                        echo $html;
+                        die;
+                     }
+					}else{
+						$createdby = $this->db->select("username")->where(array("id_user" => $value["createdby"]))->get("sys_user")->result_array();
+                        $updatedby = $this->db->select("username")->where(array("id_user" => $value["updatedby"]))->get("sys_user")->result_array();
+                        if (count($createdby) == 1) {
+                            $results["result"][$key]["createdby"] = $createdby[0]["username"];
+                        }
+                        if (count($updatedby) == 1) {
+                            $results["result"][$key]["updatedby"] = $updatedby[0]["username"];
+                        }
+                        $results["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
+                        $results["result"][$key]["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($value["pengembangan_pelatihan_kegiatan_status"]);
+						$results["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($kode);
+                        $results["result"][$key]["tanggal"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $value["id"]));
+                        $results["result"][$key]["tanggal"]["now"] = bulan(date("m")) ." ". date("Y");
+						$results["result"][$key]["aprove_phl"] = $this->Pengembangan_pelatihan_model->get_phl($results["result"][$key]["phl"]);
+						$results["result"][$key]["tanggal"]["to"] = date("d",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]))." ".bulan(date("m",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]))) ." ".date("Y",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]));
+                        $results["result"][$key]["tanggal"]["from"] = date("d",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]))." ".bulan(date("m",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]))) ." ".date("Y",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]));
+						$results["result"][$key]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
+                        if (!empty($results["result"][$key]["detail"])) {
+                            foreach ($results["result"][$key]["detail"] as $key_detail_biaya => $value_detail_biaya) {
+                                $results["result"][$key]["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
+                            }
+                        }
+						//print_r($results["result"][$key]);die;
+						$this->load->library("pdf");
+                        $html = $this->load->view("view_pdf_3", array("result" => $results["result"][$key]), true);
+                        echo $html;
+                        die;
+					}
                     }
                 }
 
@@ -255,22 +348,19 @@ class Pengembangan_pelatihan extends REST_Controller
         
     }
 	
-	public function preview_c_spd_get()
+	public function cetak_rekomendasi_get()
     {
         // echo date("d") ." ". bulan(date("m")) ." ". date("Y"); die();
         $id = $this->input->get("id");
 		$kode = $this->input->get("kode");
 		$results['result'] = $this->Pengembangan_pelatihan_model->get_all(array("pengembangan_pelatihan.id" => $id), null, $offset, $limit);
-
-        // $html = $this->load->view("view_pdf_4");
-        //                 echo $html;
-        //                 die;
                 // echo $this->db->last_query();die;
                // print_r($results);die;
                 if (!empty($results['result'])) {
                     foreach ($results["result"] as $key => $value) {
 						//print_r($results["result"][$key]["jenis_biaya"]);die;
-						if ($results["result"][$key]["jenis_biaya"] == "BLU") {
+						if ($results["result"][$key]["jenis_perjalanan"] != "Luar Negeri") {
+						if ($results["result"][$key]["jenis_biaya"] == "Sponsor") {
                         $createdby = $this->db->select("username")->where(array("id_user" => $value["createdby"]))->get("sys_user")->result_array();
                         $updatedby = $this->db->select("username")->where(array("id_user" => $value["updatedby"]))->get("sys_user")->result_array();
                         if (count($createdby) == 1) {
@@ -284,29 +374,79 @@ class Pengembangan_pelatihan extends REST_Controller
 						$results["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($kode);
                         $results["result"][$key]["tanggal"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $value["id"]));
                         $results["result"][$key]["tanggal"]["now"] = bulan(date("m")) ." ". date("Y");
-						$results["result"][$key]["tanggal"]["from"] = date("d",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]))." ".bulan(date("m",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]))) ." ".date("Y",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]));
+						$results["result"][$key]["aprove_phl"] = $this->Pengembangan_pelatihan_model->get_phl($results["result"][$key]["phl"]);
 						$results["result"][$key]["tanggal"]["to"] = date("d",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]))." ".bulan(date("m",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]))) ." ".date("Y",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]));
-                        $results["result"][$key]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
-                        $results["result"][$key]["total_hari_kerja_baru"] = terbilang($results["result"][$key]["total_hari_kerja"]);
-                        $results["result"][$key]["total_biaya"] = terbilang($results["result"][$key]["detail"][$key]["uraian_total"]);
-						if (!empty($results["result"][$key]["detail"])) {
-                            
+                        $results["result"][$key]["tanggal"]["from"] = date("d",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]))." ".bulan(date("m",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]))) ." ".date("Y",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]));
+						$results["result"][$key]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
+                        if (!empty($results["result"][$key]["detail"])) {
                             foreach ($results["result"][$key]["detail"] as $key_detail_biaya => $value_detail_biaya) {
                                 $results["result"][$key]["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
                             }
                         }
 						//print_r($results["result"][$key]);die;
 						$this->load->library("pdf");
-                        $html = $this->load->view("view_pdf_6", array("result" => $results["result"][$key]), true);
-                        echo $html;
-                        die;
+                        $html = $this->load->view("view_pdf_3", array("result" => $results["result"][$key]), true);
+                        //echo $html;
+                        //die;
+						$customPaper = array(0,0,210,330);
+                        $this->pdf->loadHtml($html);
+                        // $this->pdf->setPaper($customPaper);
+                        $this->pdf->setPaper("legal", ($orientation = "P" ));
+                        $this->pdf->set_option("isPhpEnabled", true);
+                        $this->pdf->set_option("isHtml5ParserEnabled", true);
+                        $this->pdf->set_option("isRemoteEnabled", true);
+                        $this->pdf->render();
+                        $name = "download rekomendasi";
+                        $this->pdf->stream($name, array("Attachment" => 1));
+                    
+                     }
+					}else{
+						$createdby = $this->db->select("username")->where(array("id_user" => $value["createdby"]))->get("sys_user")->result_array();
+                        $updatedby = $this->db->select("username")->where(array("id_user" => $value["updatedby"]))->get("sys_user")->result_array();
+                        if (count($createdby) == 1) {
+                            $results["result"][$key]["createdby"] = $createdby[0]["username"];
+                        }
+                        if (count($updatedby) == 1) {
+                            $results["result"][$key]["updatedby"] = $updatedby[0]["username"];
+                        }
+                        $results["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
+                        $results["result"][$key]["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($value["pengembangan_pelatihan_kegiatan_status"]);
+						$results["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($kode);
+                        $results["result"][$key]["tanggal"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $value["id"]));
+                        $results["result"][$key]["tanggal"]["now"] = bulan(date("m")) ." ". date("Y");
+						$results["result"][$key]["aprove_phl"] = $this->Pengembangan_pelatihan_model->get_phl($results["result"][$key]["phl"]);
+						$results["result"][$key]["tanggal"]["to"] = date("d",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]))." ".bulan(date("m",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]))) ." ".date("Y",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]));
+                        $results["result"][$key]["tanggal"]["from"] = date("d",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]))." ".bulan(date("m",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]))) ." ".date("Y",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]));
+						$results["result"][$key]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
+                        if (!empty($results["result"][$key]["detail"])) {
+                            foreach ($results["result"][$key]["detail"] as $key_detail_biaya => $value_detail_biaya) {
+                                $results["result"][$key]["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
+                            }
+                        }
+						//print_r($results["result"][$key]);die;
+						$this->load->library("pdf");
+                        $html = $this->load->view("view_pdf_3", array("result" => $results["result"][$key]), true);
+                        //echo $html;
+                        //die;
+						$customPaper = array(0,0,210,330);
+                        $this->pdf->loadHtml($html);
+                        // $this->pdf->setPaper($customPaper);
+                        $this->pdf->setPaper("legal", ($orientation = "P" ));
+                        $this->pdf->set_option("isPhpEnabled", true);
+                        $this->pdf->set_option("isHtml5ParserEnabled", true);
+                        $this->pdf->set_option("isRemoteEnabled", true);
+                        $this->pdf->render();
+                        $name = "download rekomendasi";
+                        $this->pdf->stream($name, array("Attachment" => 1));
+                    
 					}
+                     }
                     }
-                }
 
 
         
     }
+
 	public function preview_spd_get()
     {
         // echo date("d") ." ". bulan(date("m")) ." ". date("Y"); die();
@@ -322,7 +462,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 if (!empty($results['result'])) {
                     foreach ($results["result"] as $key => $value) {
 						//print_r($results["result"][$key]["jenis_biaya"]);die;
-						if ($results["result"][$key]["jenis_biaya"] == "BLU") {
+						//if ($results["result"][$key]["jenis_biaya"] == "BLU") {
                         $createdby = $this->db->select("username")->where(array("id_user" => $value["createdby"]))->get("sys_user")->result_array();
                         $updatedby = $this->db->select("username")->where(array("id_user" => $value["updatedby"]))->get("sys_user")->result_array();
                         if (count($createdby) == 1) {
@@ -337,6 +477,7 @@ class Pengembangan_pelatihan extends REST_Controller
                         $results["result"][$key]["tanggal"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $value["id"]));
                         $results["result"][$key]["tanggal"]["now"] = bulan(date("m")) ." ". date("Y");
 						$results["result"][$key]["tanggal"]["from"] = date("d",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]))." ".bulan(date("m",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]))) ." ".date("Y",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]));
+						$results["result"][$key]["aprove_phl"] = $this->Pengembangan_pelatihan_model->get_phl($results["result"][$key]["phl"]);
 						$results["result"][$key]["tanggal"]["to"] = date("d",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]))." ".bulan(date("m",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]))) ." ".date("Y",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]));
                         $results["result"][$key]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
                         $results["result"][$key]["total_hari_kerja_baru"] = terbilang($results["result"][$key]["total_hari_kerja"]);
@@ -347,12 +488,16 @@ class Pengembangan_pelatihan extends REST_Controller
                                 $results["result"][$key]["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
                             }
                         }
-						//print_r($results["result"][$key]);die;
+						//print_r($results["result"][$key]['jenis_perjalanan']);die;
 						$this->load->library("pdf");
-                        $html = $this->load->view("view_pdf_4", array("result" => $results["result"][$key]), true);
-                        echo $html;
+                        if ($results["result"][$key]['jenis_perjalanan'] == "Dalam Negeri") {
+						$html = $this->load->view("view_pdf_4", array("result" => $results["result"][$key]), true);
+                        }else{
+						$html = $this->load->view("view_pdf_14", array("result" => $results["result"][$key]), true);
+						}
+						echo $html;
                         die;
-					}
+					//}
                     }
                 }
 
@@ -388,10 +533,11 @@ class Pengembangan_pelatihan extends REST_Controller
                         $results["result"][$key]["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($value["pengembangan_pelatihan_kegiatan_status"]);
 						$results["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($kode);
                         $results["result"][$key]["tanggal"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $value["id"]));
-                        $results["result"][$key]["tanggal"]["now"] = date("d") ." ". bulan(date("m")) ." ". date("Y");
+                        $results["result"][$key]["tanggal"]["now"] = bulan(date("m")) ." ". date("Y");
 						$results["result"][$key]["tanggal"]["from"] = date("d",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]))." ".bulan(date("m",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]))) ." ".date("Y",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_from"]));
 						$results["result"][$key]["tanggal"]["to"] = date("d",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]))." ".bulan(date("m",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]))) ." ".date("Y",strtotime($results["result"][$key]["tanggal"][$key]["tanggal_to"]));
-                        $results["result"][$key]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
+                        $results["result"][$key]["aprove_phl"] = $this->Pengembangan_pelatihan_model->get_phl($results["result"][$key]["phl"]);
+						$results["result"][$key]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
                         $results["result"][$key]["total_hari_kerja_baru"] = terbilang($results["result"][$key]["total_hari_kerja"]);
                         $results["result"][$key]["total_biaya"] = terbilang($results["result"][$key]["detail"][$key]["uraian_total"]);
 						if (!empty($results["result"][$key]["detail"])) {
@@ -402,13 +548,18 @@ class Pengembangan_pelatihan extends REST_Controller
                         }
 						//print_r($results["result"][$key]);die;
 						$this->load->library("pdf");
-                        $html = $this->load->view("view_pdf_4", array("result" => $results["result"][$key]), true);
-                        // echo $html;
+                        if ($results["result"][$key]['jenis_perjalanan'] == "Dalam Negeri") {
+						$html = $this->load->view("view_pdf_4", array("result" => $results["result"][$key]), true);
+                        $kertas="Legal";
+						}else{
+						$html = $this->load->view("view_pdf_14", array("result" => $results["result"][$key]), true);
+						$kertas="Legal";
+						}// echo $html;
                         // die;
                         $customPaper = array(0,0,210,330);
                         $this->pdf->loadHtml($html);
                         // $this->pdf->setPaper($customPaper);
-                        $this->pdf->setPaper("A4", ($orientation = "P" ));
+                        $this->pdf->setPaper($kertas, ($orientation = "P" ));
                         $this->pdf->set_option("isPhpEnabled", true);
                         $this->pdf->set_option("isHtml5ParserEnabled", true);
                         $this->pdf->set_option("isRemoteEnabled", true);
@@ -619,6 +770,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 $nama_pelatihan = $this->input->post("nama_pelatihan");
                 $tujuan = $this->input->post("tujuan");
                 $institusi = $this->input->post("institusi");
+                $alamat = $this->input->post("alamat");
                 $no_disposisi = $this->input->post("no_disposisi");
                 $laporan = $this->input->post("laporan");
                 $monev = $this->input->post("monev");
@@ -636,11 +788,13 @@ class Pengembangan_pelatihan extends REST_Controller
                 $pengembangan_pelatihan_kegiatan = $this->input->post("pengembangan_pelatihan_kegiatan");
                 $pengembangan_pelatihan_kegiatan_status = $this->input->post("pengembangan_pelatihan_kegiatan_status");
                 $phl = $this->input->post("phl");
+                $target_kinerja = $this->input->post("target_kinerja");
                 $surat_tugas_dalam_negeri_luarkota = $this->input->post("surat_tugas_dalam_negeri_luarkota");
                 
                 $save["nama_pelatihan"] = ($nama_pelatihan)?$nama_pelatihan:null;
                 $save["tujuan"] = ($tujuan)?$tujuan:null;
                 $save["institusi"] = ($institusi)?$institusi:null;
+                $save["alamat"] = ($alamat)?$alamat:null;
                 $save["no_disposisi"] = ($no_disposisi)?$no_disposisi:null;
                 $save["laporan"] = ($laporan)?$laporan:null;
                 $save["monev"] = ($monev)?$monev:null;
@@ -658,6 +812,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 $save["pengembangan_pelatihan_kegiatan"] = ($pengembangan_pelatihan_kegiatan)?$pengembangan_pelatihan_kegiatan:null;
                 $save["pengembangan_pelatihan_kegiatan_status"] = ($pengembangan_pelatihan_kegiatan_status)?$pengembangan_pelatihan_kegiatan_status:null;
                 $save["phl"] = ($phl)?$phl:null;
+                $save["target_kinerja"] = ($target_kinerja)?$target_kinerja:null;
                 $save["alat_angkut"] = ($surat_tugas_dalam_negeri_luarkota)?$surat_tugas_dalam_negeri_luarkota:null;
                 
                 // 195 = direktur SDM
@@ -672,7 +827,12 @@ class Pengembangan_pelatihan extends REST_Controller
 				//print_r($save);die();
                 $detail = ($this->input->post("detail"))?$this->input->post("detail"):null;
                 $tanggal = ($this->input->post("tanggal"))?$this->input->post("tanggal"):null;
-
+                $tanggal_go = ($this->input->post("tanggal_go"))?$this->input->post("tanggal_go"):null;
+                $hari_go = ($this->input->post("hari_go"))?$this->input->post("hari_go"):null;
+                $tanggal_back = ($this->input->post("tanggal_back"))?$this->input->post("tanggal_back"):null;
+                $hari_back = ($this->input->post("hari_back"))?$this->input->post("hari_back"):null;
+				//print_r($hari_back);die();
+                        
                 $result = $this->Pengembangan_pelatihan_model->create($save);
                 // echo "<pre>";
                 // print_r($save);
@@ -686,14 +846,32 @@ class Pengembangan_pelatihan extends REST_Controller
 
                     if (!empty($tanggal)) {
                         foreach ($tanggal as $key => $value) {
+                        foreach ($tanggal_go as $key_go => $value_go) {
+							$tanggal_explode_go = explode(" - ", $tanggal_go_1);
+						}
+                        foreach ($tanggal_back as $key_back => $value_back) {
+							$tanggal_explode_back = explode(" - ", $tanggal_back_1);
+						}
                             $tanggal_1 = @$value["value"];
+                            $tanggal_go_1 = @$value_go["value"];
+                            $tanggal_back_1 = @$value_back["value"];
                             $tanggal_explode = explode(" - ", $tanggal_1);
+                            $tanggal_go = explode(" - ", $tanggal_go_1);
+                            $tanggal_back = explode(" - ", $tanggal_back_1);
+							
                             // dibagi 24jam x 8 jam
-                            $tanggal_diff = (strtotime($tanggal_explode[1]) - strtotime($tanggal_explode[0])) / 86400 * 8;
+                            $tanggal_diff = $total_hari_kerja * 8;
                             $pengembangan_pelatihan_pelaksanaan[$key]["pengembangan_pelatihan_id"] = $result->id;
                             $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_from"] = @$tanggal_explode[0];
                             $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_to"] = @$tanggal_explode[1];
-                            $pengembangan_pelatihan_pelaksanaan[$key]["total_jam"] = $tanggal_diff;                            
+                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_go"] = @$tanggal_go[0];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_go1"] = @$tanggal_go[1];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["hari_go"] = $hari_go;
+							$pengembangan_pelatihan_pelaksanaan[$key]["tanggal_back"] = @$tanggal_back[0];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_back1"] = @$tanggal_back[1];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["hari_back"] = $hari_back;
+							$pengembangan_pelatihan_pelaksanaan[$key]["total_jam"] = $tanggal_diff;
+								//print_r($pengembangan_pelatihan_pelaksanaan[$key]);die();
                         }
                         $this->Pengembangan_pelatihan_model->create_detail("pengembangan_pelatihan_pelaksanaan", $pengembangan_pelatihan_pelaksanaan);
                     }
@@ -754,6 +932,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 $nama_pelatihan = $this->input->post("nama_pelatihan");
                 $tujuan = $this->input->post("tujuan");
                 $institusi = $this->input->post("institusi");
+                $alamat = $this->input->post("alamat");
                 $no_disposisi = $this->input->post("no_disposisi");
                 $laporan = $this->input->post("laporan");
                 $monev = $this->input->post("monev");
@@ -771,6 +950,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 $pengembangan_pelatihan_kegiatan = $this->input->post("pengembangan_pelatihan_kegiatan");
                 $pengembangan_pelatihan_kegiatan_status = $this->input->post("pengembangan_pelatihan_kegiatan_status");
 				$phl = $this->input->post("phl");
+				$target_kinerja = $this->input->post("target_kinerja");
                 $surat_tugas_dalam_negeri_luarkota = $this->input->post("surat_tugas_dalam_negeri_luarkota");
                 
 				
@@ -778,6 +958,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 $save["nama_pelatihan"] = ($nama_pelatihan)?$nama_pelatihan:null;
                 $save["tujuan"] = ($tujuan)?$tujuan:null;
                 $save["institusi"] = ($institusi)?$institusi:null;
+                $save["alamat"] = ($alamat)?$alamat:null;
                 $save["no_disposisi"] = ($no_disposisi)?$no_disposisi:null;
                 $save["laporan"] = ($laporan)?$laporan:null;
                 $save["monev"] = ($monev)?$monev:null;
@@ -795,12 +976,17 @@ class Pengembangan_pelatihan extends REST_Controller
                 $save["pengembangan_pelatihan_kegiatan"] = ($pengembangan_pelatihan_kegiatan)?$pengembangan_pelatihan_kegiatan:null;
                 $save["pengembangan_pelatihan_kegiatan_status"] = ($pengembangan_pelatihan_kegiatan_status)?$pengembangan_pelatihan_kegiatan_status:null;
                 $save["phl"] = ($phl)?$phl:null;
+                $save["target_kinerja"] = ($target_kinerja)?$target_kinerja:null;
                 $save["alat_angkut"] = ($surat_tugas_dalam_negeri_luarkota)?$surat_tugas_dalam_negeri_luarkota:null;
                 
 				
                 $detail = ($this->input->post("detail"))?$this->input->post("detail"):null;
-                $tanggal = ($this->input->post("tanggal"))?$this->input->post("tanggal"):null;                
-
+                $tanggal = ($this->input->post("tanggal"))?$this->input->post("tanggal"):null;
+                $tanggal_go = ($this->input->post("tanggal_go"))?$this->input->post("tanggal_go"):null;
+                $hari_go = ($this->input->post("hari_go"))?$this->input->post("hari_go"):null;
+                $tanggal_back = ($this->input->post("tanggal_back"))?$this->input->post("tanggal_back"):null;
+                $hari_back = ($this->input->post("hari_back"))?$this->input->post("hari_back"):null;
+				
                 $result = $this->Pengembangan_pelatihan_model->update($save["id"], $save);
                 if ($result){
                     // delete all pelatihan_detail
@@ -811,14 +997,32 @@ class Pengembangan_pelatihan extends REST_Controller
 
                     if (!empty($tanggal)) {
                         foreach ($tanggal as $key => $value) {
+                        foreach ($tanggal_go as $key_go => $value_go) {
+							$tanggal_explode_go = explode(" - ", $tanggal_go_1);
+						}
+                        foreach ($tanggal_back as $key_back => $value_back) {
+							$tanggal_explode_back = explode(" - ", $tanggal_back_1);
+						}
                             $tanggal_1 = @$value["value"];
+                            $tanggal_go_1 = @$value_go["value"];
+                            $tanggal_back_1 = @$value_back["value"];
                             $tanggal_explode = explode(" - ", $tanggal_1);
+                            $tanggal_go = explode(" - ", $tanggal_go_1);
+                            $tanggal_back = explode(" - ", $tanggal_back_1);
+							
                             // dibagi 24jam x 8 jam
-                            $tanggal_diff = (strtotime($tanggal_explode[1]) - strtotime($tanggal_explode[0])) / 86400 * 8;
+                            $tanggal_diff = $total_hari_kerja * 8;
                             $pengembangan_pelatihan_pelaksanaan[$key]["pengembangan_pelatihan_id"] = $result->id;
                             $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_from"] = @$tanggal_explode[0];
                             $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_to"] = @$tanggal_explode[1];
-                            $pengembangan_pelatihan_pelaksanaan[$key]["total_jam"] = $tanggal_diff;                            
+                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_go"] = @$tanggal_go[0];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_go1"] = @$tanggal_go[1];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["hari_go"] = $hari_go;
+							$pengembangan_pelatihan_pelaksanaan[$key]["tanggal_back"] = @$tanggal_back[0];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_back1"] = @$tanggal_back[1];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["hari_back"] = $hari_back;
+							$pengembangan_pelatihan_pelaksanaan[$key]["total_jam"] = $tanggal_diff;
+								//print_r($pengembangan_pelatihan_pelaksanaan[$key]);die();
                         }
                         $this->Pengembangan_pelatihan_model->create_detail("pengembangan_pelatihan_pelaksanaan", $pengembangan_pelatihan_pelaksanaan);
                     }

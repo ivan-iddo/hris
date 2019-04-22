@@ -3,24 +3,24 @@
 <html><head></head><body>
 
 <style>
-      @page { margin: 100px 30px 40px; }
+      @page { margin: 80px 10px 20px 10px; }
      #header { position: fixed; left: -10px; top: -100px; right: -10px; bottom: -180px; height: 0px; text-align: center; }
      #foote { position: fixed; left: 0px; bottom: -0px; right: 0px; }
      #foote { content: counter(upper-roman); }
 </style>
-	<div id="header">
+	<div hidden="<?php echo $result["footer"]; ?>"id="header">
     <table width="100%" class="table-1" border="0">
 	<tbody>
 	<tr>
-      <td colspan="1" width="50%" align="right"><img src="<?php echo base_url(); ?>/logo.png" width="100"/></td>
+      <td colspan="1" width="50%" align="right"><img src="<?php echo base_url(); ?>/logo_ku.png" width="100"/></td>
 	  <td colspan="1"><h6>LAMPIRAN 1<br>PERATURAN MENTRI KEUANGAN REPUBLIK INDONESIA<br>NOMOR 113/PMK.05/2012<br>TENTANG<br>PERJALANAN DINAS JABATAN DALAM NEGERI BAGI PEJABAT<br>NEGARA, PEGAWAI NEGERI, DAN PEGAWAI TIDAK TETAP</h6></td>
 	</tr>
 	</tbody>
 	</table>
    </div>
    <div hidden="<?php echo $result["footer"]; ?>" id="foote">
-     <p><h6>Latbang_1:SPD Intern <?php echo date("d")." ". $result["tanggal"]["now"] ?> <?php echo $result["createdby"]; ?></h6></p>
-  </div>
+     <p><h6><?php echo $result["createdby"]; ?>:Intern <?php echo date("d")." ".$result["tanggal"]["now"] ?></h6></p>
+   </div>
 <div id="content">
 <table border="0" class="table-1" style="margin:30px">
     <tr>
@@ -60,13 +60,13 @@
           </tr> 
 		  <tr>
               <td><center><b>3.</b></center></td>
-			  <td>a. Pangkat dan golongan<br>b. Jabatan/Instansi/Unit Kerja<br><br>c. Tingkat Biaya Perjalanan Dinas</td>
+			  <td>a. Pangkat dan golongan<br>b. Jabatan/Instansi/Unit Kerja<br>c. Tingkat Biaya Perjalanan Dinas</td>
               <td>a. <?php echo $result["pengembangan_pelatihan_detail"]->pangkat;?> - <?php echo $result["pengembangan_pelatihan_detail"]->golongan;?><br>b. <?php if(!empty($result["pengembangan_pelatihan_detail"]->jabatan)){echo $result["pengembangan_pelatihan_detail"]->jabatan;}else{echo $result["grup"];}?><br>c. </td>
           </tr>
 		  <tr>
               <td><center><b>4.</b></center></td>
               <td>Maksud perjalanan dinas</td>
-			  <td align="justify">Mengikuti <?php echo $result["nama_pelatihan"] ?>, yang akan dilaksanakan pada tanggal <?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["tanggal_to"]; ?>. Yang diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?></td>
+			  <td align="justify">Mengikuti <?php echo $result["nama_pelatihan"] ?>, yang akan dilaksanakan pada tanggal <?php if($result["tanggal"][0]["tanggal_from"]==$result["tanggal"][0]["tanggal_to"]){ echo $result["tanggal"]["to"];}else {echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["to"];} ?>. Yang diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?></td>
           </tr>
 		  <tr>
               <td><center><b>5.</b></center></td>
@@ -100,25 +100,19 @@
         </tbody>
       </table></td>
     </tr>
-	  <tr>
-     <td colspan="3">
-		<table width="100%" border="0" cellpadding="3">
-		<tbody>          
-          </tr>
-		  <tr>
-            <td width="50%">&nbsp;</td>
-			<td><table width="100%" border="0" cellpadding="3">
+	<tr>
+		  <td width="20%">&nbsp;</td>
+		  <td width="20%">&nbsp;</td>
+		  <td width="40%"><table width="100%" border="0">
 			<tbody>
 			  <tr>
-				<td>Dikeluarkan di<br>Tanggal</td>
+				<td width="40%" align="left">Dikeluarkan di<br>Tanggal</td>
 				<td>:<br>:</td>
-				<td width="50%">Jakarta<br>       <?php echo bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]))?></td>
+				<td width="60%">Jakarta<br>       <?php echo bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]))?></td>
 			  </tr>
 			</tbody>
 		  </table></td>
-          </tr>
-		</tbody>
-      </table></td></tr>
+    </tr>
 	<tr>
       <td width="20%">&nbsp;</td>
       <td width="20%">&nbsp;</td>
@@ -143,6 +137,354 @@
       <td><b>&nbsp;</b></td>
       <td>&nbsp;</td>
       <td>NIP 196606122000121001</td>
+    </tr>
+	<tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr>
+	<tr hidden="<?php echo $result["footer"]; ?>">
+      <td colspan="3"><table width="100%" border="1px solid" cellpadding="1" cellspacing="0" class="table2">
+		<tbody>
+           <tr>
+              <td width="50%">&nbsp;</td>
+			  <td width="50%">
+			  <table width="100%" border="0">
+				<tbody>
+				  <tr>
+				    <td width="2%"><br><br><br><br></td>
+				    <td width="4%">I.<br><br><br><br></td>
+					<td width="50%" align="left">Dikeluarkan di<br>(Tempat kedudukan)<br>Ke<br>Pada Tanggal</td>
+					<td>:<br><br>:<br>:<br></td>
+					<td width="46%">Jakarta<br><br><?php echo $result["tujuan"]; ?><br><?php echo $result["tanggal"]["from"] ?><br></td>
+				  </tr>
+				  <tr>
+					<td colspan="5" align="center">RS. Jantung & Pembulu Darah Harapan Kita<br><?php if(!empty($result["phl"])){ echo "Plh. Direktur Utama,";}else{ echo "Direktur Utama,";}?></td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="5" align="center"><?php if(!empty($result["phl"])){ echo $result["aprove_phl"]->gelar_depan.' '.$result["aprove_phl"]->name.', '.$result["aprove_phl"]->gelar_belakang;}else{ echo "Dr. dr. Iwan Dakota,  SpJP(K), MARS,FACC,FESC";}?><br>NIP <?php if(!empty($result["phl"])){echo $result["aprove_phl"]->nip;}else{ echo "196601011996031001";}?></td>
+				  </tr>
+				</tbody>
+			  </table>
+			  </td>
+          </tr> 
+          <tr>
+              <td><table width="100%" border="0">
+				<tbody>
+				  <tr>
+				    <td width="2%"><br><br></td>
+				    <td width="4%">II.<br><br></td>
+					<td width="30%" align="left">Tiba di<br>Pada Tanggal</td>
+					<td>:<br>:<br></td>
+					<td width="64%"><?php echo $result["tujuan"]; ?><br><?php echo $result["tanggal"]["from"] ?><br></td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr><tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr><tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				</tbody>
+			  </table></td>
+              <td><table width="100%" border="0">
+				<tbody>
+				  <tr>
+				    <td width="1%"><br><br><br></td>
+				    <td width="4%"><br><br><br></td>
+					<td width="30%" align="left">Berangkat dari<br>Ke<br>Pada Tanggal</td>
+					<td>:<br>:<br>:<br></td>
+					<td width="64%"><?php echo $result["tujuan"]; ?><br>Jakarta<br><?php echo $result["tanggal"]["to"] ?><br></td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				</tbody>
+			  </table></td>
+		  </tr> 
+		  <tr>
+              <td><table width="100%" border="0">
+				<tbody>
+				  <tr>
+				    <td width="1%" align="center"><br><br></td>
+				    <td width="1%">III.<br><br></td>
+					<td width="30%" align="left">Tiba di<br>Pada Tanggal<br></td>
+					<td>:<br>:<br></td>
+					<td width="68%">&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;<br></td>
+				  </tr>
+				  <tr>
+				    <td width="1%" align="center"><br></td>
+					<td width="1%"></td>
+					<td width="30%" align="right">Kepala</td>
+					<td></td>
+					<td width="68%">&nbsp;&nbsp;&nbsp;<br></td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				</tbody>
+			  </table>
+			  <table width="100%" border="0">
+				<tbody>
+				  <tr>
+					<td colspan="4" align="center">(.....................................................)</td>
+				  </tr>
+				  <tr>
+					<td width="30%" align="right">NIP</td>
+				  </tr>
+				</tbody>
+			  </table></td>
+              <td><table width="100%" border="0">
+				<tbody>
+				  <tr>
+					<td width="30%" align="left">Berangkat dari<br>Pada Tanggal<br></td>
+					<td width="2%">:<br>:<br></td>
+					<td width="68%">&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;<br></td>
+				  </tr>
+				  <tr>
+					<td width="30%" align="right">Kepala</td>
+					<td width="2%"></td>
+					<td width="68%">&nbsp;&nbsp;&nbsp;<br></td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="4" align="center">(.....................................................)</td>
+				  </tr>
+				  <tr>
+					<td width="25%" align="right">NIP</td>
+				  </tr>
+				</tbody>
+			  </table></td>
+          </tr><tr>
+              <td><table width="100%" border="0">
+				<tbody>
+				  <tr>
+				    <td width="1%" align="center"><br><br></td>
+				    <td width="1%">IV.<br><br></td>
+					<td width="30%" align="left">Tiba di<br>Pada Tanggal<br></td>
+					<td>:<br>:<br></td>
+					<td width="68%">&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;<br></td>
+				  </tr>
+				  <tr>
+				    <td width="1%" align="center"><br></td>
+					<td width="1%"></td>
+					<td width="30%" align="right">Kepala</td>
+					<td></td>
+					<td width="68%">&nbsp;&nbsp;&nbsp;<br></td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				</tbody>
+			  </table>
+			  <table width="100%" border="0">
+				<tbody>
+				  <tr>
+					<td colspan="4" align="center">(.....................................................)</td>
+				  </tr>
+				  <tr>
+					<td width="30%" align="right">NIP</td>
+				  </tr>
+				</tbody>
+			  </table></td>
+              <td><table width="100%" border="0">
+				<tbody>
+				  <tr>
+					<td width="30%" align="left">Berangkat dari<br>Pada Tanggal<br></td>
+					<td width="2%">:<br>:<br></td>
+					<td width="68%">&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;<br></td>
+				  </tr>
+				  <tr>
+					<td width="30%" align="right">Kepala</td>
+					<td width="2%"></td>
+					<td width="68%">&nbsp;&nbsp;&nbsp;<br></td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="4" align="center">(.....................................................)</td>
+				  </tr>
+				  <tr>
+					<td width="25%" align="right">NIP</td>
+				  </tr>
+				</tbody>
+			  </table></td>
+          </tr><tr>
+              <td><table width="100%" border="0">
+				<tbody>
+				  <tr>
+				    <td width="1%" align="center"><br><br></td>
+				    <td width="1%">V.<br><br></td>
+					<td width="30%" align="left">Tiba di<br>Pada Tanggal<br></td>
+					<td>:<br>:<br></td>
+					<td width="68%">&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;<br></td>
+				  </tr>
+				  <tr>
+				    <td width="1%" align="center"><br></td>
+					<td width="1%"></td>
+					<td width="30%" align="right">Kepala</td>
+					<td></td>
+					<td width="68%">&nbsp;&nbsp;&nbsp;<br></td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				</tbody>
+			  </table>
+			  <table width="100%" border="0">
+				<tbody>
+				  <tr>
+					<td colspan="4" align="center">(.....................................................)</td>
+				  </tr>
+				  <tr>
+					<td width="30%" align="right">NIP</td>
+				  </tr>
+				</tbody>
+			  </table></td><td><table width="100%" border="0">
+				<tbody>
+				  <tr>
+					<td width="30%" align="left">Berangkat dari<br>Pada Tanggal<br></td>
+					<td width="2%">:<br>:<br></td>
+					<td width="68%">&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;<br></td>
+				  </tr>
+				  <tr>
+					<td width="30%" align="right">Kepala</td>
+					<td width="2%"></td>
+					<td width="68%">&nbsp;&nbsp;&nbsp;<br></td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="4" align="center">(.....................................................)</td>
+				  </tr>
+				  <tr>
+					<td width="25%" align="right">NIP</td>
+				  </tr>
+				</tbody>
+			  </table></td>
+          </tr><tr>
+              <td><table width="100%" border="0">
+				<tbody>
+				  <tr>
+				    <td width="2%"><br><br><br></td>
+				    <td width="4%">VI.<br><br><br></td>
+					<td width="50%" align="left">Tiba Kembali di<br>(Tempat kedudukan)<br>Pada Tanggal</td>
+					<td>:<br><br>:<br></td>
+					<td width="44%">Jakarta<br><br><?php echo $result["tanggal"]["from"] ?><br></td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="5" align="center">Pejabat Pembuat Komitmen</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr><tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="5" align="center">(Dr. dr. Basuni Radi, SpJP(K), FIHA)<br> NIP 196606122000121001</td>
+				  </tr>
+				</tbody>
+			  </table></td>
+              <td><table width="100%" border="0">
+				<tbody>
+				  <tr>
+				    <td colspan="3" width="99%" align="justify">Telah diperiksa, dengan keterangan bahwa perjalanan tersebut di atas benar dilakukan atas perintahnya dan samata-mata untuk kepentingan jabatan dalam waktu yang sesingkat-singkatnya</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">Pejabat Pembuat Komitmen</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr><tr>
+					<td colspan="3" align="center">&nbsp;</td>
+				  </tr>
+				  <tr>
+					<td colspan="3" align="center">(Dr. dr. Basuni Radi, SpJP(K), FIHA)<br> NIP 196606122000121001</td>
+				  </tr>
+				</tbody>
+			  </table></td>
+          </tr>
+		  <tr>
+		      <td><table width="100%" border="0">
+				<tbody>
+				  <tr>
+				    <td width="2%"></td>
+				    <td width="2%">VII.</td>
+					<td width="96%" align="justify">CATATAN LAIN-LAIN
+				  </tr>
+				</tbody>
+			  </table></td>
+              <td>&nbsp;</td>
+          </tr><tr>
+             <td colspan="2"><table width="100%" border="0">
+				<tbody>
+				  <tr>
+				    <td width="1%"></td>
+				    <td width="1%">VIII.</td>
+					<td width="98%" align="justify">PERHATIAN</td>
+				  </tr>
+				  <tr>
+				    <td width="1%"></td>
+				    <td width="1%"></td>
+					<td width="98%" align="justify">PPK yang menerbitkan SPD, Pegawai yang melakukan perjalanan dinas, para pejabat yang mengesahkan tanggal berangkat / tiba serta bendahara pengeluaran bertanggung jawab berdasarkan peraturan-peraturan Keuangan Negara, Apabila Negara menderita rugi akibat kesalahan, kelalaian dan kealpaannya.</td>
+				  </tr>
+				</tbody>
+			  </table></td>
+		  </tr>
+        </tbody>
+      </table></td>
     </tr>
 	<tr>
       <td colspan="3">&nbsp;</td>

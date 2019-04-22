@@ -34,7 +34,7 @@
    </div>
    <div hidden="<?php echo $result["footer"]; ?>" id="foote">
      <p><h6>Tembusan : <br>- Atasan Ybs <br>- Para Direktur RSJPDHK</h6></p>
-     <p><h6>Latbang_3:<?php echo date("d")." ".$result["tanggal"]["tanggal_now"] ?> <?php echo $result["createdby"]; ?></h6></p>
+     <p><h6><?php echo $result["createdby"]; ?>:Intern <?php echo date("d")." ".$result["tanggal"]["tanggal_now"] ?></h6></p>
    </div>
 <div id="content">
 <table border="0" class="table-1" style="margin:30px">
@@ -92,7 +92,7 @@
             <p>1.</p>
           </td>
           <td width="77%" valign="top">
-            <p align="justify">Menghadiri <?php echo $result["nama_pelatihan"] ;?>, yang dilaksanakan pada hari/tanggal <?php echo $result["tanggal"]["day_to"] . ", " . $result["tanggal"]["tanggal_to"]; ?>, diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?> .</p>
+            <p align="justify">Menghadiri <?php echo $result["nama_pelatihan"] ;?>, yang dilaksanakan pada hari/tanggal <?php if($result["tanggal"]["tanggal_from"]==$result["tanggal"]["tanggal_to"]){echo $result["tanggal"]["tanggal_to"]; }else{echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["tanggal_to"]; }?>, diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?> .</p>
           </td>
         </tr>
       </table>
@@ -110,8 +110,8 @@
       <td width="36%"><p>       <?php echo $result["tanggal"]["tanggal_now"] ?></p></td>
     </tr>
     <tr>
-      <td colspan="2" width="40%">&nbsp;</td>
-      <td width="36%"><?php if(!empty($result["phl"])){ echo "Plh. Direktur Utama,";}else{ echo "Direktur Utama,";}?></td>
+      <td colspan="2" width="40%" align="right"><?php if(!empty($result["phl"])){ echo "Plh. ";}?></td>
+      <td width="36%"><?php if(!empty($result["phl"])){ echo "Direktur Utama,";}else{ echo "Direktur Utama,";}?></td>
 	</tr>
     <tr>
       <td colspan="3">&nbsp;</td>
@@ -171,7 +171,7 @@
       <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
-        <td colspan="3" align="center"><b>DAFTAR NAMA <?php echo $result["pengembangan_pelatihan_kegiatan_status"]->nama;?> <?php echo $result["nama_pelatihan"] ?> (<?php echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["tanggal_to"]; ?>)</b></td>
+        <td colspan="3" align="center"><b>DAFTAR NAMA <?php echo $result["pengembangan_pelatihan_kegiatan_status"]->nama;?> <?php echo $result["nama_pelatihan"] ?> (<?php if($result["tanggal"]["tanggal_from"]==$result["tanggal"]["tanggal_to"]){echo $result["tanggal"]["tanggal_to"];}else{echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["tanggal_to"]; }?>)</b></td>
     </tr>
     <tr>
       <td colspan="5">

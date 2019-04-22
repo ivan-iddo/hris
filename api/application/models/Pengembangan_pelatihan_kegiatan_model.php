@@ -39,8 +39,10 @@ class Pengembangan_pelatihan_kegiatan_model extends MY_Model
 	
 	function get_by($id, $statue = 1)
 	{
-		$this->db->select("*");
+		$this->db->select("$this->table1.*,sys_grup_user.grup");
 		$this->db->from($this->table1);
+		$this->db->join("sys_user", "pengembangan_pelatihan_detail.nopeg = sys_user.id_user", "left");
+		$this->db->join("sys_grup_user", "sys_user.id_grup = sys_grup_user.id_grup", "left");
 		$this->db->where("id", $id);
 		$this->db->where("statue", $statue);
 		$query = $this->db->get();

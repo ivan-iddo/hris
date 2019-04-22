@@ -25,7 +25,7 @@
    </div>
    <div hidden="<?php echo $result["footer"]; ?>" id="foote">
      <p><h6><u>Tembusan : </u><br>- Atasan Ybs <br>- Para Direktur RSJPDHK</h6></p>
-     <p><h6>Latbang_3 G:SrtTgs Intern <?php echo date("d")." ".$result["tanggal"]["tanggal_now"] ?> <?php echo $result["createdby"]; ?></h6></p>
+     <p><h6><?php echo $result["createdby"]; ?>:Intern <?php echo date("d")." ".$result["tanggal"]["tanggal_now"] ?></h6></p>
    </div>
 <div id="content">
 <table border="0" class="table-1" style="margin:15px">
@@ -84,7 +84,7 @@
             <p>1.</p>
           </td>
 		  <td width="88%" valign="top">
-            <p align="justify">Mengikuti <?php echo $result["nama_pelatihan"]; ?> sebagai <?php echo $result["pengembangan_pelatihan_kegiatan_status"]->nama; ?>, yang akan di laksanakan pada hari/tanggal <?php echo $result["tanggal"]["day_to"] . ", " . $result["tanggal"]["tanggal_to"]; ?>. Mulai pukul <?php echo $result["jam_mulai"] ?> s.d <?php echo $result["jam_sampai"] ?>. Yang diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"];  ?>.</p>
+            <p align="justify">Mengikuti <?php echo $result["nama_pelatihan"]; ?> sebagai <?php echo $result["pengembangan_pelatihan_kegiatan_status"]->nama; ?>, yang akan di laksanakan pada hari/tanggal <?php if($result["tanggal"]["tanggal_from"]==$result["tanggal"]["tanggal_to"]){ echo $result["tanggal"]["day_to"] . ", " . $result["tanggal"]["tanggal_to"];} else {echo $result["tanggal"]["day_from"] . ", " . $result["tanggal"]["tanggal_from"]. " s.d " .$result["tanggal"]["day_to"] . ", " . $result["tanggal"]["tanggal_to"];}?>.<?php if(!empty($result["jam_mulai"])){ echo " Mulai pukul ".$result["jam_mulai"].' s.d '.$result["jam_sampai"].'.';}else{echo "";}?> Yang diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"];  ?>.</p>
           </td>
         </tr>
 		<tr>
@@ -108,8 +108,8 @@
     </tr>
 	<tr>
       <td>Penyelenggara</td>
-      <td width="34%">&nbsp;</td>
-      <td width="36%"><?php if(!empty($result["phl"])){ echo "Plh. Direktur Utama,";}else{ echo "Direktur Utama,";}?></td>
+      <td width="34%" align="right"><?php if(!empty($result["phl"])){ echo "Plh. ";}?></td>
+      <td width="36%"><?php if(!empty($result["phl"])){ echo "Direktur Utama,";}else{ echo "Direktur Utama,";}?></td>
     </tr>
     <tr>
       <td colspan="3">&nbsp;</td>
@@ -123,12 +123,12 @@
       <td><?php if(!empty($result["phl"])){ echo $result["aprove_phl"]->gelar_depan.' '.$result["aprove_phl"]->name.', '.$result["aprove_phl"]->gelar_belakang;}else{ echo "Dr. dr. Iwan Dakota,  SpJP(K), MARS,FACC,FESC";}?></td>
     </tr>
     <tr>
-      <td><em>dimulai jam :</em></td>
+      <td><em>dimulai jam : <?php if(!empty($result["jam_mulai"])){ echo $result["jam_mulai"];}?></em></td>
       <td>&nbsp;</td>
       <td>NIP <?php if(!empty($result["phl"])){echo $result["aprove_phl"]->nip;}else{ echo "196601011996031001";}?></td>
     </tr>
     <tr>
-      <td><em>Selesai  jam :</em></td>
+      <td><em>Selesai  jam : <?php if(!empty($result["jam_sampai"])){ echo $result["jam_sampai"];}?></em></td>
       <td colspan="2">&nbsp;</td>
     </tr>
 </table>
