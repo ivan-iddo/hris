@@ -104,15 +104,15 @@
           <tr>
             <td><center><?php echo $key+1 ?>.</center></td>
             <td><?php echo $value["uraian"]?></td>
-            <td>1 Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 2, ",", ".")?></td>
-            <td>Rp. <?php echo number_format($value["nominal"], 2, ",", ".")?></td>
+            <td>1 Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 0, ",", ".")?></td>
+            <td align="right">Rp. <?php echo number_format($value["nominal"], 0, ",", ".")?></td>
           </tr>
 			<?php }else{ ?>
 		  <tr>
             <td><center><?php echo $key+1 ?>.</center></td>
             <td><?php echo $value["uraian"]?></td>
-            <td>1 Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 2, ",", ".")?></td>
-            <td>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".")?></td>
+            <td>1 Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 0, ",", ".")?></td>
+            <td align="right">Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 0, ",", ".")?></td>
           </tr>
 			<?php } ?>
 		 <?php endforeach ?>
@@ -121,7 +121,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td colspan="1">Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".")?></td>
+            <td colspan="1" align="right">Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 0, ",", ".")?></td>
           </tr> 
 		  <tr>
             <td></td>
@@ -142,15 +142,15 @@
           <tr>
             <td><center><?php echo $key+1 ?>.</center></td>
             <td><?php echo $value["uraian"]?></td>
-            <td><?php echo $result["count"]?> Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 2, ",", ".")?></td>
-            <td>Rp. <?php echo number_format($value["nominal"], 2, ",", ".")?></td>
+            <td><?php echo $result["count"]?> Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 0, ",", ".")?></td>
+            <td align="right">Rp. <?php echo number_format($value["nominal"], 0, ",", ".")?></td>
           </tr>
 			<?php }else{ ?>
 		  <tr>
             <td><center><?php echo $key+1 ?>.</center></td>
             <td><?php echo $value["uraian"]?></td>
-            <td><?php echo $result["count"]?> Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 2, ",", ".")?></td>
-            <td>Rp. <?php echo number_format($result["total"], 2, ",", ".")?></td>
+            <td><?php echo $result["count"]?> Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 0, ",", ".")?></td>
+            <td align="right">Rp. <?php echo number_format($result["total"], 0, ",", ".")?></td>
           </tr>
 			<?php } ?>
 		 <?php endforeach ?>
@@ -159,7 +159,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td colspan="1">Rp. <?php echo number_format($result["total"], 2, ",", ".")?></td>
+            <td colspan="1" align="right">Rp. <?php echo number_format($result["total"], 0, ",", ".")?></td>
           </tr> 
 		  <tr>
             <td></td>

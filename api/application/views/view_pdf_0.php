@@ -6,23 +6,6 @@
      #foote { position: fixed; left: 0px; bottom: -180px; right: 0px; height: 150px; }
      #foote { content: counter(upper-roman); }
 </style>
- <div hidden="<?php echo $result["footer"]; ?>" id="header">
-    <table width="100%" class="table-1" border="0">
-	<tbody>
-	<tr>
-      <td colspan="1" width="60"><img src="<?php echo base_url(); ?>/logo2.png" width="80%"></td>
-      <td colspan="2"align="center"><b>KEMENTRIAN KESEHATAN REPUBLIK INDONESIA<br>DIREKTORAT JENDRAL PELAYANAN KESEHATAN<br>RUMAH SAKIT JANTUNG DAN PEMBULU DARAH HARAPAN KITA</b></td>
-	  <td colspan="1" width="70"><img src="<?php echo base_url(); ?>/logo.png" width="100%"></td>
-	</tr>
-	<tr>
-	<td colspan="1" width="30">&nbsp;</td>
-	<td colspan="2"align="center">Jalan Let. Jend. S. Parman Kv. 87 Slipi Jakarta, 11420<br>Telp. 5684085 - 093, 5684093, Faksimile: 5684230<br>Surat Elektronik: <u>website@pjnhk.go.id</u><br><u>http:www.pjnhk.go.id</u></td>
-	<td colspan="1" width="30">&nbsp;</td>
-	<hr/>
-	</tr>
-	</tbody>
-	</table>
-   </div>
    <div hidden="<?php echo $result["footer"]; ?>" id="foote">
      <p><h6><u>Tembusan : </u><br>- Atasan Ybs <br>- Para Direktur RSJPDHK</h6></p>
      <p><h6><?php echo $result["createdby"]; ?>:Intern <?php echo date("d")." ".$result["tanggal"]["tanggal_now"] ?></h6></p>
@@ -88,7 +71,7 @@
     </tr>
 	<tr>
       <td>Penyelenggara</td>
-      <td width="34%" align="right"><?php if($result["jenis_plh"]!="Plh"){ echo "a. n. ";}else{ echo "Plh. ";}?></td>
+      <td width="34%" align="right"><?php if($result["jenis_plh"]=="Plh"){ echo "Plh. ";}else if($result["jenis_plh"]=="an"){ echo "a. n. ";}else{echo "";}?></td>
       <td width="36%"><?php if(!empty($result["phl"])){ echo "Direktur Utama,";}else{ echo "Direktur Utama,";}?></td>
 	</tr>
     <tr>
@@ -108,7 +91,7 @@
       <td>NIP <?php if(!empty($result["phl"])){echo $result["aprove_phl"]->nip;}else{ echo "196601011996031001";}?></td>
     </tr>
     <tr>
-      <td><em>Selesai  jam : <?php if(!empty($result["jam_sampai"])){ echo $result["jam_sampai"];}?></em></td>
+      <td><em>Selesai  jam : <?php if(!empty($result["jam_mulai"])){if(!empty($result["jam_sampai"])){ echo $result["jam_sampai"];}else{ echo 'Selesai';}}else{echo '';}?></em></td>
       <td colspan="2">&nbsp;</td>
     </tr><tr>
       <td colspan="3">&nbsp;</td>

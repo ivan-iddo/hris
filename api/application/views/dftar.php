@@ -27,7 +27,7 @@
           <tr>
             <td width="55%">&nbsp;</td>
             <td width="15%">Nomor</td>
-            <td width="30%">: KP.03.04/XX.4/       /<?php echo date('Y'); ?></td>
+            <td width="30%">: KU.02.04/4.2.1/       /<?php echo date('Y'); ?></td>
           </tr>
           <tr>
             <td width="55%">&nbsp;</td>

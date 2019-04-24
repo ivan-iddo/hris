@@ -528,8 +528,8 @@
           <tr>
             <td width="4%"><center><?php echo $key+1 ?>.</center></td>
             <td><?php echo $value["uraian"]?> :
-            <br>1 Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 2, ",", ".")?></td>
-			<td>Rp. <?php echo number_format($value["nominal"], 2, ",", ".")?></td>
+            <br>1 Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 0, ",", ".")?></td>
+			<td>Rp. <?php echo number_format($value["nominal"], 0, ",", ".")?></td>
             <!--<td width="40%">Dengan catatan bahwa untuk tarif satuan biaya seperti diatas, saya tidak mengajukan klaim</td>-->
             <td width="40%"></td>
           </tr>
@@ -538,14 +538,14 @@
 		  <tr>
             <td></td>
             <td>Jumlah</td>
-            <td colspan="2">Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".")?></td>
+            <td colspan="2">Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 0, ",", ".")?></td>
           </tr>
       </table></td>
     </tr>
    <tr>
-      <td width="40%"><br><br>Telah dibayar<br>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".")?><br>(<?php echo ucfirst($result["total_biaya"]);?> rupiah)</td>
+      <td width="40%"><br><br>Telah dibayar<br>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 0, ",", ".")?><br>(<?php echo ucfirst($result["total_biaya"]);?> rupiah)</td>
       <td width="10%">&nbsp;</td>
-      <td width="60%"><br>Jakarta,         <?php echo bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]))?><br>Telah menerima sejumlah uang sebesar,<br>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".")?><br>(<?php echo ucfirst($result["total_biaya"]);?> rupiah)</td>
+      <td width="60%"><br>Jakarta,         <?php echo bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]))?><br>Telah menerima sejumlah uang sebesar,<br>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 0, ",", ".")?><br>(<?php echo ucfirst($result["total_biaya"]);?> rupiah)</td>
     </tr>
 	<tr>
       <td width="40%">Bendahara Pengeluaran</td>

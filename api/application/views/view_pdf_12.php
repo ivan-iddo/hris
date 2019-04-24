@@ -64,7 +64,7 @@
       <td colspan="3"><p align="justify">      Bersama ini kami sampaikan permohonan bantuan dana untuk mengikuti <?php echo '<i>'.$result["nama_pelatihan"].'</i>';?>, yang dilaksanakan tanggal <?php if($result["tanggal"]["tanggal_from"]==$result["tanggal"]["tanggal_to"]){echo $result["tanggal"]["tanggal_to"]; }else{echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["tanggal_to"]; }?>, atas nama <?php echo $result["gelar_depan"].' '.$result["detail"][0]["nama_pegawai"].', '.$result["gelar_belakang"] ?>. Bertempat di <?php echo $result["tujuan"]; ?>.</p></td>
     </tr>
 	<tr>
-      <td colspan="3"><p align="justify">      Kami lampirkan perhitungan biaya yang dapat diberikan sesuai ketentuan Latbang SDM dengan jumlah sebesar  Rp. <?php if($result["jenis"] == "Kelompok"){ echo number_format($result["total"], 2, ",", ".");}else{echo number_format($result["detail"][0]["uraian_total"], 2, ",", ".");}?> (rincian terlampir) :</p></td>
+      <td colspan="3"><p align="justify">      Kami lampirkan perhitungan biaya yang dapat diberikan sesuai ketentuan Latbang SDM dengan jumlah sebesar  Rp. <?php if($result["jenis"] == "Kelompok"){ echo number_format($result["total"], 0, ",", ".");}else{echo number_format($result["detail"][0]["uraian_total"], 0, ",", ".");}?> (rincian terlampir) :</p></td>
     </tr>
 	<tr>
       <td colspan="3"><p align="justify">      Demikian surat ini kami sampaikan, mohon keputusan lebih lanjut untuk dapat  diproses sebagaimana mestinya.  Atas perhatiannya kami ucapkan terima kasih.</p></td>
