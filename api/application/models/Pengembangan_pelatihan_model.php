@@ -55,7 +55,7 @@ class Pengembangan_pelatihan_model extends MY_Model
 		$result = $this->db->get()->result_array();
 		return $result;
 	}
-
+	
 	function is_blocked($nopeg)
 	{
 		$data = $this->get_all(array("$this->table.statue" => 1,

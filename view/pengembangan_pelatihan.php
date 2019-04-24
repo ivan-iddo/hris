@@ -144,6 +144,16 @@
                                          </select>
 										</div>
                                     </div>
+									<div class="form-group">
+                                        <label class="col-sm-2 control-label">Jenis Plh</label>
+                                        <div class="col-sm-5">
+                                            <select name="jenis_plh" id="jenis_plh" class="form-control select-chosen">
+                                                <option value="">Pilih</option>
+                                                <option value="Plh">Plh</option>
+                                                <option value="a. n">an</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="demo-hor-inputemail">Nama Pelatihan</label>
                                         <div class="col-sm-5">
@@ -1039,7 +1049,7 @@
                                 '<tr id="row_'+row_id+'">'+
                                 '<td>'+
                                 '<div class="form-group body-remove">' +
-                                   ' <label class="col-sm-3 control-label"></label>' +
+                                   ' <label class="col-sm-2 control-label"></label>' +
                                    '<div class="body-detail">' +
                                         '<div class="col-xs-2">' +
                                             '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian" value=' + selectedRow.detail_uraian[index].uraian + ' />' +
@@ -1050,7 +1060,7 @@
 										'<div class="col-xs-2">' +
                                             '<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_'+row_id+'" placeholder="Ket uraian" value=' + selectedRow.detail_uraian[index].uraian_nominal + ' />' +
                                         '</div>' +
-                                        '<div class="col-xs-2">' +
+                                        '<div class="col-xs-3">' +
                                             '<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" value=' + selectedRow.detail_uraian[index].pernominal + ' required onkeyup="getTotal('+row_id+')"/>' +
                                         '</div>' +
                                     '</div>' +
@@ -1059,7 +1069,7 @@
                                     '</div>' +
                                 '</div>' +
                                 '<div class="form-group body-remove">' +
-                                   ' <label class="col-sm-3 control-label"></label>' +
+                                   ' <label class="col-sm-2 control-label"></label>' +
                                    '<div class="body-detail">' +
                                         '<div class="col-xs-5">' +
                                             '<input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" value=' + selectedRow.detail_uraian[index].nominal + ' readonly/>' +
@@ -1202,6 +1212,7 @@
         // obj.surat_tugas_dalam_negeri_luarkota = $("#surat_tugas_dalam_negeri_luarkota").val();
         // obj.surat_tugas_luar_negeri = $("#surat_tugas_luar_negeri").val();
         obj.phl = $("#phl").val();
+        obj.jenis_plh = $("#jenis_plh").val();
 		obj.hari_go = $("#hari_go").val();
         obj.hari_back = $("#hari_back").val();
         obj.target_kinerja = $("#target_kinerja").val();
@@ -1328,7 +1339,9 @@
 					getOptionsEdit("surat_tugas_dalam_negeri_luarkota", BASE_URL + "master/alat_angkut",res.data.alat_angkut);
 					getperjalanan(res.data.jenis_perjalanan);
                     $('#jenis').val(res.data.jenis);
-                    $("#jenis").trigger("chosen:updated");
+					$("#jenis").trigger("chosen:updated");
+                    $('#jenis_plh').val(res.data.jenis_plh);
+                    $("#jenis_plh").trigger("chosen:updated");
 
                     if (res.data.monev == "1"){
                         $('#monev').prop("checked", true);

@@ -130,7 +130,7 @@
       <td width="36%"><p>       <?php echo $result["tanggal"]["tanggal_now"] ?></p></td>
     </tr>
     <tr>
-      <td colspan="2" width="40%" align="right"><?php if(!empty($result["phl"])){ echo "Plh. ";}?></td>
+      <td colspan="2" width="40%" align="right"><?php if($result["jenis_plh"]!="Plh"){ echo "a. n. ";}else{ echo "Plh. ";}?></td>
       <td width="36%"><?php if(!empty($result["phl"])){ echo "Direktur Utama,";}else{ echo "Direktur Utama,";}?></td>
 	</tr>
     <tr>

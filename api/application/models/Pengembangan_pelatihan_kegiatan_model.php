@@ -3,6 +3,7 @@ class Pengembangan_pelatihan_kegiatan_model extends MY_Model
 {
 	private $table = "pengembangan_pelatihan_kegiatan";
 	private $table1 = "pengembangan_pelatihan_detail";
+	private $table2 = "pengembangan_pelatihan_pelaksanaan";
 
 	function __construct()
 	{
@@ -26,6 +27,23 @@ class Pengembangan_pelatihan_kegiatan_model extends MY_Model
 		$this->db->select("*");
 		$this->db->from($this->table);
 		$this->db->where("id", $id);
+		$this->db->where("statue", $statue);
+		$query = $this->db->get();
+
+		if($query->num_rows()<1){
+			return null;
+		}
+		else{
+			return $query->row();
+		}
+	}
+	
+	
+	function by_id($id, $statue = 1)
+	{
+		$this->db->select("*");
+		$this->db->from($this->table2);
+		$this->db->where("pengembangan_pelatihan_id", $id);
 		$this->db->where("statue", $statue);
 		$query = $this->db->get();
 

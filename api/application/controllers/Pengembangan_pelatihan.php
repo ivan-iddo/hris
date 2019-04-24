@@ -574,6 +574,55 @@ class Pengembangan_pelatihan extends REST_Controller
         
     }
 
+	public function preview_laporan_get()
+    {
+		$offset = 0;
+        $jenis_surat = $this->input->get("surat");
+        $result['result'] = $this->Pengembangan_pelatihan_model->get_all(null, null, $offset, null);
+        if (!empty($result['result'])) {
+            foreach ($result["result"] as $key => $value) {
+		$result["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
+        $result["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($value["kode"]);                
+		$result["result"][$key]["tanggal"] = $this->Pengembangan_pelatihan_kegiatan_model->by_id($value["id"]);
+        $result["result"][$key]["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($value["pengembangan_pelatihan_kegiatan_status"]);
+						             
+		}
+		}
+		//print_r($result["result"][$key]["tanggal"][0]["id"]);die;
+		$data = "test";
+		if($jenis_surat=="laporan1"){
+		$html = $this->load->view("laporan/laporan_1", array("result" => $result['result']), true);
+        }else if($jenis_surat=="laporan2"){
+		$html = $this->load->view("laporan/laporan_2", array("result" => $result['result']), true);
+        }else if($jenis_surat=="laporan3"){
+		$html = $this->load->view("laporan/laporan_3", array("result" => $result['result']), true);
+        }else if($jenis_surat=="laporan4"){
+		$html = $this->load->view("laporan/laporan_4", array("result" => $result['result']), true);
+        }else if($jenis_surat=="laporan5"){
+		$html = $this->load->view("laporan/laporan_5", array("result" => $result['result']), true);
+        }else if($jenis_surat=="laporan6"){
+		$html = $this->load->view("laporan/laporan_6", array("result" => $result['result']), true);
+        }else if($jenis_surat=="laporan7"){
+		$html = $this->load->view("laporan/laporan_7", array("result" => $result['result']), true);
+        }else if($jenis_surat=="laporan8"){
+		$html = $this->load->view("laporan/laporan_8", array("result" => $result['result']), true);
+        }else if($jenis_surat=="laporan9"){
+		$html = $this->load->view("laporan/laporan_9", array("result" => $result['result']), true);
+        }else if($jenis_surat=="laporan10"){
+		$html = $this->load->view("laporan/laporan_10", array("result" => $result['result']), true);
+        }else if($jenis_surat=="laporan11"){
+		$html = $this->load->view("laporan/laporan_11", array("result" => $result['result']), true);
+        }else if($jenis_surat=="laporan12"){
+		$html = $this->load->view("laporan/laporan_12", array("result" => $result['result']), true);
+        }else if($jenis_surat=="laporan13"){
+		$html = $this->load->view("laporan/laporan_13", array("result" => $result['result']), true);
+        }else if($jenis_surat=="laporan14"){
+		$html = $this->load->view("laporan/laporan_14", array("result" => $result['result']), true);
+        }
+        echo $html;
+        die;
+    }
+	
     public function list_get($offset = 0, $param_search = "")
     {
         $search = null;
@@ -788,6 +837,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 $pengembangan_pelatihan_kegiatan = $this->input->post("pengembangan_pelatihan_kegiatan");
                 $pengembangan_pelatihan_kegiatan_status = $this->input->post("pengembangan_pelatihan_kegiatan_status");
                 $phl = $this->input->post("phl");
+                $jenis_plh = $this->input->post("jenis_plh");
                 $target_kinerja = $this->input->post("target_kinerja");
                 $surat_tugas_dalam_negeri_luarkota = $this->input->post("surat_tugas_dalam_negeri_luarkota");
                 
@@ -812,6 +862,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 $save["pengembangan_pelatihan_kegiatan"] = ($pengembangan_pelatihan_kegiatan)?$pengembangan_pelatihan_kegiatan:null;
                 $save["pengembangan_pelatihan_kegiatan_status"] = ($pengembangan_pelatihan_kegiatan_status)?$pengembangan_pelatihan_kegiatan_status:null;
                 $save["phl"] = ($phl)?$phl:null;
+                $save["jenis_plh"] = ($jenis_plh)?$jenis_plh:null;
                 $save["target_kinerja"] = ($target_kinerja)?$target_kinerja:null;
                 $save["alat_angkut"] = ($surat_tugas_dalam_negeri_luarkota)?$surat_tugas_dalam_negeri_luarkota:null;
                 
@@ -950,6 +1001,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 $pengembangan_pelatihan_kegiatan = $this->input->post("pengembangan_pelatihan_kegiatan");
                 $pengembangan_pelatihan_kegiatan_status = $this->input->post("pengembangan_pelatihan_kegiatan_status");
 				$phl = $this->input->post("phl");
+				$jenis_plh = $this->input->post("jenis_plh");
 				$target_kinerja = $this->input->post("target_kinerja");
                 $surat_tugas_dalam_negeri_luarkota = $this->input->post("surat_tugas_dalam_negeri_luarkota");
                 
@@ -976,6 +1028,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 $save["pengembangan_pelatihan_kegiatan"] = ($pengembangan_pelatihan_kegiatan)?$pengembangan_pelatihan_kegiatan:null;
                 $save["pengembangan_pelatihan_kegiatan_status"] = ($pengembangan_pelatihan_kegiatan_status)?$pengembangan_pelatihan_kegiatan_status:null;
                 $save["phl"] = ($phl)?$phl:null;
+                $save["jenis_plh"] = ($jenis_plh)?$jenis_plh:null;
                 $save["target_kinerja"] = ($target_kinerja)?$target_kinerja:null;
                 $save["alat_angkut"] = ($surat_tugas_dalam_negeri_luarkota)?$surat_tugas_dalam_negeri_luarkota:null;
                 

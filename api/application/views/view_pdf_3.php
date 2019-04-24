@@ -188,7 +188,7 @@
     </tr>
     <tr>
       <td>&nbsp;</td>
-      <td width="34%" align="right"><?php if(!empty($result["phl"])){ echo "Plh. ";}?></td>
+      <td width="34%" align="right"><?php if($result["jenis_plh"]!="Plh"){ echo "a. n. ";}else{ echo "Plh. ";}?></td>
       <td width="60%"><?php if(!empty($result["phl"])){ echo "Direktur Utama,";}else{ echo "Direktur Utama,";}?></td>
     </tr>
     <tr>

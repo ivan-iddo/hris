@@ -165,7 +165,7 @@
 					<td width="46%">Jakarta<br><br><?php echo $result["tujuan"]; ?><br><?php echo $result["tanggal"]["from"] ?><br></td>
 				  </tr>
 				  <tr>
-					<td colspan="5" align="center">RS. Jantung & Pembulu Darah Harapan Kita<br><?php if(!empty($result["phl"])){ echo "Plh. Direktur Utama,";}else{ echo "Direktur Utama,";}?></td>
+					<td colspan="5" align="center">RS. Jantung & Pembulu Darah Harapan Kita<br><?php if(!empty($result["phl"])){ if($result["jenis_plh"]!="Plh"){ echo "a. n. Direktur Utama ";}else{ echo "Plh. Direktur Utama, ";}}else{ echo "Direktur Utama,";}?></td>
 				  </tr>
 				  <tr>
 					<td colspan="3" align="center">&nbsp;</td>
