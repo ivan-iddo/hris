@@ -42,28 +42,31 @@
       <td colspan="3">
         <table width="100%" border="1px solid" cellpadding="1" cellspacing="0" class="table2" style="margin-top: 15px">
           <tr>
-           <th rowspan="2" align="center">No</th>
-			<th rowspan="2" align="center">Nama Pegawai</th>
-            <th rowspan="2" align="center">Nama Kegiatan</th>
-            <th rowspan="2" align="center">Tempat</th>
-            <th colspan="2" align="center">Durasi</th>
-            <th rowspan="2" align="center">Tanggal</th>
-            <th rowspan="2" align="center">Biaya</th>
+            <th align="center">No</th>
+            <th align="center">Nopeg</th>
+            <th align="center">Nama Pegawai</th>
+			<th align="center">Tanggal</th>
+			<th align="center">Nama Kegiatan</th>
+            <th align="center">Status</th>
+			<th align="center">Jenis Kegiatan</th>
+			<th align="center">Jenis Pegawai</th>
+            <th align="center">Tempat</th>
+			<th align="center">Lembaga</th>
+            <th align="center">Per orang</th>
           </tr>
-		   <tr>
-              <th scope="col">Hari</th>
-              <th scope="col">Jam</th>
-           </tr>
           <?php if (!empty($result)): ?>
             <?php foreach ($result as $key => $value): ?>
               <tr>
-			    <td align="center"><?php echo $key+1 ?></td>
+                <td align="center"><?php echo $key+1 ?></td>
+                <td><?php echo $result[$key]["pengembangan_pelatihan_detail"]->nopeg; ?></td>
 				<td><?php echo $value["gelar_depan"].' '.$result[$key]["pengembangan_pelatihan_detail"]->nama_pegawai.', '.$value["gelar_belakang"] ?></td>
-				<td><?php echo $result[$key]["pengembangan_pelatihan_kegiatan"]->nama; ?></td>
-				<td><?php echo $value["tujuan"]; ?></td>
-				<td><?php echo $value["total_hari_kerja"]; ?></td>
-                <td><?php echo $result[$key]["tanggal"]->total_jam; ?></td>
                 <td><?php if($value["tanggal_from"]==$value["tanggal_to"]){echo $value["tanggal_to"];}else{ echo $value["tanggal_from"]." s/d ".$value["tanggal_to"];} ?></td>
+                <td><?php echo $value["nama_pelatihan"]; ?></td>
+                <td><?php echo $result[$key]["pengembangan_pelatihan_kegiatan_status"]->nama; ?></td>
+                <td><?php echo $result[$key]["pengembangan_pelatihan_kegiatan"]->nama; ?></td>
+				<td><?php echo $value["profesi"]; ?></td>
+				<td><?php echo $value["tujuan"]; ?></td>
+                <td><?php echo $value["institusi"]; ?></td>
 				<td>Rp. <?php echo number_format($value["nominal"], 0, ",", ".")?></td>
               </tr>
             <?php endforeach ?>

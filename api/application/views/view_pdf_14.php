@@ -182,6 +182,13 @@
 	<tr>
       <td align="justify"><b>&nbsp;</b></td>
     </tr>
+	<tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr>
 	<tr hidden="<?php echo $result["footer"]; ?>">
       <td colspan="3"><table width="100%" border="1px solid" cellpadding="1" cellspacing="0" class="table2">
 		<tbody>
@@ -376,71 +383,8 @@
               <td><table width="100%" border="0">
 				<tbody>
 				  <tr>
-				    <td width="1%" align="center"><br><br><br><br></td>
-				    <td width="1%">VII.<br><br><br><br></td>
-					<td width="30%" align="left"><u>Tiba di</u><br><i>Arrival at</i><br><u>Pada Tanggal</u><br><i>Date</i><br></td>
-					<td>:<br><br>:<br><br></td>
-					<td width="68%"><br><br><br><br></td>
-				  </tr>
-				  <tr>
-				    <td width="1%" align="center"><br></td>
-					<td width="1%"></td>
-					<td width="30%" align="right"><u>Kepala Kantor</u><br><i>Head of Office</i></td>
-					<td></td>
-					<td width="68%">&nbsp;&nbsp;&nbsp;<br></td>
-				  </tr>
-				  <tr>
-					<td colspan="3" align="center">&nbsp;</td>
-				  </tr>
-				  <tr>
-					<td colspan="3" align="center">&nbsp;</td>
-				  </tr>
-				</tbody>
-			  </table>
-			  <table width="100%" border="0">
-				<tbody>
-				  <tr>
-					<td colspan="4" align="center">(.....................................................)</td>
-				  </tr>
-				  <tr>
-					<td width="30%" align="right">NIP</td>
-				  </tr>
-				</tbody>
-			  </table></td>
-              <td><table width="100%" border="0">
-				<tbody>
-				  <tr>
-				    <td width="2%"><br><br><br><br><br><br></td>
-				    <td width="4%">VIII.<br><br><br><br><br><br></td>
-					<td width="50%" align="left"><u>Berangkat dari</u><br><i>Depature from</i><br><u>Ke<u><br><i>To</i><br><u>Pada Tanggal</u><br><i>Date</i></td>
-					<td>:<br><br>:<br><br>:<br><br></td>
-					<td width="46%"><br><br><br><br><br><br></td>
-				  </tr>
-				 <tr>
-				    <td width="1%" align="center"><br></td>
-					<td width="1%"></td>
-					<td width="30%" align="right"><u>Kepala Kantor</u><br><i>Head of Office</i></td>
-					<td></td>
-					<td width="68%">&nbsp;&nbsp;&nbsp;<br></td>
-				  </tr>
-				</tbody>
-			  </table>
-			  <table width="100%" border="0">
-				<tbody>
-				  <tr>
-					<td colspan="4" align="center">(.....................................................)</td>
-				  </tr>
-				  <tr>
-					<td width="30%" align="right">NIP</td>
-				  </tr>
-				</tbody>
-			  </table></td>
-          </tr><tr>
-              <td><table width="100%" border="0">
-				<tbody>
-				  <tr>
 				    <td width="2%"><br><br><br></td>
-				    <td width="4%">IX.<br><br><br><br></td>
+				    <td width="4%">VII.<br><br><br><br></td>
 					<td width="60%" align="left"><u>Tiba di Tempat Kedudukan</u><br><i>Arrival at Departure Point </i><br><u>Pada Tanggal</u><br><i>Date</i></td>
 					<td>:<br><br>:<br><br></td>
 					<td width="30%">Jakarta<br><br><?php echo $result["tanggal"]["from"] ?><br><br></td>
@@ -460,7 +404,7 @@
 				<tbody>
 				  <tr>
 				    <td width="1%"><br><br><br></td>
-				    <td width="2%" valign="top">X.<br><br><br></td>
+				    <td width="2%" valign="top">VII.<br><br><br></td>
 					<td colspan="3" width="94%" align="justify" valign="top">Telah diperiksa, dengan keterangan bahwa perjalanan tersebut di atas benar dilakukan atas perintahnya dan samata-mata untuk kepentingan jabatan dalam waktu yang sesingkat-singkatnya</td>
 				  </tr>
 				</tbody>
@@ -512,6 +456,27 @@
     </tr><tr>
       <td colspan="3">&nbsp;</td>
     </tr>
+	  <tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr>
+	  <tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr>
+	  <tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr>
 	<tr>
       <td colspan="3"><br><center><u><b>RINCIAN PENGHITUNGAN BIAYA PELATIHAN</b></u></center><br></td>
     </tr> 
@@ -523,13 +488,22 @@
 			  <td><center><b>Jumlah</b></center></td>
 			  <td><center><b>Keterangan</b></center></td>
           </tr>
-		<?php if (!empty($result["detail"][0]["detail_uraian"])): ?>
-            <?php foreach ($result["detail"][0]["detail_uraian"] as $key => $value): ?>
+		<?php if (!empty($result["detail_uraian"])): ?>
+            <?php foreach ($result["detail_uraian"] as $key => $value): ?>
           <tr>
             <td width="4%"><center><?php echo $key+1 ?>.</center></td>
             <td><?php echo $value["uraian"]?> :
             <br>1 Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 0, ",", ".")?></td>
-			<td>Rp. <?php echo number_format($value["nominal"], 0, ",", ".")?></td>
+			<td>
+			<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+			  <tr>
+				<td width="20%"></td>
+				<td width="10%">Rp.</td>
+				<td align="right" width="50%"><?php echo number_format($value["nominal"], 0, ",", ".")?></td>
+				<td width="20%"></td>
+			  </tr>
+			</table>
+			</td>
             <!--<td width="40%">Dengan catatan bahwa untuk tarif satuan biaya seperti diatas, saya tidak mengajukan klaim</td>-->
             <td width="40%"></td>
           </tr>
@@ -538,14 +512,24 @@
 		  <tr>
             <td></td>
             <td>Jumlah</td>
-            <td colspan="2">Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 0, ",", ".")?></td>
+            <td colspan="1">
+			<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+			  <tr>
+				<td width="20%"></td>
+				<td width="10%">Rp.</td>
+				<td align="right" width="50%"><?php echo number_format($result["total"], 0, ",", ".")?></td>
+				<td width="20%"></td>
+			  </tr>
+			</table>
+			</td>
+			<td></td>
           </tr>
       </table></td>
     </tr>
    <tr>
-      <td width="40%"><br><br>Telah dibayar<br>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 0, ",", ".")?><br>(<?php echo ucfirst($result["total_biaya"]);?> rupiah)</td>
+      <td width="40%"><br><br>Telah dibayar<br>Rp. <?php echo number_format($result["total"], 0, ",", ".")?><br>(<?php echo ucfirst($result["total_biaya"]);?> rupiah)</td>
       <td width="10%">&nbsp;</td>
-      <td width="60%"><br>Jakarta,         <?php echo bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]))?><br>Telah menerima sejumlah uang sebesar,<br>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 0, ",", ".")?><br>(<?php echo ucfirst($result["total_biaya"]);?> rupiah)</td>
+      <td width="60%"><br>Jakarta,         <?php echo bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]))?><br>Telah menerima sejumlah uang sebesar,<br>Rp. <?php echo number_format($result["total"], 0, ",", ".")?><br>(<?php echo ucfirst($result["total_biaya"]);?> rupiah)</td>
     </tr>
 	<tr>
       <td width="40%">Bendahara Pengeluaran</td>

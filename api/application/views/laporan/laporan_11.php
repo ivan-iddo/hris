@@ -1,32 +1,36 @@
 <!doctype html>
 <html><head></head><body>
 <style>
-     @page { margin: 180px 50px; }
-     #header { position: fixed; left: -10px; top: -150px; right: -10px; bottom: -150px; height: 0px; text-align: center; }
-     #foote { position: fixed; left: 0px; bottom: -180px; right: 0px; height: 150px; }
+     @page { margin: 100px 20px; }
+     #header { position: fixed; left: -10px; top: -90px; right: -10px; bottom: -100px; height: 0px; text-align: center; }
+     #foote { position: fixed; left: 0px; bottom: -170px; right: 0px; height: 150px; }
      #foote { content: counter(upper-roman); }
 </style>
  <div hidden="<?php echo $result["footer"]; ?>" id="header">
     <table width="100%" class="table-1" border="0">
 	<tbody>
 	<tr>
-      <td colspan="1" width="60"><img src="<?php echo base_url(); ?>/logo2.png" width="80%"></td>
-      <td colspan="2"align="center"><b>KEMENTRIAN KESEHATAN REPUBLIK INDONESIA<br>DIREKTORAT JENDRAL PELAYANAN KESEHATAN<br>RUMAH SAKIT JANTUNG DAN PEMBULU DARAH HARAPAN KITA</b></td>
-	  <td colspan="1" width="70"><img src="<?php echo base_url(); ?>/logo.png" width="100%"></td>
+      <td colspan="3"align="left"><b>Catatan Kegiatan Seminar/lokakarya/Workshop/Pelatihan<br> Berdasarkan Usulan Biaya <br> RS. Jantung dan Pembuluh Darah Harapan Kita</b><br><br>Periode :<?php echo $result["awal"]; ?> sd <?php echo $result["akhir"]; ?></td>
+	  <td colspan="1" width="100"><img src="<?php echo base_url(); ?>/logo.png" width="100%"></td>
 	</tr>
 	<tr>
-	<td colspan="1" width="30">&nbsp;</td>
-	<td colspan="2"align="center">Jalan Let. Jend. S. Parman Kv. 87 Slipi Jakarta, 11420<br>Telp. 5684085 - 093, 5684093, Faksimile: 5684230<br>Surat Elektronik: <u>website@pjnhk.go.id</u><br><u>http:www.pjnhk.go.id</u></td>
-	<td colspan="1" width="30">&nbsp;</td>
 	<hr/>
 	</tr>
 	</tbody>
 	</table>
    </div>
    <div hidden="<?php echo $result["footer"]; ?>" id="foote">
-     <p><h6><u>Tembusan : </u><br>- Atasan Ybs <br>- Para Direktur RSJPDHK</h6></p>
-     <p><h6><?php echo $result["createdby"]; ?>:Intern <?php echo date("d")." ".$result["tanggal"]["tanggal_now"] ?></h6></p>
-   </div>
+	 <hr/>
+	 <table width="100%" class="table-1" border="0">
+	<tbody>
+	<tr>
+      <td colspan="1"align="left" width="30">Prepared by SDM & Organisas</td>
+      <td colspan="3"align="center" width="50">Printed : <?php echo date("d")." ".bulan(date("m")) ." ". date("Y"); ?></td>
+	  <td colspan="1" width="30"></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
 <div id="content">
 <table border="0" class="table-1" style="margin:30px">
 	<tr>
@@ -36,13 +40,13 @@
 	</tr>
     <tr>
       <td colspan="3">
-        <table width="100%" border="1px solid" cellpadding="1" cellspacing="0" class="table2" style="margin-top: 15px">
+        <table width="100%" border="0px solid" cellpadding="1" cellspacing="0" class="table2" style="margin-top: 15px">
           <tr>
 		    <th rowspan="2" align="center">Departemen</th> 
 		    <th rowspan="2" align="center">Jenis Pegawai</th> 
 		    <th rowspan="2" align="center">Nama Pegawai</th>
             <th rowspan="2" align="center">Nama Kegiatan</th>
-		    <th colspan="2" align="center">Durasi</th>
+            <th colspan="2" align="center">Durasi</th>
             <th rowspan="2" align="center">Biaya</th>
           </tr>
 		   <tr>
@@ -50,15 +54,82 @@
               <th scope="col">Jam</th>
            </tr>
           <?php if (!empty($result)): ?>
-            <?php foreach ($result as $key => $value): ?>
+            <?php foreach ($result as $key => $val): ?>
               <tr>
-			    <td><?php echo $result[$key]["pengembangan_pelatihan_detail"]->grup; ?></td>
-				<td><?php echo $value["profesi"]; ?></td>
-				<td><?php echo $value["gelar_depan"].' '.$result[$key]["pengembangan_pelatihan_detail"]->nama_pegawai.', '.$value["gelar_belakang"] ?></td>
-				<td><?php echo $value["nama_pelatihan"]; ?></td>
-				<td><?php echo $value["total_hari_kerja"]; ?></td>
-                <td><?php echo $result[$key]["tanggal"]->total_jam; ?></td>
-                <td><?php echo $value["uraian_total"]; ?></td>
+			    <td valign="top"><?php echo $val["grup"]; ?></td>
+				<td><table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+				  <?php if (!empty($result[$key]["jenis"])): ?>
+					<?php foreach ($result[$key]["jenis"] as $key_profesi => $value_profesi): ?>
+					  <tr>
+						<td><?php echo $value_profesi["ds_group_jabatan"]; ?></td>
+					  </tr>
+					  <tr><td>
+					  <?php $jum=count($result[$key]["pegawai"]);
+						for ($i = 1; $i < $jum; $i++){ ?>
+					  <?php echo "<br>";} ?>
+					  </td></tr>
+					<?php endforeach ?>
+				  <?php endif ?>
+				</table>
+				</td>
+				<td><table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+				  <?php if (!empty($result[$key]["detail_pegawai"])): ?>
+					<?php foreach ($result[$key]["detail_pegawai"] as $key_peg => $value_peg): ?>
+					  <tr>
+						<td><?php echo $value_peg["nama_pegawai"]; ?></td>
+					  </tr>
+					  <tr><td>
+					  <?php $jum=count($result[$key]["pegawai"]);
+						for ($i = 1; $i < $jum; $i++){ ?>
+					  <?php echo "<br>";} ?>
+					  </td></tr>
+					<?php endforeach ?>
+				  <?php endif ?>
+				</table>
+				</td>
+				<td valign="top">
+				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+				  <?php if (!empty($result[$key]["total_pegawai"])): ?>
+					<?php foreach ($result[$key]["total_pegawai"] as $key_pelatihan => $value_pelatihan): ?>
+					  <tr>
+						<td><?php echo $value_pelatihan["nama_pelatihan"]; ?></td>
+					  </tr>
+					<?php endforeach ?>
+				  <?php endif ?>
+				</table></td>
+				<td valign="top">
+				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+				  <?php if (!empty($result[$key]["total_pegawai"])): ?>
+					<?php foreach ($result[$key]["total_pegawai"] as $key_hari => $value_hari): ?>
+					  <tr>
+						<td><?php if(!empty($value_hari["total_hari_kerja"])) {echo $value_hari["total_hari_kerja"];}else{ echo "0";}; ?></td>
+					  </tr>
+					<?php endforeach ?>
+				  <?php endif ?>
+				</table>
+				</td>
+                <td valign="top">
+				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+				  <?php if (!empty($result[$key]["total_pegawai"])): ?>
+					<?php foreach ($result[$key]["total_pegawai"] as $key_jam => $value_jam): ?>
+					  <tr>
+						<td><?php echo 8*$value_jam["total_hari_kerja"]; ?></td>
+					  </tr>
+					<?php endforeach ?>
+				  <?php endif ?>
+				</table>
+				</td>
+                <td valign="top">
+				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+				  <?php if (!empty($result[$key]["total_pegawai"])): ?>
+					<?php foreach ($result[$key]["total_pegawai"] as $key_nom => $value_nom): ?>
+					  <tr>
+						<td>Rp. <?php echo number_format($value_nom["uraian_total"], 0, ",", ".")?></td>
+					  </tr>
+					<?php endforeach ?>
+				  <?php endif ?>
+				</table>
+				</td>
               </tr>
             <?php endforeach ?>
           <?php endif ?>

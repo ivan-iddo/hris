@@ -60,8 +60,8 @@
           </tr> 
 		  <tr>
               <td><center><b>3.</b></center></td>
-			  <td>a. Pangkat dan golongan<br>b. Jabatan/Instansi/Unit Kerja<br>c. Tingkat Biaya Perjalanan Dinas</td>
-              <td>a. <?php echo $result["pengembangan_pelatihan_detail"]->pangkat;?> - <?php echo $result["pengembangan_pelatihan_detail"]->golongan;?><br>b. <?php if(!empty($result["pengembangan_pelatihan_detail"]->jabatan)){echo $result["pengembangan_pelatihan_detail"]->jabatan;}else{echo $result["grup"];}?><br>c. </td>
+			  <td>a. Pangkat dan golongan<br><br>b. Jabatan/Instansi/Unit Kerja<br><br>c. Tingkat Biaya Perjalanan Dinas<br></td>
+              <td>a. <?php echo $result["pengembangan_pelatihan_detail"]->pangkat;?> - <?php echo $result["pengembangan_pelatihan_detail"]->golongan;?><br><br>b. <?php if(!empty($result["pengembangan_pelatihan_detail"]->jabatan)){echo $result["pengembangan_pelatihan_detail"]->jabatan;}else{echo $result["grup"];}?><br><br>c. <br></td>
           </tr>
 		  <tr>
               <td><center><b>4.</b></center></td>
@@ -75,13 +75,13 @@
           </tr>
 		  <tr>
               <td><center><b>6.</b></center></td>
-              <td>a. Tempat berangkat<br>b. Tempat tujuan</td>
-              <td>a. Jakarta<br>b. <?php echo $result["tujuan"]; ?></td>
+              <td>a. Tempat berangkat<br><br>b. Tempat tujuan<br></td>
+              <td>a. Jakarta<br><br>b. <?php echo $result["tujuan"]; ?><br></td>
           </tr>
 		  <tr>
               <td><center><b>7.</b></center></td>
-              <td>a. Lama Perjalanan Dinas<br>b. Tanggal berangkat<br>c. Tanggal harus kembali/tiba ditempat</td>
-              <td>a. <?php echo $result["total_hari_kerja"]; ?> (<?php echo ucfirst($result["total_hari_kerja_baru"]);?>) Hari<br>b. <?php echo $result["tanggal"]["from"] ?><br>c. <?php echo $result["tanggal"]["to"] ?></td>
+              <td>a. Lama Perjalanan Dinas<br><br>b. Tanggal berangkat<br><br>c. Tanggal harus kembali/tiba ditempat</td>
+              <td>a. <?php echo $result["total_hari_kerja"]; ?> (<?php echo ucfirst($result["total_hari_kerja_baru"]);?>) Hari<br><br>b. <?php echo $result["tanggal"]["from"] ?><br><br>c. <?php echo $result["tanggal"]["to"] ?></td>
           </tr>
 		  <tr>
               <td><center><b>8.</b></center></td>
@@ -90,8 +90,8 @@
           </tr>
 		  <tr>
               <td><center><b>9.</b></center></td>
-              <td>Pembebanan Anggaran :<br>a. Instansi<br>b. Akun</td>
-              <td><br>a. RS. Jantung & Pembuluh Darah Harapan Kita<br>b. <?php echo $result["pengembangan_pelatihan_detail"]->nopeg; ?></td>
+              <td>Pembebanan Anggaran :<br><br>a. Instansi<br><br>b. Akun</td>
+              <td><br><br>a. RS. Jantung & Pembuluh Darah Harapan Kita<br><br>b. <?php echo $result["pengembangan_pelatihan_detail"]->nopeg; ?></td>
           </tr><tr>
               <td><center><b>10.</b></center></td>
               <td>Keterangan lain-lain</td>
@@ -137,6 +137,25 @@
       <td><b>&nbsp;</b></td>
       <td>&nbsp;</td>
       <td>NIP 196606122000121001</td>
+    </tr>
+	
+	<tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr>
+	<tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
     </tr>
 	<tr>
       <td colspan="3">&nbsp;</td>
@@ -195,11 +214,6 @@
 				  </tr>
 				  <tr>
 					<td colspan="3" align="center">&nbsp;</td>
-				  </tr>
-				  <tr>
-					<td colspan="3" align="center">&nbsp;</td>
-				  </tr><tr>
-					<td colspan="3" align="center">&nbsp;</td>
 				  </tr><tr>
 					<td colspan="3" align="center">&nbsp;</td>
 				  </tr>
@@ -213,12 +227,6 @@
 					<td width="30%" align="left">Berangkat dari<br>Ke<br>Pada Tanggal</td>
 					<td>:<br>:<br>:<br></td>
 					<td width="64%"><?php echo $result["tujuan"]; ?><br>Jakarta<br><?php echo $result["tanggal"]["to"] ?><br></td>
-				  </tr>
-				  <tr>
-					<td colspan="3" align="center">&nbsp;</td>
-				  </tr>
-				  <tr>
-					<td colspan="3" align="center">&nbsp;</td>
 				  </tr>
 				  <tr>
 					<td colspan="3" align="center">&nbsp;</td>
@@ -500,13 +508,22 @@
 			  <td><center><b>Jumlah</b></center></td>
 			  <td><center><b>Keterangan</b></center></td>
           </tr>
-		<?php if (!empty($result["detail"][0]["detail_uraian"])): ?>
-            <?php foreach ($result["detail"][0]["detail_uraian"] as $key => $value): ?>
+		<?php if (!empty($result["detail_uraian"])): ?>
+            <?php foreach ($result["detail_uraian"] as $key => $value): ?>
           <tr>
             <td width="4%"><center><?php echo $key+1 ?>.</center></td>
             <td><?php echo $value["uraian"]?> :
             <br>1 Orang <?php if(!empty($value["uraian_nominal"])){ echo 'x '. $value["qty"].' '.$value["uraian_nominal"];}?> x Rp. <?php echo number_format($value["pernominal"], 0, ",", ".")?></td>
-			<td>Rp. <?php echo number_format($value["nominal"], 0, ",", ".")?></td>
+			<td>
+			<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+			  <tr>
+				<td width="20%"></td>
+				<td width="10%">Rp.</td>
+				<td align="right" width="50%"><?php echo number_format($value["nominal"], 0, ",", ".")?></td>
+				<td width="20%"></td>
+			  </tr>
+			</table>
+			</td>
             <!--<td width="40%">Dengan catatan bahwa untuk tarif satuan biaya seperti diatas, saya tidak mengajukan klaim</td>-->
             <td width="40%"></td>
           </tr>
@@ -515,14 +532,24 @@
 		  <tr>
             <td></td>
             <td>Jumlah</td>
-            <td colspan="2">Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 0, ",", ".")?></td>
+            <td colspan="1">
+			<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+			  <tr>
+				<td width="20%"></td>
+				<td width="10%">Rp.</td>
+				<td align="right" width="50%"><?php echo number_format($result["total"], 0, ",", ".")?></td>
+				<td width="20%"></td>
+			  </tr>
+			</table>
+			</td>
+			<td></td>
           </tr>
       </table></td>
     </tr>
    <tr>
-      <td width="40%"><br><br>Telah dibayar<br>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 0, ",", ".")?><br>(<?php echo ucfirst($result["total_biaya"]);?> rupiah)</td>
+      <td width="40%"><br><br>Telah dibayar<br>Rp. <?php echo number_format($result["total"], 0, ",", ".")?><br>(<?php echo ucfirst($result["total_biaya"]);?> rupiah)</td>
       <td width="10%">&nbsp;</td>
-      <td width="60%"><br>Jakarta,         <?php echo bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]))?><br>Telah menerima sejumlah uang sebesar,<br>Rp. <?php echo number_format($result["detail"][0]["uraian_total"], 0, ",", ".")?><br>(<?php echo ucfirst($result["total_biaya"]);?> rupiah)</td>
+      <td width="60%"><br>Jakarta,         <?php echo bulan(date("m",strtotime($result["created"]))) ." ".date("Y",strtotime($result["created"]))?><br>Telah menerima sejumlah uang sebesar,<br>Rp. <?php echo number_format($result["total"], 0, ",", ".")?><br>(<?php echo ucfirst($result["total_biaya"]);?> rupiah)</td>
     </tr>
 	<tr>
       <td width="40%">Bendahara Pengeluaran</td>

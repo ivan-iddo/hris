@@ -92,7 +92,7 @@
             <p>1.</p>
           </td>
           <td width="77%" valign="top">
-            <p align="justify">Menghadiri <?php echo $result["nama_pelatihan"] ;?>, yang dilaksanakan pada hari/tanggal <?php if($result["tanggal"]["tanggal_from"]==$result["tanggal"]["tanggal_to"]){echo $result["tanggal"]["tanggal_to"]; }else{echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["tanggal_to"]; }?>, diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?> .</p>
+            <p align="justify">Menghadiri <?php echo $result["nama_pelatihan"] ;?>, yang dilaksanakan pada hari/tanggal <?php if($result["tanggal"]["tanggal_from"]==$result["tanggal"]["tanggal_to"]){echo $result["tanggal"]["day_to"]." ".$result["tanggal"]["tanggal_to"]; }else{echo $result["tanggal"]["day_from"]." ".date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["day_to"]." ".$result["tanggal"]["tanggal_to"]; }?>, diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?> .</p>
           </td>
         </tr>
       </table>

@@ -43,13 +43,9 @@
                             <!-- <button class="btn btn-primary btn-labeled fa fa-plus-square btn-sm" id=
                             "demo-bootbox-bounce">Add
                             </button> -->
-                            <button class=
-                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                    "cetak_pengantar();">Surat Pengantar
-                            </button>
 							<button class=
                                     "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                    "cetak();">Surat Tugas / Izin
+                                    "cetak();">Tugas / Izin
                             </button>
 							<button class=
                                     "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
@@ -65,15 +61,23 @@
                             </button>
 							<button class=
                                     "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
+                                    "cetak_rekomendasi();">Rekomendasi
+                            </button>
+							<button class=
+                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
+                                    "cetak_pengantar();">Pengantar
+                            </button>
+							<button class=
+                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
                                 "nota();">Nota Dinas
                             </button>
 							<button class=
                                     "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
                                 "ikatan();">Ikatan Dinas
                             </button>
-                            <button class=
+							<button class=
                                     "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                    "cetak_rekomendasi();">Rekomendasi
+                                "verbal();">Verbal
                             </button>
                         </div>
                     </div>
@@ -134,13 +138,24 @@
                                                 <option value="">Pilih</option>
                                             </select>
                                         </div>
-                                    </div> 
+                                    </div>
+									<div class="form-group">
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Membaca</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" name="membaca" id="membaca" class="form-control"/>
+                                        </div>
+                                    </div>
+									<div class="form-group">
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Yth</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" name="yth" id="yth" class="form-control"/>
+                                        </div>
+                                    </div>
 									<div class="form-group">
                                         <label class="col-sm-2 control-label">Plh</label>
                                         <div class="col-sm-5">
                                          <select name="phl" id="phl"
                                                     class="form-control select-chosen">
-													<option value="">Pilih</option>
                                          </select>
 										</div>
                                     </div>
@@ -150,7 +165,7 @@
                                             <select name="jenis_plh" id="jenis_plh" class="form-control select-chosen">
                                                 <option value="">Pilih</option>
                                                 <option value="Plh">Plh</option>
-                                                <option value="a. n">an</option>
+                                                <option value="an">an</option>
                                             </select>
                                         </div>
                                     </div>
@@ -395,6 +410,12 @@
                                         </div>
                                     </div>
 									<div class="form-group">
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Akomodasi</label>
+										<div class="col-sm-5">
+                                            <input type="number" name="akomodasi" id="akomodasi" class="form-control"/>
+                                        </div>
+                                    </div>
+									<div class="form-group">
 									<label class="col-sm-2 control-label" for="demo-hor-inputemail"></label>
                                         <div class="col-sm-5">
                                             <input type="checkbox" name="laporan_kegiatan" id="laporan_kegiatan">Laporan Kegiatan
@@ -437,10 +458,10 @@
                                                     <input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_1" min="1" value="1" required onkeyup="getTotal(1)"/>
                                                 </div>
 												<div class="col-xs-2">
-                                                    <input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal" placeholder="Ket nominal"/>
+                                                    <input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_1" placeholder="Ket nominal"/>
                                                 </div>
                                                 <div class="col-xs-3">
-                                                    <input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_1" min="0" value="0" required onkeyup="getTotal(1)"/>
+                                                    <input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_1" min="0" placeholder="0" required onkeyup="getTotal(1)"/>
                                                 </div>
                                             </div>
                                             <div class="col-xs-1 pull right">
@@ -450,9 +471,19 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label"></label>
                                             <div class="body-detail">
-                                                <div class="col-xs-5">
+                                                <div class="col-xs-3">
                                                     <input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_1" min="0" value="0"
                                                            readonly/>
+                                                </div>
+												<div class="col-xs-2">
+                                                    <input type="number" name="orang[]" class="form-control orang" id="orang_1" min="0" placeholder="0" required onkeyup="getTotal(1)"/>
+                                                </div>
+												<div class="col-xs-4">
+                                                    <input type="number" name="total[]" class="form-control total" id="total_1" min="0" value="0"
+                                                           readonly/>
+                                                </div>
+												<div class="col-xs-1">
+                                                    <input type="text" name="muncul[]" class="muncul" id="muncul_1">
                                                 </div>
                                             </div>
                                         </div>
@@ -512,8 +543,7 @@
         {headerName: "NOPEG", field: "nopeg", width: 190, filterParams: {newRowsAction: 'keep'}},
         {headerName: "NAMA", field: "nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
         {headerName: "JABATAN", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "TOTAL BIAYA", field: "uraian_total", width: 190, filterParams: {newRowsAction: 'keep'}},
-    ];
+     ];
     var gridPI = {
         enableSorting: true,
         enableFilter: true,
@@ -759,7 +789,7 @@
             dataType: "json",
             success: function (e) {
                 for (var i = 0; i < e.result.length; i++) {
-                    $('#' + id).append('<option ' + (e.result[i].id == valueEdit ? 'selected' : '') + ' value="' + e.result[i].id + '" data-nik="' + e.result[i].nik + '" data-laporan="' + e.result[i].laporan_kegiatan + '" data-nip="' + e.result[i].nip + '" data-golongan="' + e.result[i].golongan + '" data-pangkat="' + e.result[i].pangkat +'" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_uk + '" >' + e.result[i].id + ' - ' + e.result[i].nama + '</option>');
+                    $('#' + id).append('<option ' + (e.result[i].id == valueEdit ? 'selected' : '') + ' value="' + e.result[i].id + '" data-nik="' + e.result[i].nik + '" data-laporan="' + e.result[i].laporan_kegiatan + '" data-nip="' + e.result[i].nip + '" data-golongan="' + e.result[i].golongan + '"data-akomodasi="' + e.result[i].akomodasi + '" data-pangkat="' + e.result[i].pangkat +'" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_uk + '" >' + e.result[i].id + ' - ' + e.result[i].nama + '</option>');
                 }
                 $('#' + id).trigger("chosen:updated");
             }
@@ -792,7 +822,7 @@
 
     loadPengembanganPelatihanKegiatan("pengembangan_pelatihan_kegiatan", BASE_URL + "pengembangan_pelatihan_kegiatan/list");
 
-    function loadPengembanganPelatihanKegiatanStatus(id, url, valueEdit = null) {
+	function loadPengembanganPelatihanKegiatanStatus(id, url, valueEdit = null) {
         $('#' + id).children().remove();
         $('#' + id).append('<option value="" selected="selected">Pilih</option>');
 
@@ -839,7 +869,7 @@
                             '<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal'+row_id+'" placeholder="Ket uraian"/>' +
                         '</div>' +
                         '<div class="col-xs-3">' +
-                            '<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" value="0" required onkeyup="getTotal('+row_id+')"/>' +
+                            '<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" placeholder="0" required onkeyup="getTotal('+row_id+')"/>' +
                         '</div>' +
                     '</div>' +
                     '<div class="col-xs-1 pull right">' +
@@ -849,8 +879,17 @@
                 '<div class="form-group body-remove">' +
                    ' <label class="col-sm-2 control-label"></label>' +
                    '<div class="body-detail">' +
-                        '<div class="col-xs-5">' +
-                            '<input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" value="0" readonly/>' +
+                        '<div class="col-xs-3">' +
+                            '<input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" placeholder="0" readonly/>' +
+                        '</div> '+  
+						'<div class="col-xs-2">' +
+                            '<input type="number" name="orang[]" class="form-control orang" id="orang_'+row_id+'" min="0" placeholder="0" required onkeyup="getTotal(\''+row_id+'\')"/>' +
+                        '</div> '+
+						'<div class="col-xs-4">' +
+                            '<input type="number" name="total[]" class="form-control total" id="total_'+row_id+'" min="0" value="0" readonly/>' +
+                        '</div> '+
+						'<div class="col-xs-1">' +
+                            '<input type="text" name="muncul[]" class="muncul" id="muncul_'+row_id+'">' +
                         '</div> '+
                     '</div>' +
                 '</div>'
@@ -875,11 +914,14 @@
           var total = Number($("#qty_nominal_"+row).val()) * Number($("#biaya_nominal_"+row).val());
           // total = total.toFixed(2);
           $("#total_nominal_"+row).val(total);
+		  var total_biaya = Number($("#total_nominal_"+row).val()) * Number($("#orang_"+row).val());
+          // total = total.toFixed(2);
+          $("#total_"+row).val(total_biaya);
           
         } else {
           alert('no row !! please refresh the page');
         }
-      }
+    }
 
     $("#add-data-calendar").on("click", function () {
         var row = $(
@@ -915,6 +957,7 @@
             // $("#nip").val($(this).find(':selected').val());
             $("#pangkat").val($(this).find(':selected').attr("data-pangkat"));
             $("#golongan").val($(this).find(':selected').attr("data-golongan"));
+            $("#akomodasi").val($(this).find(':selected').attr("data-akomodasi"));
         }
     });
 
@@ -925,34 +968,34 @@
             onMessage("Silahkan pilih pegawai .");
             return;
         }
-        var detail_uraian = [];
+        //var detail_uraian = [];
         var dataRow = {};
-        var itemUraian = {};
-        var biaya_uraian = $(".biaya_uraian").serializeArray();
-        var uraian_nominal = $(".uraian_nominal").serializeArray();
+        //var itemUraian = {};
+        //var biaya_uraian = $(".biaya_uraian").serializeArray();
+        //var uraian_nominal = $(".uraian_nominal").serializeArray();
         // var biaya_nominal = $(".biaya_nominal").serializeArray();
-        var biaya_nominal = $(".total_nominal").serializeArray();
-        var biaya_pernominal = $(".biaya_nominal").serializeArray();
-        var qty_nominal = $(".qty_nominal").serializeArray();
-        var uraian_total = 0;
-        for (var i = 0; i < biaya_uraian.length; i++) {
-            if (biaya_uraian[i].value.length > 0) {
-                itemUraian = {};
-                itemUraian.uraian = biaya_uraian[i].value;
-                itemUraian.uraian_nominal = uraian_nominal[i].value;
-                itemUraian.nominal = parseFloat(biaya_nominal[i].value);
-                itemUraian.pernominal = parseFloat(biaya_pernominal[i].value);
-                itemUraian.qty = parseFloat(qty_nominal[i].value);
-                uraian_total += itemUraian.nominal;
-                detail_uraian.push(itemUraian);
-            }
-            else{
-                onMessage("Lengkapi detail uraian biaya .");
-                return;
-            }
-        }
+        //var biaya_nominal = $(".total_nominal").serializeArray();
+        //var biaya_pernominal = $(".biaya_nominal").serializeArray();
+        //var qty_nominal = $(".qty_nominal").serializeArray();
+        //var uraian_total = 0;
+        //for (var i = 0; i < biaya_uraian.length; i++) {
+        //    if (biaya_uraian[i].value.length > 0) {
+        //        itemUraian = {};
+        //        itemUraian.uraian = biaya_uraian[i].value;
+        //        itemUraian.uraian_nominal = uraian_nominal[i].value;
+        //        itemUraian.nominal = parseFloat(biaya_nominal[i].value);
+        //        itemUraian.pernominal = parseFloat(biaya_pernominal[i].value);
+        //        itemUraian.qty = parseFloat(qty_nominal[i].value);
+        //        uraian_total += itemUraian.nominal;
+        //        detail_uraian.push(itemUraian);
+        //    }
+        //    else{
+        //        onMessage("Lengkapi detail uraian biaya .");
+        //        return;
+         //   }
+        //}
 
-        dataRow.uraian_total = uraian_total;
+       // dataRow.uraian_total = uraian_total;
         dataRow.nopeg = $("#nopeg").val();
         dataRow.nip = $("#nip").val();
         dataRow.nik = $("#nik").val();
@@ -962,9 +1005,10 @@
         };
         dataRow.pangkat = $("#pangkat").val();
         dataRow.golongan = $("#golongan").val();
+        dataRow.akomodasi = $("#akomodasi").val();
         dataRow.nama_pegawai = $("#nama_pegawai").val();
         dataRow.jabatan = $("#jabatan").val();
-        dataRow.detail_uraian = detail_uraian;
+        //dataRow.detail_uraian = detail_uraian;
         if (idRow == ""){
             dataTable.push(dataRow);//disini masih ngak ada masalah, karena actionnya push, entah berapapun indexnya data di masukan di atas index terakhir
         }
@@ -1010,6 +1054,7 @@
                 $('#nik').val(selectedRow.nik);
                 $('#pangkat').val(selectedRow.pangkat);
                 $('#golongan').val(selectedRow.golongan);
+                $('#akomodasi').val(selectedRow.akomodasi);
 				
 				if (selectedRow.laporan_kegiatan == "1"){
                    $('#laporan_kegiatan').prop("checked", true);
@@ -1017,71 +1062,7 @@
                 else{
                     $('#laporan_kegiatan').prop("checked", false);
                 }
-                selectedRow.detail_uraian.forEach(function (item, index) {
-                    if (index == 0) {
-                        $("#biaya_uraian_1").val(selectedRow.detail_uraian[index].uraian);
-                        $("#total_nominal_1").val(selectedRow.detail_uraian[index].nominal);
-                        $("#uraian_nominal_1").val(selectedRow.detail_uraian[index].uraian_nominal);
-                        $("#biaya_nominal_1").val(selectedRow.detail_uraian[index].pernominal);
-                        $("#qty_nominal_1").val(selectedRow.detail_uraian[index].qty);
-                    }
-                    else {
-                        // var row = $(
-                        //     '<div class="form-group body-remove">' +
-                        //     '<label class="col-sm-3 control-label"></label>' +
-                        //     '<div class="body-detail">' +
-                        //     '<div class="col-sm-3">' +
-                        //     '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" placeholder="Uraian" value=' + selectedRow.detail_uraian[index].uraian + ' />' +
-                        //     '</div>' +
-                        //     '<div class="col-sm-3">' +
-                        //     '<input type="text" name="biaya_nominal[]" class="form-control biaya_nominal" placeholder="Biaya" value=' + selectedRow.detail_uraian[index].nominal + ' />' +
-                        //     '</div>' +
-                        //     '</div>' +
-                        //     '<div class="col-xs-3 pull right">' +
-                        //     '<div class="btn btn-default btn-sm btn-remove">' +
-                        //     '<i class="fa fa-trash-o"></i>' +
-                        //     '</div>' +
-                        //     '</div>' +
-                        //     '</div>');
-                        // $(".body-content").append(row);
-                        var row_id = index + 1
-                        var row = 
-                                '<tr id="row_'+row_id+'">'+
-                                '<td>'+
-                                '<div class="form-group body-remove">' +
-                                   ' <label class="col-sm-2 control-label"></label>' +
-                                   '<div class="body-detail">' +
-                                        '<div class="col-xs-2">' +
-                                            '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian" value=' + selectedRow.detail_uraian[index].uraian + ' />' +
-                                        '</div>' +
-                                        '<div class="col-xs-2">' +
-                                            '<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" min="1" value=' + selectedRow.detail_uraian[index].qty + ' required onkeyup="getTotal('+row_id+')"/>' +
-                                        '</div>' +
-										'<div class="col-xs-2">' +
-                                            '<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_'+row_id+'" placeholder="Ket uraian" value=' + selectedRow.detail_uraian[index].uraian_nominal + ' />' +
-                                        '</div>' +
-                                        '<div class="col-xs-3">' +
-                                            '<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" value=' + selectedRow.detail_uraian[index].pernominal + ' required onkeyup="getTotal('+row_id+')"/>' +
-                                        '</div>' +
-                                    '</div>' +
-                                    '<div class="col-xs-1 pull right">' +
-                                        '<div class="btn btn-default btn-sm btn-remove" onclick="removeRow(\''+row_id+'\')"><i class="fa fa-trash-o"></i></div>' +
-                                    '</div>' +
-                                '</div>' +
-                                '<div class="form-group body-remove">' +
-                                   ' <label class="col-sm-2 control-label"></label>' +
-                                   '<div class="body-detail">' +
-                                        '<div class="col-xs-5">' +
-                                            '<input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" value=' + selectedRow.detail_uraian[index].nominal + ' readonly/>' +
-                                        '</div> '+
-                                    '</div>' +
-                                '</div>'
-                                + '</td>'
-                                + '</tr>'
-                                ;
-                        $(".body-content tbody").append(row);
-                    }
-                });
+                
                 isClickRowTable = false;
                 btnActionEdit(indexId);
             }
@@ -1132,7 +1113,6 @@
     }
 
     function clearAddPegawai() {
-        $(".body-remove").remove();
         // $(".body-remove-calendar").remove();
         $("#nopeg").prop('selectedIndex', 0);
         $("#nopeg").trigger("chosen:updated");
@@ -1143,10 +1123,7 @@
         $('#laporan_kegiatan').prop("checked", false);
         $("#pangkat").val("");
         $("#golongan").val("");
-        $("#biaya_uraian_1").val("");
-        $("#biaya_nominal_1").val(0);
-        $("#total_nominal_1").val(0);
-        $("#qty_nominal_1").val(1);
+        $("#akomodasi").val("");
         $(".btn-pegawai-remove").val("");
         $(".btn-pegawai-edit").val("");
         isClickRowTable = true;
@@ -1160,23 +1137,34 @@
         console.log(dataTable);
         isClickRowTable = true;
         $("#form-add").trigger('reset');
-        
+        $("#biaya_uraian_1").val("");
+		$("#uraian_nominal_1").val("");
+        $("#orang_1").val("");
+        $("#total_1").val("");
+        $("#muncul_1").val("");
+        $("#biaya_nominal_1").val("");
+        $("#total_nominal_1").val(0);
+        $("#qty_nominal_1").val(1);
         $("#pengembangan_pelatihan_kegiatan").prop('selectedIndex', 0);
         $("#pengembangan_pelatihan_kegiatan").trigger("chosen:updated");
         $("#pengembangan_pelatihan_kegiatan_status").prop('selectedIndex', 0);
         $("#pengembangan_pelatihan_kegiatan_status").trigger("chosen:updated");
         $("#jenis_perjalanan").prop('selectedIndex', 0);
         $("#jenis_perjalanan").trigger("chosen:updated");
-        $("#jenis_perjalanan").trigger('change');
-        $("#jenis_biaya").prop('selectedIndex', 0);
+        $("#jenis_perjalanan").trigger('change');  
+		$("#jenis_plh").prop('selectedIndex', 0);
+        $("#jenis_plh").trigger("chosen:updated");
+		$("#plh").prop('selectedIndex', 0);
+        $("#plh").trigger("chosen:updated");
+        $("#plh").val("");
+		$("#jenis_biaya").prop('selectedIndex', 0);
         $("#jenis_biaya").trigger('chosen:updated');
         $("#jenis_biaya").trigger('change');
-        $("#jenis_biaya").val('');
         $("#jenis").prop('selectedIndex', 0);
         $("#jenis").trigger("chosen:updated");
 		$("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
         $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
-    }
+	}
 
     // CRUD
     function simpan() {
@@ -1185,10 +1173,21 @@
         obj.no_disposisi = $("#no_disposisi").val();
         obj.nama_pelatihan = $("#nama_pelatihan").val();
         obj.tujuan = $("#tujuan").val();
+        obj.membaca = $("#membaca").val();
+        obj.yth = $("#yth").val();
         obj.institusi = $("#institusi").val();
         obj.alamat = $("#alamat").val();
         obj.tanggal = $(".tanggal").serializeArray();
-        obj.tanggal_go = $(".tanggal_go").serializeArray();
+        obj.biaya_uraian = $(".biaya_uraian").serializeArray();
+        obj.uraian_nominal = $(".uraian_nominal").serializeArray();
+        obj.biaya_nominal = $(".biaya_nominal").serializeArray();
+        obj.total_nominal = $(".total_nominal").serializeArray();
+        obj.biaya_pernominal = $(".biaya_nominal").serializeArray();
+        obj.orang = $(".orang").serializeArray();
+        obj.total = $(".total").serializeArray();
+        obj.muncul = $(".muncul").serializeArray();
+        obj.qty_nominal = $(".qty_nominal").serializeArray();
+		obj.tanggal_go = $(".tanggal_go").serializeArray();
         obj.tanggal_back = $(".tanggal_back").serializeArray();
         obj.jam_mulai = $("#jam_mulai").val();
         obj.jam_sampai = $("#jam_sampai").val();
@@ -1293,9 +1292,9 @@
     loaddata(0);
 
     function proses_edit(){
-        var selectedRows = gridOptionsList.api.getSelectedRows();
-
-        if (selectedRows.length != 1) {
+		form_reset();
+		var selectedRows = gridOptionsList.api.getSelectedRows();
+		if (selectedRows.length != 1) {
             onMessage('Silahkan Pilih Data Terlebih dahulu!');
             return false;
         } 
@@ -1330,6 +1329,8 @@
 
                     $("#nama_pelatihan").val(res.data.nama_pelatihan);
                     $("#tujuan").val(res.data.tujuan);
+                    $("#membaca").val(res.data.membaca);
+                    $("#yth").val(res.data.yth);
                     $("#target_kinerja").val(res.data.target_kinerja);
                     $("#institusi").val(res.data.institusi);
                     $("#alamat").val(res.data.alamat);
@@ -1343,6 +1344,66 @@
                     $('#jenis_plh').val(res.data.jenis_plh);
                     $("#jenis_plh").trigger("chosen:updated");
 
+					for (var id = 0; id < res.data.detail_uraian.length; id++) {
+						if (id == 0) {
+							$("#biaya_uraian_1").val(res.data.detail_uraian[id].uraian);
+							$("#total_nominal_1").val(res.data.detail_uraian[id].nominal);
+							$("#uraian_nominal_1").val(res.data.detail_uraian[id].uraian_nominal);
+							$("#biaya_nominal_1").val(res.data.detail_uraian[id].pernominal);
+							$("#qty_nominal_1").val(res.data.detail_uraian[id].qty);
+							$("#orang_1").val(res.data.detail_uraian[id].orang);
+							$("#total_1").val(res.data.detail_uraian[id].total);
+							$("#muncul_1").val(res.data.detail_uraian[id].muncul);
+							
+						}
+						else {
+							var row_id = id + 1
+							var row = 
+									'<tr id="row_'+row_id+'">'+
+									'<td>'+
+									'<div class="form-group body-remove">' +
+									   ' <label class="col-sm-2 control-label"></label>' +
+									   '<div class="body-detail">' +
+											'<div class="col-xs-2">' +
+												'<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian" value=' + res.data.detail_uraian[id].uraian + ' />' +
+											'</div>' +
+											'<div class="col-xs-2">' +
+												'<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" min="1" value=' + res.data.detail_uraian[id].qty + ' required onkeyup="getTotal('+row_id+')"/>' +
+											'</div>' +
+											'<div class="col-xs-2">' +
+												'<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_'+row_id+'" placeholder="Ket uraian" value=' + res.data.detail_uraian[id].uraian_nominal + ' />' +
+											'</div>' +
+											'<div class="col-xs-3">' +
+												'<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" value=' + res.data.detail_uraian[id].pernominal + ' required onkeyup="getTotal('+row_id+')"/>' +
+											'</div>' +
+										'</div>' +
+										'<div class="col-xs-1 pull right">' +
+											'<div class="btn btn-default btn-sm btn-remove" onclick="removeRow(\''+row_id+'\')"><i class="fa fa-trash-o"></i></div>' +
+										'</div>' +
+									'</div>' +
+									'<div class="form-group body-remove">' +
+									   ' <label class="col-sm-2 control-label"></label>' +
+									   '<div class="body-detail">' +
+											'<div class="col-xs-3">' +
+												'<input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" value=' + res.data.detail_uraian[id].nominal + ' readonly/>' +
+											'</div> '+ 
+											'<div class="col-xs-2">' +
+												'<input type="number" name="orang[]" class="form-control orang" id="orang_'+row_id+'" min="0" placeholder="0" value=' + res.data.detail_uraian[id].orang + ' required onkeyup="getTotal(\''+row_id+'\')"/>' +
+											'</div> '+
+											'<div class="col-xs-4">' +
+												'<input type="number" name="total[]" class="form-control total" id="total_'+row_id+'" min="0" value=' + res.data.detail_uraian[id].total + ' readonly/>' +
+											'</div> '+
+											'<div class="col-xs-1">' +
+												'<input type="text" name="muncul[]" class="muncul[]" id="muncul_'+row_id+'" value=' + res.data.detail_uraian[id].muncul + '>' +
+											'</div> '+
+										'</div>' +
+									'</div>'
+									+ '</td>'
+									+ '</tr>'
+									;
+							$(".body-content tbody").append(row);
+						}
+					};
                     if (res.data.monev == "1"){
                         $('#monev').prop("checked", true);
                     }
@@ -1552,7 +1613,26 @@
 		}
 	}
 
-    function cetak_rekomendasi(){
+    function verbal(){
+     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        }else{ 
+		gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id + '&surat=Surat_verbal&kode=' + selectedRowsSelesai[0].kode,pdf_verbal,'large');
+		}
+    } 
+	function pdf_verbal(){
+     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } 
+        else {
+            window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id + '&surat=Surat_verbal&kode=' + selectedRowsSelesai[0].kode);
+        }
+    }
+	function cetak_rekomendasi(){
      var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
         if (selectedRowsSelesai.length <= 0) {
             onMessage('Silahkan Pilih Data Terlebih dahulu!');

@@ -112,7 +112,7 @@
     </tr>
 	<tr>
       <td colspan="3">
-	  <p align="justify">      Yang akan dilaksanakan di <?php echo '<i>'.$result["tujuan"].'</i>'; ?>. Pada <?php if($result["tanggal"]["tanggal_from"]==$result["tanggal"]["tanggal_to"]){echo $result["tanggal"]["tanggal_to"]; }else{echo date("d",strtotime($result["tanggal"][0]["tanggal_from"]))." ".bulan(date("m",strtotime($result["tanggal"][0]["tanggal_from"]))) ." s.d ". $result["tanggal"]["tanggal_to"]; }?>, dengan biaya Rp. <?php if($result["jenis"] == "Kelompok"){ echo number_format($result["total"], 0, ",", ".")?> (<?php echo ucfirst($result["total_biaya_k"]);}else{echo number_format($result["detail"][0]["uraian_total"], 0, ",", ".")?> (<?php echo ucfirst($result["total_biaya"]);}?> rupiah) rincian terlampir, dengan ini mohon kerjasamanya untuk ditindaklanjut pembuatan perjanjian ikatan dinas sesuai dengan ketentuan yang berlaku.</p>
+	  <p align="justify">      Yang akan dilaksanakan di <?php echo '<i>'.$result["tujuan"].'</i>'; ?>. Pada <?php if($result["tanggal"]["tanggal_from"]==$result["tanggal"]["tanggal_to"]){echo $result["tanggal"]["tanggal_to"]; }else{echo date("d",strtotime($result["tanggal"][0]["tanggal_from"]))." ".bulan(date("m",strtotime($result["tanggal"][0]["tanggal_from"]))) ." s.d ". $result["tanggal"]["tanggal_to"]; }?>, dengan biaya Rp. <?php if($result["jenis"] == "Kelompok"){ echo number_format($result["total"], 0, ",", ".")?> (<?php echo ucfirst($result["total_biaya"]);}else{echo number_format($result["detail"][0]["uraian_total"], 0, ",", ".")?> (<?php echo ucfirst($result["total_biaya"]);}?> rupiah) rincian terlampir, dengan ini mohon kerjasamanya untuk ditindaklanjut pembuatan perjanjian ikatan dinas sesuai dengan ketentuan yang berlaku.</p>
 	  </td>
     </tr>
 	<tr>

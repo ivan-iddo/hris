@@ -54,7 +54,7 @@
 				<td><?php echo $value["gelar_depan"].' '.$result[$key]["pengembangan_pelatihan_detail"]->nama_pegawai.', '.$value["gelar_belakang"] ?></td>
 				<td><?php echo $value["total_hari_kerja"]; ?></td>
                 <td><?php echo $result[$key]["tanggal"]->total_jam; ?></td>
-                <td><?php echo $value["uraian_total"]; ?></td>
+                <td>Rp. <?php echo number_format($value["uraian_total"], 0, ",", ".")?></td>
               </tr>
             <?php endforeach ?>
           <?php endif ?>
