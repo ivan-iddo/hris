@@ -111,6 +111,14 @@
                 seluruh
             </a>
         </li>
+		<li class="">
+            <a href="#demo-lft-tab-17" data-toggle="tab">
+                <span class="block text-center">
+                     <i class="fa fa-check-square-o fa-2x text-danger"></i> 
+                </span> 
+                Pertahun
+            </a>
+        </li>
       </ul>
   
       <div class="tab-content">
@@ -837,6 +845,29 @@
         </div> 
         </div> 
 		
+		
+		<div class="tab-pane fade " id="demo-lft-tab-17" >
+		<div class="row"> 
+        <div class="col-md-6"> 
+            <div class="box box-primary"> 
+                <div class="box-body">
+                
+                <div class="row "> 
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="inputstatus"></label>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview17();return false;">Preview</button> 
+					</div>
+					</div>
+                </div>
+            </div>                      
+          </div>
+          </div>
+		</div>
+        </div> 
+        </div> 
+		
 	
       </div>
     </div>    
@@ -872,6 +903,17 @@
 	  var dari = $('#tgl_awal16').val();
       var sampai = $('#tgl_akhir16').val();
       window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan/?&surat=laporan16&awal='+dari+'&akhir='+sampai);
+	}
+	function preview17(){
+	  var dari = $('#tgl_awal16').val();
+      var sampai = $('#tgl_akhir16').val();
+      gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan5/?&surat=laporan17&awal='+dari+'&akhir='+sampai,pdf_preview17,'large');
+    }
+	
+	function pdf_preview17() {
+	  var dari = $('#tgl_awal16').val();
+      var sampai = $('#tgl_akhir16').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan5/?&surat=laporan17&awal='+dari+'&akhir='+sampai);
 	}
 	function preview2(){
 	  var dari = $('#tgl_awal2').val();

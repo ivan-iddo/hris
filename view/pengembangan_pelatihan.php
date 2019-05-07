@@ -461,7 +461,7 @@
                                                     <input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_1" placeholder="Ket nominal"/>
                                                 </div>
                                                 <div class="col-xs-3">
-                                                    <input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_1" min="0" placeholder="0" required onkeyup="getTotal(1)"/>
+                                                    <input type="text" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_1" min="0" placeholder="0" required onkeyup="getTotal(1)"/>
                                                 </div>
                                             </div>
                                             <div class="col-xs-1 pull right">
@@ -472,14 +472,14 @@
                                             <label class="col-sm-2 control-label"></label>
                                             <div class="body-detail">
                                                 <div class="col-xs-3">
-                                                    <input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_1" min="0" value="0"
+                                                    <input type="text" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_1" min="0" value="0"
                                                            readonly/>
                                                 </div>
 												<div class="col-xs-2">
                                                     <input type="number" name="orang[]" class="form-control orang" id="orang_1" min="0" placeholder="0" required onkeyup="getTotal(1)"/>
                                                 </div>
 												<div class="col-xs-4">
-                                                    <input type="number" name="total[]" class="form-control total" id="total_1" min="0" value="0"
+                                                    <input type="text" name="total[]" class="form-control total" id="total_1" min="0" value="0"
                                                            readonly/>
                                                 </div>
 												<div class="col-xs-1">
@@ -536,7 +536,6 @@
         </button>
     </div>
 </div>
-
 <script>
     $('.judul-menu').html('Pengembangan Pelatihan');
     var listPI = [
@@ -908,16 +907,38 @@
       {
         $(".body-content tbody tr#row_"+tr_id).remove();
       }
-
+	
+	function formatAngka(angka) {
+	 if (typeof(angka) != 'string') angka = angka.toString();
+	 var reg = new RegExp('([0-9]+)([0-9]{3})');
+	 while(reg.test(angka)) angka = angka.replace(reg, '$1.$2');
+	 return angka;
+	}
+	
     function getTotal(row = null) {
         if(row) {
-          var total = Number($("#qty_nominal_"+row).val()) * Number($("#biaya_nominal_"+row).val());
-          // total = total.toFixed(2);
-          $("#total_nominal_"+row).val(total);
-		  var total_biaya = Number($("#total_nominal_"+row).val()) * Number($("#orang_"+row).val());
-          // total = total.toFixed(2);
-          $("#total_"+row).val(total_biaya);
-          
+		  $("#biaya_nominal_"+row).on('keypress', function(e) {
+			 var c = e.keyCode || e.charCode;
+			 switch (c) {
+			  case 8: case 9: case 27: case 13: return;
+			  case 65:
+			   if (e.ctrlKey === true) return;
+			 }
+			 if (c < 48 || c > 57) e.preventDefault();
+			})
+			 var inp = $("#biaya_nominal_"+row).val().replace(/\./g, '');
+			 // set nilai ke variabel bayar
+			 bayar = new Number(inp);
+			 $("#biaya_nominal_"+row).val(formatAngka(inp));
+			 
+			 var total = Number($("#qty_nominal_"+row).val()) * bayar;
+			  // total = total.toFixed(2);
+			 $("#total_nominal_"+row).val(formatAngka(total));
+			 
+			 var total_biaya = total * Number($("#orang_"+row).val());
+			  // total = total.toFixed(2);
+			 $("#total_"+row).val(formatAngka(total_biaya));
+			
         } else {
           alert('no row !! please refresh the page');
         }
@@ -968,61 +989,178 @@
             onMessage("Silahkan pilih pegawai .");
             return;
         }
+		var hasil;
+		var message;
+		var datas = {};
+		datas.tanggal = $(".tanggal").serializeArray();
+		datas.nopeg = $("#nopeg").val();
+		console.log(datas);
+		var URL = BASE_URL + "pengembangan_pelatihan/cek";;
+		$.ajax({
+			url: URL,
+			headers: {
+				'Authorization': localStorage.getItem("Token"),
+				'X_CSRF_TOKEN': 'donimaulana',
+				'Content-Type': 'application/json'
+			},
+			dataType: 'json',
+			type: 'post',
+			contentType: 'application/json',
+			processData: false,
+			data: JSON.stringify(datas),
+			success: function (data, textStatus, jQxhr) {
+				hasil = data.hasil;
+				message = data.message;
+				if (hasil == "success") {
+
+					var dataRow = {};
+					//var itemUraian = {};
+					//var biaya_uraian = $(".biaya_uraian").serializeArray();
+					//var uraian_nominal = $(".uraian_nominal").serializeArray();
+					// var biaya_nominal = $(".biaya_nominal").serializeArray();
+					//var biaya_nominal = $(".total_nominal").serializeArray();
+					//var biaya_pernominal = $(".biaya_nominal").serializeArray();
+					//var qty_nominal = $(".qty_nominal").serializeArray();
+					//var uraian_total = 0;
+					//for (var i = 0; i < biaya_uraian.length; i++) {
+					//    if (biaya_uraian[i].value.length > 0) {
+					//        itemUraian = {};
+					//        itemUraian.uraian = biaya_uraian[i].value;
+					//        itemUraian.uraian_nominal = uraian_nominal[i].value;
+					//        itemUraian.nominal = parseFloat(biaya_nominal[i].value);
+					//        itemUraian.pernominal = parseFloat(biaya_pernominal[i].value);
+					//        itemUraian.qty = parseFloat(qty_nominal[i].value);
+					//        uraian_total += itemUraian.nominal;
+					//        detail_uraian.push(itemUraian);
+					//    }
+					//    else{
+					//        onMessage("Lengkapi detail uraian biaya .");
+					//        return;
+					 //   }
+					//}
+
+				   // dataRow.uraian_total = uraian_total;
+					dataRow.nopeg = $("#nopeg").val();
+					dataRow.nip = $("#nip").val();
+					dataRow.nik = $("#nik").val();
+					dataRow.laporan_kegiatan = 0;
+					if ($('#laporan_kegiatan').is(":checked")){
+						dataRow.laporan_kegiatan = 1;
+					};
+					dataRow.pangkat = $("#pangkat").val();
+					dataRow.golongan = $("#golongan").val();
+					dataRow.akomodasi = $("#akomodasi").val();
+					dataRow.nama_pegawai = $("#nama_pegawai").val();
+					dataRow.jabatan = $("#jabatan").val();
+					//dataRow.detail_uraian = detail_uraian;
+					if (idRow == ""){
+						dataTable.push(dataRow);//disini masih ngak ada masalah, karena actionnya push, entah berapapun indexnya data di masukan di atas index terakhir
+					}
+					else{
+						dataTable[idRow]/*seharusnya id row ini adalah index [x] nya kan?*/ = dataRow;//tapi di sini, ngak bisa main push kan, karena kita mau timpa data dengan index [x]
+					}
+
+					console.log("dataRow",dataRow);
+					console.log("dataTable",dataTable);
+					// return;
+
+					gridPI.api.setRowData(dataTable);
+					isClickRowTable = true;
+					clearAddPegawai();
+				} else {
+					bootbox.dialog({
+					message: message,
+					animateIn: 'bounceIn',
+					animateOut: 'bounceOut',
+					backdrop: false,
+					buttons: {
+						success: {
+							label: "Save",
+							className: "btn-primary",
+							callback: function () {
+							
+							var dataRow = {};
+							//var itemUraian = {};
+							//var biaya_uraian = $(".biaya_uraian").serializeArray();
+							//var uraian_nominal = $(".uraian_nominal").serializeArray();
+							// var biaya_nominal = $(".biaya_nominal").serializeArray();
+							//var biaya_nominal = $(".total_nominal").serializeArray();
+							//var biaya_pernominal = $(".biaya_nominal").serializeArray();
+							//var qty_nominal = $(".qty_nominal").serializeArray();
+							//var uraian_total = 0;
+							//for (var i = 0; i < biaya_uraian.length; i++) {
+							//    if (biaya_uraian[i].value.length > 0) {
+							//        itemUraian = {};
+							//        itemUraian.uraian = biaya_uraian[i].value;
+							//        itemUraian.uraian_nominal = uraian_nominal[i].value;
+							//        itemUraian.nominal = parseFloat(biaya_nominal[i].value);
+							//        itemUraian.pernominal = parseFloat(biaya_pernominal[i].value);
+							//        itemUraian.qty = parseFloat(qty_nominal[i].value);
+							//        uraian_total += itemUraian.nominal;
+							//        detail_uraian.push(itemUraian);
+							//    }
+							//    else{
+							//        onMessage("Lengkapi detail uraian biaya .");
+							//        return;
+							 //   }
+							//}
+
+						   // dataRow.uraian_total = uraian_total;
+							dataRow.nopeg = $("#nopeg").val();
+							dataRow.nip = $("#nip").val();
+							dataRow.nik = $("#nik").val();
+							dataRow.laporan_kegiatan = 0;
+							if ($('#laporan_kegiatan').is(":checked")){
+								dataRow.laporan_kegiatan = 1;
+							};
+							dataRow.pangkat = $("#pangkat").val();
+							dataRow.golongan = $("#golongan").val();
+							dataRow.akomodasi = $("#akomodasi").val();
+							dataRow.nama_pegawai = $("#nama_pegawai").val();
+							dataRow.jabatan = $("#jabatan").val();
+							//dataRow.detail_uraian = detail_uraian;
+							if (idRow == ""){
+								dataTable.push(dataRow);//disini masih ngak ada masalah, karena actionnya push, entah berapapun indexnya data di masukan di atas index terakhir
+							}
+							else{
+								dataTable[idRow]/*seharusnya id row ini adalah index [x] nya kan?*/ = dataRow;//tapi di sini, ngak bisa main push kan, karena kita mau timpa data dengan index [x]
+							}
+
+							console.log("dataRow",dataRow);
+							console.log("dataTable",dataTable);
+							// return;
+
+							gridPI.api.setRowData(dataTable);
+							isClickRowTable = true;
+							clearAddPegawai();
+							}
+						},
+
+						main: {
+							label: "Close",
+							className: "btn-warning",
+							callback: function () {
+
+							}
+						}
+					}
+				});
+				}
+
+
+			},
+			error: function (jqXhr, textStatus, errorThrown) {
+				$.niftyNoty({
+					type: 'danger',
+					title: 'Warning!',
+					message: message,
+					container: 'floating',
+					timer: 5000
+				});
+			}
+		});
         //var detail_uraian = [];
-        var dataRow = {};
-        //var itemUraian = {};
-        //var biaya_uraian = $(".biaya_uraian").serializeArray();
-        //var uraian_nominal = $(".uraian_nominal").serializeArray();
-        // var biaya_nominal = $(".biaya_nominal").serializeArray();
-        //var biaya_nominal = $(".total_nominal").serializeArray();
-        //var biaya_pernominal = $(".biaya_nominal").serializeArray();
-        //var qty_nominal = $(".qty_nominal").serializeArray();
-        //var uraian_total = 0;
-        //for (var i = 0; i < biaya_uraian.length; i++) {
-        //    if (biaya_uraian[i].value.length > 0) {
-        //        itemUraian = {};
-        //        itemUraian.uraian = biaya_uraian[i].value;
-        //        itemUraian.uraian_nominal = uraian_nominal[i].value;
-        //        itemUraian.nominal = parseFloat(biaya_nominal[i].value);
-        //        itemUraian.pernominal = parseFloat(biaya_pernominal[i].value);
-        //        itemUraian.qty = parseFloat(qty_nominal[i].value);
-        //        uraian_total += itemUraian.nominal;
-        //        detail_uraian.push(itemUraian);
-        //    }
-        //    else{
-        //        onMessage("Lengkapi detail uraian biaya .");
-        //        return;
-         //   }
-        //}
-
-       // dataRow.uraian_total = uraian_total;
-        dataRow.nopeg = $("#nopeg").val();
-        dataRow.nip = $("#nip").val();
-        dataRow.nik = $("#nik").val();
-		dataRow.laporan_kegiatan = 0;
-        if ($('#laporan_kegiatan').is(":checked")){
-            dataRow.laporan_kegiatan = 1;
-        };
-        dataRow.pangkat = $("#pangkat").val();
-        dataRow.golongan = $("#golongan").val();
-        dataRow.akomodasi = $("#akomodasi").val();
-        dataRow.nama_pegawai = $("#nama_pegawai").val();
-        dataRow.jabatan = $("#jabatan").val();
-        //dataRow.detail_uraian = detail_uraian;
-        if (idRow == ""){
-            dataTable.push(dataRow);//disini masih ngak ada masalah, karena actionnya push, entah berapapun indexnya data di masukan di atas index terakhir
-        }
-        else{
-            dataTable[idRow]/*seharusnya id row ini adalah index [x] nya kan?*/ = dataRow;//tapi di sini, ngak bisa main push kan, karena kita mau timpa data dengan index [x]
-        }
-
-        console.log("dataRow",dataRow);
-        console.log("dataTable",dataTable);
-        // return;
-
-        gridPI.api.setRowData(dataTable);
-        isClickRowTable = true;
-        clearAddPegawai();
+        
     }
 
     function editRowTable() {
@@ -1347,12 +1485,12 @@
 					for (var id = 0; id < res.data.detail_uraian.length; id++) {
 						if (id == 0) {
 							$("#biaya_uraian_1").val(res.data.detail_uraian[id].uraian);
-							$("#total_nominal_1").val(res.data.detail_uraian[id].nominal);
+							$("#total_nominal_1").val(formatAngka(res.data.detail_uraian[id].nominal));
 							$("#uraian_nominal_1").val(res.data.detail_uraian[id].uraian_nominal);
-							$("#biaya_nominal_1").val(res.data.detail_uraian[id].pernominal);
+							$("#biaya_nominal_1").val(formatAngka(res.data.detail_uraian[id].pernominal));
 							$("#qty_nominal_1").val(res.data.detail_uraian[id].qty);
 							$("#orang_1").val(res.data.detail_uraian[id].orang);
-							$("#total_1").val(res.data.detail_uraian[id].total);
+							$("#total_1").val(formatAngka(res.data.detail_uraian[id].total));
 							$("#muncul_1").val(res.data.detail_uraian[id].muncul);
 							
 						}
@@ -1374,7 +1512,7 @@
 												'<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_'+row_id+'" placeholder="Ket uraian" value=' + res.data.detail_uraian[id].uraian_nominal + ' />' +
 											'</div>' +
 											'<div class="col-xs-3">' +
-												'<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" value=' + res.data.detail_uraian[id].pernominal + ' required onkeyup="getTotal('+row_id+')"/>' +
+												'<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" value=' + formatAngka(res.data.detail_uraian[id].pernominal) + ' required onkeyup="getTotal('+row_id+')"/>' +
 											'</div>' +
 										'</div>' +
 										'<div class="col-xs-1 pull right">' +
@@ -1385,13 +1523,13 @@
 									   ' <label class="col-sm-2 control-label"></label>' +
 									   '<div class="body-detail">' +
 											'<div class="col-xs-3">' +
-												'<input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" value=' + res.data.detail_uraian[id].nominal + ' readonly/>' +
+												'<input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" value=' + formatAngka(res.data.detail_uraian[id].nominal) + ' readonly/>' +
 											'</div> '+ 
 											'<div class="col-xs-2">' +
 												'<input type="number" name="orang[]" class="form-control orang" id="orang_'+row_id+'" min="0" placeholder="0" value=' + res.data.detail_uraian[id].orang + ' required onkeyup="getTotal(\''+row_id+'\')"/>' +
 											'</div> '+
 											'<div class="col-xs-4">' +
-												'<input type="number" name="total[]" class="form-control total" id="total_'+row_id+'" min="0" value=' + res.data.detail_uraian[id].total + ' readonly/>' +
+												'<input type="number" name="total[]" class="form-control total" id="total_'+row_id+'" min="0" value=' + formatAngka(res.data.detail_uraian[id].total) + ' readonly/>' +
 											'</div> '+
 											'<div class="col-xs-1">' +
 												'<input type="text" name="muncul[]" class="muncul[]" id="muncul_'+row_id+'" value=' + res.data.detail_uraian[id].muncul + '>' +
