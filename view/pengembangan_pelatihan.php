@@ -868,7 +868,7 @@
                             '<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal'+row_id+'" placeholder="Ket uraian"/>' +
                         '</div>' +
                         '<div class="col-xs-3">' +
-                            '<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" placeholder="0" required onkeyup="getTotal('+row_id+')"/>' +
+                            '<input type="text" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" placeholder="0" required onkeyup="getTotal('+row_id+')"/>' +
                         '</div>' +
                     '</div>' +
                     '<div class="col-xs-1 pull right">' +
@@ -879,13 +879,13 @@
                    ' <label class="col-sm-2 control-label"></label>' +
                    '<div class="body-detail">' +
                         '<div class="col-xs-3">' +
-                            '<input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" placeholder="0" readonly/>' +
+                            '<input type="text" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" placeholder="0" readonly/>' +
                         '</div> '+  
 						'<div class="col-xs-2">' +
                             '<input type="number" name="orang[]" class="form-control orang" id="orang_'+row_id+'" min="0" placeholder="0" required onkeyup="getTotal(\''+row_id+'\')"/>' +
                         '</div> '+
 						'<div class="col-xs-4">' +
-                            '<input type="number" name="total[]" class="form-control total" id="total_'+row_id+'" min="0" value="0" readonly/>' +
+                            '<input type="text" name="total[]" class="form-control total" id="total_'+row_id+'" min="0" value="0" readonly/>' +
                         '</div> '+
 						'<div class="col-xs-1">' +
                             '<input type="text" name="muncul[]" class="muncul" id="muncul_'+row_id+'">' +
