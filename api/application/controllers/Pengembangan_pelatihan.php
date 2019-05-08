@@ -2024,12 +2024,12 @@ class Pengembangan_pelatihan extends REST_Controller
 				$from = @($tanggal_explode[0]?$tanggal_explode[0]:Null);
                 $to = @$tanggal_explode[1];
                 $this->db->where('pengembangan_pelatihan_detail.nopeg', $nopeg);
-				$this->db->where("pengembangan_pelatihan_pelaksanaan.tanggal_from >=", $from);
-				$this->db->where("pengembangan_pelatihan_pelaksanaan.tanggal_to <=", $to);
+				$this->db->where("pengembangan_pelatihan_pelaksanaan.tanggal_from <=", $from);
+				$this->db->where("pengembangan_pelatihan_pelaksanaan.tanggal_to >=", $to);
 				$this->db->join("pengembangan_pelatihan_pelaksanaan", "pengembangan_pelatihan_detail.pengembangan_pelatihan_id = pengembangan_pelatihan_pelaksanaan.pengembangan_pelatihan_id");
 				$this->db->join("pengembangan_pelatihan", "pengembangan_pelatihan_detail.pengembangan_pelatihan_id = pengembangan_pelatihan.id");
 				$cek=$this->db->get('pengembangan_pelatihan_detail')->row();
-                //print_r($cek->tujuan);die();
+                //print_r($from);die();
                     if (empty($cek)) {
                         $arr['hasil'] = 'success';
                     } else {
