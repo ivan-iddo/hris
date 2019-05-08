@@ -909,7 +909,7 @@
       }
 	
 	function formatAngka(angka) {
-	 if (typeof(angka) != 'string');
+	 if (typeof(angka) != 'string') angka = angka.toString();
 	 var reg = new RegExp('([0-9]+)([0-9]{3})');
 	 while(reg.test(angka)) angka = angka.replace(reg, '$1.$2');
 	 return angka;
