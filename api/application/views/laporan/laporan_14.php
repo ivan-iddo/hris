@@ -1,4 +1,9 @@
 <!doctype html>
+<?php
+  header("Content-type: application/vnd-ms-excel");
+  header("Content-Disposition: attachment; filename=$file_title.xls"); 
+  header('Content-Type: application/force-download');
+?> 
 <html><head></head><body>
 <style>
      @page { margin: 180px 50px; }

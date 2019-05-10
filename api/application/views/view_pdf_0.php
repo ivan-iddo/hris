@@ -91,7 +91,7 @@
       <td>NIP <?php if(!empty($result["phl"])){echo $result["aprove_phl"]->nip;}else{ echo "196601011996031001";}?></td>
     </tr>
     <tr>
-      <td><em>Selesai  jam : <?php if(!empty($result["jam_mulai"])){if(!empty($result["jam_sampai"])){ echo $result["jam_sampai"];}else{ echo 'Selesai';}}else{echo '';}?></em></td>
+      <td><em>Selesai  jam : <?php if(!empty($result["jam_mulai"])){if(!empty($result["jam_sampai"])){ echo $result["jam_sampai"];}else{ echo '';}}else{echo '';}?></em></td>
       <td colspan="2">&nbsp;</td>
     </tr><tr>
       <td colspan="3">&nbsp;</td>
@@ -147,7 +147,7 @@
               <tr>
                 <td align="center"><?php echo $key+1 ?></td>
                 <td align="center"><?php echo $value["nopeg"] ?></td>
-                <td><?php echo $result["gelar_depan"].' '.$value["nama_pegawai"].', '.$result["gelar_belakang"] ?></td>
+                <td><?php echo $result["gelar_depan"].' '.$value["nama_pegawai"]?><?php if(!empty($result["gelar_belakang"])){echo ', '.$result["gelar_belakang"];}?></td>
                 <td><?php echo $value["jabatan"]; ?></td>
               </tr>
             <?php endforeach ?>

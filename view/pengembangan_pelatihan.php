@@ -140,15 +140,15 @@
                                         </div>
                                     </div>
 									<div class="form-group">
-                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Membaca</label>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Membaca (untuk Verbal Surat)</label>
                                         <div class="col-sm-5">
-                                            <input type="text" name="membaca" id="membaca" class="form-control"/>
+                                            <input type="text" name="membaca" id="membaca" class="form-control" title="Untuk Verbal Surat"/>
                                         </div>
                                     </div>
 									<div class="form-group">
-                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Yth</label>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Yth (untuk Verbal Surat)</label>
                                         <div class="col-sm-5">
-                                            <input type="text" name="yth" id="yth" class="form-control"/>
+                                            <input type="text" name="yth" id="yth" class="form-control" title="Untuk Verbal Surat"/>
                                         </div>
                                     </div>
 									<div class="form-group">
@@ -483,7 +483,7 @@
                                                            readonly/>
                                                 </div>
 												<div class="col-xs-1">
-                                                    <input type="text" name="muncul[]" class="muncul" id="muncul_1">
+                                                    <input type="text" name="muncul[]" class="muncul" id="muncul_1" title="Rincian biaya yg Diterima" placeholder="Rincian biaya yg Diterima">
                                                 </div>
                                             </div>
                                         </div>
@@ -663,9 +663,7 @@
            }
     });
 	
-	getOptions("phl", BASE_URL + "master/plh");
-	getOptions("surat_tugas_dalam_negeri_luarkota", BASE_URL + "master/alat_angkut");
-    $('.select-chosen').chosen();
+	$('.select-chosen').chosen();
     $('.chosen-container').css({"width": "100%"});
     $('.judul-menu').html('Pengajuan Pelatihan & Pengembangan');
     $('.buttoenedit').hide();
@@ -720,6 +718,10 @@
             // reset value
             $("#dalam_negeri").prop('selectedIndex', 0);
             $("#dalam_negeri").trigger("chosen:updated");
+			$('#surat_tugas_dalam_negeri_luarkota').prop('selectedIndex', 0);
+            $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
+			$(".dalam_negeri-luarkota").removeClass('hidden');
+						
         }
         else{
             $(".jenis_perjalanan_dalam_negeri").addClass('hidden');
@@ -729,8 +731,6 @@
 
             $("#dalam_negeri").prop('selectedIndex', 0);
             $("#dalam_negeri").trigger("chosen:updated");
-            $("#surat_tugas_luar_negeri").prop('selectedIndex', 0);
-            $("#surat_tugas_luar_negeri").trigger("chosen:updated");
         }
         // changeDalamNegeri();
     });
@@ -888,7 +888,7 @@
                             '<input type="text" name="total[]" class="form-control total" id="total_'+row_id+'" min="0" value="0" readonly/>' +
                         '</div> '+
 						'<div class="col-xs-1">' +
-                            '<input type="text" name="muncul[]" class="muncul" id="muncul_'+row_id+'">' +
+                            '<input type="text" name="muncul[]" class="muncul" title="Rincian biaya yg Diterima" placeholder="Rincian biaya yg Diterima" id="muncul_'+row_id+'">' +
                         '</div> '+
                     '</div>' +
                 '</div>'
@@ -1269,20 +1269,13 @@
     }
 
     function form_reset() {
+		$(".body-remove").remove();
         clearAddPegawai();
         dataTable = [];
         gridPI.api.setRowData(dataTable);
         console.log(dataTable);
         isClickRowTable = true;
         $("#form-add").trigger('reset');
-        $("#biaya_uraian_1").val("");
-		$("#uraian_nominal_1").val("");
-        $("#orang_1").val("");
-        $("#total_1").val("");
-        $("#muncul_1").val("");
-        $("#biaya_nominal_1").val("");
-        $("#total_nominal_1").val(0);
-        $("#qty_nominal_1").val(1);
         $("#pengembangan_pelatihan_kegiatan").prop('selectedIndex', 0);
         $("#pengembangan_pelatihan_kegiatan").trigger("chosen:updated");
         $("#pengembangan_pelatihan_kegiatan_status").prop('selectedIndex', 0);
@@ -1290,11 +1283,21 @@
         $("#jenis_perjalanan").prop('selectedIndex', 0);
         $("#jenis_perjalanan").trigger("chosen:updated");
         $("#jenis_perjalanan").trigger('change');  
+		getOptions("phl", BASE_URL + "master/plh");
 		$("#jenis_plh").prop('selectedIndex', 0);
         $("#jenis_plh").trigger("chosen:updated");
 		$("#plh").prop('selectedIndex', 0);
         $("#plh").trigger("chosen:updated");
-        $("#plh").val("");
+		$("#dalam_negeri").prop('selectedIndex', 0);
+        $("#dalam_negeri").trigger("chosen:updated");
+		$("#biaya_uraian_1").val("");
+		$("#uraian_nominal_1").val("");
+        $("#orang_1").val("");
+        $("#total_1").val("");
+        $("#muncul_1").val("");
+        $("#biaya_nominal_1").val("");
+        $("#total_nominal_1").val(0);
+        $("#qty_nominal_1").val(1);
 		$("#jenis_biaya").prop('selectedIndex', 0);
         $("#jenis_biaya").trigger('chosen:updated');
         $("#jenis_biaya").trigger('change');
@@ -1302,6 +1305,8 @@
         $("#jenis").trigger("chosen:updated");
 		$("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
         $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
+		getOptions("surat_tugas_dalam_negeri_luarkota", BASE_URL + "master/alat_angkut");
+		
 	}
 
     // CRUD
@@ -1532,7 +1537,7 @@
 												'<input type="number" name="total[]" class="form-control total" id="total_'+row_id+'" min="0" value=' + formatAngka(res.data.detail_uraian[id].total) + ' readonly/>' +
 											'</div> '+
 											'<div class="col-xs-1">' +
-												'<input type="text" name="muncul[]" class="muncul[]" id="muncul_'+row_id+'" value=' + res.data.detail_uraian[id].muncul + '>' +
+												'<input type="text" name="muncul[]" class="muncul[]" title="Rincian biaya yg Diterima" placeholder="Rincian biaya yg Diterima" id="muncul_'+row_id+'" value=' + res.data.detail_uraian[id].muncul + '>' +
 											'</div> '+
 										'</div>' +
 									'</div>'
@@ -1648,6 +1653,10 @@
                         // show
                         $(".jenis_perjalanan_luar_negeri").removeClass('hidden');
                         // reset value
+						$('#surat_tugas_dalam_negeri_luarkota').val(res.data.alat_angkut);
+                        $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
+						$(".dalam_negeri-luarkota").removeClass('hidden');
+						
                         $("#dalam_negeri").prop('selectedIndex', 0);
                         $("#surat_tugas_luar_negeri").val(res.data.surat_tugas_luar_negeri);
                         $("#surat_tugas_luar_negeri").trigger('chosen:updated');

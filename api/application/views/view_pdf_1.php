@@ -111,7 +111,7 @@
       <td>NIP <?php if(!empty($result["phl"])){echo $result["aprove_phl"]->nip;}else{ echo "196601011996031001";}?></td>
     </tr>
     <tr>
-      <td><em>Selesai  jam : <?php if(!empty($result["jam_mulai"])){if(!empty($result["jam_sampai"])){ echo $result["jam_sampai"];}else{ echo 'Selesai';}}else{echo '';}?></em></td>
+      <td><em>Selesai  jam : <?php if(!empty($result["jam_mulai"])){if(!empty($result["jam_sampai"])){ echo $result["jam_sampai"];}else{ echo '';}}else{echo '';}?></em></td>
       <td colspan="2">&nbsp;</td>
     </tr>
 </table>

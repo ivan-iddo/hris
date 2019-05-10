@@ -155,7 +155,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview1();return false;">Preview</button> 
 					</div>
 					</div>
-					
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview1_excel();return false;">Cetak Excel</button> 
+					</div>
+					</div>
                 </div>
             </div>                      
           </div>
@@ -195,6 +199,11 @@
 					<div class="col-sm-2"> 
 					<div class="row  text-left"> 
 						<button class="btn btn-primary mar-all" onClick="preview2();return false;">Preview</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview2_cetak();return false;">Excel</button> 
 					</div>
 					</div>
 				
@@ -250,6 +259,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview3();return false;">Preview</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview3_excel();return false;">Excel</button> 
+					</div>
+					</div>
 					
                 </div>
             </div>                      
@@ -301,6 +315,11 @@
 					<div class="col-sm-2"> 
 					<div class="row  text-left"> 
 						<button class="btn btn-primary mar-all" onClick="preview4();return false;">Preview</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview4_excel();return false;">Excel</button> 
 					</div>
 					</div>
 					
@@ -357,6 +376,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview5();return false;">Preview</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview5_excel();return false;">Excel</button> 
+					</div>
+					</div>
 					
                 </div>
             </div>                      
@@ -408,6 +432,11 @@
 					<div class="col-sm-2"> 
 					<div class="row  text-left"> 
 						<button class="btn btn-primary mar-all" onClick="preview6();return false;">Preview</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview6_excel();return false;">Excel</button> 
 					</div>
 					</div>
 					
@@ -463,6 +492,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview7();return false;">Preview</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview7_excel();return false;">Excel</button> 
+					</div>
+					</div>
 					
                 </div>
             </div>                      
@@ -514,6 +548,11 @@
 					<div class="col-sm-2"> 
 					<div class="row  text-left"> 
 						<button class="btn btn-primary mar-all" onClick="preview8();return false;">Preview</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview8_excel();return false;">Excel</button> 
 					</div>
 					</div>
 					
@@ -580,6 +619,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview9();return false;">Preview</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview9-excel();return false;">Excel</button> 
+					</div>
+					</div>
 					
                 </div>
             </div>                      
@@ -621,6 +665,11 @@
 					<div class="col-sm-2"> 
 					<div class="row  text-left"> 
 						<button class="btn btn-primary mar-all" onClick="preview10();return false;">Preview</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview10_excel();return false;">Excel</button> 
 					</div>
 					</div>
 					
@@ -666,6 +715,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview12();return false;">Preview</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview12_excel();return false;">Excel</button> 
+					</div>
+					</div>
 				
                 </div>
             </div>                      
@@ -709,6 +763,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview012();return false;">Preview</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview012_excel();return false;">Excel</button> 
+					</div>
+					</div>
 				
                 </div>
             </div>                      
@@ -749,6 +808,11 @@
 					<div class="col-sm-2"> 
 					<div class="row  text-left"> 
 						<button class="btn btn-primary mar-all" onClick="preview13();return false;">Preview</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview13_excel();return false;">Excel</button> 
 					</div>
 					</div>
 		
@@ -794,6 +858,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview14();return false;">Preview</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview14_excel();return false;">Excel</button> 
+					</div>
+					</div>
 
                 </div>
             </div>                      
@@ -837,6 +906,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview16();return false;">Preview</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview16_excel();return false;">Excel</button> 
+					</div>
+					</div>
                 </div>
             </div>                      
           </div>
@@ -860,7 +934,13 @@
 						<button class="btn btn-primary mar-all" onClick="preview17();return false;">Preview</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview17_excel();return false;">Excel</button> 
+					</div>
+					</div>
                 </div>
+				
             </div>                      
           </div>
           </div>
@@ -887,6 +967,13 @@
 		gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan/?&surat=laporan1&awal='+dari+'&akhir='+sampai,pdf_preview1,'large');
 	
 	}
+	
+	function preview1_excel(){
+	  var dari = $('#tgl_awal').val();
+      var sampai = $('#tgl_akhir').val();
+		window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan/?&surat=laporan1&awal='+dari+'&akhir='+sampai);
+	
+	}
       
 	function pdf_preview1() {
 	  var dari = $('#tgl_awal').val();
@@ -897,6 +984,11 @@
 	  var dari = $('#tgl_awal16').val();
       var sampai = $('#tgl_akhir16').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan/?&surat=laporan16&awal='+dari+'&akhir='+sampai,pdf_preview16,'large');
+    }
+	function preview16_excel(){
+	  var dari = $('#tgl_awal16').val();
+      var sampai = $('#tgl_akhir16').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan/?&surat=laporan16&awal='+dari+'&akhir='+sampai);
     }
 	
 	function pdf_preview16() {
@@ -909,6 +1001,11 @@
       var sampai = $('#tgl_akhir16').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan5/?&surat=laporan17&awal='+dari+'&akhir='+sampai,pdf_preview17,'large');
     }
+	function preview17_excel(){
+	  var dari = $('#tgl_awal16').val();
+      var sampai = $('#tgl_akhir16').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan5/?&surat=laporan17&awal='+dari+'&akhir='+sampai);
+    }
 	
 	function pdf_preview17() {
 	  var dari = $('#tgl_awal16').val();
@@ -920,6 +1017,11 @@
       var sampai = $('#tgl_akhir2').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan4/?&surat=laporan2&awal='+dari+'&akhir='+sampai,pdf_preview2,'large');
     }
+	function preview2_cetak(){
+	  var dari = $('#tgl_awal2').val();
+      var sampai = $('#tgl_akhir2').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan4/?&surat=laporan2&awal='+dari+'&akhir='+sampai);
+    }
 	function pdf_preview2() {
 	  var dari = $('#tgl_awal2').val();
       var sampai = $('#tgl_akhir2').val();
@@ -930,6 +1032,12 @@
       var sampai = $('#tgl_akhir3').val();
       var nopeg = $('#nopeg').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan/?&surat=laporan3&awal='+dari+'&akhir='+sampai+'&nopeg='+nopeg,pdf_preview3,'large');
+    }
+	function preview3_excel(){
+	  var dari = $('#tgl_awal3').val();
+      var sampai = $('#tgl_akhir3').val();
+      var nopeg = $('#nopeg').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan/?&surat=laporan3&awal='+dari+'&akhir='+sampai+'&nopeg='+nopeg);
     }
 	function pdf_preview3() {
 	  var dari = $('#tgl_awal3').val();
@@ -943,6 +1051,12 @@
 	  var no_peg = $('#no_peg').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan4/?&surat=laporan4&awal='+dari+'&akhir='+sampai+'&no_peg='+no_peg,pdf_preview4,'large');
     }
+	function preview4_excel(){
+	  var dari = $('#tgl_awal4').val();
+      var sampai = $('#tgl_akhir4').val();
+	  var no_peg = $('#no_peg').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan4/?&surat=laporan4&awal='+dari+'&akhir='+sampai+'&no_peg='+no_peg);
+    }
 	function pdf_preview4() {
 	   var dari = $('#tgl_awal4').val();
       var sampai = $('#tgl_akhir4').val();
@@ -954,6 +1068,12 @@
       var sampai = $('#tgl_akhir5').val();
 	  var unit = $('#unit').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan/?&surat=laporan5&awal='+dari+'&akhir='+sampai+'&unit='+unit,pdf_preview5,'large');
+    }
+	function preview5_excel(){
+	  var dari = $('#tgl_awal5').val();
+      var sampai = $('#tgl_akhir5').val();
+	  var unit = $('#unit').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan/?&surat=laporan5&awal='+dari+'&akhir='+sampai+'&unit='+unit);
     }
 	function pdf_preview5() {
 	  var dari = $('#tgl_awal5').val();
@@ -967,6 +1087,12 @@
 	  var unit_ker = $('#unit_ker').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan2/?&surat=laporan6&awal='+dari+'&akhir='+sampai+'&unit_ker='+unit_ker,pdf_preview6,'large');
     }
+	function preview6_excel(){
+	  var dari = $('#tgl_awal6').val();
+      var sampai = $('#tgl_akhir6').val();
+	  var unit_ker = $('#unit_ker').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan2/?&surat=laporan6&awal='+dari+'&akhir='+sampai+'&unit_ker='+unit_ker);
+    }
 	function pdf_preview6() {
 	  var dari = $('#tgl_awal6').val();
       var sampai = $('#tgl_akhir6').val();
@@ -979,6 +1105,12 @@
       var kegiatan = $('#kegiatan').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan/?&surat=laporan7&awal='+dari+'&akhir='+sampai+'&kegiatan='+kegiatan,pdf_preview7,'large');
     }
+	function preview7_excel(){
+	  var dari = $('#tgl_awal7').val();
+      var sampai = $('#tgl_akhir7').val();
+      var kegiatan = $('#kegiatan').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan/?&surat=laporan7&awal='+dari+'&akhir='+sampai+'&kegiatan='+kegiatan);
+    }
 	function pdf_preview7() {
 	  var dari = $('#tgl_awal7').val();
       var sampai = $('#tgl_akhir7').val();
@@ -990,6 +1122,12 @@
       var sampai = $('#tgl_akhir8').val();
       var jenis = $('#jenis').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan/?&surat=laporan8&awal='+dari+'&akhir='+sampai+'&jenis='+jenis,pdf_preview8,'large');
+    }
+	function preview8_excel(){
+	  var dari = $('#tgl_awal8').val();
+      var sampai = $('#tgl_akhir8').val();
+      var jenis = $('#jenis').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan/?&surat=laporan8&awal='+dari+'&akhir='+sampai+'&jenis='+jenis);
     }
 	function pdf_preview8() {
 	  var dari = $('#tgl_awal8').val();
@@ -1004,6 +1142,13 @@
       var kegiatan1 = $('#kegiatan1').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan2/?&surat=laporan9&awal='+dari+'&akhir='+sampai+'&jenis1='+jenis1+'&kegiatan1='+kegiatan1,pdf_preview9,'large');
     }
+	function excel(){
+	var dari = $('#tgl_awal9').val();
+      var sampai = $('#tgl_akhir9').val();
+      var jenis1 = $('#jenis1').val();
+      var kegiatan1 = $('#kegiatan1').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan2/?&surat=laporan9&awal='+dari+'&akhir='+sampai+'&jenis1='+jenis1+'&kegiatan1='+kegiatan1);
+    }
 	function pdf_preview9() {
 		var dari = $('#tgl_awal9').val();
       var sampai = $('#tgl_akhir9').val();
@@ -1016,6 +1161,11 @@
       var sampai = $('#tgl_akhir10').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan2/?&surat=laporan10&awal='+dari+'&akhir='+sampai,pdf_preview10,'large');
     }
+	function preview10_excel(){
+		var dari = $('#tgl_awal10').val();
+      var sampai = $('#tgl_akhir10').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan2/?&surat=laporan10&awal='+dari+'&akhir='+sampai);
+    }
 	function pdf_preview10() {
 		var dari = $('#tgl_awal10').val();
       var sampai = $('#tgl_akhir10').val();
@@ -1025,6 +1175,11 @@
 		var dari = $('#tgl_awal12').val();
       var sampai = $('#tgl_akhir12').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan3/?&surat=lapor12&awal='+dari+'&akhir='+sampai,pdf_preview12,'large');
+    }
+	function preview12_excel(){
+		var dari = $('#tgl_awal12').val();
+      var sampai = $('#tgl_akhir12').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan3/?&surat=lapor12&awal='+dari+'&akhir='+sampai);
     }
 	function pdf_preview12() {
 		var dari = $('#tgl_awal12').val();
@@ -1036,6 +1191,11 @@
       var sampai = $('#tgl_akhir012').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan3/?&surat=laporan12&awal='+dari+'&akhir='+sampai,pdf_preview012,'large');
     }
+	function preview012_excel(){
+		var dari = $('#tgl_awal012').val();
+      var sampai = $('#tgl_akhir012').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan3/?&surat=laporan12&awal='+dari+'&akhir='+sampai);
+    }
 	function pdf_preview012() {
 		var dari = $('#tgl_awal012').val();
       var sampai = $('#tgl_akhir012').val();
@@ -1046,6 +1206,11 @@
       var sampai = $('#tgl_akhir13').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan3/?&surat=laporan13&awal='+dari+'&akhir='+sampai,pdf_preview13,'large');
     }
+	function preview13_excel(){
+		var dari = $('#tgl_awal13').val();
+      var sampai = $('#tgl_akhir13').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan3/?&surat=laporan13&awal='+dari+'&akhir='+sampai);
+    }
 	function pdf_preview13() {
 		var dari = $('#tgl_awal13').val();
       var sampai = $('#tgl_akhir13').val();
@@ -1055,6 +1220,11 @@
 		var dari = $('#tgl_awal14').val();
       var sampai = $('#tgl_akhir14').val();
       gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan2/?&surat=laporan14&awal='+dari+'&akhir='+sampai,pdf_preview14,'large');
+    }
+	function preview14_excel(){
+		var dari = $('#tgl_awal14').val();
+      var sampai = $('#tgl_akhir14').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan2/?&surat=laporan14&awal='+dari+'&akhir='+sampai);
     }
 	function pdf_preview14() {
 		var dari = $('#tgl_awal14').val();

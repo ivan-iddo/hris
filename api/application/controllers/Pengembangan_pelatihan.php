@@ -1577,10 +1577,10 @@ class Pengembangan_pelatihan extends REST_Controller
                         $pengembangan_pelatihan_detail_biaya["uraian"] = $biaya["biaya_uraian"][$i]["value"]?$biaya["biaya_uraian"][$i]["value"]:null;
                         $pengembangan_pelatihan_detail_biaya["uraian_nominal"] = $biaya["uraian_nominal"][$i]["value"]?$biaya["uraian_nominal"][$i]["value"]:null;
                         $pengembangan_pelatihan_detail_biaya["nominal"] = preg_replace("/[^0-9]/", "", $biaya["total_nominal"][$i]["value"]);
-                        $pengembangan_pelatihan_detail_biaya["pernominal"] = preg_replace("/[^0-9]/", "", $biaya["biaya_pernominal"][$i]["value"]?$biaya["biaya_pernominal"][$i]["value"]:null);
+                        $pengembangan_pelatihan_detail_biaya["pernominal"] = preg_replace("/[^0-9]/", "", $biaya["biaya_pernominal"][$i]["value"]?$biaya["biaya_pernominal"][$i]["value"]:0);
                         $pengembangan_pelatihan_detail_biaya["qty"] = $biaya["qty_nominal"][$i]["value"];
                         $pengembangan_pelatihan_detail_biaya["orang"] = $biaya["orang"][$i]["value"]?$biaya["orang"][$i]["value"]:null;
-                        $pengembangan_pelatihan_detail_biaya["total"] = preg_replace("/[^0-9]/", "", $biaya["total"][$i]["value"]);
+                        $pengembangan_pelatihan_detail_biaya["total"] = preg_replace("/[^0-9]/", "", $biaya["total"][$i]["value"]?$biaya["total"][$i]["value"]:0);
                         $pengembangan_pelatihan_detail_biaya["muncul"] = $biaya["muncul"][$i]["value"]?$biaya["muncul"][$i]["value"]:0;
                         $nominal += $pengembangan_pelatihan_detail_biaya["nominal"];
                         $total += $pengembangan_pelatihan_detail_biaya["total"];
@@ -1774,16 +1774,13 @@ class Pengembangan_pelatihan extends REST_Controller
                         $pengembangan_pelatihan_detail_biaya["uraian"] = $biaya["biaya_uraian"][$i]["value"]?$biaya["biaya_uraian"][$i]["value"]:null;
                         $pengembangan_pelatihan_detail_biaya["uraian_nominal"] = $biaya["uraian_nominal"][$i]["value"]?$biaya["uraian_nominal"][$i]["value"]:null;
                         $pengembangan_pelatihan_detail_biaya["nominal"] = preg_replace("/[^0-9]/", "", $biaya["total_nominal"][$i]["value"]);
-                        $pengembangan_pelatihan_detail_biaya["pernominal"] = preg_replace("/[^0-9]/", "", $biaya["biaya_pernominal"][$i]["value"]?$biaya["biaya_pernominal"][$i]["value"]:null);
+                        $pengembangan_pelatihan_detail_biaya["pernominal"] = preg_replace("/[^0-9]/", "", $biaya["biaya_pernominal"][$i]["value"]?$biaya["biaya_pernominal"][$i]["value"]:0);
                         $pengembangan_pelatihan_detail_biaya["qty"] = $biaya["qty_nominal"][$i]["value"];
                         $pengembangan_pelatihan_detail_biaya["orang"] = $biaya["orang"][$i]["value"]?$biaya["orang"][$i]["value"]:null;
-                        $pengembangan_pelatihan_detail_biaya["total"] = preg_replace("/[^0-9]/", "", $biaya["total"][$i]["value"]);
+                        $pengembangan_pelatihan_detail_biaya["total"] = preg_replace("/[^0-9]/", "", $biaya["total"][$i]["value"]?$biaya["total"][$i]["value"]:0);
                         $pengembangan_pelatihan_detail_biaya["muncul"] = $biaya["muncul"][$i]["value"]?$biaya["muncul"][$i]["value"]:0;
-                        
-						$pengembangan_pelatihan_detail_biaya["muncul"] = $biaya["muncul"][$i]["value"]?$biaya["muncul"][$i]["value"]:0;
                         $nominal += $pengembangan_pelatihan_detail_biaya["nominal"];
                         $total += $pengembangan_pelatihan_detail_biaya["total"];
-						
 						//// insert detail biaya
 						//print_r($pengembangan_pelatihan_detail_biaya);die();
 						$pengembangan_pelatihan_detail_biaya_id = $this->Pengembangan_pelatihan_model->create_detail_row("pengembangan_pelatihan_detail_biaya", $pengembangan_pelatihan_detail_biaya);

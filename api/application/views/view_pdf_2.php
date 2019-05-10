@@ -199,7 +199,7 @@
               <tr>
                 <td align="center"><?php echo $key+1 ?></td>
                 <td align="center"><?php echo $value["nopeg"] ?></td>
-                <td><?php echo $result["gelar_depan"].' '.$value["nama_pegawai"].', '.$result["gelar_belakang"] ?></td>
+                <td><?php echo $result["gelar_depan"].' '.$value["nama_pegawai"]?><?php if(!empty($result["gelar_belakang"])){echo ', '.$result["gelar_belakang"];}?></td>
                 <td><?php echo $value["nip"]; ?></td>
                 <td><?php echo $value["jabatan"]; ?></td>
               </tr>

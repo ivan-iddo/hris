@@ -110,6 +110,7 @@
       <td colspan="4">
         <table width="100%" border="0" cellpadding="0">
 		  <tr>
+		    <td width="4%" align="right"></td>
             <td width="30%">Ditetapkan :</td>
             <td width="2%"></td>
             <td colspan="2" width="20%"></td>
@@ -119,26 +120,35 @@
       </td>
     </tr>
 	<tr>
-      <td><?php if($result["jenis_plh"]=="an"){ echo "a. n. ";}else if($result["jenis_plh"]=="Plh"){ echo "Plh. ";}else{ echo "";}?>  <?php if(!empty($result["phl"])){ echo "Direktur Utama,";}else{ echo "Direktur Utama,";}?></td>
-      <td width="34%" align="right"></td>
-      <td width="60%"></td>
+      <td colspan="4">
+        <table width="100%" border="0" cellpadding="0">
+		  <tr>
+            <td width="4%" align="right"><?php if($result["jenis_plh"]=="Plh"){ echo "Plh. ";}else if($result["jenis_plh"]=="an"){ echo "a. n. ";}else{echo "";}?></td>
+		    <td width="40%"><?php if(!empty($result["phl"])){ echo "Direktur Utama,";}else{ echo "Direktur Utama,";}?></td>
+		    <td colspan="2" width="20%"></td>
+            <td colspan="2" width="40%" align="left"></td>
+          </tr>
+		  <tr>
+			<td colspan="6">&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td colspan="6">&nbsp;</td>
+		  </tr>
+		  <tr>
+            <td width="4%" align="right"></td>
+		    <td width="40%"><?php if(!empty($result["phl"])){ echo $result["aprove_phl"]->gelar_depan.' '.$result["aprove_phl"]->name.', '.$result["aprove_phl"]->gelar_belakang;}else{ echo "Dr. dr. Iwan Dakota,  SpJP(K), MARS,FACC,FESC";}?></td>
+		    <td colspan="2" width="20%"></td>
+            <td colspan="2" width="40%" align="left"></td>
+          </tr>
+		  <tr>
+            <td width="4%" align="right"></td>
+		    <td width="40%">NIP <?php if(!empty($result["phl"])){echo $result["aprove_phl"]->nip;}else{ echo "196601011996031001";}?></td>
+		    <td colspan="2" width="20%"></td>
+            <td colspan="2" width="40%" align="left"></td>
+          </tr>
+        </table>
+      </td>
     </tr>
-    <tr>
-      <td colspan="3">&nbsp;</td>
-    </tr>
-    <tr>
-      <td colspan="3">&nbsp;</td>
-    </tr>
-    <tr>
-      <td width="60%"><?php if(!empty($result["phl"])){ echo $result["aprove_phl"]->gelar_depan.' '.$result["aprove_phl"]->name.', '.$result["aprove_phl"]->gelar_belakang;}else{ echo "Dr. dr. Iwan Dakota,  SpJP(K), MARS,FACC,FESC";}?></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-	</tr>
-    <tr>
-      <td>NIP <?php if(!empty($result["phl"])){echo $result["aprove_phl"]->nip;}else{ echo "196601011996031001";}?></td>
-	  <td>&nbsp;</td>
-      <td>&nbsp;</td>
-	</tr>
 	<tr>
       <td colspan="3">&nbsp;</td>
     </tr><tr>
