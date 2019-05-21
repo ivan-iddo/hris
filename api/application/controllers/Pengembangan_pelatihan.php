@@ -1832,7 +1832,7 @@ class Pengembangan_pelatihan extends REST_Controller
                             $tanggal_diff = $total_hari_kerja * 8;
                             $pengembangan_pelatihan_pelaksanaan[$key]["pengembangan_pelatihan_id"] = $result->id;
                             $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_from"] = @$tanggal_explode[0];
-                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_too"] = @$tanggal_explode[1];
+                            $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_too"] = date('Y-m-d', strtotime(@$tanggal_explode[1]));
                             $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_to"] = @$tanggal_explode[1];
                             $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_go"] = @$tanggal_go[0];
                             $pengembangan_pelatihan_pelaksanaan[$key]["tanggal_go1"] = @$tanggal_go[1];
