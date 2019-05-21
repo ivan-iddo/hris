@@ -29,34 +29,34 @@
 <table width="95%" border="1px" cellpadding="1" cellspacing="0" class="table2" style="margin:30px">
 		  <tr>
             <td rowspan="3" align="center" width="1%">No</td>
-            <td rowspan="3" align="center" width="10%">Bulan</td>
-            <td colspan="6" align="center">Kegiatan Dalam Negeri</td>
-            <td rowspan="2" colspan="2" align="center">Luar Negeri</td>
-            <td rowspan="2" colspan="2" align="center">Narasumber Tamu dari luar (Non Pegawai)</td>
-            <td rowspan="2" colspan="3" align="center">Pembuat surat</td>
-            <td rowspan="2" colspan="2" align="center">Total</td>
+            <td rowspan="3" align="center" width="6%">Bulan</td>
+            <td colspan="6" align="center" width="30%">Kegiatan Dalam Negeri</td>
+            <td rowspan="2" colspan="2" align="center" width="7%">Luar Negeri</td>
+            <td rowspan="2" colspan="2" align="center" width="7%">Narasumber Tamu dari luar (Non Pegawai)</td>
+            <td rowspan="2" colspan="3" align="center" width="7%">Pembuat surat</td>
+            <td rowspan="2" colspan="2" align="center" width="35%">Total</td>
           </tr>
 		  <tr>
-            <td rowspan="1" colspan="2" align="center">Managerial/Undangan atau sosialisasi/workshop dan seminar/prajabatan/diklat kepempimpinan</td>
-            <td rowspan="1" colspan="2" align="center">Rutin In House dan In House dll</td>
-            <td rowspan="1" colspan="2" align="center">Pendidikan Formal dan Pengembangan Pegawai</td>
+            <td rowspan="1" colspan="2" width="7%" align="center">Managerial/Undangan atau sosialisasi/workshop dan seminar/prajabatan/diklat kepempimpinan</td>
+            <td rowspan="1" colspan="2" width="7%" align="center">Rutin In House dan In House dll</td>
+            <td rowspan="1" colspan="2" width="7%" align="center">Pendidikan Formal dan Pengembangan Pegawai</td>
           </tr>
 		   <tr>
               <td scope="col" width="2%" align="center">Jumlah Pegawai</td>
-              <td scope="col" width="10%" align="center">Jumlah Biaya</td>
+              <td scope="col" width="16%" align="center">Jumlah Biaya</td>
 			  <td scope="col" width="2%" align="center">Jumlah Pegawai</td>
-              <td scope="col" width="10%" align="center">Jumlah Biaya</td> 
+              <td scope="col" width="16%" align="center">Jumlah Biaya</td> 
 			  <td scope="col" width="2%" align="center">Jumlah Pegawai</td>
-              <td scope="col" width="10%" align="center">Jumlah Biaya</td>
+              <td scope="col" width="16%" align="center">Jumlah Biaya</td>
 			  <td scope="col" width="2%" align="center">Jumlah Pegawai</td>
-              <td scope="col" width="10%" align="center">Jumlah Biaya</td> 
+              <td scope="col" width="16%" align="center">Jumlah Biaya</td> 
 			  <td scope="col" width="2%" align="center">Jumlah Pegawai</td>
-              <td scope="col" width="10%" align="center">Jumlah Biaya</td>
+              <td scope="col" width="16%" align="center">Jumlah Biaya</td>
 			  <td scope="col" width="2%" align="center">ST</td> 
 			  <td scope="col" width="2%" align="center">RAK</td>
               <td scope="col" width="2%" align="center">SPD</td>
-			  <td scope="col" width="5%" align="center">Total Pegawai</td>
-              <td scope="col" width="20%" align="center">Total Biaya</td>
+			  <td scope="col" width="2%" align="center">Total Pegawai</td>
+              <td scope="col" width="30%" align="center">Total Biaya</td>
            </tr>
 	<?php if (!empty($result)): ?>
             <?php foreach ($result as $key => $value): ?>
@@ -187,7 +187,7 @@
 				<?php echo $result[$key]['total']["jum"];
 						$total_1 +=$result[$key]['total']["jum"];?>
 				</td>    
-				<td width="16%">
+				<td width="30%">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
 				  <tr>
 					  <td>
@@ -298,7 +298,7 @@
 				<td align="center" width="1%"><?php echo $dalam ?></td>
 				<td align="center" width="1%"><?php echo $dalam1 ?></td>
 				<td align="center" width="1%"><?php echo $total_1 ?></td>    
-				<td width="16%">
+				<td width="30%">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
 				  <tr>
 					  <td>

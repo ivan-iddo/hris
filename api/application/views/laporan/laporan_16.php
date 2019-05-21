@@ -54,7 +54,7 @@
           <?php if (!empty($result)): ?>
             <?php foreach ($result as $key => $value): ?>
               <tr>
-                <td align="center"><?php echo date("y",strtotime($value["tanggal_to"])).''.date("m",strtotime($value["tanggal_to"])).'.'.$value["id"] ?></td>
+                <td align="center"><?php echo $result[$key]["pengembangan_pelatihan_detail"]->berkas; ?></td>
                 <td><?php echo $result[$key]["pengembangan_pelatihan_detail"]->nopeg; ?></td>
 				<td><?php echo $value["gelar_depan"].' '.$result[$key]["pengembangan_pelatihan_detail"]->nama_pegawai.', '.$value["gelar_belakang"] ?></td>
                 <td><?php if($value["tanggal_from"]==$value["tanggal_to"]){echo $value["tanggal_to"];}else{ echo $value["tanggal_from"]." s/d ".$value["tanggal_to"];} ?></td>

@@ -47,11 +47,19 @@
                 Unit Kerja Pelatihan
             </a>
         </li><li class="">
+        </li><li class="">
             <a href="#demo-lft-tab-7" data-toggle="tab">
                 <span class="block text-center">
                      <i class="fa fa-check-square-o fa-2x text-danger"></i> 
                 </span>
                 Jenis Kegiatan
+            </a>
+        </li><li class="">
+            <a href="#demo-lft-tab-9" data-toggle="tab">
+                <span class="block text-center">
+                     <i class="fa fa-check-square-o fa-2x text-danger"></i> 
+                </span>
+                Jenis Pegawai
             </a>
         </li><li class="">
             <a href="#demo-lft-tab-8" data-toggle="tab">
@@ -61,7 +69,7 @@
                 Compare Jenis Kegiatan
             </a>
         </li><li class="">
-            <a href="#demo-lft-tab-9" data-toggle="tab">
+            <a href="#demo-lft-tab-90" data-toggle="tab">
                 <span class="block text-center">
                      <i class="fa fa-check-square-o fa-2x text-danger"></i> 
                 </span>
@@ -119,6 +127,30 @@
                 Pertahun
             </a>
         </li>
+		<li class="">
+            <a href="#demo-lft-tab-017" data-toggle="tab">
+                <span class="block text-center">
+                     <i class="fa fa-check-square-o fa-2x text-danger"></i> 
+                </span> 
+                Perjalanan Unit
+            </a>
+        </li>
+		<li class="">
+            <a href="#demo-lft-tab-18" data-toggle="tab">
+                <span class="block text-center">
+                     <i class="fa fa-check-square-o fa-2x text-danger"></i> 
+                </span> 
+                Semua Pegawai
+            </a>
+        </li>
+		<li class="">
+            <a href="#demo-lft-tab-19" data-toggle="tab">
+                <span class="block text-center">
+                     <i class="fa fa-check-square-o fa-2x text-danger"></i> 
+                </span> 
+                PPA
+            </a>
+        </li>
       </ul>
   
       <div class="tab-content">
@@ -157,7 +189,12 @@
 					</div>
 					<div class="col-sm-2"> 
 					<div class="row  text-left"> 
-						<button class="btn btn-primary mar-all" onClick="preview1_excel();return false;">Cetak Excel</button> 
+						<button class="btn btn-primary mar-all" onClick="preview1_excel();return false;">Excel</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview1();return false;">PDF</button> 
 					</div>
 					</div>
                 </div>
@@ -204,6 +241,11 @@
 					<div class="col-sm-2"> 
 					<div class="row  text-left"> 
 						<button class="btn btn-primary mar-all" onClick="preview2_cetak();return false;">Excel</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview2();return false;">PDF</button> 
 					</div>
 					</div>
 				
@@ -264,6 +306,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview3_excel();return false;">Excel</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview3();return false;">PDF</button> 
+					</div>
+					</div>
 					
                 </div>
             </div>                      
@@ -320,6 +367,11 @@
 					<div class="col-sm-2"> 
 					<div class="row  text-left"> 
 						<button class="btn btn-primary mar-all" onClick="preview4_excel();return false;">Excel</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview4();return false;">PDF</button> 
 					</div>
 					</div>
 					
@@ -381,6 +433,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview5_excel();return false;">Excel</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview5();return false;">PDF</button> 
+					</div>
+					</div>
 					
                 </div>
             </div>                      
@@ -437,6 +494,11 @@
 					<div class="col-sm-2"> 
 					<div class="row  text-left"> 
 						<button class="btn btn-primary mar-all" onClick="preview6_excel();return false;">Excel</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview6();return false;">PDF</button> 
 					</div>
 					</div>
 					
@@ -497,6 +559,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview7_excel();return false;">Excel</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview7();return false;">Excel</button> 
+					</div>
+					</div>
 					
                 </div>
             </div>                      
@@ -506,7 +573,7 @@
         </div> 
         </div> 
 		
-		<div class="tab-pane fade " id="demo-lft-tab-8" >
+		<div class="tab-pane fade " id="demo-lft-tab-9" >
 		<div class="row"> 
         <div class="col-md-6"> 
             <div class="box box-primary"> 
@@ -555,6 +622,12 @@
 						<button class="btn btn-primary mar-all" onClick="preview8_excel();return false;">Excel</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview8();return false;">PDF</button> 
+					</div>
+					</div>
+
 					
                 </div>
             </div>                      
@@ -564,7 +637,7 @@
         </div> 
         </div> 
 		
-		<div class="tab-pane fade " id="demo-lft-tab-9" >
+		<div class="tab-pane fade " id="demo-lft-tab-8" >
 		<div class="row"> 
         <div class="col-md-6"> 
             <div class="box box-primary"> 
@@ -624,6 +697,63 @@
 						<button class="btn btn-primary mar-all" onClick="preview9-excel();return false;">Excel</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview9();return false;">PDF</button> 
+					</div>
+					</div>
+					
+                </div>
+            </div>                      
+          </div>
+          </div>
+		</div>
+        </div> 
+        </div> 
+		
+		<div class="tab-pane fade " id="demo-lft-tab-90" >
+		<div class="row"> 
+        <div class="col-md-6"> 
+            <div class="box box-primary"> 
+                <div class="box-body">
+                <div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Tanggal Awal</label>
+					<div class="col-sm-7">
+						<input  id="tgl_awal90" name="tgl_awal90" class="form-control tanggal" placeholder="Awal dd-mm-yyyy" type="text">
+					</div>                          
+                </div>
+                </div>                 
+                </div>
+				<div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Tanggal Akhir</label>
+					<div class="col-sm-7">
+						<input  name="tgl_akhir90" id="tgl_akhir90" class="form-control tanggal" placeholder="Akhir dd-mm-yyyy" type="text">
+					</div>                          
+                </div>
+                </div>                 
+                </div>
+                <div class="row "> 
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="inputstatus"></label>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview90();return false;">Preview</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview90-excel();return false;">Excel</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview90();return false;">PDF</button> 
+					</div>
+					</div>
 					
                 </div>
             </div>                      
@@ -670,6 +800,11 @@
 					<div class="col-sm-2"> 
 					<div class="row  text-left"> 
 						<button class="btn btn-primary mar-all" onClick="preview10_excel();return false;">Excel</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview10();return false;">PDF</button> 
 					</div>
 					</div>
 					
@@ -720,6 +855,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview12_excel();return false;">Excel</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview12();return false;">PDF</button> 
+					</div>
+					</div>
 				
                 </div>
             </div>                      
@@ -768,6 +908,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview012_excel();return false;">Excel</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview012();return false;">PDF</button> 
+					</div>
+					</div>
 				
                 </div>
             </div>                      
@@ -813,6 +958,11 @@
 					<div class="col-sm-2"> 
 					<div class="row  text-left"> 
 						<button class="btn btn-primary mar-all" onClick="preview13_excel();return false;">Excel</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview13();return false;">PDF</button> 
 					</div>
 					</div>
 		
@@ -863,6 +1013,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview14_excel();return false;">Excel</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview14();return false;">PDF</button> 
+					</div>
+					</div>
 
                 </div>
             </div>                      
@@ -911,6 +1066,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview16_excel();return false;">Excel</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview16();return false;">PDF</button> 
+					</div>
+					</div>
                 </div>
             </div>                      
           </div>
@@ -939,6 +1099,11 @@
 						<button class="btn btn-primary mar-all" onClick="preview17_excel();return false;">Excel</button> 
 					</div>
 					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview17();return false;">PDF</button> 
+					</div>
+					</div>
                 </div>
 				
             </div>                      
@@ -948,6 +1113,191 @@
         </div> 
         </div> 
 		
+		<div class="tab-pane fade " id="demo-lft-tab-017" >
+		<div class="row"> 
+        <div class="col-md-6"> 
+            <div class="box box-primary"> 
+                <div class="box-body">
+                <div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Tanggal Awal</label>
+					<div class="col-sm-7">
+						<input  id="tgl_awal017" name="tgl_awal017" class="form-control tanggal" placeholder="Awal dd-mm-yyyy" type="text">
+					</div>                          
+                </div>
+                </div>                 
+                </div>
+				<div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Tanggal Akhir</label>
+					<div class="col-sm-7">
+						<input  name="tgl_akhir017" id="tgl_akhir017" class="form-control tanggal" placeholder="Akhir dd-mm-yyyy" type="text">
+					</div>                          
+                </div>
+                </div>                 
+                </div>
+				
+				<div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Jenis Perjalanan</label>
+					<div class="col-sm-7">
+					  <select name="jenis_perjalanan" id="jenis_perjalanan"
+                            class="form-control select-chosen">
+                        <option value="">Pilih</option>
+                        <option value="Dalam">Dalam Negeri</option>
+                        <option value="Luar">Luar Negeri</option>
+                      </select>
+					</div>                          
+                </div>
+                </div>                 
+                </div>
+				
+				<div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Unit Kerja</label>
+					<div class="col-sm-7">
+						<select class="form-control select-chosen" id="unit_k" name="unit_k" style="width: 100%;">                                                                                        
+						</select> 
+					</div>                          
+                </div>
+                </div>                 
+                </div>
+	
+				
+                <div class="row "> 
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="inputstatus"></label>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview97();return false;">Preview</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview017_excel();return false;">Excel</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview017();return false;">PDF</button> 
+					</div>
+					</div>
+                </div>
+				
+            </div>                      
+          </div>
+          </div>
+		</div>
+        </div> 
+        </div> 
+		
+			<div class="tab-pane fade " id="demo-lft-tab-18" >
+		<div class="row"> 
+        <div class="col-md-6"> 
+            <div class="box box-primary"> 
+                <div class="box-body">
+                <div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Tanggal Awal</label>
+					<div class="col-sm-7">
+						<input  id="tgl_awal18" name="tgl_awal18" class="form-control tanggal" placeholder="Awal dd-mm-yyyy" type="text">
+					</div>                          
+                </div>
+                </div>                 
+                </div>
+				<div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Tanggal Akhir</label>
+					<div class="col-sm-7">
+						<input  name="tgl_akhir18" id="tgl_akhir18" class="form-control tanggal" placeholder="Akhir dd-mm-yyyy" type="text">
+					</div>                          
+                </div>
+                </div>                 
+                </div>
+				
+                <div class="row "> 
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="inputstatus"></label>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview18();return false;">Preview</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview18_excel();return false;">Excel</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview18();return false;">PDF</button> 
+					</div>
+					</div>
+                </div>
+            </div>                      
+          </div>
+          </div>
+		</div>
+        </div> 
+        </div> 
+		
+			<div class="tab-pane fade " id="demo-lft-tab-19" >
+		<div class="row"> 
+        <div class="col-md-6"> 
+            <div class="box box-primary"> 
+                <div class="box-body">
+                <div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Tanggal Awal</label>
+					<div class="col-sm-7">
+						<input  id="tgl_awal19" name="tgl_awal19" class="form-control tanggal" placeholder="Awal dd-mm-yyyy" type="text">
+					</div>                          
+                </div>
+                </div>                 
+                </div>
+				<div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Tanggal Akhir</label>
+					<div class="col-sm-7">
+						<input  name="tgl_akhir19" id="tgl_akhir19" class="form-control tanggal" placeholder="Akhir dd-mm-yyyy" type="text">
+					</div>                          
+                </div>
+                </div>                 
+                </div>
+				
+                <div class="row "> 
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="inputstatus"></label>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview19();return false;">Preview</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview19_excel();return false;">Excel</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview19();return false;">PDF</button> 
+					</div>
+					</div>
+                </div>
+            </div>                      
+          </div>
+          </div>
+		</div>
+        </div> 
+        </div> 
 	
       </div>
     </div>    
@@ -1011,6 +1361,28 @@
 	  var dari = $('#tgl_awal16').val();
       var sampai = $('#tgl_akhir16').val();
       window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan5/?&surat=laporan17&awal='+dari+'&akhir='+sampai);
+	}
+	function preview97(){
+	  var dari = $('#tgl_awal017').val();
+      var sampai = $('#tgl_akhir017').val();
+	  var unit = $('#unit_k').val();
+	  var jenis = $('#jenis_perjalanan').val();
+      gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan/?&surat=laporan017&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&jenis_perjalanan='+jenis,pdf_preview017,'large');
+    }
+	function preview017_excel(){
+	  var dari = $('#tgl_awal017').val();
+      var sampai = $('#tgl_akhir017').val();
+	  var unit = $('#unit_k').val();
+	  var jenis = $('#jenis_perjalanan').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan/?&surat=laporan017&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&jenis_perjalanan='+jenis);
+    }
+	
+	function pdf_preview017() {
+	  var dari = $('#tgl_awal017').val();
+      var sampai = $('#tgl_akhir017').val();
+	  var unit = $('#unit_k').val();
+	  var jenis = $('#jenis_perjalanan').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan/?&surat=laporan017&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&jenis_perjalanan='+jenis);
 	}
 	function preview2(){
 	  var dari = $('#tgl_awal2').val();
@@ -1081,6 +1453,42 @@
 	  var unit = $('#unit').val();
       window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan/?&surat=laporan5&awal='+dari+'&akhir='+sampai+'&unit='+unit);
 	}
+	function preview18(){
+	  var dari = $('#tgl_awal18').val();
+      var sampai = $('#tgl_akhir18').val();
+	  var unit = $('#unit').val();
+      gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit,pdf_preview18,'large');
+    }
+	function preview18_excel(){
+	  var dari = $('#tgl_awal18').val();
+      var sampai = $('#tgl_akhir18').val();
+	  var unit = $('#unit').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit);
+    }
+	function pdf_preview18() {
+	  var dari = $('#tgl_awal18').val();
+      var sampai = $('#tgl_akhir18').val();
+	  var unit = $('#unit').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit);
+	}
+	function preview19(){
+	  var dari = $('#tgl_awal19').val();
+      var sampai = $('#tgl_akhir19').val();
+	  var unit = $('#unit').val();
+      gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit,pdf_preview19,'large');
+    }
+	function preview19_excel(){
+	  var dari = $('#tgl_awal19').val();
+      var sampai = $('#tgl_akhir19').val();
+	  var unit = $('#unit').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit);
+    }
+	function pdf_preview19() {
+	  var dari = $('#tgl_awal19').val();
+      var sampai = $('#tgl_akhir19').val();
+	  var unit = $('#unit').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit);
+	}
 	function preview6(){
 	  var dari = $('#tgl_awal6').val();
       var sampai = $('#tgl_akhir6').val();
@@ -1134,6 +1542,22 @@
       var sampai = $('#tgl_akhir8').val();
 	  var jenis = $('#jenis').val();
       window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan/?&surat=laporan8&awal='+dari+'&akhir='+sampai+'&jenis='+jenis);
+	}
+	
+	function preview90(){
+	  var dari = $('#tgl_awal90').val();
+      var sampai = $('#tgl_akhir90').val();
+      gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan2/?&surat=laporan9&awal='+dari+'&akhir='+sampai,pdf_preview90,'large');
+    }
+	function preview90_excel(){
+	  var dari = $('#tgl_awal90').val();
+      var sampai = $('#tgl_akhir90').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan2/?&surat=laporan9&awal='+dari+'&akhir='+sampai);
+    }
+	function pdf_preview90() {
+	  var dari = $('#tgl_awal90').val();
+      var sampai = $('#tgl_akhir90').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan2/?&surat=laporan9&awal='+dari+'&akhir='+sampai);
 	}
 	function preview9(){
 	var dari = $('#tgl_awal9').val();
@@ -1219,17 +1643,17 @@
 	function preview14(){
 		var dari = $('#tgl_awal14').val();
       var sampai = $('#tgl_akhir14').val();
-      gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan2/?&surat=laporan14&awal='+dari+'&akhir='+sampai,pdf_preview14,'large');
+      gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan_del/?&surat=laporan14&awal='+dari+'&akhir='+sampai,pdf_preview14,'large');
     }
 	function preview14_excel(){
 		var dari = $('#tgl_awal14').val();
       var sampai = $('#tgl_akhir14').val();
-      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan2/?&surat=laporan14&awal='+dari+'&akhir='+sampai);
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan_del/?&surat=laporan14&awal='+dari+'&akhir='+sampai);
     }
 	function pdf_preview14() {
 		var dari = $('#tgl_awal14').val();
       var sampai = $('#tgl_akhir14').val();
-      window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan2/?&surat=14&awal='+dari+'&akhir='+sampai);
+      window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan_del/?&surat=14&awal='+dari+'&akhir='+sampai);
 	}
 	
 	 function loadUser(id, url, valueEdit = null) {
@@ -1285,6 +1709,7 @@
 	$('.chosen-container').css({"width": "100%"});
 	getOptions("unit",BASE_URL+"master/direktoratSub");
 	getOptions("unit_ker",BASE_URL+"master/direktoratSub");
+	getOptions("unit_k",BASE_URL+"master/direktoratSub");
 	getOptions("jenis", BASE_URL + 'masterp/group_profesi/getoption');
 	getOptions("jenis1", BASE_URL + 'masterp/group_profesi/getoption');
                 

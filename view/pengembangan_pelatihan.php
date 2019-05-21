@@ -24,11 +24,19 @@
     </button>
     <button class=
         "btn btn-danger btn-labeled fa fa-close btn-sm" onclick=
-        "proses_delete();">Delete
+        "proses_delete();">Delete per latihan
+    </button>
+	<button class=
+        "btn btn-danger btn-labeled fa fa-close btn-sm" onclick=
+        "del();">Delete per orang
     </button>
     <button class=
         "btn btn-success btn-labeled fa fa-check btn-sm" id="id_upload" value="" onclick=
         "uploadFile();">Upload File
+    </button>
+	<button class=
+        "btn btn-success btn-labeled fa fa-check btn-sm" value="" onclick=
+        "laporan_selesai();">Laporan Selesai
     </button>	
 </ul>
 <div class="tab-content">
@@ -408,13 +416,20 @@
                                             <input type="text" name="golongan" id="golongan" class="form-control"
                                                    readonly="true"/>
                                         </div>
+                                    </div> 
+									<div class="form-group" hidden>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">berkas</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" name="berkas" id="berkas" class="form-control"
+                                                   />
+                                        </div>
                                     </div>
-									<div class="form-group">
+									<!--<div class="form-group">
                                         <label class="col-sm-2 control-label" for="demo-hor-inputemail">Akomodasi</label>
 										<div class="col-sm-5">
                                             <input type="number" name="akomodasi" id="akomodasi" class="form-control"/>
                                         </div>
-                                    </div>
+                                    </div>-->
 									<div class="form-group">
 									<label class="col-sm-2 control-label" for="demo-hor-inputemail"></label>
                                         <div class="col-sm-5">
@@ -570,26 +585,22 @@
     new agGrid.Grid(gridDiv, gridPI);
 
     var columnListData = [
-            {headerName: "ID", field: "id", width: 70, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Nama Pelatihan", field: "nama_pelatihan", width: 190, rowGroup:true, filterParams: {newRowsAction: 'keep'}},
-            // , rowGroup:true
-            {headerName: "Tujuan", field: "tujuan", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Institusi", field: "institusi", width: 190, filterParams: {newRowsAction: 'keep'}},
-
-            {headerName: "Nopeg", field: "pengembangan_pelatihan_detail.nopeg", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Nomer Berkas", field: "pengembangan_pelatihan_detail.berkas", width:90, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Nopeg", field: "pengembangan_pelatihan_detail.nopeg", width: 90, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Nama pegawai", field: "pengembangan_pelatihan_detail.nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Golongan", field: "pengembangan_pelatihan_detail.golongan", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Jabatan", field: "pengembangan_pelatihan_detail.jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Pangkat", field: "pengembangan_pelatihan_detail.pangkat", width: 190, filterParams: {newRowsAction: 'keep'}},
-
-            {headerName: "Kegiatan", field: "pengembangan_pelatihan_kegiatan.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Pengembangan Pelatihan Status", field: "pengembangan_pelatihan_kegiatan_status.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Tipe", field: "jenis", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Jenis Perjalanan", field: "jenis_perjalanan", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Jenis Biaya", field: "jenis_biaya", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Created Date", field: "created", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Laporan", field: "pengembangan_pelatihan_detail.laporan_kegiatan", width: 190, filterParams: {newRowsAction: 'keep'}},
+            
+			{headerName: "Tanggal dan Jam Pelatihan", field: "tanggal_from", width: 190, filterParams: {newRowsAction: 'keep'}},
+			{headerName: "Nama Kegiatan", field: "nama_pelatihan", width: 190, filterParams: {newRowsAction: 'keep'}},
+            // , rowGroup:true
+            {headerName: "Status", field: "pengembangan_pelatihan_kegiatan_status.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
+			{headerName: "Jenis Kegiatan", field: "pengembangan_pelatihan_kegiatan.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Tempat Kegiatan", field: "tujuan", width: 190, filterParams: {newRowsAction: 'keep'}},
+			{headerName: "Lembaga", field: "institusi", width: 190, filterParams: {newRowsAction: 'keep'}},
+			{headerName: "Per orang", field: "pengembangan_pelatihan_detail.uraian_total", width: 190, filterParams: {newRowsAction: 'keep'}},
+			{headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}},
+            	{headerName: "Laporan",field: "pengembangan_pelatihan_detail.laporan_kegiatan", 
+				  cellRenderer: checkboxCellRenderer
+				},
 				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file", 
 				  cellRenderer: function(params) {
 					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Usulan</a>'
@@ -668,6 +679,19 @@
     $('.judul-menu').html('Pengajuan Pelatihan & Pengembangan');
     $('.buttoenedit').hide();
 
+	function checkboxCellRenderer (params){
+    var input = document.createElement("input");
+	input.type = "submit";
+    input.value = "Belum Melaporkan";
+    input.className = "btn-danger btn-labeled";
+	if(params.value ==='0'){
+    input.type = "submit";
+    input.value = "Sudah Melaporkan";
+    input.className = "btn-success btn-labeled";
+    }
+	return input;
+	}
+	
     $("#jenis_biaya").on("change", function () {
         jenis_biaya = $(this).val();
         if (jenis_biaya == "BLU") {
@@ -788,7 +812,7 @@
             dataType: "json",
             success: function (e) {
                 for (var i = 0; i < e.result.length; i++) {
-                    $('#' + id).append('<option ' + (e.result[i].id == valueEdit ? 'selected' : '') + ' value="' + e.result[i].id + '" data-nik="' + e.result[i].nik + '" data-laporan="' + e.result[i].laporan_kegiatan + '" data-nip="' + e.result[i].nip + '" data-golongan="' + e.result[i].golongan + '"data-akomodasi="' + e.result[i].akomodasi + '" data-pangkat="' + e.result[i].pangkat +'" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_uk + '" >' + e.result[i].id + ' - ' + e.result[i].nama + '</option>');
+                    $('#' + id).append('<option ' + (e.result[i].id == valueEdit ? 'selected' : '') + ' value="' + e.result[i].id + '" data-nik="' + e.result[i].nik + '" data-laporan="' + e.result[i].laporan_kegiatan + '" data-nip="' + e.result[i].nip + '" data-golongan="' + e.result[i].golongan + '"data-akomodasi="' + e.result[i].akomodasi +'"data-berkas="' + e.result[i].berkas + '" data-pangkat="' + e.result[i].pangkat +'" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_uk + '" >' + e.result[i].id + ' - ' + e.result[i].nama + '</option>');
                 }
                 $('#' + id).trigger("chosen:updated");
             }
@@ -979,6 +1003,7 @@
             $("#pangkat").val($(this).find(':selected').attr("data-pangkat"));
             $("#golongan").val($(this).find(':selected').attr("data-golongan"));
             $("#akomodasi").val($(this).find(':selected').attr("data-akomodasi"));
+            $("#berkas").val($(this).find(':selected').attr("data-bekas"));
         }
     });
 
@@ -1193,6 +1218,7 @@
                 $('#pangkat').val(selectedRow.pangkat);
                 $('#golongan').val(selectedRow.golongan);
                 $('#akomodasi').val(selectedRow.akomodasi);
+                $('#berkas').val(selectedRow.berkas);
 				
 				if (selectedRow.laporan_kegiatan == "1"){
                    $('#laporan_kegiatan').prop("checked", true);
@@ -1508,13 +1534,13 @@
 									   ' <label class="col-sm-2 control-label"></label>' +
 									   '<div class="body-detail">' +
 											'<div class="col-xs-2">' +
-												'<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian" value=' + res.data.detail_uraian[id].uraian + ' />' +
+												'<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian" value="' + res.data.detail_uraian[id].uraian + '" />' +
 											'</div>' +
 											'<div class="col-xs-2">' +
 												'<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" min="1" value=' + res.data.detail_uraian[id].qty + ' required onkeyup="getTotal('+row_id+')"/>' +
 											'</div>' +
 											'<div class="col-xs-2">' +
-												'<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_'+row_id+'" placeholder="Ket uraian" value=' + res.data.detail_uraian[id].uraian_nominal + ' />' +
+												'<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_'+row_id+'" placeholder="Ket uraian" value="' + res.data.detail_uraian[id].uraian_nominal + '" />' +
 											'</div>' +
 											'<div class="col-xs-3">' +
 												'<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" value=' + formatAngka(res.data.detail_uraian[id].pernominal) + ' required onkeyup="getTotal('+row_id+')"/>' +
@@ -1721,14 +1747,24 @@
 		}
 	}
 	
-    function laporan_selesai() {
+    function del() {
         var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
         if (selectedRowsSelesai.length <= 0) {
             onMessage('Silahkan Pilih Data Terlebih dahulu!');
             return false;
         } 
         else {
-            submit_get(BASE_URL + 'pengembangan_pelatihan/laporan_selesai/?id=' + selectedRowsSelesai[0].id, loaddata);
+            submit_get(BASE_URL + 'pengembangan_pelatihan/del/?id=' + selectedRowsSelesai[0].kode, loaddata);
+        }
+    }
+	function laporan_selesai() {
+        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+        if (selectedRowsSelesai.length <= 0) {
+            onMessage('Silahkan Pilih Data Terlebih dahulu!');
+            return false;
+        } 
+        else {
+            submit_get(BASE_URL + 'pengembangan_pelatihan/laporan_selesai/?id=' + selectedRowsSelesai[0].kode, loaddata);
         }
     }
     function cetak() {

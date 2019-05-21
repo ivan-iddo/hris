@@ -54,7 +54,7 @@
 	</td>
     </tr>
     <tr>
-      <td colspan="3"><p align="justify">      Dengan ini kami usulkan biaya pelatihan <?php echo $result['nama_pelatihan']; ?> tanggal <?php if($result["tanggal"]["tanggal_from"]==$result["tanggal"]["tanggal_to"]){echo $result["tanggal"]["tanggal_to"]; }else{echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["tanggal_to"]; }?> yang diselenggarakan oleh <?php echo $result["institusi"]; ?> bertempat di <?php echo $result["tujuan"]; ?> an :</p></td>
+      <td colspan="3"><p align="justify">      Dengan ini kami usulkan biaya pelatihan <?php echo $result['nama_pelatihan']; ?> tanggal <?php if($result["tanggal"]["tanggal_from"]==$result["tanggal"]["tanggal_to"]){echo $result["tanggal"]["tanggal_to"]; }else{echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["tanggal_to"]; }?> yang diselenggarakan oleh <?php echo $result["institusi"]; ?> bertempat di <?php echo $result["tujuan"]." ".$result["alamat"]; ?> an :</p></td>
     </tr>
     <tr>
       <td colspan="3">
@@ -116,29 +116,10 @@
 			</table>
 			</td>
           </tr>
-		 <?php endforeach ?>
+		 <?php $total += $value["total"];
+			   $total_biaya = terbilang($total);
+		 endforeach ?>
           <?php endif ?>
-		<?php if (!empty($result["detail"])): ?>
-			<?php foreach ($result["detail"] as $kes => $value): ?>	
-		  <?php if (!empty($value["akomodasi"])){ ?>
-		  <tr>
-            <td><center><?php echo $no+$kes+1 ?>.</center></td>
-            <td>Akomodasi Gol <?php echo $value["golongan"]; ?></td>
-            <td>1 Orang x Rp. <?php echo number_format($value["akomodasi"], 0, ",", ".")?></td>
-            <td align="right">
-			<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-			  <tr>
-				<td width="20%"></td>
-				<td width="10%">Rp.</td>
-				<td align="right" width="50%"><?php echo number_format($value["akomodasi"], 0, ",", ".")?></td>
-				<td width="20%"></td>
-			  </tr>
-			</table>
-			</td>
-          </tr>
-		  <?php } ?>
-			<?php endforeach ?>
-		<?php endif ?>
 		  <tr>
             <td></td>
             <td></td>
@@ -148,7 +129,7 @@
 			  <tr>
 				<td width="20%"></td>
 				<td width="10%">Rp.</td>
-				<td align="right" width="50%"><?php echo number_format($result["total"], 0, ",", ".")?></td>
+				<td align="right" width="50%"><?php echo number_format($total, 0, ",", ".")?></td>
 				<td width="20%"></td>
 			  </tr>
 			</table>
@@ -157,7 +138,7 @@
 		  <tr>
             <td></td>
             <td></td>
-            <td colspan="2">Terbilang : <?php echo ucfirst($result["total_biaya"]);?> rupiah</td>
+            <td colspan="2">Terbilang : <?php echo ucfirst($total_biaya)?> rupiah</td>
           </tr>
       </table></td>
     </tr> 
