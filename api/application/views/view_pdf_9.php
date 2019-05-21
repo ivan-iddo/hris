@@ -78,7 +78,7 @@
     </tr>
 	<tr>
       <td colspan="3">
-	  <p align="justify">      Di <?php echo '<i>'.$result["tujuan"].'</i>'; ?>, selama <?php echo $result["total_hari_kerja"]; ?> hari, mulai <?php if($result["tanggal"]["tanggal_from"]==$result["tanggal"]["tanggal_to"]){echo $result["tanggal"]["tanggal_to"]; }else{echo date("d",strtotime($result["tanggal"][0]["tanggal_from"]))." ".bulan(date("m",strtotime($result["tanggal"][0]["tanggal_from"]))) ." s.d ". $result["tanggal"]["tanggal_to"]; }?>, dengan rincian sebagai berikut :</p>
+	  <p align="justify">      Di <?php echo '<i>'.$result["tujuan"]." ".$result["alamat"].'</i>'; ?>, selama <?php echo $result["total_hari_kerja"]; ?> hari, mulai <?php if($result["tanggal"]["tanggal_from"]==$result["tanggal"]["tanggal_to"]){echo $result["tanggal"]["tanggal_to"]; }else{echo date("d",strtotime($result["tanggal"][0]["tanggal_from"]))." ".bulan(date("m",strtotime($result["tanggal"][0]["tanggal_from"]))) ." s.d ". $result["tanggal"]["tanggal_to"]; }?>, dengan rincian sebagai berikut :</p>
       </td>
     </tr>
 	<tr>

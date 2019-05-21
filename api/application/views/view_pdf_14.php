@@ -73,7 +73,7 @@
 		  <tr>
               <td><center><b>4.</b></center></td>
               <td><u>Maksud perjalanan dinas</u><br><i>Purpose of Travel</i></td>
-			  <td align="justify">Mengikuti <?php echo $result["nama_pelatihan"] ?>, yang akan dilaksanakan pada tanggal <?php if($result["tanggal"][0]["tanggal_from"]==$result["tanggal"][0]["tanggal_to"]){ echo $result["tanggal"]["to"];}else {echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["to"];} ?>. Yang diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]; ?></td>
+			  <td align="justify">Mengikuti <?php echo $result["nama_pelatihan"] ?>, yang akan dilaksanakan pada tanggal <?php if($result["tanggal"][0]["tanggal_from"]==$result["tanggal"][0]["tanggal_to"]){ echo $result["tanggal"]["to"];}else {echo date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["to"];} ?>. Yang diselenggarakan oleh <?php echo $result["institusi"]; ?>. Bertempat di <?php echo $result["tujuan"]." ".$result["alamat"]; ?></td>
           </tr>
 		  <tr>
               <td><center><b>5.</b></center></td>

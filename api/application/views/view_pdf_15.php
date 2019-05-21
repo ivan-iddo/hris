@@ -164,7 +164,7 @@
         <table width="100%" border="0" cellpadding="0">
 		  <tr>
            <td width="10%" valign="top">Hal :</td>
-           <td width="90%" align="justify" valign="top">Mengikuti Pelatihan <?php echo $result["nama_pelatihan"] ?> diselenggarakan oleh <?php echo $result["institusi"] ?>, yang dilaksanakan pada hari/tanggal <?php if($result["tanggal"]["tanggal_from"]==$result["tanggal"]["tanggal_to"]){echo $result["tanggal"]["day_to"]." ".$result["tanggal"]["tanggal_to"]; }else{echo $result["tanggal"]["day_from"]." ".date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["day_to"]." ".$result["tanggal"]["tanggal_to"]; }?>. Bertempat di <?php echo $result["tujuan"]; ?>.</td>
+           <td width="90%" align="justify" valign="top">Mengikuti Pelatihan <?php echo $result["nama_pelatihan"] ?> diselenggarakan oleh <?php echo $result["institusi"] ?>, yang dilaksanakan pada hari/tanggal <?php if($result["tanggal"]["tanggal_from"]==$result["tanggal"]["tanggal_to"]){echo $result["tanggal"]["day_to"]." ".$result["tanggal"]["tanggal_to"]; }else{echo $result["tanggal"]["day_from"]." ".date('d',strtotime($result["tanggal"][0]["tanggal_from"])) ." s.d ". $result["tanggal"]["day_to"]." ".$result["tanggal"]["tanggal_to"]; }?>. Bertempat di <?php echo $result["tujuan"]." ".$result["alamat"]; ?>.</td>
           </tr>
         </table>
       </td>
