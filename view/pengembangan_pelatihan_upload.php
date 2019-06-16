@@ -54,6 +54,15 @@
                                        class="btn btn-success btn-sm fileinput-button dz-clickable">
                             </div>
                         </div>
+						<div class="form-group lap">
+                            <div class="col-sm-4" align="right">
+                                <label>Upload Laporan Kegiatan</label>
+                            </div>
+                            <div class="col-sm-8" align="center">
+                                <input required="" name="inputfileuploadlap" id="inputfileuploadlap" type="file"
+                                       class="btn btn-success btn-sm fileinput-button dz-clickable">
+                            </div>
+                        </div>
                     </div>
                 </div><!-- /.box -->
                 <!-- Form Element sizes -->

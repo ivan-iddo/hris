@@ -74,6 +74,12 @@ class Upload extends CI_Controller
             $upload = $this->upload->data();
             $arrdata["file_rkm"] = $upload['file_name'];
         }
+		if (!$this->upload->do_upload('inputfileuploadlap')) {
+            $error = array('error' => $this->upload->display_errors());
+        } else {
+            $upload = $this->upload->data();
+            $arrdata["file_lap"] = $upload['file_name'];
+        }
         //print_r($arrdata);die();
 
         $id = $this->input->post("id_latbang");

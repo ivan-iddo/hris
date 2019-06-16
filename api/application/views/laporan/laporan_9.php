@@ -86,7 +86,7 @@
 				  <?php if (!empty($result[$key]["pegawai"])): ?>
 					<?php foreach ($result[$key]["pegawai"] as $key_h => $value_h): ?>
 					  <tr>
-						<td><?php echo 8*$value_h["hari"]; ?></td>
+						<td><?php echo $value_h["total_jam"]; ?></td>
 						</tr>
 					<?php endforeach ?>
 				  <?php endif ?>

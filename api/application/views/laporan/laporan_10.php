@@ -90,7 +90,7 @@
 				  <?php if (!empty($result[$key]["pegawai"])): ?>
 					<?php foreach ($result[$key]["pegawai"] as $key_hr => $value_hr): ?>
 					  <tr>
-						<td><?php echo 8*$value_hr["hari"]; ?></td>
+						<td><?php echo $value_hr["total_jam"]; ?></td>
 					  </tr>
 					<?php endforeach ?>
 				  <?php endif ?>
@@ -123,7 +123,7 @@
 					<?php foreach ($result[$key]["pegawai"] as $key_tot => $value_tot): 
 					$nominal += $value_tot["nominal"];
 					$hari += $value_tot["hari"];
-					$jam += 8*$value_tot["hari"];
+					$jam += $value_tot["total_jam"];
 					?>
 				    <?php endforeach ?>
 				  <?php endif ?>
@@ -131,7 +131,7 @@
 				<?php $a += $val["jum"]?>
 				<td valign="top"></td>
 				<td valign="top"><b><?php echo $val["hari"]?></b></td>
-                <td valign="top"><b></b><?php echo 8*$val["hari"] ?></td>
+                <td valign="top"><b></b><?php echo $val["total_jam"] ?></td>
 				<td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
 				  <tr>

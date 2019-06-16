@@ -83,7 +83,7 @@
 				  <?php if (!empty($result[$key]["pelatihan"])): ?>
 					<?php foreach ($result[$key]["pelatihan"] as $key_jam => $value_jam): ?>
 					  <tr>
-						<td><?php echo 8*$value_jam["total_hari_kerja"]; ?></td>
+						<td><?php echo $value_jam["total_jam"]; ?></td>
 					  </tr>
 					<?php endforeach ?>
 				  <?php endif ?>

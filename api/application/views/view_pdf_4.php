@@ -81,7 +81,7 @@
 		  <tr>
               <td><center><b>7.</b></center></td>
               <td>a. Lama Perjalanan Dinas<br><br>b. Tanggal berangkat<br><br>c. Tanggal harus kembali/tiba ditempat</td>
-              <td>a. <?php echo $result["total_hari_kerja"]; ?> (<?php echo ucfirst($result["total_hari_kerja_baru"]);?>) Hari<br><br>b. <?php echo $result["tanggal"]["from"] ?><br><br>c. <?php echo $result["tanggal"]["to"] ?></td>
+              <td>a. <?php echo $result["total_hari_kerja"]; ?> (<?php echo ucfirst(terbilang($result["total_hari_kerja"]));?>) Hari<br><br>b. <?php echo $result["tanggal"]["from"] ?><br><br>c. <?php echo $result["tanggal"]["to"] ?></td>
           </tr>
 		  <tr>
               <td><center><b>8.</b></center></td>

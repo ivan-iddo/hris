@@ -90,8 +90,19 @@
                         </div>
                     </div>
                 </div>
+				
                 <div class="dataTables_filter" id="demo-dt-addrow_filter">
-                    <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
+                    <button class=
+                    "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
+                    "download();">Download
+					</button>
+					<input aria-controls="demo-dt-addrow" class="form-control input-sm tanggal" placeholder="Tanggal Awal"
+                                         type="text" name="tanggal_awal" id="tanggal_awal">
+					<input aria-controls="demo-dt-addrow" class="form-control input-sm tanggal" placeholder="Tanggal Akhir"
+                                        type="text" name="tanggal_akhir" id="tanggal_akhir">
+					<button class="btn btn-success btn-labeled fa fa-check btn-sm " onclick= "loaddata(0);">Proses Filter
+					</button>
+					<label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
                                          type="search" id="search"
                                          onkeydown="if(event.keyCode=='13'){loaddata(0, this);}"></label>
                 </div>
@@ -553,7 +564,14 @@
 </div>
 <script>
     $('.judul-menu').html('Pengembangan Pelatihan');
-    var listPI = [
+    function download(){
+    var params = { 
+        fileName: 'Latbang',
+        sheetName: 'Latbang'
+    };
+		gridOptionsList.api.exportDataAsExcel(params);
+	}
+	var listPI = [
         {headerName: "NOPEG", field: "nopeg", width: 190, filterParams: {newRowsAction: 'keep'}},
         {headerName: "NAMA", field: "nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
         {headerName: "JABATAN", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
@@ -598,9 +616,13 @@
 			{headerName: "Lembaga", field: "institusi", width: 190, filterParams: {newRowsAction: 'keep'}},
 			{headerName: "Per orang", field: "pengembangan_pelatihan_detail.uraian_total", width: 190, filterParams: {newRowsAction: 'keep'}},
 			{headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}},
-            	{headerName: "Laporan",field: "pengembangan_pelatihan_detail.laporan_kegiatan", 
+			{headerName: "Date By", field: "updated", width: 190, filterParams: {newRowsAction: 'keep'}},
+            	{headerName: "Laporan Kegiatan",field: "laporan", 
 				  cellRenderer: checkboxCellRenderer
 				},
+			{headerName: "Created By Laporan", field: "pengembangan_pelatihan_detail.laporan_by", width: 190, filterParams: {newRowsAction: 'keep'}},
+			{headerName: "Date By Laporan", field: "pengembangan_pelatihan_detail.laporan_date", width: 190, filterParams: {newRowsAction: 'keep'}},
+            
 				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file", 
 				  cellRenderer: function(params) {
 					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Usulan</a>'
@@ -626,6 +648,11 @@
 					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Rekomendasi</a>'
 				  }
 				},
+				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_lap", 
+				  cellRenderer: function(params) {
+					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Laporan Kegiatan</a>'
+				  }
+				},
     ];
 
     var gridOptionsList = {
@@ -641,7 +668,7 @@
         pivotPanelShow: 'always',
         enableRangeSelection: true,
         columnDefs: columnListData,
-        pagination: false,
+        pagination: true,
         autoGroupColumnDef: {
             headerName: 'Group',
             field: 'athlete'
@@ -681,14 +708,27 @@
 
 	function checkboxCellRenderer (params){
     var input = document.createElement("input");
-	input.type = "submit";
+	if(params.value ==='1'){
+    input.type = "submit";
+    input.value = "Melakukan Kegiatan";
+    input.className = "btn-success btn-labeled";
+    }else if(params.value ==='2'){
+    input.type = "submit";
+    input.value = "Menunggu Laporkan";
+    input.className = "btn-warning btn-labeled";
+    }else if(params.value ==='3'){
+    input.type = "submit";
     input.value = "Belum Melaporkan";
     input.className = "btn-danger btn-labeled";
-	if(params.value ==='0'){
+    }else if(params.value ==='4'){
+    input.type = "submit";
+    input.value = "Pengajuang Baru";
+    input.className = "btn-default btn-labeled";
+    }else if(params.value ==='5'){
     input.type = "submit";
     input.value = "Sudah Melaporkan";
-    input.className = "btn-success btn-labeled";
-    }
+    input.className = "btn-primary btn-labeled";
+	}
 	return input;
 	}
 	
@@ -1407,8 +1447,11 @@
         if ($('#search').val() !== '') {
             search = $('#search').val();
         }
+		var dari = $('#tanggal_awal').val();
+        var sampai = $('#tanggal_akhir').val();
+		
         $.ajax({
-            url: BASE_URL + 'pengembangan_pelatihan/list/' + jml + '/' +search,
+            url: BASE_URL + 'pengembangan_pelatihan/list/' + jml + '/' +search + '/' + dari + '/' +sampai,
             headers: {
                 'Authorization': localStorage.getItem("Token"),
                 'X_CSRF_TOKEN': 'donimaulana',
@@ -1432,8 +1475,7 @@
                     $("#users-monev").addClass('hidden');
                 }
                 gridOptionsList.api.setRowData(data.result);
-                pagingDatatable(data.total, data.limit, 'loaddata');
-            },
+             },
             error: function (jqXhr, textStatus, errorThrown) {
                 alert('error');
             }
@@ -2049,4 +2091,11 @@
         }
     
 }
+		$(document).ready(function () {
+		$('.tanggal').datepicker({
+            format: "dd-mm-yyyy",
+        }).on('change', function(){
+			$('.datepicker').hide();
+		  });
+		});
 </script>

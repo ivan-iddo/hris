@@ -140,7 +140,7 @@
                 <span class="block text-center">
                      <i class="fa fa-check-square-o fa-2x text-danger"></i> 
                 </span> 
-                Semua Pegawai
+                Capaian PPA 30 JPL
             </a>
         </li>
 		<li class="">
@@ -148,7 +148,15 @@
                 <span class="block text-center">
                      <i class="fa fa-check-square-o fa-2x text-danger"></i> 
                 </span> 
-                PPA
+                Capaian PPA 20 JPL
+            </a>
+        </li>
+		<li class="">
+            <a href="#demo-lft-tab-20" data-toggle="tab">
+                <span class="block text-center">
+                     <i class="fa fa-check-square-o fa-2x text-danger"></i> 
+                </span> 
+                Pejabat Unit
             </a>
         </li>
       </ul>
@@ -1081,11 +1089,26 @@
 		
 		
 		<div class="tab-pane fade " id="demo-lft-tab-17" >
-		<div class="row"> 
+		<div class="row">
+
         <div class="col-md-6"> 
             <div class="box box-primary"> 
                 <div class="box-body">
-                
+               <div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Tahun</label>
+					<div class="col-sm-7">
+					<select class="form-control select2" id="year" name="year" style="width: 100%;" >
+                        <option value="">--TAHUN--</option>                            
+						<?php for($i=date('Y')+15;$i>=date('Y')-15;$i--){?>
+                            <option value="<?php echo $i?>"><?php echo $i?></option>
+                        <?php }?>
+                    </select>                          
+					</div>
+                </div>
+                </div>                 
+                </div>
                 <div class="row "> 
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="inputstatus"></label>
@@ -1220,6 +1243,16 @@
                 </div>
                 </div>                 
                 </div>
+				<div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Total Pegawai</label>
+					<div class="col-sm-7">
+						<input  name="total_pegawai18" id="total_pegawai18" class="form-control" placeholder="Total Pegawai" type="text">
+					</div>                          
+                </div>
+                </div>                 
+                </div>
 				
                 <div class="row "> 
                 <div class="form-group">
@@ -1272,6 +1305,16 @@
                 </div>
                 </div>                 
                 </div>
+				<div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Total Pegawai</label>
+					<div class="col-sm-7">
+						<input  name="total_pegawai19" id="total_pegawai19" class="form-control" placeholder="Total Pegawai" type="text">
+					</div>                          
+                </div>
+                </div>                 
+                </div>
 				
                 <div class="row "> 
                 <div class="form-group">
@@ -1289,6 +1332,73 @@
 					<div class="col-sm-2"> 
 					<div class="row  text-left"> 
 						<button class="btn btn-primary mar-all" onClick="pdf_preview19();return false;">PDF</button> 
+					</div>
+					</div>
+                </div>
+            </div>                      
+          </div>
+          </div>
+		</div>
+        </div> 
+        </div>	
+		
+		<div class="tab-pane fade " id="demo-lft-tab-20" >
+		<div class="row"> 
+        <div class="col-md-6"> 
+            <div class="box box-primary"> 
+                <div class="box-body">
+				<div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Direktorat</label>
+					<div class="col-sm-7">
+					<select aria-hidden="true" class="select-chosen" id="direktorat" name="direktorat" onchange="getToSub(this.value,'txtbagian','master/direktoratSub/')" style="width: 70%;" tabindex="-1">
+						<option value="" >Please select...</option>
+					</select>
+					</div>                          
+                </div>
+                </div>                 
+                </div>
+				<div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Bagian</label>
+					<div class="col-sm-7">
+					<select aria-hidden="true" class="select-chosen" id="txtbagian" name="txtbagian" onchange="getToSub(this.value,'unitkerja','master/direktoratSub/')" style="width: 100%;" tabindex="-1">
+									
+					</select>
+					</div>                          
+                </div>
+                </div>                 
+                </div>
+				<div class="admininput">
+                <div class="row pad-top"> 
+                <div class="form-group">
+					<label class="col-sm-3 control-label" for="inputstatus">Sub Bagian</label>
+					<div class="col-sm-7">
+					<select aria-hidden="true" class="select-chosen" id="unitkerja" name="unitkerja" onchange="getToSub(this.value,'kaunit','master/direktoratSub/')" style="width: 100%;" tabindex="-1">
+									 
+					</select>
+					</div>                          
+                </div>
+                </div>                 
+                </div>
+                <div class="row "> 
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="inputstatus"></label>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview20();return false;">Preview</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="preview20_excel();return false;">Excel</button> 
+					</div>
+					</div>
+					<div class="col-sm-2"> 
+					<div class="row  text-left"> 
+						<button class="btn btn-primary mar-all" onClick="pdf_preview20();return false;">PDF</button> 
 					</div>
 					</div>
                 </div>
@@ -1347,20 +1457,36 @@
       window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan/?&surat=laporan16&awal='+dari+'&akhir='+sampai);
 	}
 	function preview17(){
-	  var dari = $('#tgl_awal16').val();
-      var sampai = $('#tgl_akhir16').val();
-      gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan5/?&surat=laporan17&awal='+dari+'&akhir='+sampai,pdf_preview17,'large');
+	  var year = $('#year').val();
+     gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan5/?&surat=laporan17&year='+year,pdf_preview17,'large');
     }
 	function preview17_excel(){
-	  var dari = $('#tgl_awal16').val();
-      var sampai = $('#tgl_akhir16').val();
-      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan5/?&surat=laporan17&awal='+dari+'&akhir='+sampai);
+	  var year = $('#year').val();
+     window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan5/?&surat=laporan17&year='+year);
     }
 	
 	function pdf_preview17() {
-	  var dari = $('#tgl_awal16').val();
-      var sampai = $('#tgl_akhir16').val();
-      window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan5/?&surat=laporan17&awal='+dari+'&akhir='+sampai);
+	  var year = $('#year').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan5/?&surat=laporan17&year='+year);
+	}
+	function preview20(){
+	  var direktorat = $('#direktorat').val();
+      var txtbagian = $('#txtbagian').val();
+	  var unitkerja = $('#unitkerja').val();
+	  gopop(BASE_URL + 'pengembangan_pelatihan/laporan_view/?&surat=laporan20&direktorat='+direktorat+'&txtbagian='+txtbagian+'&unitkerja='+unitkerja,pdf_preview20,'large');
+    }
+	function preview20_excel(){
+	  var direktorat = $('#direktorat').val();
+      var txtbagian = $('#txtbagian').val();
+	  var unitkerja = $('#unitkerja').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/laporan_view/?&surat=laporan20&direktorat='+direktorat+'&txtbagian='+txtbagian+'&unitkerja='+unitkerja);
+    }
+	
+	function pdf_preview20() {
+	  var direktorat = $('#direktorat').val();
+      var txtbagian = $('#txtbagian').val();
+	  var unitkerja = $('#unitkerja').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan/?&surat=laporan20&direktorat='+direktorat+'&txtbagian='+txtbagian+'&unitkerja='+unitkerja);
 	}
 	function preview97(){
 	  var dari = $('#tgl_awal017').val();
@@ -1457,37 +1583,43 @@
 	  var dari = $('#tgl_awal18').val();
       var sampai = $('#tgl_akhir18').val();
 	  var unit = $('#unit').val();
-      gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit,pdf_preview18,'large');
+	  var total_pegawai18 = $('#total_pegawai18').val();
+      gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai18,pdf_preview18,'large');
     }
 	function preview18_excel(){
 	  var dari = $('#tgl_awal18').val();
       var sampai = $('#tgl_akhir18').val();
 	  var unit = $('#unit').val();
-      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit);
+	  var total_pegawai18 = $('#total_pegawai18').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai18);
     }
 	function pdf_preview18() {
 	  var dari = $('#tgl_awal18').val();
       var sampai = $('#tgl_akhir18').val();
 	  var unit = $('#unit').val();
-      window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit);
+	  var total_pegawai18 = $('#total_pegawai18').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai18);
 	}
 	function preview19(){
 	  var dari = $('#tgl_awal19').val();
       var sampai = $('#tgl_akhir19').val();
 	  var unit = $('#unit').val();
-      gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit,pdf_preview19,'large');
+	  var total_pegawai19 = $('#total_pegawai19').val();
+      gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai19,pdf_preview19,'large');
     }
 	function preview19_excel(){
 	  var dari = $('#tgl_awal19').val();
       var sampai = $('#tgl_akhir19').val();
 	  var unit = $('#unit').val();
-      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit);
+	  var total_pegawai19 = $('#total_pegawai19').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai19);
     }
 	function pdf_preview19() {
 	  var dari = $('#tgl_awal19').val();
       var sampai = $('#tgl_akhir19').val();
 	  var unit = $('#unit').val();
-      window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit);
+	  var total_pegawai19 = $('#total_pegawai19').val();
+      window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai19);
 	}
 	function preview6(){
 	  var dari = $('#tgl_awal6').val();
@@ -1707,6 +1839,7 @@
 	
 	$('.select-chosen').chosen();
 	$('.chosen-container').css({"width": "100%"});
+	getOptions("direktorat",BASE_URL+"master/direktorat");
 	getOptions("unit",BASE_URL+"master/direktoratSub");
 	getOptions("unit_ker",BASE_URL+"master/direktoratSub");
 	getOptions("unit_k",BASE_URL+"master/direktoratSub");

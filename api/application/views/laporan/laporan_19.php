@@ -48,13 +48,12 @@
           <?php if (!empty($result)): ?>
             <?php foreach ($result as $key => $value): ?>
               <tr>
-                <td align="center"><?php echo $key+1 ?></td>
+                <td align="center"><?php echo $count=$key+1 ?></td>
                 <td><?php echo $value["nopeg"]; ?></td>
                 <td><?php echo $value["gelar_depan"].' '.$value["nama_pegawai"].', '.$value["gelar_belakang"] ?></td>
                 <td><?php echo $value["grup"]; ?></td>
-                <td width="1%"><?php echo $jumlah=8*$value["jum"]; 
-				$total +=$jumlah;
-				$count =count($result);?></td>
+                <td width="1%"><?php echo $jumlah=round(($result[$key]["tanggal"]->total_jam*11)/8, 0); 
+				$total +=$jumlah;?></td>
                 </tr>
             <?php endforeach ?>
           <?php endif ?>
@@ -70,11 +69,11 @@
 		  <table width="95%" border="1px" cellpadding="1" cellspacing="0" class="table2" style="margin:30px">
 		  <tr>
             <td width="20%" colspan="2">Total seluruh pegawai RSJPDHK</td>
-			<td width="1%"><?php echo $count; ?></td>
+			<td width="1%"><?php echo $result[0]['total_pegawai']; ?></td>
           </tr>  
 		  <tr>
             <td width="20%" colspan="2">Persentase pelatihan bagi seluruh pegawai minimal 20 jpl/tahun</td>
-			<td width="1%"><?php echo $count; ?></td>
+			<td width="1%"><?php echo round(($count/$result[0]['total_pegawai']), 3) ?>%</td>
           </tr>
 </table>
 </div>

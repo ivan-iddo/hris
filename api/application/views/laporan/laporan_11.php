@@ -110,7 +110,7 @@
 				  <?php if (!empty($result[$key]["total_pegawai"])): ?>
 					<?php foreach ($result[$key]["total_pegawai"] as $key_jam => $value_jam): ?>
 					  <tr>
-						<td><?php echo 8*$value_jam["total_hari_kerja"]; ?></td>
+						<td><?php echo $value_jam["total_jam"]; ?></td>
 					  </tr>
 					<?php endforeach ?>
 				  <?php endif ?>

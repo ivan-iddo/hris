@@ -101,7 +101,7 @@
 				  <?php if (!empty($result[$key]["kegiatan"])): ?>
 					<?php foreach ($result[$key]["kegiatan"] as $key_hr => $value_hr): ?>
 					  <tr>
-						<td><?php echo 8*$value_hr["total_hari_kerja"]; ?></td>
+						<td><?php echo $value_hr["total_jam"]; ?></td>
 					  </tr>
 					<?php endforeach ?>
 				  <?php endif ?>
