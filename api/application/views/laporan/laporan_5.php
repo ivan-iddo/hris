@@ -65,7 +65,7 @@
                 <td><?php if($value["tanggal_from"]==$value["tanggal_to"]){echo $value["tanggal_to"];}else{ echo $value["tanggal_from"]." s/d ".$value["tanggal_to"];} ?></td>
 				<td><?php echo $value["tujuan"]; ?></td>
                 <td><?php echo $result[$key]["pengembangan_pelatihan_kegiatan"]->nama; ?></td>
-                <td>Rp. <?php echo number_format($value["nominal"], 0, ",", ".")?></td>
+                <td>Rp. <?php echo number_format($value["pernominal"], 0, ",", ".")?></td>
               </tr>
             <?php endforeach ?>
           <?php endif ?>

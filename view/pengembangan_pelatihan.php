@@ -96,9 +96,9 @@
                     "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
                     "download();">Download
 					</button>
-					<input aria-controls="demo-dt-addrow" class="form-control input-sm tanggal" placeholder="Tanggal Awal"
+					<input aria-controls="demo-dt-addrow" class="form-control input-sm tanggal_cek" placeholder="Tanggal Awal"
                                          type="text" name="tanggal_awal" id="tanggal_awal">
-					<input aria-controls="demo-dt-addrow" class="form-control input-sm tanggal" placeholder="Tanggal Akhir"
+					<input aria-controls="demo-dt-addrow" class="form-control input-sm tanggal_cek" placeholder="Tanggal Akhir"
                                         type="text" name="tanggal_akhir" id="tanggal_akhir">
 					<button class="btn btn-success btn-labeled fa fa-check btn-sm " onclick= "loaddata(0);">Proses Filter
 					</button>
@@ -614,9 +614,9 @@
 			{headerName: "Jenis Kegiatan", field: "pengembangan_pelatihan_kegiatan.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Tempat Kegiatan", field: "tujuan", width: 190, filterParams: {newRowsAction: 'keep'}},
 			{headerName: "Lembaga", field: "institusi", width: 190, filterParams: {newRowsAction: 'keep'}},
-			{headerName: "Per orang", field: "pengembangan_pelatihan_detail.uraian_total", width: 190, filterParams: {newRowsAction: 'keep'}},
+			{headerName: "Per orang", field: "pernominal", width: 190, filterParams: {newRowsAction: 'keep'}},
 			{headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}},
-			{headerName: "Date By", field: "updated", width: 190, filterParams: {newRowsAction: 'keep'}},
+			{headerName: "Date By", field: "created", width: 190, filterParams: {newRowsAction: 'keep'}},
             	{headerName: "Laporan Kegiatan",field: "laporan", 
 				  cellRenderer: checkboxCellRenderer
 				},
@@ -2093,6 +2093,13 @@
 }
 		$(document).ready(function () {
 		$('.tanggal').datepicker({
+            format: "dd-mm-yyyy",
+        }).on('change', function(){
+			$('.datepicker').hide();
+		  });
+		});
+		$(document).ready(function () {
+		$('.tanggal_cek').datepicker({
             format: "dd-mm-yyyy",
         }).on('change', function(){
 			$('.datepicker').hide();

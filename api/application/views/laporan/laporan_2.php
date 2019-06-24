@@ -55,20 +55,23 @@
            </tr>
           <?php if (!empty($result)): ?>
             <?php foreach ($result as $key => $val): ?>
-              <tr>
-			    <td valign="top"><?php echo $val["ds_group_jabatan"]; ?></td>
-			    <td valign="top">
+			
+			 <tr>
+			    <td valign="top"><?php echo $val["ds_group_jabatan"]?></td>
+			    </tr>
+				<?php if (!empty($result[$key]["prof"])): ?>
+					<?php foreach ($result[$key]["prof"] as $key_pelatihan => $value_pelatihan): ?>
+				<tr>
+				<td valign="top"></td>
+				<td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php foreach ($result[$key]["kegiatan"] as $key_keg => $value_keg): ?>
-					  <tr>
-						<td><?php echo $value_keg["nama"]; ?></td>
+				      <tr>
+						<td><?php echo $value_pelatihan["nama"]; ?></td>
 					  </tr>
-					  
-				  <?php endforeach ?>
 				</table>
 				</td>
 			    <td valign="top"><table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php foreach ($result[$key]["kegiatan"] as $key_jum => $value): ?>
+				  <?php foreach ($result[$key]["prof"][$key_pelatihan]["kegiatan"] as $key_jum => $value): ?>
 					<tr>
 				     <td><?php echo $key_jum+1; ?></td>
 					</tr>
@@ -76,8 +79,8 @@
 				</table></td>
 				<td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["kegiatan"])): ?>
-					<?php foreach ($result[$key]["kegiatan"] as $key_peg => $value_peg): ?>
+				  <?php if (!empty($result[$key]["prof"][$key_pelatihan]["kegiatan"])): ?>
+					<?php foreach ($result[$key]["prof"][$key_pelatihan]["kegiatan"] as $key_peg => $value_peg): ?>
 					  <tr>
 						<td><?php echo $value_peg["nama_pegawai"]; ?></td>
 					  </tr>
@@ -87,8 +90,8 @@
 				</td>
                 <td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["kegiatan"])): ?>
-					<?php foreach ($result[$key]["kegiatan"] as $key_hari => $value_hari): ?>
+				  <?php if (!empty($result[$key]["prof"][$key_pelatihan]["kegiatan"])): ?>
+					<?php foreach ($result[$key]["prof"][$key_pelatihan]["kegiatan"] as $key_hari => $value_hari): ?>
 					  <tr>
 						<td><?php if(!empty($value_hari["total_hari_kerja"])) {echo $value_hari["total_hari_kerja"];}else{ echo "0";}; ?></td>
 					  </tr>
@@ -98,8 +101,8 @@
 				</td>
                 <td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["kegiatan"])): ?>
-					<?php foreach ($result[$key]["kegiatan"] as $key_hr => $value_hr): ?>
+				  <?php if (!empty($result[$key]["prof"][$key_pelatihan]["kegiatan"])): ?>
+					<?php foreach ($result[$key]["prof"][$key_pelatihan]["kegiatan"] as $key_hr => $value_hr): ?>
 					  <tr>
 						<td><?php echo $value_hr["total_jam"]; ?></td>
 					  </tr>
@@ -109,8 +112,8 @@
 				</td>
                 <td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["kegiatan"])): ?>
-					<?php foreach ($result[$key]["kegiatan"] as $key_tgl => $value_tgl): ?>
+				  <?php if (!empty($result[$key]["prof"][$key_pelatihan]["kegiatan"])): ?>
+					<?php foreach ($result[$key]["prof"][$key_pelatihan]["kegiatan"] as $key_tgl => $value_tgl): ?>
 					  <tr>
 						<td><?php echo $value_tgl["tanggal_to"]; ?></td>
 					  </tr>
@@ -120,10 +123,10 @@
 				</td>
 				<td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["kegiatan"])): ?>
-					<?php foreach ($result[$key]["kegiatan"] as $key_pelatihan => $value_pelatihan): ?>
+				  <?php if (!empty($result[$key]["prof"][$key_pelatihan]["kegiatan"])): ?>
+					<?php foreach ($result[$key]["prof"][$key_pelatihan]["kegiatan"] as $key_pel => $value_pel): ?>
 					  <tr>
-						<td><?php echo $value_pelatihan["nama_pelatihan"]; ?></td>
+						<td><?php echo $value_pel["nama_pelatihan"]; ?></td>
 					  </tr>
 					<?php endforeach ?>
 				  <?php endif ?>
@@ -131,8 +134,8 @@
 				</td>
 				<td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["kegiatan"])): ?>
-					<?php foreach ($result[$key]["kegiatan"] as $key_tujuan => $value_tujuan): ?>
+				  <?php if (!empty($result[$key]["prof"][$key_pelatihan]["kegiatan"])): ?>
+					<?php foreach ($result[$key]["prof"][$key_pelatihan]["kegiatan"] as $key_tujuan => $value_tujuan): ?>
 					  <tr>
 						<td><?php echo $value_tujuan["tujuan"]; ?></td>
 					  </tr>
@@ -142,10 +145,10 @@
 				</td>
                 <td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["kegiatan"])): ?>
-					<?php foreach ($result[$key]["kegiatan"] as $key_nom => $value_nom): ?>
+				  <?php if (!empty($result[$key]["prof"][$key_pelatihan]["kegiatan"])): ?>
+					<?php foreach ($result[$key]["prof"][$key_pelatihan]["kegiatan"] as $key_nom => $value_nom): ?>
 					  <tr>
-						<td>Rp. <?php echo number_format($value_nom["uraian_total"], 0, ",", ".")?></td>
+						<td>Rp. <?php echo number_format($value_nom["pernominal"], 0, ",", ".")?></td>
 					  </tr>
 					<?php endforeach ?>
 				  <?php endif ?>
@@ -153,6 +156,8 @@
 				</td>
               </tr>
             <?php endforeach ?>
+          <?php endif ?>
+		  <?php endforeach ?>
           <?php endif ?>
 </table>
 </div>

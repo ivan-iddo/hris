@@ -129,7 +129,7 @@
 						  <tr>
 							<td width="30%"></td>
 							<td width="10%">Rp.</td>
-							<td align="right" width="50%"><?php echo number_format($value_nom["nominal"], 0, ",", ".")?></td>
+							<td align="right" width="50%"><?php echo number_format($value_nom["pernominal"], 0, ",", ".")?></td>
 							<td width="20%"></td>
 						   </tr>
 					  </table>

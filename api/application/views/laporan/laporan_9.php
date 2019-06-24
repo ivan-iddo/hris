@@ -56,85 +56,82 @@
 			    <td valign="top"><?php echo $val["profesi"]; ?></td>
 			    <td></td>
 				<td valign="top"><table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php foreach ($result[$key]["pegawai"] as $key_jum => $value): ?>
+				<?php if (!empty($result[$key]["data"])): ?>
+					<?php foreach ($result[$key]["data"] as $key_jum => $value_jum): ?>
 					<tr>
-				     <td><?php echo $value["jum"]; ?></td>
+				     <td><?php echo $value_jum["jum_pegawai"]; ?></td>
 					</tr>
-				  <?php endforeach ?>
-				</table>
+					<?php endforeach ?>
+				<?php endif ?>
+				 </table>
 				</td>
 				<td>
-				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php foreach ($result[$key]["pegawai"] as $key_keg => $value_keg): ?>
-					  <tr>
-						<td><?php echo $value_keg["kegiatan"]; ?></td>
-					  </tr>
-				  <?php endforeach ?>
+				<table valign="top" width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+				<?php if (!empty($result[$key]["data"])): ?>
+					<?php foreach ($result[$key]["data"] as $key_kegiatan_nama => $value_kegiatan_nama): ?>
+					<tr>
+				     <td><?php echo $value_kegiatan_nama["kegiatan_nama"]; ?></td>
+					</tr>
+					<?php endforeach ?>
+				<?php endif ?>
 				</table>
 				</td>
-                <td><table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["pegawai"])): ?>
-					<?php foreach ($result[$key]["pegawai"] as $key_hr => $value_hr): ?>
-					  <tr>
-						<td><?php echo $value_hr["hari"]; ?></td>
-						</tr>
+                <td><table valign="top" width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+				<?php if (!empty($result[$key]["data"])): ?>
+					<?php foreach ($result[$key]["data"] as $key_hari=> $value_hari): ?>
+					<tr>
+				     <td><?php echo $value_hari["jum_hari"]; ?></td>
+					</tr>
 					<?php endforeach ?>
-				  <?php endif ?>
+				<?php endif ?>
 				</table>
 				</td>
-                <td><table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["pegawai"])): ?>
-					<?php foreach ($result[$key]["pegawai"] as $key_h => $value_h): ?>
-					  <tr>
-						<td><?php echo $value_h["total_jam"]; ?></td>
-						</tr>
+                <td><table valign="top" width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+				<?php if (!empty($result[$key]["data"])): ?>
+					<?php foreach ($result[$key]["data"] as $key_jam=> $value_jam): ?>
+					<tr>
+				     <td><?php echo $value_jam["jum_jam"]; ?></td>
+					</tr>
 					<?php endforeach ?>
-				  <?php endif ?>
+				<?php endif ?>
 				</table>
 				</td>
                 <td>
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["pegawai"])): ?>
-					<?php foreach ($result[$key]["pegawai"] as $key_biy => $value_biy): ?>
-					  <tr>
+				<?php if (!empty($result[$key]["data"])): ?>
+					<?php foreach ($result[$key]["data"] as $key_nominal=> $value_nominal): ?>
+					
+					<tr>
 						<td>
 						<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
 							<tr>
 							  <td width="30%"></td>
 							  <td width="10%">Rp.</td>
-							  <td align="right" width="50%"><?php echo number_format($value_biy["nominal"], 0, ",", ".")?></td>
+							  <td align="right" width="50%"><?php echo number_format($value_nominal["pernomin"], 0, ",", ".")?></td>
 							  <td width="20%"></td>
 							</tr>
 						</table>
 						</td>
 					  </tr>
 					<?php endforeach ?>
-				  <?php endif ?>
-				</table>
+				<?php endif ?>
+					</table>
 				</td>
               </tr>
 			  <tr>
 			    <td valign="top"></td>
 			    <td valign="bottom" align="center">Jumlah</td>
-			     <?php if (!empty($result[$key]["pegawai"])): ?>
-					<?php foreach ($result[$key]["pegawai"] as $key_jum => $value_jum): 
-					$nominal += $value_jum["nominal"];
-					$hari += $value_jum["hari"];
-					$jam += 8*$value_jum["hari"];
-					?>
-				    <?php endforeach ?>
-				  <?php endif ?>
 				<td valign="top"><?php echo $val["jum"]?></td>
 				<?php $a += $val["jum"]?>
 				<td valign="top"></td>
-				<td valign="top"><b><?php echo $val["hari"]?></b></td>
-                <td valign="top"><b></b><?php echo 8*$val["hari"] ?></td>
+				<td valign="top"><b><?php echo $val["hari"]; $hari+=$val["hari"];?></b></td>
+                <td valign="top"><b></b><?php echo $val["total_jam"]; $jam+=$val["total_jam"]; ?></td>
 				<td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
 				  <tr>
 					<td width="30%"></td>
 					<td width="10%">Rp.</td>
-					<td align="right" width="50%"><b><?php echo number_format($val["nominal"], 0, ",", ".")?></b></td>
+					<td align="right" width="50%"><b><?php echo number_format($val["harga"], 0, ",", "."); $total+=$val["harga"];?></b></td>
 					<td width="20%"></td>
 				   </tr>
 				 </table>
@@ -154,7 +151,7 @@
 					<tr>
 						<td width="30%"></td>
 						<td width="10%">Rp.</td>
-						<td align="right" width="50%"><b><?php echo number_format($nominal, 0, ",", ".")?></b></td>
+						<td align="right" width="50%"><b><?php echo number_format($total, 0, ",", ".")?></b></td>
 						<td width="20%"></td>
 					</tr>
 				</table>

@@ -52,7 +52,7 @@
                 <td><?php echo $value["nopeg"]; ?></td>
                 <td><?php echo $value["gelar_depan"].' '.$value["nama_pegawai"].', '.$value["gelar_belakang"] ?></td>
                 <td><?php echo $value["grup"]; ?></td>
-                <td width="1%"><?php echo round(($result[$key]["tanggal"]->total_jam*11)/8, 0); 
+                <td width="1%"><?php echo $jumlah=round(($result[$key]["tanggal"]->total_jam*11)/8, 0); 
 				$total +=$jumlah;?></td>
               </tr>
             <?php endforeach ?>

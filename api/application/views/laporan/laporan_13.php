@@ -69,8 +69,8 @@
 				</td>
 				<td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["pelatihan"])): ?>
-					<?php foreach ($result[$key]["pelatihan"] as $key_hari => $value_hari): ?>
+				  <?php if (!empty($result[$key]["total_pegawai"])): ?>
+					<?php foreach ($result[$key]["total_pegawai"] as $key_hari => $value_hari): ?>
 					  <tr>
 						<td><?php if(!empty($value_hari["total_hari_kerja"])) {echo $value_hari["total_hari_kerja"];}else{ echo "0";}; ?></td>
 					  </tr>
@@ -80,8 +80,8 @@
 				</td>
                 <td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["pelatihan"])): ?>
-					<?php foreach ($result[$key]["pelatihan"] as $key_jam => $value_jam): ?>
+				  <?php if (!empty($result[$key]["total_pegawai"])): ?>
+					<?php foreach ($result[$key]["total_pegawai"] as $key_jam => $value_jam): ?>
 					  <tr>
 						<td><?php echo $value_jam["total_jam"]; ?></td>
 					  </tr>
@@ -91,22 +91,16 @@
 				</td>
                  <td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["pelatihan"])): ?>
-					<?php foreach ($result[$key]["pelatihan"] as $key_nom => $value_nom): ?>
-					  <tr>
-						<td>
-						<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+					 <?php if (!empty($result[$key]["total_pegawai"])): ?>
+							<?php foreach ($result[$key]["total_pegawai"] as $key_nominal => $value_nominal): ?>
 							<tr>
 							  <td width="20%"></td>
 							  <td width="10%">Rp.</td>
-							  <td align="right" width="50%"><?php echo number_format($value_nom["uraian_total"], 0, ",", ".")?></td>
+							  <td align="right" width="50%"><?php echo number_format($value_nominal["pernominal"], 0, ",", ".")?></td>
 							  <td width="20%"></td>
 							</tr>
-						</table>
-						</td>
-					  </tr>
-					<?php endforeach ?>
-				  <?php endif ?>
+							<?php endforeach ?>
+					  <?php endif ?>
 				</table>
 				</td>
               </tr>

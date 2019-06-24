@@ -119,9 +119,9 @@
                 <td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
 				  <?php if (!empty($result[$key]["total_pegawai"])): ?>
-					<?php foreach ($result[$key]["total_pegawai"] as $key_nom => $value_nom): ?>
+				    <?php foreach ($result[$key]["total_pegawai"] as $key_nominal => $value_nominal): ?>
 					  <tr>
-						<td>Rp. <?php echo number_format($value_nom["uraian_total"], 0, ",", ".")?></td>
+						<td>Rp. <?php echo number_format($value_nominal["pernominal"], 0, ",", ".")?></td>
 					  </tr>
 					<?php endforeach ?>
 				  <?php endif ?>
