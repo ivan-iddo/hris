@@ -100,7 +100,7 @@ class Direktorat extends REST_Controller
 				 
 				  
 				  $this->db->where('tampilkan','1');
-				  $this->db->where('child','27');
+				  $this->db->where('child','1');
 				  $res = $this->db->get('sys_grup_user')->result();
 				  
 			if(!empty($res)){

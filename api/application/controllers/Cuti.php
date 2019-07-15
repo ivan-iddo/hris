@@ -436,6 +436,9 @@ class Cuti extends REST_Controller
                 $id_user = ($this->input->post('id_user'))?$this->input->post('id_user'):null;
                 $id_group = ($this->input->post('id_group'))?$this->input->post('id_group'):null;
                 $keterangan = ($this->input->post('keterangan'))?$this->input->post('keterangan'):null;
+                $alamat = ($this->input->post('alamat'))?$this->input->post('alamat'):null;
+                $no_telp = ($this->input->post('no_telp'))?$this->input->post('no_telp'):null;
+                $tanggung_jawab = ($this->input->post('tanggung_jawab'))?$this->input->post('tanggung_jawab'):null;
                 $tahun = date('Y');
                 $tahunskrg = $tahun;
                 $tahunlalu = ($tahun - 1);
@@ -462,6 +465,9 @@ class Cuti extends REST_Controller
                     'jenis_cuti' => $jenis_cuti,
                     'status' => '102',
                     'keterangan' => $keterangan,
+                    'alamat' => $alamat,
+                    'no_telp' => $no_telp,
+                    'tanggung_jawab' => $tanggung_jawab,
                     'id_group' => $id_group
 
                 );
@@ -741,6 +747,15 @@ class Cuti extends REST_Controller
                     $da .= '<td>';
                     $da .= $val->total;
                     $da .= '</td>';
+					$da .= '<td>';
+                    $da .= $val->no_telp;
+                    $da .= '</td>';
+					$da .= '<td>';
+                    $da .= $val->alamat;
+                    $da .= '</td>';
+					$da .= '<td>';
+                    $da .= $val->tanggung_jawab;
+                    $da .= '</td>';
                     $da .= '<td class="' . $text . '">';
                     $da .= $val->statuspros;
                     $da .= '</td>';
@@ -778,6 +793,15 @@ class Cuti extends REST_Controller
                     $da .= '</td>';
                     $da .= '<td>';
                     $da .= $val->total;
+                    $da .= '</td>';
+					$da .= '<td>';
+                    $da .= $val->no_telp;
+                    $da .= '</td>';
+					$da .= '<td>';
+                    $da .= $val->alamat;
+                    $da .= '</td>';
+					$da .= '<td>';
+                    $da .= $val->tanggung_jawab;
                     $da .= '</td>';
                     $da .= '<td class="' . $text . '">';
                     $da .= $val->statuspros;
@@ -866,6 +890,15 @@ class Cuti extends REST_Controller
                     $da .= '</td>';
                     $da .= '<td>';
                     $da .= $val->total;
+                    $da .= '</td>';
+					$da .= '<td>';
+                    $da .= $val->no_telp;
+                    $da .= '</td>';
+					$da .= '<td>';
+                    $da .= $val->alamat;
+                    $da .= '</td>';
+					$da .= '<td>';
+                    $da .= $val->tanggung_jawab;
                     $da .= '</td>';
                     $da .= '<td class="' . $text . '">';
                     $da .= $val->statuspros;

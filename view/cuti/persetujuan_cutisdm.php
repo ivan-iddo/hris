@@ -126,11 +126,14 @@ require_once('../../connectdb.php');
 					                        <thead>
 					                            <tr>
                                           <th>Nama Pegawai</th>
-					                                <th>Jenis Cuti</th>
+					                      <th>Jenis Cuti</th>
                                           <th>Keterangan</th>
-					                                <th>Mulai</th>
-					                                <th>Sampai</th>
+					                      <th>Mulai</th>
+					                      <th>Sampai</th>
                                           <th>Hari</th>
+										  <th>No Telp</th>
+                                          <th>Alamat</th>
+                                          <th>Alih Tanggung Jawab</th>    
                                           <th>Status</th>
                                           <th>Action</th>
 					                            </tr>

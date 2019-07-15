@@ -46,6 +46,9 @@ require_once('../../connectdb.php');
 					                                <th>Mulai</th>
 					                                <th>Sampai</th>
                                                     <th>Hari</th>
+                                                    <th>No Telp</th>
+                                                    <th>Alamat</th>
+                                                    <th>Alih Tanggung Jawab</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
 					                            </tr>

@@ -353,7 +353,7 @@ public function alat_angkut_get(){
 				if ($decodedToken != false) {
 					 $this->db->order_by('grup','ASC');
 					 $this->db->where('tampilkan','1');
-					  $this->db->where('child','27');
+					  $this->db->where('child','1');
 			  $res = $this->db->get('sys_grup_user')->result();
 			  foreach($res as $d){
 				$arr['result'][]=array('label'=>$d->grup,'value'=>$d->id_grup);

@@ -1742,7 +1742,7 @@ class Pengembangan_pelatihan extends REST_Controller
     {
         $search = null;
         $limit = 25;
-        $order_by = "pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan.created,pengembangan_pelatihan.createdby,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.institusi,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan_status,pengembangan_pelatihan.id,sys_user.email,pengembangan_pelatihan_detail.id,pengembangan_pelatihan_detail.uraian_total,m_kode_profesi_group.ds_group_jabatan, dm_term.nama, sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_user_profile.phone, sys_grup_user.grup,pengembangan_pelatihan_detail.laporan_kegiatan";
+        $order_by = "pengembangan_pelatihan.dalam_negeri,pengembangan_pelatihan.jenis_biaya,pengembangan_pelatihan.jenis_perjalanan,pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan.created,pengembangan_pelatihan.createdby,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.institusi,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan_status,pengembangan_pelatihan.id,sys_user.email,pengembangan_pelatihan_detail.id,pengembangan_pelatihan_detail.uraian_total,m_kode_profesi_group.ds_group_jabatan, dm_term.nama, sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_user_profile.phone, sys_grup_user.grup,pengembangan_pelatihan_detail.laporan_kegiatan";
         $headers = $this->input->request_headers();
         
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {

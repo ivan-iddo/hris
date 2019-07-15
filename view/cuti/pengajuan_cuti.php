@@ -132,6 +132,24 @@ require_once('../../connectdb.php');
                                              <textarea class="form-control" type="text" id="keterangan" name="keterangan"  > </textarea>
 					                        </div>
 					                    </div>
+										<div class="form-group">
+					                        <label class="col-sm-3 control-label">Alamat Selama Libur</label>
+					                        <div class="col-sm-9">
+                                             <textarea class="form-control" type="text" id="alamat" name="alamat"  > </textarea>
+					                        </div>
+					                    </div>
+										<div class="form-group">
+					                        <label class="col-sm-3 control-label">No Telp</label>
+					                        <div class="col-sm-9">
+                                             <input class="form-control" type="text" id="no_telp" name="no_telp"  > </textarea>
+					                        </div>
+					                    </div>
+										<div class="form-group">
+					                        <label class="col-sm-3 control-label">Selama Libur Tangung Jawab di berikan ke</label>
+					                        <div class="col-sm-9">
+                                             <input class="form-control" type="text" id="tanggung_jawab" name="tanggung_jawab"  > </textarea>
+					                        </div>
+					                    </div>
                                        
 					                     
 					                </div>
