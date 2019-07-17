@@ -681,6 +681,7 @@ class Cuti extends REST_Controller
 				$dir = $uk->direktorat;
 				$bagian = $uk->bagian;
 				$sub_bag = $uk->sub_bagian;
+
                 //$id_user = $this->input->get('id_user');
                 $this->db->select('m_jenis_cuti.nama as namcut,his_cuti.*,dm_term.nama as statuspros,sys_user.name as namapegawai');
                 $this->db->join('m_jenis_cuti', 'm_jenis_cuti.id = his_cuti.jenis_cuti');
@@ -690,22 +691,32 @@ class Cuti extends REST_Controller
 				$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
 				$this->db->where('his_cuti.tampilkan', '1');
                 $this->db->where('his_cuti.status', '102');
-				//if ($user_froup!=1) {
+                //if ($user_froup!=1) {
 				//$this->db->where("riwayat_kedinasan.bagian",$user_froup);  
 				//}
 				$this->db->where('sys_user.id_user !=', $id_user);
+				$user=0;
+				if ($user_froup!=1) {
 				if($sub_bag==0){
 				$user=$bagian;
 				$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+				
 				if($bagian==0){
 				$user=$dir;
 				$this->db->where_in('riwayat_kedinasan.direktorat', $dir);
-				$this->db->like("m_index_jabatan_asn_detail.ds_jabatan",'Kepala Bagian');
+				$kepala=array('2454','2455','2471','2528','2537','2546','2588','2595','260','2560','2567','2574','2610','2617','2130','2204','2284','3','33','61','111','169','218','293','363','454','504','596','735','824','861','898','935','972','1009','1046','1083','1120','1194','1242','1328','1386','1471','1596','1867','2019','2102','2130','2204','2284','2358','2359','2361','2363','2380','2383','2385','2387','2399','2440','2448','2449','2450','2451','2452');
+				$this->db->where_in("sys_user.id_grup",$kepala);
+				}else if($sub_bag==0){
+				$user=$bagian;
+				$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+				$sub_kepala=array('4','11','19','34','41','48','81','100','112','153','170','189','219','294','313','351','352','364','404','455','474','475','505','545','597','702','736','777','1329','1348','1367','1387','1404','1436','1472','1499','1655','1868','1909','1974','2020','2072','2087','2131','2150','2177','2205','2223','2265','2285','2297','2472','2479','2488','2495','2496','2530','2538','2539');
+				$this->db->where_in("sys_user.id_grup",$sub_kepala);
 				}
 				}else{
 				$user=$sub_bag;
 				$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
 				$this->db->where_in('riwayat_kedinasan.sub_bagian', $sub_bag);
+				}
 				}
 				
 				if (empty($this->input->get('tahun'))) {
@@ -722,13 +733,14 @@ class Cuti extends REST_Controller
 				$count=count($resCek);
                           
                 $da = '';
+				   
 				if($user==$dir){
 				  foreach ($resCek as $val) {
                     $text = 'text-success';
                     if ($val->status == '108') {
                         $text = 'text-danger';
                     }
-                    $da .= '<tr>';
+					$da .= '<tr>';
                     $da .= '<td>';
                     $da .= $val->namapegawai;
                     $da .= '</td>';
