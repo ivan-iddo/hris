@@ -154,7 +154,7 @@
            enableRangeSelection: true,
            columnDefs: columnDefs,
            pagination: false,
-           paginationPageSize: 50,
+           
            autoGroupColumnDef: autoGroupColumnDef,
            defaultColDef:{
                editable: false,

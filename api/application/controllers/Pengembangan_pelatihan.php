@@ -661,7 +661,7 @@ class Pengembangan_pelatihan extends REST_Controller
         $direktorat = $this->input->get("direktorat");
         $txtbagian = $this->input->get("txtbagian");
         $unitkerja = $this->input->get("unitkerja");
-		$result['result'] = $this->Pengembangan_pelatihan_model->get_new(null, $nopeg, $offset, null, $from, $to, null, null, $filt, $unit, $kegiatan, $jenis, $jenis_perjalanan, $direktorat, $txtbagian, $unitkerja);
+		$result['result'] = $this->Pengembangan_pelatihan_model->get_new(null, $nopeg, $offset, 200, $from, $to, null, null, $filt, $unit, $kegiatan, $jenis, $jenis_perjalanan, $direktorat, $txtbagian, $unitkerja);
         if (!empty($result['result'])) {
            foreach ($result["result"] as $key => $value) {
 		$result["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
@@ -748,7 +748,7 @@ class Pengembangan_pelatihan extends REST_Controller
         $direktorat = $this->input->get("direktorat");
         $txtbagian = $this->input->get("txtbagian");
         $unitkerja = $this->input->get("unitkerja");
-		$result['result'] = $this->Pengembangan_pelatihan_model->get_new(null, $nopeg, $offset, null, $from, $to, null, null, $filt, $unit, $kegiatan, $jenis, $jenis_perjalanan, $direktorat, $txtbagian, $unitkerja);
+		$result['result'] = $this->Pengembangan_pelatihan_model->get_new(null, $nopeg, $offset, 200, $from, $to, null, null, $filt, $unit, $kegiatan, $jenis, $jenis_perjalanan, $direktorat, $txtbagian, $unitkerja);
         if (!empty($result['result'])) {
             foreach ($result["result"] as $key => $value) {
 		$result["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
@@ -1369,17 +1369,17 @@ class Pengembangan_pelatihan extends REST_Controller
 		$filt_pelatihan="pengembangan_pelatihan.nama_pelatihan";
 		
         
-		$result['result'] = $this->Pengembangan_pelatihan_model->get3(null, $no_peg, $offset, null, $from, $to, null, null, $filter_prof, $filter_prof);
+		$result['result'] = $this->Pengembangan_pelatihan_model->get3(null, $no_peg, $offset, 200, $from, $to, null, null, $filter_prof, $filter_prof);
 		if (!empty($result['result'])) {
             foreach ($result["result"] as $key => $val) {
 		$profesi=array($filt => $val[$id]);
-		$result['result'][$key]["prof"] = $this->Pengembangan_pelatihan_model->get3($profesi, $no_peg, $offset, null, $from, $to, null, null, $filter, $filter);
+		$result['result'][$key]["prof"] = $this->Pengembangan_pelatihan_model->get3($profesi, $no_peg, $offset, 200, $from, $to, null, null, $filter, $filter);
         //print_r($result['result']);die();
 		if (!empty($result['result'][$key]["prof"])) {
             foreach ($result['result'][$key]["prof"] as $key_prof => $val_prof) {
 		$params=array($filt => $val_prof[$id],$filt_pelatihan => $val_prof[$pelatih]);
 		$params_array=array($filt => $val_prof[$id],$filt_kegiatan => $val_prof[$nama]);
-		$result["result"][$key]["prof"][$key_prof]["kegiatan"] = $this->Pengembangan_pelatihan_model->get3($params_array, $no_peg, $offset, null, $from, $to, null, null, $pelatihan, $pelatihan_as);
+		$result["result"][$key]["prof"][$key_prof]["kegiatan"] = $this->Pengembangan_pelatihan_model->get3($params_array, $no_peg, $offset, 200, $from, $to, null, null, $pelatihan, $pelatihan_as);
 		if (!empty($result["result"][$key]["prof"][$key_prof]["kegiatan"])) {
             foreach ($result["result"][$key]["prof"][$key_prof]["kegiatan"] as $key_pegawai => $value) {
 		$params=array('pengembangan_pelatihan_kegiatan.nama' => $value["nama"]);
@@ -1742,7 +1742,7 @@ class Pengembangan_pelatihan extends REST_Controller
     {
         $search = null;
         $limit = 25;
-        $order_by = "pengembangan_pelatihan.dalam_negeri,pengembangan_pelatihan.jenis_biaya,pengembangan_pelatihan.jenis_perjalanan,pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan.created,pengembangan_pelatihan.createdby,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.institusi,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan_status,pengembangan_pelatihan.id,sys_user.email,pengembangan_pelatihan_detail.id,pengembangan_pelatihan_detail.uraian_total,m_kode_profesi_group.ds_group_jabatan, dm_term.nama, sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_user_profile.phone, sys_grup_user.grup,pengembangan_pelatihan_detail.laporan_kegiatan";
+        $order_by = "pengembangan_pelatihan.id";
         $headers = $this->input->request_headers();
         
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
@@ -1754,7 +1754,6 @@ class Pengembangan_pelatihan extends REST_Controller
 				
                 $results['result'] = $this->Pengembangan_pelatihan_model->get_list(null, $search, $offset, $limit, $dari, $sampai, null, $order_by, $cari);
                 // echo $this->db->last_query();die;
-                // print_r($results);die;
                 if (!empty($results['result'])) {
                     foreach ($results["result"] as $key => $value) {
                         $createdby = $this->db->select("username")->where(array("id_user" => $value["createdby"]))->get("sys_user")->result_array();
@@ -1765,6 +1764,7 @@ class Pengembangan_pelatihan extends REST_Controller
                         if (count($updatedby) == 1) {
                             $results["result"][$key]["updatedby"] = $updatedby[0]["username"];
                         }
+					
 						$results["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["kegiatan"]);
                         $results["result"][$key]["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($value["pengembangan_pelatihan_kegiatan_status"]);
                         $results["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($value["kode"]);
@@ -1777,9 +1777,13 @@ class Pengembangan_pelatihan extends REST_Controller
 						if(substr($value_detail_biaya["uraian"],0,9)!="Akomodasi"){
 						if("Akomodasi ".$results["result"][$key]["pengembangan_pelatihan_detail"]->golongan!=$value_detail_biaya["uraian"]){
 						$results["result"][$key]["nominal"] += $value_detail_biaya["pernominal"];
+						}else if("Registrasi + Akomodasi ".$results["result"][$key]["pengembangan_pelatihan_detail"]->golongan!=$value_detail_biaya["uraian"]){
+						$results["result"][$key]["nominal"] += $value_detail_biaya["pernominal"];
 						}
 						}
 						if("Akomodasi ".$results["result"][$key]["pengembangan_pelatihan_detail"]->golongan==$value_detail_biaya["uraian"]){
+						$results["result"][$key]["nominal_gol"] = $value_detail_biaya["pernominal"];
+						}else if("Registrasi + Akomodasi ".$results["result"][$key]["pengembangan_pelatihan_detail"]->golongan==$value_detail_biaya["uraian"]){
 						$results["result"][$key]["nominal_gol"] = $value_detail_biaya["pernominal"];
 						}
 						$results["result"][$key]["pernominal"]=$results["result"][$key]["nominal_gol"]+$results["result"][$key]["nominal"];
@@ -1801,22 +1805,22 @@ class Pengembangan_pelatihan extends REST_Controller
 								if (strtotime($tanggal)>strtotime($value_detail_tanggal["tanggal_to"])){
 								if(strtotime($tanggal)<strtotime($besok)){
 								if($value["laporan_kegiatan"]==1){
-								$results["result"][$key]["laporan"] = "2";
+								$results["result"][$key]["laporan"] = "Menunggu Laporkan";
 								}else{
-								$results["result"][$key]["laporan"] = "5";
+								$results["result"][$key]["laporan"] = "Sudah Melaporkan";
 								}
 								}else if (strtotime($tanggal)>strtotime($besok)){
 								if($value["laporan_kegiatan"]==1){
-								$results["result"][$key]["laporan"] = "3";
+								$results["result"][$key]["laporan"] = "Belum Melaporkan";
 								}else{
-								$results["result"][$key]["laporan"] = "5";
+								$results["result"][$key]["laporan"] = "Sudah Melaporkan";
 								}
 								}
 								}
 								}if(strtotime($from) <= strtotime($tanggal) && strtotime($to) >= strtotime($tanggal)){
-								$results["result"][$key]["laporan"] = "1";							
+								$results["result"][$key]["laporan"] = "Melakukan Kegiatan";							
 								}else if(strtotime($value_detail_tanggal["tanggal_from"]) >= strtotime($tanggal) && strtotime($value_detail_tanggal["tanggal_to"]) >= strtotime($tanggal)){
-								$results["result"][$key]["laporan"] = "4";
+								$results["result"][$key]["laporan"] = "Pengajuang Baru";
 								}
 								
 								
@@ -1824,14 +1828,13 @@ class Pengembangan_pelatihan extends REST_Controller
                         }
                     }
                 }
-
-                $results['total'] = count($this->Pengembangan_pelatihan_model->get_all());
+				$results['total'] = '5000';
                 $results["query"] = $this->db->last_query();
                 $results['limit'] = $limit;
                 $results["is_blocked"] = $this->Pengembangan_pelatihan_model->is_blocked($decodedToken->data->NIP);
                 $results["is_monev"] = $this->Pengembangan_pelatihan_model->is_monev($decodedToken->data->NIP);
                 // echo "<pre>";
-              //print_r($results["result"]);die();
+              //print_r($results);die();
                 // echo "</pre>";
                 // die;
                 $this->set_response($results, REST_Controller::HTTP_OK);
@@ -2034,15 +2037,14 @@ class Pengembangan_pelatihan extends REST_Controller
                 $save["alat_angkut"] = ($surat_tugas_dalam_negeri_luarkota)?$surat_tugas_dalam_negeri_luarkota:null;
                 
                 // 195 = direktur SDM
-                $id_parent = $this->System_auth_model->getparent($decodedToken->data->_pnc_id_grup, '195');
+                $id_parent = $this->System_auth_model->getparent($decodedToken->data->_pnc_id_grup, '1');
                 // echo "<pre>";
-                // print_r($id_parent);
-                // echo "</pre>";
+				// echo "</pre>";
                 // die;
                 $save["id_atasan"] = $id_parent;
                 $save["id_uk"] = $decodedToken->data->_pnc_id_grup;
                 $save["status"] = 102;
-				//print_r($save);die();
+				
 				
 				$detail = ($this->input->post("detail"))?$this->input->post("detail"):null;
                 //print_r($detail["no_berkas"]);die();
@@ -2098,14 +2100,13 @@ class Pengembangan_pelatihan extends REST_Controller
 				$re = $this->Pengembangan_pelatihan_model->get_no_berks();
 				$noberks = $re[0]["no_berkas"];
 				//print_r($result);die();
-				$noUrut = (int) substr($noberks, 5, 3);
+				$noUrut = (int) substr($noberks, 5, 2);
 				$noUrut++;
 				$tahun=substr($date, 0, 2);
 				$bulan=substr($date, 3, 2);
-                $no_berkas = $tahun .$bulan .'.'. sprintf("%03s", $noUrut);
+                $no_berkas = $tahun .$bulan .'.'. sprintf("%02s", $noUrut);
                 
-				//print_r($nominal);die();
-                if ($result){
+				if ($result){
 					//print_r($no_berkas);die();
                     $this->insert_detail($result->id, $detail, $nominal, $no_berkas);
 
@@ -2326,11 +2327,11 @@ class Pengembangan_pelatihan extends REST_Controller
 				$re = $this->Pengembangan_pelatihan_model->get_no_berks();
 				$noberks = $re[0]["no_berkas"];
 				//print_r($result);die();
-				$noUrut = (int) substr($noberks, 5, 3);
+				$noUrut = (int) substr($noberks, 5, 2);
 				$noUrut++;
 				$tahun=substr($date, 0, 2);
 				$bulan=substr($date, 3, 2);
-                $no_berkas = $tahun .$bulan .'.'. sprintf("%03s", $noUrut);
+                $no_berkas = $tahun .$bulan .'.'. sprintf("%02s", $noUrut);
                 
 				
 				$pengembangan_pelatihan_update = $this->Pengembangan_pelatihan_model->update($result->id, array("total" => $total));
@@ -2479,8 +2480,12 @@ class Pengembangan_pelatihan extends REST_Controller
 			if ($decodedToken != false) {
 				$author = $decodedToken->data->_pnc_username;
                 $id = $this->input->get("id");
-                $this->Pengembangan_pelatihan_model->update_detail($id, array("laporan_kegiatan" => 0, "laporan_by" => $author, "laporan_date" => date("Y-m-d H:i:s")));
-
+                $laporan = $this->input->get("laporan");
+                if($laporan!=0){
+				$this->Pengembangan_pelatihan_model->update_detail($id, array("laporan_kegiatan" => 0, "laporan_by" => $author, "laporan_date" => date("Y-m-d H:i:s")));
+				}else{
+				$this->Pengembangan_pelatihan_model->update_detail($id, array("laporan_kegiatan" => 1, "laporan_by" => $author, "laporan_date" => date("Y-m-d H:i:s")));
+				}
                 $response['hasil'] = 'success';
                 $response['message'] = 'Data berhasil diupdate!';
                 $this->set_response($response, REST_Controller::HTTP_OK);

@@ -93,8 +93,7 @@
 				
                 <div class="dataTables_filter" id="demo-dt-addrow_filter">
                     <button class=
-                    "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
-                    "download();">Download
+                    "btn btn-success btn-labeled fa fa-check btn-sm" onclick="download();">Download
 					</button>
 					<input aria-controls="demo-dt-addrow" class="form-control input-sm tanggal_cek" placeholder="Tanggal Awal"
                                          type="text" name="tanggal_awal" id="tanggal_awal">
@@ -481,7 +480,7 @@
                                                     <input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_1" placeholder="Uraian"/>
                                                 </div>
                                                 <div class="col-xs-2">
-                                                    <input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_1" min="1" value="1" required onkeyup="getTotal(1)"/>
+                                                    <input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_1" title="Jumlah Keterangan" min="1" value="1" required onkeyup="getTotal(1)"/>
                                                 </div>
 												<div class="col-xs-2">
                                                     <input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_1" placeholder="Ket nominal"/>
@@ -502,7 +501,7 @@
                                                            readonly/>
                                                 </div>
 												<div class="col-xs-2">
-                                                    <input type="number" name="orang[]" class="form-control orang" id="orang_1" min="0" placeholder="0" required onkeyup="getTotal(1)"/>
+                                                    <input type="number" name="orang[]" class="form-control orang" title="Jumlah Orang" id="orang_1" min="0" placeholder="0" required onkeyup="getTotal(1)"/>
                                                 </div>
 												<div class="col-xs-4">
                                                     <input type="text" name="total[]" class="form-control total" id="total_1" min="0" value="0"
@@ -565,11 +564,11 @@
 <script>
     $('.judul-menu').html('Pengembangan Pelatihan');
     function download(){
-    var params = { 
+    var datalist = { 
         fileName: 'Latbang',
         sheetName: 'Latbang'
     };
-		gridOptionsList.api.exportDataAsExcel(params);
+		gridOptionsList.api.exportDataAsExcel(datalist);
 	}
 	var listPI = [
         {headerName: "NOPEG", field: "nopeg", width: 190, filterParams: {newRowsAction: 'keep'}},
@@ -668,7 +667,7 @@
         pivotPanelShow: 'always',
         enableRangeSelection: true,
         columnDefs: columnListData,
-        pagination: true,
+        pagination: false,
         autoGroupColumnDef: {
             headerName: 'Group',
             field: 'athlete'
@@ -708,23 +707,23 @@
 
 	function checkboxCellRenderer (params){
     var input = document.createElement("input");
-	if(params.value ==='1'){
+	if(params.value ==='Melakukan Kegiatan'){
     input.type = "submit";
     input.value = "Melakukan Kegiatan";
     input.className = "btn-success btn-labeled";
-    }else if(params.value ==='2'){
+    }else if(params.value ==='Menunggu Laporkan'){
     input.type = "submit";
     input.value = "Menunggu Laporkan";
     input.className = "btn-warning btn-labeled";
-    }else if(params.value ==='3'){
+    }else if(params.value ==='Belum Melaporkan'){
     input.type = "submit";
     input.value = "Belum Melaporkan";
     input.className = "btn-danger btn-labeled";
-    }else if(params.value ==='4'){
+    }else if(params.value ==='Pengajuang Baru'){
     input.type = "submit";
     input.value = "Pengajuang Baru";
     input.className = "btn-default btn-labeled";
-    }else if(params.value ==='5'){
+    }else if(params.value ==='Sudah Melaporkan'){
     input.type = "submit";
     input.value = "Sudah Melaporkan";
     input.className = "btn-primary btn-labeled";
@@ -926,7 +925,7 @@
                             '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian"/>' +
                         '</div>' +
                         '<div class="col-xs-2">' +
-                            '<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" min="1" value="1" required onkeyup="getTotal('+row_id+')"/>' +
+                            '<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" title="Jumlah Keterangan" min="1" value="1" required onkeyup="getTotal('+row_id+')"/>' +
                         '</div>' +
 						'<div class="col-xs-2">' +
                             '<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal'+row_id+'" placeholder="Ket uraian"/>' +
@@ -946,7 +945,7 @@
                             '<input type="text" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" placeholder="0" readonly/>' +
                         '</div> '+  
 						'<div class="col-xs-2">' +
-                            '<input type="number" name="orang[]" class="form-control orang" id="orang_'+row_id+'" min="0" placeholder="0" required onkeyup="getTotal(\''+row_id+'\')"/>' +
+                            '<input type="number" name="orang[]" class="form-control orang" title="Jumlah Orang" id="orang_'+row_id+'" min="0" placeholder="0" required onkeyup="getTotal(\''+row_id+'\')"/>' +
                         '</div> '+
 						'<div class="col-xs-4">' +
                             '<input type="text" name="total[]" class="form-control total" id="total_'+row_id+'" min="0" value="0" readonly/>' +
@@ -1475,7 +1474,9 @@
                     $("#users-monev").addClass('hidden');
                 }
                 gridOptionsList.api.setRowData(data.result);
-             },
+             paging(data.total,'loaddata');
+                     
+			 },
             error: function (jqXhr, textStatus, errorThrown) {
                 alert('error');
             }
@@ -1579,7 +1580,7 @@
 												'<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian" value="' + res.data.detail_uraian[id].uraian + '" />' +
 											'</div>' +
 											'<div class="col-xs-2">' +
-												'<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" min="1" value=' + res.data.detail_uraian[id].qty + ' required onkeyup="getTotal('+row_id+')"/>' +
+												'<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" title="Jumlah Keterangan" min="1" value=' + res.data.detail_uraian[id].qty + ' required onkeyup="getTotal('+row_id+')"/>' +
 											'</div>' +
 											'<div class="col-xs-2">' +
 												'<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_'+row_id+'" placeholder="Ket uraian" value="' + res.data.detail_uraian[id].uraian_nominal + '" />' +
@@ -1599,7 +1600,7 @@
 												'<input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" value=' + formatAngka(res.data.detail_uraian[id].nominal) + ' readonly/>' +
 											'</div> '+ 
 											'<div class="col-xs-2">' +
-												'<input type="number" name="orang[]" class="form-control orang" id="orang_'+row_id+'" min="0" placeholder="0" value=' + res.data.detail_uraian[id].orang + ' required onkeyup="getTotal(\''+row_id+'\')"/>' +
+												'<input type="number" name="orang[]" class="form-control orang" title="Jumlah Orang" id="orang_'+row_id+'" min="0" placeholder="0" value=' + res.data.detail_uraian[id].orang + ' required onkeyup="getTotal(\''+row_id+'\')"/>' +
 											'</div> '+
 											'<div class="col-xs-4">' +
 												'<input type="number" name="total[]" class="form-control total" id="total_'+row_id+'" min="0" value=' + formatAngka(res.data.detail_uraian[id].total) + ' readonly/>' +
@@ -1806,7 +1807,7 @@
             return false;
         } 
         else {
-            submit_get(BASE_URL + 'pengembangan_pelatihan/laporan_selesai/?id=' + selectedRowsSelesai[0].kode, loaddata);
+            submit_get(BASE_URL + 'pengembangan_pelatihan/laporan_selesai/?id=' + selectedRowsSelesai[0].kode+'&laporan=' + selectedRowsSelesai[0].laporan_kegiatan, loaddata);
         }
     }
     function cetak() {

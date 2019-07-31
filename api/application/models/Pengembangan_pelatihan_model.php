@@ -290,7 +290,7 @@ class Pengembangan_pelatihan_model extends MY_Model
 		}
 
 		if (!empty($order_by)) {
-			$this->db->group_by($order_by);
+			$this->db->order_by($order_by,'DESC');
 		}
 		
 		if (!empty($from)) {
@@ -397,7 +397,6 @@ class Pengembangan_pelatihan_model extends MY_Model
 		$this->db->from($this->table);
 		$this->db->join("pengembangan_pelatihan_detail", "$this->table.id = pengembangan_pelatihan_detail.pengembangan_pelatihan_id AND pengembangan_pelatihan_detail.statue = 1");
 		$this->db->join("pengembangan_pelatihan_pelaksanaan", "pengembangan_pelatihan.id = pengembangan_pelatihan_pelaksanaan.pengembangan_pelatihan_id");
-		$this->db->join("pengembangan_pelatihan_detail_biaya", "pengembangan_pelatihan_detail_biaya.pengembangan_pelatihan_detail_id = pengembangan_pelatihan_detail.pengembangan_pelatihan_id");
 		$this->db->join("sys_user_profile", "pengembangan_pelatihan_detail.nopeg = sys_user_profile.id_user", "left");
 		$this->db->join("m_kode_profesi_group", "sys_user_profile.kategori_profesi = m_kode_profesi_group.id", "left");
 		$this->db->join("sys_user", "pengembangan_pelatihan_detail.nopeg = sys_user.id_user", "left");
@@ -768,10 +767,9 @@ class Pengembangan_pelatihan_model extends MY_Model
 	function get3($params_array = array(), $no_peg="", $offset = "", $limit = "", $from = "", $to = "", $where_in = "", $order_by = "", $filt="", $as="")
 
 	{	
-		$this->db->select("$as,sum(pengembangan_pelatihan_detail_biaya.nominal) as nominal,sum(pengembangan_pelatihan.total_hari_kerja) as hari,count(m_kode_profesi_group.ds_group_jabatan) as jum");
+		$this->db->select("$as,sum(pengembangan_pelatihan.total_hari_kerja) as hari,count(m_kode_profesi_group.ds_group_jabatan) as jum");
 		$this->db->from($this->table);
 		$this->db->join("pengembangan_pelatihan_detail", "$this->table.id = pengembangan_pelatihan_detail.pengembangan_pelatihan_id AND pengembangan_pelatihan_detail.statue = 1");
-		$this->db->join("pengembangan_pelatihan_detail_biaya", "pengembangan_pelatihan_detail_biaya.pengembangan_pelatihan_detail_id = pengembangan_pelatihan_detail.pengembangan_pelatihan_id");
 		$this->db->join("pengembangan_pelatihan_kegiatan", "pengembangan_pelatihan_kegiatan.id = pengembangan_pelatihan.pengembangan_pelatihan_kegiatan");
 		$this->db->join("pengembangan_pelatihan_kegiatan_status", "pengembangan_pelatihan_kegiatan_status.id = pengembangan_pelatihan.pengembangan_pelatihan_kegiatan_status");
 		$this->db->join("pengembangan_pelatihan_pelaksanaan", "pengembangan_pelatihan_pelaksanaan.pengembangan_pelatihan_id = pengembangan_pelatihan.id");
