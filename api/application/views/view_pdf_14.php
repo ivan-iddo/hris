@@ -90,7 +90,7 @@
 				  </tr>
 				</tbody>
 			  </table></td>
-              <td>a. Jakarta<br><br>b. <?php echo $result["tujuan"]; ?><br></td>
+              <td>a. Jakarta<br><br>b. <?php echo $result["alamat"]; ?><br></td>
           </tr>
 		  <tr>
               <td><center><b>7.</b></center></td>

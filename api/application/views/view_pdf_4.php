@@ -76,7 +76,7 @@
 		  <tr>
               <td><center><b>6.</b></center></td>
               <td>a. Tempat berangkat<br><br>b. Tempat tujuan<br></td>
-              <td>a. Jakarta<br><br>b. <?php echo $result["tujuan"]; ?><br></td>
+              <td>a. Jakarta<br><br>b. <?php echo $result["alamat"]; ?><br></td>
           </tr>
 		  <tr>
               <td><center><b>7.</b></center></td>

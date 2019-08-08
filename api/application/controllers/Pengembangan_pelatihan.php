@@ -546,7 +546,7 @@ class Pengembangan_pelatihan extends REST_Controller
                         //        $results["result"][$key]["detail"][$key_detail_biaya]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_detail_biaya["id"]));
                         //    }
                         //}
-						//print_r($results["result"][$key]['total_biaya']);die;
+						
 						$this->load->library("pdf");
                         if ($results["result"][$key]['jenis_perjalanan'] == "Dalam Negeri") {
 						$html = $this->load->view("view_pdf_4", array("result" => $results["result"][$key]), true);
@@ -617,7 +617,6 @@ class Pengembangan_pelatihan extends REST_Controller
                         $results["result"][$key]["aprove_phl"] = $this->Pengembangan_pelatihan_model->get_phl($results["result"][$key]["phl"]);
 						$results["result"][$key]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
 						$results["result"][$key]["count"] = count($results["result"][$key]["detail"]);
-						
 						//print_r($results["result"][$key]);die;
 						$this->load->library("pdf");
                         if ($results["result"][$key]['jenis_perjalanan'] == "Dalam Negeri") {

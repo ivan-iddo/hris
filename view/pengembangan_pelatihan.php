@@ -206,7 +206,7 @@
                                         </div>
                                     </div>
 									<div class="form-group">
-                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Alamat</label>
+                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Kota / Negara</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="alamat" id="alamat" class="form-control"/>
                                         </div>
