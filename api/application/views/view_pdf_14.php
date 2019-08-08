@@ -200,7 +200,7 @@
 				    <td width="1%">I.<br><br><br><br></td>
 					<td width="30%" align="left"><u>Tiba di</u><br><i>Arrival at</i><br><u>Pada Tanggal</u><br><i>Date</i><br></td>
 					<td>:<br><br>:<br><br></td>
-					<td width="68%"><?php echo $result["tujuan"]; ?><br><br><?php echo $result["tanggal"]["from"] ?><br><br></td>
+					<td width="68%"><?php echo $result["alamat"]; ?><br><br><?php echo $result["tanggal"]["from"] ?><br><br></td>
 				  </tr>
 				  <tr>
 				    <td width="1%" align="center"><br></td>
@@ -238,7 +238,7 @@
 				    <td width="4%">II.<br><br><br><br><br><br></td>
 					<td width="50%" align="left"><u>Berangkat dari</u><br><i>Depature from</i><br><u>Ke<u><br><i>To</i><br><u>Pada Tanggal</u><br><i>Date</i></td>
 					<td>:<br><br>:<br><br>:<br><br></td>
-					<td width="46%">Jakarta<br><br><?php echo $result["tujuan"]; ?><br><br><?php echo $result["tanggal"]["from"] ?><br><br></td>
+					<td width="46%">Jakarta<br><br><?php echo $result["alamat"]; ?><br><br><?php echo $result["tanggal"]["from"] ?><br><br></td>
 				  </tr>
 				  <tr>
 					<td colspan="5" align="center">RS. Jantung & Pembulu Darah Harapan Kita<br><?php if(!empty($result["phl"])){ if($result["jenis_plh"]!="Plh"){ echo "a. n. Direktur Utama ";}else{ echo "Plh. Direktur Utama, ";}}else{ echo "Direktur Utama, ";}?></td>
@@ -294,7 +294,7 @@
 				    <td width="4%">IV.<br><br><br><br><br><br></td>
 					<td width="50%" align="left"><u>Berangkat dari</u><br><i>Depature from</i><br><u>Ke<u><br><i>To</i><br><u>Pada Tanggal</u><br><i>Date</i></td>
 					<td>:<br><br>:<br><br>:<br><br></td>
-					<td width="46%"><?php echo $result["tujuan"]; ?><br><br>Jakarta<br><br><?php echo $result["tanggal"]["from"] ?><br><br></td>
+					<td width="46%"><?php echo $result["alamat"]; ?><br><br>Jakarta<br><br><?php echo $result["tanggal"]["from"] ?><br><br></td>
 				  </tr>
 				  <tr>
 				    <td width="1%" align="center"><br></td>

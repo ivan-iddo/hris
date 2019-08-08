@@ -181,7 +181,7 @@
 				    <td width="4%">I.<br><br><br><br></td>
 					<td width="50%" align="left">Dikeluarkan di<br>(Tempat kedudukan)<br>Ke<br>Pada Tanggal</td>
 					<td>:<br><br>:<br>:<br></td>
-					<td width="46%">Jakarta<br><br><?php echo $result["tujuan"]; ?><br><?php echo $result["tanggal"]["from"] ?><br></td>
+					<td width="46%">Jakarta<br><br><?php echo $result["alamat"]; ?><br><?php echo $result["tanggal"]["from"] ?><br></td>
 				  </tr>
 				  <tr>
 					<td colspan="5" align="center">RS. Jantung & Pembulu Darah Harapan Kita<br><?php if(!empty($result["phl"])){ if($result["jenis_plh"]!="Plh"){ echo "a. n. Direktur Utama ";}else{ echo "Plh. Direktur Utama, ";}}else{ echo "Direktur Utama,";}?></td>
@@ -207,7 +207,7 @@
 				    <td width="4%">II.<br><br></td>
 					<td width="30%" align="left">Tiba di<br>Pada Tanggal</td>
 					<td>:<br>:<br></td>
-					<td width="64%"><?php echo $result["tujuan"]; ?><br><?php echo $result["tanggal"]["from"] ?><br></td>
+					<td width="64%"><?php echo $result["alamat"]; ?><br><?php echo $result["tanggal"]["from"] ?><br></td>
 				  </tr>
 				  <tr>
 					<td colspan="3" align="center">&nbsp;</td>
@@ -226,7 +226,7 @@
 				    <td width="4%"><br><br><br></td>
 					<td width="30%" align="left">Berangkat dari<br>Ke<br>Pada Tanggal</td>
 					<td>:<br>:<br>:<br></td>
-					<td width="64%"><?php echo $result["tujuan"]; ?><br>Jakarta<br><?php echo $result["tanggal"]["to"] ?><br></td>
+					<td width="64%"><?php echo $result["alamat"]; ?><br>Jakarta<br><?php echo $result["tanggal"]["to"] ?><br></td>
 				  </tr>
 				  <tr>
 					<td colspan="3" align="center">&nbsp;</td>
@@ -257,9 +257,6 @@
 				  <tr>
 					<td colspan="3" align="center">&nbsp;</td>
 				  </tr>
-				  <tr>
-					<td colspan="3" align="center">&nbsp;</td>
-				  </tr>
 				</tbody>
 			  </table>
 			  <table width="100%" border="0">
@@ -284,10 +281,7 @@
 					<td width="2%"></td>
 					<td width="68%">&nbsp;&nbsp;&nbsp;<br></td>
 				  </tr>
-				  <tr>
-					<td colspan="3" align="center">&nbsp;</td>
-				  </tr>
-				  <tr>
+				   <tr>
 					<td colspan="3" align="center">&nbsp;</td>
 				  </tr>
 				  <tr>
@@ -318,9 +312,6 @@
 				  <tr>
 					<td colspan="3" align="center">&nbsp;</td>
 				  </tr>
-				  <tr>
-					<td colspan="3" align="center">&nbsp;</td>
-				  </tr>
 				</tbody>
 			  </table>
 			  <table width="100%" border="0">
@@ -344,9 +335,6 @@
 					<td width="30%" align="right">Kepala</td>
 					<td width="2%"></td>
 					<td width="68%">&nbsp;&nbsp;&nbsp;<br></td>
-				  </tr>
-				  <tr>
-					<td colspan="3" align="center">&nbsp;</td>
 				  </tr>
 				  <tr>
 					<td colspan="3" align="center">&nbsp;</td>
@@ -379,9 +367,6 @@
 				  <tr>
 					<td colspan="3" align="center">&nbsp;</td>
 				  </tr>
-				  <tr>
-					<td colspan="3" align="center">&nbsp;</td>
-				  </tr>
 				</tbody>
 			  </table>
 			  <table width="100%" border="0">
@@ -409,9 +394,6 @@
 					<td colspan="3" align="center">&nbsp;</td>
 				  </tr>
 				  <tr>
-					<td colspan="3" align="center">&nbsp;</td>
-				  </tr>
-				  <tr>
 					<td colspan="4" align="center">(.....................................................)</td>
 				  </tr>
 				  <tr>
@@ -428,9 +410,6 @@
 					<td width="50%" align="left">Tiba Kembali di<br>(Tempat kedudukan)<br>Pada Tanggal</td>
 					<td>:<br><br>:<br></td>
 					<td width="44%">Jakarta<br><br><?php echo $result["tanggal"]["from"] ?><br></td>
-				  </tr>
-				  <tr>
-					<td colspan="3" align="center">&nbsp;</td>
 				  </tr>
 				  <tr>
 					<td colspan="5" align="center">Pejabat Pembuat Komitmen</td>
@@ -495,6 +474,12 @@
       </table></td>
     </tr>
 	<tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
+      <td colspan="3">&nbsp;</td>
+    </tr><tr>
       <td colspan="3">&nbsp;</td>
     </tr>
 	<tr>
