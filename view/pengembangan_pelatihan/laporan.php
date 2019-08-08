@@ -307,7 +307,9 @@ function download(){
                     $("#users-monev").addClass('hidden');
                 }
                 gridOptionsList.api.setRowData(data.result);
-            },
+				pagingDatatable(data.total,data.limit,'loaddatadel');
+             
+			},
             error: function (jqXhr, textStatus, errorThrown) {
                 alert('error');
             }
@@ -348,6 +350,8 @@ function download(){
                     $("#users-monev").addClass('hidden');
                 }
                 gridOptionsListdel.api.setRowData(data.result);
+				pagingDatatable(data.totaldel,data.limitdel,'loaddatadel');
+             
             },
             error: function (jqXhr, textStatus, errorThrown) {
                 alert('error');
@@ -373,7 +377,7 @@ function download(){
         columnDefs: columnListData,
 		groupIncludeFooter: true,
 		groupIncludeTotalFooter: true,
-        pagination: true,
+        pagination: false,
         autoGroupColumnDef: {
             headerName: 'Group',
             field: 'athlete'
@@ -414,7 +418,7 @@ function download(){
         columnDefs: columnListDatadel,
 		groupIncludeFooter: true,
 		groupIncludeTotalFooter: true,
-        pagination: true,
+        pagination: false,
         autoGroupColumnDef: {
             headerName: 'Group',
             field: 'athlete'

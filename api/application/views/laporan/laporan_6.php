@@ -52,12 +52,13 @@
               <td scope="col" width="2%">Jam</td>
            </tr>
           <?php if (!empty($result)): ?>
-            <?php foreach ($result as $key => $val): ?>
+            <?php foreach ($result as $ke => $value): ?>
+            <?php foreach ($result[$ke]["data"] as $key => $val): ?>
               <tr>
 			    <td valign="top"><?php echo $val["nama_kegiatan"]; ?></td>
 			    <td align="center">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php foreach ($result[$key]["pegawai"] as $key_jum => $value_jum): ?>
+				  <?php foreach ($result[$ke]["data"][$key]["pegawai"] as $key_jum => $value_jum): ?>
 					  <tr>
 						<td><?php echo $key_jum+1; ?></td>
 					  </tr>
@@ -66,8 +67,8 @@
 				</td>
 				<td>
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["pegawai"])): ?>
-					<?php foreach ($result[$key]["pegawai"] as $key_status => $value_status): ?>
+				  <?php if (!empty($result[$ke]["data"][$key]["pegawai"])): ?>
+					<?php foreach ($result[$ke]["data"][$key]["pegawai"] as $key_status => $value_status): ?>
 					  <tr>
 						<td><?php echo $value_status["status"]; ?></td>
 					  </tr>
@@ -77,8 +78,8 @@
 				</td>
                 <td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["pegawai"])): ?>
-					<?php foreach ($result[$key]["pegawai"] as $key_tujuan => $value_tujuan): ?>
+				  <?php if (!empty($result[$ke]["data"][$key]["pegawai"])): ?>
+					<?php foreach ($result[$ke]["data"][$key]["pegawai"] as $key_tujuan => $value_tujuan): ?>
 					  <tr>
 						<td><?php echo $value_tujuan["tujuan"]; ?></td>
 					  </tr>
@@ -88,8 +89,8 @@
 				</td>
 				<td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["pegawai"])): ?>
-					<?php foreach ($result[$key]["pegawai"] as $key_hari => $value_hari): ?>
+				  <?php if (!empty($result[$ke]["data"][$key]["pegawai"])): ?>
+					<?php foreach ($result[$ke]["data"][$key]["pegawai"] as $key_hari => $value_hari): ?>
 					  <tr>
 						<td><?php if(!empty($value_hari["total_hari_kerja"])) {echo $value_hari["total_hari_kerja"];}else{ echo "0";}; ?></td>
 					  </tr>
@@ -99,8 +100,8 @@
 				</td>
                 <td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["pegawai"])): ?>
-					<?php foreach ($result[$key]["pegawai"] as $key_hr => $value_hr): ?>
+				  <?php if (!empty($result[$ke]["data"][$key]["pegawai"])): ?>
+					<?php foreach ($result[$ke]["data"][$key]["pegawai"] as $key_hr => $value_hr): ?>
 					  <tr>
 						<td><?php echo $value_hr["total_jam"]; ?></td>
 					  </tr>
@@ -110,8 +111,8 @@
 				</td>
                 <td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				  <?php if (!empty($result[$key]["pegawai"])): ?>
-					<?php foreach ($result[$key]["pegawai"] as $key_tgl => $value_tgl): ?>
+				  <?php if (!empty($result[$ke]["data"][$key]["pegawai"])): ?>
+					<?php foreach ($result[$ke]["data"][$key]["pegawai"] as $key_tgl => $value_tgl): ?>
 					  <tr>
 						<td align="center"><?php echo $value_tgl["tanggal_to"]; ?></td>
 					  </tr>
@@ -121,8 +122,8 @@
 				</td>
 			    <td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table1">
-				  <?php if (!empty($result[$key]["pegawai"])): ?>
-					<?php foreach ($result[$key]["pegawai"] as $key_nom => $value_nom): ?>
+				  <?php if (!empty($result[$ke]["data"][$key]["pegawai"])): ?>
+					<?php foreach ($result[$ke]["data"][$key]["pegawai"] as $key_nom => $value_nom): ?>
 					  <tr>
 					  <td>
 					  <table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
@@ -140,6 +141,7 @@
 				</table>
 				</td>
               </tr>
+            <?php endforeach ?>
             <?php endforeach ?>
           <?php endif ?>
 </table>

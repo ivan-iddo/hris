@@ -54,9 +54,9 @@
           <?php if (!empty($result)): ?>
             <?php foreach ($result as $key => $value): ?>
               <tr>
-                <td align="center"><?php echo $result[$key]["pengembangan_pelatihan_detail"]->berkas; ?></td>
-                <td><?php echo $result[$key]["pengembangan_pelatihan_detail"]->nopeg; ?></td>
-				<td><?php echo $value["gelar_depan"].' '.$result[$key]["pengembangan_pelatihan_detail"]->nama_pegawai.', '.$value["gelar_belakang"] ?></td>
+                <td align="center"><?php echo $value["berkas"]; ?></td>
+                <td><?php echo $value["nopeg"]; ?></td>
+				<td><?php echo $value["gelar_depan"].' '.$value["nama_pegawai"].', '.$value["gelar_belakang"] ?></td>
                 <td><?php if($value["tanggal_from"]==$value["tanggal_to"]){echo $value["tanggal_to"];}else{ echo $value["tanggal_from"]." s/d ".$value["tanggal_to"];} ?></td>
                 <td><?php echo $value["nama_pelatihan"]; ?></td>
                 <td><?php echo $result[$key]["pengembangan_pelatihan_kegiatan_status"]->nama; ?></td>

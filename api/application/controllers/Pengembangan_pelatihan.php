@@ -650,8 +650,13 @@ class Pengembangan_pelatihan extends REST_Controller
     {
 		$offset = 0;
 		$filt="pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan_status,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan,pengembangan_pelatihan.total_hari_kerja,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.institusi,pengembangan_pelatihan_detail.uraian_total,pengembangan_pelatihan_detail.id ,pengembangan_pelatihan.id, m_kode_profesi_group.ds_group_jabatan,pengembangan_pelatihan_pelaksanaan.tanggal_to,pengembangan_pelatihan_pelaksanaan.tanggal_from, dm_term.nama, sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_grup_user.grup,pengembangan_pelatihan_detail.nama_pegawai";
-		$from = $this->input->get("awal");
-        $to = $this->input->get("akhir");
+		$mulai = $this->input->get("awal");
+		$hingga = $this->input->get("akhir");
+		if (!empty($mulai)) {
+            $from = date("Y-m-d", strtotime($mulai));
+        }if (!empty($hingga)) {
+            $to = date("Y-m-d", strtotime($hingga));
+        }
 		$nopeg = $this->input->get("nopeg");
 		$unit = $this->input->get("unit");
 		$jenis = $this->input->get("jenis");
@@ -661,7 +666,7 @@ class Pengembangan_pelatihan extends REST_Controller
         $direktorat = $this->input->get("direktorat");
         $txtbagian = $this->input->get("txtbagian");
         $unitkerja = $this->input->get("unitkerja");
-		$result['result'] = $this->Pengembangan_pelatihan_model->get_new(null, $nopeg, $offset, 200, $from, $to, null, null, $filt, $unit, $kegiatan, $jenis, $jenis_perjalanan, $direktorat, $txtbagian, $unitkerja);
+		$result['result'] = $this->Pengembangan_pelatihan_model->get_new(null, $nopeg, $offset, 500, $from, $to, null, null, $filt, $unit, $kegiatan, $jenis, $jenis_perjalanan, $direktorat, $txtbagian, $unitkerja);
         if (!empty($result['result'])) {
            foreach ($result["result"] as $key => $value) {
 		$result["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
@@ -673,12 +678,12 @@ class Pengembangan_pelatihan extends REST_Controller
 			foreach ($result["result"][$key]["detail_uraian"] as $key_detail_biaya => $value_detail_biaya) {
 						
 			
-			if(substr($value_detail_biaya["uraian"],0,9)!="Akomodasi"){
-			if("Akomodasi ".$result["result"][$key]["pengembangan_pelatihan_detail"]->golongan!=$value_detail_biaya["uraian"]){
+			if(substr($value_detail_biaya["uraian"],0,13)!="Akomodasi Gol"){
+			if("Akomodasi Gol ".substr($result["result"][$key]["pengembangan_pelatihan_detail"]->golongan,0,-2)!=$value_detail_biaya["uraian"]){
 			$result["result"][$key]["nom"] += $value_detail_biaya["pernominal"];
 			}
 			}
-			if("Akomodasi ".$result["result"][$key]["pengembangan_pelatihan_detail"]->golongan==$value_detail_biaya["uraian"]){
+			if("Akomodasi Gol ".substr($result["result"][$key]["pengembangan_pelatihan_detail"]->golongan,0,-2)==$value_detail_biaya["uraian"]){
 			$result["result"][$key]["nominal_gol"] = $value_detail_biaya["pernominal"];
 			}
 			$result["result"][$key]["pernominal"]=$result["result"][$key]["nominal_gol"]+$result["result"][$key]["nom"];
@@ -730,9 +735,13 @@ class Pengembangan_pelatihan extends REST_Controller
 	public function cetak_laporan_get()
     {
 		$offset = 0;
-		$from = $this->input->get("awal");
-        $to = $this->input->get("akhir");
-        $nopeg = $this->input->get("nopeg");
+		$mulai = $this->input->get("awal");
+		$hingga = $this->input->get("akhir");
+		if (!empty($mulai)) {
+            $from = date("Y-m-d", strtotime($mulai));
+        }if (!empty($hingga)) {
+            $to = date("Y-m-d", strtotime($hingga));
+        }$nopeg = $this->input->get("nopeg");
 		$unit = $this->input->get("unit");
 		if (!empty($this->input->get("jenis"))) {
 		$jenis = $this->input->get("jenis");
@@ -748,7 +757,7 @@ class Pengembangan_pelatihan extends REST_Controller
         $direktorat = $this->input->get("direktorat");
         $txtbagian = $this->input->get("txtbagian");
         $unitkerja = $this->input->get("unitkerja");
-		$result['result'] = $this->Pengembangan_pelatihan_model->get_new(null, $nopeg, $offset, 200, $from, $to, null, null, $filt, $unit, $kegiatan, $jenis, $jenis_perjalanan, $direktorat, $txtbagian, $unitkerja);
+		$result['result'] = $this->Pengembangan_pelatihan_model->get_new(null, $nopeg, $offset, 500, $from, $to, null, null, $filt, $unit, $kegiatan, $jenis, $jenis_perjalanan, $direktorat, $txtbagian, $unitkerja);
         if (!empty($result['result'])) {
             foreach ($result["result"] as $key => $value) {
 		$result["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
@@ -762,12 +771,13 @@ class Pengembangan_pelatihan extends REST_Controller
 			foreach ($result["result"][$key]["detail_uraian"] as $key_detail_biaya => $value_detail_biaya) {
 						
 			
-			if(substr($value_detail_biaya["uraian"],0,9)!="Akomodasi"){
-			if("Akomodasi ".$result["result"][$key]["pengembangan_pelatihan_detail"]->golongan!=$value_detail_biaya["uraian"]){
+			if(substr($value_detail_biaya["uraian"],0,13)!="Akomodasi Gol"){
+			if("Akomodasi Gol ".substr($result["result"][$key]["pengembangan_pelatihan_detail"]->golongan,0,-2)!==$value_detail_biaya["uraian"]){
+			
 			$result["result"][$key]["nom"] += $value_detail_biaya["pernominal"];
 			}
 			}
-			if("Akomodasi ".$result["result"][$key]["pengembangan_pelatihan_detail"]->golongan==$value_detail_biaya["uraian"]){
+			if("Akomodasi Gol ".substr($result["result"][$key]["pengembangan_pelatihan_detail"]->golongan,0,-2)==$value_detail_biaya["uraian"]){
 			$result["result"][$key]["nominal_gol"] = $value_detail_biaya["pernominal"];
 			}
 			$result["result"][$key]["pernominal"]=$result["result"][$key]["nominal_gol"]+$result["result"][$key]["nom"];
@@ -820,9 +830,13 @@ class Pengembangan_pelatihan extends REST_Controller
 	public function preview_laporan_jpl_get()
     {
 		$offset = 0;
-		$from = $this->input->get("awal");
-        $to = $this->input->get("akhir");
-		$nopeg = $this->input->get("nopeg");
+		$mulai = $this->input->get("awal");
+		$hingga = $this->input->get("akhir");
+		if (!empty($mulai)) {
+            $from = date("Y-m-d", strtotime($mulai));
+        }if (!empty($hingga)) {
+            $to = date("Y-m-d", strtotime($hingga));
+        }$nopeg = $this->input->get("nopeg");
 		$unit = $this->input->get("unit");
 		$jenis = $this->input->get("jenis");
 		$total_pegawai = $this->input->get("total_pegawai");
@@ -835,8 +849,9 @@ class Pengembangan_pelatihan extends REST_Controller
 		$jpl = 20;
         }
 		$filtr = "pengembangan_pelatihan.id,pengembangan_pelatihan.total_hari_kerja,sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_grup_user.grup, pengembangan_pelatihan_detail.nama_pegawai, pengembangan_pelatihan_detail.nopeg";
-        $result['result'] = $this->Pengembangan_pelatihan_model->get_jpl(null, $nopeg, $offset, null, $from, $to, null, null, $filtr, $unit, $kegiatan, $jenis, $jpl, $id_grup);
-        if (!empty($result['result'])) {
+        $result['result'] = $this->Pengembangan_pelatihan_model->get_jpl(null, $nopeg, $offset, 500, $from, $to, null, null, $filtr, $unit, $kegiatan, $jenis, $jpl, $id_grup);
+        //print_r($result["result"]);die;
+		if (!empty($result['result'])) {
            foreach ($result["result"] as $key => $value) {
 		$result["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
         $result["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($value["kode"]);                
@@ -845,7 +860,7 @@ class Pengembangan_pelatihan extends REST_Controller
 		$result['result'][0]['total_pegawai']=$total_pegawai;
 		}
 		}
-		//print_r($result["result"][0]["profesi"]);die;
+		
 		$data = "test";
 		if($jenis_surat=="laporan18"){
 		$html = $this->load->view("laporan/laporan_18", array("result" => $result['result']), true);
@@ -859,9 +874,13 @@ class Pengembangan_pelatihan extends REST_Controller
 	public function cetak_laporan_jpl_get()
     {
 		$offset = 0;
-		$from = $this->input->get("awal");
-        $to = $this->input->get("akhir");
-        $nopeg = $this->input->get("nopeg");
+		$mulai = $this->input->get("awal");
+		$hingga = $this->input->get("akhir");
+		if (!empty($mulai)) {
+            $from = date("Y-m-d", strtotime($mulai));
+        }if (!empty($hingga)) {
+            $to = date("Y-m-d", strtotime($hingga));
+        }$nopeg = $this->input->get("nopeg");
 		$unit = $this->input->get("unit");
 		$jenis = $this->input->get("jenis");
 		$kegiatan = $this->input->get("kegiatan");
@@ -876,7 +895,7 @@ class Pengembangan_pelatihan extends REST_Controller
 		$jpl = 20;
         }
 		$filtr = "pengembangan_pelatihan.id,pengembangan_pelatihan.total_hari_kerja,sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_grup_user.grup, pengembangan_pelatihan_detail.nama_pegawai, pengembangan_pelatihan_detail.nopeg";
-        $result['result'] = $this->Pengembangan_pelatihan_model->get_jpl(null, $nopeg, $offset, null, $from, $to, null, null, $filtr, $unit, $kegiatan, $jenis, $jpl, $id_grup);
+        $result['result'] = $this->Pengembangan_pelatihan_model->get_jpl(null, $nopeg, $offset, 500, $from, $to, null, null, $filtr, $unit, $kegiatan, $jenis, $jpl, $id_grup);
         if (!empty($result['result'])) {
            foreach ($result["result"] as $key => $value) {
 		$result["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
@@ -914,15 +933,19 @@ class Pengembangan_pelatihan extends REST_Controller
 	public function preview_laporan_del_get()
     {
 		$offset = 0;
-		$filt="pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan_status,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan,pengembangan_pelatihan.total_hari_kerja,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.institusi,pengembangan_pelatihan_detail.uraian_total,pengembangan_pelatihan_detail.id ,pengembangan_pelatihan.id, m_kode_profesi_group.ds_group_jabatan,pengembangan_pelatihan_pelaksanaan.tanggal_to,pengembangan_pelatihan_pelaksanaan.tanggal_from, dm_term.nama, sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_grup_user.grup,pengembangan_pelatihan_detail.nama_pegawai";
-		$from = $this->input->get("awal");
-        $to = $this->input->get("akhir");
-		$nopeg = $this->input->get("nopeg");
+		$filt="pengembangan_pelatihan_detail.nopeg, pengembangan_pelatihan_detail.berkas,pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan_status,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan,pengembangan_pelatihan.total_hari_kerja,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.institusi,pengembangan_pelatihan_detail.uraian_total,pengembangan_pelatihan_detail.id ,pengembangan_pelatihan.id, m_kode_profesi_group.ds_group_jabatan,pengembangan_pelatihan_pelaksanaan.tanggal_to,pengembangan_pelatihan_pelaksanaan.tanggal_from, dm_term.nama, sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_grup_user.grup,pengembangan_pelatihan_detail.nama_pegawai";
+		$mulai = $this->input->get("awal");
+		$hingga = $this->input->get("akhir");
+		if (!empty($mulai)) {
+            $from = date("Y-m-d", strtotime($mulai));
+        }if (!empty($hingga)) {
+            $to = date("Y-m-d", strtotime($hingga));
+        }$nopeg = $this->input->get("nopeg");
 		$unit = $this->input->get("unit");
 		$jenis = $this->input->get("jenis");
 		$kegiatan = $this->input->get("kegiatan");
         $jenis_surat = $this->input->get("surat");
-        $result['result'] = $this->Pengembangan_pelatihan_model->get_new_del(null, $nopeg, $offset, null, $from, $to, null, null, $filt, $unit, $kegiatan, $jenis);
+        $result['result'] = $this->Pengembangan_pelatihan_model->get_new_del(null, $nopeg, $offset, 500, $from, $to, null, null, $filt, $unit, $kegiatan, $jenis);
         if (!empty($result['result'])) {
            foreach ($result["result"] as $key => $value) {
 		$result["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
@@ -931,7 +954,7 @@ class Pengembangan_pelatihan extends REST_Controller
         $result["result"][$key]["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($value["pengembangan_pelatihan_kegiatan_status"]);
 		}
 		}
-		//print_r($result["result"][0]["profesi"]);die;
+		//print_r($result["result"]);die;
 		$data = "test";
 		if($jenis_surat=="laporan14"){
 		$html = $this->load->view("laporan/laporan_14", array("result" => $result['result']), true);
@@ -943,17 +966,22 @@ class Pengembangan_pelatihan extends REST_Controller
 	public function cetak_laporan_del_get()
     {
 		$offset = 0;
-		$from = $this->input->get("awal");
-        $to = $this->input->get("akhir");
+		$mulai = $this->input->get("awal");
+		$hingga = $this->input->get("akhir");
+		if (!empty($mulai)) {
+            $from = date("Y-m-d", strtotime($mulai));
+        }if (!empty($hingga)) {
+            $to = date("Y-m-d", strtotime($hingga));
+        }
         $nopeg = $this->input->get("nopeg");
 		$unit = $this->input->get("unit");
 		$jenis = $this->input->get("jenis");
 		$kegiatan = $this->input->get("kegiatan");
-		$filt="pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan_status,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan,pengembangan_pelatihan.total_hari_kerja,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.institusi,pengembangan_pelatihan_detail.uraian_total,pengembangan_pelatihan_detail.id ,pengembangan_pelatihan.id, m_kode_profesi_group.ds_group_jabatan,pengembangan_pelatihan_pelaksanaan.tanggal_to,pengembangan_pelatihan_pelaksanaan.tanggal_from, dm_term.nama, sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_grup_user.grup,pengembangan_pelatihan_detail.nama_pegawai";
+		$filt="pengembangan_pelatihan_detail.nopeg, pengembangan_pelatihan_detail.berkas,pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan_status,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan,pengembangan_pelatihan.total_hari_kerja,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.institusi,pengembangan_pelatihan_detail.uraian_total,pengembangan_pelatihan_detail.id ,pengembangan_pelatihan.id, m_kode_profesi_group.ds_group_jabatan,pengembangan_pelatihan_pelaksanaan.tanggal_to,pengembangan_pelatihan_pelaksanaan.tanggal_from, dm_term.nama, sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_grup_user.grup,pengembangan_pelatihan_detail.nama_pegawai";
         $jenis_surat = $this->input->get("surat");
 		//print_r($jenis_surat);die();
 		
-        $result['result'] = $this->Pengembangan_pelatihan_model->get_new(null, $nopeg, $offset, null, $from, $to, null, null, $filt, $unit, $kegiatan, $jenis);
+        $result['result'] = $this->Pengembangan_pelatihan_model->get_new(null, $nopeg, $offset, 500, $from, $to, null, null, $filt, $unit, $kegiatan, $jenis);
         if (!empty($result['result'])) {
             foreach ($result["result"] as $key => $value) {
 		$result["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
@@ -988,8 +1016,13 @@ class Pengembangan_pelatihan extends REST_Controller
 	public function preview_laporan2_get()
     {
 		$offset = 0;
-		$from = $this->input->get("awal");
-        $to = $this->input->get("akhir");
+		$mulai = $this->input->get("awal");
+		$hingga = $this->input->get("akhir");
+		if (!empty($mulai)) {
+            $from = date("Y-m-d", strtotime($mulai));
+        }if (!empty($hingga)) {
+            $to = date("Y-m-d", strtotime($hingga));
+        }
 		$unit = $this->input->get("unit_ker");
 		$jenis1 = $this->input->get("jenis1");
 		$kegiatan1 = $this->input->get("kegiatan1");
@@ -1017,6 +1050,8 @@ class Pengembangan_pelatihan extends REST_Controller
 		$kegiatan="profesi";
 		$filt_kegiatan="m_kode_profesi_group.ds_group_jabatan";
 		}else if ($jenis_surat=="laporan6"){
+		$group_prof="pengembangan_pelatihan_kegiatan.nama";
+		$as_prof="pengembangan_pelatihan_kegiatan.nama as nama_kegiatan";
 		$group="pengembangan_pelatihan_kegiatan.nama";
 		$filt="pengembangan_pelatihan_kegiatan.nama";
 		$as="pengembangan_pelatihan_kegiatan.nama as nama_kegiatan";
@@ -1025,12 +1060,13 @@ class Pengembangan_pelatihan extends REST_Controller
 		$id="nama_kegiatan";
 		}
 		
-        $result['result'] = $this->Pengembangan_pelatihan_model->get2(null, $unit, $offset, null, $from, $to, null, null, $group_prof, $as_prof, $kegiatan1, $jenis1);
-        //print_r($result['result']);die();
+        $result['result'] = $this->Pengembangan_pelatihan_model->get2(null, $unit, $offset, 500, $from, $to, null, null, $group_prof, $as_prof, $kegiatan1, $jenis1);
+        
 		if (!empty($result['result'])) {
             foreach ($result["result"] as $key => $value) {
 		$profesi=array($filt => $value[$id]);
-		$result['result'][$key]["data"] = $this->Pengembangan_pelatihan_model->get2($profesi, $unit, $offset, null, $from, $to, null, null, $group, $as, $kegiatan1, $jenis1);     
+		
+		$result['result'][$key]["data"] = $this->Pengembangan_pelatihan_model->get2($profesi, $unit, $offset, 500, $from, $to, null, null, $group, $as, $kegiatan1, $jenis1);     
 		if (!empty($result['result'][$key]["data"])) {
             foreach ($result['result'][$key]["data"] as $key_value => $val) {
 		if($jenis_surat=="laporan9"){
@@ -1041,9 +1077,9 @@ class Pengembangan_pelatihan extends REST_Controller
 		$params_array=array($filt => $val[$id]);
 		}//print_r($result['result']);die();
 		$filter="$group,pengembangan_pelatihan.total_hari_kerja";
-		$result['result'][$key]["data"][$key_value]["kegiatan"] = $this->Pengembangan_pelatihan_model->get_kegiatan($params_array, $unit, $offset, null, $from, $to, null, null, $filter, $as, $kegiatan1, $jenis1);
-		$result['result'][$key]["data"][$key_value]["pegawai"] = $this->Pengembangan_pelatihan_model->get5($params_array, null, $offset, null, $from, $to, null, null, $pegawai,$pegawai_filter, $unit, $kegiatan1, $jenis1);
-		//print_r($result["result"][$key]["status"]);die();
+		$result['result'][$key]["data"][$key_value]["kegiatan"] = $this->Pengembangan_pelatihan_model->get_kegiatan($params_array, $unit, $offset, 500, $from, $to, null, null, $filter, $as, $kegiatan1, $jenis1);
+		$result['result'][$key]["data"][$key_value]["pegawai"] = $this->Pengembangan_pelatihan_model->get5($params_array, null, $offset, 500, $from, $to, null, null, $pegawai,$pegawai_filter, $unit, $kegiatan1, $jenis1);
+		//print_r($result['result'][$key]["data"][$key_value]["pegawai"]);die();
 		if (!empty($result['result'][$key]["data"][$key_value]["pegawai"])) {
 			foreach ($result['result'][$key]["data"][$key_value]["pegawai"] as $key_pegawai => $value_pegawai) {
 		$result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_pegawai["id"]));
@@ -1051,12 +1087,12 @@ class Pengembangan_pelatihan extends REST_Controller
 			foreach ($result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["detail_uraian"] as $key_detail_biaya => $value_detail_biaya) {
 						
 			
-			if(substr($value_detail_biaya["uraian"],0,9)!="Akomodasi"){
-			if("Akomodasi ".$value_pegawai["golongan"]!=$value_detail_biaya["uraian"]){
+			if(substr($value_detail_biaya["uraian"],0,13)!="Akomodasi Gol"){
+			if("Akomodasi Gol ".substr($value_pegawai["golongan"],0,-2)!==$value_detail_biaya["uraian"]){
 			$result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["nom"] += $value_detail_biaya["pernominal"];
 			}
 			}
-			if("Akomodasi ".$value_pegawai["golongan"]==$value_detail_biaya["uraian"]){
+			if("Akomodasi Gol ".substr($value_pegawai["golongan"],0,-2)==$value_detail_biaya["uraian"]){
 			$result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["nominal_gol"] = $value_detail_biaya["pernominal"];
 			}
 			$result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["pernominal"]=$result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["nominal_gol"]+$result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["nom"];
@@ -1070,7 +1106,7 @@ class Pengembangan_pelatihan extends REST_Controller
 		$result['result'][$key]["data"][$key_value]["jum_jam"]+=$value_pegawai["total_jam"];	
 		}
 		}
-		$result['result'][$key]["harga"]+=$result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["pernominal"];
+		$result['result'][$key]["harga"]+=$result['result'][$key]["data"][$key_value]["pernomin"];
 		
 		}
 		}
@@ -1095,8 +1131,13 @@ class Pengembangan_pelatihan extends REST_Controller
 	public function cetak_laporan2_get()
     {
 		$offset = 0;
-		$from = $this->input->get("awal");
-        $to = $this->input->get("akhir");
+		$mulai = $this->input->get("awal");
+		$hingga = $this->input->get("akhir");
+		if (!empty($mulai)) {
+            $from = date("Y-m-d", strtotime($mulai));
+        }if (!empty($hingga)) {
+            $to = date("Y-m-d", strtotime($hingga));
+        }
 		$unit = $this->input->get("unit_ker");
 		$jenis_surat = $this->input->get("surat");
 		$jenis1 = $this->input->get("jenis1");
@@ -1124,6 +1165,8 @@ class Pengembangan_pelatihan extends REST_Controller
 		$kegiatan="profesi";
 		$filt_kegiatan="m_kode_profesi_group.ds_group_jabatan";
 		}else if ($jenis_surat=="laporan6"){
+		$group_prof="pengembangan_pelatihan_kegiatan.nama";
+		$as_prof="pengembangan_pelatihan_kegiatan.nama as nama_kegiatan";
 		$group="pengembangan_pelatihan_kegiatan.nama";
 		$filt="pengembangan_pelatihan_kegiatan.nama";
 		$as="pengembangan_pelatihan_kegiatan.nama as nama_kegiatan";
@@ -1158,12 +1201,12 @@ class Pengembangan_pelatihan extends REST_Controller
 			foreach ($result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["detail_uraian"] as $key_detail_biaya => $value_detail_biaya) {
 						
 			
-			if(substr($value_detail_biaya["uraian"],0,9)!="Akomodasi"){
-			if("Akomodasi ".$value_pegawai["golongan"]!=$value_detail_biaya["uraian"]){
+			if(substr($value_detail_biaya["uraian"],0,13)!="Akomodasi Gol"){
+			if("Akomodasi Gol ".substr($value_pegawai["golongan"],0,-2)!==$value_detail_biaya["uraian"]){
 			$result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["nom"] += $value_detail_biaya["pernominal"];
 			}
 			}
-			if("Akomodasi ".$value_pegawai["golongan"]==$value_detail_biaya["uraian"]){
+			if("Akomodasi Gol ".substr($value_pegawai["golongan"],0,-2)==$value_detail_biaya["uraian"]){
 			$result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["nominal_gol"] = $value_detail_biaya["pernominal"];
 			}
 			$result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["pernominal"]=$result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["nominal_gol"]+$result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["nom"];
@@ -1177,7 +1220,7 @@ class Pengembangan_pelatihan extends REST_Controller
 		$result['result'][$key]["data"][$key_value]["jum_jam"]+=$value_pegawai["total_jam"];	
 		}
 		}
-		$result['result'][$key]["harga"]+=$result['result'][$key]["data"][$key_value]["pegawai"][$key_pegawai]["pernominal"];
+		$result['result'][$key]["harga"]+=$result['result'][$key]["data"][$key_value]["pernomin"];
 		
 		}
 		}
@@ -1217,8 +1260,13 @@ class Pengembangan_pelatihan extends REST_Controller
 	public function preview_laporan3_get()
     {
 		$offset = 0;
-		$from = $this->input->get("awal");
-        $to = $this->input->get("akhir");
+		$mulai = $this->input->get("awal");
+		$hingga = $this->input->get("akhir");
+		if (!empty($mulai)) {
+            $from = date("Y-m-d", strtotime($mulai));
+        }if (!empty($hingga)) {
+            $to = date("Y-m-d", strtotime($hingga));
+        }
 		$jenis_surat = $this->input->get("surat");
 		$filt="sys_grup_user.grup";
 		$pegawai="pengembangan_pelatihan.nama_pelatihan, m_kode_profesi_group.ds_group_jabatan,pengembangan_pelatihan_detail.nama_pegawai, sys_grup_user.grup,pengembangan_pelatihan_detail_biaya.uraian,pengembangan_pelatihan_detail_biaya.pernominal,pengembangan_pelatihan_detail_biaya.nominal,pengembangan_pelatihan.total_hari_kerja";
@@ -1244,12 +1292,13 @@ class Pengembangan_pelatihan extends REST_Controller
 		$result["result"][$key]["total_pegawai"][$key_id]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value_id["id"]));
 		if (!empty($result["result"][$key]["total_pegawai"][$key_id]["detail"])) {
 			foreach ($result["result"][$key]["total_pegawai"][$key_id]["detail"] as $key_detail_biaya => $value_detail_biaya) {			
-			if(substr($value_detail_biaya["uraian"],0,9)!="Akomodasi"){
-			if("Akomodasi ".$value_id["golongan"]!=$value_detail_biaya["uraian"]){
+			if(substr($value_detail_biaya["uraian"],0,13)!="Akomodasi Gol"){
+			if("Akomodasi Gol ".substr($value_id["golongan"],0,-2)!==$value_detail_biaya["uraian"]){
+
 			$result["result"][$key]["total_pegawai"][$key_id]["nom"] += $value_detail_biaya["pernominal"];
 			}
 			}
-			if("Akomodasi ".$value_id["golongan"]==$value_detail_biaya["uraian"]){
+			if("Akomodasi Gol ".substr($value_id["golongan"],0,-2)==$value_detail_biaya["uraian"]){
 			$result["result"][$key]["total_pegawai"][$key_id]["nominal_gol"] = $value_detail_biaya["pernominal"];
 			}
 			$result["result"][$key]["total_pegawai"][$key_id]["pernominal"]=$result["result"][$key]["total_pegawai"][$key_id]["nominal_gol"]+$result["result"][$key]["total_pegawai"][$key_id]["nom"];
@@ -1276,8 +1325,13 @@ class Pengembangan_pelatihan extends REST_Controller
 	public function cetak_laporan3_get()
     {
 		$offset = 0;
-		$from = $this->input->get("awal");
-        $to = $this->input->get("akhir");
+		$mulai = $this->input->get("awal");
+		$hingga = $this->input->get("akhir");
+		if (!empty($mulai)) {
+            $from = date("Y-m-d", strtotime($mulai));
+        }if (!empty($hingga)) {
+            $to = date("Y-m-d", strtotime($hingga));
+        }
 		$jenis_surat = $this->input->get("surat");
 		$filt="sys_grup_user.grup";
 		$pegawai="pengembangan_pelatihan.nama_pelatihan, m_kode_profesi_group.ds_group_jabatan,pengembangan_pelatihan_detail.nama_pegawai, sys_grup_user.grup,pengembangan_pelatihan_detail_biaya.uraian,pengembangan_pelatihan_detail_biaya.pernominal,pengembangan_pelatihan_detail_biaya.nominal,pengembangan_pelatihan.total_hari_kerja";
@@ -1308,12 +1362,12 @@ class Pengembangan_pelatihan extends REST_Controller
 		}
 		if (!empty($result["result"][$key]["pegawai"])) {
 			foreach ($result["result"][$key]["pegawai"] as $key_detail_biaya => $value_detail_biaya) {			
-			if(substr($value_detail_biaya["uraian"],0,9)!="Akomodasi"){
-			if("Akomodasi ".$result["result"][$key]["pengembangan_pelatihan_detail"]->golongan!=$value_detail_biaya["uraian"]){
+			if(substr($value_detail_biaya["uraian"],0,13)!="Akomodasi Gol"){
+			if("Akomodasi Gol ".substr($result["result"][$key]["pengembangan_pelatihan_detail"]->golongan,0,-2)!==$value_detail_biaya["uraian"]){
 			$result["result"][$key]["nom"] += $value_detail_biaya["pernominal"];
 			}
 			}
-			if("Akomodasi ".$result["result"][$key]["pengembangan_pelatihan_detail"]->golongan==$value_detail_biaya["uraian"]){
+			if("Akomodasi Gol ".substr($result["result"][$key]["pengembangan_pelatihan_detail"]->golongan,0,-2)==$value_detail_biaya["uraian"]){
 			$result["result"][$key]["nominal_gol"] = $value_detail_biaya["pernominal"];
 			}
 			$result["result"][$key]["pernominal"]=$result["result"][$key]["nominal_gol"]+$result["result"][$key]["nom"];
@@ -1351,8 +1405,13 @@ class Pengembangan_pelatihan extends REST_Controller
 	public function preview_laporan4_get()
     {
 		$offset = 0;
-		$from = $this->input->get("awal");
-        $to = $this->input->get("akhir");
+		$mulai = $this->input->get("awal");
+		$hingga = $this->input->get("akhir");
+		if (!empty($mulai)) {
+            $from = date("Y-m-d", strtotime($mulai));
+        }if (!empty($hingga)) {
+            $to = date("Y-m-d", strtotime($hingga));
+        }
 		$no_peg = $this->input->get("no_peg");
 		$jenis_surat = $this->input->get("surat");
 		$filter_prof="m_kode_profesi_group.ds_group_jabatan";
@@ -1369,11 +1428,11 @@ class Pengembangan_pelatihan extends REST_Controller
 		$filt_pelatihan="pengembangan_pelatihan.nama_pelatihan";
 		
         
-		$result['result'] = $this->Pengembangan_pelatihan_model->get3(null, $no_peg, $offset, 200, $from, $to, null, null, $filter_prof, $filter_prof);
+		$result['result'] = $this->Pengembangan_pelatihan_model->get3(null, $no_peg, $offset, 500, $from, $to, null, null, $filter_prof, $filter_prof);
 		if (!empty($result['result'])) {
             foreach ($result["result"] as $key => $val) {
 		$profesi=array($filt => $val[$id]);
-		$result['result'][$key]["prof"] = $this->Pengembangan_pelatihan_model->get3($profesi, $no_peg, $offset, 200, $from, $to, null, null, $filter, $filter);
+		$result['result'][$key]["prof"] = $this->Pengembangan_pelatihan_model->get3($profesi, $no_peg, $offset, 500, $from, $to, null, null, $filter, $filter);
         //print_r($result['result']);die();
 		if (!empty($result['result'][$key]["prof"])) {
             foreach ($result['result'][$key]["prof"] as $key_prof => $val_prof) {
@@ -1387,12 +1446,12 @@ class Pengembangan_pelatihan extends REST_Controller
 		$result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value["id"]));
 		if (!empty($result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["detail_uraian"])) {
 			foreach ($result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["detail_uraian"] as $key_detail_biaya => $value_detail_biaya) {
-			if(substr($value_detail_biaya["uraian"],0,9)!="Akomodasi"){
-			if("Akomodasi ".$value["golongan"]!=$value_detail_biaya["uraian"]){
-			$result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["nom"] += $value_detail_biaya["pernominal"];
+			if(substr($value_detail_biaya["uraian"],0,13)!="Akomodasi Gol"){
+			if("Akomodasi Gol ".substr($value["golongan"],0,-2)!==$value_detail_biaya["uraian"]){
+				$result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["nom"] += $value_detail_biaya["pernominal"];
 			}
 			}
-			if("Akomodasi ".$value["golongan"]==$value_detail_biaya["uraian"]){
+			if("Akomodasi Gol ".substr($value["golongan"],0,-2)==$value_detail_biaya["uraian"]){
 			$result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["nominal_gol"] = $value_detail_biaya["pernominal"];
 			}
 			$result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["pernominal"]=$result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["nominal_gol"]+$result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["nom"];
@@ -1427,8 +1486,9 @@ class Pengembangan_pelatihan extends REST_Controller
 	public function cetak_laporan4_get()
     {
 		$offset = 0;
-		$from = $this->input->get("awal");
-        $to = $this->input->get("akhir");
+		$from = date("Y-m-d", strtotime($this->input->get("awal")));
+        $to = date("Y-m-d", strtotime($this->input->get("akhir")));
+		
 		$no_peg = $this->input->get("no_peg");
 		$jenis_surat = $this->input->get("surat");
 		$filter_prof="m_kode_profesi_group.ds_group_jabatan";
@@ -1445,11 +1505,11 @@ class Pengembangan_pelatihan extends REST_Controller
 		$filt_pelatihan="pengembangan_pelatihan.nama_pelatihan";
 		
         
-		$result['result'] = $this->Pengembangan_pelatihan_model->get3(null, $no_peg, $offset, null, $from, $to, null, null, $filter_prof, $filter_prof);
+		$result['result'] = $this->Pengembangan_pelatihan_model->get3(null, $no_peg, $offset, 500, $from, $to, null, null, $filter_prof, $filter_prof);
 		if (!empty($result['result'])) {
             foreach ($result["result"] as $key => $val) {
 		$profesi=array($filt => $val[$id]);
-		$result['result'][$key]["prof"] = $this->Pengembangan_pelatihan_model->get3($profesi, $no_peg, $offset, null, $from, $to, null, null, $filter, $filter);
+		$result['result'][$key]["prof"] = $this->Pengembangan_pelatihan_model->get3($profesi, $no_peg, $offset, 500, $from, $to, null, null, $filter, $filter);
         //print_r($result['result']);die();
 		if (!empty($result['result'][$key]["prof"])) {
             foreach ($result['result'][$key]["prof"] as $key_prof => $val_prof) {
@@ -1463,12 +1523,12 @@ class Pengembangan_pelatihan extends REST_Controller
 		$result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value["id"]));
 		if (!empty($result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["detail_uraian"])) {
 			foreach ($result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["detail_uraian"] as $key_detail_biaya => $value_detail_biaya) {
-			if(substr($value_detail_biaya["uraian"],0,9)!="Akomodasi"){
-			if("Akomodasi ".$value["golongan"]!=$value_detail_biaya["uraian"]){
+			if(substr($value_detail_biaya["uraian"],0,13)!="Akomodasi Gol"){
+			if("Akomodasi Gol ".substr($value["golongan"],0,-2)!==$value_detail_biaya["uraian"]){
 			$result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["nom"] += $value_detail_biaya["pernominal"];
 			}
 			}
-			if("Akomodasi ".$value["golongan"]==$value_detail_biaya["uraian"]){
+			if("Akomodasi Gol ".substr($value["golongan"],0,-2)==$value_detail_biaya["uraian"]){
 			$result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["nominal_gol"] = $value_detail_biaya["pernominal"];
 			}
 			$result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["pernominal"]=$result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["nominal_gol"]+$result["result"][$key]["prof"][$key_prof]["kegiatan"][$key_pegawai]["nom"];
@@ -1611,7 +1671,7 @@ class Pengembangan_pelatihan extends REST_Controller
 		}
 		}
 		}
-		}//print_r($result["result"][0]["profesi"]);die;
+		}
 		$data = "test";
 		$html = $this->load->view("laporan/laporan_17", array("result" => $result['result']), true);
         
@@ -1741,7 +1801,7 @@ class Pengembangan_pelatihan extends REST_Controller
     public function list_get($offset = 0, $param_search = "", $dari="", $sampai="")
     {
         $search = null;
-        $limit = 25;
+        $limit = 200;
         $order_by = "pengembangan_pelatihan.id";
         $headers = $this->input->request_headers();
         
@@ -1750,10 +1810,15 @@ class Pengembangan_pelatihan extends REST_Controller
             if ($decodedToken != false) {
                 if (!empty($param_search)) {
                     $cari = urldecode($param_search);
+                }if (!empty($dari)) {
+                    $mulai = date("Y-m-d", strtotime($dari));
+                }if (!empty($sampai)) {
+                    $hingga = date("Y-m-d", strtotime($sampai));
                 }
 				
-                $results['result'] = $this->Pengembangan_pelatihan_model->get_list(null, $search, $offset, $limit, $dari, $sampai, null, $order_by, $cari);
-                // echo $this->db->last_query();die;
+                $results['result'] = $this->Pengembangan_pelatihan_model->get_list(null, $search, $offset, $limit, $mulai, $hingga, null, $order_by, $cari);
+                //print_r($results['result']);die();
+				// echo $this->db->last_query();die;
                 if (!empty($results['result'])) {
                     foreach ($results["result"] as $key => $value) {
                         $createdby = $this->db->select("username")->where(array("id_user" => $value["createdby"]))->get("sys_user")->result_array();
@@ -1774,18 +1839,18 @@ class Pengembangan_pelatihan extends REST_Controller
 						if (!empty($results["result"][$key]["detail_uraian"])) {
 						    foreach ($results["result"][$key]["detail_uraian"] as $key_detail_biaya => $value_detail_biaya) {
 						
-						if(substr($value_detail_biaya["uraian"],0,9)!="Akomodasi"){
-						if("Akomodasi ".$results["result"][$key]["pengembangan_pelatihan_detail"]->golongan!=$value_detail_biaya["uraian"]){
+						if(substr($value_detail_biaya["uraian"],0,13)!="Akomodasi Gol"){
+						if("Akomodasi Gol ".substr($results["result"][$key]["pengembangan_pelatihan_detail"]->golongan,0,-2)!=$value_detail_biaya["uraian"]){
 						$results["result"][$key]["nominal"] += $value_detail_biaya["pernominal"];
-						}else if("Registrasi + Akomodasi ".$results["result"][$key]["pengembangan_pelatihan_detail"]->golongan!=$value_detail_biaya["uraian"]){
-						$results["result"][$key]["nominal"] += $value_detail_biaya["pernominal"];
+						}//else if("Registrasi + Akomodasi"!=$value_detail_biaya["uraian"]){
+						//$results["result"][$key]["nominal"] += $value_detail_biaya["pernominal"];
+						//}
 						}
-						}
-						if("Akomodasi ".$results["result"][$key]["pengembangan_pelatihan_detail"]->golongan==$value_detail_biaya["uraian"]){
+						if("Akomodasi Gol ".substr($results["result"][$key]["pengembangan_pelatihan_detail"]->golongan,0,-2)==$value_detail_biaya["uraian"]){
 						$results["result"][$key]["nominal_gol"] = $value_detail_biaya["pernominal"];
-						}else if("Registrasi + Akomodasi ".$results["result"][$key]["pengembangan_pelatihan_detail"]->golongan==$value_detail_biaya["uraian"]){
-						$results["result"][$key]["nominal_gol"] = $value_detail_biaya["pernominal"];
-						}
+						}//else if("Registrasi + Akomodasi"==$value_detail_biaya["uraian"]){
+						//$results["result"][$key]["nominal_gol"] = $value_detail_biaya["pernominal"];
+						//}
 						$results["result"][$key]["pernominal"]=$results["result"][$key]["nominal_gol"]+$results["result"][$key]["nominal"];
 						}
 						}
@@ -1828,13 +1893,15 @@ class Pengembangan_pelatihan extends REST_Controller
                         }
                     }
                 }
-				$results['total'] = '5000';
-                $results["query"] = $this->db->last_query();
+				$results['cari'] = $this->Pengembangan_pelatihan_model->get_total($mulai, $hingga, null, $cari);
+				//print_r($results['cari']);die();
+				$results['total'] = $results['cari'][0]['count'];
+				$results["query"] = $this->db->last_query();
                 $results['limit'] = $limit;
                 $results["is_blocked"] = $this->Pengembangan_pelatihan_model->is_blocked($decodedToken->data->NIP);
                 $results["is_monev"] = $this->Pengembangan_pelatihan_model->is_monev($decodedToken->data->NIP);
                 // echo "<pre>";
-              //print_r($results);die();
+              //
                 // echo "</pre>";
                 // die;
                 $this->set_response($results, REST_Controller::HTTP_OK);
@@ -1848,7 +1915,7 @@ class Pengembangan_pelatihan extends REST_Controller
 	public function listlap_get($offset = 0, $param_search = "", $awal = "", $akhir = "")
     {
         $search = null;
-        $limit = 25;
+        $limit = 500;
         $headers = $this->input->request_headers();
         
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
@@ -1866,7 +1933,7 @@ class Pengembangan_pelatihan extends REST_Controller
 				}
                 $results['result'] = $this->Pengembangan_pelatihan_model->get_all(null, $search, $offset, $limit, $from, $to);
                 // echo $this->db->last_query();die;
-                // print_r($results);die;
+                //print_r($results['result']);die;
                 if (!empty($results['result'])) {
                     foreach ($results["result"] as $key => $value) {
                         $createdby = $this->db->select("username")->where(array("id_user" => $value["createdby"]))->get("sys_user")->result_array();
@@ -1891,8 +1958,10 @@ class Pengembangan_pelatihan extends REST_Controller
                     }
                 }
 
-                $results['total'] = count($this->Pengembangan_pelatihan_model->get_all());
-                $results["query"] = $this->db->last_query();
+                $results['cari'] = $this->Pengembangan_pelatihan_model->get_total($mulai, $hingga, null, $cari);
+				
+				$results['total'] = $results['cari'][0]['count'];
+				$results["query"] = $this->db->last_query();
                 $results['limit'] = $limit;
                 $results["is_blocked"] = $this->Pengembangan_pelatihan_model->is_blocked($decodedToken->data->NIP);
                 $results["is_monev"] = $this->Pengembangan_pelatihan_model->is_monev($decodedToken->data->NIP);
@@ -1900,6 +1969,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 //print_r($results);
                 // echo "</pre>";
                 // die;
+				//print_r($results);die();
                 $this->set_response($results, REST_Controller::HTTP_OK);
                 return;
             }
@@ -1911,7 +1981,7 @@ class Pengembangan_pelatihan extends REST_Controller
 	public function listlapdel_get($offset = 0, $param_search = "", $awal = "", $akhir = "")
     {
         $search = null;
-        $limit = 25;
+        $limit = 500;
         $headers = $this->input->request_headers();
         
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
@@ -1954,8 +2024,10 @@ class Pengembangan_pelatihan extends REST_Controller
                     }
                 }
 
-                $results['total'] = count($this->Pengembangan_pelatihan_model->getdel_all());
-                $results["query"] = $this->db->last_query();
+                $results['cari'] = $this->Pengembangan_pelatihan_model->get_total($mulai, $hingga, null, $cari);
+				//print_r($results['cari']);die();
+				$results['total'] = $results['cari'][0]['count'];
+				$results["query"] = $this->db->last_query();
                 $results['limit'] = $limit;
                 $results["is_blocked"] = $this->Pengembangan_pelatihan_model->is_blocked($decodedToken->data->NIP);
                 $results["is_monev"] = $this->Pengembangan_pelatihan_model->is_monev($decodedToken->data->NIP);

@@ -1449,7 +1449,7 @@
 		var dari = $('#tanggal_awal').val();
         var sampai = $('#tanggal_akhir').val();
 		
-        $.ajax({
+		$.ajax({
             url: BASE_URL + 'pengembangan_pelatihan/list/' + jml + '/' +search + '/' + dari + '/' +sampai,
             headers: {
                 'Authorization': localStorage.getItem("Token"),
@@ -1474,7 +1474,7 @@
                     $("#users-monev").addClass('hidden');
                 }
                 gridOptionsList.api.setRowData(data.result);
-             paging(data.total,'loaddata');
+             pagingDatatable(data.total,data.limit,'loaddata');
                      
 			 },
             error: function (jqXhr, textStatus, errorThrown) {
