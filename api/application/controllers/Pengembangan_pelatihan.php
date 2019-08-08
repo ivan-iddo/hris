@@ -1882,6 +1882,11 @@ class Pengembangan_pelatihan extends REST_Controller
 								}
 								}
 								}
+								if($value["laporan_kegiatan"]==1){
+								$results["result"][$key]["laporan"] = "Belum Melaporkan";
+								}else{
+								$results["result"][$key]["laporan"] = "Sudah Melaporkan";
+								}
 								}if(strtotime($from) <= strtotime($tanggal) && strtotime($to) >= strtotime($tanggal)){
 								$results["result"][$key]["laporan"] = "Melakukan Kegiatan";							
 								}else if(strtotime($value_detail_tanggal["tanggal_from"]) >= strtotime($tanggal) && strtotime($value_detail_tanggal["tanggal_to"]) >= strtotime($tanggal)){
