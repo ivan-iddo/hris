@@ -98,7 +98,7 @@ function loadKeluarga() {
 
 function addKeluarga() {
 
-    getOptions("txtKelamin", BASE_URL + "master/kelamin");
+    //getOptions("txtKelamin", BASE_URL + "master/kelamin");
     getOptions("txtPendidikan", BASE_URL + "master/pendidikan");
     getOptions("txtPekerjaan", BASE_URL + "master/pekerjaan");
     getOptions("txtHubungan", BASE_URL + "master/hubkeluarga");
@@ -218,7 +218,7 @@ if(!empty(data.file)){
                
 
                                               
-               getOptionsEdit("txtKelamin", BASE_URL + "master/kelamin", data.kelamin);
+                getOptionsEdit("txtKelamin", BASE_URL + "master/kelamin", data.kelamin);
                 getOptionsEdit("txtPendidikan", BASE_URL + "master/pendidikan", data.id_pendidikan);
                 getOptionsEdit("txtPekerjaan", BASE_URL + "master/pekerjaan", data.id_pekerjaan);
                 getOptionsEdit("txtHubungan", BASE_URL + "master/hubkeluarga", data.id_hubkel);

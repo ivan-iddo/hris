@@ -843,8 +843,8 @@ class Pengembangan_pelatihan extends REST_Controller
         $jenis_surat = $this->input->get("surat");
 		if($jenis_surat=="laporan18"){
 		$jpl = 30;
-		$id_grup=array('308','314','316','317','304','305','311','310','304','276');        
-        }else if($jenis_surat=="laporan19"){
+		$id_grup=array('33','40','45','30','31','37','36','47');        
+		}else if($jenis_surat=="laporan19"){
 		$jpl = 20;
         }
 		$filtr = "pengembangan_pelatihan.id,pengembangan_pelatihan.total_hari_kerja,sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_grup_user.grup, pengembangan_pelatihan_detail.nama_pegawai, pengembangan_pelatihan_detail.nopeg";
@@ -859,7 +859,6 @@ class Pengembangan_pelatihan extends REST_Controller
 		$result['result'][0]['total_pegawai']=$total_pegawai;
 		}
 		}
-		
 		$data = "test";
 		if($jenis_surat=="laporan18"){
 		$html = $this->load->view("laporan/laporan_18", array("result" => $result['result']), true);
@@ -889,8 +888,8 @@ class Pengembangan_pelatihan extends REST_Controller
 		//print_r($jenis_surat);die();
 		if($jenis_surat=="laporan18"){
 		$jpl = 30;
-		$id_grup=array('308','314','316','317','304','305','311','310','304','276');        
-        }else if($jenis_surat=="laporan19"){
+		$id_grup=array('33','40','45','30','31','37','36','47');        
+		}else if($jenis_surat=="laporan19"){
 		$jpl = 20;
         }
 		$filtr = "pengembangan_pelatihan.id,pengembangan_pelatihan.total_hari_kerja,sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_grup_user.grup, pengembangan_pelatihan_detail.nama_pegawai, pengembangan_pelatihan_detail.nopeg";
@@ -1579,7 +1578,7 @@ class Pengembangan_pelatihan extends REST_Controller
 		$bulan_as="DISTINCT EXTRACT(month from pengembangan_pelatihan_pelaksanaan.tanggal_too) as tanggal";
 		$filt="pengembangan_pelatihan.jenis_perjalanan, pengembangan_pelatihan_pelaksanaan.tanggal_too, pengembangan_pelatihan_kegiatan.nama";
 		$as="sum(pengembangan_pelatihan_detail.uraian_total) as nominal, count(pengembangan_pelatihan_kegiatan.nama) as jum, pengembangan_pelatihan.jenis_perjalanan, pengembangan_pelatihan_pelaksanaan.tanggal_too, pengembangan_pelatihan_kegiatan.nama, EXTRACT(month from pengembangan_pelatihan_pelaksanaan.tanggal_too) as tanggal";
-		$fil_as="sum(pengembangan_pelatihan_detail.uraian_total) as nominal, count(pengembangan_pelatihan_kegiatan.nama) as jum";
+		$fil_as="count(pengembangan_pelatihan_kegiatan.nama) as jum";
 		$year = $this->input->get("year");
         $to = $this->input->get("akhir");
 		$nopeg = $this->input->get("nopeg");
@@ -1596,73 +1595,74 @@ class Pengembangan_pelatihan extends REST_Controller
 		$luar = array("pengembangan_pelatihan.jenis_perjalanan"=>'Luar Negeri');
         $jenis_surat = $this->input->get("surat");
         $result['result'] = $this->Pengembangan_pelatihan_model->get_5(null, $nopeg, $offset, null, $from, $to, null, null, $bulan, $bulan_as, $unit, null, null, $year);
-        if (!empty($result['result'])) {
+        
+		if (!empty($result['result'])) {
             foreach ($result["result"] as $key => $value) {
 		$unit=$value['tanggal'];
-		$result['result'][$key]['dik'] = $this->Pengembangan_pelatihan_model->get_5($kegiatan, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['dik'] = $this->Pengembangan_pelatihan_model->get_thn($kegiatan, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['dik'])) {
             foreach ($result['result'][$key]['dik'] as $key_dik => $value_dik) {
 		$result['result'][$key]['diklat']['jum'] = $value_dik['jum'];
 		$result['result'][$key]['diklat']['nominal'] = $value_dik['nominal'];
 		}
 		}
-		$result['result'][$key]['manag'] = $this->Pengembangan_pelatihan_model->get_5($managerial, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['manag'] = $this->Pengembangan_pelatihan_model->get_thn($managerial, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['manag'])) {
             foreach ($result['result'][$key]['manag'] as $key_manag => $value_manag) {
 		$result['result'][$key]['managerial']['jum'] = $value_manag['jum'];
 		$result['result'][$key]['managerial']['nominal'] = $value_manag['nominal'];
 		}
 		}
-		$result['result'][$key]['work'] = $this->Pengembangan_pelatihan_model->get_5($workshop, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['work'] = $this->Pengembangan_pelatihan_model->get_thn($workshop, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['work'])) {
             foreach ($result['result'][$key]['work'] as $key_work => $value_work) {
 		$result['result'][$key]['workshop']['jum'] = $value_work['jum'];
 		$result['result'][$key]['workshop']['nominal'] = $value_work['nominal'];
 		}
 		}
-		$result['result'][$key]['in'] = $this->Pengembangan_pelatihan_model->get_5($inhouse, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['in'] = $this->Pengembangan_pelatihan_model->get_thn($inhouse, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['in'])) {
             foreach ($result['result'][$key]['in'] as $key_in => $value_in) {
 		$result['result'][$key]['inhouse']['jum'] = $value_in['jum'];
 		$result['result'][$key]['inhouse']['nominal'] = $value_in['nominal'];
 		}
 		}
-		$result['result'][$key]['pen'] = $this->Pengembangan_pelatihan_model->get_5($pendidikan, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['pen'] = $this->Pengembangan_pelatihan_model->get_thn($pendidikan, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['pen'])) {
             foreach ($result['result'][$key]['pen'] as $key_pen => $value_pen) {
 		$result['result'][$key]['pendidikan']['jum'] = $value_pen['jum'];
 		$result['result'][$key]['pendidikan']['nominal'] = $value_pen['nominal'];
 		}
 		}
-		$result['result'][$key]['lu'] = $this->Pengembangan_pelatihan_model->get_5($luar, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['lu'] = $this->Pengembangan_pelatihan_model->get_thn($luar, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['lu'])) {
             foreach ($result['result'][$key]['lu'] as $key_lu => $value_lu) {
 		$result['result'][$key]['luar']['jum'] = $value_lu['jum'];
 		$result['result'][$key]['luar']['nominal'] = $value_lu['nominal'];
 		}
 		}
-		$result['result'][$key]['tam'] = $this->Pengembangan_pelatihan_model->get_5($tamu, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['tam'] = $this->Pengembangan_pelatihan_model->get_thn($tamu, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['tam'])) {
             foreach ($result['result'][$key]['tam'] as $key_tam => $value_tam) {
 		$result['result'][$key]['tamu']['jum'] = $value_tam['jum'];
 		$result['result'][$key]['tamu']['nominal'] = $value_tam['nominal'];
 		}
 		}
-		$result['result'][$key]['tot'] = $this->Pengembangan_pelatihan_model->get_5(null, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['tot'] = $this->Pengembangan_pelatihan_model->get_thn(null, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['tot'])) {
             foreach ($result['result'][$key]['tot'] as $key_tot => $value_tot) {
 		$result['result'][$key]['total']['jum'] = $value_tot['jum'];
 		$result['result'][$key]['total']['nominal'] = $value_tot['nominal'];
 		}
 		}
-		$result['result'][$key]['jum_tot'] = $this->Pengembangan_pelatihan_model->get_5($jenis_perjalanan, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['jum_tot'] = $this->Pengembangan_pelatihan_model->get_thn($jenis_perjalanan, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['jum_tot'])) {
             foreach ($result['result'][$key]['jum_tot'] as $key_jum_tot => $value_jum_tot) {
 		$result['result'][$key]['jum_total']['jum'] = $value_jum_tot['jum'];
 		$result['result'][$key]['jum_total']['nominal'] = $value_jum_tot['nominal'];
 		}
 		}
-		$result['result'][$key]['dal'] = $this->Pengembangan_pelatihan_model->get_5($dalam, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['dal'] = $this->Pengembangan_pelatihan_model->get_thn($dalam, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['dal'])) {
             foreach ($result['result'][$key]['dal'] as $key_dal => $value_dal) {
 		$result['result'][$key]['dalam']['jum'] = $value_dal['jum'];
@@ -1685,8 +1685,8 @@ class Pengembangan_pelatihan extends REST_Controller
 		$bulan_as="DISTINCT EXTRACT(month from pengembangan_pelatihan_pelaksanaan.tanggal_too) as tanggal";
 		$filt="pengembangan_pelatihan.jenis_perjalanan, pengembangan_pelatihan_pelaksanaan.tanggal_too, pengembangan_pelatihan_kegiatan.nama";
 		$as="sum(pengembangan_pelatihan_detail.uraian_total) as nominal, count(pengembangan_pelatihan_kegiatan.nama) as jum, pengembangan_pelatihan.jenis_perjalanan, pengembangan_pelatihan_pelaksanaan.tanggal_too, pengembangan_pelatihan_kegiatan.nama, EXTRACT(month from pengembangan_pelatihan_pelaksanaan.tanggal_too) as tanggal";
-		$fil_as="sum(pengembangan_pelatihan_detail.uraian_total) as nominal, count(pengembangan_pelatihan_kegiatan.nama) as jum";
-		$from = $this->input->get("awal");
+		$fil_as="count(pengembangan_pelatihan_kegiatan.nama) as jum";
+		$year = $this->input->get("year");
         $to = $this->input->get("akhir");
 		$nopeg = $this->input->get("nopeg");
 		$unit = $this->input->get("unit");
@@ -1698,77 +1698,86 @@ class Pengembangan_pelatihan extends REST_Controller
 		$managerial = array("pengembangan_pelatihan.pengembangan_pelatihan_kegiatan"=>'2', "pengembangan_pelatihan.jenis_perjalanan"=>'Dalam Negeri');
 		$tamu = array("pengembangan_pelatihan.pengembangan_pelatihan_kegiatan"=>'9', "pengembangan_pelatihan.jenis_perjalanan"=>'Dalam Negeri');
 		$inhouse = array("pengembangan_pelatihan.pengembangan_pelatihan_kegiatan"=>'4', "pengembangan_pelatihan.jenis_perjalanan"=>'Dalam Negeri');
+		$cb = array("pengembangan_pelatihan.pengembangan_pelatihan_kegiatan"=>'8', "pengembangan_pelatihan.jenis_perjalanan"=>'Dalam Negeri');
 		$pendidikan = array("pengembangan_pelatihan.pengembangan_pelatihan_kegiatan"=>'3', "pengembangan_pelatihan.jenis_perjalanan"=>'Dalam Negeri');
 		$luar = array("pengembangan_pelatihan.jenis_perjalanan"=>'Luar Negeri');
         $jenis_surat = $this->input->get("surat");
-        $result['result'] = $this->Pengembangan_pelatihan_model->get_5(null, $nopeg, $offset, null, $from, $to, null, null, $bulan, $bulan_as, $unit, null, null);
-        if (!empty($result['result'])) {
+        $result['result'] = $this->Pengembangan_pelatihan_model->get_5(null, $nopeg, $offset, null, $from, $to, null, null, $bulan, $bulan_as, $unit, null, null, $year);
+        
+		if (!empty($result['result'])) {
             foreach ($result["result"] as $key => $value) {
 		$unit=$value['tanggal'];
-		$result['result'][$key]['dik'] = $this->Pengembangan_pelatihan_model->get_5($kegiatan, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['dik'] = $this->Pengembangan_pelatihan_model->get_thn($kegiatan, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['dik'])) {
             foreach ($result['result'][$key]['dik'] as $key_dik => $value_dik) {
 		$result['result'][$key]['diklat']['jum'] = $value_dik['jum'];
 		$result['result'][$key]['diklat']['nominal'] = $value_dik['nominal'];
 		}
 		}
-		$result['result'][$key]['manag'] = $this->Pengembangan_pelatihan_model->get_5($managerial, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['manag'] = $this->Pengembangan_pelatihan_model->get_thn($managerial, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['manag'])) {
             foreach ($result['result'][$key]['manag'] as $key_manag => $value_manag) {
 		$result['result'][$key]['managerial']['jum'] = $value_manag['jum'];
 		$result['result'][$key]['managerial']['nominal'] = $value_manag['nominal'];
 		}
 		}
-		$result['result'][$key]['work'] = $this->Pengembangan_pelatihan_model->get_5($workshop, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['work'] = $this->Pengembangan_pelatihan_model->get_thn($workshop, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['work'])) {
             foreach ($result['result'][$key]['work'] as $key_work => $value_work) {
 		$result['result'][$key]['workshop']['jum'] = $value_work['jum'];
 		$result['result'][$key]['workshop']['nominal'] = $value_work['nominal'];
 		}
 		}
-		$result['result'][$key]['in'] = $this->Pengembangan_pelatihan_model->get_5($inhouse, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['in'] = $this->Pengembangan_pelatihan_model->get_thn($inhouse, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['in'])) {
             foreach ($result['result'][$key]['in'] as $key_in => $value_in) {
 		$result['result'][$key]['inhouse']['jum'] = $value_in['jum'];
 		$result['result'][$key]['inhouse']['nominal'] = $value_in['nominal'];
 		}
 		}
-		$result['result'][$key]['pen'] = $this->Pengembangan_pelatihan_model->get_5($pendidikan, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['bilding'] = $this->Pengembangan_pelatihan_model->get_thn($cb, $fil_as, $unit, null, $jenis);
+		if (!empty($result['result'][$key]['bilding'])) {
+            foreach ($result['result'][$key]['bilding'] as $key_cb => $value_cb) {
+		$result['result'][$key]['cb']['jum'] = $value_cb['jum'];
+		$result['result'][$key]['cb']['nominal'] = $value_cb['nominal'];
+		}
+		}
+		$result['result'][$key]['pen'] = $this->Pengembangan_pelatihan_model->get_thn($pendidikan, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['pen'])) {
             foreach ($result['result'][$key]['pen'] as $key_pen => $value_pen) {
 		$result['result'][$key]['pendidikan']['jum'] = $value_pen['jum'];
 		$result['result'][$key]['pendidikan']['nominal'] = $value_pen['nominal'];
 		}
 		}
-		$result['result'][$key]['lu'] = $this->Pengembangan_pelatihan_model->get_5($luar, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['lu'] = $this->Pengembangan_pelatihan_model->get_thn($luar, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['lu'])) {
             foreach ($result['result'][$key]['lu'] as $key_lu => $value_lu) {
 		$result['result'][$key]['luar']['jum'] = $value_lu['jum'];
 		$result['result'][$key]['luar']['nominal'] = $value_lu['nominal'];
 		}
 		}
-		$result['result'][$key]['tam'] = $this->Pengembangan_pelatihan_model->get_5($tamu, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['tam'] = $this->Pengembangan_pelatihan_model->get_thn($tamu, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['tam'])) {
             foreach ($result['result'][$key]['tam'] as $key_tam => $value_tam) {
 		$result['result'][$key]['tamu']['jum'] = $value_tam['jum'];
 		$result['result'][$key]['tamu']['nominal'] = $value_tam['nominal'];
 		}
 		}
-		$result['result'][$key]['tot'] = $this->Pengembangan_pelatihan_model->get_5(null, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['tot'] = $this->Pengembangan_pelatihan_model->get_thn(null, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['tot'])) {
             foreach ($result['result'][$key]['tot'] as $key_tot => $value_tot) {
 		$result['result'][$key]['total']['jum'] = $value_tot['jum'];
 		$result['result'][$key]['total']['nominal'] = $value_tot['nominal'];
 		}
 		}
-		$result['result'][$key]['jum_tot'] = $this->Pengembangan_pelatihan_model->get_5($jenis_perjalanan, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['jum_tot'] = $this->Pengembangan_pelatihan_model->get_thn($jenis_perjalanan, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['jum_tot'])) {
             foreach ($result['result'][$key]['jum_tot'] as $key_jum_tot => $value_jum_tot) {
 		$result['result'][$key]['jum_total']['jum'] = $value_jum_tot['jum'];
 		$result['result'][$key]['jum_total']['nominal'] = $value_jum_tot['nominal'];
 		}
 		}
-		$result['result'][$key]['dal'] = $this->Pengembangan_pelatihan_model->get_5($dalam, $nopeg, $offset, null, $from, $to, null, null, null, $fil_as, $unit, null, $jenis);
+		$result['result'][$key]['dal'] = $this->Pengembangan_pelatihan_model->get_thn($dalam, $fil_as, $unit, null, $jenis);
 		if (!empty($result['result'][$key]['dal'])) {
             foreach ($result['result'][$key]['dal'] as $key_dal => $value_dal) {
 		$result['result'][$key]['dalam']['jum'] = $value_dal['jum'];
@@ -1776,6 +1785,7 @@ class Pengembangan_pelatihan extends REST_Controller
 		}
 		}
 		}
+		
 		
 		//print_r($result["result"][0]["profesi"]);die;
 		$data = "test";
@@ -2361,6 +2371,7 @@ class Pengembangan_pelatihan extends REST_Controller
 				//print_r($detail);die();
                 $result = $this->Pengembangan_pelatihan_model->update_de($save["id"], $save);
                 //print_r($result);die();
+				
 				$biaya["biaya_uraian"] = ($this->input->post("biaya_uraian"))?$this->input->post("biaya_uraian"):null;
                 $biaya["uraian_nominal"] = ($this->input->post("uraian_nominal"))?$this->input->post("uraian_nominal"):null;
                 $biaya["biaya_nominal"] = ($this->input->post("biaya_nominal"))?$this->input->post("biaya_nominal"):null;
@@ -2379,7 +2390,7 @@ class Pengembangan_pelatihan extends REST_Controller
                 // echo "</pre>";
                 // die;
 				$this->Pengembangan_pelatihan_model->delete_detail_row("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $result->id));
-                  
+                 
 				if ($result->id) {
 					for ($i = 0; $i < $jumlah ; $i++) {
 		                $pengembangan_pelatihan_detail_biaya["pengembangan_pelatihan_detail_id"] = $result->id;

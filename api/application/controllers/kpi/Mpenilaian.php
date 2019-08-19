@@ -297,8 +297,7 @@ class Mpenilaian extends REST_Controller
 			
 			$this->db->where("riwayat_kedinasan.bagian",$this->uri->segment(7)); 
 		   //$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
-			
-		}
+		 }
 		$total_rows = $this->db->count_all_results('his_kpi');
 		$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,6);
 		 
@@ -363,6 +362,8 @@ class Mpenilaian extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 			$id_user = $decodedToken->data->id;
+			$user_froup = $decodedToken->data->_pnc_id_grup;
+				
 				//$this->db->limit('100');
 				//$this->db->order_by();
 		$this->db->select('riwayat_kedinasan.bagian,riwayat_kedinasan.sub_bagian');
@@ -392,11 +393,17 @@ class Mpenilaian extends REST_Controller
 			// $this->db->like("sys_user.name",$param); 
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 		 }
+		if (($user_froup == '1') OR ($user_froup == '6')) {
+			$grups=array('1','2','66','82','92');
+            $this->db->where_in('riwayat_kedinasan.direktorat', $grups);
+				
+		}else{
 		if($sub_bag==0){
 		$this->db->where('riwayat_kedinasan.bagian', $bagian);
 		}else{
 		$this->db->where('riwayat_kedinasan.bagian', $bagian);
 		$this->db->where('riwayat_kedinasan.sub_bagian', $sub_bag);
+		}
 		}
 		$total_rows = $this->db->count_all_results('sys_user');
 		$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,4);
@@ -421,12 +428,17 @@ class Mpenilaian extends REST_Controller
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 			 
 		 }
+		if (($user_froup == '1') OR ($user_froup == '6')) {
+			$grups=array('1','2','66','82','92');
+            $this->db->where_in('riwayat_kedinasan.direktorat', $grups);
+				
+		}else{
 		if($sub_bag==0){
 		$this->db->where('riwayat_kedinasan.bagian', $bagian);
 		}else{
 		$this->db->where('riwayat_kedinasan.bagian', $bagian);
 		$this->db->where('riwayat_kedinasan.sub_bagian', $sub_bag);
-		}
+		}}
 		$this->db->where('sys_user.status','1');
 		$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
 		$this->db->order_by('sys_user.name','ACS');
@@ -470,6 +482,7 @@ class Mpenilaian extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
+			$user_froup = $decodedToken->data->_pnc_id_grup;
 			$id_user = $decodedToken->data->id;
 				//$this->db->limit('100');
 				//$this->db->order_by();
@@ -486,7 +499,6 @@ class Mpenilaian extends REST_Controller
 		$this->db->where('riwayat_kedinasan.aktif','1');
 		$this->db->join('dm_term','sys_user_profile.pendidikan_akhir = dm_term.id','LEFT');
 		$this->db->join('m_kode_profesi_group','sys_user_profile.kategori_profesi = m_kode_profesi_group.id','LEFT');
-		$this->db->like("m_index_jabatan_asn_detail.ds_jabatan",'Kepala');
 		$this->db->where('sys_user.status','1');
 		// if(!empty($this->uri->segment(3))){
 		// 	$this->db->like("sys_user.name",$this->uri->segment(3)); 
@@ -501,12 +513,18 @@ class Mpenilaian extends REST_Controller
 			// $this->db->like("sys_user.name",$param); 
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 		 }
+		if (($user_froup == '1') OR ($user_froup == '6')) {
+			$kepala=array('3','38','70','148','231','293','398','509','654','732','881','948','1086','1125','1164','1203','1242','1281','1320','1359','1398','1437','1476','1527','1581','1646','1733','1863','1957','2005','2066','2182','2195','2250','2427','2522','2555','2642','2749','2782');        
+			$this->db->where_in('riwayat_kedinasan.jabatan_struktural', $kepala);
+					
+		}else{
+		$this->db->like("m_index_jabatan_asn_detail.ds_jabatan",'Kepala');
 		if($sub_bag==0){
 		$this->db->where('riwayat_kedinasan.bagian', $bagian);
 		}else{
 		$this->db->where('riwayat_kedinasan.bagian', $bagian);
 		$this->db->where('riwayat_kedinasan.sub_bagian', $sub_bag);
-		}
+		}}
 		$total_rows = $this->db->count_all_results('sys_user');
 		$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,4);
 				
@@ -531,12 +549,19 @@ class Mpenilaian extends REST_Controller
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 			 
 		 }
+		if (($user_froup == '1') OR ($user_froup == '6')) {
+			$kepala=array('3','38','70','148','231','293','398','509','654','732','881','948','1086','1125','1164','1203','1242','1281','1320','1359','1398','1437','1476','1527','1581','1646','1733','1863','1957','2005','2066','2182','2195','2250','2427','2522','2555','2642','2749','2782');        
+			$this->db->where_in('riwayat_kedinasan.jabatan_struktural', $kepala);
+					
+		}else{
+		$this->db->like("m_index_jabatan_asn_detail.ds_jabatan",'Kepala');
+		
 		if($sub_bag==0){
 		$this->db->where('riwayat_kedinasan.bagian', $bagian);
 		}else{
 		$this->db->where('riwayat_kedinasan.bagian', $bagian);
 		$this->db->where('riwayat_kedinasan.sub_bagian', $sub_bag);
-		}
+		}}
 		$this->db->where('sys_user.status','1');
 		$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
 		$this->db->order_by('sys_user.name','ACS');
@@ -581,6 +606,8 @@ class Mpenilaian extends REST_Controller
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 			$id_user = $decodedToken->data->id;
+			$user_froup = $decodedToken->data->_pnc_id_grup;
+			
 				//$this->db->limit('100');
 				//$this->db->order_by();
 		$this->db->select('riwayat_kedinasan.bagian,riwayat_kedinasan.sub_bagian');
@@ -596,7 +623,6 @@ class Mpenilaian extends REST_Controller
 		$this->db->where('riwayat_kedinasan.aktif','1');
 		$this->db->join('dm_term','sys_user_profile.pendidikan_akhir = dm_term.id','LEFT');
 		$this->db->join('m_kode_profesi_group','sys_user_profile.kategori_profesi = m_kode_profesi_group.id','LEFT');
-		$this->db->like("m_index_jabatan_asn_detail.ds_jabatan",'Kepala Sub Bagian');
 		$this->db->where('sys_user.status','1');
 		// if(!empty($this->uri->segment(3))){
 		// 	$this->db->like("sys_user.name",$this->uri->segment(3)); 
@@ -611,12 +637,19 @@ class Mpenilaian extends REST_Controller
 			// $this->db->like("sys_user.name",$param); 
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 		 }
+		if (($user_froup == '1') OR ($user_froup == '6')) {
+			$kepala=array('3','38','70','148','231','293','398','509','654','732','881','948','1086','1125','1164','1203','1242','1281','1320','1359','1398','1437','1476','1527','1581','1646','1733','1863','1957','2005','2066','2182','2195','2250','2427','2522','2555','2642','2749','2782');        
+			$this->db->where_in('riwayat_kedinasan.jabatan_struktural', $kepala);
+					
+		}else{
+		$this->db->like("m_index_jabatan_asn_detail.ds_jabatan",'Kepala');
+		
 		if($sub_bag==0){
 		$this->db->where('riwayat_kedinasan.bagian', $bagian);
 		}else{
 		$this->db->where('riwayat_kedinasan.bagian', $bagian);
 		$this->db->where('riwayat_kedinasan.sub_bagian', $sub_bag);
-		}
+		}}
 		$total_rows = $this->db->count_all_results('sys_user');
 		$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,4);
 				
@@ -641,12 +674,19 @@ class Mpenilaian extends REST_Controller
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 			 
 		 }
+		if (($user_froup == '1') OR ($user_froup == '6')) {
+			$kepala=array('3','38','70','148','231','293','398','509','654','732','881','948','1086','1125','1164','1203','1242','1281','1320','1359','1398','1437','1476','1527','1581','1646','1733','1863','1957','2005','2066','2182','2195','2250','2427','2522','2555','2642','2749','2782');        
+			$this->db->where_in('riwayat_kedinasan.jabatan_struktural', $kepala);
+					
+		}else{
+		$this->db->like("m_index_jabatan_asn_detail.ds_jabatan",'Kepala');
+		
 		if($sub_bag==0){
 		$this->db->where('riwayat_kedinasan.bagian', $bagian);
 		}else{
 		$this->db->where('riwayat_kedinasan.bagian', $bagian);
 		$this->db->where('riwayat_kedinasan.sub_bagian', $sub_bag);
-		}
+		}}
 		$this->db->where('sys_user.status','1');
 		$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
 		$this->db->order_by('sys_user.name','ACS');

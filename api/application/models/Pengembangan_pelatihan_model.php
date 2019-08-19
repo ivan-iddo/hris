@@ -1149,6 +1149,7 @@ class Pengembangan_pelatihan_model extends MY_Model
 		if (!empty($filt)) {
 			$this->db->group_by($filt);
 		}
+		
 		if (!empty($from)) {
 			$this->db->where("pengembangan_pelatihan.created >=", $from);
 		}
@@ -1194,6 +1195,44 @@ class Pengembangan_pelatihan_model extends MY_Model
 			$this->db->limit($limit);
 		}
 
+		$query = $this->db->get();
+		// echo $this->db->last_query();die;
+		if($query->num_rows()<1){
+			return null;
+		}
+		else{
+			return $query->result_array();
+		}
+	}
+	function get_thn($params_array = array(), $as="", $unit="", $kegiatan="", $year="")
+
+	{	
+		$this->db->select("pengembangan_pelatihan.total as nominal,$as");
+		$this->db->from($this->table);
+		$this->db->join("pengembangan_pelatihan_pelaksanaan", "pengembangan_pelatihan.id = pengembangan_pelatihan_pelaksanaan.pengembangan_pelatihan_id");
+		$this->db->join("pengembangan_pelatihan_kegiatan", "pengembangan_pelatihan_kegiatan.id = pengembangan_pelatihan.pengembangan_pelatihan_kegiatan");
+		$this->db->where("pengembangan_pelatihan.statue !=", 0);
+		$this->db->group_by("pengembangan_pelatihan.total");
+		if (!empty($params_array) && is_array($params_array)) {
+			$this->db->where($params_array);
+		}
+		
+		if (!empty($unit)) {
+			$this->db->where('EXTRACT(MONTH FROM pengembangan_pelatihan_pelaksanaan.tanggal_too) =',$unit);
+		}
+		
+		if (!empty($year)) {
+			$this->db->where('EXTRACT(Year FROM pengembangan_pelatihan_pelaksanaan.tanggal_too) =',$year);
+		}else{
+			$year=date('Y');
+			$this->db->where('EXTRACT(Year FROM pengembangan_pelatihan_pelaksanaan.tanggal_too) =',$year);
+		}
+		
+		
+		if (!empty($kegiatan)) {
+			$this->db->where("pengembangan_pelatihan.pengembangan_pelatihan_kegiatan",$kegiatan);
+		}
+		
 		$query = $this->db->get();
 		// echo $this->db->last_query();die;
 		if($query->num_rows()<1){

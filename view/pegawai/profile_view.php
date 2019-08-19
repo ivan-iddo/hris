@@ -52,36 +52,21 @@
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   <li>
-                    <a data-toggle="tab" href="#tab-kontrak" onclick="$('#page-kontrak').load('view/pegawai/form_kontrak.php')">
+                    <a data-toggle="tab" href="#tab-kontrak" onclick="$('#page-kontrak').load('view/pegawai/form_kontrak.php');removeActiveDropDown()">
                       Kontrak
                     </a>
                   </li>
-                  <li>
-                    <a data-toggle="tab" href="#tab-penugasaan" onclick="$('#page-penugasaan').load('view/pegawai/form_file.php?id=3');removeActiveDropDown()">
-                      Penugasaan
-                    </a>
-                  </li>
-                  <li>
-                    <a data-toggle="tab" href="#tab-skp" onclick="$('#page-skp').load('view/pegawai/form_file.php?id=4');removeActiveDropDown()">
-                      Skp
-                    </a>
-                  </li>
-                  <li>
-                    <a onclick="$('#page-data-medical').load('view/pegawai/form_file.php?id=5');removeActiveDropDown()" data-toggle="tab" href="#tab-data-medical">
-                      Data medical
-                    </a>
-                  </li>
-                  <li>
-                    <a onclick="$('#page-sk').load('view/pegawai/form_file.php?id=6');removeActiveDropDown()" data-toggle="tab" href="#tab-sk">
-                      SK
-                    </a>
-                  </li>
-                  <li>
-                    <a onclick="$('#page-penghargaan').load('view/pegawai/form_penghargaan.php');removeActiveDropDown()" data-toggle="tab" href="#tab-penghargaan">
-                      Penghargaan
-                    </a>
-                  </li>
-                  <li>
+                   <li onClick="$('#uploadfile').load('view/pegawai/form_file_tugas.php?id=3');removeActiveDropDown()"><a
+                        data-toggle="tab" href="#demo-tabs-box-5"
+                        aria-expanded="false">Penugasan</a></li>
+                    <li onClick="$('#uploadfile').load('view/pegawai/form_file_skp.php?id=4');removeActiveDropDown()"><a
+                        data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">SKP</a></li>
+                    <li onClick="$('#uploadfile').load('view/pegawai/form_file_medik.php?id=5');removeActiveDropDown()"><a
+                        data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">Data
+                        Medical</a></li>
+                    <li onClick="$('#uploadfile').load('view/pegawai/form_file_sk.php?id=6');removeActiveDropDown()"><a
+                        data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">SK</a></li>
+                    <li>
                     <a onclick="$('#page-punishment').load('view/pegawai/form_punishment.php');removeActiveDropDown()" data-toggle="tab" href="#tab-punishment">
                       Punishment
                     </a>
@@ -96,7 +81,9 @@
                       SIP
                     </a>
                   </li>
-
+				  <li onClick="$('#uploadfile').load('view/pegawai/form_file_dok.php?id=9');removeActiveDropDown()"><a
+                    data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">Dokumen Lain</a></li>
+                                
                 </ul>
               </div>
             </li>
@@ -161,18 +148,7 @@ Medical</a></li>
             <div class="tab-pane fade" id="tab-kontrak">
               <div id="page-kontrak"></div>
             </div>
-            <div class="tab-pane fade" id="tab-penugasaan">
-              <div id="page-penugasaan"></div>
-            </div>
-            <div class="tab-pane fade" id="tab-skp">
-              <div id="page-skp"></div>
-            </div>
-            <div class="tab-pane fade" id="tab-data-medical">
-              <div id="page-data-medical"></div>
-            </div>
-            <div class="tab-pane fade" id="tab-sk">
-              <div id="page-sk"></div>
-            </div>
+            
             <div class="tab-pane fade" id="tab-penghargaan">
               <div id="page-penghargaan"></div>
             </div>
@@ -185,7 +161,9 @@ Medical</a></li>
             <div class="tab-pane fade" id="tab-sip">
               <div id="page-sip"></div>
             </div>
-          </div>
+			<div id="demo-tabs-box-5" class="tab-pane fade">
+                <div class="panel-body pad-all" id="uploadfile"></div>
+            </div></div>
         </div>
       </div>
     </div>

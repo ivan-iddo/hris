@@ -7,7 +7,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 // require APPPATH . '/libraries/REST_Controller.php';
 // $rest_json = file_get_contents("php://input");
 // $_POST = json_decode($rest_json, true);
-class keluarga extends CI_Controller
+class Keluarga extends CI_Controller
 {   
 
     public function savekeluarga()

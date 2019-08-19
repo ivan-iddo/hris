@@ -87,10 +87,10 @@ class Appdata extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                $this->db->where('id_grup', $this->input->get('id'));
-                $res = $this->db->get('sys_grup_user')->result();
+                $this->db->where('migrasi_jabatan_detail_id', $this->input->get('id'));
+                $res = $this->db->get('m_index_jabatan_asn_detail')->result();
                 foreach ($res as $d) {
-                    $arr[] = array('nama' => $d->grup, 'ket' => $d->ket, 'id' => $d->id_grup);
+                    $arr[] = array('nama' => $d->ds_jabatan, 'ket' => $d->ket, 'id' => $d->migrasi_jabatan_detail_id);
                 }
 
                 $this->set_response($arr, REST_Controller::HTTP_OK);
@@ -118,19 +118,19 @@ class Appdata extends REST_Controller
                     $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
                     return;
                 }
-                $this->db->order_by('grup', 'ASC');
+                $this->db->order_by('ds_jabatan', 'ASC');
                 $this->db->where('tampilkan', '1');
 
                 $param = urldecode($this->uri->segment(3));
                 $param2 = "%".$param."%"; 
                 
                 if(!empty($this->uri->segment(3))){
-                    $this->db->where('grup ilike',$param2); 
+                    $this->db->where('ds_jabatan ilike',$param2); 
                  }
-                $res = $this->db->get('sys_grup_user')->result();
+                $res = $this->db->get('m_index_jabatan_asn_detail')->result();
                 if (!empty($res)) {
                     foreach ($res as $d) {
-                        $arr['result'][] = array('id' => $d->id_grup, 'nama' => $d->grup, 'jumlah' => $d->ket);
+                        $arr['result'][] = array('id' => $d->migrasi_jabatan_detail_id, 'nama' => $d->ds_jabatan, 'jumlah' => $d->ket);
                     }
                 } else {
                     $arr['result'] =array();
@@ -250,16 +250,18 @@ class Appdata extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                $group_aplikasi = '1';//$this->input->post('group_aplikasi');
-                $group_group = $_POST['group_group'];
+                //$group_aplikasi = '1';//$this->input->post('group_aplikasi');
+                $id_user=$decodedToken->data->id;
+				$group_group = $_POST['group_group'];
                 $group_ket = $_POST['group_ket'];
 
                 $data = array(
-                    'id_aplikasi' => ($group_aplikasi)?$group_aplikasi:null, 
-                    'grup' => ($group_group)?$group_group:null, 
-                    'ket' => ($group_ket)?$group_ket:null
+                    //'id_aplikasi' => ($group_aplikasi)?$group_aplikasi:null, 
+                    'ds_jabatan' => ($group_group)?$group_group:null, 
+                    'ket' => ($group_ket)?$group_ket:null,
+					'no_peg_update' => $id_user
                 );
-                $this->db->insert('sys_grup_user', $data);
+                $this->db->insert('m_index_jabatan_asn_detail', $data);
                 if ($this->db->affected_rows() == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil ditambah!';
@@ -285,17 +287,19 @@ class Appdata extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                $group_aplikasi = '1';//$this->input->post('group_aplikasi');
-                $group_group = $_POST['group_group'];
+                //$group_aplikasi = '1';//$this->input->post('group_aplikasi');
+                $id_user=$decodedToken->data->id;
+				$group_group = $_POST['group_group'];
                 $group_ket = $_POST['group_ket'];
 
                 $data = array(
-                    'id_aplikasi' => ($group_aplikasi)?$group_aplikasi:null, 
-                    'grup' => ($group_group)?$group_group:null, 
-                    'ket' => ($group_ket)?$group_ket:null
+                    //'id_aplikasi' => ($group_aplikasi)?$group_aplikasi:null, 
+                    'ds_jabatan' => ($group_group)?$group_group:null, 
+                    'ket' => ($group_ket)?$group_ket:null,
+                    'no_peg_update' => $id_user
                 );
-                $this->db->where('id_grup', $this->input->post('id_group'));
-                $this->db->update('sys_grup_user', $data);
+                $this->db->where('migrasi_jabatan_detail_id', $this->input->post('id_group'));
+                $this->db->update('m_index_jabatan_asn_detail', $data);
                 if ($this->db->affected_rows() == '1') {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil ditambah!';

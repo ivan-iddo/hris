@@ -23,32 +23,34 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right bg-primary">
                                 <li class="divider"></li>
-                                <li onClick="$('#uploadfile').load('view/pegawai/form_kontrak.php')"><a
+                                <li onClick="$('#uploadfile').load('view/pegawai/form_kontrak.php');removeActiveDropDown()"><a
                                             data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">Kontrak</a>
                                 </li>
-                                <li onClick="$('#uploadfile').load('view/pegawai/form_file.php?id=3')"><a
+                                <li onClick="$('#uploadfile').load('view/pegawai/form_file_tugas.php?id=3');removeActiveDropDown()"><a
                                             data-toggle="tab" href="#demo-tabs-box-5"
                                             aria-expanded="false">Penugasan</a></li>
-                                <li onClick="$('#uploadfile').load('view/pegawai/form_file.php?id=4')"><a
+                                <li onClick="$('#uploadfile').load('view/pegawai/form_file_skp.php?id=4');removeActiveDropDown()"><a
                                             data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">SKP</a></li>
-                                <li onClick="$('#uploadfile').load('view/pegawai/form_file.php?id=5')"><a
+                                <li onClick="$('#uploadfile').load('view/pegawai/form_file_medik.php?id=5');removeActiveDropDown()"><a
                                             data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">Data
                                         Medical</a></li>
-                                <li onClick="$('#uploadfile').load('view/pegawai/form_file.php?id=6')"><a
+                                <li onClick="$('#uploadfile').load('view/pegawai/form_file_sk.php?id=6');removeActiveDropDown()"><a
                                             data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">SK</a></li>
-                                <li onClick="$('#uploadfile').load('view/pegawai/form_penghargaan.php?id=7')"><a
+                                <li onClick="$('#uploadfile').load('view/pegawai/form_penghargaan.php?id=7');removeActiveDropDown()"><a
                                             data-toggle="tab" href="#demo-tabs-box-5"
                                             aria-expanded="false">Penghargaan</a></li>
-                                <li onClick="$('#uploadfile').load('view/pegawai/form_punishment.php?id=8')"><a
+                                <li onClick="$('#uploadfile').load('view/pegawai/form_punishment.php?id=8');removeActiveDropDown()"><a
                                             data-toggle="tab" href="#demo-tabs-box-5"
                                             aria-expanded="false">Punishment</a></li>
-                                <li onClick="$('#uploadfile').load('view/pegawai/form_str.php')"><a
+                                <li onClick="$('#uploadfile').load('view/pegawai/form_str.php');removeActiveDropDown()"><a
                                             data-toggle="tab" href="#demo-tabs-box-5"
                                             aria-expanded="false">STR</a></li>
-                                <li onClick="$('#uploadfile').load('view/pegawai/form_sip.php')"><a
+                                <li onClick="$('#uploadfile').load('view/pegawai/form_sip.php');removeActiveDropDown()"><a
                                             data-toggle="tab" href="#demo-tabs-box-5"
                                             aria-expanded="false">SIP</a></li>
-                            </ul>
+								<li onClick="$('#uploadfile').load('view/pegawai/form_file_dok.php?id=9');removeActiveDropDown()"><a
+                                            data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">Dokumen Lain</a></li>
+                                </ul>
                         </div>
                     </li>
                 </ul>
@@ -82,7 +84,7 @@
                                         class="text-xs text-danger">*</span></label>
                             <div class="col-sm-5"><input type="password" name="f_user_password" id="f_user_password"
                                                          style="width: 220px" class="form-control"/><span
-                                        class="text-xs text-danger">*Minimum 6 character</span></div>
+                                        class="text-xs text-danger">*Minimum 7 character</span></div>
                         </div>
 						<div class="form-group"><label class="col-sm-3 control-label"
                                                        for="demo-hor-inputemail">Level Acces</label>
@@ -681,6 +683,10 @@
         }
     }
 
+	function removeActiveDropDown(){
+      $('ul.dropdown-menu').children().removeClass('active');
+    }; 
+	
     function upload_file() {
         var form = $("#form-upload");
         if ($('#f_id_edit').val() !== '') {

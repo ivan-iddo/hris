@@ -30,7 +30,7 @@
 		  <tr>
             <td rowspan="3" align="center" width="1%">No</td>
             <td rowspan="3" align="center" width="6%">Bulan</td>
-            <td colspan="6" align="center" width="30%">Kegiatan Dalam Negeri</td>
+            <td colspan="8" align="center" width="30%">Kegiatan Dalam Negeri</td>
             <td rowspan="2" colspan="2" align="center" width="7%">Luar Negeri</td>
             <td rowspan="2" colspan="2" align="center" width="7%">Narasumber Tamu dari luar (Non Pegawai)</td>
             <td rowspan="2" colspan="3" align="center" width="7%">Pembuat surat</td>
@@ -39,11 +39,14 @@
 		  <tr>
             <td rowspan="1" colspan="2" width="7%" align="center">Managerial/Undangan atau sosialisasi/workshop dan seminar/prajabatan/diklat kepempimpinan</td>
             <td rowspan="1" colspan="2" width="7%" align="center">Rutin In House dan In House dll</td>
+            <td rowspan="1" colspan="2" width="7%" align="center">Capacity Building</td>
             <td rowspan="1" colspan="2" width="7%" align="center">Pendidikan Formal dan Pengembangan Pegawai</td>
           </tr>
 		   <tr>
               <td scope="col" width="2%" align="center">Jumlah Pegawai</td>
               <td scope="col" width="16%" align="center">Jumlah Biaya</td>
+			  <td scope="col" width="2%" align="center">Jumlah Pegawai</td>
+              <td scope="col" width="16%" align="center">Jumlah Biaya</td> 
 			  <td scope="col" width="2%" align="center">Jumlah Pegawai</td>
               <td scope="col" width="16%" align="center">Jumlah Biaya</td> 
 			  <td scope="col" width="2%" align="center">Jumlah Pegawai</td>
@@ -87,7 +90,7 @@
 				</table>
 				</td> 
 				<td align="center" width="1%">
-				<?php echo $result[$key]['inhouse']['jum'];
+				<?php echo $result[$key]['inhouse']['jum']+0;
 						$inhouse += $result[$key]['inhouse']['jum'];?>
 				</td>    
 				<td width="16%">
@@ -108,7 +111,28 @@
 				</table>
 				</td>
 				<td align="center" width="1%">
-				<?php echo $result[$key]['pendidikan']['jum'];
+				<?php echo $result[$key]['cb']['jum']+0;
+						$cb += $result[$key]['cb']['jum'];?>
+				</td>    
+				<td width="16%">
+				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+				  <tr>
+					  <td>
+						<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+						<tr>
+							  <td width="20%"></td>
+							  <td width="10%">Rp.</td>
+							  <td align="right" width="50%"><?php echo number_format($result[$key]['cb']['nominal'], 0, ",", ".");
+							  $biaya_cb += $result[$key]['cb']['nominal']?></td>
+							  <td width="20%"></td>
+							</tr>
+						</table>
+					  </td>
+				  </tr>
+				</table>
+				</td>
+				<td align="center" width="1%">
+				<?php echo $result[$key]['pendidikan']['jum']+0;
 						$pendidikan += $result[$key]['pendidikan']['jum'];?>
 				</td>    
 				<td width="16%">
@@ -129,7 +153,7 @@
 				</table>
 				</td>
 				<td align="center" width="1%">
-					<?php echo $result[$key]['luar']['jum'];
+					<?php echo $result[$key]['luar']['jum']+0;
 						$luar +=$result[$key]['luar']['jum']?>
 				</td>    
 				<td width="16%">
@@ -150,7 +174,7 @@
 				</table>
 				</td>
 				<td align="center" width="1%">
-				<?php echo $result[$key]['tamu']['jum'];
+				<?php echo $result[$key]['tamu']['jum']+0;
 						$tamu +=$result[$key]['tamu']['jum']?>
 				</td>    
 				<td width="16%">
@@ -171,20 +195,20 @@
 				</table>
 			</td>
 				<td align="center" width="1%">
-				<?php echo $result[$key]['total']["jum"];
+				<?php echo $result[$key]['total']["jum"]+0;
 						$total +=$result[$key]['total']["jum"];?>
 				</td>
 				<td align="center" width="1%">
-				<?php echo $result[$key]['jum_total']["jum"]+$result[$key]['dalam']["jum"];
+				<?php echo $result[$key]['jum_total']["jum"]+$result[$key]['dalam']["jum"]+0;
 						$dalam +=$result[$key]['jum_total']["jum"]+$result[$key]['dalam']["jum"]?>
 				</td>
 				<td align="center" width="1%">
-				<?php echo $result[$key]['jum_total']["jum"]+$result[$key]['dalam']["jum"];
+				<?php echo $result[$key]['jum_total']["jum"]+$result[$key]['dalam']["jum"]+0;
 						$dalam1 +=$result[$key]['jum_total']["jum"]+$result[$key]['dalam']["jum"]?>
 				
 				</td>
 				<td align="center" width="1%">
-				<?php echo $result[$key]['total']["jum"];
+				<?php echo $result[$key]['total']["jum"]+0;
 						$total_1 +=$result[$key]['total']["jum"];?>
 				</td>    
 				<td width="30%">
@@ -236,6 +260,23 @@
 							  <td width="20%"></td>
 							  <td width="10%">Rp.</td>
 							  <td align="right" width="50%"><?php echo number_format($biaya_inhouse, 0, ",", ".")?></td>
+							  <td width="20%"></td>
+							</tr>
+						</table>
+					  </td>
+				  </tr>
+				</table>
+				</td>
+				<td align="center" width="1%"><?php echo $cb ?></td>    
+				<td width="16%">
+				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+				  <tr>
+					  <td>
+						<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+							<tr>
+							  <td width="20%"></td>
+							  <td width="10%">Rp.</td>
+							  <td align="right" width="50%"><?php echo number_format($biaya_cb, 0, ",", ".")?></td>
 							  <td width="20%"></td>
 							</tr>
 						</table>

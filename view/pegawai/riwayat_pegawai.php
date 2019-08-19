@@ -288,7 +288,7 @@
            }
            
            function proses_edit(){
-            var selectedRows = gridOptions.api.getSelectedRows();
+			var selectedRows = gridOptions.api.getSelectedRows();
             // alert('>>'+selectedRows+'<<<');
             if(selectedRows == ''){
                onMessage('Silahkan Pilih Group Terlebih dahulu!');
@@ -360,6 +360,7 @@
        var f_id_edit = $("#f_id_edit").val();
        getOptionsEdit("id_shift",BASE_URL+"master/getmaster?id=27",res[0].id_shift);
        $('#f_user_password').val('');
+	     
              $('#f_user_username').val(res[0].username);
              $('#f_id_user').val(res[0].id_user);
 			 $('#acces').val(res[0].acces);
@@ -598,6 +599,59 @@
 					   }else if(empty($('#kategori_profesi').val())){
 						   onMessage("Data 'Kelompok Profesi' is required"); 
                            return false;
+					   }else if(!empty(user_password)){
+						 if(!validatePassword(user_password)){
+						   $("#user_password").focus();
+                           return false;
+						 }else{
+													
+														var data = formJson('form-upload');//$("#form-upload").serializeArray();
+														$.ajax({
+														url: BASE_URL+action,
+														headers: {
+																'Authorization': localStorage.getItem("Token"),
+																'X_CSRF_TOKEN':'donimaulana',
+																'Content-Type':'application/json'
+																},
+																dataType: 'json',
+																type: 'post',
+																contentType: 'application/json', 
+																processData: false,
+																data:data,
+																success: function( data, textStatus, jQxhr ){
+																										hasil=data.hasil;
+																										message=data.message; 
+																											 if(hasil=="success"){         
+																																
+																																	 $.niftyNoty({
+																																									 type: 'success',
+																																									 title: 'Success',
+																																									 message: message,
+																																									 container: 'floating',
+																																									 timer: 5000
+																																							 });
+                                                                  loaddata(0);
+																																	// $('.modal').modal('hide');
+																														 }else{
+                                                                   onMessage(message);
+                                                                    return false;
+																														 }
+																		 
+																		 
+																	},
+																	error: function( jqXhr, textStatus, errorThrown ){
+																			 $.niftyNoty({
+																														type: 'danger',
+																														title: 'Warning!',
+																														message: message,
+																														container: 'floating',
+																														timer: 5000
+																												});
+																	}
+																});
+													 
+                       
+						 }
 					   }else{
 												
 														var data = formJson('form-upload');//$("#form-upload").serializeArray();

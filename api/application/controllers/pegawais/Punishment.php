@@ -14,11 +14,12 @@ class Punishment extends MY_Controller
 		$this->load->model("Punishment_model");
 	}
 
-	public function index($id)
+	public function index($id = null)
 	{
         $response['success'] = true;
+        if($id <> null){
         $response['data'] = $this->view($id);
-
+        }
 	    $this->set_response($response);
 	}
 

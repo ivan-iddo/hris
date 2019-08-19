@@ -90,7 +90,8 @@ public function plh_get(){
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
 				 $this->db->order_by('name','ASC');
-				 $this->db->where('id_grup','263');
+				 $grups=array('2','66','82','92');
+				 $this->db->where_in('id_grup',$grups);
 				 $this->db->where('kd_keluar','12');
 		  $res = $this->db->get('sys_user')->result();
 		  foreach($res as $d){

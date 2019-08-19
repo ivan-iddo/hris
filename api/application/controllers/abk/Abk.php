@@ -754,21 +754,7 @@ class Abk extends REST_Controller
                 $user_froup = $decodedToken->data->_pnc_id_grup;
 				$id_user = $decodedToken->data->id;
                 // print_r($user_froup);die();
-                if (($user_froup == '1') OR ($user_froup == '6')) {
-                    // $this->db->where('sys_user.id_grup',$this->input->get('uk'));
-                    // $uk = $this->input->get('uk')?$this->input->get('uk'):0;
-                    if ($this->input->get('uk') <> 'undefined') {
-                        $uk = $this->input->get('uk');
-                    } else {
-                        $uk = 0;
-                    }
-                    // print_r($uk);die();
-                    $idgroups = $this->m->getdatachild($uk);
-                    
-                } else {
-
-                    //  $this->db->where('sys_user.id_grup',$user_froup);
-                }
+               
 				$this->db->select('riwayat_kedinasan.direktorat,riwayat_kedinasan.bagian,riwayat_kedinasan.sub_bagian');
 				$this->db->where('id_user',$id_user);
 				$uk = $this->db->get('riwayat_kedinasan')->row();
@@ -791,6 +777,11 @@ class Abk extends REST_Controller
                 $this->db->join('sys_user_profile', 'sys_user.id_user = sys_user_profile.id_user', 'LEFT');
 				$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 				$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
+				if (($user_froup == '1') OR ($user_froup == '6')) {
+					$grups=array('1','2','66','82','92');
+                $this->db->where_in('riwayat_kedinasan.direktorat', $grups);
+				
+				}else{
 				if($sub_bag==0){
 				$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
 				if($bagian==0){
@@ -799,6 +790,7 @@ class Abk extends REST_Controller
 				}else{
 				$this->db->where_in('riwayat_kedinasan.bagian', $bagian);
 				$this->db->where_in('riwayat_kedinasan.sub_bagian', $sub_bag);
+				}
 				}
                 $this->db->group_by('sys_grup_user.id_grup,sys_grup_user.grup,m_index_jabatan_asn_detail.ds_jabatan,sys_user_profile.pendidikan_akhir,m_index_jabatan_asn_detail.migrasi_jabatan_detail_id');
                 $res = $this->db->get('sys_user')->result();
