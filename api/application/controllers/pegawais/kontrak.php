@@ -43,6 +43,7 @@ class Kontrak extends MY_Controller
             $data = array('inputfileupload' => $this->upload->data());
             $filename = $data['inputfileupload']['file_name'];
         }
+		
 		$awal=date_format(date_create($this->input->post('tmtawal')), "Y-m-d");
 		$kontrak=date_format(date_create($this->input->post('tglktr')), "Y-m-d");
 		$akhir=date_format(date_create($this->input->post('tglakhir')), "Y-m-d");
