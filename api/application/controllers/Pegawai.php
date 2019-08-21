@@ -3342,18 +3342,21 @@ class Pegawai extends REST_Controller
                 //cari dulu diriwayat kedinasan
                 if (!empty($id = $this->input->post('txtIdUser'))) {
 
-
+					$tmt_jfung=date_format(date_create($this->input->post('tmt_jabfung')), "Y-m-d");
+					$tgl_skjafung=date_format(date_create($this->input->post('tgl_skjafung')), "Y-m-d");
+					$tmt_pak=date_format(date_create($this->input->post('tmt_pak')), "Y-m-d");
+					$tgl_pak=date_format(date_create($this->input->post('tgl_pak')), "Y-m-d");
                     $arrdata = array(
                         'user_id' => $id,
                         'jabatan' => ($this->input->post('txtjabatan'))?$this->input->post('txtjabatan'):null,
 						'bagian_jabatan' => ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null,
 						'sub_bagian_jabatan' => ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null,
-                        'tmt_jfung' => ($this->input->post('tmt_jabfung'))?$this->input->post('tmt_jabfung'):null,
+                        'tmt_jfung' => ($tmt_jfung)?$tmt_jfung:null,
                         'no_skjfung' => ($this->input->post('no_skjfung'))?$this->input->post('no_skjfung'):null,
-                        'tgl_skjafung' => ($this->input->post('tgl_skjafung'))?$this->input->post('tgl_skjafung'):null,
+                        'tgl_skjafung' => ($tgl_skjafung)?$tgl_skjafung:null,
                         'no_pak' => ($this->input->post('no_pak'))?$this->input->post('no_pak'):null,
-                        'tmt_pak' => ($this->input->post('tmt_pak'))?$this->input->post('tmt_pak'):null,
-                        'tgl_pak' => ($this->input->post('tgl_pak'))?$this->input->post('tgl_pak'):null,
+                        'tmt_pak' => ($tmt_pak)?$tmt_pak:null,
+                        'tgl_pak' => ($tgl_pak)?$tgl_pak:null,
                         'nilai_pak' => ($this->input->post('nilai_pak'))?$this->input->post('nilai_pak'):null,
                         'jabfungasn' => ($this->input->post('jabfungasn'))?$this->input->post('jabfungasn'):null,
                         'ahlifungasn' => ($this->input->post('ahlifungasn'))?$this->input->post('ahlifungasn'):null,
@@ -3399,7 +3402,11 @@ class Pegawai extends REST_Controller
             $arr['hasil'] = 'error';
             $arr['message'] = 'Data Gagal Ditambah!';
             if ($decodedToken != false) {
-
+				$tmt_jfung=date_format(date_create($this->input->post('tmt_jabfung')), "Y-m-d");
+				$tgl_skjafung=date_format(date_create($this->input->post('tgl_skjafung')), "Y-m-d");
+				$tmt_pak=date_format(date_create($this->input->post('tmt_pak')), "Y-m-d");
+				$tgl_pak=date_format(date_create($this->input->post('tgl_pak')), "Y-m-d");
+                   
 
                 //cari dulu diriwayat kedinasan
                 if (!empty($id = $this->input->post('idasn'))) {
@@ -3409,12 +3416,12 @@ class Pegawai extends REST_Controller
                         'jabatan' => ($this->input->post('txtjabatan'))?$this->input->post('txtjabatan'):null,
                         'bagian_jabatan' => ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null,
                         'sub_bagian_jabatan' => ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null,
-                        'tmt_jfung' => ($this->input->post('tmt_jabfung'))?$this->input->post('tmt_jabfung'):null,
+                        'tmt_jfung' => ($tmt_jfung)?$tmt_jfung:null,
                         'no_skjfung' => ($this->input->post('no_skjfung'))?$this->input->post('no_skjfung'):null,
-                        'tgl_skjafung' => ($this->input->post('tgl_skjafung'))?$this->input->post('tgl_skjafung'):null,
+                        'tgl_skjafung' => ($tgl_skjafung)?$tgl_skjafung:null,
                         'no_pak' => ($this->input->post('no_pak'))?$this->input->post('no_pak'):null,
-                        'tmt_pak' => ($this->input->post('tmt_pak'))?$this->input->post('tmt_pak'):null,
-                        'tgl_pak' => ($this->input->post('tgl_pak'))?$this->input->post('tgl_pak'):null,
+                        'tmt_pak' => ($tmt_pak)?$tmt_pak:null,
+                        'tgl_pak' => ($tgl_pak)?$tgl_pak:null,
                         'nilai_pak' => ($this->input->post('nilai_pak'))?$this->input->post('nilai_pak'):null,
                         'satuan_kerja' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
                         'jabfungasn' => ($this->input->post('jabfungasn'))?$this->input->post('jabfungasn'):null,
