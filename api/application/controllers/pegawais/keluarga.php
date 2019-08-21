@@ -23,13 +23,14 @@ class Keluarga extends CI_Controller
         //     print_r($this->upload->display_errors());
         // }
         // die;
+        $tgllahir=date_format(date_create($this->input->post('txtTglLahir')), "Y-m-d");
         
         $arrdata = array(
             'id_user' => ($this->input->post('id_user_baru')?$this->input->post('id_user_baru'):NULL),
             'nik' => ($this->input->post('txtNik')?$this->input->post('txtNik'):NULL),
             'nama' => ($this->input->post('txtNama')?$this->input->post('txtNama'):NULL),
             'tempat_lahir' => ($this->input->post('txtTptLahir')?$this->input->post('txtTptLahir'):NULL),
-            'tgl_lahir' => ($this->input->post('txtTglLahir')?$this->input->post('txtTglLahir'):NULL),
+            'tgl_lahir' => ($tgllahir?$tgllahir:NULL),
             'kelamin' => ($this->input->post('txtKelamin')?$this->input->post('txtKelamin'):NULL),
             'id_pendidikan' => ($this->input->post('txtPendidikan')?$this->input->post('txtPendidikan'):NULL),
             'id_pekerjaan' => ($this->input->post('txtPekerjaan')?$this->input->post('txtPekerjaan'):NULL),
@@ -104,12 +105,13 @@ class Keluarga extends CI_Controller
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
-
+		$tgllahir=date_format(date_create($this->input->post('txtTglLahir')), "Y-m-d");
+        
         $arrdata = array(
 			'nik' => ($this->input->post('txtNik')?$this->input->post('txtNik'):NULL),
             'nama' => ($this->input->post('txtNama')?$this->input->post('txtNama'):NULL),
             'tempat_lahir' => ($this->input->post('txtTptLahir')?$this->input->post('txtTptLahir'):NULL),
-            'tgl_lahir' => ($this->input->post('txtTglLahir')?$this->input->post('txtTglLahir'):NULL),
+            'tgl_lahir' => ($tgllahir?$tgllahir:NULL),
             'kelamin' => ($this->input->post('txtKelamin')?$this->input->post('txtKelamin'):NULL),
             'id_pendidikan' => ($this->input->post('txtPendidikan')?$this->input->post('txtPendidikan'):NULL),
             'id_pekerjaan' => ($this->input->post('txtPekerjaan')?$this->input->post('txtPekerjaan'):NULL),

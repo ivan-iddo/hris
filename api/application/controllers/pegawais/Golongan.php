@@ -39,14 +39,18 @@ class Golongan extends REST_Controller
             $arr['hasil'] = 'error';
             $arr['message'] = 'Data Gagal Ditambah!';
             if ($decodedToken != false) {
-
+				$tmt_golongan=date_format(date_create($this->input->post('tmt_golongan')), "Y-m-d");
+				$tmt_golongan_akhir=date_format(date_create($this->input->post('tmt_golongan_akhir')), "Y-m-d");
+				$tgl_sk=date_format(date_create($this->input->post('tgl_sk')), "Y-m-d");
+        
+				
                 $arrdata = array(
                     'id_user' => ($this->input->post('id_user'))?$this->input->post('id_user'):null,
                     'golongan_id' => ($this->input->post('pangkat_id'))?$this->input->post('pangkat_id'):null,
-                    'tmt_golongan' => ($this->input->post('tmt_golongan'))?$this->input->post('tmt_golongan'):null,
-                    'tmt_golongan_akhir' => ($this->input->post('tmt_golongan_akhir'))?$this->input->post('tmt_golongan_akhir'):null,
+                    'tmt_golongan' => ($tmt_golongan)?$tmt_golongan:null,
+                    'tmt_golongan_akhir' => ($tmt_golongan_akhir)?$tmt_golongan_akhir:null,
                     'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
-                    'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
+                    'tgl_sk' => ($tgl_sk)?$tgl_sk:null,
                     'penanda_tanganan' => ($this->input->post('penanda_tanganan'))?$this->input->post('penanda_tanganan'):null,
                     'status' => ($this->input->post('status'))?$this->input->post('status'):null,
                 );
@@ -123,13 +127,16 @@ class Golongan extends REST_Controller
             $arr['hasil'] = 'error';
             $arr['message'] = 'Data Gagal Ditambah!';
             if ($decodedToken != false) {
-
+				$tmt_golongan=date_format(date_create($this->input->post('tmt_golongan')), "Y-m-d");
+				$tmt_golongan_akhir=date_format(date_create($this->input->post('tmt_golongan_akhir')), "Y-m-d");
+				$tgl_sk=date_format(date_create($this->input->post('tgl_sk')), "Y-m-d");
+        
                 $arrdata = array(
                     'golongan_id' => ($this->input->post('pangkat_id'))?$this->input->post('pangkat_id'):null,
-                    'tmt_golongan' => ($this->input->post('tmt_golongan'))?$this->input->post('tmt_golongan'):null,
-                    'tmt_golongan_akhir' => ($this->input->post('tmt_golongan_akhir'))?$this->input->post('tmt_golongan_akhir'):null,
+                    'tmt_golongan' => ($tmt_golongan)?$tmt_golongan:null,
+                    'tmt_golongan_akhir' => ($tmt_golongan_akhir)?$tmt_golongan_akhir:null,
                     'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
-                    'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
+                    'tgl_sk' => ($tgl_sk)?$tgl_sk:null,
                     'penanda_tanganan' => ($this->input->post('penanda_tanganan'))?$this->input->post('penanda_tanganan'):null,
                     'status' => ($this->input->post('status'))?$this->input->post('status'):null,
                 );
