@@ -805,9 +805,9 @@ class Mpenilaian extends REST_Controller
 				$id_grup = $this->input->post('id_grup');
 				$id_jenis = $this->input->post('id_jenis'); 
 				$nip = $this->input->post('nip');
-				$awal = $this->input->post('awal');
-				$akhir = $this->input->post('akhir');
-
+				$awal = date_format(date_create($this->input->post('awal')), "Y-m-d");
+				$akhir = date_format(date_create($this->input->post('akhir')), "Y-m-d");
+			
 				//cek dulu kalau sama dia gak boleh save
 				$this->db->where('id_jenis',$id_jenis);
 				$this->db->where('awal',$awal);
@@ -894,9 +894,9 @@ class Mpenilaian extends REST_Controller
 				$id_grup = $this->input->post('id_grup');
 				$id_jenis = $this->input->post('id_jenis'); 
 				$nip = $this->input->post('nip');
-				$awal = $this->input->post('awal');
-				$akhir = $this->input->post('akhir');
-
+				$awal = date_format(date_create($this->input->post('awal')), "Y-m-d");
+				$akhir = date_format(date_create($this->input->post('akhir')), "Y-m-d");
+			
 				//cek dulu kalau sama dia gak boleh save
 				$this->db->where('awal',$awal);
 				$this->db->where('akhir',$akhir);
