@@ -44,15 +44,15 @@ class Kontrak extends MY_Controller
             $filename = $data['inputfileupload']['file_name'];
         }
 		
-		$awal=date_format(date_create($this->input->post('tmtawal')), "Y-m-d");
-		$kontrak=date_format(date_create($this->input->post('tglktr')), "Y-m-d");
-		$akhir=date_format(date_create($this->input->post('tglakhir')), "Y-m-d");
+		$awall=date_format(date_create($this->input->post('tmtawal')), "Y-m-d");
+		$kontraks=date_format(date_create($this->input->post('tglktr')), "Y-m-d");
+		$akhirs=date_format(date_create($this->input->post('tglakhir')), "Y-m-d");
         $datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
         $datas["noktr"] = ($this->input->post('noktr')?$this->input->post('noktr'):NULL);
-        $datas["tmtawal"] = ($awal?$awal:NULL);
-        $datas["tglktr"] = ($kontrak?$kontrak:NULL);
+        $datas["tmtawal"] = ($awall?$awall:NULL);
+        $datas["tglktr"] = ($kontraks?$kontraks:NULL);
         $datas["jnsktr"] = ($this->input->post('jnsktr')?$this->input->post('jnsktr'):NULL);
-        $datas["tglakhir"] = ($akhir?$akhir:NULL);
+        $datas["tglakhir"] = ($akhirs?$akhirs:NULL);
         $datas["url"] = $filename;
 
         $create = $this->His_kontrak_model->create($datas);
