@@ -874,13 +874,14 @@ class Pegawai extends REST_Controller
             $arr['hasil'] = 'error';
             $arr['message'] = 'Data Gagal Ditambah!';
             if ($decodedToken != false) {
-
+				$pen_dijz=date_format(date_create($this->input->post('txtTglIjazah')), "Y-m-d");
+        
                 $arrdata = array(
                     'id_user' => ($this->input->post('id_user'))?$this->input->post('id_user'):null,
                     'pen_name' => ($this->input->post('txtNamaSekolah'))?$this->input->post('txtNamaSekolah'):null,
                     'pen_tahn' => ($this->input->post('txtTahunLulus'))?$this->input->post('txtTahunLulus'):null,
                     'pen_nijz' => ($this->input->post('txtNoIjazah'))?$this->input->post('txtNoIjazah'):null,
-                    'pen_dijz' => ($this->input->post('txtTglIjazah'))?$this->input->post('txtTglIjazah'):null,
+                    'pen_dijz' => ($pen_dijz)?$pen_dijz:null,
                     'pen_nkep' => ($this->input->post('txtKepalaSekolah'))?$this->input->post('txtKepalaSekolah'):null,
                     'pen_desc' => ($this->input->post('txtStatusLulus'))?$this->input->post('txtStatusLulus'):null,
                     'pen_lijzh' => ($this->input->post('txtHubungan'))?$this->input->post('txtHubungan'):null,
@@ -962,12 +963,13 @@ class Pegawai extends REST_Controller
             $arr['hasil'] = 'error';
             $arr['message'] = 'Data Gagal Ditambah!';
             if ($decodedToken != false) {
-
+				$pen_dijz=date_format(date_create($this->input->post('txtTglIjazah')), "Y-m-d");
+        
                 $arrdata = array(
                     'pen_name' => ($this->input->post('txtNamaSekolah'))?$this->input->post('txtNamaSekolah'):null,
                     'pen_tahn' => ($this->input->post('txtTahunLulus'))?$this->input->post('txtTahunLulus'):null,
                     'pen_nijz' => ($this->input->post('txtNoIjazah'))?$this->input->post('txtNoIjazah'):null,
-                    'pen_dijz' => ($this->input->post('txtTglIjazah'))?$this->input->post('txtTglIjazah'):null,
+                    'pen_dijz' => ($pen_dijz)?$pen_dijz:null,
                     'pen_nkep' => ($this->input->post('txtKepalaSekolah'))?$this->input->post('txtKepalaSekolah'):null,
                     'pen_desc' => ($this->input->post('txtStatusLulus'))?$this->input->post('txtStatusLulus'):null,
                     'pen_lijzh' => ($this->input->post('txtHubungan'))?$this->input->post('txtHubungan'):null,
