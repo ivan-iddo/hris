@@ -63,7 +63,10 @@ class jabatan_asn extends REST_Controller
 								   'tgl_pak' => date_format(date_create($d->tgl_pak), "d-m-Y"),
 								   'nilai_pak' => $d->nilai_pak,
 								   'keterangan' => $d->keterangan,
-								   'satuan_kerja' => $d->satuan_kerja,
+								   'jabfungasn' => $d->jabfungasn,
+								   'ahlifungasn' => $d->ahlifungasn,
+								   'ketahlijabfungasn' => $d->ketahlijabfungasn,
+								    'satuan_kerja' => $d->satuan_kerja,
 								   );
 		  }
 		  }else{
@@ -106,6 +109,9 @@ class jabatan_asn extends REST_Controller
 								   'nilai_pak' => $d->nilai_pak,
 								   'keterangan' => $d->keterangan,
 								   'satuan_kerja' => $d->satuan_kerja,
+								   'jabfungasn' => $d->jabfungasn,
+								   'ahlifungasn' => $d->ahlifungasn,
+								   'ketahlijabfungasn' => $d->ketahlijabfungasn,
 								   'file' => $d->file_url
 								   );
 		  

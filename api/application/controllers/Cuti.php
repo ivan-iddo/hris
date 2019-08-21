@@ -421,7 +421,10 @@ class Cuti extends REST_Controller
 
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false) {
+            $arr['hasil'] = 'error';
+            $arr['message'] = 'Data Gagal Ditambah!';
+           
+			if ($decodedToken != false) {
                 $tgl = ($this->input->post('tgl_cuti'))?$this->input->get('tgl_cuti'):null;
                 $jml = ($this->input->post('jumlahCuti'))?$this->input->post('jumlahCuti'):null;
                 $sampai = ($this->input->post('sampai'))?$this->input->get('sampai'):null;
@@ -471,20 +474,19 @@ class Cuti extends REST_Controller
                     'id_group' => $id_group
 
                 );
-                $this->db->insert('his_cuti', $datacuti);
+                $query = $this->db->insert('his_cuti', $datacuti);
                 $id_cuti = $this->db->insert_id('his_cutiid_seq');
 
                 
-                if ($this->db->affected_rows() == '1') {
+                if ($query) {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil ditambah!';
                 } else {
                     $arr['hasil'] = 'error';
                     $arr['message'] = 'Data Gagal Ditambah!';
-
-                    $this->set_response($arr, REST_Controller::HTTP_OK);
-               		return;
                 }
+				$this->set_response($arr, REST_Controller::HTTP_OK);
+                return;
 
                 $this->db->select('libur.tanggal as tgl');
                 $this->db->where('tahun', $tahun);

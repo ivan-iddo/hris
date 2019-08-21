@@ -10,7 +10,8 @@
                     <li class=""><a data-toggle="tab" href="#demo-tabs-box-1" aria-expanded="true">Master</a></li>
                     <li class=""><a data-toggle="tab" href="#demo-tabs-box-2" aria-expanded="false">Alamat</a></li>
                     <li class=""><a data-toggle="tab" href="#demo-tabs-box-3" aria-expanded="true">Kedinasan</a></li>
-                    <li class=""><a data-toggle="tab" href="#demo-tabs-box-4" aria-expanded="false">Photo</a></li>
+                    <li class="" onClick="$('#uploadfile').load('view/pegawai/form_identitas.php?id=10')">
+					<a data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">Identitas</a></li>
                     <li class="" onClick="$('#uploadfile').load('view/pegawai/form_file.php?id=1')">
                 		<a data-toggle="tab" href="#demo-tabs-box-5" aria-expanded="false">
             	    		Proses Rekrutmen
@@ -86,6 +87,7 @@
                                                          style="width: 220px" class="form-control"/><span
                                         class="text-xs text-danger">*Minimum 7 character</span></div>
                         </div>
+												
 						<div class="form-group"><label class="col-sm-3 control-label"
                                                        for="demo-hor-inputemail">Level Acces</label>
                             <div class="col-sm-5"><select name="acces" id="acces"
@@ -614,14 +616,7 @@
                                 <!--/.col (right) --></div><!-- /.row --></section><!-- end FORM 3 --></div>
                 </div>
                 <div id="demo-tabs-box-4" class="tab-pane fade">
-                    <div class="panel-body pad-all"><!-- START FORM 4 -->
-                        <div class="col-md-4"><img src="" id="img-cover" class="img-responsive pad"
-                                                   style="border:1px solid #999; width:180px; height:200px;"><label>Upload
-                                Cover</label><input name="cover_file" id="cover-fl" type="file">
-                            <p class="help-block">jpg, jpeg, png</p><a href="javascript:void(0);"
-                                                                       class="btn btn-primary pull-left upload-btn"
-                                                                       onclick="upload_file()"><i
-                                        class="fa fa-save"></i> Upload</a></div><!-- end FORM 4 --></div>
+                    <div class="panel-body pad-all" id="identitas"></div>
                 </div>
                 <div id="demo-tabs-box-5" class="tab-pane fade">
                     <div class="panel-body pad-all" id="uploadfile"></div>
@@ -669,57 +664,13 @@
             }
         }
     }, 2000);
-    $("#cover-fl").change(function () {
-        preview_cover(this);
-    });
-
-    function preview_cover(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#img-cover').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+    
 
 	function removeActiveDropDown(){
       $('ul.dropdown-menu').children().removeClass('active');
     }; 
 	
-    function upload_file() {
-        var form = $("#form-upload");
-        if ($('#f_id_edit').val() !== '') {
-            $.ajax({
-                url: BASE_URL + "supplier/uploadcover_data", /* Url to which the request is send */
-                type: "POST",
-                data: new FormData(form[0]), /* Data sent to server, a set of key/value pairs (i.e. form fields and values)*/
-                contentType: false,       /* The content type used when sending data to the server.*/
-                cache: false,             /* To unable request pages to be cached*/
-                processData: false,        /* To send DOMDocument or non processed data file it is set to false*/
-                success: function (data)   /* A function to be called if request succeeds*/ {
-                    hasil = data.hasil;
-                    message = data.message;
-                    if (hasil == "success") {
-                        $.niftyNoty({
-                            type: 'success',
-                            title: 'Success',
-                            message: message,
-                            container: 'floating',
-                            timer: 5000
-                        });
-                    } else {
-                        alert(message);
-                        return false;
-                    }
-                }
-            });
-        } else {
-            alert('Data pegawai harus disimpan terlebih dahulu!');
-            return false;
-        }
-    }
-	$(document).ready(function () {
+    $(document).ready(function () {
 	  $('.tgl').datepicker({
 		format: "dd-mm-yyyy",
 	  }).on('change', function(){

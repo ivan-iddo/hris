@@ -77,7 +77,7 @@
                     <th>Action</th>
                 </tr>
                 </thead>
-                <tbody id="fileIjazah"></tbody>
+                <tbody id="filekontrak"></tbody>
             </table>
         </div>
     </div>
@@ -85,6 +85,7 @@
 <script> 
 // set ID user
 var id = $('#f_id_edit').val();
+console.log(id);
 $('#id_userfile').val(id);
 $("form").on("submit", function(e){
     e.preventDefault();
@@ -121,7 +122,7 @@ $("form").on("submit", function(e){
 });
 
 function getfileupload(result) {
-    $('#fileIjazah').html(result.data);
+    $('#filekontrak').html(result.data);
 }
 
 function loadData() {

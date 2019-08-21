@@ -393,11 +393,7 @@ class Supplier extends CI_Controller
 			echo json_encode($arr);	
 	}
 	
-	 public function uploadcover_data(){
-		 
-				 
-				 
-				
+	 public function uploadcover_data(){	
 		$config['upload_path'] = 'upload/data';
 		$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
 		$config['max_size'] = '50000000'; 
@@ -414,18 +410,15 @@ class Supplier extends CI_Controller
 																	{
 				$data = array('upload_data' => $this->upload->data());
 				$filename = $data['upload_data']['file_name'];
-																											
 																	}
 					
 							$datas = array(
-				'foto' =>$filename 
+							'foto' =>$filename 
 								);
-								
-							$this->db->where('id_user',$this->input->post('f_id_edit'));
+							$this->db->where('id_user',$this->input->post('id_userfile'));
 							$this->db->update('sys_user', $datas);
-										$insert_id = $this->db->insert_id('sys_userid_seq');
-					
-					
+						
+						    //$insert_id = $this->db->insert_id('sys_userid_seq');
 						if($this->db->affected_rows() == '1'){
 						$arr['hasil']='success';
 						$arr['message']='Data berhasil ditambah!'; 
@@ -439,6 +432,7 @@ class Supplier extends CI_Controller
 					echo json_encode($arr);	
 		 								
 	}
+	
 
 	function uploadform1(){
 	 

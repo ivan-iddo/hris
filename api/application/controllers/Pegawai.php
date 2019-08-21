@@ -3249,7 +3249,7 @@ class Pegawai extends REST_Controller
                 } else {
                     $this->db->where('id_user', 0);
                 }
-                $this->db->where('kategori_id', $this->input->get('kategori'));
+				$this->db->where('kategori_id', $this->input->get('kategori'));
                 $this->db->where('tampilkan', '1');
                 $this->db->order_by('tgl', 'DESC');
                 $resCek = $this->db->get('his_files')->result();
@@ -3353,6 +3353,9 @@ class Pegawai extends REST_Controller
                         'tmt_pak' => ($this->input->post('tmt_pak'))?$this->input->post('tmt_pak'):null,
                         'tgl_pak' => ($this->input->post('tgl_pak'))?$this->input->post('tgl_pak'):null,
                         'nilai_pak' => ($this->input->post('nilai_pak'))?$this->input->post('nilai_pak'):null,
+                        'jabfungasn' => ($this->input->post('jabfungasn'))?$this->input->post('jabfungasn'):null,
+                        'ahlifungasn' => ($this->input->post('ahlifungasn'))?$this->input->post('ahlifungasn'):null,
+                        'ketahlijabfungasn' => ($this->input->post('ketahlijabfungasn'))?$this->input->post('ketahlijabfungasn'):null,
                         'satuan_kerja' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
                         'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null,
                     );
@@ -3412,7 +3415,10 @@ class Pegawai extends REST_Controller
                         'tgl_pak' => ($this->input->post('tgl_pak'))?$this->input->post('tgl_pak'):null,
                         'nilai_pak' => ($this->input->post('nilai_pak'))?$this->input->post('nilai_pak'):null,
                         'satuan_kerja' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
-                        'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null
+                        'jabfungasn' => ($this->input->post('jabfungasn'))?$this->input->post('jabfungasn'):null,
+                        'ahlifungasn' => ($this->input->post('ahlifungasn'))?$this->input->post('ahlifungasn'):null,
+                        'ketahlijabfungasn' => ($this->input->post('ketahlijabfungasn'))?$this->input->post('ketahlijabfungasn'):null,
+                    	'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null
                     );
                     $this->db->where('id', $id);
                     $this->db->update('his_jabatan_asn', $arrdata);

@@ -91,7 +91,7 @@ require_once('../../connectdb.php');
 					
 					            <!--Horizontal Form-->
 					            <!--===================================================-->
-					            <form id="form-cuti" name="form-cuti" method="post" class="form-horizontal pad-all">
+					            <form id="form-cuti" name="form-cuti" method="post" class="form-horizontal pad-all form-cuti">
 					                <div class="panel-body">
 					                    <div class="form-group">
 					                        <label class="col-sm-3 control-label">Jenis Cuti</label>
@@ -141,7 +141,7 @@ require_once('../../connectdb.php');
 										<div class="form-group">
 					                        <label class="col-sm-3 control-label">No Telp</label>
 					                        <div class="col-sm-9">
-                                             <input class="form-control" type="text" id="no_telp" name="no_telp"  > </textarea>
+                                             <input class="form-control" type="number" id="no_telp" name="no_telp"  > </textarea>
 					                        </div>
 					                    </div>
 										<div class="form-group">
@@ -157,7 +157,7 @@ require_once('../../connectdb.php');
                                     <div id="pesan"></div>
                                     </div>
 					                <div class="panel-footer text-left">
-					                    <button class="btn btn-primary" type="submit" href="javascript:void(0);" onCLick="ajukan();return false;">Ajukan Cuti</button>
+					                    <button class="btn btn-primary " type="submit" id="disable" href="javascript:void(0);" onCLick="ajukan();return false;">Ajukan Cuti</button>
 					                </div>
 					            </form>
 					            <!--===================================================-->
@@ -396,7 +396,6 @@ function hitungTanggal(jml){
     }
 
     function ajukan(){
-        var data = formJson('form-golongan'); //$("#form-upload").serializeArray();
         var jml = $('#jumlahCuti').val();
         var tgl = $('#tgl_cuti').val();
         var sampai = $('#sampai').val();
@@ -404,19 +403,19 @@ function hitungTanggal(jml){
         var keterangan = $('#keterangan').val();
         var tglnew = tgl.split("/").reverse().join("-");
         var sampainew = sampai.split("/").reverse().join("-");
-  if(empty(jenis)){
-      alert('jenis cuti wajib diisi');
-      return false;
-  }else if(empty(tgl)){
-    alert('Tanggal cuti wajib diisi');
-      return false;
-  }else if(empty(jml)){
-    alert('Jumlah cuti wajib diisi');
-      return false;
-  }else if(empty(keterangan)){
-    alert('Keterangan wajib diisi');
-      return false;
-  } else {
+	  if(empty(jenis)){
+		  alert('jenis cuti wajib diisi');
+		  return false;
+	  }else if(empty(tgl)){
+		alert('Tanggal cuti wajib diisi');
+		  return false;
+	  }else if(empty(jml)){
+		alert('Jumlah cuti wajib diisi');
+		  return false;
+	  }else if(empty(keterangan)){
+		alert('Keterangan wajib diisi');
+		  return false;
+	  } else {
     var data = formJson('form-cuti');
     var form = $("#form-cuti");
     $.ajax({
@@ -435,17 +434,21 @@ function hitungTanggal(jml){
              getOptions("jenis_cuti",BASE_URL+"master/jenis_cuti");
             $('#jumlahCuti').empty();
             $('#jumlahCuti').remove();
-            $('#jumlahCuti').prop('selectedIndex', 0);
-            $("#jumlahCuti").trigger("chosen:updated");
-            $('#jumlahCuti').prop('disabled', true);
+            $("#jumlahCuti").prop('selectedIndex', 0);
+			$("#jumlahCuti").trigger('chosen:updated');
+			$("#jumlahCuti").trigger('change');
            if(data.hasil ==='success'){
             $('#tgl_cuti').val('');
             $('#jenis_cuti').val('');
             $('#sampai').val('');
             $('#keterangan').val('');
+            $('#alamat').val('');
+            $('#no_telp').val('');
+            $('#tanggung_jawab').val('');
+            document.getElementById("disable").disabled = true;
             $.niftyNoty({
                     type: 'success',
-                    title: 'Warning!',
+                    title: 'Sukses!',
                     message: 'Berhasil Mengajukan Cuti',
                     container: 'floating',
                     timer: 5000
@@ -454,7 +457,8 @@ function hitungTanggal(jml){
            }
            
        } 
-   });	
+   });
+   
   }
    
     }
@@ -488,4 +492,5 @@ function hitungTanggal(jml){
       return false;
         
     }
+	
 </script>

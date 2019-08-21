@@ -117,9 +117,9 @@ Medical</a></li>
               <form class="form-gantipass" id="form-gantipass" method="post" >
 					             
 					            <div class="form-group">
-                          <label for="demo-inline-inputpass" class="sr-only">Password</label>
-                          <input id="id_user" name="id_user" style="display:none" type="text">
-					                <input placeholder="Password" id="passwordchn" name="passwordchn" style="width:300px" class="form-control" type="password">
+							  <label for="demo-inline-inputpass" class="sr-only">Password</label>
+							  <input id="id_user" name="id_user" style="display:none" type="text">
+							       <input placeholder="Password" id="passwordchn" name="passwordchn" style="width:300px" class="form-control" type="password">
 					            </div>
 					             
 					            <button class="btn btn-primary" type="submit" onClick="changePass();return false;">Change</button>

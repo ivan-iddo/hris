@@ -84,7 +84,33 @@
 					                            <textarea placeholder="" class="form-control input-sm" id="keterangan" name="keterangan" type="text">
 </textarea>
 					                        </div>
-					                    </div>   
+					                    </div> 
+												<div class="form-group"><label class="col-sm-4 control-label"
+                                                                               for="inputkab">Jabatan ASN</label>
+                                                    <div class="col-sm-8"><select aria-hidden="true"
+                                                                                  class="form-control select-chosen"
+                                                                                  id="jabfungasn" name="jabfungasn"
+                                                                                  style="width: 100%;"
+                                                                                  tabindex="-1"><option value=0>Please Select</option></select></div>
+                                                </div>
+                                                <div class="form-group"><label class="col-sm-4 control-label"
+                                                                               for="inputkab">Jenis Jabatan</label>
+                                                    <div class="col-sm-8"><select aria-hidden="true"
+                                                                                  class="form-control select-chosen"
+                                                                                  id="ahlifungasn" name="ahlifungasn"
+                                                                                  style="width: 100%;" tabindex="-1"
+                                                                                  onchange="getToSub(this.value,'ketahlijabfungasn','m/keahlian_asn/getoption/')"><option value=0>Please Select</option></select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" id="inputpns"><label
+                                                            class="col-sm-4 control-label"
+                                                            for="inputkab">Ket Jabatan</label>
+                                                    <div class="col-sm-8"><select aria-hidden="true"
+                                                                                  class="form-control select-chosen"
+                                                                                  id="ketahlijabfungasn" name="ketahlijabfungasn"
+                                                                                  style="width: 100%;"
+                                                                                  tabindex="-1"></select></div>
+                                                </div>
 
 </div>
 </div>
@@ -179,6 +205,7 @@
     }
       $('.select-chosen').chosen();
  $('.chosen-container').css({"width": "100%"});
+ 
 	$(document).ready(function () {
 	  $('.tgl').datepicker({
 		format: "dd-mm-yyyy",

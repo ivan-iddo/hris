@@ -202,12 +202,54 @@ class Upload extends CI_Controller
         }
 
         $id = $this->input->post('id_userfile');
-        $id_kategori = $this->input->post('kategorifile'); 
+		$id_kategori = $this->input->post('kategorifile'); 
 
         $datas = array(
                 'id_user' => $id,
                 'kategori_id' => $id_kategori,
                 'nama_file' =>$this->input->post('namafile'),
+                'url' => $filename);
+
+        $this->db->insert('his_files', $datas);
+
+        if($this->db->affected_rows() == '1'){
+            $arr['file'] = $filename;
+            $arr['nama'] = $this->input->post('namafile');
+            $arr['hasil']='success';
+            $arr['message']='Data berhasil ditambah!'; 
+        }
+        else{
+            $arr['hasil']='error';
+            $arr['message']='Data Gagal Ditambah!';
+        }
+
+        echo json_encode($arr);                                           
+    }
+	
+	public function uploadidentitas()
+    {
+        $config['upload_path'] = 'upload/data';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
+        $config['max_size'] = '50000000'; 
+        $this->load->library('upload', $config);
+        $filename='logo.png';
+
+        if (!$this->upload->do_upload('fileidentitas'))
+        {
+            $error = array('error' => $this->upload->display_errors());
+        }
+        else
+        {
+            $data = array('fileidentitas' => $this->upload->data());
+            $filename = $data['fileidentitas']['file_name'];
+        }
+
+        $id = $this->input->post('f_id_edit');
+        
+        $datas = array(
+                'id_user' => $id,
+                'kategori_id' => '10',
+                'nama_file' =>$this->input->post('namafileidentitas'),
                 'url' => $filename);
 
         $this->db->insert('his_files', $datas);

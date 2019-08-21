@@ -181,7 +181,7 @@ function addJasn(){
                        getOptionsEdit("txtjabatan",BASE_URL+"master/direktorat",res[0].direktorat);
                        getOptionsEdit("txtbagian",BASE_URL+"master/direktoratSub/"+res[0].direktorat,res[0].bagian);
                        getOptionsEdit("unitkerja",BASE_URL+"master/direktoratSub/"+res[0].bagian,res[0].sub_bagian);
-         
+					 	
                    },
                    error: function( jqXhr, textStatus, errorThrown ){
                        alert('error');
@@ -191,6 +191,9 @@ function addJasn(){
               // getOptions("txtjabatan",BASE_URL+"master/direktorat");
               getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
               getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
+			  getOptions("jabfungasn", BASE_URL + "m/group_jabatan_asn/getoption");
+			  getOptions("ahlifungasn", BASE_URL + "master/getmaster?id=40");
+                
                       
           }
           
@@ -285,10 +288,14 @@ function editJasn(){
 
 									}
 																												   
-                  getOptionsEdit("satuan_kerja",BASE_URL+"master/getmaster?id=25",data.id_satker);
-                  getOptionsEdit("txtjabatan",BASE_URL+"master/direktorat",data.jabatan);
+									getOptionsEdit("satuan_kerja",BASE_URL+"master/getmaster?id=25",data.id_satker);
+									getOptionsEdit("txtjabatan",BASE_URL+"master/direktorat",data.jabatan);
 									getOptionsEdit("txtbagian",BASE_URL+"master/direktoratSub/"+data.jabatan,data.bagian_jabatan);
 									getOptionsEdit("unitkerja",BASE_URL+"master/direktoratSub/"+data.bagian_jabatan,data.sub_bagian_jabatan);
+									getOptionsEdit("jabfungasn",BASE_URL+"m/group_jabatan_asn/getoption",data.jabfungasn);
+								    getOptionsEdit("ahlifungasn",BASE_URL+"master/getmaster?id=40",data.ahlifungasn);
+								    getOptionsEdit("ketahlijabfungasn",BASE_URL+"m/keahlian_asn/getoption/"+data.ahlifungasn,data.ketahlijabfungasn);
+					
 
                                   } 
                               });

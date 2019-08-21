@@ -43,13 +43,15 @@ class Kontrak extends MY_Controller
             $data = array('inputfileupload' => $this->upload->data());
             $filename = $data['inputfileupload']['file_name'];
         }
-
+		$awal=date_format(date_create($this->input->post('tmtawal')), "Y-m-d");
+		$kontrak=date_format(date_create($this->input->post('tglktr')), "Y-m-d");
+		$akhir=date_format(date_create($this->input->post('tglakhir')), "Y-m-d");
         $datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
         $datas["noktr"] = ($this->input->post('noktr')?$this->input->post('noktr'):NULL);
-        $datas["tmtawal"] = ($this->input->post('tmtawal')?$this->input->post('tmtawal'):NULL);
-        $datas["tglktr"] = ($this->input->post('tglktr')?$this->input->post('tglktr'):NULL);
+        $datas["tmtawal"] = ($awal?$awal:NULL);
+        $datas["tglktr"] = ($kontrak?$kontrak:NULL);
         $datas["jnsktr"] = ($this->input->post('jnsktr')?$this->input->post('jnsktr'):NULL);
-        $datas["tglakhir"] = ($this->input->post('tglakhir')?$this->input->post('tglakhir'):NULL);
+        $datas["tglakhir"] = ($akhir?$akhir:NULL);
         $datas["url"] = $filename;
 
         $create = $this->His_kontrak_model->create($datas);
