@@ -93,7 +93,7 @@
 					            <div class="row">
 					                <div class="col-sm-6 table-toolbar-left">
 					                     <button style="margin-left:3px" class="btn btn-success" onclick="proses('2')"><i class="fa fa-file-excel-o"></i> Setujui Permohonan</button>
-                                         <button style="margin-left:3px" class="btn btn-danger" onclick="tolak('3')"><i class="fa fa-file-excel-o"></i> Tolak</button>
+                                         <button style="margin-left:3px" class="btn btn-danger" onclick="tolak()"><i class="fa fa-file-excel-o"></i> Tolak</button>
                                        
                                                       
 					                     
@@ -122,7 +122,7 @@
   {headerName: "Unit Kerja", field: "unit", width: 190, filterParams:{newRowsAction: "keep"}},
   {headerName: "Nilai IKI", field: "nilai", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Nilai IKU", field: "iku", width: 90, filterParams:{newRowsAction: "keep"}},
-  {headerName: "Status", field: "status", width: 120, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Status", field: "status", width: 120, cellRenderer: CellRenderer},
   {headerName: "Bulan", field: "bulan", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Tahun", field: "tahun", width: 90, filterParams:{newRowsAction: "keep"}},
 ]; 
@@ -275,12 +275,27 @@
 	 gridTK.api.exportDataAsExcel(params);
  }
  
+ function CellRenderer (params){
+    var closeSpan = document.createElement("span");
+	if(params.value ==='Ditolak'){
+    closeSpan.setAttribute("class","badge badge-danger");
+	closeSpan.textContent = "Ditolak";
+	}else if(params.value ==='Disetujui'){
+	closeSpan.setAttribute("class","badge badge-success");
+	closeSpan.textContent = "Disetujui";
+	}else if(params.value ==='Belum Disetujui'){
+	closeSpan.setAttribute("class","badge badge-light");
+	closeSpan.textContent = "Belum Disetujui";
+	}
+	return closeSpan;
+	}
+	
 
-  function tolak(a){
+ function tolak(){
     var selectedRows = gridTK.api.getSelectedRows();
             // alert('>>'+selectedRows+'<<<');
             if(selectedRows == ''){
-               onMessage('Silahkan Pilih Data di Tabel Pegawai Terlebih dahulu!');
+               onMessage('Silahkan Pilih Data Terlebih dahulu!');
                return false;
             }else{
                 var selectedRowsString = '';
@@ -291,12 +306,13 @@
                }
                selectedRowsString += selectedRow.id;
            }); 
-           submit_get(BASE_URL+'kpi/mpenilaian/updateiki/?id='+selectedRowsString+'&type='+a,listFromtk);
+           gopopOnly('view/kpi/form_tolak.php',detailaction,'medium');
            
             }
      
   }
-
+  
+  
   function proses(a){
     var selectedRows = gridTK.api.getSelectedRows();
             // alert('>>'+selectedRows+'<<<');

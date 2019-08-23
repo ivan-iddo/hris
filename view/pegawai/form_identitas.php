@@ -2,7 +2,7 @@
     <div class="panel-body pad-all">
         <div class="row">
 			<div class="col-md-4">
-						<img src="" id="img-cover" class="img-responsive pad"
+							<img src="" id="img-cover" class="img-responsive pad"
                                                    style="border:1px solid #999; width:180px; height:200px;"><label>Upload
                                 Cover</label><input name="cover_file" id="cover-fl" type="file">
                             <p class="help-block">jpg, jpeg, png</p><a href="javascript:void(0);"
@@ -128,6 +128,31 @@
 	$("#cover-fl").change(function () {
         preview_cover(this);
     });
+	
+	    $('#img-cover').attr('src', '');
+		var id = $('#id_userfile').val();
+        var id_pelatihan = $('#f_id_edit').val();
+        
+        function tampil(){
+            $.ajax({
+                url   : BASE_URL+'pegawai/getuser/?id='+id_pelatihan,
+                headers: {
+                   'Authorization': localStorage.getItem("Token"),
+                   'X_CSRF_TOKEN':'donimaulana',
+                   'Content-Type':'application/json'
+                   },
+                dataType: 'json',
+                type: 'get',
+                contentType: 'application/json', 
+                processData: false,
+                success: function( res, textStatus, jQxhr ){
+               $('#img-cover').attr('src', res[0].foto);
+                                                                     }
+ 
+            });
+        }
+		tampil();   //pemanggilan fungsi tampil barang.         
+       
 
     function preview_cover(input) {
         if (input.files && input.files[0]) {
@@ -137,7 +162,9 @@
             }
             reader.readAsDataURL(input.files[0]);
         }
+        
     }
+	
     function getfileupload(result) {
         $('#fileidentitass').html(result.isi);
     }

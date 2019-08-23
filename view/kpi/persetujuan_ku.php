@@ -120,7 +120,7 @@
   {headerName: "Nama Pegawai", field: "nama", width: 160, filterParams:{newRowsAction: "keep"}},
   {headerName: "Unit Kerja", field: "unit", width: 190, filterParams:{newRowsAction: "keep"}},
   {headerName: "Nilai IKU", field: "nilai", width: 90, filterParams:{newRowsAction: "keep"}},
-  {headerName: "Status", field: "status", width: 120, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Status", field: "status", width: 120, cellRenderer: CellRenderer},
   {headerName: "Bulan", field: "bulan", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Tahun", field: "tahun", width: 90, filterParams:{newRowsAction: "keep"}},
 ]; 
@@ -295,6 +295,22 @@
             }
      
   }
+  
+  function CellRenderer (params){
+    var closeSpan = document.createElement("span");
+	if(params.value ==='Ditolak'){
+    closeSpan.setAttribute("class","badge badge-danger");
+	closeSpan.textContent = "Ditolak";
+	}else if(params.value ==='Disetujui'){
+	closeSpan.setAttribute("class","badge badge-success");
+	closeSpan.textContent = "Disetujui";
+	}else if(params.value ==='Belum Disetujui'){
+	closeSpan.setAttribute("class","badge badge-light");
+	closeSpan.textContent = "Belum Disetujui";
+	}
+	return closeSpan;
+	}
+	
 
   function proses(a){
     var selectedRows = gridTK.api.getSelectedRows();

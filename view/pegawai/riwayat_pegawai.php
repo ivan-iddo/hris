@@ -304,9 +304,7 @@
            });
                bootbox.dialog({ 
                    message:$('<div></div>').load('view/pegawai/form_riwayat_pegawai.php'),
-                   animateIn: 'bounceIn',
-                   animateOut : 'bounceOut',
-									 backdrop: false,
+                   backdrop: false,
                    size:'large',
                    buttons: {
                        success: {
@@ -404,8 +402,7 @@
                                                                      $('#bpjs_kes').val(res[0].bpjs_kes);
 																	 $('#bpjs_tk').val(res[0].bpjs_tk);
                                                                      $('#no_rek').val(res[0].no_rek);
-																	 $('#img-cover').attr('src', res[0].foto);
-                                                                     getOptionsEdit("id_bank",BASE_URL+"master/getmaster?id=26",res[0].id_bank);
+																	 getOptionsEdit("id_bank",BASE_URL+"master/getmaster?id=26",res[0].id_bank);
 																	  getOptionsEdit("txtkelamin",BASE_URL+"master/kelamin",res[0].kelamin);
 																		getOptionsEdit("f_user_status_aktif",BASE_URL+"Appdata/getstatus",res[0].status);
 																		getOptionsEdit("txtagama",BASE_URL+"master/agama",res[0].agama);
@@ -500,9 +497,7 @@
            
                 bootbox.dialog({ 
                  message:$('<div></div>').load('view/pegawai/form_riwayat_pegawai.php'),
-                   animateIn: 'bounceIn',
-                   animateOut : 'bounceOut',
-									 backdrop: false,
+                   backdrop: false,
                    size:'large',
                    buttons: {
                        success: {

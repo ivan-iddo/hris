@@ -449,6 +449,37 @@ function popPage(uri, action) {
     });
 }
 
+function popPagenew(uri, action) {
+    bootbox.dialog({
+        message: $('<div></div>').load(uri),
+        backdrop: false,
+        size: 'large',
+        buttons: {
+            success: {
+                label: "Save",
+                className: "btn-primary",
+                callback: function () {
+
+                    if (simpan(action)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+
+                }
+            },
+
+            main: {
+                label: "Close",
+                className: "btn-warning",
+                callback: function () {
+
+                }
+            }
+        }
+    });
+}
+
 function getJson(callback, url) {
     $.ajax({
         url: url,

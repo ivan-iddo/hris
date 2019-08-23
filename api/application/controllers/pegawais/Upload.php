@@ -202,6 +202,7 @@ class Upload extends CI_Controller
         }
 
         $id = $this->input->post('id_userfile');
+		
 		$id_kategori = $this->input->post('kategorifile'); 
 
         $datas = array(

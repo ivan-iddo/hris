@@ -121,7 +121,9 @@
                         $('#page_nama').html(res[0].nama);
                         $('#page_foto').attr('src', res[0].foto);
 
-                        if(res[0].tgl_kontrak){
+                        
+						if(res[0].status_pegawai_tetap!=4){
+						if(res[0].tgl_kontrak){
                             const kontrak_date = new Date(res[0].tgl_kontrak);
                             // const diff = Math.abs(today.getTime() - kontrak_date.getTime());
                             const diff = kontrak_date - today;
@@ -149,6 +151,7 @@
                              ' Hari </div>');
                             }
                         }
+						}
                         
                         if (res[0].tgl_str) {
                             const str_date = new Date(res[0].tgl_str);
@@ -209,6 +212,7 @@
                          
 
                         $('.page-jabatan').html(res[0].jabatan);
+                        $('#pass').val(res[0].pass);
                         $('#id_user').val(res[0].id);
                         $('#f_id_edit').val(res[0].id);
 						$('#nop').val(res[0].nip);
