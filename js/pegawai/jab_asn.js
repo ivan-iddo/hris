@@ -116,9 +116,7 @@ function addJasn(){
    
               bootbox.dialog({ 
                 message:$('<div></div>').load('view/pegawai/input_jabatan_asn.php'),
-                  animateIn: 'bounceIn',
-                  animateOut : 'bounceOut',
-                                    backdrop: false,
+                  backdrop: false,
                   size:'large',
                   buttons: {
                       success: {
@@ -216,9 +214,7 @@ function editJasn(){
                    
                    bootbox.dialog({ 
                  message:$('<div></div>').load('view/pegawai/input_jabatan_asn.php'),
-                   animateIn: 'bounceIn',
-                   animateOut : 'bounceOut',
-                                              backdrop: false,
+                   backdrop: false,
                    size:'large',
                    buttons: {
                        success: {

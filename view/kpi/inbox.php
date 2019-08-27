@@ -1,6 +1,7 @@
-<form id="form-detail" method="post">
+<form id="form-inbox" method="post">
  <div class="row mar-all"> 
-		   <div class="col-sm-11">
+ 
+		   <div class="col-sm-9">
 		   <div class="panel">
 					            <!--Heading-->
 					            <div class="panel-heading">
@@ -36,7 +37,7 @@
 					                    <div class="row">
 					                        <div class="col-xs-9">
 											<input type="text" id="idtk" name="idtk" style="display:none">
-											<input type="text" name="kategori_chat" id="kategori_chat" style="display:none" value="2">
+											<input type="text" name="kategori_chat" id="kategori_chat" style="display:none" value="1">
 					                            <input placeholder="Enter your text" class="form-control chat-input" type="text" id="isi" name="isi">
 					                        </div>
 					                        <div class="col-xs-3">
@@ -48,11 +49,10 @@
 								</div>
 								
 							</div>
-							<a style="margin-left:3px" class="btn btn-danger" onclick="proses('3')"><i class="fa fa-file-excel-o"></i> Tolak</a>                                       
-				</div>
-			 </div>
-			</form>
-           <script>
+		   </div>
+		   </div>
+</form>
+                  <script>
            
  $('.select-chosen').chosen();
  $('.chosen-container').css({"width": "100%"});
@@ -80,7 +80,7 @@
 					alert('Tidakada text untuk dikirim');
 					return false;
 				}
-				postFormMore('form-detail',BASE_URL+'kpi/mpenilaian/chat',getchat);
+				postFormMore('form-inbox',BASE_URL+'kpi/mpenilaian/chat',getchat);
 				return false;
 			}
 
@@ -172,23 +172,5 @@
 						
 						$( ".media-block" ).append( isi );
 			}
-			function proses(a){
-			var selectedRows = gridTK.api.getSelectedRows();
-					// alert('>>'+selectedRows+'<<<');
-					if(selectedRows == ''){
-					   onMessage('Silahkan Pilih Data di Tabel Pegawai Terlebih dahulu!');
-					   return false;
-					}else{
-						var selectedRowsString = '';
-				   selectedRows.forEach( function(selectedRow, index) {
-					
-					   if (index!==0) {
-						   selectedRowsString += ', ';
-					   }
-					   selectedRowsString += selectedRow.id;
-				   }); 
-				   submit_get(BASE_URL+'kpi/mpenilaian/updateiki/?id='+selectedRowsString+'&type='+a,listFromtk);  
-			}			 
-		  }
-
+			
            </script>

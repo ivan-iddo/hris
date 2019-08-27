@@ -63,21 +63,21 @@
 					                        </div>
 					                    </div>   
 </div>
-<div class="col-lg-6">
-<div class="form-group">
+						<div class="col-lg-6">
+						<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrw">No.SK</label>
 							<div class="col-sm-8">
 							 <input class="form-control" type="text" id="no_sk" name="no_sk">
 							</div>
 						</div>
-<div class="form-group">
+						<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrw">Tgl.SK</label>
 							<div class="col-sm-8">
 							 <input class="form-control tgl" type="text" id="tgl_sk" name="tgl_sk" placeholder="dd-mm-yyyy">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-4 control-label" for="jabatan">Jabatan Struktural</label>
+							<label class="col-sm-4 control-label" for="jabatan">Jabatan 1</label>
 							<div class="col-sm-8">
 								<select aria-hidden="true" class="select-chosen" id="jabatan" name="jabatan" style="width: 100%;" tabindex="-1">
 									 <option value="" >Please select...</option>

@@ -342,7 +342,7 @@
 
   }
 
-  function detailaction(){
+function detailaction(){
 
 if(empty($('#id_uk_det').val())){
 onMessage('Rencana penempatan is required');

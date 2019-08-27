@@ -76,6 +76,12 @@
                             </select>
                           </div>
                         </div>
+						<div class="form-group">
+                          <label class="col-sm-4 control-label" for="inputpropinsi">Keterangan</label>
+                          <div class="col-sm-8">
+                            <input class="form-control" id="ket" name="ket" placeholder="Keterangan" type="text">
+                          </div>
+                        </div>
                         
                          
                       </div>

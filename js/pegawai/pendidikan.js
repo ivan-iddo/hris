@@ -107,9 +107,7 @@ obj['id_user'] = id_user;
                
                bootbox.dialog({ 
                  message:$('<div></div>').load('view/pegawai/input_pendidikan.php'),
-                   animateIn: 'bounceIn',
-                   animateOut : 'bounceOut',
-									 backdrop: false,
+                    backdrop: false,
                    size:'large',
                    buttons: {
                        success: {
@@ -159,9 +157,7 @@ function editPendidikan(){
                     
                     bootbox.dialog({ 
                                                   message:$('<div></div>').load('view/pegawai/input_pendidikan.php'),
-                                                    animateIn: 'bounceIn',
-                                                    animateOut : 'bounceOut',
-                                                                               backdrop: false,
+                                                    backdrop: false,
                                                     size:'large',
                                                     buttons: {
                                                         success: {

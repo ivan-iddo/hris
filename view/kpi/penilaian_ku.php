@@ -12,7 +12,9 @@
                                     <input style="display:none" type="text" id="id_jenis" name="id_jenis" value="16">
                                     <input  style="display:none" type="text" id="id_pi" name="id_pi">
                                     <input style="display:none" type="text" id="id_grup" name="id_grup">
-					                        <div class="col-sm-4">
+					                <input style="display:none" type="text" id="id_user" name="id_user">
+					                  
+											<div class="col-sm-4">
 					                            <div class="form-group">
 					                                <label class="control-label">NIP</label>
 
@@ -131,6 +133,7 @@ function downloadKPI(){
  function simpanPI(){
      var nip = $('#nip').val();
      var id_grup = $('#id_grup').val();
+     var id_user = $('#id_user').val();
      var nama_pegawai = $('#nama_pegawai').val();
      var awal = $('#awal').val();
      var akhir = $('#akhir').val();
@@ -162,6 +165,7 @@ function downloadKPI(){
             $('#form-pi')[0].reset();
            
             $('#id_grup').val(id_grup)
+            $('#id_user').val(id_user)
             $('.buttoenedit').hide();
             $('#simpan').show();
             $( "#nip" ).prop( "disabled", true );
@@ -217,6 +221,7 @@ function downloadKPI(){
             var akhir ='';
             var id_pi='';
             var id_uk='';
+            var id_user='';
             var nama_group=''
 
             // alert('>>'+selectedRows+'<<<');
@@ -236,6 +241,7 @@ function downloadKPI(){
                awal += selectedRow.awal;
                akhir += selectedRow.akhir;
                id_uk += selectedRow.id_uk;
+               id_user += selectedRow.id_user;
                nama_group += selectedRow.nama_group;
            });
                         }
@@ -247,6 +253,7 @@ function downloadKPI(){
                         $('#simpan').hide(); 
                         $('.buttoenedit').show(); 
                         $('#id_grup').val(id_uk);
+                        $('#id_user').val(id_user);
                         $('#uk').val(nama_group);
                         
                         getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?child=16&id=16&pid='+selectedRowsString);

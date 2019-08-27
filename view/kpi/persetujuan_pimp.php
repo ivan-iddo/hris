@@ -91,8 +91,10 @@
 					            <div class="row">
 					                <div class="col-sm-6 table-toolbar-left">
 					                     <button style="margin-left:3px" class="btn btn-success" onclick="proses('2')"><i class="fa fa-file-excel-o"></i> Setujui Permohonan</button>
-                                         <button style="margin-left:3px" class="btn btn-danger" onclick="tolak('3')"><i class="fa fa-file-excel-o"></i> Tolak</button>
-                                       
+                                         <button style="margin-left:3px" class="btn btn-danger" onclick="inbox()"><i class="fa fa-file-excel-o"></i> Tolak</button>
+                                         <button style="margin-left:3px" class="btn btn-primary" onclick="filters()"><i class="fa fa-file-excel-o"></i> Filter ikp 8</button>
+                                         <button style="margin-left:3px" class="btn btn-danger" onclick="reset()"><i class="fa fa-file-excel-o"></i> Reset</button>
+                                        
                                                       
 					                     
 					                </div>
@@ -106,15 +108,26 @@
         </div>
         </div>
       </div>
-    </div>
-      
-      
+    </div> 
   </div>
+  <div class="row">
+	<div class="col-sm-8 table-toolbar-left">
+		<button style="margin-left:3px" class="btn btn-mint" onclick="getRowData()"><i class="fa fa-file-excel-o"></i> Simpan Perubahan</button>
+		<button class="btn btn-danger" onclick="hapus()"><i class="fa fa-file-excel-o"></i> Delete</button>                                                   				                     
+	</div>
+	<div class="col-sm-4 table-toolbar-right">
+		<div class="btn-group">
+		<button class="btn btn-default"  onCLick="downloadKPI()"><i class="fa fa-file-excel-o"></i> Download Excel</button>
+		</div>
+	</div>
+  </div>
+<div id="myGrid"  style="width:100%;height: 900px;" class="ag-theme-balham"></div> 
+
   <script>
   $('.judul-menu').html('Persetujuan KPI Pimpinan'); 
   
   var headerTK = [
-  {headerName: "No", field: "no", width: 60, filterParams:{newRowsAction: "keep"}},
+  {headerName: "No", field: "no", width: 60, headerCheckboxSelection: true, checkboxSelection: true},
   {headerName: "No.Pegawai", field: "nopeg", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Nama Pegawai", field: "nama", width: 160, filterParams:{newRowsAction: "keep"}},
   {headerName: "Unit Kerja", field: "unit", width: 190, filterParams:{newRowsAction: "keep"}},
@@ -153,14 +166,15 @@
 			suppressRowClickSelection: false, 
 			groupSelectsChildren: true,
 			debug: true,
-			 rowSelection: 'single', 
-	       enableColResize: true, 
+			rowSelection: 'multiple',
+			onRowClicked: bukaPI,
+           	enableColResize: true, 
 			rowGroupPanelShow: 'always',
 			onRowDoubleClicked: getkpi,
 			pivotPanelShow: 'always',
 			enableRangeSelection: true,
 			columnDefs: headerTK,
-			pagination: false,
+			pagination: true,
 			paginationPageSize: 50,   
 			defaultColDef:{
 				editable: false,
@@ -215,7 +229,31 @@
         }
                 }
 
-		   
+			function inbox(){
+    var selectedRows = gridTK.api.getSelectedRows();
+            // alert('>>'+selectedRows+'<<<');
+            if(selectedRows == ''){
+               onMessage('Silahkan Pilih Data di Tabel Kebutuhan SDM Terlebih dahulu!');
+               return false;
+            }else{
+                var selectedRowsString = '';
+           selectedRows.forEach( function(selectedRow, index) {
+            
+               if (index!==0) {
+                   selectedRowsString += ', ';
+               }
+               selectedRowsString += selectedRow.id;
+           }); 
+           gopopOnly('view/kpi/form_tolak.php',detailaction,'medium');
+           
+            }
+     
+		}
+		  
+		function detailaction(){
+			var iddettk = $('#iddettk').val();	
+		}
+			
 			 function listFromtk(){
 			   var thn= $('#thn').val(); 
 			   var uk =  $('#txtdirektorat').val();
@@ -249,6 +287,13 @@
  
 		   listFromtk();
  
+			function filters() {
+			   gridTK.api.setFilterModel({nilai: ['8.0']});
+			}
+			function reset() {
+				gridTK.api.setFilterModel(null);
+			}
+			
 		   function searchtk(){
 			 var thn=$('#thn').val();
 			 var bulan=$('#bulan').val();
@@ -274,7 +319,208 @@
 	 gridTK.api.exportDataAsExcel(params);
  }
  
+function getRowData() {
+    var rowData = [];
+    gridOptions.api.forEachLeafNode( function(node) {
+        rowData.push(node.data);
+    });
+    //console.log('Row Data:'); 
+    save(BASE_URL+'kpi/mpenilaian/savedetail',rowData,tektok);
+	}
+	
+	function tektok(){
+    var selectedRows = gridTK.api.getSelectedRows();
+    var selectedRowsString = '';
+           selectedRows.forEach( function(selectedRow, index) {
+            
+               if (index!==0) {
+                   selectedRowsString += ', ';
+               }
+               selectedRowsString += selectedRow.id; 
+           });
+           
+           getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?id=5&pid='+selectedRowsString);
+	}
+	
+	function bukaPI(){
+            var selectedRows = gridTK.api.getSelectedRows();
+            var nip='';
+            var nama_pegawai='';
+            var awal ='';
+            var akhir ='';
+            var id_pi='';
+            var id_user='';
+            var id_uk='';
+            var nama_group=''
 
+            // alert('>>'+selectedRows+'<<<');
+            if(selectedRows == ''){
+               onMessage('Silahkan Pilih Pegawai Terlebih dahulu!');
+               return false;
+            }else{
+                var selectedRowsString = '';
+           selectedRows.forEach( function(selectedRow, index) {
+            
+               if (index!==0) {
+                   selectedRowsString += ', ';
+               }
+               selectedRowsString += selectedRow.id;
+               nip += selectedRow.nip;
+               nama_pegawai += selectedRow.nama;
+               awal += selectedRow.awal;
+               akhir += selectedRow.akhir;
+               id_uk += selectedRow.id_uk;
+               id_user += selectedRow.id_user;
+               nama_group += selectedRow.nama_group;
+           });
+                        }
+                        $('#id_pi').val(selectedRowsString);
+                        $('#nama_pegawai').val(nama_pegawai);
+                        $('#nip').val(nip);
+                        $('#awal').val(awal);
+                        $('#akhir').val(akhir); 
+                        $('#simpan').hide(); 
+                        $('.buttoenedit').show(); 
+                        $('#id_grup').val(id_uk);
+                        $('#id_user').val(id_user);
+                        $('#uk').val(nama_group);
+                        
+                        getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?id=5&pid='+selectedRowsString);
+           }
+
+           function prosesDataPI(result){
+    gridPI.api.setRowData(result.result);
+} 
+
+function loadDataPI(jml){
+    var search = 0;
+	var group = localStorage.getItem("group");
+			var url = BASE_URL + 'kpi/mpenilaian/listpi/5/' + search + '/' + jml;
+             
+            if($('#search').val() !==''){
+              search = $('#search').val();
+			  url = BASE_URL + 'kpi/mpenilaian/listpi/5/' + search + '/' + jml;
+            }
+			
+			if ((group !== '1') && (group !== '6')) {
+            url = BASE_URL + 'kpi/mpenilaian/listpi/5/' + search + '/' + jml + "/" + group;
+			}
+			 getJson(prosesDataPI,url);
+			}
+
+			loadDataPI(0);
+				
+	var columnDefs = [ 
+		 {headerName: 'Parameter', field: 'n', width: 100,editable:false},
+		 {headerName: 'Indek Kinerja', field: 'nama', width: 160,},
+		 {headerName: 'Bobot (%)', field: 'no', width: 160,},
+		 {headerName: 'Target Kinerja', field: 'target_kinerja', width: 120},
+		 {headerName: 'Capaian', field: 'capaian', width: 120},
+		 {headerName: 'Capaian (%)', field: 'capaian_persen', width: 120},
+		 {headerName: 'Nilai', field: 'nilai', width: 120},
+		 {headerName: 'Bobot x Nilai', field: 'nilai_bobot', width: 120, editable:false,},
+		 {headerName: 'Keterangan', field: 'keterangan', width: 120},
+		 {headerName: 'pid', field: 'pid',  hide:true},
+		 {headerName: 'child', field: 'child',  hide:true},
+		 {headerName: 'max', field: 'max',  hide:true},
+
+		];
+
+		var gridOptions = {
+		enableSorting: true,
+		enableFilter: true,
+        suppressRowClickSelection: false, 
+        groupDefaultExpanded: 2,
+        groupSelectsChildren: true,
+        debug: true,
+         rowSelection: 'single',
+        enableColResize: true,
+        pivotPanelShow: 'always',
+        enableRangeSelection: true,
+        columnDefs: columnDefs,
+        pagination: false,
+		 defaultColDef: {
+			 editable: true
+		 },
+			onGridReady: function (params) {
+				params.api.sizeColumnsToFit();
+			},
+			onCellEditingStarted: function(event) {
+				console.log('cellEditingStarted');
+			},
+			onCellEditingStopped: function(event) {
+				console.log('cellEditingStopped');
+			}
+		};
+
+	
+	function get() {
+    var rowData = [];
+    gridOptions.api.forEachLeafNode( function(node) {
+        rowData.push(node.data);
+    });
+    //console.log('Row Data:'); 
+    save(BASE_URL+'kpi/mpenilaian/saveiku/',rowData,tektok);
+	}
+
+	    var gridDiv = document.querySelector('#myGrid');
+		 new agGrid.Grid(gridDiv, gridOptions);
+
+		function prosesData(result){
+		 gridOptions.api.setRowData(result);
+		} 
+
+		function loadData(){
+		 getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?child=5&id=5&pid=0');
+		}
+
+		loadData();
+
+	function hapus(){
+        var selectedRows = gridOptions.api.getSelectedRows();
+            // alert('>>'+selectedRows+'<<<');
+            if(selectedRows == ''){
+               onMessage('Silahkan Pilih data yg akan dihapus Terlebih dahulu!');
+               return false;
+            }else{
+                var selectedRowsString = '';
+           selectedRows.forEach( function(selectedRow, index) {
+            
+               if (index!==0) {
+                   selectedRowsString += ', ';
+               }
+               selectedRowsString += selectedRow.id_kpi_d;
+           });
+
+            bootbox.dialog({ 
+                   message:'<center><h4 class="pad-all mar-all">Anda yakin ingin menghapus data ini?</h4></center>',
+                   animateIn: 'bounceIn',
+                   animateOut : 'bounceOut',
+									 backdrop: false,
+                   size:'medium',
+                   buttons: {
+                       success: {
+                           label: "Hapus",
+                           className: "btn-primary",
+                           callback: function() {
+                               
+                            getJson(tektok,BASE_URL+'kpi/mpenilaian/hapus?id='+selectedRowsString);
+                           }
+                       },
+
+                       main: {
+                           label: "Close",
+                           className: "btn-warning",
+                           callback: function() {
+                               
+                           }
+                       }
+                   }
+                       });
+            
+
+            }
+			}
   function tolak(a){
     var selectedRows = gridTK.api.getSelectedRows();
             // alert('>>'+selectedRows+'<<<');

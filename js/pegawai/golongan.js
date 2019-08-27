@@ -104,9 +104,7 @@ function addGolongan(){
               
               bootbox.dialog({ 
                 message:$('<div></div>').load('view/pegawai/input_golongan.php'),
-                  animateIn: 'bounceIn',
-                  animateOut : 'bounceOut',
-                                    backdrop: false,
+                  backdrop: false,
                   size:'large',
                   buttons: {
                       success: {
@@ -156,9 +154,7 @@ function editGolongan(){
                    
                    bootbox.dialog({ 
              message:$('<div></div>').load('view/pegawai/input_golongan.php'),
-               animateIn: 'bounceIn',
-               animateOut : 'bounceOut',
-                                          backdrop: false,
+               backdrop: false,
                size:'large',
                buttons: {
                    success: {
@@ -205,6 +201,7 @@ function editGolongan(){
                     $('#no_sk').val(data.no_sk); 
                     $('#tgl_sk').val(data.tgl_sk);
                     $('#penanda_tanganan').val(data.penanda_tanganan);
+                    $('#ket').val(data.ket);
                     $('#id_golongan').val(data.id);
 
 

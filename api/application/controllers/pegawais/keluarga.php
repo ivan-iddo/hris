@@ -12,12 +12,12 @@ class Keluarga extends CI_Controller
 
     public function savekeluarga()
     {
-        $config['upload_path'] = 'upload/data';
+        /*$config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
 
-        /* ini untuk dump hasil post dari ajax */
+         ini untuk dump hasil post dari ajax */
         // var_dump($this->input->post());
         // if (!$this->upload->do_upload('inputfileupload')) {
         //     print_r($this->upload->display_errors());
@@ -38,12 +38,12 @@ class Keluarga extends CI_Controller
 			'karn' => ($this->input->post('txtkarn')?$this->input->post('txtkarn'):NULL),
         );
 
-        if (!$this->upload->do_upload('inputfileupload')) {
+        /*if (!$this->upload->do_upload('inputfileupload')) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $upload = $this->upload->data();
             $arrdata["url"] = $upload['file_name'];
-        }
+        }*/
         // print_r($arrdata);die();
         if (!empty($this->input->post('id_keluarga'))) {
             $this->db->where('id', $this->input->post('id_keluarga'));
@@ -101,12 +101,12 @@ class Keluarga extends CI_Controller
 
     public function editkeluarga()
     {
-        $config['upload_path'] = 'upload/data';
+       /* $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
 		$tgllahir=date_format(date_create($this->input->post('txtTglLahir')), "Y-m-d");
-        
+        */
         $arrdata = array(
 			'nik' => ($this->input->post('txtNik')?$this->input->post('txtNik'):NULL),
             'nama' => ($this->input->post('txtNama')?$this->input->post('txtNama'):NULL),
@@ -118,13 +118,14 @@ class Keluarga extends CI_Controller
             'id_hubkel' => ($this->input->post('txtHubungan')?$this->input->post('txtHubungan'):NULL),
 			'karn' => ($this->input->post('txtkarn')?$this->input->post('txtkarn'):NULL),
         );
+		/*
         if (!$this->upload->do_upload('inputfileupload')) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $upload = $this->upload->data();
             $arrdata["url"] = $upload['file_name'];
         }
-
+		*/
         $this->db->where('id', $this->input->post('id_keluarga'));
         $result = $this->db->update('his_keluarga', $arrdata);
 
@@ -138,4 +139,51 @@ class Keluarga extends CI_Controller
         $arr["query"] = $this->db->last_query();
         echo json_encode($arr);
     }
+	
+	public function upload_file_klg()
+    {
+        $config['upload_path'] = 'upload/data';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
+        $config['max_size'] = '50000000'; 
+        $this->load->library('upload', $config);
+        $filename='logo.png';
+
+        if (!$this->upload->do_upload('inputfileupload'))
+        {
+            $error = array('error' => $this->upload->display_errors());
+        }
+        else
+        {
+            $data = array('inputfileupload' => $this->upload->data());
+            $filename = $data['inputfileupload']['file_name'];
+        }
+
+        $id = $this->input->post('id_userfile');
+        $id_klg = $this->input->post('id_keluarga');
+		
+		$id_kategori = $this->input->post('kategorifile'); 
+
+        $datas = array(
+                'id_user' => $id,
+                'kategori_id' => $id_kategori,
+                'nama_file' =>$this->input->post('namafile'),
+                'id_keluarga' =>$this->input->post('id_keluarga'),
+                'url' => $filename);
+
+        $this->db->insert('his_files_kel', $datas);
+
+        if($this->db->affected_rows() == '1'){
+            $arr['file'] = $filename;
+            $arr['nama'] = $this->input->post('namafile');
+            $arr['hasil']='success';
+            $arr['message']='Data berhasil ditambah!'; 
+        }
+        else{
+            $arr['hasil']='error';
+            $arr['message']='Data Gagal Ditambah!';
+        }
+
+        echo json_encode($arr);                                           
+    }
+
 }

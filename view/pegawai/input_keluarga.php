@@ -9,15 +9,7 @@
                     <!-- /.box-header -->
                     <!-- form start -->
                     <div class="box-body">
-                        <div class="form-group">
-                            <div class="col-sm-4">
-                                <label>Upload</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input required="" name="inputfileupload" id="inputfileupload" type="file"
-                                       class="btn btn-success btn-sm fileinput-button dz-clickable">
-                            </div>
-                        </div>
+                      
                         <div class="form-group">
                             <div class="col-sm-4">
                                 <label class="control-label" for="inputstatus">N.I.K</label>
@@ -110,6 +102,68 @@
             </div><!--/.col (right) -->
         </div><!-- /.row -->
     </div>
+	 <div class="panel-body pad-all">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <div class="box-body">
+                      <input type="text" style="display:none" name="kategorifile" id="kategorifile" value="11">
+					  <input type="text" style="display:none" name="id_userfile" id="id_userfile">
+            
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                <input name="inputfileupload" id="inputfileupload" type="file" class="btn btn-success btn-sm fileinput-button dz-clickable">
+							</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                               <input type="text" placeholder="nama file" class="form-control" id="namafile" name="namafile">
+							</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                            <span id="uploadbtn" style="width:80px" class="form-control btn btn-primary btn-md  upload-btn" onclick="upload_file_klg()">
+								<i class="fa fa-save padd-left"></i> 
+								Upload
+							</span>
+						</div>
+                        </div><!-- End Hori sontal -->
+                    </div>
+                </div><!-- /.box -->
+                <!-- Form Element sizes -->
+                <!-- /.box -->
+                <!-- Input addon -->
+                <div class="box box-info">
+                    <!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!--/.col (left) -->
+            <!-- right column -->
+        </div><!-- /.row -->
+    </div>
+	<div class="panel pad-all mar-all">
+        <div class="panel-body">
+       
+          <div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+						<th>No.</th>
+						<th>Nama File</th>
+						<th>Action</th>
+						</tr>
+					</thead>
+				    <tbody id="filekeluarga">
+                                    
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</div>      
+
 </form>
 <script type="text/javascript">
 
@@ -175,4 +229,81 @@
 		$('.datepicker').hide();
 	  });
 	 });
+	 
+	 
+    function getfileupload(result) {
+        $('#filekeluarga').html(result.isi);
+    }
+
+    function loadfileupload() {
+		var selectedRows = gridKeluargaOpt.api.getSelectedRows();
+        var selectedRowsString = '';
+        selectedRows.forEach( function(selectedRow, index) {
+                     
+        if (index!==0) {
+            selectedRowsString += ', ';
+            }
+            selectedRowsString += selectedRow.id;
+        });
+        getJson(getfileupload, BASE_URL + 'pegawai/file_klg/?id=' + id_user + '&id_kel=' + selectedRowsString +'&kategori=' + $('#kategorifile').val());
+    }
+
+    loadfileupload();
+
+	 function upload_file_klg() {
+        $('#id_userfile').val(id_user);
+        var form = $("#form-keluarga");
+        if (empty($('#inputfileupload').val())) {
+            swal('PERHATIAN!', 'Anda belum memilih file untuk di upload');
+            return false;
+        } else if (empty($('#namafile').val())) {
+            swal('PERHATIAN!', 'Anda memasukkan nama file');
+            return false;
+        }
+        if (id_user !== '') {
+            $.ajax({
+                url: BASE_URL + "pegawais/keluarga/upload_file_klg", /* Url to which the request is send*/
+                type: "POST",
+                data: new FormData(form[0]), /* Data sent to server, a set of key/value pairs (i.e. form fields and values)*/
+                contentType: false,       /* The content type used when sending data to the server.*/
+                cache: false,             /* To unable request pages to be cached*/
+                processData: false,        /* To send DOMDocument or non processed data file it is set to false*/
+                success: function (data)   /* A function to be called if request succeeds*/ {
+                    hasil = data.hasil;
+                    message = data.message;
+                    if (hasil == "success") {
+                        swal("Good job!", message, "success");
+                        loadfileupload();
+                    } else {
+                        alert(message);
+                        return false;
+                    }
+                }
+            });
+        } else {
+            swal('PERHATIAN!', 'Anda harus menyimpan data Pegawai Terlebih dahulu sebelum melakukan upload file!');
+        }
+    }
+	function filedelete(result) {
+        if (result.hasil === 'success') {
+            swal("Deleted!", "Data berhail dihapus.", "success");
+        } else {
+            swal("GAGAL!", "Data gagal dihapus.");
+        }
+        loadfileupload();
+    }
+
+    function hapusfile() {
+        swal({
+            title: "Apakah Anda sudah Yakin?",
+            text: "Data yang sudah dihapus tidak bisa di hidupkan kembali!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Ya, Hapus saja!",
+            closeOnConfirm: false
+        }, function () {
+            getJson(filedelete, BASE_URL + 'pegawai/deletelist_klg/?id=' + a);
+        });
+    }
 </script>

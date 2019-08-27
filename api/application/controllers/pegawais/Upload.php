@@ -227,6 +227,7 @@ class Upload extends CI_Controller
         echo json_encode($arr);                                           
     }
 	
+	
 	public function uploadidentitas()
     {
         $config['upload_path'] = 'upload/data';

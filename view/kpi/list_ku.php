@@ -66,6 +66,8 @@
             </div>
              <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
 				<div class="row">
+				<button class="btn btn-success" onclick="inboxs()"><i class="fa fa-file-excel-o"></i> Inbox</button>                                                   				                     
+				
 				<div class="col-sm-12 table-toolbar-right">
 					<button class="btn btn-default"  onCLick="downloadku();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
 				</div>
@@ -110,7 +112,7 @@
 			}
 		 };
  
-		 var gridUK = {
+		 var gridTK = {
 			enableSorting: true,
 			enableFilter: true,
 			suppressRowClickSelection: false, 
@@ -137,10 +139,10 @@
  
 		 // setup the grid after the page has finished loading 
 			var gridDiv = document.querySelector('#gridUK');
-			new agGrid.Grid(gridDiv,gridUK);
+			new agGrid.Grid(gridDiv,gridTK);
 			
 			function ukdetail(){
-            var selectedRows = gridUK.api.getSelectedRows();
+            var selectedRows = gridTK.api.getSelectedRows();
             // alert('>>'+selectedRows+'<<<');
             if(selectedRows == ''){
                onMessage('Silahkan Pilih Unit kerja Terlebih dahulu!');
@@ -178,7 +180,30 @@
         }
                 }
 
+			function inboxs(){
+			var selectedRows = gridTK.api.getSelectedRows();
+					// alert('>>'+selectedRows+'<<<');
+					if(selectedRows == ''){
+					   onMessage('Silahkan Pilih Data di Tabel!');
+					   return false;
+					}else{
+						var selectedRowsString = '';
+				   selectedRows.forEach( function(selectedRow, index) {
+					
+					   if (index!==0) {
+						   selectedRowsString += ', ';
+					   }
+					   selectedRowsString += selectedRow.id;
+				   }); 
+				   gopopOnly('view/kpi/inbox.php',detailaction,'medium');
+				   
+					}
+			 
+		  }
 		   
+		   function detailaction(){
+				var iddettk = $('#iddettk').val();	
+			}
 			 function listFromuk(){
 			   var thn= $('#thnuk').val(); 
 			   var uk =  $('#txtdirektoratuk').val();
@@ -201,12 +226,12 @@
 		   function loadfrmuk(result){
                if(!empty(result)){
 			   if(result.hasil ==='success'){
-                gridUK.api.setRowData(result.result);
+                gridTK.api.setRowData(result.result);
 			   }else{
-                gridUK.api.setRowData([]);
+                gridTK.api.setRowData([]);
                }
                }else{
-                gridUK.api.setRowData([]);
+                gridTK.api.setRowData([]);
                }
 		   }
  
@@ -233,7 +258,7 @@
 		 sheetName: 'KPI Pimpinan'
 	 };
  
-	 gridUK.api.exportDataAsExcel(params);
+	 gridTK.api.exportDataAsExcel(params);
  }
   </script>
 <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>

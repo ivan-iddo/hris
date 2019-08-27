@@ -246,10 +246,10 @@ class Mpenilaian extends REST_Controller
 				$max = 100;
 				if ($max < $bobot) {
 					$arr['hasil']='Maaf';
-					$arr['message'] = 'Bobot anda  '. $bobot .' sudah melampaui batas! Bobot max 100';
+					$arr['message'] = 'Bobot anda  '. $bobot .' sudah atau belum mencapai 100! Bobot 100';
 				}elseif($bobot!=100){
 					$arr['hasil']='Maaf';
-					$arr['message'] = 'Bobot anda  '. $bobot .' sudah melampaui batas! Bobot max 100';
+					$arr['message'] = 'Bobot anda  '. $bobot .' sudah atau belum mencapai 100! Bobot 100';
 				}else{
 				$this->db->where('id', $id_kpi);
 				$result = $this->db->update('his_kpi',array('nilai' => round($jumlah, 2), 'status' => '1'));
@@ -303,12 +303,13 @@ class Mpenilaian extends REST_Controller
 		 
 				
 		$this->db->select('his_kpi.*,sys_grup_user.grup,sys_grup_user.grup as nama_uk,
+		sys_user.id_user,
 		sys_user_profile.nip,
 		sys_user_profile.nik,
 		sys_user.name,sys_user_profile.kategori_profesi as profesi');
 		
 		$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
-		$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.nip','LEFT');
+		$this->db->join('sys_user_profile','his_kpi.id_user = sys_user_profile.id_user','LEFT');
 		$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
 		$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 		$this->db->where('his_kpi.tampilkan','1');
@@ -339,6 +340,7 @@ class Mpenilaian extends REST_Controller
 								   'nama_group'=>$d->grup,
 								   'nip'=>$d->nip,
 								   'nik'=>$d->nik,
+								   'id_user'=>$d->id_user,
 								   'awal' => date_format(date_create($d->awal), "d-m-Y"),
 								   'akhir'=> date_format(date_create($d->akhir), "d-m-Y"),
 								   'profesi' => $d->profesi
@@ -803,6 +805,7 @@ class Mpenilaian extends REST_Controller
 				//$this->db->limit('100');
 				//$this->db->order_by();
 				$id_grup = $this->input->post('id_grup');
+				$id_user = $this->input->post('id_user');
 				$id_jenis = $this->input->post('id_jenis'); 
 				$nip = $this->input->post('nip');
 				$awal = date_format(date_create($this->input->post('awal')), "Y-m-d");
@@ -810,15 +813,17 @@ class Mpenilaian extends REST_Controller
 			
 				//cek dulu kalau sama dia gak boleh save
 				$this->db->where('id_jenis',$id_jenis);
-				$this->db->where('awal',$awal);
-				$this->db->where('akhir',$akhir);
-				$this->db->where('no_pegawai',$nip);
+				$this->db->where('awal <=',$this->input->post('awal'));
+				$this->db->where('akhir >=',$this->input->post('akhir'));
+				$this->db->where('id_user',$id_user);
 				$res = $this->db->get('his_kpi')->row();
-
+				
+				$this->db->where('id_user',$id_user);
+				$profil = $this->db->get('sys_user_profile')->result();
 				if(empty($res)){
 				$this->db->order_by('id','DESC');
 				$this->db->limit('1');
-				$this->db->where('no_pegawai',$nip);
+				$this->db->where('id_user',$id_user);
 				$pegid = $this->db->get('his_kpi')->result();
 				if(!empty($pegid)){
 				foreach($pegid as $peg1){
@@ -828,25 +833,47 @@ class Mpenilaian extends REST_Controller
 					'no_pegawai' => $nip,
 					'awal'=> $awal,
 					'akhir'=> $akhir,
+					'id_user'=> $id_user,
 					'id_unitkerja' => $id_grup
 				);
 				$this->db->insert('his_kpi',$data);
-				$this->db->where('awal',$awal);
-				$this->db->where('akhir',$akhir);
-				$this->db->where('no_pegawai',$nip);
-				$resid = $this->db->get('his_kpi')->result();
-				foreach($resid as $idd){
-				$id= $idd->id;
+				$id_kpi = $this->db->insert_id('his_kpiid_seq');
+				if(!empty($id_kpi)){
 				$this->db->where('id_kpi',$peg);
 				$this->db->where('tampilkan',1);
 				$res = $this->db->get('his_kpi_detail')->result();
 				foreach($res as $d){
 					$data=array(
-					'id_kpi'=> $id,
+					'id_kpi'=> $id_kpi,
 					'id_kegiatan'=> $d->id_kegiatan,
-					'target_kinerja'=> $d->target_kinerja,
+					//'target_kinerja'=> $d->target_kinerja,
 				);
 				$this->db->insert('his_kpi_detail',$data);
+				}
+				if($profil[0]->kategori_profesi!=2){
+				if($id_jenis=="5"){
+				$this->db->where('tampilkan',1);
+				$this->db->where('child','20');
+				$mkpi = $this->db->get('m_penilaian_kpi')->result();
+				foreach($mkpi as $kpi){
+					$data=array(
+					'id_kpi'=> $id,
+					'id_kegiatan'=> $kpi->id_grup,
+				);
+				$this->db->insert('his_kpi_detail',$data);
+				}
+				}else if($id_jenis=="17"){
+				$this->db->where('tampilkan',1);
+				$this->db->where('child','25');
+				$mkpi = $this->db->get('m_penilaian_kpi')->result();
+				foreach($mkpi as $kpi){
+					$data=array(
+					'id_kpi'=> $id,
+					'id_kegiatan'=> $kpi->id_grup,
+				);
+				$this->db->insert('his_kpi_detail',$data);
+				}
+				}
 				}
 				}
 				}
@@ -856,9 +883,36 @@ class Mpenilaian extends REST_Controller
 					'no_pegawai' => $nip,
 					'awal'=> $awal,
 					'akhir'=> $akhir,
+					'id_user'=> $id_user,
 					'id_unitkerja' => $id_grup
 				);
 				$this->db->insert('his_kpi',$data);
+				$id = $this->db->insert_id('his_kpiid_seq');
+				if($profil[0]->kategori_profesi!=2){
+				if($id_jenis=="5"){
+				$this->db->where('tampilkan',1);
+				$this->db->where('child','20');
+				$mkpi = $this->db->get('m_penilaian_kpi')->result();
+				foreach($mkpi as $kpi){
+					$data=array(
+					'id_kpi'=> $id,
+					'id_kegiatan'=> $kpi->id_grup,
+				);
+				$this->db->insert('his_kpi_detail',$data);
+				}
+				}else if($id_jenis=="17"){
+				$this->db->where('tampilkan',1);
+				$this->db->where('child','25');
+				$mkpi = $this->db->get('m_penilaian_kpi')->result();
+				foreach($mkpi as $kpi){
+					$data=array(
+					'id_kpi'=> $id,
+					'id_kegiatan'=> $kpi->id_grup,
+				);
+				$this->db->insert('his_kpi_detail',$data);
+				}
+				}
+				}
 				}
 				if($this->db->affected_rows() == '1'){
 					$arr['hasil']='success';
@@ -894,13 +948,15 @@ class Mpenilaian extends REST_Controller
 				$id_grup = $this->input->post('id_grup');
 				$id_jenis = $this->input->post('id_jenis'); 
 				$nip = $this->input->post('nip');
+				$id_user = $this->input->post('id_user');
 				$awal = date_format(date_create($this->input->post('awal')), "Y-m-d");
 				$akhir = date_format(date_create($this->input->post('akhir')), "Y-m-d");
 			
 				//cek dulu kalau sama dia gak boleh save
-				$this->db->where('awal',$awal);
-				$this->db->where('akhir',$akhir);
-				$this->db->where('no_pegawai',$nip);
+				$this->db->where('id_jenis',$id_jenis);
+				$this->db->where('awal <=',$this->input->post('awal'));
+				$this->db->where('akhir >=',$this->input->post('akhir'));
+				$this->db->where('id_user',$id_user);
 				$res = $this->db->get('his_kpi')->row();
 
 				if(empty($res)){
@@ -911,6 +967,7 @@ class Mpenilaian extends REST_Controller
 					'no_pegawai' => $nip,
 					'awal'=> $awal,
 					'akhir'=> $akhir,
+					'id_user'=> $id_user,
 					'id_unitkerja' => $id_grup
 				);
 				 
@@ -1098,8 +1155,10 @@ class Mpenilaian extends REST_Controller
 					 $this->db->where('m_penilaian_kpi.id_grup',$this->input->get('idp'));
 				}
 				if(!empty($child)){
-					$this->db->where('m_penilaian_kpi.child',$child);
+					$childs=array('20',$child);
+					$this->db->where_in('m_penilaian_kpi.child',$childs);
 				}
+
 				  $this->db->select('m_penilaian_kpi.*,his_kpi_detail.*,his_kpi.no_pegawai,his_kpi.id as id_kpi,his_kpi_detail.id as id_kpi_d');
 				  $this->db->where('m_penilaian_kpi.tampilkan','1');
 				  $this->db->where('his_kpi_detail.tampilkan','1');
@@ -1665,14 +1724,14 @@ class Mpenilaian extends REST_Controller
 
 				$id_jenis=$this->input->get('status');
                 $user_froup = $decodedToken->data->_pnc_id_grup;
-
-                if (($user_froup == '1') OR ($user_froup == '6')) {
+				//print_r($user_froup);die();
+                if (($user_froup == '1') OR ($user_froup == '6') OR ($user_froup == '3') OR ($user_froup == '92') OR ($user_froup == '97') OR ($user_froup == '99')) {
                     if ((!empty($this->input->get('id_uk'))) AND ($this->input->get('id_uk') <> 'null')) {
                         $this->db->where('id_unitkerja', $this->input->get('id_uk'));
                     }
 
                 }else{
-                        $this->db->where('id_unitkerja', $user_froup);
+                    $this->db->where('id_unitkerja', $user_froup);
                 }
 			
 				
@@ -1682,10 +1741,12 @@ class Mpenilaian extends REST_Controller
                     $thn = $this->input->get('tahun');
                 }
 				
-                $this->db->select('his_kpi.*,his_kpi.id_unitkerja as iki,m_status_proses.nama as status_name, sys_grup_user.grup as nama_uk,sys_user.name, EXTRACT(MONTH FROM his_kpi.akhir) AS bulan, EXTRACT(YEAR FROM his_kpi.akhir) AS tahun');
+                $this->db->select('his_kpi.*,sys_user_profile.kategori_profesi,his_kpi.id_unitkerja as iki,m_status_proses.nama as status_name, sys_grup_user.grup as nama_uk,sys_user.name, EXTRACT(MONTH FROM his_kpi.akhir) AS bulan, EXTRACT(YEAR FROM his_kpi.akhir) AS tahun');
 				$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
 				$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.nip','LEFT');
 				$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
+				$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+				$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
 				$this->db->join('m_status_proses','m_status_proses.id = his_kpi.status','LEFT');
 				$this->db->where('his_kpi.id_jenis',$id_jenis);
 				$this->db->where('EXTRACT(YEAR FROM his_kpi.akhir) =',$thn);
@@ -1698,6 +1759,17 @@ class Mpenilaian extends REST_Controller
 				if(!empty($this->input->get('bulan'))){
 					$this->db->where('EXTRACT(MONTH FROM his_kpi.akhir) =',$this->input->get('bulan'));
 				}
+				if($id_jenis=='5'){
+				if($user_froup == '99'){
+					$this->db->where("sys_user_profile.kategori_profesi !=",'2');
+					$this->db->like("m_index_jabatan_asn_detail.ds_jabatan",'Staf');
+				}else if($user_froup == '97'){
+					$this->db->not_like("m_index_jabatan_asn_detail.ds_jabatan",'Staf');
+					$this->db->where("sys_user_profile.kategori_profesi !=",'2');
+				}else if($user_froup == '3'){
+					$this->db->where("sys_user_profile.kategori_profesi =",'2');
+				}
+				}
 				$this->db->order_by('sys_user.name', 'ASC');
                 $res = $this->db->get('his_kpi')->result();
 				
@@ -1707,10 +1779,12 @@ class Mpenilaian extends REST_Controller
                     foreach ($res as $d) {
 					$unit=$d->iki;
 					$bulan=$d->bulan;
-					$this->db->select('his_kpi.*,his_kpi.nilai as iku');
+					$this->db->select('his_kpi.*,kategori_profesi,his_kpi.nilai as iku');
 					$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
 					$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.nip','LEFT');
 					$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
+					$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+					$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
 					$this->db->join('m_status_proses','m_status_proses.id = his_kpi.status','LEFT');
 					$this->db->where('his_kpi.id_unitkerja',$unit);
 					$this->db->where('EXTRACT(MONTH FROM his_kpi.akhir) =',$bulan);
@@ -1721,6 +1795,7 @@ class Mpenilaian extends REST_Controller
 					$this->db->where('sys_user.id_user',$this->input->get('nopeg'));
 					$this->db->where('his_kpi.status',2);
 					}
+										
 					$this->db->order_by('sys_user.name', 'ASC');
 					$n_unit = $this->db->get('his_kpi')->result();
 					
@@ -1757,6 +1832,90 @@ class Mpenilaian extends REST_Controller
 
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
+	function chat_post()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+
+            if ($decodedToken != false) {
+
+                $array = array(
+                    'id_comment' => ($this->input->post('idtk')?$this->input->post('idtk'):NULL),
+                    'tgl' => date('Y-m-d H:i:s'),
+                    'isi' => ($this->input->post('isi')?$this->input->post('isi'):NULL),
+                    'id_user' => $decodedToken->data->id,
+                    'kategori' => ($this->input->post('kategori_chat')?$this->input->post('kategori_chat'):NULL)
+                );
+
+
+                $this->db->insert('comment_kpi', $array);
+
+                if ($this->db->affected_rows() == '1') {
+                    $arr['hasil'] = 'success';
+                    $arr['message'] = 'Pesan berhasil Terkirim!';
+                } else {
+                    $arr['hasil'] = 'error';
+                    $arr['message'] = 'Pesan Gagal kirim!';
+                }
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
+	
+	function getchatall_get()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+
+            if ($decodedToken != false) {
+
+
+                $this->db->select('comment_kpi.*,sys_user.username');
+                if (!empty($this->input->get('kategori'))) {
+                    $this->db->where('comment_kpi.kategori', $this->input->get('kategori'));
+                }
+                $this->db->where('comment_kpi.id_comment', $this->input->get('id'));
+                $this->db->order_by('tgl', 'ASC');
+                $this->db->join('sys_user', 'comment_kpi.id_user = sys_user.id_user', 'LEFT');
+                $res = $this->db->get('comment_kpi')->result();
+
+                if (!empty($res)) {
+                    foreach ($res as $dat) {
+                        $arr['result'][] = array('id' => $dat->id,
+                            'id_comment' => $dat->id_comment,
+                            'tgl' => $dat->tgl,
+                            'isi' => $dat->isi,
+                            'id_user' => $dat->id_user,
+                            'username' => $dat->username
+                        );
+                    }
+
+                }
+
+                if ($this->db->affected_rows() == '1') {
+
+                    $arr['hasil'] = 'success';
+                    $arr['message'] = 'Pesan berhasil Terkirim!';
+                } else {
+                    $arr['hasil'] = 'error';
+                    $arr['message'] = 'Pesan Gagal kirim!';
+                }
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
 	
 	 public function updateiki_get()
     {
@@ -1768,17 +1927,15 @@ class Mpenilaian extends REST_Controller
             if ($decodedToken != false) {
 
                 $dd = array('status' => $this->input->get('type'));
-
-
-                $this->db->where('id', $this->input->get('id'));
-
+				$id=array($this->input->get('id'));
+                $this->db->where_in('id', $id,FALSE);
                 $res = $this->db->update('his_kpi', $dd);
-                if ($this->db->affected_rows() == '1') {
+                if ($res) {
                     $arr['hasil'] = 'success';
-                    $arr['message'] = 'Data berhasil dihapus!';
+                    $arr['message'] = 'Data berhasil!';
                 } else {
                     $arr['hasil'] = 'error';
-                    $arr['message'] = 'Data Gagal dihapus!';
+                    $arr['message'] = 'Data Gagal!';
                 }
                 $this->set_response($arr, REST_Controller::HTTP_OK);
 

@@ -123,9 +123,7 @@ function addJabatan(){
               
               bootbox.dialog({ 
                 message:$('<div></div>').load('view/pegawai/input_jabatan.php'),
-                  animateIn: 'bounceIn',
-                  animateOut : 'bounceOut',
-                                    backdrop: false,
+                  backdrop: false,
                   size:'large',
                   buttons: {
                       success: {
@@ -187,9 +185,7 @@ function editJabatan(){
                    
                    bootbox.dialog({ 
                          message:$('<div></div>').load('view/pegawai/input_jabatan.php'),
-                           animateIn: 'bounceIn',
-                           animateOut : 'bounceOut',
-                                                      backdrop: false,
+                           backdrop: false,
                            size:'large',
                            buttons: {
                                success: {

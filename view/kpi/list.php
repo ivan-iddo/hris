@@ -109,6 +109,8 @@
              
             <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
 				<div class="row">
+				<button class="btn btn-success" onclick="inboxs()"><i class="fa fa-file-excel-o"></i> Inbox</button>                                                   				                     
+				
 				<div class="col-sm-12 table-toolbar-right">
 					<button class="btn btn-default"  onCLick="downloadindv();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
 				</div>
@@ -293,7 +295,30 @@
 	 gridTK.api.exportDataAsExcel(params);
  }
  
-
+	function inboxs(){
+			var selectedRows = gridTK.api.getSelectedRows();
+					// alert('>>'+selectedRows+'<<<');
+					if(selectedRows == ''){
+					   onMessage('Silahkan Pilih Data di Tabel!');
+					   return false;
+					}else{
+						var selectedRowsString = '';
+				   selectedRows.forEach( function(selectedRow, index) {
+					
+					   if (index!==0) {
+						   selectedRowsString += ', ';
+					   }
+					   selectedRowsString += selectedRow.id;
+				   }); 
+				   gopopOnly('view/kpi/inbox.php',detailaction,'medium');
+				   
+					}
+			 
+		  }
+	
+			function detailaction(){
+				var iddettk = $('#iddettk').val();	
+			}
   function tolak(a){
     var selectedRows = gridTK.api.getSelectedRows();
             // alert('>>'+selectedRows+'<<<');

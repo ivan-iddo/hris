@@ -149,6 +149,7 @@
                 var nip='';
                 var nama='';
                 var id_grup='';
+                var id_user='';
                 var nama_group ='';
                 selectedRows.forEach( function(selectedRow, index) {
             
@@ -159,12 +160,14 @@
                nip += selectedRow.nip;
                nama += selectedRow.nama;
                id_grup += selectedRow.id_grup;
+               id_user += selectedRow.id;
                nama_group +=  selectedRow.nama_group;
                  });
                 
                  $('#nama_pegawai').val(nama);
                  $('#nip').val(nip);
                  $('#id_grup').val(id_grup);
+                 $('#id_user').val(id_user);
                  $('.modal').modal('hide');
                  $('#uk').val(nama_group);
                  

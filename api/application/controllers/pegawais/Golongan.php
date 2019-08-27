@@ -53,6 +53,7 @@ class Golongan extends REST_Controller
                     'tgl_sk' => ($tgl_sk)?$tgl_sk:null,
                     'penanda_tanganan' => ($this->input->post('penanda_tanganan'))?$this->input->post('penanda_tanganan'):null,
                     'status' => ($this->input->post('status'))?$this->input->post('status'):null,
+                    'ket' => ($this->input->post('ket'))?$this->input->post('ket'):null,
                 );
 
                 $this->db->insert('his_golongan', $arrdata);
@@ -105,6 +106,7 @@ class Golongan extends REST_Controller
                         'tgl_sk' => date_format(date_create($d->tgl_sk), "d-m-Y"),
                         'penanda_tanganan' => $d->penanda_tanganan,
                         'status' => $d->status,
+                        'ket' => $d->ket,
                         'namaGolongan' => $d->nama_p
                     );
                 }
@@ -139,6 +141,7 @@ class Golongan extends REST_Controller
                     'tgl_sk' => ($tgl_sk)?$tgl_sk:null,
                     'penanda_tanganan' => ($this->input->post('penanda_tanganan'))?$this->input->post('penanda_tanganan'):null,
                     'status' => ($this->input->post('status'))?$this->input->post('status'):null,
+                    'ket' => ($this->input->post('ket'))?$this->input->post('ket'):null,
                 );
 
 				//print_r($arrdata);die();
@@ -188,6 +191,7 @@ class Golongan extends REST_Controller
                         'tgl_sk' => date_format(date_create($d->tgl_sk), "d-m-Y"),
                         'penanda_tanganan' => $d->penanda_tanganan,
                         'status' => $d->status,
+                        'ket' => $d->ket,
                         'file' => $d->file_url
                     );
                 }

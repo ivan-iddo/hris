@@ -68,6 +68,7 @@
             </div>
             <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
 				<div class="row">
+				<button class="btn btn-success" onclick="inbox()"><i class="fa fa-file-excel-o"></i> Inbox</button>                                                   				                     
 				<div class="col-sm-12 table-toolbar-right">
 					<button class="btn btn-default"  onCLick="downloadpimp();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
 				</div>
@@ -112,7 +113,7 @@
 			}
 		 };
  
-		 var gridpim = {
+		 var gridTK = {
 			enableSorting: true,
 			enableFilter: true,
 			suppressRowClickSelection: false, 
@@ -139,10 +140,10 @@
  
 		 // setup the grid after the page has finished loading 
 			var gridDiv = document.querySelector('#gridpim');
-			new agGrid.Grid(gridDiv,gridpim);
+			new agGrid.Grid(gridDiv,gridTK);
 			
 			function pimdetail(){
-            var selectedRows = gridpim.api.getSelectedRows();
+            var selectedRows = gridTK.api.getSelectedRows();
             // alert('>>'+selectedRows+'<<<');
             if(selectedRows == ''){
                onMessage('Silahkan Pilih Unit kerja Terlebih dahulu!');
@@ -180,7 +181,32 @@
         }
                 }
 
-		   
+					 
+		 function inbox(){
+			var selectedRows = gridTK.api.getSelectedRows();
+					// alert('>>'+selectedRows+'<<<');
+					if(selectedRows == ''){
+					   onMessage('Silahkan Pilih Data di Tabel!');
+					   return false;
+					}else{
+						var selectedRowsString = '';
+				   selectedRows.forEach( function(selectedRow, index) {
+					
+					   if (index!==0) {
+						   selectedRowsString += ', ';
+					   }
+					   selectedRowsString += selectedRow.id;
+				   }); 
+				   gopopOnly('view/kpi/inbox.php',detailaction,'medium');
+				   
+					}
+			 
+		  }
+		  
+		    function detailaction(){
+				var iddettk = $('#iddettk').val();	
+			}
+				   
 			 function listFrompim(){
 			   var thn= $('#thnpim').val(); 
 			   var uk =  $('#txtdirektoratpim').val();
@@ -203,12 +229,12 @@
 		   function loadfrmpim(result){
                if(!empty(result)){
 			   if(result.hasil ==='success'){
-                gridpim.api.setRowData(result.result);
+                gridTK.api.setRowData(result.result);
 			   }else{
-                gridpim.api.setRowData([]);
+                gridTK.api.setRowData([]);
                }
                }else{
-                gridpim.api.setRowData([]);
+                gridTK.api.setRowData([]);
                }
 		   }
  
@@ -235,7 +261,7 @@
 		 sheetName: 'KPI Pimpinan'
 	 };
  
-	 gridpim.api.exportDataAsExcel(params);
+	 gridTK.api.exportDataAsExcel(params);
  }
   </script>
 <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>

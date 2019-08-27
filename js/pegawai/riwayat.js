@@ -104,8 +104,6 @@ function addKeluarga() {
     getOptions("txtHubungan", BASE_URL + "master/hubkeluarga");
     bootbox.dialog({
         message: $('<div></div>').load('view/pegawai/input_keluarga.php'),
-        animateIn: 'bounceIn',
-        animateOut: 'bounceOut',
         backdrop: false,
         size: 'large',
         buttons: {
@@ -142,9 +140,7 @@ function editKeluarga(){
                     
                     bootbox.dialog({ 
                                                   message: $('<div></div>').load('view/pegawai/input_keluarga.php'),
-                                                    animateIn: 'bounceIn',
-                                                    animateOut : 'bounceOut',
-                                                                               backdrop: false,
+                                                    backdrop: false,
                                                     size:'large',
                                                     buttons: {
                                                         success: {
@@ -197,27 +193,7 @@ function editKeluarga(){
                 $('#txtNik').val(data.nik);
                 $('#txtTglLahir').val(data.tgl_lahir);
                 $('#txtkarn').val(data.karn);
-                console.log(data.url);
-
-if(!empty(data.file)){
-    var datafile='';
-               datafile+='<tr>';
-               datafile+='<td>1.';
-               datafile+='</td>';
-               datafile+='<td>';
-               datafile +=data.file.substring(0, 30)+'...';
-               datafile+='</td>';
-               datafile+='<td>';
-               
-               datafile +='<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/data/'+data.file+'\')"><i class="fa fa-eye"></i></a>';
-               datafile+='</td>';
-               datafile+='</tr>';
-               $('#inputfileupload').html(datafile);
-
-}
-               
-
-                                              
+                                            
                 getOptionsEdit("txtKelamin", BASE_URL + "master/kelamin", data.kelamin);
                 getOptionsEdit("txtPendidikan", BASE_URL + "master/pendidikan", data.id_pendidikan);
                 getOptionsEdit("txtPekerjaan", BASE_URL + "master/pekerjaan", data.id_pekerjaan);
