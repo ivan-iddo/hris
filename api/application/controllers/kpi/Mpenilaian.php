@@ -857,7 +857,7 @@ class Mpenilaian extends REST_Controller
 				$mkpi = $this->db->get('m_penilaian_kpi')->result();
 				foreach($mkpi as $kpi){
 					$data=array(
-					'id_kpi'=> $id,
+					'id_kpi'=> $id_kpi,
 					'id_kegiatan'=> $kpi->id_grup,
 				);
 				$this->db->insert('his_kpi_detail',$data);
@@ -868,7 +868,7 @@ class Mpenilaian extends REST_Controller
 				$mkpi = $this->db->get('m_penilaian_kpi')->result();
 				foreach($mkpi as $kpi){
 					$data=array(
-					'id_kpi'=> $id,
+					'id_kpi'=> $id_kpi,
 					'id_kegiatan'=> $kpi->id_grup,
 				);
 				$this->db->insert('his_kpi_detail',$data);
