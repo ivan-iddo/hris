@@ -813,8 +813,8 @@ class Mpenilaian extends REST_Controller
 			
 				//cek dulu kalau sama dia gak boleh save
 				$this->db->where('id_jenis',$id_jenis);
-				$this->db->where('awal <=',$this->input->post('awal'));
-				$this->db->where('akhir >=',$this->input->post('akhir'));
+				$this->db->where('awal <=',$awal);
+				$this->db->where('akhir >=',$akhir);
 				$this->db->where('id_user',$id_user);
 				$res = $this->db->get('his_kpi')->row();
 				
@@ -954,8 +954,8 @@ class Mpenilaian extends REST_Controller
 			
 				//cek dulu kalau sama dia gak boleh save
 				$this->db->where('id_jenis',$id_jenis);
-				$this->db->where('awal <=',$this->input->post('awal'));
-				$this->db->where('akhir >=',$this->input->post('akhir'));
+				$this->db->where('awal <=',$awal);
+				$this->db->where('akhir >=',$akhir);
 				$this->db->where('id_user',$id_user);
 				$res = $this->db->get('his_kpi')->row();
 
