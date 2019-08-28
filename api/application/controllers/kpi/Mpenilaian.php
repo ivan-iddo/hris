@@ -1832,6 +1832,115 @@ class Mpenilaian extends REST_Controller
 
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
+	public function listik_get()
+    {
+        $headers = $this->input->request_headers();
+        $arr['hasil'] = 'error';
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+
+            if ($decodedToken != false) {
+
+				$id_jenis=$this->input->get('status');
+                $user_froup = $decodedToken->data->_pnc_id_grup;
+				//print_r($user_froup);die();
+                if (($user_froup == '1') OR ($user_froup == '6')) {
+                    if ((!empty($this->input->get('id_uk'))) AND ($this->input->get('id_uk') <> 'null')) {
+                        $this->db->where('id_unitkerja', $this->input->get('id_uk'));
+                    }
+
+                }else{
+                    $this->db->where('id_unitkerja', $user_froup);
+                }
+			
+				
+				if (empty($this->input->get('tahun'))) {
+                    $thn = date('Y');
+                } else {
+                    $thn = $this->input->get('tahun');
+                }
+				
+                $this->db->select('his_kpi.*,sys_user_profile.kategori_profesi,his_kpi.id_unitkerja as iki,m_status_proses.nama as status_name, sys_grup_user.grup as nama_uk,sys_user.name, EXTRACT(MONTH FROM his_kpi.akhir) AS bulan, EXTRACT(YEAR FROM his_kpi.akhir) AS tahun');
+				$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
+				$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.nip','LEFT');
+				$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
+				$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+				$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
+				$this->db->join('m_status_proses','m_status_proses.id = his_kpi.status','LEFT');
+				$this->db->where('his_kpi.id_jenis',$id_jenis);
+				$this->db->where('EXTRACT(YEAR FROM his_kpi.akhir) =',$thn);
+				$this->db->where('his_kpi.tampilkan','1');
+				$this->db->where('his_kpi.status !=', 4);
+				if(!empty($this->input->get('nopeg'))){
+					$this->db->where('sys_user.id_user',$this->input->get('nopeg'));
+					$this->db->where('his_kpi.status',2);
+				}
+				if(!empty($this->input->get('bulan'))){
+					$this->db->where('EXTRACT(MONTH FROM his_kpi.akhir) =',$this->input->get('bulan'));
+				}
+				
+				$this->db->order_by('sys_user.name', 'ASC');
+                $res = $this->db->get('his_kpi')->result();
+				
+                if (!empty($res)) {
+                    $i = 0;
+					$iku=0;
+                    foreach ($res as $d) {
+					$unit=$d->iki;
+					$bulan=$d->bulan;
+					$this->db->select('his_kpi.*,kategori_profesi,his_kpi.nilai as iku');
+					$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
+					$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.nip','LEFT');
+					$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
+					$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+					$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
+					$this->db->join('m_status_proses','m_status_proses.id = his_kpi.status','LEFT');
+					$this->db->where('his_kpi.id_unitkerja',$unit);
+					$this->db->where('EXTRACT(MONTH FROM his_kpi.akhir) =',$bulan);
+					$this->db->where('EXTRACT(YEAR FROM his_kpi.akhir) =',$thn);
+					$this->db->where('his_kpi.id_jenis',16);
+					$this->db->where('his_kpi.status !=',4);
+					if(!empty($this->input->get('nopeg'))){
+					$this->db->where('sys_user.id_user',$this->input->get('nopeg'));
+					$this->db->where('his_kpi.status',2);
+					}
+										
+					$this->db->order_by('sys_user.name', 'ASC');
+					$n_unit = $this->db->get('his_kpi')->result();
+					
+					foreach($n_unit as $n){
+						$iku=$n->iku;
+                        $arr['result'][] = array(
+                            'no' => ++$i,
+                            'nopeg' => $d->no_pegawai,
+                            'id' => $d->id,
+							'nama'=>$d->name,
+							'unit'=>$d->nama_uk,
+							'status'=>$d->status_name,
+							'nilai'=>$d->nilai,
+							'iku'=>$iku,
+							'bulan'=>$d->bulan,
+							'id_uk'=>$d->id_unitkerja,
+							'tahun'=>$d->tahun
+                        );
+					}
+                    }
+
+                    $arr['hasil'] = 'success';
+
+
+                } else {
+
+                    $arr['hasil'] = 'error';
+                }
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }
 	function chat_post()
     {
         $headers = $this->input->request_headers();

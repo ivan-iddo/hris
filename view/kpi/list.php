@@ -240,7 +240,7 @@
 			 function listFromtk(){
 			   var thn= $('#thn').val(); 
 			   var uk =  $('#txtdirektorat').val();
-			   var uri = BASE_URL+'kpi/mpenilaian/listiki?tahun='+thn+'&status=5';
+			   var uri = BASE_URL+'kpi/mpenilaian/listik?tahun='+thn+'&status=5';
 			   if(empty(thn)){
 				 var d = new Date();
 				 var n = d.getFullYear();
@@ -248,7 +248,7 @@
 			   }
  
 			   if(!empty(thn)){
-				   uri = BASE_URL+'kpi/mpenilaian/listiki?tahun='+thn+'&id_uk='+uk+'&status=5';
+				   uri = BASE_URL+'kpi/mpenilaian/listik?tahun='+thn+'&id_uk='+uk+'&status=5';
 			   }
  
 			   $('#thn').val(thn);
@@ -275,7 +275,7 @@
 			 var bulan=$('#bulan').val();
 			 var uk=$('#txtdirektorat').val();
 			 var group = localStorage.getItem('group');
-			 var uri = BASE_URL+'kpi/mpenilaian/listiki?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk+'&status=5'; 
+			 var uri = BASE_URL+'kpi/mpenilaian/listik?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk+'&status=5'; 
 			  if(empty(thn)){
 					 alert('Tahun harus dipilih');
 					 return false;
