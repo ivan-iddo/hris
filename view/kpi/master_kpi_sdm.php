@@ -367,7 +367,7 @@ $('.judul-menu').html('Master Penilaian Individu');
     group_group     = $("#f_group_group").get(0).value;
     id_group     = $("#id_group").get(0).value;
     id_kpi     = $("#id_kpi").get(0).value;
-    id_parent = 25; //rubah disini aja
+    id_parent = 20; //rubah disini aja
     max = 20;
 	pilih=$("#f_group_bot").get(0).value;
 	awal=$("#f_group_awal").get(0).value;
