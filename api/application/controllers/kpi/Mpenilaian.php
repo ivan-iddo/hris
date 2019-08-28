@@ -846,7 +846,7 @@ class Mpenilaian extends REST_Controller
 					$data=array(
 					'id_kpi'=> $id_kpi,
 					'id_kegiatan'=> $d->id_kegiatan,
-					//'target_kinerja'=> $d->target_kinerja,
+					'target_kinerja'=> $d->target_kinerja,
 				);
 				$this->db->insert('his_kpi_detail',$data);
 				}
