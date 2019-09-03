@@ -40,44 +40,35 @@ class Persyaratan extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-            	if(!empty($this->input->get('id'))){
-					$this->db->where('id_persyaratan',$this->input->get('id'));
-				}
-				$param = urldecode($this->uri->segment(4));
-				$param2 = "%".$param."%"; 
-				if(!empty($this->uri->segment(4))){
-					// $this->db->like("jabatan_baru",$param);
-					$this->db->where('jabatan_baru ilike',$param2); 
-				 }
-				$total_rows = $this->db->count_all_results($this->table);
-				$pagination = create_pagination_endless('/persyaratan//0/', $total_rows,$this->perpage,5);
+				$this->db->select('persyaratan_jabatan.*,baru.kd_jabatan,baru.ds_jabatan as baru,lama.ds_jabatan as lama');
+				  
 				if(!empty($this->input->get('id'))){
 					$this->db->where('id_persyaratan',$this->input->get('id'));
 				}
 				if(!empty($this->uri->segment(4))){
 					// $this->db->like("jabatan_baru",$param); 
-					$this->db->where('jabatan_baru ilike',$param2);
-				 }
-
-				  $this->db->where('tampilkan','1');
-				  $this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
+					$this->db->where('id_jabatan ilike',$param2);
+				}
+				  $this->db->where('persyaratan_jabatan.tampilkan','1');
+				  $this->db->join('m_index_jabatan_asn_detail as baru', 'baru.migrasi_jabatan_detail_id = persyaratan_jabatan.id_jabatan', 'LEFT');
+				  $this->db->join('m_index_jabatan_asn_detail as lama', 'lama.migrasi_jabatan_detail_id = persyaratan_jabatan.jabatan_lama', 'LEFT');
 				  $res = $this->db->get($this->table)->result();
 			if(!empty($res)){
 				 foreach($res as $dat){
 					$arr['result'][]= array(
 					'id' => $dat->id_persyaratan,
-					'jabatan_baru'=> $dat->jabatan_baru,
+					'id_jabatan'=> $dat->id_jabatan,
+					'jabatan_baru'=> $dat->baru,
 					'masa_jabatan'=> $dat->masa_jabatan,
 					'kompetensi'=> $dat->kompetensi,
 					'formal'=> $dat->formal,
 					'nonformal'=> $dat->nonformal,
-					'jabatan_lama'=> $dat->jabatan_lama,
+					'jabatan_lama'=> $dat->lama,
+					'id_jabatan_lama'=> $dat->jabatan_lama,
+					'kd_jabatan'=> $dat->kd_jabatan,
 					'tufoksi'=> $dat->tufoksi
 				);
 				  }
-				  $arr['total']=$total_rows;
-					$arr['paging'] = $pagination['limit'][1];
-					$arr['perpage']=$this->perpage;
 			}else{
 			$arr['result'] ='empty';
 		  }
@@ -91,6 +82,7 @@ class Persyaratan extends REST_Controller
 	}
 
 
+
 	public function save_post(){
 		$headers = $this->input->request_headers();
 
@@ -101,7 +93,7 @@ class Persyaratan extends REST_Controller
 				if(!empty($id)){
 					//edit
 					$arr=array(
-					'jabatan_baru'=> ($this->input->post('txtjabatan')?$this->input->post('txtjabatan'):NULL),
+					'id_jabatan'=> ($this->input->post('txtjabatan')?$this->input->post('txtjabatan'):NULL),
 					'masa_jabatan'=> ($this->input->post('masajbt')?$this->input->post('masajbt'):NULL),
 					'kompetensi'=> ($this->input->post('kompetensi')?$this->input->post('kompetensi'):NULL),
 					'formal'=> ($this->input->post('formal')?$this->input->post('formal'):NULL),
@@ -115,7 +107,7 @@ class Persyaratan extends REST_Controller
 				}else{
 					//save
 					$arr=array(
-					'jabatan_baru'=> ($this->input->post('txtjabatan')?$this->input->post('txtjabatan'):NULL),
+					'id_jabatan'=> ($this->input->post('txtjabatan')?$this->input->post('txtjabatan'):NULL),
 					'masa_jabatan'=> ($this->input->post('masajbt')?$this->input->post('masajbt'):NULL),
 					'kompetensi'=> ($this->input->post('kompetensi')?$this->input->post('kompetensi'):NULL),
 					'formal'=> ($this->input->post('formal')?$this->input->post('formal'):NULL),

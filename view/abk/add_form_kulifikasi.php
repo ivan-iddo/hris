@@ -8,7 +8,8 @@
 					
 					                    <!--Nav tabs-->
 					                    <ul class="nav nav-tabs">
-											 <li class="active"><a data-toggle="tab" href="#demo-tabs-box-1a" aria-expanded="true">Pendidikan</a></li>
+											<li class="active"><a data-toggle="tab" href="#demo-tabs-box-0a" aria-expanded="true">Persyaratan</a></li>
+											<li ><a data-toggle="tab" href="#demo-tabs-box-1a" aria-expanded="true">Pendidikan</a></li>
 					                        <li class=""><a data-toggle="tab" href="#demo-tabs-box-1" aria-expanded="true">Keterampilan</a></li>
 					                        <li class=""><a data-toggle="tab" href="#demo-tabs-box-2" aria-expanded="false">Syarat Fisik</a></li>
                                             <li class=""><a data-toggle="tab" href="#demo-tabs-box-3" aria-expanded="true">Syarat Khusus</a></li> 
@@ -23,28 +24,8 @@
 					
 					                <!--Tabs content-->
 					                <div class="tab-content">
-										<div id="demo-tabs-box-1a" class="tab-pane fade active in">
+									<div id="demo-tabs-box-0a" class="tab-pane fade active in">
 					                        <div class="panel-body pad-all">
-                                                                <div class="row mar-all"> 
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="inputstatus">Tahun</label>
-                                            <div class="col-sm-5">
-                                            <input type="text" name="id_tk" id="id_tk" style="display:none">
-                                                    <select class="form-control select2" id="thnadd" name="thnadd" style="width: 100%;">
-                                                    <option value="">--TAHUN--</option>
-                                                    <?php for($i=2010;$i<= date('Y');$i++){
-                                                             $sele='';
-                                                             if($i== date('Y')){
-                                                                     $sele='selected';
-                                                             }
-                                                             ?>
-                                                        <option value="<?php echo $i?>" <?php echo $sele?>><?php echo $i?></option>
-                                                        <?php }?>
-                                                    </select> 
-                                            </div>
-                                           
-                                    </div> 
-                                    </div>
                                     <div class="row mar-all addukadmin"> 
                                     <div class="form-group">
                                     <label class="col-sm-2 control-label" for="inputstatus">Unit Kerja</label>
@@ -59,8 +40,99 @@
                                     </div> 
                                     </div>
 
-                                     <div class="row mar-all"> 
+									<div class="row mar-all"> 
                                     <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="inputstatus">Jabatan</label>
+                                        <div class="col-sm-7">
+                                            <select aria-hidden="true" class="select-chosen" id="katsdmfrm4" name="katsdmfrm4" style="width: 70%;" tabindex="-1">
+											</select>
+										</div>
+                                   </div> 
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="masajbt">Masa Jabatan</label>
+										<div class="col-sm-7">
+											<input class="form-control" type="hidden" id="id_jabatan" name="id_jabatan">
+											<input class="form-control" type="text" id="masajbt" name="masajbt" readonly="true"/>
+										</div>
+									</div>
+									<div class="form-group">
+									 <label class="col-sm-2 control-label" for="kompetensi">Standard Kompetesi</label>
+									  <div class="col-sm-7">
+										 <textarea placeholder="" class="form-control input-sm" id="kompetensi" name="kompetensi" type="text" readonly="true"/></textarea>
+										</div>
+								   </div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="formal">Pendidikan Formal</label>
+										<div class="col-sm-7">
+										 <input class="form-control" type="text" id="formal" name="formal" readonly="true"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="nonformal">Pendidikan Non Formal</label>
+										<div class="col-sm-7">
+											<textarea placeholder="" class="form-control input-sm" id="nonformal" name="nonformal" type="text" readonly="true"/></textarea>
+									</div>
+								   </div>
+								   <div class="form-group">
+										<label class="col-sm-2 control-label" for="txtkjabatans">Jabatan Yang Telah Diemban</label>
+										<div class="col-sm-7">
+											<select aria-hidden="true" class="select-chosen" id="txtkjabatans" name="txtkjabatans" style="width: 70%;" tabindex="-1" disabled="true">
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										 <label class="col-sm-2 control-label" for="tufoksi">Tupoksi</label>
+										  <div class="col-sm-7">
+											 <textarea placeholder="" class="form-control input-sm" id="tufoksi" name="tufoksi" type="text" readonly="true"/></textarea>
+										 </div>
+									</div>
+									<!--<div class="form-group">
+										 <label class="col-sm-2 control-label" for="kebutuhan">Kebutuhan</label>
+										  <div class="col-sm-7">
+											 <textarea placeholder="" class="form-control input-sm" id="kebutuhan" name="kebutuhan" type="text" readonly="true"/></textarea>
+										 </div>
+									</div>-->
+									</div>
+									</div>
+					                <div id="demo-tabs-box-1a" class="tab-pane fade">
+					                        <div class="panel-body pad-all">
+                                    <div class="row mar-all"> 
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="inputstatus">Tahun</label>
+                                            <div class="col-sm-5">
+                                            <input type="text" name="id_tk" id="id_tk" style="display:none">
+                                                    <select class="form-control select2" id="thnadd" name="thnadd" style="width: 100%;">
+                                                    <option value="">--TAHUN--</option>
+                                                    <?php for($i=date('Y')+8;$i>=date('Y')-1;$i--){
+                                                             $sele='';
+                                                             if($i== date('Y')){
+                                                                     $sele='selected';
+                                                             }
+                                                             ?>
+                                                        <option value="<?php echo $i?>" <?php echo $sele?>><?php echo $i?></option>
+                                                        <?php }?>
+                                                    </select> 
+                                            </div>
+                                           
+                                    </div> 
+                                    </div>
+                                    <!--<div class="row mar-all addukadmin"> 
+                                    <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="inputstatus">Unit Kerja</label>
+                                            <div class="col-sm-7">
+                                            
+                                                    <select class="form-control select-chosen" id="adduk" name="adduk" style="width: 100%;" >
+                                                     
+                                                      
+                                                    </select> 
+                                            </div>
+                                           
+                                    </div> 
+                                    </div>-->
+
+                                     <div class="row mar-all"> 
+                                   <!-- <div class="form-group">
                                     <label class="col-sm-2 control-label" for="inputstatus">Kategori SDM</label>
                                             <div class="col-sm-7">
                                                     <select class="form-control select-chosen" id="katsdmfrm4" name="katsdmfrm4" style="width: 100%;" >
@@ -69,7 +141,7 @@
                                                     </select> 
                                             </div>
                                            
-                                    </div> 
+                                    </div>-->
                                     </div>
 
                                      <div class="row mar-all"> 
@@ -355,12 +427,9 @@
             getOptions("buta_warna",BASE_URL+'dokumen/gettaksonomi?id=33');
             getOptions("kaca_mata",BASE_URL+'dokumen/gettaksonomi?id=33');
             getOptions("batas_fisik",BASE_URL+'dokumen/gettaksonomi?id=33');
-
-
-         
-         getOptions("shiftfrm4",BASE_URL+"master/getmaster?id=27");
-         getOptions("faktorfrm4",BASE_URL+"master/getmaster?id=28");
-         getOptions("katsdmfrm4",BASE_URL+"master/jabatan_struktural");
+			getOptions("shiftfrm4",BASE_URL+"master/getmaster?id=27");
+			getOptions("faktorfrm4",BASE_URL+"master/getmaster?id=28");
+			//getOptions("katsdmfrm4",BASE_URL+"master/jabatan_struktural");
             }else{
                 var selectedRowsString = '';
            selectedRows.forEach( function(selectedRow, index) {
@@ -375,7 +444,50 @@
            getJson(getdata,BASE_URL+'abk/abk/gettk?id='+selectedRowsString)
            
             }
+	function loaddata(id, url, valueEdit = null) {
+        $('#' + id).children().remove();
+        $('#' + id).append('<option value="" selected="selected">Pilih</option>');
 
+        $.ajax({
+            type: "GET",
+            url: url,
+            headers: {
+                'Authorization': localStorage.getItem("Token"),
+                'X_CSRF_TOKEN': 'donimaulana',
+                'Content-Type': 'application/json'
+            },
+            dataType: "json",
+            success: function (e) {
+                for (var i = 0; i < e.result.length; i++) {
+				$('#' + id).append('<option ' + (e.result[i].id == valueEdit ? 'selected' : '') + ' value="' + e.result[i].id + '" data-id="' + e.result[i].id_jabatan + '"data-baru="' + e.result[i].baru + '" data-masa="' + e.result[i].masa_jabatan + '"data-kompetensi="' + e.result[i].kompetensi + '"data-formal="' + e.result[i].formal + '"data-nonformal="' + e.result[i].nonformal + '"jabatan-lama="' + e.result[i].id_jabatan_lama + '"data-tufoksi="' + e.result[i].tufoksi + '">' + e.result[i].jabatan_baru + ' [Kode :' + e.result[i].kd_jabatan + ']</option>');
+                }
+                $('#' + id).trigger("chosen:updated");
+            }
+        });
+    }
+	loaddata("katsdmfrm4", BASE_URL + "persyaratan/persyaratan/listdata");
+    	
+	$("#katsdmfrm4").on("change", function () {
+        if ($(this).find(':selected').attr("data-id") != undefined) {
+            $("#id_jabatan").val($(this).find(':selected').attr("data-id"));
+            $("#masajbt").val($(this).find(':selected').attr("data-masa"));
+            $("#kompetensi").val($(this).find(':selected').attr("data-kompetensi"));
+            $("#formal").val($(this).find(':selected').attr("data-formal"));
+            $("#nonformal").val($(this).find(':selected').attr("data-nonformal"));
+            getOptionsEdit("txtkjabatans",BASE_URL+"master/jabatan_struktural_fix",$(this).find(':selected').attr("jabatan-lama"));
+			$("#tufoksi").val($(this).find(':selected').attr("data-tufoksi"));
+        }else{
+			$("#id_jabatan").val('');
+			$("#masajbt").val('');
+            $("#kompetensi").val('');
+            $("#formal").val('');
+            $("#nonformal").val('');
+            $("#txtkjabatans").prop('selectedIndex', 0);
+			$("#txtkjabatans").trigger('chosen:updated');
+			$("#txtkjabatans").trigger('change');
+			$("#tufoksi").val('');
+         }
+    });
             function getdata(data){
                 window.setTimeout(function(){
             $('#thnadd').val(data.result.tahun);
@@ -391,25 +503,20 @@
              $('#berat_b_min').val(data.result.berat_b_min);
              $('#berat_b_max').val(data.result.berat_b_max);
 
-              $('#kompetensi').val(data.result.kompetensi);
+             $('#kompetensi').val(data.result.kompetensi);
              $('#syarat_khusus').val(data.result.syarat_khusus);
              $('#test_khusus').val(data.result.test_khusus);
              $('#lainlain').val(data.result.lain_lain);
 
-             
-             
-             
-             
-
+			$("#id_jabatan").val(data.result.id_jabatan);
+            $("#masajbt").val(data.result.masa_jabatan);
+            $("#kompetensi").val(data.result.kompetensi);
+            $("#formal").val(data.result.formal);
+            $("#nonformal").val(data.result.nonformal);
+            getOptionsEdit("txtkjabatans",BASE_URL+"master/jabatan_struktural_fix",data.result.jabatan_lama);
+			$("#tufoksi").val(data.result.tufoksi);
             
-            
-            
-            
-
-            	
-	
-                    
-                    getOptionsEdit("adduk",BASE_URL+"master/direktoratSub",data.result.id_uk);
+            getOptionsEdit("adduk",BASE_URL+"master/direktoratSub",data.result.id_uk);
             getInputTypeOptionsEdit("kelamin",BASE_URL+'dokumen/gettaksonomi?id=34',data.result.kelamin);
             getInputTypeOptionsEdit("level_kompi",BASE_URL+'dokumen/gettaksonomi?id=31',data.result.komputer_level);
             getInputTypeOptionsEdit("level_bahasa",BASE_URL+'dokumen/gettaksonomi?id=31',data.result.bahasa_level);
@@ -420,8 +527,9 @@
             getOptionsEdit("buta_warna",BASE_URL+'dokumen/gettaksonomi?id=33',data.result.buta_warna);
             getOptionsEdit("kaca_mata",BASE_URL+'dokumen/gettaksonomi?id=33',data.result.kacamata);
             getOptionsEdit("batas_fisik",BASE_URL+'dokumen/gettaksonomi?id=33',data.result.fisik_lain);
+			loaddata("katsdmfrm4", BASE_URL + "persyaratan/persyaratan/listdata",data.result.kategori_sdm);
 
-         getOptionsEdit("katsdmfrm4",BASE_URL+"master/jabatan_struktural",data.result.kategori_sdm);
+        // getOptionsEdit("katsdmfrm4",BASE_URL+"master/jabatan_struktural",data.result.kategori_sdm);
 
                 },2000);
             }

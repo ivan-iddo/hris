@@ -283,8 +283,8 @@ bootbox.dialog({
     getOptions("txtdirektorat",BASE_URL+"master/direktorat");
     getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
     getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
-    getOptions("txtjabatan",BASE_URL+"master/jabatan_struktural");
-    
+    getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural_fix");
+                
 
 
 
@@ -492,8 +492,8 @@ bootbox.dialog({
     getOptions("txtdirektorat",BASE_URL+"master/direktorat");
     getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
     getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
-    getOptions("txtjabatan",BASE_URL+"master/jabatan_struktural");
-    
+    getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural_fix");
+                
 
 
 
@@ -515,7 +515,7 @@ bootbox.dialog({
 
              getOptionsEdit("satuan_kerja",BASE_URL+"master/getmaster?id=25",a.result[0].id_satker);
              getOptionsEdit("kelas_jabatan",BASE_URL+"master/getmaster?id=24",a.result[0].id_kelas);
-             getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural",a.result[0].jabatan_struktural);
+            getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural_fix",a.result[0].jabatan_struktural);
             $('#idtk').val(a.result[0].id);
             $('#tgl_mutasi').val(a.result[0].tgl_mutasi);
             $('#keterangan').val(a.result[0].keterangan);

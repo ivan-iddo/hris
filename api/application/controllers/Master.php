@@ -428,12 +428,37 @@ public function alat_angkut_get(){
 			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
 				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
 				if ($decodedToken != false) {
-					 $this->db->order_by('ds_jabatan','ASC');
-					 $this->db->where('tampilkan','1');
+					 
+			  $this->db->order_by('ds_jabatan','ASC');
+			  $this->db->where('tampilkan','1');
 					 
 			  $res = $this->db->get('m_index_jabatan_asn_detail')->result();
 			  foreach($res as $d){
-				$arr['result'][]=array('label'=>'[Kode: '.$d->kd_jabatan.'] '.$d->ds_jabatan,'value'=>'[Kode: '.$d->kd_jabatan.'] '.$d->ds_jabatan);
+				$arr['result'][]=array('label'=>'[Kode: '.$d->kd_jabatan.'] '.$d->ds_jabatan,'value'=>$d->migrasi_jabatan_detail_id);
+			  }
+			  	
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+
+	public function jabatan_fix_abk_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					$this->db->select('persyaratan_jabatan.id_persyaratan,m_index_jabatan_asn_detail.kd_jabatan,m_index_jabatan_asn_detail.ds_jabatan');
+				  	$this->db->order_by('persyaratan_jabatan.id_jabatan','ASC');
+					$this->db->where('persyaratan_jabatan.tampilkan','1');
+					$this->db->join('m_index_jabatan_asn_detail',' m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = persyaratan_jabatan.id_jabatan');
+				  	$res = $this->db->get('persyaratan_jabatan')->result();
+			  foreach($res as $d){
+				$arr['result'][]=array('label'=>'[Kode: '.$d->kd_jabatan.'] '.$d->ds_jabatan,'value'=>$d->id_persyaratan);
 			  }
 			  	
 			  $this->set_response($arr, REST_Controller::HTTP_OK);
@@ -451,8 +476,8 @@ public function alat_angkut_get(){
 			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
 				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
 				if ($decodedToken != false) {
-					 $this->db->order_by('ds_jabatan','ASC');
-					 $this->db->where('tampilkan','1');
+			  $this->db->order_by('ds_jabatan','ASC');
+			  $this->db->where('tampilkan','1');
 					 
 			  $res = $this->db->get('m_index_jabatan_asn_detail')->result();
 			  foreach($res as $d){

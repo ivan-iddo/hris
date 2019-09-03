@@ -49,15 +49,24 @@
                                     <div class="form-group">
                                     <label class="col-sm-2 control-label" for="inputstatus">Faktor Kelonggaran</label>
                                             <div class="col-sm-7">
-                                                    <select class="form-control select-chosen" id="faktorfrm4" name="faktorfrm4" style="width: 100%;" >
-                                                     
-                                                      
-                                                    </select> 
-                                            </div>
+                                            <select class="form-control select-chosen" id="faktorfrm4" name="faktorfrm4" style="width: 100%;" onchange="getToSub(this.value,'kegiatanfrm4','abk/abk/option/')"><option value=0>Please Select</option></select></div>
                                            
                                     </div> 
                                     </div>
-
+									
+									<div class="row mar-all"> 
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="inputstatus">Kegiatan</label>
+                                            <div class="col-sm-7">
+											<select class="form-control select-chosen" id="kegiatanfrm4" name="kegiatanfrm4" style="width: 100%;" >
+                                            </select> 
+                                            
+                                            <!--<Textarea id="kegiatanfrm4" name="kegiatanfrm4" class="form-controll" style="width:100%"></Textarea>
+                                             --> 
+											 </div>
+                                    </div> 
+                                    </div>
+                                    
                                      <div class="row mar-all"> 
                                     <div class="form-group">
                                     <label class="col-sm-2 control-label" for="inputstatus">Kategori SDM</label>
@@ -73,14 +82,6 @@
 
                                     
                                 
-                                    <div class="row mar-all"> 
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="inputstatus">Kegiatan</label>
-                                            <div class="col-sm-4">
-                                            <Textarea id="kegiatanfrm4" name="kegiatanfrm4" class="form-controll" style="width:100%"></Textarea>
-                                              </div> 
-                                    </div> 
-                                    </div>
                                     <div class="row mar-all"> 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="inputstatus">Frekuensi/thn</label>
@@ -106,7 +107,7 @@ $('.addkb').hide()
          
          getOptions("shiftfrm4",BASE_URL+"master/getmaster?id=27");
          getOptions("faktorfrm4",BASE_URL+"master/getmaster?id=28");
-         getOptions("katsdmfrm4",BASE_URL+"master/jabatan_struktural");
+         getOptions("katsdmfrm4",BASE_URL+"master/jabatan_struktural_fix");
 
         $('.addukadmin').hide();
         $('#author').val(localStorage.getItem('group'));

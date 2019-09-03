@@ -571,7 +571,7 @@ return false;
  <script>
     $('.select-chosen').chosen();
      $('.chosen-container').css({"width": "100%"});
- getOptions("txtdirektorat",BASE_URL+"master/direktoratSub");
+   getOptions("txtdirektorat",BASE_URL+"master/direktoratSub");
  </script>
  <?php } ?> 
 																			

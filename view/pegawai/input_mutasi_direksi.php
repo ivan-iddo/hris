@@ -29,8 +29,8 @@
 								</select>
 							</div>
             </div>
-			<div class="form-group">
-							<label class="col-sm-4 control-label" for="inputpropinsi">J.Struktural</label>
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="inputpropinsi">Jabatan</label>
 							<div class="col-sm-8">
 							<select aria-hidden="true" class="select-chosen" id="txtjabatan" name="txtjabatan" style="width: 100%;" tabindex="-1">
 									 
@@ -50,7 +50,7 @@
 </textarea>
 					                        </div>
 					                    </div>
-										<div class="form-group">
+										<!--<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrw">No.SK</label>
 							<div class="col-sm-8">
 							 <input class="form-control" type="text" id="no_sk" name="no_sk">
@@ -61,7 +61,7 @@
 							<div class="col-sm-8">
 							 <input class="form-control" type="text" id="tgl_sk" name="tgl_sk" placeholder="dd-mm-yyyy">
 							</div>
-						</div>
+						</div>-->
 						<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputpropinsi">Kelas Jabatan</label>
 							<div class="col-sm-8">

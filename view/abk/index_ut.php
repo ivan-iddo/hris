@@ -87,7 +87,6 @@
         {headerName: "Direktur ", field: "dir",editable:true, width: 120},
         {headerName: "Ka.Bag ", field: "kabag",editable:true, width: 120},
         {headerName: "Ka.Subag ", field: "kasubag",editable:true, width: 120},
-
         {headerName: "Ka. Ur ",field: "kaur",editable:true, width: 120},
         {headerName: "Staf Admin", field: "sa",editable:true, width: 120},
         {headerName: "Pekarya", field: "pk",editable:true, width: 120, filterParams:{newRowsAction: 'keep'}}

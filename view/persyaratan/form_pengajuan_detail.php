@@ -126,11 +126,10 @@
 
  var idcell = getGridId(gridOptions_pengajuan,'id');
  $('#id_pengajuan').val(idcell);
-  
+
 
     window.setTimeout(function(){
     if(!empty($('#id_pengajuan').val())){
-    
         getJson(getdata_pengajuan, url_api2+'listdatadetail?id='+idcell);
     }
     },500);

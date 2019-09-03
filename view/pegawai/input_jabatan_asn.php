@@ -100,6 +100,7 @@
                                                                                   id="ahlifungasn" name="ahlifungasn"
                                                                                   style="width: 100%;" tabindex="-1"
                                                                                   onchange="getToSub(this.value,'ketahlijabfungasn','m/keahlian_asn/getoption/')"><option value=0>Please Select</option></select>
+                                                    </div>         
                                                     </div>
                                                 </div>
                                                 <div class="form-group" id="inputpns"><label

@@ -142,12 +142,12 @@ getOptions("txtjabatans",BASE_URL+"master/jabatan_struktural_fix_label");
 function getdata_persyaratan(result){
     
    $('#id_persyaratan').val(result.result[0].id);
-   getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural_fix_label",result.result[0].jabatan_baru);
+   getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural_fix_label",result.result[0].id_jabatan);
    $('#masajbt').val(result.result[0].masa_jabatan);
    $('#kompetensi').val(result.result[0].kompetensi);
    $('#formal').val(result.result[0].formal);
    $('#nonformal').val(result.result[0].nonformal);
-   getOptionsEdit("txtjabatans",BASE_URL+"master/jabatan_struktural_fix_label",result.result[0].jabatan_lama);
+   getOptionsEdit("txtjabatans",BASE_URL+"master/jabatan_struktural_fix_label",result.result[0].id_jabatan_lama);
    $('#tufoksi').val(result.result[0].tufoksi);
 }
 

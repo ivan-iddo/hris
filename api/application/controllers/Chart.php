@@ -50,7 +50,7 @@ class Chart extends CI_Controller
 		$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
 		$this->db->where('a.aktif','1');
 		$this->db->join('sys_grup_user as b','b.id_grup = a.direktorat','LEFT');
-		$this->db->where('b.child','27');
+		$this->db->where('b.child','1');
 		$this->db->where('b.tampilkan','1');
 		$this->db->join('m_kelamin','m_kelamin.id = sys_user_profile.kelamin','LEFT');
 		$this->db->group_by('b.grup,m_kelamin.nama');
@@ -110,7 +110,7 @@ class Chart extends CI_Controller
 		$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
 		$this->db->where('a.aktif','1');
 		$this->db->join('sys_grup_user as b','b.id_grup = a.direktorat','LEFT');
-		$this->db->where('b.child','27');
+		$this->db->where('b.child','1');
 		$this->db->where('b.tampilkan','1');
 
 
@@ -169,7 +169,7 @@ class Chart extends CI_Controller
 		$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
 		$this->db->where('a.aktif','1');
 		$this->db->join('sys_grup_user as b','b.id_grup = a.direktorat','LEFT');
-		$this->db->where('b.child','27');
+		$this->db->where('b.child','1');
 		$this->db->where('b.tampilkan','1');
 
 
@@ -224,7 +224,7 @@ class Chart extends CI_Controller
 		$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
 		$this->db->where('a.aktif','1');
 		$this->db->join('sys_grup_user as b','b.id_grup = a.direktorat','LEFT');
-		$this->db->where('b.child','27');
+		$this->db->where('b.child','1');
 		$this->db->where('b.tampilkan','1');
 
 

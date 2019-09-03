@@ -31,7 +31,14 @@
             Riwayat Kompetensi Jabatan
           </a>
       </li>
-
+	 <li>
+        <a href="#demo-lft-tab-mutasi" data-toggle="tab">
+			<span class="block text-center">
+				<i class="fa fa-mail-forward fa-2x text-danger"></i> 
+			</span>
+             Riwayat Semua
+        </a>
+     </li>
       <li> 
 			<a href="#demo-lft-tab-3" data-toggle="tab">
 						<span class="block text-center">
@@ -81,8 +88,6 @@
                     <div id="demo-custom-toolbar" class="table-toolbar-left">
                         <button class="btn btn-purple btn-labeled fa fa-eye btn-sm" onClick="lihat_pengajuan_detail();">Lihat Detail Pengaju
                         </button>
-                        <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="delete_pengajuan();">Delete
-                        </button>
                     </div>
                     </div>
 
@@ -109,7 +114,16 @@
             </div>
           </div>
         </div>
+		<div class="tab-pane fade" id="demo-lft-tab-mutasi">
+                <div class="dataTables_filter" id="demo-dt-addrow_filter">
+                    <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
+                                         type="search" id="filter-text-box" oninput="onFilterTextBoxChanged()"></label>
 
+                </div>
+
+                <div class="ag-theme-balham" id="myGridfrom2" style="height: 400px;width:100%;">
+                </div>
+         </div>
   		 <div class="tab-pane fade" id="demo-lft-tab-3"></div>
 
       </div>
@@ -346,7 +360,7 @@
     }
     
   }
-
+  
   function resetsearch_pengajuan(){
     $('#search_pengajuan').val('');
     loaddata_pengajuan(0);
@@ -360,7 +374,7 @@
     onMessage('Data Keterangan tidak boleh kosong');
     return false;
     } else {
-      postForm('form-pengajuan-detail', url_api2+'save',loaddata_pengajuan);
+      postForm('form-pengajuan-detail', url_api2+'sav',loaddata_pengajuan);
     }
     
   }
@@ -437,6 +451,94 @@
 
     //statusEnding();
 }
+ var columnDefsHis = [
+        {headerName: "Status", field: "status", width: 190, cellRenderer: CellRenderer},
+        {headerName: "Nama", field: "nama", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Formal", field: "formal", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Non Formal", field: "nonformal", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Jabatan", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Kompetensi", field: "kompetensi", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Formal Persyaratan", field: "formal_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Non Formal Persyaratan", field: "nonformal_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Jabatan Persyaratan", field: "jabatan_baru", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Kompetensi Persyaratan", field: "kompetensi_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
+
+    ];
+
+    var gridOptionsfrom2 = {
+        enableSorting: true,
+        enableFilter: true,
+        suppressRowClickSelection: false,
+        groupSelectsChildren: true,
+        debug: true,
+        rowSelection: 'single',
+        enableColResize: true,
+        rowGroupPanelShow: 'always',
+        pivotPanelShow: 'always',
+        enableRangeSelection: true,
+        columnDefs: columnDefsHis,
+        pagination: false,
+        paginationPageSize: 50,
+        autoGroupColumnDef: autoGroupColumnDef,
+        defaultColDef: {
+            editable: false,
+            enableRowGroup: true,
+            enablePivot: true,
+            enableValue: true
+        }
+    };
+
+    // setup the grid after the page has finished loading
+    var gridDiv = document.querySelector('#myGridfrom2');
+    new agGrid.Grid(gridDiv, gridOptionsfrom2);
+
+    function onFilterTextBoxChanged() {
+        gridOptionsfrom2.api.setQuickFilter(document.getElementById('filter-text-box').value);
+    }
+
+	function CellRenderer (params){
+    var closeSpan = document.createElement("span");
+	if(params.value ==='Tidak Sesuai'){
+    closeSpan.setAttribute("class","badge badge-danger");
+	closeSpan.textContent = "Tidak Sesuai";
+	}else if(params.value ==='Dengan Syarat'){
+	closeSpan.setAttribute("class","badge badge-warning");
+	closeSpan.textContent = "Dengan Syarat";
+	}else if(params.value ==='Sudah Sesuai'){
+	closeSpan.setAttribute("class","badge badge-success");
+	closeSpan.textContent = "Sudah Sesuai";
+	}else if(params.value ===null){
+	closeSpan.setAttribute("class","badge badge-light");
+	closeSpan.textContent = "Belum Diproses";
+	}
+	return closeSpan;
+	}
+	
+    function loadfrom2() {
+        $.ajax({
+            url: BASE_URL + 'persyaratan/pengajuan/listdatadetail',
+            headers: {
+                'Authorization': localStorage.getItem("Token"),
+                'X_CSRF_TOKEN': 'donimaulana',
+                'Content-Type': 'application/json'
+            },
+            dataType: 'json',
+            type: 'get',
+            contentType: 'application/json',
+            processData: false,
+            success: function (data, textStatus, jQxhr) {
+
+
+                gridOptionsfrom2.api.setRowData(data.result);
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                alert('error');
+            }
+        });
+    }
+
+
+    loadfrom2();
 
 </script>
 <script src="js/login.js"></script>

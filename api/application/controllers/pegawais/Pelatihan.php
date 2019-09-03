@@ -115,6 +115,45 @@ class Pelatihan extends REST_Controller
 		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
 	
+	public function getPel_get()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+
+                $id = $this->input->get('id');
+
+                $this->db->select('
+							   his_pelatihan.id,
+							   his_pelatihan.nama as pelatihan');
+                if ($id != ''){
+                    $this->db->where('his_pelatihan.id_user', $id);
+                }
+                $this->db->where('his_pelatihan.tampilkan', '1');
+                $this->db->order_by('his_pelatihan.id', 'DESC');
+      			$res = $this->db->get('his_pelatihan')->result();
+                if (!empty($res)) {
+                    foreach($res as $d){
+						$arr['result'][]=array('label'=>$d->pelatihan,'value'=>$d->id);
+					  }
+
+                } else {
+                    $arr['hasil'] = 'error';
+                }
+
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+
+    }
+	
 	function editpelatihan_post(){
 		$headers = $this->input->request_headers();
 	

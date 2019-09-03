@@ -680,7 +680,7 @@ class Abk extends REST_Controller
 
 
                 $this->db->select('abk_faktor_kelonggaran.*,dm_term.nama as fnama,
-                uk_master.nama as kategsdm,b.nama as faktor,c.nama as shift');
+                m_index_jabatan_asn_detail.ds_jabatan as kategsdm,b.nama as faktor,c.nama as shift');
 
 
                 // if(($user_froup=='1') OR ($user_froup=='6')){
@@ -702,7 +702,7 @@ class Abk extends REST_Controller
                 $this->db->join('dm_term as c', 'abk_faktor_kelonggaran.id_shift = c.id', 'LEFT');
                 $this->db->join('dm_term as b', 'abk_faktor_kelonggaran.id_faktor = b.id', 'LEFT');
                 $this->db->join('dm_term', 'abk_faktor_kelonggaran.id_shift = dm_term.id', 'LEFT');
-                $this->db->join('uk_master', ' uk_master.id = abk_faktor_kelonggaran.kategori_sdm', 'LEFT');
+                $this->db->join('m_index_jabatan_asn_detail', ' m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = abk_faktor_kelonggaran.kategori_sdm', 'LEFT');
                 $res = $this->db->get('abk_faktor_kelonggaran')->result();
 
                 if (!empty($res)) {
@@ -1542,13 +1542,13 @@ class Abk extends REST_Controller
                 // jika super user yang create
                 // $id_parent = $this->System_auth_model->getparent($decodedToken->data->_pnc_id_grup, '27');
                 if ($decodedToken->data->_pnc_id_grup == '1') {
-                    $id_parent = $this->System_auth_model->getparent($this->input->post('adduk'), '27');
+                    $id_parent = $this->System_auth_model->getparent($this->input->post('adduk'), '1');
                     $arrtam['id_atasan'] = $id_parent;
                     $arrtam['id_uk'] = ($this->input->post('adduk')?$this->input->post('adduk'):NULL);
                     $array = $array + $arrtam;
                 } 
                 else {
-                    $id_parent = $this->System_auth_model->getparent($decodedToken->data->_pnc_id_grup, '27');
+                    $id_parent = $this->System_auth_model->getparent($decodedToken->data->_pnc_id_grup, '1');
                     $arrtam['id_atasan'] = $id_parent;
                     $arrtam['id_uk'] = $decodedToken->data->_pnc_id_grup;
                     $array = $array + $arrtam;
@@ -1613,7 +1613,7 @@ class Abk extends REST_Controller
                 h.nama as buta_warna, 
                 i.nama as kacamata,
                j.nama as fisik_lain,
-               uk_master.nama as sdm,
+               m_index_jabatan_asn_detail.ds_jabatan as sdm,
                sys_grup_user.grup as namauk,
                k.nama as statusnama');
                 $this->db->where('tahun', $thn);
@@ -1629,9 +1629,10 @@ class Abk extends REST_Controller
                 $this->db->join('dm_term as i', 'abk_pengajuan_tn.kacamata = i.id', 'LEFT');
                 $this->db->join('dm_term as j', 'abk_pengajuan_tn.fisik_lain = j.id', 'LEFT');
                 $this->db->join('dm_term as k', 'abk_pengajuan_tn.status = k.id', 'LEFT');
-                $this->db->join('uk_master', 'abk_pengajuan_tn.kategori_sdm = uk_master.id', 'LEFT');
+                $this->db->join('persyaratan_jabatan', ' persyaratan_jabatan.id_persyaratan = abk_pengajuan_tn.kategori_sdm', 'LEFT');
+                $this->db->join('m_index_jabatan_asn_detail', ' m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = persyaratan_jabatan.id_jabatan', 'LEFT');
                 $this->db->join('sys_grup_user', 'abk_pengajuan_tn.id_uk = sys_grup_user.id_grup', 'LEFT');
-
+			
 
                 $res = $this->db->get('abk_pengajuan_tn')->result();
                 // echo $this->db->last_query();die;
@@ -2045,8 +2046,9 @@ class Abk extends REST_Controller
 
             if ($decodedToken != false) {
 
-                $this->db->where('id', $this->input->get('id'));
-                $arr['result'] = $this->db->get('abk_pengajuan_tn')->row();
+                $this->db->where('abk_pengajuan_tn.id', $this->input->get('id'));
+				$this->db->join('persyaratan_jabatan', 'persyaratan_jabatan.id_persyaratan = abk_pengajuan_tn.kategori_sdm', 'LEFT');
+				$arr['result'] = $this->db->get('abk_pengajuan_tn')->row();
 
                 if ($this->db->affected_rows() == '1') {
                     $arr['hasil'] = 'success';
@@ -2217,7 +2219,39 @@ class Abk extends REST_Controller
 
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }
+	
+	public function option_get(){
+		$headers = $this->input->request_headers();
+	
+			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+				if ($decodedToken != false) {
+					
+				 if(!empty($this->uri->segment('4'))){
+					$this->db->where('jenis_kelonggaran',$this->uri->segment('4'));
+				 }
+					 $this->db->order_by('id','ASC');
+					 
+			  $res = $this->db->get('kegiatan')->result();
 
+			  if(!empty($res)){
+
+			  foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->kegiatan,'value'=>$d->kegiatan);
+			  }
+			}else{
+				$arr['result'][]=array('label'=>'No Data','value'=>'');
+			}
+			  
+			  $this->set_response($arr, REST_Controller::HTTP_OK);
+				
+					return;
+				}
+			}
+			
+			 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+	
 
     public function countkelompokprofesi_get()
     {
@@ -2432,7 +2466,7 @@ class Abk extends REST_Controller
                 $this->db->join('dm_term as a', 'a.id = abk_pengajuan_alasan.id_sumber', 'LEFT');
                 $this->db->join('m_status_pegawai as b', 'b.id = abk_pengajuan_alasan.status_pegawai_pns', 'LEFT');
                 $this->db->join('m_status_pegawai as c', 'c.id = abk_pengajuan_alasan.status_pegawai_tetap', 'LEFT');
-                $this->db->where('abk_pengajuan_alasan.id', $this->input->get('id'));
+                $this->db->where('abk_pengajuan_alasan.id_pengajuan', $this->input->get('id'));
 
                 $dat = $this->db->get('abk_pengajuan_alasan')->row();
 
@@ -2457,7 +2491,7 @@ class Abk extends REST_Controller
                     );
                 }
 
-                if ($this->db->affected_rows() == '1') {
+                if ($arr['data']) {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil diupdate!';
                 } else {
