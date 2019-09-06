@@ -136,7 +136,7 @@
                 var id_pendidikan = $('#id_pendidikan').val();
                     if(id_pendidikan!==''){
                             $.ajax({
-                            url: BASE_URL+"pegawais/upload/upload_ijazah", // Url to which the request is send 
+                            url: BASE_URL+"pegawais/upload/upload_pendidikan", // Url to which the request is send 
                             type: "POST", 
                             data: new FormData(form[0]), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
                             contentType: false,       // The content type used when sending data to the server.
@@ -186,4 +186,7 @@
 		$('.datepicker').hide();
 	  });
 	 });
+	 $('.select2').chosen();
+	$('.chosen-container').css({"width": "100%"});
+  
 </script>

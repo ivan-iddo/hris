@@ -42,11 +42,12 @@ class Sip extends MY_Controller
             $data = array('inputfileupload' => $this->upload->data());
             $filename = $data['inputfileupload']['file_name'];
         }
-
+		$date_start = date_format(date_create($this->input->post('date_start')), "Y-m-d");
+		$date_end = date_format(date_create($this->input->post('date_end')), "Y-m-d");
         $datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
         $datas["sip"] = ($this->input->post('sip')?$this->input->post('sip'):NULL);
-        $datas["date_start"] = ($this->input->post('date_start')?$this->input->post('date_start'):NULL);
-        $datas["date_end"] = ($this->input->post('date_end')?$this->input->post('date_end'):NULL);
+        $datas["date_start"] = ($date_start?$date_start:NULL);
+        $datas["date_end"] = ($date_end?$date_end:NULL);
         $datas["url"] = ($filename?$filename:NULL);
 
         $create = $this->His_sip_model->create($datas);

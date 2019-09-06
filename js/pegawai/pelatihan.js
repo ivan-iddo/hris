@@ -100,6 +100,7 @@ function loadPelatihan(){
 
           function addPelatihan(){
             getOptions("penanggung",BASE_URL+"master/penanggung");
+            getOptions("tempat",BASE_URL+"master/tempat");
               
               
               bootbox.dialog({ 
@@ -201,7 +202,6 @@ function editPelatihan(){
               
                                              
               $('#nama').val(data.nama);
-              $('#tempat').val(data.tempat);
               $('#penyelenggara').val(data.penyelenggara); 
               $('#durasi').val(data.durasi);
               $('#mulai').val(data.mulai);
@@ -231,6 +231,7 @@ if(!empty(data.file)){
 
                                              
               getOptionsEdit("penanggung",BASE_URL+"master/penanggung",data.penanggung);  
+              getOptionsEdit("tempat",BASE_URL+"master/tempat",data.tempat);  
               
                                   } 
                               });

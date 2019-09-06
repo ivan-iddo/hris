@@ -37,7 +37,7 @@
                     <th class="min-width" style="width:20px">Delete</th>
                 </tr>
                 </thead>
-                <tbody id="filemedik"></tbody>
+                <tbody id="filesk"></tbody>
             </table>
         </div>
     </div>

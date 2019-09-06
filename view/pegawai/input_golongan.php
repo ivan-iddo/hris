@@ -242,4 +242,7 @@
 		$('.datepicker').hide();
 	  });
 	 });
+	 $('.select2').chosen();
+	$('.chosen-container').css({"width": "100%"});
+  
 </script>

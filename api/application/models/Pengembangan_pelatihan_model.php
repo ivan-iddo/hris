@@ -73,7 +73,7 @@ class Pengembangan_pelatihan_model extends MY_Model
 		return $result;
 	}
 	
-	function get_total($from = "", $to = "", $where_in = "", $cari="")
+	function get_total($from = "", $to = "", $where_in = "", $cari="", $grup="")
 	{	
 		$this->db->select("count(pengembangan_pelatihan.id)");
 		$this->db->from($this->table);
@@ -108,6 +108,9 @@ class Pengembangan_pelatihan_model extends MY_Model
 			$this->db->where("pengembangan_pelatihan.created <=", $to);
 		}
 
+		if (!empty($grup)) {
+			$this->db->where("sys_user.id_grup", $grup);
+		}
 		$result = $this->db->get()->result_array();
 		return $result;
 	}
@@ -334,7 +337,7 @@ class Pengembangan_pelatihan_model extends MY_Model
 		}
 	}
 	
-	function get_list($params_array = array(), $like = array(), $offset = "", $limit = "", $from = "", $to = "", $where_in = "", $order_by = "", $cari="")
+	function get_list($params_array = array(), $like = array(), $offset = "", $limit = "", $from = "", $to = "", $where_in = "", $order_by = "", $cari="", $grup="")
 	{	
 		$this->db->select("pengembangan_pelatihan.jenis_biaya,pengembangan_pelatihan.dalam_negeri,pengembangan_pelatihan.jenis_perjalanan,pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan.created,pengembangan_pelatihan.createdby,pengembangan_pelatihan_kegiatan as kegiatan,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.institusi,pengembangan_pelatihan.pengembangan_pelatihan_kegiatan_status,pengembangan_pelatihan.id as id,sys_user.email,pengembangan_pelatihan_detail.id as kode,pengembangan_pelatihan_detail.uraian_total,m_kode_profesi_group.ds_group_jabatan as profesi, dm_term.nama AS nama_status, sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_user_profile.phone, sys_grup_user.grup,pengembangan_pelatihan_detail.laporan_kegiatan");
 		$this->db->from($this->table);
@@ -384,6 +387,10 @@ class Pengembangan_pelatihan_model extends MY_Model
 		
 		if (!empty($to)) {
 			$this->db->where("pengembangan_pelatihan.created <=", $to);
+		}
+		
+		if (!empty($grup)) {
+			$this->db->where("sys_user.id_grup", $grup);
 		}
 		
 		if (!empty($offset)) {

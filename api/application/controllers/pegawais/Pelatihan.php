@@ -38,9 +38,12 @@ class Pelatihan extends REST_Controller
 			if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
 				$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
 				$arr['hasil']='error';
-					$arr['message']='Data Gagal Ditambah!';
+				$arr['message']='Data Gagal Ditambah!';
 				if ($decodedToken != false) {
 				 
+			  $mulai = date_format(date_create($this->input->post('mulai')), "Y-m-d");
+			  $sampai = date_format(date_create($this->input->post('sampai')), "Y-m-d");
+        	 
 			  $arrdata=array(
 				   'id_user'=>($this->input->post('id_user')?$this->input->post('id_user'):NULL),
 				   'nama'=>($this->input->post('nama')?$this->input->post('nama'):NULL), 
@@ -48,16 +51,16 @@ class Pelatihan extends REST_Controller
 				   'penyelenggara'=>($this->input->post('penyelenggara')?$this->input->post('penyelenggara'):NULL),
 				   'penanggung'=>($this->input->post('penanggung')?$this->input->post('penanggung'):NULL),
 				   'durasi'=>($this->input->post('durasi')?$this->input->post('durasi'):NULL),
-				   'mulai'=>($this->input->post('mulai')?$this->input->post('mulai'):NULL),
-				   'sampai'=>($this->input->post('sampai')?$this->input->post('sampai'):NULL),
+				   'mulai'=>($mulai?$mulai:NULL),
+				   'sampai'=>($sampai?$sampai:NULL),
 				   'jenis_sertifikat' => ($this->input->post('jenis_sertifikat')?$this->input->post('jenis_sertifikat'):NULL),
 				   'no_sertifikat' => ($this->input->post('no_sertifikat')?$this->input->post('no_sertifikat'):NULL)
 				   );
 			  
-			  $this->db->insert('his_pelatihan',$arrdata);
+			  $result=$this->db->insert('his_pelatihan',$arrdata);
 			  $saved_id = $this->db->insert_id('his_pelatihanid_seq');
 			  
-			   if($this->db->affected_rows() == '1'){
+			   if($result){
 					$arr['hasil']='success';
 					$arr['id']=$saved_id;
 					$arr['message']='Data berhasil ditambah!';
@@ -85,8 +88,9 @@ class Pelatihan extends REST_Controller
 				//$this->db->limit('100');
 				//$this->db->order_by();
 		 $arr=array();
-		$this->db->select('his_pelatihan.*,m_penanggung.nama as nama_p'); 
+		$this->db->select('his_pelatihan.*,m_tempat.nama as tempat,m_penanggung.nama as nama_p'); 
 		 $this->db->join('m_penanggung','m_penanggung.id = his_pelatihan.penanggung','LEFT'); 
+		 $this->db->join('m_tempat','m_tempat.id = his_pelatihan.tempat','LEFT'); 
 		$this->db->where('his_pelatihan.tampilkan','1');
 		if(!empty($id = $this->uri->segment(4))){
 					$this->db->where('his_pelatihan.id_user',$id);
@@ -162,15 +166,18 @@ class Pelatihan extends REST_Controller
 				$arr['hasil']='error';
 					$arr['message']='Data Gagal Ditambah!';
 				if ($decodedToken != false) {
-				 
+			
+			  $mulai = date_format(date_create($this->input->post('mulai')), "Y-m-d");
+			  $sampai = date_format(date_create($this->input->post('sampai')), "Y-m-d");
+        	 
 			  $arrdata=array( 
 				   'nama'=>($this->input->post('nama')?$this->input->post('nama'):NULL), 
 				   'tempat'=>($this->input->post('tempat')?$this->input->post('tempat'):NULL),
 				   'penyelenggara'=>($this->input->post('penyelenggara')?$this->input->post('penyelenggara'):NULL),
 				   'penanggung'=>($this->input->post('penanggung')?$this->input->post('penanggung'):NULL),
 				   'durasi'=>($this->input->post('durasi')?$this->input->post('durasi'):NULL),
-				   'mulai'=>($this->input->post('mulai')?$this->input->post('mulai'):NULL),
-				   'sampai'=>($this->input->post('sampai')?$this->input->post('sampai'):NULL),
+				   'mulai'=>($mulai?$mulai:NULL),
+				   'sampai'=>($sampai?$sampai:NULL),
 				   'jenis_sertifikat' => ($this->input->post('jenis_sertifikat')?$this->input->post('jenis_sertifikat'):NULL),
 				   'no_sertifikat' => ($this->input->post('no_sertifikat')?$this->input->post('no_sertifikat'):NULL)
 				   );

@@ -748,14 +748,30 @@ class Pegawai extends REST_Controller
             if ($decodedToken != false || true) {
                 //$this->db->limit('100');
                 //$this->db->order_by();
-                $arr = array();
-
+				$arr = array();
+                $this->db->select('his_keluarga.*');
+                $this->db->where('his_keluarga.tampilkan', '1');
                 if (!empty($id = $this->uri->segment(3))) {
                     $this->db->where('his_keluarga.id', $id);
                 }
-                $res = $this->db->get('his_keluarga')->row();
+                $res = $this->db->get('his_keluarga')->result();
+                foreach ($res as $d) {
+                    $arr = array('id' => $d->id, 
+					    'id_hubkel' => $d->id_hubkel, 
+						'id_pekerjaan' => $d->id_pekerjaan, 
+						'id_pendidikan' => $d->id_pendidikan,
+                        'id_user' => $d->id_user,
+                        'kelamin' => $d->kelamin,
+                        'nama' => $d->nama,
+                        'nik' => $d->nik,
+                        'tempat_lahir' => $d->tempat_lahir,
+                        'tgl_lahir' => date_format(date_create($d->tgl_lahir), "d-m-Y"),
+                        'karn' => $d->karn,
+                        'url' => $d->url
+                    );
+                }
 
-                $this->set_response($res, REST_Controller::HTTP_OK);
+                $this->set_response($arr, REST_Controller::HTTP_OK);
 
                 return;
             }
@@ -922,8 +938,6 @@ class Pegawai extends REST_Controller
         $headers = $this->input->request_headers();
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            $arr['hasil'] = 'error';
-            $arr['message'] = 'Data Gagal Ditambah!';
             if ($decodedToken != false) {
 
                 $arrdata = array(
@@ -931,9 +945,8 @@ class Pegawai extends REST_Controller
                 );
 
                 $this->db->where('id', $_GET['id']);
-                $this->db->update('his_keluarga', $arrdata);
-
-                if ($this->db->affected_rows() == '1') {
+                $result=$this->db->update('his_keluarga', $arrdata);
+				if ($result) {
                     $arr['hasil'] = 'success';
                     $arr['message'] = 'Data berhasil ditambah!';
                 } else {
@@ -1109,7 +1122,7 @@ class Pegawai extends REST_Controller
                         'pen_adrs' => $d->pen_adrs,
                         'pen_tahn' => $d->pen_tahn,
                         'pen_nijz' => $d->pen_nijz,
-                        'pen_dijz' => $d->pen_dijz,
+                        'pen_dijz' => date_format(date_create($d->pen_dijz), "d-m-Y"),
                         'pekerjaan' => $d->pen_dijz,
                         'pen_nkep' => $d->pen_nkep,
                         'pen_desc' => $d->pen_desc,
@@ -3237,7 +3250,9 @@ class Pegawai extends REST_Controller
                 //cari dulu diriwayat kedinasan
                 if (!empty($id = $this->input->post('txtIdUser'))) {
 
-
+					$tgl_mutasi=date_format(date_create($this->input->post('tgl_mutasi')), "Y-m-d");
+					$tgl_sk=date_format(date_create($this->input->post('tgl_sk')), "Y-m-d");
+			
                     $arrdata = array(
                         'user_id' => $id,
                         'direktorat_tujuan' => ($this->input->post('txtdirektorat'))?$this->input->post('txtdirektorat'):null,
@@ -3245,9 +3260,9 @@ class Pegawai extends REST_Controller
                         'sub_bagian_tujuan' => ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null,
                         'kaunit_tujuan' => ($this->input->post('kaunit'))?$this->input->post('kaunit'):null,
                         'staff_tujuan' => ($this->input->post('staff'))?$this->input->post('staff'):null,
-                        'tgl_mutasi' => ($this->input->post('tgl_mutasi'))?$this->input->post('tgl_mutasi'):null,
+                        'tgl_mutasi' => ($tgl_mutasi)?$tgl_mutasi:null,
                         'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null,
-                        'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
+                        'tgl_sk' => ($tgl_sk)?$tgl_sk:null,
                         'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
                         'jabatan' => ($this->input->post('jabatan'))?$this->input->post('jabatan'):null,
                         'jabatan2' => ($this->input->post('jabatan2'))?$this->input->post('jabatan2'):null,
@@ -3298,7 +3313,10 @@ class Pegawai extends REST_Controller
 
                 //cari dulu diriwayat kedinasan
                 if (!empty($id = $this->input->post('idjabatan'))) {
-
+					
+					$tgl_mutasi=date_format(date_create($this->input->post('tgl_mutasi')), "Y-m-d");
+					$tgl_sk=date_format(date_create($this->input->post('tgl_sk')), "Y-m-d");
+			
 
                     $arrdata = array(
                         'direktorat_tujuan' => ($this->input->post('txtdirektorat'))?$this->input->post('txtdirektorat'):null,
@@ -3306,9 +3324,9 @@ class Pegawai extends REST_Controller
                         'sub_bagian_tujuan' => ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null,
                         'kaunit_tujuan' => ($this->input->post('kaunit'))?$this->input->post('kaunit'):null,
                         'staff_tujuan' => ($this->input->post('staff'))?$this->input->post('staff'):null,
-						'tgl_mutasi' => ($this->input->post('tgl_mutasi'))?$this->input->post('tgl_mutasi'):null,
+						'tgl_mutasi' => ($tgl_mutasi)?$tgl_mutasi:null,
                         'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null,
-                        'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
+                        'tgl_sk' => ($tgl_sk)?$tgl_sk:null,
                         'no_sk' => ($this->input->post('no_sk'))?$this->input->post('no_sk'):null,
                         'jabatan' => ($this->input->post('jabatan'))?$this->input->post('jabatan'):null,
                         'jabatan2' => ($this->input->post('jabatan2'))?$this->input->post('jabatan2'):null,

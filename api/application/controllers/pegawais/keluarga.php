@@ -105,8 +105,9 @@ class Keluarga extends CI_Controller
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
+		*/
 		$tgllahir=date_format(date_create($this->input->post('txtTglLahir')), "Y-m-d");
-        */
+        
         $arrdata = array(
 			'nik' => ($this->input->post('txtNik')?$this->input->post('txtNik'):NULL),
             'nama' => ($this->input->post('txtNama')?$this->input->post('txtNama'):NULL),

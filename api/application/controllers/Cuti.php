@@ -938,5 +938,94 @@ class Cuti extends REST_Controller
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 
     }
+	
+	function list_cutis_get()
+    {
+        $headers = $this->input->request_headers();
+
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+				$user_froup = $decodedToken->data->_pnc_id_grup;
+                $id_user = $this->input->get('id_user');
+                $this->db->select('m_jenis_cuti.nama as namcut,his_cuti.*,dm_term.nama as statuspros,sys_user.name as namapegawai');
+                $this->db->join('m_jenis_cuti', 'm_jenis_cuti.id = his_cuti.jenis_cuti');
+                $this->db->join('dm_term', 'dm_term.id = his_cuti.status');
+                $this->db->join('sys_user', 'sys_user.id_user = his_cuti.id_user');
+                $this->db->where('his_cuti.tampilkan', '1');
+				
+                if (($user_froup == '1') OR ($user_froup == '6') or ($user_froup == '97') or ($user_froup == '98') or ($user_froup == '99') or ($user_froup == '100')) {
+                    if ((!empty($this->input->get('id_uk'))) AND ($this->input->get('id_uk') <> 'null')) {
+                        $this->db->where('sys_user.id_grup', $this->input->get('id_uk'));
+                    }
+                }else{
+                    $this->db->where('sys_user.id_grup', $user_froup);
+                }
+				
+				if (empty($this->input->get('tahun'))) {
+                    $thn = date('Y');
+                } else {
+                    $thn = $this->input->get('tahun');
+                }
+				$this->db->where('EXTRACT(YEAR FROM his_cuti.tgl_akhir_cuti) =',$thn);
+				if(!empty($this->input->get('bulan'))){
+					$this->db->where('EXTRACT(MONTH FROM his_cuti.tgl_akhir_cuti) =',$this->input->get('bulan'));
+				}
+				$this->db->order_by('tgl_cuti', 'DESC');
+                $resCek = $this->db->get('his_cuti')->result();
+				$count=count($resCek);
+				
+                $da = '';
+                foreach ($resCek as $val) {
+                    $text = 'text-success';
+                    if ($val->status == '108') {
+                        $text = 'text-danger';
+                    }
+                    $da .= '<tr>';
+                    $da .= '<td>';
+                    $da .= $val->namapegawai;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= $val->namcut;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= $val->keterangan;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= date_format(date_create($val->tgl_cuti), "d-m-Y");
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= date_format(date_create($val->tgl_akhir_cuti), "d-m-Y");
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= $val->total;
+                    $da .= '</td>';
+					$da .= '<td>';
+                    $da .= $val->no_telp;
+                    $da .= '</td>';
+					$da .= '<td>';
+                    $da .= $val->alamat;
+                    $da .= '</td>';
+					$da .= '<td>';
+                    $da .= $val->tanggung_jawab;
+                    $da .= '</td>';
+                    $da .= '<td class="' . $text . '">';
+                    $da .= $val->statuspros;
+                    $da .= '</td>';
+                    $da .= '</tr>';
+                }
+
+                $arr['hasil'] = 'success';
+                $arr['isi'] = $da;
+				$arr['jum'] = $count;
+                $this->set_response($arr, REST_Controller::HTTP_OK);
+
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+
+    }
 
 }

@@ -36,6 +36,34 @@ class Upload extends CI_Controller
         echo json_encode($arr);
     }
 	
+	public function upload_pendidikan()
+    {
+        $config['upload_path'] = 'upload/data';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
+        $config['max_size'] = '50000000';
+        $this->load->library('upload', $config);
+        $filename = 'logo.png';
+        if (!$this->upload->do_upload('doc_file')) {
+            $error = array('error' => $this->upload->display_errors());
+        } else {
+            $data = array('upload_data' => $this->upload->data());
+            $filename = $data['upload_data']['file_name'];
+        }
+        $datas = array('file_url' => $filename);
+        $id = $this->input->post('id_pendidikan');
+        $this->db->where('id', $id);
+        $result=$this->db->update('his_pendidikan', $datas);
+        if ($result) {
+            $arr['file'] = $filename;
+            $arr['hasil'] = 'success';
+            $arr['message'] = 'Data berhasil ditambah!';
+        } else {
+            $arr['hasil'] = 'error';
+            $arr['message'] = 'Data Gagal Ditambah!';
+        }
+        echo json_encode($arr);
+    }
+	
 	public function upload_latbang_file()
     {   
         // print_r($_POST);die();

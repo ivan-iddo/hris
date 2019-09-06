@@ -1,44 +1,3 @@
-<!--Nav Tabs-->
-<ul class="nav nav-tabs">
-    <div class="alert alert-danger hidden" id="users-blocked" role="alert">
-        Akun anda tidak dapat mengajukan pelatihan! Silahkan selesaikan laporan pada pelatihan sebelumnya.
-    </div>
-    <div class="alert alert-warning hidden" id="users-monev" role="alert">
-        Anda memiliki pelatihan & pengembangan saat ini (Monitoring & Evaluasi).
-    </div>
-  <li class="active">
-    <a data-toggle="tab" href="#demo-lft-tab-1">
-      <i class="demo-psi-home">
-      </i> List
-    </a>
-  </li>
-  <li>
-    <a data-toggle="tab" href="#demo-lft-tab-2" onclick="proses_add()">
-      <i class="demo-psi-pen-5">
-      </i> Add
-    </a>
-  </li>
-    <button class=
-        "btn btn-warning btn-labeled fa fa-edit btn-sm" onclick=
-        "proses_edit();">Edit
-    </button>
-    <button class=
-        "btn btn-danger btn-labeled fa fa-close btn-sm" onclick=
-        "proses_delete();">Delete per latihan
-    </button>
-	<button class=
-        "btn btn-danger btn-labeled fa fa-close btn-sm" onclick=
-        "del();">Delete per orang
-    </button>
-    <button class=
-        "btn btn-success btn-labeled fa fa-check btn-sm" id="id_upload" value="" onclick=
-        "uploadFile();">Upload File
-    </button>
-	<button class=
-        "btn btn-success btn-labeled fa fa-check btn-sm" value="" onclick=
-        "laporan_selesai();">Laporan Selesai
-    </button>	
-</ul>
 <div class="tab-content">
     <div class="tab-pane fade active in" id="demo-lft-tab-1">
         <div class="fixed-table-toolbar">
@@ -51,43 +10,7 @@
                             <!-- <button class="btn btn-primary btn-labeled fa fa-plus-square btn-sm" id=
                             "demo-bootbox-bounce">Add
                             </button> -->
-							<button class=
-                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                    "cetak();">Tugas / Izin
-                            </button>
-							<button class=
-                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                    "cetak_rak();">Surat RAK
-                            </button>
-							<button class=
-                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                    "cetak_dft_rak();">Peserta RAK
-                            </button>
-							<button class=
-                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                    "cetak_spd();">Surat SPD
-                            </button>
-							<button class=
-                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                    "cetak_rekomendasi();">Rekomendasi
-                            </button>
-							<button class=
-                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                    "cetak_pengantar();">Pengantar
-                            </button>
-							<button class=
-                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                "nota();">Nota Dinas
-                            </button>
-							<button class=
-                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                "ikatan();">Ikatan Dinas
-                            </button>
-							<button class=
-                                    "btn btn-info btn-labeled fa fa-check btn-sm" onclick=
-                                "verbal();">Verbal
-                            </button>
-                        </div>
+						</div>
                     </div>
                 </div>
 				
@@ -157,18 +80,7 @@
                                             </select>
                                         </div>
                                     </div>
-									<div class="form-group">
-                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Membaca (untuk Verbal Surat)</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="membaca" id="membaca" class="form-control" title="Untuk Verbal Surat"/>
-                                        </div>
-                                    </div>
-									<div class="form-group">
-                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Yth (untuk Verbal Surat)</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="yth" id="yth" class="form-control" title="Untuk Verbal Surat"/>
-                                        </div>
-                                    </div>
+								
 									<div class="form-group">
                                         <label class="col-sm-2 control-label">Plh</label>
                                         <div class="col-sm-5">
@@ -562,7 +474,7 @@
     </div>
 </div>
 <script>
-    $('.judul-menu').html('Pengembangan Pelatihan');
+    $('.judul-menu').html('List Pelatihan');
     function download(){
     var datalist = { 
         fileName: 'Latbang',
@@ -702,7 +614,6 @@
 	
 	$('.select-chosen').chosen();
     $('.chosen-container').css({"width": "100%"});
-    $('.judul-menu').html('Pengajuan Pelatihan & Pengembangan');
     $('.buttoenedit').hide();
 
 	function checkboxCellRenderer (params){
@@ -1059,7 +970,7 @@
 		datas.tanggal = $(".tanggal").serializeArray();
 		datas.nopeg = $("#nopeg").val();
 		console.log(datas);
-		var URL = BASE_URL + "pengembangan_pelatihan/cek";;
+		var URL = BASE_URL + "surat/cek";;
 		$.ajax({
 			url: URL,
 			headers: {
@@ -1446,10 +1357,10 @@
         // return;
 
         if ($('#id').val().length == "") {
-            URL = BASE_URL + "pengembangan_pelatihan/save";
+            URL = BASE_URL + "surat/save";
         } 
         if ($('#id').val().length != "") {
-            URL = BASE_URL + "pengembangan_pelatihan/edit";
+            URL = BASE_URL + "surat/edit";
         }
         save(URL, obj, loaddata);
         $('.nav-tabs a[href="#demo-lft-tab-1"]').tab('show');
@@ -1466,7 +1377,7 @@
         var sampai = $('#tanggal_akhir').val();
 		
 		$.ajax({
-            url: BASE_URL + 'pengembangan_pelatihan/list/' + jml + '/' +search + '/' + dari + '/' +sampai,
+            url: BASE_URL + 'pengembangan_pelatihan/list_uk/' + jml + '/' +search + '/' + dari + '/' +sampai,
             headers: {
                 'Authorization': localStorage.getItem("Token"),
                 'X_CSRF_TOKEN': 'donimaulana',
@@ -1513,7 +1424,7 @@
                 }
                 selectedRowsString += selectedRow.id;
             });
-            submit_get(BASE_URL + 'pengembangan_pelatihan/delete/?id=' + selectedRowsString, loaddata);
+            submit_get(BASE_URL + 'surat/delete/?id=' + selectedRowsString, loaddata);
         }
     }
 
@@ -1531,7 +1442,7 @@
             console.log(selectedRow);
             var selectedRowsString = selectedRow.id;
             $.ajax({
-                url: BASE_URL + 'pengembangan_pelatihan/get/?id=' + selectedRowsString,
+                url: BASE_URL + 'surat/get/?id=' + selectedRowsString,
                 headers: {
                     'Authorization': localStorage.getItem("Token"),
                     'X_CSRF_TOKEN': 'donimaulana',
@@ -1813,19 +1724,10 @@
             return false;
         } 
         else {
-            submit_get(BASE_URL + 'pengembangan_pelatihan/del/?id=' + selectedRowsSelesai[0].kode, loaddata);
+            submit_get(BASE_URL + 'surat/del/?id=' + selectedRowsSelesai[0].kode, loaddata);
         }
     }
-	function laporan_selesai() {
-        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-            submit_get(BASE_URL + 'pengembangan_pelatihan/laporan_selesai/?id=' + selectedRowsSelesai[0].kode+'&laporan=' + selectedRowsSelesai[0].laporan_kegiatan, loaddata);
-        }
-    }
+
     function cetak() {
         var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
         if (selectedRowsSelesai.length <= 0) {
@@ -1834,9 +1736,9 @@
         } 
         else {
 			if (selectedRowsSelesai[0].jenis_perjalanan!='Dalam Negeri') {
-			gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf,'large');
+			gopop(BASE_URL + 'surat/preview/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf,'large');
 			}else{
-			gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id,pdf,'large');
+			gopop(BASE_URL + 'surat/preview/?id=' + selectedRowsSelesai[0].id,pdf,'large');
 			}
 		}
     }
@@ -1848,267 +1750,14 @@
             return false;
         } else {
 			if (selectedRowsSelesai[0].jenis_perjalanan!='Dalam Negeri') {
-            window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id+ '&surat='+ selectedRowsSelesai[0].jenis_surat+ '&kode=' + selectedRowsSelesai[0].kode);
+            window.open(BASE_URL + 'surat/cetak/?id=' + selectedRowsSelesai[0].id+ '&surat='+ selectedRowsSelesai[0].jenis_surat+ '&kode=' + selectedRowsSelesai[0].kode);
             }else{
-			window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id+ '&surat='+ selectedRowsSelesai[0].jenis_surat);
+			window.open(BASE_URL + 'surat/cetak/?id=' + selectedRowsSelesai[0].id+ '&surat='+ selectedRowsSelesai[0].jenis_surat);
 			}
 		}
 	}
 
-    function verbal(){
-     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        }else{ 
-		gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id + '&surat=Surat_verbal&kode=' + selectedRowsSelesai[0].kode,pdf_verbal,'large');
-		}
-    } 
-	function pdf_verbal(){
-     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-            window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id + '&surat=Surat_verbal&kode=' + selectedRowsSelesai[0].kode);
-        }
-    }
-	function cetak_rekomendasi(){
-     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-			if (selectedRowsSelesai[0].jenis_perjalanan!='Luar Negeri') {
-			if (selectedRowsSelesai[0].jenis_biaya!='Sponsor') {
-            onMessage('Tidak mencetak Rekomendasi, hanya untuk pegawai yang dibiayai Sponsor');
-            return false;
-			}else{
-            gopop(BASE_URL + 'pengembangan_pelatihan/preview_rekomendasi/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf_rekomendasi,'large');
-			}
-			}else{
-			gopop(BASE_URL + 'pengembangan_pelatihan/preview_rekomendasi/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf_rekomendasi,'large');
-			}
-        }
-    } 
-	
-	function pdf_rekomendasi(){
-     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-            window.open(BASE_URL + 'pengembangan_pelatihan/cetak_rekomendasi/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode);
-        }
-    }
-	
-	function cetak_spd(){
-     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-			if (selectedRowsSelesai[0].jenis_perjalanan!='Luar Negeri') {
-			if (selectedRowsSelesai[0].jenis_biaya!='BLU') {
-            onMessage('Tidak mencetak SPD, hanya untuk pegawai yang dibiayai BLU');
-            return false;
-			}else {
-				if (selectedRowsSelesai[0].dalam_negeri!='Luar Kota') {
-				onMessage('Tidak mencetak SPD, hanya untuk pegawai yang dibiayai BLU dan Luar Kota');
-				return false;
-				}else{
-				 gopop(BASE_URL + 'pengembangan_pelatihan/preview_spd/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf_spd,'large');
-				}
-			}
-			}else{
-				gopop(BASE_URL + 'pengembangan_pelatihan/preview_spd/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf_spd,'large');
-			}
-			}
-        }
-	
-	function pdf_spd() {
-        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-	   if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } else {
-         window.open(BASE_URL + 'pengembangan_pelatihan/cetak_spd/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode);
-		}
-	}
-	
-	function cetak_pengantar(){
-     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-			if (selectedRowsSelesai[0].jenis_perjalanan!='Luar Negeri') {
-            onMessage('Tidak mencetak pengantar, hanya untuk pegawai yang perjalanan luar negeri');
-            return false;
-			}else{
-			gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id + '&surat=Surat_pengantar&kode=' + selectedRowsSelesai[0].kode,pdf_cetak_pengantar,'large');
-        }
-		}
-    }
-	
-	function pdf_cetak_pengantar() {
-        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-	   if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } else {
-         window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id + '&surat=Surat_pengantar&kode=' + selectedRowsSelesai[0].kode);
-		}
-	}
-	
-	function nota(){
-     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-			if (selectedRowsSelesai[0].jenis_perjalanan!='Luar Negeri') {
-            onMessage('Tidak mencetak nota, hanya untuk pegawai yang perjalanan luar negeri');
-            return false;
-			}else{
-			gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id + '&surat=nota&kode=' + selectedRowsSelesai[0].kode,pdf_cetak_nota,'large');
-        }
-		}
-    }
-	
-	function pdf_cetak_nota() {
-        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-	   if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } else {
-         window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id + '&surat=nota&kode=' + selectedRowsSelesai[0].kode);
-		}
-	}
-	
-	function ikatan(){
-     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-			if (selectedRowsSelesai[0].jenis_perjalanan!='Luar Negeri') {
-            onMessage('Tidak mencetak ikatan, hanya untuk pegawai yang perjalanan luar negeri');
-            return false;
-			}else{
-			gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id + '&surat=ikatan&kode=' + selectedRowsSelesai[0].kode,pdf_cetak_ikatan,'large');
-        }
-		}
-    }
-	
-	function pdf_cetak_ikatan() {
-        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-	   if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } else {
-         window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id + '&surat=ikatan&kode=' + selectedRowsSelesai[0].kode);
-		}
-	}
-	
-	function cetak_rak(){
-     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-			if (selectedRowsSelesai[0].jenis_biaya!='BLU') {
-            onMessage('Tidak mencetak RAK, hanya untuk pegawai yang dibiayai BLU');
-            return false;
-			}else{
-             gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id + '&surat=RAK',pdf_rak,'large');
-			}
-        }
-    }
-	
-	function pdf_rak() {
-        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-	   if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } else {
-            window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id + '&surat=RAK');
-        }
-	}
-	
-	function cetak_dft_rak(){
-     var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-			if (selectedRowsSelesai[0].jenis_biaya!='BLU') {
-            onMessage('Tidak mencetak Daftar RAK, hanya untuk pegawai yang dibiayai BLU');
-            return false;
-			}else{
-				if (selectedRowsSelesai[0].jenis=='Individu') {
-				onMessage('Tidak mencetak Daftar RAK, hanya untuk kelompok');
-				return false;
-				}else{
-				gopop(BASE_URL + 'pengembangan_pelatihan/preview/?id=' + selectedRowsSelesai[0].id + '&surat=dft',pdf_dft,'large');
-				}
-			}
-        }
-    }
-	
-	function pdf_dft() {
-        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-	   if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } else {
-         window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id + '&surat=dft');
-		}
-	}
-
-    function uploadFile() {
-        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        $('#id_upload').val(selectedRowsSelesai[0].kode);
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-            bootbox.dialog({
-            message: $('<div></div>').load('view/pengembangan_pelatihan_upload.php'),
-            animateIn: 'bounceIn',
-            animateOut: 'bounceOut',
-            backdrop: false,
-            size: 'medium',
-            buttons: {
-                success: {
-                    label: "Save", className: "btn-success", callback: function () {
-                        // simpanKeluarga('save'); ini bisa di hapus
-                        $('#form-latbang-upload').submit(); //ini untuk submit form-keluarga
-                        return false;
-                    }
-                }, main: {
-                    label: "Close", className: "btn-warning", callback: function () {
-                        $.niftyNoty({type: 'dark', message: "Bye Bye", container: 'floating', timer: 5000});
-                    }
-                }
-            }
-        });
-            
-            // submit_get(BASE_URL + 'pengembangan_pelatihan/laporan_selesai/?id=' + selectedRowsSelesai[0].id, loaddata);
-        }
-    
-}
-		$(document).ready(function () {
+   		$(document).ready(function () {
 		$('.tanggal').datepicker({
             format: "dd-mm-yyyy",
         }).on('change', function(){

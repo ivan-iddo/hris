@@ -67,7 +67,7 @@
 						<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputpropinsi">Nilai PAK</label>
 							<div class="col-sm-8">
-								<input class="form-control" type="text" id="nilai_pak" name="nilai_pak">
+								<input class="form-control" type="number" id="nilai_pak" name="nilai_pak">
 						</div>
 							</div>
 							<div class="form-group">
@@ -101,8 +101,8 @@
                                                                                   style="width: 100%;" tabindex="-1"
                                                                                   onchange="getToSub(this.value,'ketahlijabfungasn','m/keahlian_asn/getoption/')"><option value=0>Please Select</option></select>
                                                     </div>         
-                                                    </div>
                                                 </div>
+                                                
                                                 <div class="form-group" id="inputpns"><label
                                                             class="col-sm-4 control-label"
                                                             for="inputkab">Ket Jabatan</label>
@@ -112,6 +112,7 @@
                                                                                   style="width: 100%;"
                                                                                   tabindex="-1"></select></div>
                                                 </div>
+												</div>
 
 </div>
 </div>

@@ -1924,6 +1924,126 @@ class Pengembangan_pelatihan extends REST_Controller
         }
 
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+    }     
+	
+	public function list_uk_get($offset = 0, $param_search = "", $dari="", $sampai="")
+    {
+        $search = null;
+        $limit = 200;
+        $order_by = "pengembangan_pelatihan.id";
+        $headers = $this->input->request_headers();
+        
+        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+            if ($decodedToken != false) {
+				$grup = $decodedToken->data->_pnc_id_grup;
+				if (!empty($param_search)) {
+                    $cari = urldecode($param_search);
+                }if (!empty($dari)) {
+                    $mulai = date("Y-m-d", strtotime($dari));
+                }if (!empty($sampai)) {
+                    $hingga = date("Y-m-d", strtotime($sampai));
+                }
+				
+                $results['result'] = $this->Pengembangan_pelatihan_model->get_list(null, $search, $offset, $limit, $mulai, $hingga, null, $order_by, $cari, $grup);
+                //print_r($results['result']);die();
+				// echo $this->db->last_query();die;
+                if (!empty($results['result'])) {
+                    foreach ($results["result"] as $key => $value) {
+                        $createdby = $this->db->select("username")->where(array("id_user" => $value["createdby"]))->get("sys_user")->result_array();
+                        $updatedby = $this->db->select("username")->where(array("id_user" => $value["updatedby"]))->get("sys_user")->result_array();
+                        if (count($createdby) == 1) {
+                            $results["result"][$key]["createdby"] = $createdby[0]["username"];
+                        }
+                        if (count($updatedby) == 1) {
+                            $results["result"][$key]["updatedby"] = $updatedby[0]["username"];
+                        }
+					
+						$results["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["kegiatan"]);
+                        $results["result"][$key]["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($value["pengembangan_pelatihan_kegiatan_status"]);
+                        $results["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($value["kode"]);
+                        $results["result"][$key]["tanggal"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_pelaksanaan", array("pengembangan_pelatihan_id" => $value["id"]));
+                        $results["result"][$key]["detail"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail", array("pengembangan_pelatihan_id" => $value["id"]));
+                        $results["result"][$key]["detail_uraian"] = $this->Pengembangan_pelatihan_model->get_detail("pengembangan_pelatihan_detail_biaya", array("pengembangan_pelatihan_detail_id" => $value["id"]));
+						if (!empty($results["result"][$key]["detail_uraian"])) {
+						    foreach ($results["result"][$key]["detail_uraian"] as $key_detail_biaya => $value_detail_biaya) {
+						
+						if(substr($value_detail_biaya["uraian"],0,13)!="Akomodasi Gol"){
+						if("Akomodasi Gol ".substr($results["result"][$key]["pengembangan_pelatihan_detail"]->golongan,0,-2)!=$value_detail_biaya["uraian"]){
+						$results["result"][$key]["nominal"] += $value_detail_biaya["pernominal"];
+						}//else if("Registrasi + Akomodasi"!=$value_detail_biaya["uraian"]){
+						//$results["result"][$key]["nominal"] += $value_detail_biaya["pernominal"];
+						//}
+						}
+						if("Akomodasi Gol ".substr($results["result"][$key]["pengembangan_pelatihan_detail"]->golongan,0,-2)==$value_detail_biaya["uraian"]){
+						$results["result"][$key]["nominal_gol"] = $value_detail_biaya["pernominal"];
+						}//else if("Registrasi + Akomodasi"==$value_detail_biaya["uraian"]){
+						//$results["result"][$key]["nominal_gol"] = $value_detail_biaya["pernominal"];
+						//}
+						$results["result"][$key]["pernominal"]=$results["result"][$key]["nominal_gol"]+$results["result"][$key]["nominal"];
+						}
+						}
+						
+						if (!empty($results["result"][$key]["tanggal"])) {
+						    foreach ($results["result"][$key]["tanggal"] as $key_detail_tanggal => $value_detail_tanggal) {
+                                if ($value_detail_tanggal["tanggal_to"]!=$value_detail_tanggal["tanggal_from"]) {
+								$results["result"][$key]["tanggal_from"] = $value_detail_tanggal["tanggal_from"].' s/d '.$value_detail_tanggal["tanggal_to"];
+								}else{
+								$results["result"][$key]["tanggal_from"] = $value_detail_tanggal["tanggal_from"];
+								}
+								$tanggal = date('d-m-Y');
+								$besok = date('d-m-Y', strtotime("+5 day", strtotime($value_detail_tanggal["tanggal_to"])));
+								$from = date('d-m-Y', strtotime("-1 day", strtotime($value_detail_tanggal["tanggal_from"])));
+								$to = date('d-m-Y', strtotime("+1 day", strtotime($value_detail_tanggal["tanggal_to"])));
+								if(strtotime($tanggal)>strtotime($value_detail_tanggal["tanggal_from"])){
+								if (strtotime($tanggal)>strtotime($value_detail_tanggal["tanggal_to"])){
+								if(strtotime($tanggal)<strtotime($besok)){
+								if($value["laporan_kegiatan"]==1){
+								$results["result"][$key]["laporan"] = "Menunggu Laporkan";
+								}else{
+								$results["result"][$key]["laporan"] = "Sudah Melaporkan";
+								}
+								}else if (strtotime($tanggal)>strtotime($besok)){
+								if($value["laporan_kegiatan"]==1){
+								$results["result"][$key]["laporan"] = "Belum Melaporkan";
+								}else{
+								$results["result"][$key]["laporan"] = "Sudah Melaporkan";
+								}
+								}
+								}
+								if($value["laporan_kegiatan"]==1){
+								$results["result"][$key]["laporan"] = "Belum Melaporkan";
+								}else{
+								$results["result"][$key]["laporan"] = "Sudah Melaporkan";
+								}
+								}if(strtotime($from) <= strtotime($tanggal) && strtotime($to) >= strtotime($tanggal)){
+								$results["result"][$key]["laporan"] = "Melakukan Kegiatan";							
+								}else if(strtotime($value_detail_tanggal["tanggal_from"]) >= strtotime($tanggal) && strtotime($value_detail_tanggal["tanggal_to"]) >= strtotime($tanggal)){
+								$results["result"][$key]["laporan"] = "Pengajuang Baru";
+								}
+								
+								
+							}
+                        }
+                    }
+                }
+				$results['cari'] = $this->Pengembangan_pelatihan_model->get_total($mulai, $hingga, null, $cari, $grup);
+				//print_r($results['cari']);die();
+				$results['total'] = $results['cari'][0]['count'];
+				$results["query"] = $this->db->last_query();
+                $results['limit'] = $limit;
+                $results["is_blocked"] = $this->Pengembangan_pelatihan_model->is_blocked($decodedToken->data->NIP);
+                $results["is_monev"] = $this->Pengembangan_pelatihan_model->is_monev($decodedToken->data->NIP);
+                // echo "<pre>";
+              //
+                // echo "</pre>";
+                // die;
+                $this->set_response($results, REST_Controller::HTTP_OK);
+                return;
+            }
+        }
+
+        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
     }    
 	
 	public function listlap_get($offset = 0, $param_search = "", $awal = "", $akhir = "")
@@ -2709,18 +2829,44 @@ class Pengembangan_pelatihan extends REST_Controller
 				$nopeg = $this->input->post("nopeg");
 				$from = @($tanggal_explode[0]?$tanggal_explode[0]:Null);
                 $to = @$tanggal_explode[1];
-                $this->db->where('pengembangan_pelatihan_detail.nopeg', $nopeg);
+                
+				$this->db->where('his_cuti.id_user', $nopeg);
+				$this->db->where('his_cuti.status', '103');
+				$this->db->where("his_cuti.tgl_cuti <=", $from);
+				$this->db->where("his_cuti.tgl_akhir_cuti >=", $to);
+				$cek_cuti=$this->db->get('his_cuti')->row();
+                
+				$this->db->where('surat_detail.nopeg', $nopeg);
+				$this->db->where("surat_pelaksanaan.tanggal_from <=", $from);
+				$this->db->where("surat_pelaksanaan.tanggal_to >=", $to);
+				$this->db->join("surat_pelaksanaan", "surat_detail.surat_id = surat_pelaksanaan.surat_id");
+				$this->db->join("surat", "surat_detail.surat_id = surat.id");
+				$cek_surat=$this->db->get('surat_detail')->row();
+                
+				
+				$this->db->where('pengembangan_pelatihan_detail.nopeg', $nopeg);
 				$this->db->where("pengembangan_pelatihan_pelaksanaan.tanggal_from <=", $from);
 				$this->db->where("pengembangan_pelatihan_pelaksanaan.tanggal_to >=", $to);
 				$this->db->join("pengembangan_pelatihan_pelaksanaan", "pengembangan_pelatihan_detail.pengembangan_pelatihan_id = pengembangan_pelatihan_pelaksanaan.pengembangan_pelatihan_id");
 				$this->db->join("pengembangan_pelatihan", "pengembangan_pelatihan_detail.pengembangan_pelatihan_id = pengembangan_pelatihan.id");
 				$cek=$this->db->get('pengembangan_pelatihan_detail')->row();
                 //print_r($from);die();
-                    if (empty($cek)) {
+                    if (empty($cek_cuti)) {
+					if (empty($cek_surat)) {
+					if (empty($cek)) {
                         $arr['hasil'] = 'success';
                     } else {
                         $arr['hasil'] = 'error';
                         $arr['message'] = 'Yang bersangkutan sedang menghadiri '.$cek->nama_pelatihan.' pada tanggal '.$cek->tanggal_from.' s/d '.$cek->tanggal_to.' yang diselenggarakan oleh '.$cek->institusi.' di '.$cek->tujuan;
+                    }
+					}
+					else{
+					    $arr['hasil'] = 'eror';
+                        $arr['message'] = 'Yang bersangkutan telah dibuatkan surat tugas / surat izin pada tanggal '.$cek->nama_pelatihan.' pada tanggal '.$cek->tanggal_from.' s/d '.$cek->tanggal_to.' yang diselenggarakan oleh '.$cek->institusi.' di '.$cek->tujuan;
+                    }
+					}else {
+                        $arr['hasil'] = 'eror';
+                        $arr['message'] = 'Yang bersangkutan sedang cuti pada tanggal '.date_format(date_create($cek_cuti->tgl_cuti), "d-m-Y").' s/d '.date_format(date_create($cek_cuti->tgl_akhir_cuti), "d-m-Y");
                     }
                     $this->set_response($arr, REST_Controller::HTTP_OK);
                     return;

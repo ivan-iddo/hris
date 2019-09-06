@@ -14,10 +14,19 @@
                          <input type="text" id="id_pelatihan" name="id_pelatihan" style="display:none">
                           </div>
                         </div>
-                        <div class="form-group">
-                          <label class="col-sm-4 control-label" for="inputstatus">Tempat</label>
+                        <!--<div class="form-group">
+                          <label class="col-sm-4 control-label" for="inputstatus">Lokasi</label>
                           <div class="col-sm-8">
                             <input class="form-control" id="tempat" name="tempat" placeholder="" type="text">
+                          </div>
+                        </div>
+						-->
+						<div class="form-group">
+                          <label class="col-sm-4 control-label" for="inputrt">Lokasi</label>
+                          <div class="col-sm-8">
+                            <select class="form-control select2" id="tempat" name="tempat" style="width: 100%;">
+                               
+                            </select>
                           </div>
                         </div>
                         <div class="form-group">
@@ -185,4 +194,7 @@
 		$('.datepicker').hide();
 	  });
 	 }); 
+	$('.select2').chosen();
+	$('.chosen-container').css({"width": "100%"});
+  
 </script>
