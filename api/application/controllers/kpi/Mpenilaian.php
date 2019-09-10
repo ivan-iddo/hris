@@ -1533,10 +1533,11 @@ class Mpenilaian extends REST_Controller
 				if(!empty($idp)){
 					 $this->db->where('m_penilaian_kpi.id_grup',$this->input->get('idp'));
 				}
-				if(!empty($child)){
+				/*if(!empty($child)){
 					$childs=array('20',$child);
 					$this->db->where_in('m_penilaian_kpi.child',$childs);
-				}
+				}*/
+				
 
 				  $this->db->select('m_penilaian_kpi.*,his_kpi_detail.*,his_kpi.no_pegawai,his_kpi.id as id_kpi,his_kpi_detail.id as id_kpi_d');
 				  $this->db->where('m_penilaian_kpi.tampilkan','1');
