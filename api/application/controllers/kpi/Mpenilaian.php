@@ -1194,13 +1194,13 @@ class Mpenilaian extends REST_Controller
 				}else if($id_jenis=="16"){
 				$this->db->where('tampilkan',1);
 				$this->db->where('child','30');
-				$mkpi = $this->db->get('m_penilaian_kpi')->result();
-				foreach($mkpi as $kpi){
-					$data=array(
+				$mkp = $this->db->get('m_penilaian_kpi')->result();
+				foreach($mkp as $kp){
+					$dat=array(
 					'id_kpi'=> $id_kpi,
-					'id_kegiatan'=> $kpi->id_grup,
+					'id_kegiatan'=> $kp->id_grup,
 				);
-				$this->db->insert('his_kpi_detail',$data);
+				$this->db->insert('his_kpi_detail',$dat);
 				}
 				}
 				}
@@ -1243,13 +1243,13 @@ class Mpenilaian extends REST_Controller
 				}else if($id_jenis=="16"){
 				$this->db->where('tampilkan',1);
 				$this->db->where('child','30');
-				$mkpi = $this->db->get('m_penilaian_kpi')->result();
-				foreach($mkpi as $kpi){
-					$data=array(
+				$mkp = $this->db->get('m_penilaian_kpi')->result();
+				foreach($mkp as $kp){
+					$dat=array(
 					'id_kpi'=> $id,
-					'id_kegiatan'=> $kpi->id_grup,
+					'id_kegiatan'=> $kp->id_grup,
 				);
-				$this->db->insert('his_kpi_detail',$data);
+				$this->db->insert('his_kpi_detail',$dat);
 				}
 				}
 				}
