@@ -630,13 +630,13 @@ class Mpenilaian extends REST_Controller
             if ($decodedToken != false) {
 			$id_user = $decodedToken->data->id;
 			$user_froup = $decodedToken->data->_pnc_id_grup;
-			/*$jabatan1 = $decodedToken->data->_jabatan1;
+			$jabatan1 = $decodedToken->data->_jabatan1;
 			$jabatan2 = $decodedToken->data->_jabatan2;
 			$jabatan3 = $decodedToken->data->_jabatan3;
-		    //$this->load->model('System_auth_model', 'm');
+		    $this->load->model('System_auth_model', 'm');
 				//$this->db->limit('100');
 				//$this->db->order_by();
-		/*if(!empty($jabatan1)){
+		if(!empty($jabatan1)){
 		$id_jab1=$this->m->getchild($jabatan1);
 		}
 		if(!empty($jabatan2)){
@@ -644,7 +644,7 @@ class Mpenilaian extends REST_Controller
 		}
 		if(!empty($jabatan3)){
 		$id_jab3=$this->m->getchild($jabatan3);
-		}*/
+		}
 		$this->db->select('riwayat_kedinasan.bagian,riwayat_kedinasan.sub_bagian');
 		$this->db->where('id_user',$id_user);
 		$uk = $this->db->get('riwayat_kedinasan')->row();
@@ -661,7 +661,7 @@ class Mpenilaian extends REST_Controller
 		$this->db->join('riwayat_kedinasan as jabatan3','jabatan3.id_user = sys_user.id_user','LEFT');
 		$this->db->join('m_index_jabatan_asn_detail as jab3','jab3.migrasi_jabatan_detail_id = jabatan3.jabatan_struktural','LEFT');
 		$this->db->where('riwayat_kedinasan.aktif','1');
-		/*if(!empty($jabatan1)){
+		if(!empty($jabatan1)){
 		$this->db->where_in('riwayat_kedinasan.jabatan_struktural',$id_jab1);
 		$this->db->or_where_in('jabatan.jabatan_struktural',$id_jab1);
 		$this->db->or_where_in('jabatan3.jabatan_struktural',$id_jab1);
@@ -675,7 +675,7 @@ class Mpenilaian extends REST_Controller
 		$this->db->where_in('riwayat_kedinasan.jabatan_struktural',$id_jab3);
 		$this->db->or_where_in('jabatan.jabatan_struktural',$id_jab3);
 		$this->db->or_where_in('jabatan3.jabatan_struktural',$id_jab3);
-		}*/
+		}
 		$this->db->join('dm_term','sys_user_profile.pendidikan_akhir = dm_term.id','LEFT');
 		$this->db->join('m_kode_profesi_group','sys_user_profile.kategori_profesi = m_kode_profesi_group.id','LEFT');
 		$this->db->where('sys_user.status','1');
@@ -692,7 +692,7 @@ class Mpenilaian extends REST_Controller
 			// $this->db->like("sys_user.name",$param); 
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 		 }
-		if (($user_froup == '1') OR ($user_froup == '6')) {
+		/*if (($user_froup == '1') OR ($user_froup == '6')) {
 			$kepala=array('3','38','70','148','231','293','398','509','654','732','881','948','1086','1125','1164','1203','1242','1281','1320','1359','1398','1437','1476','1527','1581','1646','1733','1863','1957','2005','2066','2182','2195','2250','2427','2522','2555','2642','2749','2782');        
 			$this->db->where_in('riwayat_kedinasan.jabatan_struktural', $kepala);
 					
@@ -703,7 +703,7 @@ class Mpenilaian extends REST_Controller
 		}else{
 		$this->db->where('riwayat_kedinasan.bagian', $bagian);
 		$this->db->where('riwayat_kedinasan.sub_bagian', $sub_bag);
-		}}
+		}}*/
 		$total_rows = $this->db->count_all_results('sys_user');
 		$pagination = create_pagination_endless('/user/list/0/', $total_rows,50,4);
 				
@@ -719,7 +719,7 @@ class Mpenilaian extends REST_Controller
 		$this->db->join('m_index_jabatan_asn_detail as jab3','jab3.migrasi_jabatan_detail_id = jabatan3.jabatan_struktural','LEFT');
 		$this->db->like("m_index_jabatan_asn_detail.ds_jabatan",'Kepala');
 		$this->db->where('riwayat_kedinasan.aktif','1');
-		/*if(!empty($jabatan1)){
+		if(!empty($jabatan1)){
 		$this->db->where_in('riwayat_kedinasan.jabatan_struktural',$id_jab1);
 		$this->db->or_where_in('jabatan.jabatan_struktural',$id_jab1);
 		$this->db->or_where_in('jabatan3.jabatan_struktural',$id_jab1);
@@ -733,7 +733,7 @@ class Mpenilaian extends REST_Controller
 		$this->db->where_in('riwayat_kedinasan.jabatan_struktural',$id_jab3);
 		$this->db->or_where_in('jabatan.jabatan_struktural',$id_jab3);
 		$this->db->or_where_in('jabatan3.jabatan_struktural',$id_jab3);
-		}*/
+		}
 		$this->db->join('dm_term','sys_user_profile.pendidikan_akhir = dm_term.id','LEFT');
 		$this->db->join('m_kode_profesi_group','sys_user_profile.kategori_profesi = m_kode_profesi_group.id','LEFT');
 		// if(!empty($this->uri->segment(3))){
@@ -747,7 +747,7 @@ class Mpenilaian extends REST_Controller
 			//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 			 
 		 }
-		if (($user_froup == '1') OR ($user_froup == '6')) {
+		/*if (($user_froup == '1') OR ($user_froup == '6')) {
 			$kepala=array('3','38','70','148','231','293','398','509','654','732','881','948','1086','1125','1164','1203','1242','1281','1320','1359','1398','1437','1476','1527','1581','1646','1733','1863','1957','2005','2066','2182','2195','2250','2427','2522','2555','2642','2749','2782');        
 			$this->db->where_in('riwayat_kedinasan.jabatan_struktural', $kepala);
 					
@@ -758,7 +758,7 @@ class Mpenilaian extends REST_Controller
 		}else{
 		$this->db->where('riwayat_kedinasan.bagian', $bagian);
 		$this->db->where('riwayat_kedinasan.sub_bagian', $sub_bag);
-		}}
+		}}*/
 		$this->db->where('sys_user.status','1');
 		$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
 		$this->db->order_by('sys_user.name','ACS');
@@ -1128,7 +1128,7 @@ class Mpenilaian extends REST_Controller
 				$nip = $this->input->post('nip');
 				$awal = date_format(date_create($this->input->post('awal')), "Y-m-d");
 				$akhir = date_format(date_create($this->input->post('akhir')), "Y-m-d");
-			
+				
 				//cek dulu kalau sama dia gak boleh save
 				$this->db->where('id_jenis',$id_jenis);
 				$this->db->where('awal <=',$awal);
@@ -1242,7 +1242,7 @@ class Mpenilaian extends REST_Controller
 				}
 				}else if($id_jenis=="16"){
 				$this->db->where('tampilkan',1);
-				$this->db->where('child','30');
+				$this->db->where('child','25');
 				$mkpi = $this->db->get('m_penilaian_kpi')->result();
 				foreach($mkpi as $kpi){
 					$data=array(
