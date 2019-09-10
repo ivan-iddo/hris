@@ -1242,7 +1242,7 @@ class Mpenilaian extends REST_Controller
 				}
 				}else if($id_jenis=="16"){
 				$this->db->where('tampilkan',1);
-				$this->db->where('child','25');
+				$this->db->where('child','30');
 				$mkpi = $this->db->get('m_penilaian_kpi')->result();
 				foreach($mkpi as $kpi){
 					$data=array(
