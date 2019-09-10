@@ -89,16 +89,15 @@
              
                         <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
 					            <div class="row">
-					                <div class="col-sm-6 table-toolbar-left">
-					                     <button style="margin-left:3px" class="btn btn-success" onclick="proses('2')"><i class="fa fa-file-excel-o"></i> Setujui Permohonan</button>
-                                         <button style="margin-left:3px" class="btn btn-danger" onclick="inbox()"><i class="fa fa-file-excel-o"></i> Tolak</button>
-                                         <button style="margin-left:3px" class="btn btn-primary" onclick="filters()"><i class="fa fa-file-excel-o"></i> Filter ikp 8</button>
-                                         <button style="margin-left:3px" class="btn btn-danger" onclick="reset()"><i class="fa fa-file-excel-o"></i> Reset</button>
-                                        
-                                                      
-					                     
+					                <div class="col-sm-8 table-toolbar-left">
+					                      <button style="margin-left:3px" class="btn btn-success" onclick="proses('2')"><i class="fa fa-file-excel-o"></i> Setujui Permohonan</button>
+					                      <button style="margin-left:3px" class="btn btn-warning" onclick="proses('1')"><i class="fa fa-file-excel-o"></i> Perbaikan </button>
+                                         <button style="margin-left:3px" class="btn btn-danger" onclick="proses('3')"><i class="fa fa-file-excel-o"></i> Tolak</button>
+                                         <button style="margin-left:3px" class="btn btn-primary" onclick="update()"><i class="fa fa-file-excel-o"></i> Simpan</button>
+                                         <button style="margin-left:3px" class="btn btn-primary" onclick="filters()"><i class="fa fa-file-excel-o"></i> Filter iki 8</button>
+                                         <button style="margin-left:3px" class="btn btn-danger" onclick="reset()"><i class="fa fa-file-excel-o"></i> Reset</button>          
 					                </div>
-									<div class="col-sm-6 table-toolbar-right">
+									<div class="col-sm-4 table-toolbar-right">
 					                      <button class="btn btn-default"  onCLick="downloadpimp();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
 					                </div>
 					            </div>
@@ -113,7 +112,8 @@
   <div class="row">
 	<div class="col-sm-8 table-toolbar-left">
 		<button style="margin-left:3px" class="btn btn-mint" onclick="getRowData()"><i class="fa fa-file-excel-o"></i> Simpan Perubahan</button>
-		<button class="btn btn-danger" onclick="hapus()"><i class="fa fa-file-excel-o"></i> Delete</button>                                                   				                     
+		<button class="btn btn-success" onclick="get()"><i class="fa fa-file-excel-o"></i> Selesai kirim ke SDM</button>                                                   				                     
+	    <button class="btn btn-danger" onclick="hapus()"><i class="fa fa-file-excel-o"></i> Delete</button>                                                   				                     
 	</div>
 	<div class="col-sm-4 table-toolbar-right">
 		<div class="btn-group">
@@ -132,8 +132,10 @@
   {headerName: "Nama Pegawai", field: "nama", width: 160, filterParams:{newRowsAction: "keep"}},
   {headerName: "Unit Kerja", field: "unit", width: 190, filterParams:{newRowsAction: "keep"}},
   {headerName: "Nilai IKP", field: "nilai", width: 90, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Nilai IKP Awal", field: "nilai_awal", width: 130, filterParams:{newRowsAction: "keep"}},
   {headerName: "Nilai IKU", field: "iku", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Status", field: "status", width: 120, cellRenderer: CellRenderer},
+  {headerName: "Keterangan", field: "ket", width: 120, editable:true},
   {headerName: "Bulan", field: "bulan", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Tahun", field: "tahun", width: 90, filterParams:{newRowsAction: "keep"}},
 ]; 
@@ -199,16 +201,22 @@
             }else{
                 var selectedRowsString = '';
                 var level = '';
+				var nilai = '';
+                var nilai_awal = '';
+           
            selectedRows.forEach( function(selectedRow, index) {
             
                if (index!==0) {
                    selectedRowsString += ', ';
                }
                selectedRowsString += selectedRow.id;
-           });
+			   nilai += selectedRow.nilai;
+               nilai_awal += selectedRow.nilai_awal;
+           
+		   });
 
            bootbox.dialog({ 
-                 message:$('<div></div>').load('view/kpi/listkpi.php?id=17&pid='+selectedRowsString),
+                 message:$('<div></div>').load('view/kpi/listkpi.php?id=17&awal='+nilai_awal+'&akhir='+nilai+'&pid='+selectedRowsString),
                    animateIn: 'bounceIn',
                    animateOut : 'bounceOut',
 									 backdrop: false,
@@ -229,27 +237,15 @@
         }
                 }
 
-			function inbox(){
-    var selectedRows = gridTK.api.getSelectedRows();
-            // alert('>>'+selectedRows+'<<<');
-            if(selectedRows == ''){
-               onMessage('Silahkan Pilih Data di Tabel Kebutuhan SDM Terlebih dahulu!');
-               return false;
-            }else{
-                var selectedRowsString = '';
-           selectedRows.forEach( function(selectedRow, index) {
-            
-               if (index!==0) {
-                   selectedRowsString += ', ';
-               }
-               selectedRowsString += selectedRow.id;
-           }); 
-           gopopOnly('view/kpi/form_tolak.php',detailaction,'medium');
-           
-            }
-     
-		}
-		  
+		function update() {
+    var rowData = [];
+    gridTK.api.forEachLeafNode( function(node) {
+        rowData.push(node.data);
+    });
+    //console.log('Row Data:'); 
+    save(BASE_URL+'kpi/mpenilaian/editproses',rowData,tektok);
+	}
+	
 		function detailaction(){
 			var iddettk = $('#iddettk').val();	
 		}
@@ -460,7 +456,7 @@ function loadDataPI(jml){
         rowData.push(node.data);
     });
     //console.log('Row Data:'); 
-    save(BASE_URL+'kpi/mpenilaian/saveiku/',rowData,tektok);
+    save(BASE_URL+'kpi/mpenilaian/saveikubaru/',rowData,listFromtk);
 	}
 
 	    var gridDiv = document.querySelector('#myGrid');
@@ -504,7 +500,7 @@ function loadDataPI(jml){
                            className: "btn-primary",
                            callback: function() {
                                
-                            getJson(tektok,BASE_URL+'kpi/mpenilaian/hapus?id='+selectedRowsString);
+                            getJson(tektok,BASE_URL+'kpi/mpenilaian/hapus?id='+selectedRowsString,tektok);
                            }
                        },
 
@@ -553,6 +549,9 @@ function loadDataPI(jml){
 	}else if(params.value ==='Belum Disetujui'){
 	closeSpan.setAttribute("class","badge badge-light");
 	closeSpan.textContent = "Belum Disetujui";
+	}else if(params.value ==='Baru'){
+	closeSpan.setAttribute("class","badge badge-info");
+	closeSpan.textContent = "Baru";
 	}
 	return closeSpan;
 	}

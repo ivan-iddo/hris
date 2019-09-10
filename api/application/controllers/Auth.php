@@ -34,7 +34,8 @@ class Auth extends REST_Controller
         $tokenData = array();
         $tokenData['data'] = array('user_id'=>'1','date'=>date('Y-m-d H:i:s')); //TODO: Replace with data for token
         $output['token'] = AUTHORIZATION::generateToken($tokenData);
-        $this->set_response($output, REST_Controller::HTTP_OK);
+        
+		$this->set_response($output, REST_Controller::HTTP_OK);
     }
 	
 	

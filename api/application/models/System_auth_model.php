@@ -8,15 +8,18 @@ class System_auth_model extends CI_Model
     {
         $sql = "select
 		    a.username
-,a.id_user
-				,a.name
+            ,a.id_user
+			,a.name
 		    ,a.email
 		    ,a.id_aplikasi
-				,a.kode_klinik
+			,a.kode_klinik
 		    ,a.id_grup
-				,b.grup
-				,c.aplikasi,
-				a.id_uk
+			,b.grup
+			,c.aplikasi
+            ,a.id_uk
+            ,d.jabatan_struktural
+            ,d.jabatan2
+            ,d.jabatan3
 				
 		from
 		    sys_user a
@@ -29,7 +32,11 @@ class System_auth_model extends CI_Model
 				sys_mst_aplikasi c
 		ON 
 				c.id_aplikasi=a.id_aplikasi
-		where
+        INNER JOIN
+                riwayat_kedinasan d
+        ON 
+                d.id_user=a.id_user
+        where
 		    username='" . $username . "'
 		    and password=MD5('" . $pass . "')
 		and status='1'";
@@ -48,6 +55,9 @@ class System_auth_model extends CI_Model
                 '_pnc_grup' => $r->grup,
                 '_pnc_aplikasi' => $r->aplikasi,
                 '_pnc_kode_klinik' => $r->kode_klinik,
+                '_jabatan1' => $r->jabatan_struktural,
+                '_jabatan2' => $r->jabatan2,
+                '_jabatan3' => $r->jabatan3,
                 'id_uk' => $r->id_uk
 
             );
@@ -204,6 +214,54 @@ class System_auth_model extends CI_Model
 
         $obj_parentchild->extra_condition = ""; //if required
         $obj_parentchild->order_by_phrase = " ORDER BY id_grup ";
+
+        $obj_parentchild->level_identifier = "";
+        $obj_parentchild->item_pointer = "";
+
+        $root_item_id = $id;
+        $all_childs = $obj_parentchild->getAllChilds($root_item_id);
+        // print_r($all_childs);die();
+
+        foreach ($all_childs as $chld) {
+            $dataarr[] = trim($chld[$obj_parentchild->item_list_field_name]);
+
+        }
+
+        return $dataarr;
+        // print_r($dataarr);die();
+        //Getting the path of an item from the root : added on 18 january, 2011 : start
+        //	echo "<p><b>Example : the full path for element q : </b></p>";
+        $item_id = $id;
+        $item_path_array = $obj_parentchild->getItemPath($item_id);
+        //foreach ($item_path_array as $val) { echo $val['Name']."->"; }
+
+        $obj_parentchild->db_disconnect();
+    } 
+	
+	function getchild($id = 0)
+    {   
+
+        $this->load->database();
+        $obj_parentchild = new ParentChild();
+
+        $obj_parentchild->db_host = "localhost";
+        $obj_parentchild->db_user = $this->db->username;
+        $obj_parentchild->db_pass = $this->db->password;
+        $obj_parentchild->db_database = $this->db->database;
+        $obj_parentchild->db_port=$this->db->port;
+
+        if (!$obj_parentchild->db_connect()) {
+            echo "<h1>Sorry! Could not connect to the database server.</h1>";
+            exit();
+        }
+
+        $obj_parentchild->db_table = "m_index_jabatan_asn_detail";
+        $obj_parentchild->item_identifier_field_name = "migrasi_jabatan_detail_id";
+        $obj_parentchild->parent_identifier_field_name = "parent";
+        $obj_parentchild->item_list_field_name = "migrasi_jabatan_detail_id";
+
+        $obj_parentchild->extra_condition = ""; //if required
+        $obj_parentchild->order_by_phrase = " ORDER BY migrasi_jabatan_detail_id ";
 
         $obj_parentchild->level_identifier = "";
         $obj_parentchild->item_pointer = "";
