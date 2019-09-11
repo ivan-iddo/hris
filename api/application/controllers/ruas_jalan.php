@@ -11,43 +11,43 @@ $_POST = json_decode($rest_json, true);
 
 
 /*
- * Changes:
- * 1. This project contains .htaccess file for windows machine.
- *    Please update as per your requirements.
- *    Samples (Win/Linux): http://stackoverflow.com/questions/28525870/removing-index-php-from-url-in-codeigniter-on-mandriva
- *
- * 2. Change 'encryption_key' in application\config\config.php
- *    Link for encryption_key: http://jeffreybarke.net/tools/codeigniter-encryption-key-generator/
- * 
- * 3. Change 'jwt_key' in application\config\jwt.php
- *
- */
+* Changes:
+* 1. This project contains .htaccess file for windows machine.
+*    Please update as per your requirements.
+*    Samples (Win/Linux): http://stackoverflow.com/questions/28525870/removing-index-php-from-url-in-codeigniter-on-mandriva
+*
+* 2. Change 'encryption_key' in application\config\config.php
+*    Link for encryption_key: http://jeffreybarke.net/tools/codeigniter-encryption-key-generator/
+* 
+* 3. Change 'jwt_key' in application\config\jwt.php
+*
+*/
 
 class Ruas_jalan extends REST_Controller
 {
-    /**
-     * URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
-     * Method: GET
-     */
-  
-	public function list_get(){
-		$headers = $this->input->request_headers();
+/**
+* URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
+* Method: GET
+*/
 
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false) {
-				//$this->db->limit('100');
-				$this->db->order_by('nama','ASC');
-		 
-		  $this->db->where('tampilkan','1');
-		  $this->db->join('m_provinsi','ruas_jalan.id_propinsi = m_provinsi.province_id');
-		  $res = $this->db->get('ruas_jalan')->result();
-		  $no=0;
-		  if(!empty($res)){
-		  foreach($res as $d){
-			++$no;
-			$arr[]=array('id'=>$d->id,
-						 "nama"=>$d->nama,
+public function list_get(){
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+//$this->db->limit('100');
+			$this->db->order_by('nama','ASC');
+
+			$this->db->where('tampilkan','1');
+			$this->db->join('m_provinsi','ruas_jalan.id_propinsi = m_provinsi.province_id');
+			$res = $this->db->get('ruas_jalan')->result();
+			$no=0;
+			if(!empty($res)){
+				foreach($res as $d){
+					++$no;
+					$arr[]=array('id'=>$d->id,
+						"nama"=>$d->nama,
 						"deskripsi" => $d->deskripsi,
 						"link_id" => $d->link_id,
 						"id_propinsi" => $d->id_propinsi,
@@ -60,106 +60,106 @@ class Ruas_jalan extends REST_Controller
 						"STA_akhir" => $d->STA_akhir,
 						"kord_awal" =>$d->kord_awal,
 						"kord_akhir" => $d->kord_akhir
-						 
-						 );
-		  }
-		  }else{
-			$arr['result']='empty';
-		  }
-		  
-		  $this->set_response($arr, REST_Controller::HTTP_OK);
-			
-                return;
-			}
-		}
-		
-		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
-	}
-	
-	
-	public function optiondata_get(){
-		$headers = $this->input->request_headers();
 
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false) {
-				//$this->db->limit('100');
-				if(!empty($this->input->get('id'))){
-					$this->db->where('ruas_jalan.id_propinsi',$this->input->get('id'));
+					);
 				}
-				$this->db->order_by('nama','ASC');
-		  
-		  $this->db->where('tampilkan','1');
-		 // $this->db->join('m_provinsi','ruas_jalan.id_propinsi = m_provinsi.province_id');
-		  $res = $this->db->get('ruas_jalan')->result();
-		  $no=0;
-		  if(!empty($res)){
-		  foreach($res as $d){
-			++$no;
-			$arr['result'][]=array('value'=>$d->link_id,
-						 "label"=>$d->nama  
-						 );
-		  }
-		  }else{
-			$arr[]='';
-		  }
-		  
-		  $this->set_response($arr, REST_Controller::HTTP_OK);
-			
-                return;
+			}else{
+				$arr['result']='empty';
 			}
-		}
-		
-		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
-	}
-	
-	 
-	
-	public function getgroup_get(){
-		$headers = $this->input->request_headers();
 
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false) {
-				 $this->db->order_by('grup','ASC');
-		  $res = $this->db->get('sys_grup_user')->result();
-		  foreach($res as $d){
-			$arr['result'][]=array('label'=>$d->grup,'value'=>$d->id_grup);
-		  }
-		  
-		  $this->set_response($arr, REST_Controller::HTTP_OK);
-			
-                return;
-			}
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+
+			return;
 		}
-		
-		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 	}
-	
-	 
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
+
+public function optiondata_get(){
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+//$this->db->limit('100');
+			if(!empty($this->input->get('id'))){
+				$this->db->where('ruas_jalan.id_propinsi',$this->input->get('id'));
+			}
+			$this->db->order_by('nama','ASC');
+
+			$this->db->where('tampilkan','1');
+// $this->db->join('m_provinsi','ruas_jalan.id_propinsi = m_provinsi.province_id');
+			$res = $this->db->get('ruas_jalan')->result();
+			$no=0;
+			if(!empty($res)){
+				foreach($res as $d){
+					++$no;
+					$arr['result'][]=array('value'=>$d->link_id,
+						"label"=>$d->nama  
+					);
+				}
+			}else{
+				$arr[]='';
+			}
+
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+
+			return;
+		}
+	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
+
+
+public function getgroup_get(){
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+			$this->db->order_by('grup','ASC');
+			$res = $this->db->get('sys_grup_user')->result();
+			foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->grup,'value'=>$d->id_grup);
+			}
+
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+
+			return;
+		}
+	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
+
 public function save_post(){
-		$headers = $this->input->request_headers();
+	$headers = $this->input->request_headers();
 
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false) {
-			  $nama	= ($this->input->post('nama'))?$this->input->post('nama'):null;
-			  $f_link_id = ($this->input->post('f_link_id'))?$this->input->post('f_link_id'):null;
-			  $f_kode_ruas = ($this->input->post('f_kode_ruas'))?$this->input->post('f_kode_ruas'):null;
-              $f_provinsi = ($this->input->post('f_provinsi'))?$this->input->post('f_provinsi'):null;
-              $f_keterangan = ($this->input->post('f_keterangan'))?$this->input->post('f_keterangan'):null;
-              $f_nama = ($this->input->post('f_nama'))?$this->input->post('f_nama'):null;
-              $f_panjang = ($this->input->post('f_panjang'))?$this->input->post('f_panjang'):null;
-              $f_sta_awal = ($this->input->post('f_sta_awal'))?$this->input->post('f_sta_awal'):null;
-              $f_sta_akhir= ($this->input->post('f_sta_akhir'))?$this->input->post('f_sta_akhir'):null;
-              $f_kord_awal = ($this->input->post('f_kord_awal'))?$this->input->post('f_kord_awal'):null;
-              $f_kord_akhir = ($this->input->post('f_kord_akhir'))?$this->input->post('f_kord_akhir'):null;
-              $f_titik_ref_awal = ($this->input->post('f_titik_ref_awal'))?$this->input->post('f_titik_ref_awal'):null;
-              $f_titik_ref_akhir = ($this->input->post('f_titik_ref_akhir'))?$this->input->post('f_titik_ref_akhir'):null;
-				
-				$this->db->where('nama',$nama);
-				$cek = $this->db->get('ruas_jalan')->row();
-				if(empty($cek)){
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+			$nama	= ($this->input->post('nama'))?$this->input->post('nama'):null;
+			$f_link_id = ($this->input->post('f_link_id'))?$this->input->post('f_link_id'):null;
+			$f_kode_ruas = ($this->input->post('f_kode_ruas'))?$this->input->post('f_kode_ruas'):null;
+			$f_provinsi = ($this->input->post('f_provinsi'))?$this->input->post('f_provinsi'):null;
+			$f_keterangan = ($this->input->post('f_keterangan'))?$this->input->post('f_keterangan'):null;
+			$f_nama = ($this->input->post('f_nama'))?$this->input->post('f_nama'):null;
+			$f_panjang = ($this->input->post('f_panjang'))?$this->input->post('f_panjang'):null;
+			$f_sta_awal = ($this->input->post('f_sta_awal'))?$this->input->post('f_sta_awal'):null;
+			$f_sta_akhir= ($this->input->post('f_sta_akhir'))?$this->input->post('f_sta_akhir'):null;
+			$f_kord_awal = ($this->input->post('f_kord_awal'))?$this->input->post('f_kord_awal'):null;
+			$f_kord_akhir = ($this->input->post('f_kord_akhir'))?$this->input->post('f_kord_akhir'):null;
+			$f_titik_ref_awal = ($this->input->post('f_titik_ref_awal'))?$this->input->post('f_titik_ref_awal'):null;
+			$f_titik_ref_akhir = ($this->input->post('f_titik_ref_akhir'))?$this->input->post('f_titik_ref_akhir'):null;
+
+			$this->db->where('nama',$nama);
+			$cek = $this->db->get('ruas_jalan')->row();
+			if(empty($cek)){
 				$param=array( 
 					"nama"=>$nama,
 					"deskripsi" => $f_keterangan,
@@ -173,68 +173,68 @@ public function save_post(){
 					"STA_akhir" => $f_sta_akhir,
 					"kord_awal" =>$f_kord_awal,
 					"kord_akhir" => $f_kord_akhir
-					);
-				
-				
-				 $this->db->insert('ruas_jalan',$param);
-				
-				 if($this->db->affected_rows() == '1'){
+				);
+
+
+				$this->db->insert('ruas_jalan',$param);
+
+				if($this->db->affected_rows() == '1'){
 					$arr['hasil']='success';
 					$arr['message']='Data berhasil ditambah!';
-				 }else{
+				}else{
 					$arr['hasil']='error';
 					$arr['message']='Data Gagal Ditambah!';
-				 }
-				$this->set_response($arr, REST_Controller::HTTP_OK);
-				}else{
-					$arr['hasil']='error';
-					$arr['message']='Data Gagal Ditambah! NAMA TIPE DOKUMEN sudah pernah digunakan';
-					$this->set_response($arr, REST_Controller::HTTP_OK);
 				}
-		 
-			
-                return;
+				$this->set_response($arr, REST_Controller::HTTP_OK);
+			}else{
+				$arr['hasil']='error';
+				$arr['message']='Data Gagal Ditambah! NAMA TIPE DOKUMEN sudah pernah digunakan';
+				$this->set_response($arr, REST_Controller::HTTP_OK);
 			}
-		}
-		
-		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
-	}
-	
-	
-	 public function edit_post(){
-		$headers = $this->input->request_headers();
 
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false) {
-				$username	= ($this->input->post('nama'))?$this->input->post('nama'):null;
-				$username_asli	= ($this->input->post('f_user_edit'))?$this->input->post('f_user_edit'):null;
-				$id	= ($this->input->post('f_id_edit'))?$this->input->post('f_id_edit'):null;
-              $f_link_id = ($this->input->post('f_link_id'))?$this->input->post('f_link_id'):null;
-			  $f_kode_ruas = ($this->input->post('f_kode_ruas'))?$this->input->post('f_kode_ruas'):null;
-              $f_provinsi = ($this->input->post('f_provinsi'))?$this->input->post('f_provinsi'):null;
-              $f_keterangan = ($this->input->post('f_keterangan'))?$this->input->post('f_keterangan'):null;
-              $f_nama = ($this->input->post('f_nama'))?$this->input->post('f_nama'):null;
-              $f_panjang = ($this->input->post('f_panjang'))?$this->input->post('f_panjang'):null;
-              $f_sta_awal = ($this->input->post('f_sta_awal'))?$this->input->post('f_sta_awal'):null;
-              $f_sta_akhir= ($this->input->post('f_sta_akhir'))?$this->input->post('f_sta_akhir'):null;
-              $f_kord_awal = ($this->input->post('f_kord_awal'))?$this->input->post('f_kord_awal'):null;
-              $f_kord_akhir = ($this->input->post('f_kord_akhir'))?$this->input->post('f_kord_akhir'):null;
-              $f_titik_ref_awal = ($this->input->post('f_titik_ref_awal'))?$this->input->post('f_titik_ref_awal'):null;
-              $f_titik_ref_akhir = ($this->input->post('f_titik_ref_akhir'))?$this->input->post('f_titik_ref_akhir'):null;
-					
-				 
-				
-				if($username != $username_asli){
-					
-				
+
+			return;
+		}
+	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
+
+public function edit_post(){
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+			$username	= ($this->input->post('nama'))?$this->input->post('nama'):null;
+			$username_asli	= ($this->input->post('f_user_edit'))?$this->input->post('f_user_edit'):null;
+			$id	= ($this->input->post('f_id_edit'))?$this->input->post('f_id_edit'):null;
+			$f_link_id = ($this->input->post('f_link_id'))?$this->input->post('f_link_id'):null;
+			$f_kode_ruas = ($this->input->post('f_kode_ruas'))?$this->input->post('f_kode_ruas'):null;
+			$f_provinsi = ($this->input->post('f_provinsi'))?$this->input->post('f_provinsi'):null;
+			$f_keterangan = ($this->input->post('f_keterangan'))?$this->input->post('f_keterangan'):null;
+			$f_nama = ($this->input->post('f_nama'))?$this->input->post('f_nama'):null;
+			$f_panjang = ($this->input->post('f_panjang'))?$this->input->post('f_panjang'):null;
+			$f_sta_awal = ($this->input->post('f_sta_awal'))?$this->input->post('f_sta_awal'):null;
+			$f_sta_akhir= ($this->input->post('f_sta_akhir'))?$this->input->post('f_sta_akhir'):null;
+			$f_kord_awal = ($this->input->post('f_kord_awal'))?$this->input->post('f_kord_awal'):null;
+			$f_kord_akhir = ($this->input->post('f_kord_akhir'))?$this->input->post('f_kord_akhir'):null;
+			$f_titik_ref_awal = ($this->input->post('f_titik_ref_awal'))?$this->input->post('f_titik_ref_awal'):null;
+			$f_titik_ref_akhir = ($this->input->post('f_titik_ref_akhir'))?$this->input->post('f_titik_ref_akhir'):null;
+
+
+
+			if($username != $username_asli){
+
+
 				$this->db->where('nama',$username);
 				$cek = $this->db->get('ruas_jalan')->row();
-				}else{
-					$cek='';
-				}
-				
-				if(empty($cek)){
+			}else{
+				$cek='';
+			}
+
+			if(empty($cek)){
 				$param=array( 
 					"nama"=>$username,
 					"deskripsi" => $f_keterangan,
@@ -248,101 +248,101 @@ public function save_post(){
 					"STA_akhir" => $f_sta_akhir,
 					"kord_awal" =>$f_kord_awal,
 					"kord_akhir" => $f_kord_akhir
-					);
-				
-				 $this->db->where('id',$id);
-				 $this->db->update('ruas_jalan',$param);
-				
-				 if($this->db->affected_rows() == '1'){
+				);
+
+				$this->db->where('id',$id);
+				$this->db->update('ruas_jalan',$param);
+
+				if($this->db->affected_rows() == '1'){
 					$arr['hasil']='success';
 					$arr['message']='Data berhasil ditambah!';
-				 }else{
-					$arr['hasil']='error';
-					$arr['message']='Data Gagal Ditambah!';
-				 }
-				$this->set_response($arr, REST_Controller::HTTP_OK);
 				}else{
 					$arr['hasil']='error';
-					$arr['message']='Data Gagal Ditambah! NAMA TIPE DOKUMEN sudah pernah digunakan';
-					$this->set_response($arr, REST_Controller::HTTP_OK);
-				}
-		 
-			
-                return;
-			}
-		}
-		
-		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
-	}
-	
-	public function delete_get(){
-		$headers = $this->input->request_headers();
-
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false) {
-				 
-				 $id    = $this->input->get('id');
-				 $this->db->where('id',$id);
-				 $this->db->update('ruas_jalan',array('tampilkan'=>'0'));
-				  
-				 if($this->db->affected_rows() == '1'){
-					$arr['hasil']='success';
-					$arr['message']='Data berhasil ditambah!';
-				 }else{
-					$arr['hasil']='error';
 					$arr['message']='Data Gagal Ditambah!';
-				 }
-				$this->set_response($arr, REST_Controller::HTTP_OK);
-		 
-			
-                return;
-			}
-		}
-		
-		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
-	}
-	
-	public function getuser_get(){
-		 $headers = $this->input->request_headers();
-
-        if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
-            $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
-            if ($decodedToken != false) {
-				 $arr=array();
-				 $id    = $this->input->get('id');
-				  
-				$this->db->select("ruas_jalan.*,m_provinsi.province_name");
-				$this->db->where('ruas_jalan.link_id',$id);
-				$this->db->join('m_provinsi','ruas_jalan.id_propinsi = m_provinsi.province_id');
-				$res = $this->db->get('ruas_jalan')->result();
-				foreach($res as $d){
-				  $arr[]=array('id'=>$d->id,
-						 "nama"=>$d->nama,
-						"deskripsi" => $d->deskripsi,
-						"link_id" => $d->link_id,
-						"id_propinsi" => $d->id_propinsi,
-						"nama_propinsi" => $d->province_name,
-						"kode_ruas"=> $d->kode_ruas,
-						"titikref_awal" => $d->titikref_awal,
-						"titikref_akhir" =>$d->titikref_akhir,
-						"panjang_ruas" => $d->panjang_ruas,
-						"STA_awal"=> $d->STA_awal,
-						"STA_akhir" => $d->STA_akhir,
-						"kord_awal" =>$d->kord_awal,
-						"kord_akhir" => $d->kord_akhir
-						 
-						 );
 				}
-				 
 				$this->set_response($arr, REST_Controller::HTTP_OK);
-		 
-			
-                return;
+			}else{
+				$arr['hasil']='error';
+				$arr['message']='Data Gagal Ditambah! NAMA TIPE DOKUMEN sudah pernah digunakan';
+				$this->set_response($arr, REST_Controller::HTTP_OK);
 			}
+
+
+			return;
 		}
-		
-		 $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
-	  
 	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
+public function delete_get(){
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+
+			$id    = $this->input->get('id');
+			$this->db->where('id',$id);
+			$this->db->update('ruas_jalan',array('tampilkan'=>'0'));
+
+			if($this->db->affected_rows() == '1'){
+				$arr['hasil']='success';
+				$arr['message']='Data berhasil ditambah!';
+			}else{
+				$arr['hasil']='error';
+				$arr['message']='Data Gagal Ditambah!';
+			}
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+
+
+			return;
+		}
+	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
+public function getuser_get(){
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+			$arr=array();
+			$id    = $this->input->get('id');
+
+			$this->db->select("ruas_jalan.*,m_provinsi.province_name");
+			$this->db->where('ruas_jalan.link_id',$id);
+			$this->db->join('m_provinsi','ruas_jalan.id_propinsi = m_provinsi.province_id');
+			$res = $this->db->get('ruas_jalan')->result();
+			foreach($res as $d){
+				$arr[]=array('id'=>$d->id,
+					"nama"=>$d->nama,
+					"deskripsi" => $d->deskripsi,
+					"link_id" => $d->link_id,
+					"id_propinsi" => $d->id_propinsi,
+					"nama_propinsi" => $d->province_name,
+					"kode_ruas"=> $d->kode_ruas,
+					"titikref_awal" => $d->titikref_awal,
+					"titikref_akhir" =>$d->titikref_akhir,
+					"panjang_ruas" => $d->panjang_ruas,
+					"STA_awal"=> $d->STA_awal,
+					"STA_akhir" => $d->STA_akhir,
+					"kord_awal" =>$d->kord_awal,
+					"kord_akhir" => $d->kord_akhir
+
+				);
+			}
+
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+
+
+			return;
+		}
+	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+
+}
 }
