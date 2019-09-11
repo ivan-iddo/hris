@@ -5,7 +5,7 @@
         <li><a data-toggle="tab" href="#demo-lft-tab-1"><i class="demo-psi-home"></i> Home</a></li>
 
         <li class="active"><a data-toggle="tab" href="#demo-lft-tab-2"><i class="fa fa-pencil"></i> Un-approved Request Order</a></li>
-		<li><a data-toggle="tab" href="#demo-lft-tab-3"><i class="fa fa-pencil"></i> Approved Request Order</a></li>
+        <li><a data-toggle="tab" href="#demo-lft-tab-3"><i class="fa fa-pencil"></i> Approved Request Order</a></li>
 
         <li><a data-toggle="tab" href="#demo-lft-tab-4"><i class="demo-psi-idea-2"></i> Help</a></li>
     </ul>
@@ -14,8 +14,8 @@
         <div id="demo-lft-tab-2" class="tab-pane fade active in">
 
             <div class="panel-body">
-                 
- 
+               
+               
                 <div class="fixed-table-container">
                     <div class="fixed-table-toolbar mar-top mar-btm">
                         <div class="btn-group ">
@@ -40,8 +40,8 @@
                 </div>
             </div>
         </div>
-		
-		<div id="demo-lft-tab-3" class="tab-pane fade">
+        
+        <div id="demo-lft-tab-3" class="tab-pane fade">
 
             <div class="panel-body">
                 <form class="form-inline mar-btm ">
@@ -94,69 +94,69 @@
 </div>
 
 
- 
+
 
 
 <script type="text/javascript" charset="utf-8">
     // specify the columns
     var columnDefs = [
 
-        {
-            headerName: "No PO",
-            field: "id",
-            width: 190,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Tanggal",
-            field: "tgl",
-            width: 150,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Deadline",
-            field: "deadline",
-            width: 100,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Keterangan",
-            field: "keterangan",
-            width: 120,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Suplier",
-            field: "nama_suplier",
-            width: 100,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Status PO",
-            field: "status_proses",
-            width: 120,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Status Approve",
-            field: "status_approve",
-            width: 150,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
+    {
+        headerName: "No PO",
+        field: "id",
+        width: 190,
+        filterParams: {
+            newRowsAction: 'keep'
         }
+    },
+    {
+        headerName: "Tanggal",
+        field: "tgl",
+        width: 150,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Deadline",
+        field: "deadline",
+        width: 100,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Keterangan",
+        field: "keterangan",
+        width: 120,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Suplier",
+        field: "nama_suplier",
+        width: 100,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Status PO",
+        field: "status_proses",
+        width: 120,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Status Approve",
+        field: "status_approve",
+        width: 150,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    }
     ];
 
     var autoGroupColumnDef = {
@@ -201,75 +201,75 @@
             enableValue: true
         }
     };
-	
-	 var columnDetail = [
+    
+    var columnDetail = [
 
-        {
-            headerName: "No",
-            field: "no",
-            width: 190,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Kode Produk",
-            field: "kode",
-            width: 150,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Nama Produk",
-            field: "nama",
-            width: 100,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Jumlah",
-            field: "qty",
-            width: 120,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Satuan",
-            field: "satuan",
-            width: 100,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        } 
+    {
+        headerName: "No",
+        field: "no",
+        width: 190,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Kode Produk",
+        field: "kode",
+        width: 150,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Nama Produk",
+        field: "nama",
+        width: 100,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Jumlah",
+        field: "qty",
+        width: 120,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Satuan",
+        field: "satuan",
+        width: 100,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    } 
     ];
-	 
-	 
-	var gridOptionsDetail = {
-    enableSorting: true,
-    enableFilter: true,
-    suppressRowClickSelection: false, 
-    groupSelectsChildren: true,
-    debug: true,
-    rowSelection: 'single',
-    enableColResize: true,
-    rowGroupPanelShow: 'always',
-    pivotPanelShow: 'always',
-    enableRangeSelection: true,
-    columnDefs: columnDetail,
-    pagination: false ,
-    defaultColDef:{
-        editable: false 
-    }
-};
+    
+    
+    var gridOptionsDetail = {
+        enableSorting: true,
+        enableFilter: true,
+        suppressRowClickSelection: false, 
+        groupSelectsChildren: true,
+        debug: true,
+        rowSelection: 'single',
+        enableColResize: true,
+        rowGroupPanelShow: 'always',
+        pivotPanelShow: 'always',
+        enableRangeSelection: true,
+        columnDefs: columnDetail,
+        pagination: false ,
+        defaultColDef:{
+            editable: false 
+        }
+    };
 
     // setup the grid after the page has finished loading 
     var gridDiv = document.querySelector('#myGrid');
     new agGrid.Grid(gridDiv, gridOptions);
-	
-	var gridDiv2 = document.querySelector('#myGrida');
+    
+    var gridDiv2 = document.querySelector('#myGrida');
     new agGrid.Grid(gridDiv2, gridOptionsDetail);
 
     // do http request to get our sample data - not using any framework to keep the example self contained.
@@ -290,7 +290,7 @@
 
 
                 gridOptions.api.setRowData(data);
-				gridOptionsDetail.api.setRowData([]);
+                gridOptionsDetail.api.setRowData([]);
             },
             error: function(jqXhr, textStatus, errorThrown) {
                 alert('error');
@@ -298,8 +298,8 @@
         });
 
     }
-	
-	function loaddataApproved() {
+    
+    function loaddataApproved() {
         $.ajax({
             url:  BASE_URL +'inventory/list/?status=approved',
             headers: {
@@ -315,7 +315,7 @@
 
 
                 gridOptionsApproved.api.setRowData(data);
-				gridOptionsDetailApproved.api.setRowData([]);
+                gridOptionsDetailApproved.api.setRowData([]);
             },
             error: function(jqXhr, textStatus, errorThrown) {
                 alert('error');
@@ -348,26 +348,26 @@
             processData: false,
             success: function(data, textStatus, jQxhr) {
 
-				if(data.status ==='ok'){
-					 
-					 gridOptionsDetail.api.setRowData(data.data);
-						gridOptionsDetail.api.forEachLeafNode(function(node, index) {
+                if(data.status ==='ok'){
+                  
+                  gridOptionsDetail.api.setRowData(data.data);
+                  gridOptionsDetail.api.forEachLeafNode(function(node, index) {
 							//node.setExpanded(true);
 							if (node.data.front === '1') {
 								node.setSelected(true, false);
 							}
-		
+                          
 						});
-				}else{
-					gridOptionsDetail.api.setRowData([]);
-				}
-               
+              }else{
+               gridOptionsDetail.api.setRowData([]);
+           }
+           
 
-            },
-            error: function(jqXhr, textStatus, errorThrown) {
-                alert('error');
-            }
-        });
+       },
+       error: function(jqXhr, textStatus, errorThrown) {
+        alert('error');
+    }
+});
 
 
     }

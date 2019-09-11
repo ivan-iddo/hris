@@ -5,7 +5,7 @@
         <li><a data-toggle="tab" href="#demo-lft-tab-1"><i class="demo-psi-home"></i> Home</a></li>
 
         <li class="active"><a data-toggle="tab" href="#demo-lft-tab-2"><i class="fa fa-pencil"></i> New RO</a></li>
-		<li><a data-toggle="tab" href="#demo-lft-tab-3"><i class="fa fa-pencil"></i> Approved RO</a></li>
+        <li><a data-toggle="tab" href="#demo-lft-tab-3"><i class="fa fa-pencil"></i> Approved RO</a></li>
 
         <li><a data-toggle="tab" href="#demo-lft-tab-4"><i class="demo-psi-idea-2"></i> Help</a></li>
     </ul>
@@ -14,8 +14,8 @@
         <div id="demo-lft-tab-2" class="tab-pane fade active in">
 
             <div class="panel-body">
-                 
- 
+               
+               
                 <div class="fixed-table-container">
                     <div class="fixed-table-toolbar mar-top mar-btm">
                         <div class="btn-group ">
@@ -40,8 +40,8 @@
                 </div>
             </div>
         </div>
-		
-		<div id="demo-lft-tab-3" class="tab-pane fade">
+        
+        <div id="demo-lft-tab-3" class="tab-pane fade">
 
             <div class="panel-body">
                 <form class="form-inline mar-btm ">
@@ -73,7 +73,7 @@
             <hr class="hr-sm">
             <div class="panel-body">
                 <div class="fixed-table-container pad-top">
-                     
+                   
                     <div id="myGride" style="height: 300px;" class="ag-theme-balham"></div>
                 </div>
             </div>
@@ -84,72 +84,72 @@
 </div>
 
 
- 
+
 
 
 <script type="text/javascript" charset="utf-8">
     // specify the columns
     var columnDefs = [
 
-        {
-            headerName: "No RO",
-            field: "id",
-            width: 190,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Tanggal",
-            field: "tgl",
-            width: 150,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Deadline",
-            field: "deadline",
-            width: 100,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Keterangan",
-            field: "keterangan",
-            width: 120,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Suplier",
-            field: "nama_suplier",
-            width: 100,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Status RO",
-            field: "status_proses",
-            width: 120,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Status Approve",
-            field: "status_approve",
-            width: 150,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
+    {
+        headerName: "No RO",
+        field: "id",
+        width: 190,
+        filterParams: {
+            newRowsAction: 'keep'
         }
+    },
+    {
+        headerName: "Tanggal",
+        field: "tgl",
+        width: 150,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Deadline",
+        field: "deadline",
+        width: 100,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Keterangan",
+        field: "keterangan",
+        width: 120,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Suplier",
+        field: "nama_suplier",
+        width: 100,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Status RO",
+        field: "status_proses",
+        width: 120,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Status Approve",
+        field: "status_approve",
+        width: 150,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    }
     ];
 
-     
+    
 
     var gridOptions = {
         enableSorting: true,
@@ -170,139 +170,139 @@
             editable: false 
         }
     };
-	
+    
 	 // setup the grid after the page has finished loading 
-    var gridDiv = document.querySelector('#myGrid');
-    new agGrid.Grid(gridDiv, gridOptions);
-	
-	 var columnDetail = [
-
-        {
-            headerName: "No",
-            field: "no",
-            width: 190,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Kode Produk",
-            field: "kode",
-            width: 150,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Nama Produk",
-            field: "nama",
-            width: 100,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Jumlah",
-            field: "qty",
-            width: 120,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Satuan",
-            field: "satuan",
-            width: 100,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        } 
-    ];
-	 
-	 
-	var gridOptionsDetail = {
-    enableSorting: true,
-    enableFilter: true,
-    suppressRowClickSelection: false, 
-    groupSelectsChildren: true,
-    debug: true,
-    rowSelection: 'single',
-    enableColResize: true,
-    rowGroupPanelShow: 'always',
-    pivotPanelShow: 'always',
-    enableRangeSelection: true,
-    columnDefs: columnDetail,
-    pagination: false ,
-    defaultColDef:{
-        editable: false 
-    }
-};
- 
-	var gridDiv2 = document.querySelector('#myGrida');
-    new agGrid.Grid(gridDiv2, gridOptionsDetail);
-	
-	
-	var columnDefsApproved = [
-
-        {
-            headerName: "No RO",
-            field: "id",
-            width: 190,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Tanggal",
-            field: "tgl",
-            width: 150,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Deadline",
-            field: "deadline",
-            width: 100,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Keterangan",
-            field: "keterangan",
-            width: 120,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Suplier",
-            field: "nama_suplier",
-            width: 100,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Status RO",
-            field: "status_proses",
-            width: 120,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Status Approve",
-            field: "status_approve",
-            width: 150,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        }
-    ];
-
+     var gridDiv = document.querySelector('#myGrid');
+     new agGrid.Grid(gridDiv, gridOptions);
      
+     var columnDetail = [
+
+     {
+        headerName: "No",
+        field: "no",
+        width: 190,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Kode Produk",
+        field: "kode",
+        width: 150,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Nama Produk",
+        field: "nama",
+        width: 100,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Jumlah",
+        field: "qty",
+        width: 120,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Satuan",
+        field: "satuan",
+        width: 100,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    } 
+    ];
+    
+    
+    var gridOptionsDetail = {
+        enableSorting: true,
+        enableFilter: true,
+        suppressRowClickSelection: false, 
+        groupSelectsChildren: true,
+        debug: true,
+        rowSelection: 'single',
+        enableColResize: true,
+        rowGroupPanelShow: 'always',
+        pivotPanelShow: 'always',
+        enableRangeSelection: true,
+        columnDefs: columnDetail,
+        pagination: false ,
+        defaultColDef:{
+            editable: false 
+        }
+    };
+    
+    var gridDiv2 = document.querySelector('#myGrida');
+    new agGrid.Grid(gridDiv2, gridOptionsDetail);
+    
+    
+    var columnDefsApproved = [
+
+    {
+        headerName: "No RO",
+        field: "id",
+        width: 190,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Tanggal",
+        field: "tgl",
+        width: 150,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Deadline",
+        field: "deadline",
+        width: 100,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Keterangan",
+        field: "keterangan",
+        width: 120,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Suplier",
+        field: "nama_suplier",
+        width: 100,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Status RO",
+        field: "status_proses",
+        width: 120,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Status Approve",
+        field: "status_approve",
+        width: 150,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    }
+    ];
+
+    
 
     var gridOptionsApproved = {
         enableSorting: true,
@@ -323,76 +323,76 @@
             editable: false 
         }
     };
-	
+    
 	 // setup the grid after the page has finished loading 
-    var gridDivd = document.querySelector('#myGridd');
-    new agGrid.Grid(gridDivd, gridOptionsApproved);
-	loaddataApproved();
-	
-	var columnDetailApproved = [
+     var gridDivd = document.querySelector('#myGridd');
+     new agGrid.Grid(gridDivd, gridOptionsApproved);
+     loaddataApproved();
+     
+     var columnDetailApproved = [
 
-        {
-            headerName: "No",
-            field: "no",
-            width: 190,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Kode Produk",
-            field: "kode",
-            width: 150,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Nama Produk",
-            field: "nama",
-            width: 100,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Jumlah",
-            field: "qty",
-            width: 120,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        },
-        {
-            headerName: "Satuan",
-            field: "satuan",
-            width: 100,
-            filterParams: {
-                newRowsAction: 'keep'
-            }
-        } 
+     {
+        headerName: "No",
+        field: "no",
+        width: 190,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Kode Produk",
+        field: "kode",
+        width: 150,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Nama Produk",
+        field: "nama",
+        width: 100,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Jumlah",
+        field: "qty",
+        width: 120,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    },
+    {
+        headerName: "Satuan",
+        field: "satuan",
+        width: 100,
+        filterParams: {
+            newRowsAction: 'keep'
+        }
+    } 
     ];
-	 
-	 
-	var gridOptionsDetailApproved = {
-    enableSorting: true,
-    enableFilter: true,
-    suppressRowClickSelection: false, 
-    groupSelectsChildren: true,
-    debug: true,
-    rowSelection: 'single',
-    enableColResize: true,
-    rowGroupPanelShow: 'always',
-    pivotPanelShow: 'always',
-    enableRangeSelection: true,
-    columnDefs: columnDetailApproved,
-    pagination: false ,
-    defaultColDef:{
-        editable: false 
-    }
-};
- 
-	var gridDiv5 = document.querySelector('#myGride');
+    
+    
+    var gridOptionsDetailApproved = {
+        enableSorting: true,
+        enableFilter: true,
+        suppressRowClickSelection: false, 
+        groupSelectsChildren: true,
+        debug: true,
+        rowSelection: 'single',
+        enableColResize: true,
+        rowGroupPanelShow: 'always',
+        pivotPanelShow: 'always',
+        enableRangeSelection: true,
+        columnDefs: columnDetailApproved,
+        pagination: false ,
+        defaultColDef:{
+            editable: false 
+        }
+    };
+    
+    var gridDiv5 = document.querySelector('#myGride');
     new agGrid.Grid(gridDiv5, gridOptionsDetailApproved);
 
     // do http request to get our sample data - not using any framework to keep the example self contained.
@@ -413,7 +413,7 @@
 
 
                 gridOptions.api.setRowData(data);
-				gridOptionsDetail.api.setRowData([]);
+                gridOptionsDetail.api.setRowData([]);
             },
             error: function(jqXhr, textStatus, errorThrown) {
                 alert('error');
@@ -421,8 +421,8 @@
         });
 
     }
-	
-	function loaddataApproved() {
+    
+    function loaddataApproved() {
         $.ajax({
             url:  BASE_URL +'inventory/list/?status=approved',
             headers: {
@@ -438,7 +438,7 @@
 
 
                 gridOptionsApproved.api.setRowData(data);
-				gridOptionsDetailApproved.api.setRowData([]);
+                gridOptionsDetailApproved.api.setRowData([]);
             },
             error: function(jqXhr, textStatus, errorThrown) {
                 alert('error');
@@ -471,31 +471,31 @@
             processData: false,
             success: function(data, textStatus, jQxhr) {
 
-				if(data.status ==='ok'){
-					 
-					 gridOptionsDetail.api.setRowData(data.data);
-						gridOptionsDetail.api.forEachLeafNode(function(node, index) {
+                if(data.status ==='ok'){
+                  
+                  gridOptionsDetail.api.setRowData(data.data);
+                  gridOptionsDetail.api.forEachLeafNode(function(node, index) {
 							//node.setExpanded(true);
 							if (node.data.front === '1') {
 								node.setSelected(true, false);
 							}
-		
+                          
 						});
-				}else{
-					gridOptionsDetail.api.setRowData([]);
-				}
-               
+              }else{
+               gridOptionsDetail.api.setRowData([]);
+           }
+           
 
-            },
-            error: function(jqXhr, textStatus, errorThrown) {
-                alert('error');
-            }
-        });
+       },
+       error: function(jqXhr, textStatus, errorThrown) {
+        alert('error');
+    }
+});
 
 
     }
-	
-	function bukaDetailApproved() {
+    
+    function bukaDetailApproved() {
         var selectedRows = gridOptionsApproved.api.getSelectedRows();
         var selectedRowsString = '';
         selectedRows.forEach(function(selectedRow, index) {
@@ -519,33 +519,33 @@
             processData: false,
             success: function(data, textStatus, jQxhr) {
 
-				if(data.status ==='ok'){
-					 
-					 gridOptionsDetailApproved.api.setRowData(data.data);
-						gridOptionsDetailApproved.api.forEachLeafNode(function(node, index) {
+                if(data.status ==='ok'){
+                  
+                  gridOptionsDetailApproved.api.setRowData(data.data);
+                  gridOptionsDetailApproved.api.forEachLeafNode(function(node, index) {
 							//node.setExpanded(true);
 							if (node.data.front === '1') {
 								node.setSelected(true, false);
 							}
-		
+                          
 						});
-				}else{
-					gridOptionsDetailApproved.api.setRowData([]);
-				}
-               
+              }else{
+               gridOptionsDetailApproved.api.setRowData([]);
+           }
+           
 
-            },
-            error: function(jqXhr, textStatus, errorThrown) {
-                alert('error');
-            }
-        });
+       },
+       error: function(jqXhr, textStatus, errorThrown) {
+        alert('error');
+    }
+});
 
 
     }
 
     loaddata();
-	 
-   
+    
+    
     
     $('#demo-dp-range .input-daterange').datepicker({
         format: "yyyy-mm-dd",
@@ -553,19 +553,19 @@
         autoclose: true,
         todayHighlight: true
     });
-	   $('#f_tgl_start').datepicker({
-    format: "yyyy-mm-dd"
- });
-	    $('#f_tgl_end').datepicker({
-    format: "yyyy-mm-dd"
- });
-		
-function showModal(){
+    $('#f_tgl_start').datepicker({
+        format: "yyyy-mm-dd"
+    });
+    $('#f_tgl_end').datepicker({
+        format: "yyyy-mm-dd"
+    });
+    
+    function showModal(){
 	// var uid = $(this).data('id');
 	getOptions("f_supplier",BASE_URL+"supplier/list");
 	$("#myModal").modal();
-	}
-	
+}
+
 function add(){ 
 	var noro = $('#f_no_ro').val();
 	var start = $('#f_tgl_start').val();
@@ -590,77 +590,77 @@ function add(){
 		return false;
 	}else{
 		var data = {
-		noro:noro,
-		start:start,
-		end:end,
-		keterangan:keterangan,
-		supplier:supplier 
-		};
-		
+          noro:noro,
+          start:start,
+          end:end,
+          keterangan:keterangan,
+          supplier:supplier 
+      };
+      
 		//ajax post
 		$.ajax({
-				url: urlp,
-				headers: {
-						'Authorization': localStorage.getItem("Token"),
-						'X_CSRF_TOKEN':'donimaulana',
-						'Content-Type':'application/json'
-						},
-						dataType: 'json',
-						type: 'post',
-						contentType: 'application/json', 
-						processData: false,
-                        data:JSON.stringify(data),
-						success: function( data, textStatus, jQxhr ){
-                                hasil=data.hasil;
-                                message=data.message; 
-                                   if(hasil=="success"){         
-                                            
-                                               $.niftyNoty({
-                                                               type: 'success',
-                                                               title: 'Success',
-                                                               message: message,
-                                                               container: 'floating',
-                                                               timer: 5000
-                                                           });
-                                              loaddata();
-                                               $('.modal').modal('hide');
-                                         }else{
-                                                alert(message);
-                                              return false;	
-                                         }
-								 
-								 
-							},
-							error: function( jqXhr, textStatus, errorThrown ){
-								   $.niftyNoty({
-                                        type: 'danger',
-                                        title: 'Warning!',
-                                        message: message,
-                                        container: 'floating',
-                                        timer: 5000
-                                    });
-							}
-						});
-    
+            url: urlp,
+            headers: {
+              'Authorization': localStorage.getItem("Token"),
+              'X_CSRF_TOKEN':'donimaulana',
+              'Content-Type':'application/json'
+          },
+          dataType: 'json',
+          type: 'post',
+          contentType: 'application/json', 
+          processData: false,
+          data:JSON.stringify(data),
+          success: function( data, textStatus, jQxhr ){
+            hasil=data.hasil;
+            message=data.message; 
+            if(hasil=="success"){         
+                
+             $.niftyNoty({
+                 type: 'success',
+                 title: 'Success',
+                 message: message,
+                 container: 'floating',
+                 timer: 5000
+             });
+             loaddata();
+             $('.modal').modal('hide');
+         }else{
+            alert(message);
+            return false;	
+        }
+        
+        
+    },
+    error: function( jqXhr, textStatus, errorThrown ){
+     $.niftyNoty({
+        type: 'danger',
+        title: 'Warning!',
+        message: message,
+        container: 'floating',
+        timer: 5000
+    });
+ }
+});
+        
 	}
 	
 	
-	 
+  
 }
 </script>
 <div id="demo-sm-modal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
-                    <h4 class="modal-title" id="mySmallModalLabel">Small modal</h4>
-                </div>
-                <div class="modal-body">
-                    <p>kosong</p>
-                </div>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title" id="mySmallModalLabel">Small modal</h4>
+            </div>
+            <div class="modal-body">
+                <p>kosong</p>
             </div>
         </div>
     </div>
+</div>
 <!-- Button trigger modal --> 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -668,55 +668,55 @@ function add(){
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                 <h4 class="modal-title" id="myModalLabel"><i class="fa fa-users"></i> Add New Request Order</h4>
+                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-users"></i> Add New Request Order</h4>
 
             </div>
             <div class="modal-body">
-            <form class="form-horizontal"> 
-			<div class="panel-body"> 
-			<div class="form-group"> 
-			<label class="col-sm-3 control-label" for="demo-hor-inputemail">Nomor RO</label> 
-			<div class="col-sm-5"> 
-			<input placeholder="No.RO" id="f_no_ro" class="form-control" type="text"> 
-			<input placeholder="No.RO" id="id_group" style="display:none" class="form-control" type="text"> 
-			</div> 
-			</div> 
-			<div class="form-group"> 
-			<label class="col-sm-3 control-label" for="demo-hor-inputemail">Tgl RO</label> 
-			<div class="col-sm-5"> 
-			<input placeholder="Tgl.RO" id="f_tgl_start" class="form-control f_tgl_start" type="text">  
-			</div> 
-			</div> 
-			<div class="form-group"> 
-			<label class="col-sm-3 control-label" for="demo-hor-inputemail">Tgl Deadline</label> 
-			<div class="col-sm-5"> 
-			<input placeholder="Tgl Deadline" id="f_tgl_end" class="form-control" type="text">  
-			</div> 
-			</div> 
-			<div class="form-group"> 
-			<label class="col-sm-3 control-label" for="demo-hor-inputemail">Supplier</label> 
-			<div class="col-sm-5"> 
-			<select name="f_supplier" id="f_supplier" class="form-control"/> 
-			</div> 
-			</div> 
-			<div class="form-group"> 
-			<label class="col-sm-3 control-label" for="demo-hor-inputemail">Keterangan</label> 
-			<div class="col-sm-5"> 
-			<textarea id="f_keterangan" placeholder="Keterangan" rows="2" class="form-control"></textarea> 
-			</div> 
-			</div> 
-			</div>  
-		 </form> 
-                <div class="modal-footer">
-					<button data-bb-handler="success" type="button" class="btn btn-primary" onClick="add()">Save</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-	
-	
+                <form class="form-horizontal"> 
+                 <div class="panel-body"> 
+                     <div class="form-group"> 
+                         <label class="col-sm-3 control-label" for="demo-hor-inputemail">Nomor RO</label> 
+                         <div class="col-sm-5"> 
+                             <input placeholder="No.RO" id="f_no_ro" class="form-control" type="text"> 
+                             <input placeholder="No.RO" id="id_group" style="display:none" class="form-control" type="text"> 
+                         </div> 
+                     </div> 
+                     <div class="form-group"> 
+                         <label class="col-sm-3 control-label" for="demo-hor-inputemail">Tgl RO</label> 
+                         <div class="col-sm-5"> 
+                             <input placeholder="Tgl.RO" id="f_tgl_start" class="form-control f_tgl_start" type="text">  
+                         </div> 
+                     </div> 
+                     <div class="form-group"> 
+                         <label class="col-sm-3 control-label" for="demo-hor-inputemail">Tgl Deadline</label> 
+                         <div class="col-sm-5"> 
+                             <input placeholder="Tgl Deadline" id="f_tgl_end" class="form-control" type="text">  
+                         </div> 
+                     </div> 
+                     <div class="form-group"> 
+                         <label class="col-sm-3 control-label" for="demo-hor-inputemail">Supplier</label> 
+                         <div class="col-sm-5"> 
+                             <select name="f_supplier" id="f_supplier" class="form-control"/> 
+                         </div> 
+                     </div> 
+                     <div class="form-group"> 
+                         <label class="col-sm-3 control-label" for="demo-hor-inputemail">Keterangan</label> 
+                         <div class="col-sm-5"> 
+                             <textarea id="f_keterangan" placeholder="Keterangan" rows="2" class="form-control"></textarea> 
+                         </div> 
+                     </div> 
+                 </div>  
+             </form> 
+             <div class="modal-footer">
+               <button data-bb-handler="success" type="button" class="btn btn-primary" onClick="add()">Save</button>
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+           </div>
+       </div>
+       <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
 <script src="js/login.js"></script>

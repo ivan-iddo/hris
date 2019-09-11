@@ -21,48 +21,48 @@
                             <div class="btn-group">
                                 <button class="btn btn-primary btn-labeled fa fa-plus-square btn-sm" id=
                                 "demo-bootbox-bounce">Add
-                                </button>
-                                <button class=
-                                        "btn btn-warning btn-labeled fa fa-edit btn-sm" onclick=
-                                        "proses_edit();">Edit
-                                </button>
-                                <button class=
-                                        "btn btn-danger btn-labeled fa fa-close btn-sm" onclick=
-                                        "proses_delete();">Delete
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dataTables_filter" id="demo-dt-addrow_filter">
-                        <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
-                                             type="search" id="search"
-                                             onkeydown="if(event.keyCode=='13'){loaddata(0, this);}"></label>
-                    </div>
-                </div>
-                <div class="bootstrap-table">
-                    <div class="fixed-table-container" style="padding-bottom: 0px;">
-                        <div class="ag-theme-balham" id="myGrid" style="height: 400px;width:100%;">
-                        </div>
-
-                        <div class="paging pull-right mar-all">
-                        </div>
-                    </div>
+                            </button>
+                            <button class=
+                            "btn btn-warning btn-labeled fa fa-edit btn-sm" onclick=
+                            "proses_edit();">Edit
+                        </button>
+                        <button class=
+                        "btn btn-danger btn-labeled fa fa-close btn-sm" onclick=
+                        "proses_delete();">Delete
+                    </button>
                 </div>
             </div>
         </div>
+        <div class="dataTables_filter" id="demo-dt-addrow_filter">
+            <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
+               type="search" id="search"
+               onkeydown="if(event.keyCode=='13'){loaddata(0, this);}"></label>
+           </div>
+       </div>
+       <div class="bootstrap-table">
+        <div class="fixed-table-container" style="padding-bottom: 0px;">
+            <div class="ag-theme-balham" id="myGrid" style="height: 400px;width:100%;">
+            </div>
 
-        <div class="tab-pane fade" id="demo-lft-tab-3"></div>
+            <div class="paging pull-right mar-all">
+            </div>
+        </div>
     </div>
+</div>
+</div>
+
+<div class="tab-pane fade" id="demo-lft-tab-3"></div>
+</div>
 </div>
 <script charset="utf-8" type="text/javascript">
     //<![CDATA[
     // specify the columns
     var columnDefs = [
 
-        {headerName: "ID", field: "id", width : 225, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Nama", field: "nama", width : 250, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Created Date", field: "created", width : 225, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Created By", field: "createdby", width : 225, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "ID", field: "id", width : 225, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Nama", field: "nama", width : 250, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Created Date", field: "created", width : 225, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Created By", field: "createdby", width : 225, filterParams: {newRowsAction: 'keep'}},
     ];
 
     var autoGroupColumnDef = {
@@ -280,4 +280,4 @@
 </script>
 <script src="js/login.js" type="text/javascript">
 </script>
- 
+

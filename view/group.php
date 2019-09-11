@@ -37,7 +37,7 @@
                 <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete();">Delete
                 </button>
                 <div class="pull-right" style="margin-left: 90px">
-                <input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder="Search..." style="width: 200px;" type="search" id="search" onkeydown="if(event.keyCode=='13'){loaddata(0);}" ></label>
+                  <input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder="Search..." style="width: 200px;" type="search" id="search" onkeydown="if(event.keyCode=='13'){loaddata(0);}" ></label>
                 </div>
               </div>
 
@@ -63,104 +63,104 @@
 <script type="text/javascript" charset="utf-8">
   // specify the columns
   var columnDefs = [
-    {
-      headerName: "ID", field: "id", width: 150, filterParams:{
-        newRowsAction: 'keep'}
+  {
+    headerName: "ID", field: "id", width: 150, filterParams:{
+      newRowsAction: 'keep'}
     }
     ,
     {
       headerName: "Group", field: "nama", width: 150, filterParams:{
         newRowsAction: 'keep'}
-    }
-    ,
-    {
-      headerName: "Limit Jumlah Akun", field: "jumlah", width: 150, filterParams:{
-        newRowsAction: 'keep'}
-      ,cellStyle: {
-        textAlign: "center"}
-    }
-  ];
-  var columnDefsDetail = [
-    {
-      headerName: "Group", field: "nama_group",hide: true, width: 200, rowGroupIndex: 0}
-    , 
-    {
-      headerName: "Front", field: "front", hide: true, width: 120,cellRenderer:checkboxCellRenderer}
-    ,
-    {
-      headerName: "value", field: "front", hide: true, width: 120}
-    ,
-    {
-      headerName: "id modul", field: "id_modul", hide: true,  width: 120},
-       {
-      headerName: "Save", field: "save", cellStyle: {textAlign: "center"},  width: 120, cellRenderer: checkboxCellRenderer
-      },
-      {
-      headerName: "Edit", field: "edit", cellStyle: {textAlign: "center"},  width: 120, cellRenderer: checkboxCellRenderer
-      },
-      {
-      headerName: "Delete", field: "delete", cellStyle: {textAlign: "center"},  width: 120, cellRenderer: checkboxCellRenderer},
-       {
-      headerName: "Approved", field: "approved", cellStyle: {textAlign: "center"},  width: 120, cellRenderer: checkboxCellRenderer
-      },
-       {
-      headerName: "Unapproved", field: "unapproved", cellStyle: {textAlign: "center"},  width: 120, cellRenderer: checkboxCellRenderer
       }
-      
-      
-     
-     
-  ];
-  
-   
+      ,
+      {
+        headerName: "Limit Jumlah Akun", field: "jumlah", width: 150, filterParams:{
+          newRowsAction: 'keep'}
+          ,cellStyle: {
+            textAlign: "center"}
+          }
+          ];
+          var columnDefsDetail = [
+          {
+            headerName: "Group", field: "nama_group",hide: true, width: 200, rowGroupIndex: 0}
+            , 
+            {
+              headerName: "Front", field: "front", hide: true, width: 120,cellRenderer:checkboxCellRenderer}
+              ,
+              {
+                headerName: "value", field: "front", hide: true, width: 120}
+                ,
+                {
+                  headerName: "id modul", field: "id_modul", hide: true,  width: 120},
+                  {
+                    headerName: "Save", field: "save", cellStyle: {textAlign: "center"},  width: 120, cellRenderer: checkboxCellRenderer
+                  },
+                  {
+                    headerName: "Edit", field: "edit", cellStyle: {textAlign: "center"},  width: 120, cellRenderer: checkboxCellRenderer
+                  },
+                  {
+                    headerName: "Delete", field: "delete", cellStyle: {textAlign: "center"},  width: 120, cellRenderer: checkboxCellRenderer},
+                    {
+                      headerName: "Approved", field: "approved", cellStyle: {textAlign: "center"},  width: 120, cellRenderer: checkboxCellRenderer
+                    },
+                    {
+                      headerName: "Unapproved", field: "unapproved", cellStyle: {textAlign: "center"},  width: 120, cellRenderer: checkboxCellRenderer
+                    }
+                    
+                    
+                    
+                    
+                    ];
+                    
+                    
 
-  var gridOptions = {
-    enableSorting: true,
-    enableFilter: true,
-    suppressRowClickSelection: false,
-    onRowClicked: bukasetting,
-    groupSelectsChildren: true,
-    debug: true,
-    rowSelection: 'single',
-    enableColResize: true,
-    rowGroupPanelShow: 'always',
-    pivotPanelShow: 'always',
-    enableRangeSelection: true,
-    columnDefs: columnDefs,
-    pagination: false ,
-    defaultColDef:{
-      editable: false 
-    }
-  };
-  var gridOptionsDetail ={
-    components: {
-      fileCellRenderer: getFileCellRenderer()
-    }
-    ,
-    columnDefs: columnDefsDetail,
-    rowData: null, 
-    rowSelection: 'multiple',
-    groupSelectsChildren: true,
-    groupSelectsFiltered: true,
-    suppressAggFuncInHeader: true,
-    enableFilter:true,
-    groupDefaultExpanded: -1,
-    getRowNodeId: function(data) {
-      return data.id;
-    }
-    ,
-    suppressRowClickSelection: true,
-    autoGroupColumnDef: {
-      headerName: "Menu", field: "nama", width: 400,
-      cellRenderer:'agGroupCellRenderer',
-      cellRendererParams: {
-        checkbox: true,
-        suppressCount: true 
-      }
-    }
-  };
-  function proses_delete(){
-    var selectedRows = gridOptions.api.getSelectedRows();
+                    var gridOptions = {
+                      enableSorting: true,
+                      enableFilter: true,
+                      suppressRowClickSelection: false,
+                      onRowClicked: bukasetting,
+                      groupSelectsChildren: true,
+                      debug: true,
+                      rowSelection: 'single',
+                      enableColResize: true,
+                      rowGroupPanelShow: 'always',
+                      pivotPanelShow: 'always',
+                      enableRangeSelection: true,
+                      columnDefs: columnDefs,
+                      pagination: false ,
+                      defaultColDef:{
+                        editable: false 
+                      }
+                    };
+                    var gridOptionsDetail ={
+                      components: {
+                        fileCellRenderer: getFileCellRenderer()
+                      }
+                      ,
+                      columnDefs: columnDefsDetail,
+                      rowData: null, 
+                      rowSelection: 'multiple',
+                      groupSelectsChildren: true,
+                      groupSelectsFiltered: true,
+                      suppressAggFuncInHeader: true,
+                      enableFilter:true,
+                      groupDefaultExpanded: -1,
+                      getRowNodeId: function(data) {
+                        return data.id;
+                      }
+                      ,
+                      suppressRowClickSelection: true,
+                      autoGroupColumnDef: {
+                        headerName: "Menu", field: "nama", width: 400,
+                        cellRenderer:'agGroupCellRenderer',
+                        cellRendererParams: {
+                          checkbox: true,
+                          suppressCount: true 
+                        }
+                      }
+                    };
+                    function proses_delete(){
+                      var selectedRows = gridOptions.api.getSelectedRows();
     // alert('>>'+selectedRows+'<<<');
     if(selectedRows == ''){
       onMessage('Silahkan Pilih Data Terlebih dahulu!');
@@ -174,7 +174,7 @@
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
       submit_get(BASE_URL+'Appdata/deleteGroup/?id_group='+selectedRowsString,loaddata);
       //loaddata();
     }
@@ -194,7 +194,7 @@
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
       $.ajax({
         url: BASE_URL+'Appdata/getgroup/?id='+selectedRowsString,
         headers: {
@@ -218,7 +218,7 @@
           alert('error');
         }
       }
-            );
+      );
       var input='<form class="form-horizontal">';
       input += '<div class="panel-body">';
       input +='<div class="form-group">';
@@ -267,12 +267,12 @@
                 container : 'floating',
                 timer : 5000
               }
-                         );
+              );
             }
           }
         }
       }
-                    );
+      );
     }
   }
   function agGroupCellRenderer(params){
@@ -289,36 +289,36 @@
   // you will probably use a framework like JQuery, Angular or something else to do your HTTP calls.
   function loaddata(){
     var search = 0;
-            if($('#search').val() !==''){
-              search = $('#search').val();
-            }
+    if($('#search').val() !==''){
+      search = $('#search').val();
+    }
     $.ajax({
       url: BASE_URL+'Appdata/loaddataGroup/'+search+'/?id_modul=<?php
       echo $_GET['id_modul'];
       ?>',
       headers: {
-      'Authorization': localStorage.getItem("Token"),
-      'X_CSRF_TOKEN':'donimaulana',
-      'Content-Type':'application/json'
-    }
-           ,
-           dataType: 'json',
-           type: 'get',
-           contentType: 'application/json', 
-           processData: false,
-           success: function( data, textStatus, jQxhr ){
-      if(data.result !== 'empty'){
+        'Authorization': localStorage.getItem("Token"),
+        'X_CSRF_TOKEN':'donimaulana',
+        'Content-Type':'application/json'
+      }
+      ,
+      dataType: 'json',
+      type: 'get',
+      contentType: 'application/json', 
+      processData: false,
+      success: function( data, textStatus, jQxhr ){
+        if(data.result !== 'empty'){
           gridOptions.api.setRowData(data.result);
         }else{
           gridOptions.api.setRowData([]);
         }
-    }
-    ,
+      }
+      ,
       error: function( jqXhr, textStatus, errorThrown ){
         alert('error');
       }
-  }
-  );
+    }
+    );
   }
 
   loaddata();
@@ -331,7 +331,7 @@
       }
       selectedRowsString += selectedRow.id;
     }
-                        );
+    );
     //  alert(selectedRowsString);
     $.ajax({
       url: BASE_URL+'Appdata/loaddataMenu/?id_group='+selectedRowsString,
@@ -353,14 +353,14 @@
             node.setSelected(true, false);
           }
         }
-                                             );
+        );
       }
       ,
       error: function( jqXhr, textStatus, errorThrown ){
         alert('error');
       }
     }
-          );
+    );
   }
   var gridDivDetail = document.querySelector('#myGridDetail');
   new agGrid.Grid(gridDivDetail, gridOptionsDetail);
@@ -376,7 +376,7 @@
     return input;
   }
   
-   
+  
   
   function getFileCellRenderer (params){
     var input = document.createElement("input");
@@ -432,14 +432,14 @@
               container : 'floating',
               timer : 5000
             }
-                       );
+            );
           }
         }
       }
     }
-                  );
+    );
   }
-                              );
+  );
   function simpan(action){
     group_aplikasi	= '1';
     group_group     = $("#f_group_group").get(0).value;
@@ -480,7 +480,7 @@
       }
       selectedRowsString += selectedRow.id_modul+'|'+selectedRow.id;
     }
-                        );
+    );
     var selectedRowsp = gridOptions.api.getSelectedRows();
     var selectedRowsStringp = '';
     selectedRowsp.forEach( function(selectedRowp, index) {
@@ -489,7 +489,7 @@
       }
       selectedRowsStringp += selectedRowp.id;
     }
-                         );
+    );
     var id_group = selectedRowsStringp;
     var id_menu = selectedRowsString;
     if(id_group==''){
@@ -500,7 +500,7 @@
         container: 'floating',
         timer: 5000
       }
-                 );
+      );
       return false;
     }
     else if(id_menu==''){
@@ -511,7 +511,7 @@
         container: 'floating',
         timer: 5000
       }
-                 );
+      );
       return false;
     }
     else{
@@ -545,7 +545,7 @@
               container: 'floating',
               timer: 5000
             }
-                       );
+            );
             //loaddata();
           }
           else{
@@ -556,7 +556,7 @@
               container: 'floating',
               timer: 5000
             }
-                       );
+            );
           }
         }
         ,
@@ -568,10 +568,10 @@
             container: 'floating',
             timer: 5000
           }
-                     );
+          );
         }
       }
-            );
+      );
     }
   }
 </script>
