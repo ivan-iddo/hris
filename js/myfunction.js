@@ -726,9 +726,9 @@ function passpercentage(id, json, judul, samping, type) {
     for (i; i < len; i++) {
         if (i === 0) {
             var dat = json[i].category,
-                lenJ = dat.length,
-                j = 0,
-                tmp;
+            lenJ = dat.length,
+            j = 0,
+            tmp;
 
             for (j; j < lenJ; j++) {
                 options.xAxis.categories.push(dat[j]);
