@@ -1,67 +1,67 @@
 <?php session_start();?>
 <style type="text/css">
-     input[type="date"]:before {
-        content: attr(placeholder) !important;
-        color: #aaa;
-        margin-right: 0.5em;
-      }
-      input[type="date"]:focus:before,
-      input[type="date"]:valid:before {
-        content: "";
-      }
+   input[type="date"]:before {
+    content: attr(placeholder) !important;
+    color: #aaa;
+    margin-right: 0.5em;
+}
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+    content: "";
+}
 </style>
 <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
-<form name="form-file-str" id="form-file-str" class="form-horizontal">
-    <div class="panel-body pad-all">
-        <div class="row">
-            <input type="text" style="display:none" name="id_userfile" id="id_userfile">
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input required name="inputfileupload" id="inputfileupload" type="file"
-                                             class="btn btn-success btn-sm fileinput-button dz-clickable"></div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="No STR" class="form-control" id="str"
-                                            required name="str"></div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-               <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="text" placeholder="Tanggal Dikeluarkan" class="form-control tgl" id="date_start"
-                                           required name="date_start"></div>
-               <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-               <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="text" placeholder="Tanggal Berakhir" class="form-control tgl" id="date_end"
-                                           required name="date_end"></div>
-               <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6">
-                  <button type="submit" class="btn btn-default">Simpan</button>
-                </div>
-                <div class="col-sm-3"></div>
-            </div>
-        </div>
-    </div>
-    </div>
-	<?php }?>
-    <div class="row"></div>
-    <div class="row pad-all">
+    <form name="form-file-str" id="form-file-str" class="form-horizontal">
+        <div class="panel-body pad-all">
+            <div class="row">
+                <input type="text" style="display:none" name="id_userfile" id="id_userfile">
+                <div class="form-group">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6"><input required name="inputfileupload" id="inputfileupload" type="file"
+                       class="btn btn-success btn-sm fileinput-button dz-clickable"></div>
+                       <div class="col-sm-3"></div>
+                   </div>
+                   <div class="form-group">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6"><input type="text" placeholder="No STR" class="form-control" id="str"
+                        required name="str"></div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                    <div class="form-group">
+                     <div class="col-sm-3"></div>
+                     <div class="col-sm-6"><input type="text" placeholder="Tanggal Dikeluarkan" class="form-control tgl" id="date_start"
+                         required name="date_start"></div>
+                         <div class="col-sm-3"></div>
+                     </div>
+                     <div class="form-group">
+                         <div class="col-sm-3"></div>
+                         <div class="col-sm-6"><input type="text" placeholder="Tanggal Berakhir" class="form-control tgl" id="date_end"
+                             required name="date_end"></div>
+                             <div class="col-sm-3"></div>
+                         </div>
+                         <div class="form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6">
+                              <button type="submit" class="btn btn-default">Simpan</button>
+                          </div>
+                          <div class="col-sm-3"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      <?php }?>
+      <div class="row"></div>
+      <div class="row pad-all">
         <div class="table-responsive">
             <table class="table table-striped table-hover table-vcenter">
                 <thead>
-                <tr>
-                    <th style="width:20px">No.</th>
-                    <th>No STR</th>
-                    <th>Tanggal Dikeluarkan</th>
-                    <th>Tanggal Berakhir</th>
-                    <th>Action</th>
-                </tr>
+                    <tr>
+                        <th style="width:20px">No.</th>
+                        <th>No STR</th>
+                        <th>Tanggal Dikeluarkan</th>
+                        <th>Tanggal Berakhir</th>
+                        <th>Action</th>
+                    </tr>
                 </thead>
                 <tbody id="fileIjazah"></tbody>
             </table>
@@ -140,11 +140,11 @@ function hapusfile(a) {
         getJson(filedelete, BASE_URL + 'pegawais/str/delete/' + a + '?id_userfile=' + id);
     });
 }
-	$(document).ready(function () {
-	  $('.tgl').datepicker({
-		format: "dd-mm-yyyy",
-	  }).on('change', function(){
-		$('.datepicker').hide();
-	  });
-	 });
+$(document).ready(function () {
+ $('.tgl').datepicker({
+  format: "dd-mm-yyyy",
+}).on('change', function(){
+  $('.datepicker').hide();
+});
+});
 </script>

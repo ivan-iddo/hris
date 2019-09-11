@@ -1,82 +1,82 @@
 <?php session_start();?>
 <style type="text/css">
-     input[type="date"]:before {
-        content: attr(placeholder) !important;
-        color: #aaa;
-        margin-right: 0.5em;
-      }
-      input[type="date"]:focus:before,
-      input[type="date"]:valid:before {
-        content: "";
-      }
+   input[type="date"]:before {
+    content: attr(placeholder) !important;
+    color: #aaa;
+    margin-right: 0.5em;
+}
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+    content: "";
+}
 </style>
 <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
 <form name="form-file-punishment" id="form-file-punishment" class="form-horizontal">
-    <div class="panel-body pad-all">
-        <div class="row"><input type="text" style="display:none" name="kategorifile" id="kategorifile"
-                                value="<?php echo @$_GET['id'] ?>"><input type="text" style="display:none"
-                                                                         name="id_userfile" id="id_userfile">
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input required name="inputfileupload" id="inputfileupload" type="file"
-                                             class="btn btn-success btn-sm fileinput-button dz-clickable"></div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="Keterangan" class="form-control" id="keterangan"
-                                            required name="keterangan"></div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="Kasus" class="form-control" id="kasus"
-                                            required name="kasus"></div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="tindakan" class="form-control" id="tindakan"
-                                            required name="tindakan"></div>
+<div class="panel-body pad-all">
+<div class="row"><input type="text" style="display:none" name="kategorifile" id="kategorifile"
+value="<?php echo @$_GET['id'] ?>"><input type="text" style="display:none"
+name="id_userfile" id="id_userfile">
+<div class="form-group">
+<div class="col-sm-3"></div>
+<div class="col-sm-6"><input required name="inputfileupload" id="inputfileupload" type="file"
+    class="btn btn-success btn-sm fileinput-button dz-clickable"></div>
+    <div class="col-sm-3"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6"><input type="text" placeholder="Keterangan" class="form-control" id="keterangan"
+        required name="keterangan"></div>
+        <div class="col-sm-3"></div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6"><input type="text" placeholder="Kasus" class="form-control" id="kasus"
+            required name="kasus"></div>
+            <div class="col-sm-3"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6"><input type="text" placeholder="tindakan" class="form-control" id="tindakan"
+                required name="tindakan"></div>
                 <div class="col-sm-3"></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6"><input type="text" placeholder="Tmt Awal" class="form-control tgl" id="Tmt Awal"
-                                            required name="date_start"></div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="Tmt Akhir" class="form-control tgl" id="Tmt Akhir"
-                                            required name="date_end"></div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6">
-                  <button type="submit" class="btn btn-default">Simpan</button>
+                    required name="date_start"></div>
+                    <div class="col-sm-3"></div>
                 </div>
-                <div class="col-sm-3"></div>
+                <div class="form-group">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6"><input type="text" placeholder="Tmt Akhir" class="form-control tgl" id="Tmt Akhir"
+                        required name="date_end"></div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-default">Simpan</button>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    </div>
-	<?php }?>
+    <?php }?>
     <div class="row"></div>
     <div class="row pad-all">
         <div class="table-responsive">
             <table class="table table-striped table-hover table-vcenter">
                 <thead>
-                <tr>
-                    <th style="width:20px">No.</th>
-                    <th>Keterangan</th>
-                    <th>Kasus</th>
-                    <th>Tidakan</th>
-                    <th>Tmt Awal</th>
-                    <th>Tmt Akhir</th>
-                    <th>Action</th>
-                </tr>
+                    <tr>
+                        <th style="width:20px">No.</th>
+                        <th>Keterangan</th>
+                        <th>Kasus</th>
+                        <th>Tidakan</th>
+                        <th>Tmt Awal</th>
+                        <th>Tmt Akhir</th>
+                        <th>Action</th>
+                    </tr>
                 </thead>
                 <tbody id="fileIjazah"></tbody>
             </table>
@@ -151,11 +151,11 @@ function hapusfile(a) {
         getJson(filedelete, BASE_URL + 'pegawais/punishment/delete/' + a + '?id_userfile=' + id);
     });
 }
-	$(document).ready(function () {
-	  $('.tgl').datepicker({
-		format: "dd-mm-yyyy",
-	  }).on('change', function(){
-		$('.datepicker').hide();
-	  });
-	 });
+$(document).ready(function () {
+    $('.tgl').datepicker({
+        format: "dd-mm-yyyy",
+    }).on('change', function(){
+        $('.datepicker').hide();
+    });
+});
 </script>

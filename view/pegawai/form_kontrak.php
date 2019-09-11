@@ -1,88 +1,88 @@
 <?php session_start();?>
 <style type="text/css">
-     input[type="date"]:before {
-        content: attr(placeholder) !important;
-        color: #aaa;
-        margin-right: 0.5em;
-      }
-      input[type="date"]:focus:before,
-      input[type="date"]:valid:before {
-        content: "";
-      }
+   input[type="date"]:before {
+    content: attr(placeholder) !important;
+    color: #aaa;
+    margin-right: 0.5em;
+}
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+    content: "";
+}
 </style>
 <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
-<form name="form-file-kontrak" id="form-file-kontrak" class="form-horizontal">
-    <div class="panel-body pad-all">
-        <div class="row">
-            <input type="text" name="id_userfile" id="id_userfile" style="display:none">
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input required name="inputfileupload" id="inputfileupload" type="file"
-                                             class="btn btn-success btn-sm fileinput-button dz-clickable"></div>
-                <div class="col-sm-3"></div>
-            </div>
-			<div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="No Kontrak" class="form-control" id="noktr"
-                                            required name="noktr"></div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="TMT Awal Kotrak" class="form-control tgl" id="tmtawal"
-                                            required name="tmtawal"></div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-               <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="text" placeholder="Tanggal Kontrak" class="form-control tgl" id="tglktr"
-                                           required name="tglktr"></div>
-               <div class="col-sm-3"></div>
-            </div>
-			<div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6"><input type="text" placeholder="Jenis Kontrak" class="form-control" id="jnsktr"
-                                            required name="jnsktr"></div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-               <div class="col-sm-3"></div>
-               <div class="col-sm-6"><input type="text" placeholder="Tanggal Akhir Kontrak" class="form-control tgl" id="tglakhir"
-                                           name="tglakhir"></div>
-               <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6">
-                  <button type="submit" class="btn btn-default">Simpan</button>
-                </div>
-                <div class="col-sm-3"></div>
+    <form name="form-file-kontrak" id="form-file-kontrak" class="form-horizontal">
+        <div class="panel-body pad-all">
+            <div class="row">
+                <input type="text" name="id_userfile" id="id_userfile" style="display:none">
+                <div class="form-group">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6"><input required name="inputfileupload" id="inputfileupload" type="file"
+                       class="btn btn-success btn-sm fileinput-button dz-clickable"></div>
+                       <div class="col-sm-3"></div>
+                   </div>
+                   <div class="form-group">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6"><input type="text" placeholder="No Kontrak" class="form-control" id="noktr"
+                        required name="noktr"></div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6"><input type="text" placeholder="TMT Awal Kotrak" class="form-control tgl" id="tmtawal"
+                            required name="tmtawal"></div>
+                            <div class="col-sm-3"></div>
+                        </div>
+                        <div class="form-group">
+                         <div class="col-sm-3"></div>
+                         <div class="col-sm-6"><input type="text" placeholder="Tanggal Kontrak" class="form-control tgl" id="tglktr"
+                             required name="tglktr"></div>
+                             <div class="col-sm-3"></div>
+                         </div>
+                         <div class="form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6"><input type="text" placeholder="Jenis Kontrak" class="form-control" id="jnsktr"
+                                required name="jnsktr"></div>
+                                <div class="col-sm-3"></div>
+                            </div>
+                            <div class="form-group">
+                             <div class="col-sm-3"></div>
+                             <div class="col-sm-6"><input type="text" placeholder="Tanggal Akhir Kontrak" class="form-control tgl" id="tglakhir"
+                                 name="tglakhir"></div>
+                                 <div class="col-sm-3"></div>
+                             </div>
+                             <div class="form-group">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-6">
+                                  <button type="submit" class="btn btn-default">Simpan</button>
+                              </div>
+                              <div class="col-sm-3"></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          <?php }?>
+          <div class="row"></div>
+          <div class="row pad-all">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-vcenter">
+                    <thead>
+                        <tr>
+                            <th style="width:20px">No.</th>
+                            <th>No Kontrak</th>
+                            <th>TMT awal Kotrak</th>
+                            <th>Tanggal Kontrak</th>
+                            <th>Jenis Kontrak</th>
+                            <th>TMT Akhir Kontrak</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filekontrak"></tbody>
+                </table>
             </div>
         </div>
-    </div>
-    </div>
-	<?php }?>
-    <div class="row"></div>
-    <div class="row pad-all">
-        <div class="table-responsive">
-            <table class="table table-striped table-hover table-vcenter">
-                <thead>
-                <tr>
-                    <th style="width:20px">No.</th>
-                    <th>No Kontrak</th>
-                    <th>TMT awal Kotrak</th>
-                    <th>Tanggal Kontrak</th>
-                    <th>Jenis Kontrak</th>
-                    <th>TMT Akhir Kontrak</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody id="filekontrak"></tbody>
-            </table>
-        </div>
-    </div>
-</form>
-<script> 
+    </form>
+    <script> 
 // set ID user
 var id = $('#f_id_edit').val();
 console.log(id);
@@ -153,11 +153,11 @@ function hapusfile(a) {
         getJson(filedelete, BASE_URL + 'pegawais/kontrak/delete/' + a + "?id_userfile=" + id);
     });
 }
-	$(document).ready(function () {
-	  $('.tgl').datepicker({
-		format: "dd-mm-yyyy",
-	  }).on('change', function(){
-		$('.datepicker').hide();
-	  });
-	 });
+$(document).ready(function () {
+ $('.tgl').datepicker({
+  format: "dd-mm-yyyy",
+}).on('change', function(){
+  $('.datepicker').hide();
+});
+});
 </script>
