@@ -1,19 +1,19 @@
 <form id="form-m_kode_keluar"  method="post" role="form" class="form-horizontal pad-all">
-<div class="row pad-all">
-<div class="panel-body">
-    <input type="text" style="display:none" name="id" id="id" class="form-control"/><div class="row mar-all"> 
-					<div class="form-group">
-					<label class="col-sm-3 control-label" for="inputstatus">Keterangan Keluar</label>
-							<div class="col-sm-7">
-							<input type="text" name="ds_keluar" id="ds_keluar" class="form-control"/>
-							</div>
-							
-					</div> 
-					</div>
-      
-      
-    </div>
-</div>
+  <div class="row pad-all">
+    <div class="panel-body">
+      <input type="text" style="display:none" name="id" id="id" class="form-control"/><div class="row mar-all"> 
+       <div class="form-group">
+         <label class="col-sm-3 control-label" for="inputstatus">Keterangan Keluar</label>
+         <div class="col-sm-7">
+           <input type="text" name="ds_keluar" id="ds_keluar" class="form-control"/>
+         </div>
+         
+       </div> 
+     </div>
+     
+     
+   </div>
+ </div>
 
 </form>
 
@@ -23,23 +23,23 @@
 
  var idcell = getGridId(gridOptions_m_kode_keluar,'kd_keluar');
  $('#id').val(idcell);
+ 
+
+ window.setTimeout(function(){
+  if(!empty($('#id').val())){
+    
+    getJson(getdata_m_kode_keluar, url_api+'listdata?id='+idcell);
+  }
+},500);
+ 
+
+
+ function getdata_m_kode_keluar(result){
   
-
-    window.setTimeout(function(){
-        if(!empty($('#id').val())){
-    
-        getJson(getdata_m_kode_keluar, url_api+'listdata?id='+idcell);
-    }
-    },500);
-    
-
-
-function getdata_m_kode_keluar(result){
-    
-    
+  
    // $('#id_edit_m_kode_keluar').val(result.result[0].id);
    $('#id').val(result.result[0].kd_keluar);$('#ds_keluar').val(result.result[0].ds_keluar);$('#tgl_update').val(result.result[0].tgl_update);$('#no_peg_update').val(result.result[0].no_peg_update);
-}
+ }
 
 
 </script>

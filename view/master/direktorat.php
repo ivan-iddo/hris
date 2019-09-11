@@ -45,279 +45,279 @@
             <div class="col-lg-4 col-md-4 col-sm-4">
               <div class="btn-group pad-btm pad-top">
                <button id="addDetail" class="btn btn-primary btn-labeled fa fa-plus-square btn-sm">Add
-                </button>
-                <button class="btn btn-warning btn-labeled fa fa-edit btn-sm" onClick="proses_edit_item();">Edit
-                </button>
-                <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete_item();">Delete
-                </button>
-              </div>
-              <h4>Bagian</h4>
-              <div id="myGridDetail" style="height: 400px;width:100%" class="ag-theme-balham">
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4">
-              <div class="btn-group pad-btm pad-top">
-               <button id="addDetailSub" class="btn btn-primary btn-labeled fa fa-plus-square btn-sm">Add
-                </button>
-                <button class="btn btn-warning btn-labeled fa fa-edit btn-sm" onClick="proses_edit_sub();">Edit
-                </button>
-                <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete_sub();">Delete
-                </button>
-              </div>
-              <h4>Sub Bagian</h4>
-              <div id="myGridSubDetail" style="height: 400px;width:100%" class="ag-theme-balham">
-              </div>
-            </div>
-          </div>
-		  <div class="fixed-table-container " style="padding-bottom: 0px;">
-            <div class="col-lg-4 col-md-4 col-sm-4">
-              <div class="btn-group pad-btm pad-top">
-               <button id="addDetailunit" class="btn btn-primary btn-labeled fa fa-plus-square btn-sm">Add
-                </button>
-                <button class="btn btn-warning btn-labeled fa fa-edit btn-sm" onClick="proses_edit_unit();">Edit
-                </button>
-                <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete_unit();">Delete
-                </button>
-              </div>
-              <h4>Unit</h4>
-              <div id="myGridDetailunit" style="height: 400px;width:100%" class="ag-theme-balham">
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4">
-              <div class="btn-group pad-btm pad-top">
-               <button id="addDetailstaff" class="btn btn-primary btn-labeled fa fa-plus-square btn-sm">Add
-                </button>
-                <button class="btn btn-warning btn-labeled fa fa-edit btn-sm" onClick="proses_edit_staff();">Edit
-                </button>
-                <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete_staff();">Delete
-                </button>
-              </div>
-              <h4>Staff</h4>
-              <div id="myGridDetailstaff" style="height: 400px;width:100%" class="ag-theme-balham">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="demo-lft-tab-3" class="tab-pane fade ">
-    </div>
-  </div>
+               </button>
+               <button class="btn btn-warning btn-labeled fa fa-edit btn-sm" onClick="proses_edit_item();">Edit
+               </button>
+               <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete_item();">Delete
+               </button>
+             </div>
+             <h4>Bagian</h4>
+             <div id="myGridDetail" style="height: 400px;width:100%" class="ag-theme-balham">
+             </div>
+           </div>
+           <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="btn-group pad-btm pad-top">
+             <button id="addDetailSub" class="btn btn-primary btn-labeled fa fa-plus-square btn-sm">Add
+             </button>
+             <button class="btn btn-warning btn-labeled fa fa-edit btn-sm" onClick="proses_edit_sub();">Edit
+             </button>
+             <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete_sub();">Delete
+             </button>
+           </div>
+           <h4>Sub Bagian</h4>
+           <div id="myGridSubDetail" style="height: 400px;width:100%" class="ag-theme-balham">
+           </div>
+         </div>
+       </div>
+       <div class="fixed-table-container " style="padding-bottom: 0px;">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="btn-group pad-btm pad-top">
+           <button id="addDetailunit" class="btn btn-primary btn-labeled fa fa-plus-square btn-sm">Add
+           </button>
+           <button class="btn btn-warning btn-labeled fa fa-edit btn-sm" onClick="proses_edit_unit();">Edit
+           </button>
+           <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete_unit();">Delete
+           </button>
+         </div>
+         <h4>Unit</h4>
+         <div id="myGridDetailunit" style="height: 400px;width:100%" class="ag-theme-balham">
+         </div>
+       </div>
+       <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="btn-group pad-btm pad-top">
+         <button id="addDetailstaff" class="btn btn-primary btn-labeled fa fa-plus-square btn-sm">Add
+         </button>
+         <button class="btn btn-warning btn-labeled fa fa-edit btn-sm" onClick="proses_edit_staff();">Edit
+         </button>
+         <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete_staff();">Delete
+         </button>
+       </div>
+       <h4>Staff</h4>
+       <div id="myGridDetailstaff" style="height: 400px;width:100%" class="ag-theme-balham">
+       </div>
+     </div>
+   </div>
+ </div>
+</div>
+</div>
+<div id="demo-lft-tab-3" class="tab-pane fade ">
+</div>
+</div>
 </div>
 <script type="text/javascript" charset="utf-8">
-$('.judul-menu').html('Direktorat');
+  $('.judul-menu').html('Direktorat');
   // specify the columns
   var columnDefs = [
-      
-    {
-      headerName: "Kode", field: "deskripsi", width: 80, filterParams:{
-        newRowsAction: 'keep'}
-      ,cellStyle: {
-        textAlign: "left"}
-    },
-    {
-      headerName: "Nama", field: "nama", width: 180, filterParams:{
-        newRowsAction: 'keep'}
-    } 
-  ];
   
-  
-  var columnDefsDetail = [
-    
-    {
-      headerName: "Kode", field: "deskripsi", width: 250, filterParams:{
-        newRowsAction: 'keep'}
+  {
+    headerName: "Kode", field: "deskripsi", width: 80, filterParams:{
+      newRowsAction: 'keep'}
       ,cellStyle: {
         textAlign: "left"}
-    },
-    {
-      headerName: "Nama", field: "nama", width: 250, filterParams:{
-        newRowsAction: 'keep'}
-      ,cellStyle: {
-        textAlign: "left"}
-    }
-      
-     
-     
-  ];
-  
-  var SubBagiabCol = [
-    
-    {
-      headerName: "Kode", field: "deskripsi", width: 250, filterParams:{
-        newRowsAction: 'keep'}
-      ,cellStyle: {
-        textAlign: "left"}
-    },
-    {
-      headerName: "Nama", field: "nama", width: 250, filterParams:{
-        newRowsAction: 'keep'}
-      ,cellStyle: {
-        textAlign: "left"}
-    }
-      
-     
-     
-  ];
-  
-  var columnDefsDetailunit = [
-    
-    {
-      headerName: "Kode", field: "deskripsi", width: 250, filterParams:{
-        newRowsAction: 'keep'}
-      ,cellStyle: {
-        textAlign: "left"}
-    },
-    {
-      headerName: "Nama", field: "nama", width: 250, filterParams:{
-        newRowsAction: 'keep'}
-      ,cellStyle: {
-        textAlign: "left"}
-    }
-      
-     
-     
-  ];
-  
-  var columnDefsDetailstaff = [
-    
-    {
-      headerName: "Kode", field: "deskripsi", width: 250, filterParams:{
-        newRowsAction: 'keep'}
-      ,cellStyle: {
-        textAlign: "left"}
-    },
-    {
-      headerName: "Nama", field: "nama", width: 250, filterParams:{
-        newRowsAction: 'keep'}
-      ,cellStyle: {
-        textAlign: "left"}
-    }
-      
-     
-     
-  ];
-  
-   
+      },
+      {
+        headerName: "Nama", field: "nama", width: 180, filterParams:{
+          newRowsAction: 'keep'}
+        } 
+        ];
+        
+        
+        var columnDefsDetail = [
+        
+        {
+          headerName: "Kode", field: "deskripsi", width: 250, filterParams:{
+            newRowsAction: 'keep'}
+            ,cellStyle: {
+              textAlign: "left"}
+            },
+            {
+              headerName: "Nama", field: "nama", width: 250, filterParams:{
+                newRowsAction: 'keep'}
+                ,cellStyle: {
+                  textAlign: "left"}
+                }
+                
+                
+                
+                ];
+                
+                var SubBagiabCol = [
+                
+                {
+                  headerName: "Kode", field: "deskripsi", width: 250, filterParams:{
+                    newRowsAction: 'keep'}
+                    ,cellStyle: {
+                      textAlign: "left"}
+                    },
+                    {
+                      headerName: "Nama", field: "nama", width: 250, filterParams:{
+                        newRowsAction: 'keep'}
+                        ,cellStyle: {
+                          textAlign: "left"}
+                        }
+                        
+                        
+                        
+                        ];
+                        
+                        var columnDefsDetailunit = [
+                        
+                        {
+                          headerName: "Kode", field: "deskripsi", width: 250, filterParams:{
+                            newRowsAction: 'keep'}
+                            ,cellStyle: {
+                              textAlign: "left"}
+                            },
+                            {
+                              headerName: "Nama", field: "nama", width: 250, filterParams:{
+                                newRowsAction: 'keep'}
+                                ,cellStyle: {
+                                  textAlign: "left"}
+                                }
+                                
+                                
+                                
+                                ];
+                                
+                                var columnDefsDetailstaff = [
+                                
+                                {
+                                  headerName: "Kode", field: "deskripsi", width: 250, filterParams:{
+                                    newRowsAction: 'keep'}
+                                    ,cellStyle: {
+                                      textAlign: "left"}
+                                    },
+                                    {
+                                      headerName: "Nama", field: "nama", width: 250, filterParams:{
+                                        newRowsAction: 'keep'}
+                                        ,cellStyle: {
+                                          textAlign: "left"}
+                                        }
+                                        
+                                        
+                                        
+                                        ];
+                                        
+                                        
 
-  var gridOptions = {
-    enableSorting: true,
-    enableFilter: true,
-    suppressRowClickSelection: false,
-    onRowClicked: bukasetting,
-    onRowDoubleClicked:proses_edit,
-    groupSelectsChildren: true,
-    debug: true,
-    rowSelection: 'single',
-    enableColResize: true,
-    rowGroupPanelShow: 'always',
-    pivotPanelShow: 'always',
-    enableRangeSelection: true,
-    columnDefs: columnDefs,
-    pagination: false ,
-    defaultColDef:{
-      editable: false 
-    }
-  };
-  
-  var gridOptionsDetail = {
-    enableSorting: true,
-    enableFilter: true,
-    suppressRowClickSelection: false,
-    columnDefs: columnDefsDetail,
-    onRowDoubleClicked:proses_edit_item,
-    onRowClicked: listSubBagian,
-    groupSelectsChildren: true,
-    debug: true,
-    rowSelection: 'single',
-    enableColResize: true,
-    rowGroupPanelShow: 'always',
-    pivotPanelShow: 'always',
-    enableRangeSelection: true,
-    columnDefs: columnDefs,
-    pagination: false ,
-    defaultColDef:{
-      editable: false 
-    },
-    getRowNodeId: function(data) {
-      return data.id;
-    }
-  };
-  
-    var gridSubBagian = {
-    enableSorting: true,
-    enableFilter: true,
-    suppressRowClickSelection: false,
-    columnDefs: SubBagiabCol,
-    onRowDoubleClicked:proses_edit_sub,
-	onRowClicked: listSubUnit,
-    groupSelectsChildren: true,
-    debug: true,
-    rowSelection: 'single',
-    enableColResize: true,
-    rowGroupPanelShow: 'always',
-    pivotPanelShow: 'always',
-    enableRangeSelection: true,
-    columnDefs: columnDefs,
-    pagination: false ,
-    defaultColDef:{
-      editable: false 
-    },
-    getRowNodeId: function(data) {
-      return data.id;
-    }
-  };
-  
-  var gridOptionsDetailunit = {
-    enableSorting: true,
-    enableFilter: true,
-    suppressRowClickSelection: false,
-    columnDefs: columnDefsDetailunit,
-    onRowDoubleClicked:proses_edit_unit,
-	onRowClicked: listSubStaff,
-    groupSelectsChildren: true,
-    debug: true,
-    rowSelection: 'single',
-    enableColResize: true,
-    rowGroupPanelShow: 'always',
-    pivotPanelShow: 'always',
-    enableRangeSelection: true,
-    columnDefs: columnDefs,
-    pagination: false ,
-    defaultColDef:{
-      editable: false 
-    },
-    getRowNodeId: function(data) {
-      return data.id;
-    }
-  };
-  
-  var gridOptionsDetailstaff = {
-    enableSorting: true,
-    enableFilter: true,
-    suppressRowClickSelection: false,
-    columnDefs: columnDefsDetailstaff,
-    onRowDoubleClicked:proses_edit_staff,
-    groupSelectsChildren: true,
-    debug: true,
-    rowSelection: 'single',
-    enableColResize: true,
-    rowGroupPanelShow: 'always',
-    pivotPanelShow: 'always',
-    enableRangeSelection: true,
-    columnDefs: columnDefs,
-    pagination: false ,
-    defaultColDef:{
-      editable: false 
-    }
-  };
-   
-  var DivDetailstaff = document.querySelector('#myGridDetailstaff');
-  new agGrid.Grid(DivDetailstaff, gridOptionsDetailstaff);
-  
-   
-  function proses_delete(){
-    var selectedRows = gridOptions.api.getSelectedRows();
+                                        var gridOptions = {
+                                          enableSorting: true,
+                                          enableFilter: true,
+                                          suppressRowClickSelection: false,
+                                          onRowClicked: bukasetting,
+                                          onRowDoubleClicked:proses_edit,
+                                          groupSelectsChildren: true,
+                                          debug: true,
+                                          rowSelection: 'single',
+                                          enableColResize: true,
+                                          rowGroupPanelShow: 'always',
+                                          pivotPanelShow: 'always',
+                                          enableRangeSelection: true,
+                                          columnDefs: columnDefs,
+                                          pagination: false ,
+                                          defaultColDef:{
+                                            editable: false 
+                                          }
+                                        };
+                                        
+                                        var gridOptionsDetail = {
+                                          enableSorting: true,
+                                          enableFilter: true,
+                                          suppressRowClickSelection: false,
+                                          columnDefs: columnDefsDetail,
+                                          onRowDoubleClicked:proses_edit_item,
+                                          onRowClicked: listSubBagian,
+                                          groupSelectsChildren: true,
+                                          debug: true,
+                                          rowSelection: 'single',
+                                          enableColResize: true,
+                                          rowGroupPanelShow: 'always',
+                                          pivotPanelShow: 'always',
+                                          enableRangeSelection: true,
+                                          columnDefs: columnDefs,
+                                          pagination: false ,
+                                          defaultColDef:{
+                                            editable: false 
+                                          },
+                                          getRowNodeId: function(data) {
+                                            return data.id;
+                                          }
+                                        };
+                                        
+                                        var gridSubBagian = {
+                                          enableSorting: true,
+                                          enableFilter: true,
+                                          suppressRowClickSelection: false,
+                                          columnDefs: SubBagiabCol,
+                                          onRowDoubleClicked:proses_edit_sub,
+                                          onRowClicked: listSubUnit,
+                                          groupSelectsChildren: true,
+                                          debug: true,
+                                          rowSelection: 'single',
+                                          enableColResize: true,
+                                          rowGroupPanelShow: 'always',
+                                          pivotPanelShow: 'always',
+                                          enableRangeSelection: true,
+                                          columnDefs: columnDefs,
+                                          pagination: false ,
+                                          defaultColDef:{
+                                            editable: false 
+                                          },
+                                          getRowNodeId: function(data) {
+                                            return data.id;
+                                          }
+                                        };
+                                        
+                                        var gridOptionsDetailunit = {
+                                          enableSorting: true,
+                                          enableFilter: true,
+                                          suppressRowClickSelection: false,
+                                          columnDefs: columnDefsDetailunit,
+                                          onRowDoubleClicked:proses_edit_unit,
+                                          onRowClicked: listSubStaff,
+                                          groupSelectsChildren: true,
+                                          debug: true,
+                                          rowSelection: 'single',
+                                          enableColResize: true,
+                                          rowGroupPanelShow: 'always',
+                                          pivotPanelShow: 'always',
+                                          enableRangeSelection: true,
+                                          columnDefs: columnDefs,
+                                          pagination: false ,
+                                          defaultColDef:{
+                                            editable: false 
+                                          },
+                                          getRowNodeId: function(data) {
+                                            return data.id;
+                                          }
+                                        };
+                                        
+                                        var gridOptionsDetailstaff = {
+                                          enableSorting: true,
+                                          enableFilter: true,
+                                          suppressRowClickSelection: false,
+                                          columnDefs: columnDefsDetailstaff,
+                                          onRowDoubleClicked:proses_edit_staff,
+                                          groupSelectsChildren: true,
+                                          debug: true,
+                                          rowSelection: 'single',
+                                          enableColResize: true,
+                                          rowGroupPanelShow: 'always',
+                                          pivotPanelShow: 'always',
+                                          enableRangeSelection: true,
+                                          columnDefs: columnDefs,
+                                          pagination: false ,
+                                          defaultColDef:{
+                                            editable: false 
+                                          }
+                                        };
+                                        
+                                        var DivDetailstaff = document.querySelector('#myGridDetailstaff');
+                                        new agGrid.Grid(DivDetailstaff, gridOptionsDetailstaff);
+                                        
+                                        
+                                        function proses_delete(){
+                                          var selectedRows = gridOptions.api.getSelectedRows();
     // alert('>>'+selectedRows+'<<<');
     if(selectedRows == ''){
       onMessage('Silahkan Pilih Data Terlebih dahulu!');
@@ -331,7 +331,7 @@ $('.judul-menu').html('Direktorat');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
       submit_get(BASE_URL+'<?php echo $nama_modul?>/delete/?id_group='+selectedRowsString,loaddata);
       //loaddata();
     }
@@ -352,7 +352,7 @@ $('.judul-menu').html('Direktorat');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
       submit_get(BASE_URL+'<?php echo $nama_modul?>/delete_detail/?id_group='+selectedRowsString,bukasetting);
       //loaddata();
     }
@@ -373,7 +373,7 @@ $('.judul-menu').html('Direktorat');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
       submit_get(BASE_URL+'<?php echo $nama_modul?>/delete_detail/?id_group='+selectedRowsString,listSubBagian);
       //loaddata();
     }
@@ -394,7 +394,7 @@ $('.judul-menu').html('Direktorat');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
       submit_get(BASE_URL+'<?php echo $nama_modul?>/delete_detail/?id_group='+selectedRowsString,listSubUnit);
       //loaddata();
     }
@@ -415,7 +415,7 @@ $('.judul-menu').html('Direktorat');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
       submit_get(BASE_URL+'<?php echo $nama_modul?>/delete_detail/?id_group='+selectedRowsString,listSubstaff);
       //loaddata();
     }
@@ -436,7 +436,7 @@ $('.judul-menu').html('Direktorat');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
       $.ajax({
         url: BASE_URL+'<?php echo $nama_modul?>/getitem/?id='+selectedRowsString,
         headers: {
@@ -460,7 +460,7 @@ $('.judul-menu').html('Direktorat');
           alert('error');
         }
       }
-            );
+      );
       var input='<form class="form-horizontal">';
       input += '<div class="panel-body mar-all">';
       input +='<div class="form-group">';
@@ -508,12 +508,12 @@ $('.judul-menu').html('Direktorat');
                 container : 'floating',
                 timer : 5000
               }
-                         );
+              );
             }
           }
         }
       }
-                    );
+      );
     }
   }
   
@@ -533,7 +533,7 @@ $('.judul-menu').html('Direktorat');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
       $.ajax({
         url: BASE_URL+'<?php echo $nama_modul?>/getitemdetail/?all=true&id='+selectedRowsString,
         headers: {
@@ -557,7 +557,7 @@ $('.judul-menu').html('Direktorat');
           alert('error');
         }
       }
-            );
+      );
       var input='<form class="form-horizontal">';
       input += '<div class="panel-body">';
       input +='<div class="form-group">';
@@ -605,12 +605,12 @@ $('.judul-menu').html('Direktorat');
                 container : 'floating',
                 timer : 5000
               }
-                         );
+              );
             }
           }
         }
       }
-                    );
+      );
     }
   }
   
@@ -629,7 +629,7 @@ $('.judul-menu').html('Direktorat');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
       $.ajax({
         url: BASE_URL+'<?php echo $nama_modul?>/getitemdetail/?all=true&id='+selectedRowsString,
         headers: {
@@ -653,7 +653,7 @@ $('.judul-menu').html('Direktorat');
           alert('error');
         }
       }
-            );
+      );
       var input='<form class="form-horizontal">';
       input += '<div class="panel-body">';
       input +='<div class="form-group">';
@@ -701,12 +701,12 @@ $('.judul-menu').html('Direktorat');
                 container : 'floating',
                 timer : 5000
               }
-                         );
+              );
             }
           }
         }
       }
-                    );
+      );
     }
   }
   
@@ -726,7 +726,7 @@ $('.judul-menu').html('Direktorat');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
       $.ajax({
         url: BASE_URL+'<?php echo $nama_modul?>/getitemdetail/?all=true&id='+selectedRowsString,
         headers: {
@@ -750,7 +750,7 @@ $('.judul-menu').html('Direktorat');
           alert('error');
         }
       }
-            );
+      );
       var input='<form class="form-horizontal">';
       input += '<div class="panel-body">';
       input +='<div class="form-group">';
@@ -798,12 +798,12 @@ $('.judul-menu').html('Direktorat');
                 container : 'floating',
                 timer : 5000
               }
-                         );
+              );
             }
           }
         }
       }
-                    );
+      );
     }
   }
   
@@ -823,7 +823,7 @@ $('.judul-menu').html('Direktorat');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
       $.ajax({
         url: BASE_URL+'<?php echo $nama_modul?>/getitemdetail/?all=true&id='+selectedRowsString,
         headers: {
@@ -847,7 +847,7 @@ $('.judul-menu').html('Direktorat');
           alert('error');
         }
       }
-            );
+      );
       var input='<form class="form-horizontal">';
       input += '<div class="panel-body">';
       input +='<div class="form-group">';
@@ -895,12 +895,12 @@ $('.judul-menu').html('Direktorat');
                 container : 'floating',
                 timer : 5000
               }
-                         );
+              );
             }
           }
         }
       }
-                    );
+      );
     }
   }
   
@@ -920,24 +920,24 @@ $('.judul-menu').html('Direktorat');
     $.ajax({
       url: BASE_URL+'<?php echo $nama_modul?>/getitem',
       headers: {
-      'Authorization': localStorage.getItem("Token"),
-      'X_CSRF_TOKEN':'donimaulana',
-      'Content-Type':'application/json'
-    }
-           ,
-           dataType: 'json',
-           type: 'get',
-           contentType: 'application/json', 
-           processData: false,
-           success: function( data, textStatus, jQxhr ){
-      gridOptions.api.setRowData(data);
-    }
-    ,
+        'Authorization': localStorage.getItem("Token"),
+        'X_CSRF_TOKEN':'donimaulana',
+        'Content-Type':'application/json'
+      }
+      ,
+      dataType: 'json',
+      type: 'get',
+      contentType: 'application/json', 
+      processData: false,
+      success: function( data, textStatus, jQxhr ){
+        gridOptions.api.setRowData(data);
+      }
+      ,
       error: function( jqXhr, textStatus, errorThrown ){
         alert('error');
       }
-  }
-  );
+    }
+    );
   }
   loaddata();
   
@@ -950,7 +950,7 @@ $('.judul-menu').html('Direktorat');
       }
       selectedRowsString += selectedRow.id;
     }
-                        );
+    );
     //  alert(selectedRowsString);
     $.ajax({
       url: BASE_URL+'<?php echo $nama_modul?>/getgroup/?id='+selectedRowsString,
@@ -966,14 +966,14 @@ $('.judul-menu').html('Direktorat');
       processData: false,
       success: function( data, textStatus, jQxhr ){
         if(data.result !=='empty'){
-        gridOptionsDetail.api.setRowData(data);
-        gridOptionsDetail.api.forEachLeafNode(function(node,index) {
+          gridOptionsDetail.api.setRowData(data);
+          gridOptionsDetail.api.forEachLeafNode(function(node,index) {
           //node.setExpanded(true);
           if(node.data.front==='1'){
             node.setSelected(true, false);
           }
         }
-                                             );
+        );
         }else{
           gridOptionsDetail.api.setRowData([]);
         }
@@ -983,7 +983,7 @@ $('.judul-menu').html('Direktorat');
         alert('error');
       }
     }
-          );
+    );
   }
   
   function listSubBagian(){
@@ -995,7 +995,7 @@ $('.judul-menu').html('Direktorat');
       }
       selectedRowsString += selectedRow.id;
     }
-                        );
+    );
     //  alert(selectedRowsString);
     $.ajax({
       url: BASE_URL+'<?php echo $nama_modul?>/getgroup/?id='+selectedRowsString,
@@ -1011,14 +1011,14 @@ $('.judul-menu').html('Direktorat');
       processData: false,
       success: function( data, textStatus, jQxhr ){
         if(data.result !=='empty'){
-        gridSubBagian.api.setRowData(data);
-        gridSubBagian.api.forEachLeafNode(function(node,index) {
+          gridSubBagian.api.setRowData(data);
+          gridSubBagian.api.forEachLeafNode(function(node,index) {
           //node.setExpanded(true);
           if(node.data.front==='1'){
             node.setSelected(true, false);
           }
         }
-                                             );
+        );
         }else{
           gridSubBagian.api.setRowData([]);
         }
@@ -1028,7 +1028,7 @@ $('.judul-menu').html('Direktorat');
         alert('error');
       }
     }
-          );
+    );
   }
   
   
@@ -1044,7 +1044,7 @@ $('.judul-menu').html('Direktorat');
       }
       selectedRowsString += selectedRow.id;
     }
-                        );
+    );
     //  alert(selectedRowsString);
     $.ajax({
       url: BASE_URL+'<?php echo $nama_modul?>/getgroup/?id='+selectedRowsString,
@@ -1060,14 +1060,14 @@ $('.judul-menu').html('Direktorat');
       processData: false,
       success: function( data, textStatus, jQxhr ){
         if(data.result !=='empty'){
-        gridOptionsDetailunit.api.setRowData(data);
-        gridOptionsDetailunit.api.forEachLeafNode(function(node,index) {
+          gridOptionsDetailunit.api.setRowData(data);
+          gridOptionsDetailunit.api.forEachLeafNode(function(node,index) {
           //node.setExpanded(true);
           if(node.data.front==='1'){
             node.setSelected(true, false);
           }
         }
-                                             );
+        );
         }else{
           gridOptionsDetailunit.api.setRowData([]);
         }
@@ -1077,7 +1077,7 @@ $('.judul-menu').html('Direktorat');
         alert('error');
       }
     }
-          );
+    );
   }
   
   
@@ -1093,7 +1093,7 @@ $('.judul-menu').html('Direktorat');
       }
       selectedRowsString += selectedRow.id;
     }
-                        );
+    );
     //  alert(selectedRowsString);
     $.ajax({
       url: BASE_URL+'<?php echo $nama_modul?>/getgroup/?id='+selectedRowsString,
@@ -1109,14 +1109,14 @@ $('.judul-menu').html('Direktorat');
       processData: false,
       success: function( data, textStatus, jQxhr ){
         if(data.result !=='empty'){
-        gridOptionsDetailstaff.api.setRowData(data);
-        gridOptionsDetailstaff.api.forEachLeafNode(function(node,index) {
+          gridOptionsDetailstaff.api.setRowData(data);
+          gridOptionsDetailstaff.api.forEachLeafNode(function(node,index) {
           //node.setExpanded(true);
           if(node.data.front==='1'){
             node.setSelected(true, false);
           }
         }
-                                             );
+        );
         }else{
           gridOptionsDetailstaff.api.setRowData([]);
         }
@@ -1126,7 +1126,7 @@ $('.judul-menu').html('Direktorat');
         alert('error');
       }
     }
-          );
+    );
   }
   
   
@@ -1144,7 +1144,7 @@ $('.judul-menu').html('Direktorat');
     return input;
   }
   
-   
+  
   
   function getFileCellRenderer (params){
     var input = document.createElement("input");
@@ -1200,17 +1200,17 @@ $('.judul-menu').html('Direktorat');
               container : 'floating',
               timer : 5000
             }
-                       );
+            );
           }
         }
       }
     }
-                  );
+    );
   }
-                              );
+  );
   
   $('#addDetail').on('click', function(){
-     var selectedRows = gridOptions.api.getSelectedRows();
+   var selectedRows = gridOptions.api.getSelectedRows();
     // alert('>>'+selectedRows+'<<<');
     if(selectedRows == ''){
       onMessage('Silahkan Pilih Direktorat Terlebih dahulu!');
@@ -1224,7 +1224,7 @@ $('.judul-menu').html('Direktorat');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
     }
     var input='<form class="form-horizontal">';
     input += '<div class="panel-body mar-all pad-all">';
@@ -1271,16 +1271,16 @@ $('.judul-menu').html('Direktorat');
               container : 'floating',
               timer : 5000
             }
-                       );
+            );
           }
         }
       }
     }
-                  );
+    );
   }
   );
   $('#addDetailunit').on('click', function(){
-     var selectedRows = gridSubBagian.api.getSelectedRows();
+   var selectedRows = gridSubBagian.api.getSelectedRows();
     // alert('>>'+selectedRows+'<<<');
     if(selectedRows == ''){
       onMessage('Silahkan Pilih Sub Bagian Terlebih dahulu!');
@@ -1294,7 +1294,7 @@ $('.judul-menu').html('Direktorat');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
     }
     var input='<form class="form-horizontal">';
     input += '<div class="panel-body mar-all pad-all">';
@@ -1341,17 +1341,17 @@ $('.judul-menu').html('Direktorat');
               container : 'floating',
               timer : 5000
             }
-                       );
+            );
           }
         }
       }
     }
-                  );
+    );
   }
-                              );
-							  
-	$('#addDetailstaff').on('click', function(){
-     var selectedRows = gridOptionsDetailunit.api.getSelectedRows();
+  );
+  
+  $('#addDetailstaff').on('click', function(){
+   var selectedRows = gridOptionsDetailunit.api.getSelectedRows();
     // alert('>>'+selectedRows+'<<<');
     if(selectedRows == ''){
       onMessage('Silahkan Pilih Unit Terlebih dahulu!');
@@ -1365,7 +1365,7 @@ $('.judul-menu').html('Direktorat');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
     }
     var input='<form class="form-horizontal">';
     input += '<div class="panel-body mar-all pad-all">';
@@ -1412,17 +1412,17 @@ $('.judul-menu').html('Direktorat');
               container : 'floating',
               timer : 5000
             }
-                       );
+            );
           }
         }
       }
     }
-                  );
+    );
   }
-                              );
+  );
   
   $('#addDetailSub').on('click', function(){
-     var selectedRows = gridOptionsDetail.api.getSelectedRows();
+   var selectedRows = gridOptionsDetail.api.getSelectedRows();
     // alert('>>'+selectedRows+'<<<');
     if(selectedRows == ''){
       onMessage('Silahkan Pilih Bagian Terlebih dahulu!');
@@ -1436,7 +1436,7 @@ $('.judul-menu').html('Direktorat');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
     }
     var input='<form class="form-horizontal">';
     input += '<div class="panel-body mar-all pad-all">';
@@ -1483,14 +1483,14 @@ $('.judul-menu').html('Direktorat');
               container : 'floating',
               timer : 5000
             }
-                       );
+            );
           }
         }
       }
     }
-                  );
+    );
   }
-                              );
+  );
   
   
   function simpan(action){
@@ -1533,9 +1533,9 @@ $('.judul-menu').html('Direktorat');
       }
       selectedRowsString += selectedRow.id;
     }
-                        );
+    );
     
-     group_aplikasi	= '1';
+    group_aplikasi	= '1';
     group_group     = $("#f_group_group").get(0).value;
     group_ket       = $("#f_group_ket").get(0).value;
     id_group     = $("#id_group").get(0).value;
@@ -1573,9 +1573,9 @@ $('.judul-menu').html('Direktorat');
       }
       selectedRowsString += selectedRow.id;
     }
-                        );
+    );
     
-     group_aplikasi	= '1';
+    group_aplikasi	= '1';
     group_group     = $("#f_group_group").get(0).value;
     group_ket       = $("#f_group_ket").get(0).value;
     id_group     = $("#id_group").get(0).value;
@@ -1613,9 +1613,9 @@ $('.judul-menu').html('Direktorat');
       }
       selectedRowsString += selectedRow.id;
     }
-                        );
+    );
     
-     group_aplikasi	= '1';
+    group_aplikasi	= '1';
     group_group     = $("#f_group_group").get(0).value;
     group_ket       = $("#f_group_ket").get(0).value;
     id_group     = $("#id_group").get(0).value;
@@ -1653,9 +1653,9 @@ $('.judul-menu').html('Direktorat');
       }
       selectedRowsString += selectedRow.id;
     }
-                        );
+    );
     
-     group_aplikasi	= '1';
+    group_aplikasi	= '1';
     group_group     = $("#f_group_group").get(0).value;
     group_ket       = $("#f_group_ket").get(0).value;
     id_group     = $("#id_group").get(0).value;

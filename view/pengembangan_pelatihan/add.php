@@ -1,70 +1,70 @@
 <style type="text/css">
     /*.daterangepicker{
         position: static !important;
-    }*/
-</style>
-<form class="form-horizontal">
-    <div class="panel-body">
-        <div class="form-group">
-            <label class="col-sm-3 control-label" for="demo-hor-inputemail">No. Disposisi</label>
-            <div class="col-sm-5">
-                <input type="text" name="id" id="id" style="width: 220px;display:none"
-                       class="form-control"/>
-                <input type="text" name="no_disposisi" id="no_disposisi" class="form-control"/>
-            </div>
-        </div>
-        <div class="body-content-calendar">
-            <div class="form-group body-remove-calendar">
-                <label class="col-sm-3 control-label" for="demo-hor-inputemail">Tgl Pelaksanaan</label>
+        }*/
+    </style>
+    <form class="form-horizontal">
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="demo-hor-inputemail">No. Disposisi</label>
                 <div class="col-sm-5">
-                    <input type="text" name="tanggal[]" class="form-control tanggal daterangepicker" id="tanggal" 
-                           />
-                </div>
-                <div class="col-xs-3 pull right">
-                    <div class="btn btn-default btn-sm" id="add-data-calendar">Add</div>
+                    <input type="text" name="id" id="id" style="width: 220px;display:none"
+                    class="form-control"/>
+                    <input type="text" name="no_disposisi" id="no_disposisi" class="form-control"/>
                 </div>
             </div>
+            <div class="body-content-calendar">
+                <div class="form-group body-remove-calendar">
+                    <label class="col-sm-3 control-label" for="demo-hor-inputemail">Tgl Pelaksanaan</label>
+                    <div class="col-sm-5">
+                        <input type="text" name="tanggal[]" class="form-control tanggal daterangepicker" id="tanggal" 
+                        />
+                    </div>
+                    <div class="col-xs-3 pull right">
+                        <div class="btn btn-default btn-sm" id="add-data-calendar">Add</div>
+                    </div>
+                </div>
 
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Laporan</label>
-            <div class="col-sm-5">
-                <input type="checkbox" name="laporan" id="laporan" value="1">
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Monitor & Evaluasi</label>
-            <div class="col-sm-5">
-                <input type="checkbox" name="monev" id="monev" value="1" checked="true">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Laporan</label>
+                <div class="col-sm-5">
+                    <input type="checkbox" name="laporan" id="laporan" value="1">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Jenis Perjalanan</label>
-            <div class="col-sm-5">
-                <select name="jenis_perjalanan" id="jenis_perjalanan" class="form-control select-chosen">
-                    <option value="">Pilih</option>
-                    <option>Dalam Negeri</option>
-                    <option>Luar Negeri</option>
-                </select>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Monitor & Evaluasi</label>
+                <div class="col-sm-5">
+                    <input type="checkbox" name="monev" id="monev" value="1" checked="true">
+                </div>
             </div>
-        </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Jenis Perjalanan</label>
+                <div class="col-sm-5">
+                    <select name="jenis_perjalanan" id="jenis_perjalanan" class="form-control select-chosen">
+                        <option value="">Pilih</option>
+                        <option>Dalam Negeri</option>
+                        <option>Luar Negeri</option>
+                    </select>
+                </div>
+            </div>
 
-        <div class="form-group jenis_perjalanan_dalam_negeri hidden">
-            <label class="col-sm-3 control-label"></label>
-            <div class="col-sm-5">
-                <select name="dalam_negeri" id="dalam_negeri" class="form-control select-chosen">
-                    <option value="">Pilih</option>
-                    <option>Dalam Kota</option>
-                    <option>Luar Kota</option>
-                </select>
+            <div class="form-group jenis_perjalanan_dalam_negeri hidden">
+                <label class="col-sm-3 control-label"></label>
+                <div class="col-sm-5">
+                    <select name="dalam_negeri" id="dalam_negeri" class="form-control select-chosen">
+                        <option value="">Pilih</option>
+                        <option>Dalam Kota</option>
+                        <option>Luar Kota</option>
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group dalam_negeri hidden">
-            <label class="col-sm-3 control-label"></label>
-            <div class="col-sm-5">
-                <select name="surat_tugas_dalam_negeri" id="surat_tugas_dalam_negeri"
-                        class="form-control select-chosen">
+            <div class="form-group dalam_negeri hidden">
+                <label class="col-sm-3 control-label"></label>
+                <div class="col-sm-5">
+                    <select name="surat_tugas_dalam_negeri" id="surat_tugas_dalam_negeri"
+                    class="form-control select-chosen">
                     <option value="">Pilih</option>
                     <option>Surat Tugas</option>
                     <option>Surat Izin</option>
@@ -136,11 +136,11 @@
                 <div class="body-detail">
                     <div class="col-sm-3">
                         <input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian" 
-                               placeholder="Uraian"/>
+                        placeholder="Uraian"/>
                     </div>
                     <div class="col-sm-3">
                         <input type="text" name="biaya_nominal[]" class="form-control biaya_nominal numeric-only" id="biaya_nominal" 
-                               placeholder="Biaya"/>
+                        placeholder="Biaya"/>
                     </div>
                 </div>
                 <div class="col-xs-3 pull right">
@@ -153,11 +153,11 @@
 </form>
 
 <script type="text/javascript"> 
-        $('.daterangepicker').daterangepicker({
-               locale: {
-                 format: 'YYYY-MM-DD'
-               }
-        });
+    $('.daterangepicker').daterangepicker({
+     locale: {
+       format: 'YYYY-MM-DD'
+   }
+});
 
     $('.select-chosen').chosen();
     $('.chosen-container').css({"width": "100%"});
@@ -165,12 +165,12 @@
         // Allow: backspace, delete, tab, escape, enter and .
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
              // Allow: Ctrl+A, Command+A
-            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+             (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
              // Allow: home, end, left, right, down, up
-            (e.keyCode >= 35 && e.keyCode <= 40)) {
+             (e.keyCode >= 35 && e.keyCode <= 40)) {
                  // let it happen, don't do anything
-                 return;
-        }
+             return;
+         }
         // Ensure that it is a number and stop the keypress
         if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
             e.preventDefault();
@@ -219,10 +219,10 @@
             '</div>');
         $(".body-content-calendar").append(row);
         $('.daterangepicker').daterangepicker({
-               locale: {
-                 format: 'YYYY-MM-DD'
-               }
-        });
+         locale: {
+           format: 'YYYY-MM-DD'
+       }
+   });
     });
     $(document).on('click', '.btn-remove-calendar', function (event) {
         console.log("remove" + $(this));
@@ -244,12 +244,12 @@
             dataType: "json",
             success: function (e) {
               //  alert(JSON.stringify(e.result));
-                for (var i = 0; i < e.result.length; i++) {
-                    $('#' + id).append('<option value="' + e.result[i].nip + '" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_group + '" >' + e.result[i].nip + ' - ' + e.result[i].nama + '</option>');
-                }
-                $('#' + id).trigger("chosen:updated");
+              for (var i = 0; i < e.result.length; i++) {
+                $('#' + id).append('<option value="' + e.result[i].nip + '" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_group + '" >' + e.result[i].nip + ' - ' + e.result[i].nama + '</option>');
             }
-        });
+            $('#' + id).trigger("chosen:updated");
+        }
+    });
     }
 
     $("#nopeg").on("change", function () {
@@ -263,7 +263,7 @@
     loadUser("nopeg", BASE_URL + "users/list");
 
     var jenis_perjalanan, jenis_perjalanan_dalam_negeri, jenis_perjalanan_luar_negeri,
-        surat_tugas_dalam_negeri, surat_tugas_luar_negeri, dalam_negeri;
+    surat_tugas_dalam_negeri, surat_tugas_luar_negeri, dalam_negeri;
 
     $("#jenis_perjalanan").on("change", function () {
         jenis_perjalanan = $(this).val();

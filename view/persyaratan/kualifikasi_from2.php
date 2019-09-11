@@ -4,111 +4,111 @@
         <ul class="nav nav-tabs">
             <li>
                 <a href="#demo-lft-tab-1" data-toggle="tab">
-						<span class="block text-center">
-							<i class="fa fa-home fa-2x text-danger"></i> 
-						</span>
-                    Dashboard
-                </a>
-            </li>
+                  <span class="block text-center">
+                     <i class="fa fa-home fa-2x text-danger"></i> 
+                 </span>
+                 Dashboard
+             </a>
+         </li>
 
-            <li class="active">
-                <a href="#demo-lft-tab-2" data-toggle="tab">
-						<span class="block text-center">
-							<i class="fa fa-laptop fa-2x text-danger"></i> 
-						</span>
-                    View Data
-                </a>
-            </li>
-            <li>
-                <a href="#demo-lft-tab-mutasi" data-toggle="tab">
-						<span class="block text-center">
-							<i class="fa fa-mail-forward fa-2x text-danger"></i> 
-						</span>
-                    Riwayat Mutasi
-                </a>
-            </li>
-            <li>
-                <a href="#demo-lft-tab-3" data-toggle="tab">
-						<span class="block text-center">
-							<i class="fa fa-lightbulb-o fa-2x text-warning"></i> 
-						</span>
-                    Help
-                </a>
-            </li>
-        </ul>
+         <li class="active">
+            <a href="#demo-lft-tab-2" data-toggle="tab">
+              <span class="block text-center">
+                 <i class="fa fa-laptop fa-2x text-danger"></i> 
+             </span>
+             View Data
+         </a>
+     </li>
+     <li>
+        <a href="#demo-lft-tab-mutasi" data-toggle="tab">
+          <span class="block text-center">
+             <i class="fa fa-mail-forward fa-2x text-danger"></i> 
+         </span>
+         Riwayat Mutasi
+     </a>
+ </li>
+ <li>
+    <a href="#demo-lft-tab-3" data-toggle="tab">
+      <span class="block text-center">
+         <i class="fa fa-lightbulb-o fa-2x text-warning"></i> 
+     </span>
+     Help
+ </a>
+</li>
+</ul>
 
-        <div class="tab-content">
-            <div class="tab-pane fade" id="demo-lft-tab-1"></div>
+<div class="tab-content">
+    <div class="tab-pane fade" id="demo-lft-tab-1"></div>
 
-            <div class="tab-pane fade active in" id="demo-lft-tab-2">
-                <div class="fixed-table-toolbar">
+    <div class="tab-pane fade active in" id="demo-lft-tab-2">
+        <div class="fixed-table-toolbar">
 
-                </div>
+        </div>
 
-                <div class="panel-group accordion" id="accordion">
-                    <div class="panel" style="border:none">
+        <div class="panel-group accordion" id="accordion">
+            <div class="panel" style="border:none">
 
-                        <!--Accordion title-->
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-parent="#accordion" data-toggle="collapse" href="#collapseOne"
-                                   aria-expanded="true" class="text-warning"><i class="fa fa-folder"></i> Data
-                                    Pegawai</a>
-                            </h4>
-                        </div>
+                <!--Accordion title-->
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-parent="#accordion" data-toggle="collapse" href="#collapseOne"
+                        aria-expanded="true" class="text-warning"><i class="fa fa-folder"></i> Data
+                    Pegawai</a>
+                </h4>
+            </div>
 
-                        <div class="panel-collapse collapse in" id="collapseOne" aria-expanded="true" style="">
-                            <div class="panel-body">
-                                <div class="dataTables_wrapper form-inline dt-bootstrap no-footer"
-                                     id="demo-dt-addrow_wrapper">
-                                    <div class="newtoolbar">
-                                        <div class="table-toolbar-left" id="demo-custom-toolbar2">
-                                            <div class="btn-group">
-                                                <button class="btn btn-mint btn-labeled fa fa-edit btn-sm"
-                                                        onclick="proses();">Proses Kualifikasi From 2                       </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="dataTables_filter" id="demo-dt-addrow_filter">
-                                        <label>Search:<input aria-controls="demo-dt-addrow"
-                                                             class="form-control input-sm" placeholder="" type="search"
-                                                             id="search"
-                                                             onkeydown="if(event.keyCode=='13'){loaddata(0);}"></label>
-
-                                    </div>
-
-                                </div>
-                                <div class="bootstrap-table">
-                                    <div class="fixed-table-container" style="padding-bottom: 0px;">
-                                        <div class="ag-theme-balham" id="myGrid" style="height: 400px;width:100%;">
-                                        </div>
-
-                                        <div class="paging pull-right mar-all">
-                                        </div>
-
-
-                                    </div>
-                                </div>
+            <div class="panel-collapse collapse in" id="collapseOne" aria-expanded="true" style="">
+                <div class="panel-body">
+                    <div class="dataTables_wrapper form-inline dt-bootstrap no-footer"
+                    id="demo-dt-addrow_wrapper">
+                    <div class="newtoolbar">
+                        <div class="table-toolbar-left" id="demo-custom-toolbar2">
+                            <div class="btn-group">
+                                <button class="btn btn-mint btn-labeled fa fa-edit btn-sm"
+                                onclick="proses();">Proses Kualifikasi From 2                       </button>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="demo-lft-tab-mutasi">
-                <div class="dataTables_filter" id="demo-dt-addrow_filter">
-                    <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
-                                         type="search" id="filter-text-box" oninput="onFilterTextBoxChanged()"></label>
+                    <div class="dataTables_filter" id="demo-dt-addrow_filter">
+                        <label>Search:<input aria-controls="demo-dt-addrow"
+                           class="form-control input-sm" placeholder="" type="search"
+                           id="search"
+                           onkeydown="if(event.keyCode=='13'){loaddata(0);}"></label>
 
-                </div>
+                       </div>
 
-                <div class="ag-theme-balham" id="myGridfrom2" style="height: 400px;width:100%;">
-                </div>
-            </div>
-            <div class="tab-pane fade" id="demo-lft-tab-3">
+                   </div>
+                   <div class="bootstrap-table">
+                    <div class="fixed-table-container" style="padding-bottom: 0px;">
+                        <div class="ag-theme-balham" id="myGrid" style="height: 400px;width:100%;">
+                        </div>
 
+                        <div class="paging pull-right mar-all">
+                        </div>
+
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
+</div>
+<div class="tab-pane fade" id="demo-lft-tab-mutasi">
+    <div class="dataTables_filter" id="demo-dt-addrow_filter">
+        <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
+           type="search" id="filter-text-box" oninput="onFilterTextBoxChanged()"></label>
+
+       </div>
+
+       <div class="ag-theme-balham" id="myGridfrom2" style="height: 400px;width:100%;">
+       </div>
+   </div>
+   <div class="tab-pane fade" id="demo-lft-tab-3">
+
+   </div>
+</div>
+</div>
 
 
 </div>
@@ -125,13 +125,13 @@
     //<![CDATA[
     // specify the columns
     var columnDefs = [
-        {headerName: "NIP", field: "nip", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "NIK", field: "nik", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Nama", field: "nama", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Direktorat", field: "nama_group", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Jabatan", field: "nama_uk", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Username", field: "username", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "E-Mail", field: "email", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "NIP", field: "nip", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "NIK", field: "nik", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Nama", field: "nama", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Direktorat", field: "nama_group", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Jabatan", field: "nama_uk", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Username", field: "username", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "E-Mail", field: "email", width: 190, filterParams: {newRowsAction: 'keep'}},
 
     ];
 
@@ -228,16 +228,16 @@
         var selectedRows = gridOptions.api.getSelectedRows();
             // alert('>>'+selectedRows+'<<<');
             if(selectedRows == ''){
-               onMessage('Silahkan Pilih Pegawai Terlebih dahulu!');
-               return false;
-            }else{
-                var selectedRowsString = '';
-           selectedRows.forEach( function(selectedRow, index) {
-            
-               if (index!==0) {
-                   selectedRowsString += ', ';
-               }
-               selectedRowsString += selectedRow.id;
+             onMessage('Silahkan Pilih Pegawai Terlebih dahulu!');
+             return false;
+         }else{
+            var selectedRowsString = '';
+            selectedRows.forEach( function(selectedRow, index) {
+                
+             if (index!==0) {
+                 selectedRowsString += ', ';
+             }
+             selectedRowsString += selectedRow.id;
            });//POPUP
             bootbox.dialog({
                 message: $('<div></div>').load('view/persyaratan/add_kualifikasi_from2.php'),
@@ -248,7 +248,7 @@
                         label: "Save",
                         className: "btn-primary",
                         callback: function () {
-						   
+                           
                             if (simpan()) {
                                 return true;
                             } else {
@@ -279,11 +279,11 @@
 
 
     function simpan() {
-       if (empty($('#tufoksipengaju').val())) {
-            onMessage("Tufoksi Pegawai Wajib diisi");
+     if (empty($('#tufoksipengaju').val())) {
+        onMessage("Tufoksi Pegawai Wajib diisi");
 
-            return false;
-        } else {
+        return false;
+    } else {
             var data = formJson('form-pengajuan-detail');//$("#form-upload").serializeArray();
             $.ajax({
                 url: BASE_URL + 'persyaratan/pengajuan/save',
@@ -345,17 +345,17 @@
 
 
     var columnDefsHis = [
-        {headerName: "Status", field: "status", width: 190, cellRenderer: CellRenderer},
-        {headerName: "Nama", field: "nama", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Formal", field: "formal", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Non Formal", field: "nonformal", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Jabatan", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Kompetensi", field: "kompetensi", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Formal Persyaratan", field: "formal_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Non Formal Persyaratan", field: "nonformal_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Jabatan Persyaratan", field: "jabatan_baru", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Kompetensi Persyaratan", field: "kompetensi_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "Keterangan", field: "keterangan", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Status", field: "status", width: 190, cellRenderer: CellRenderer},
+    {headerName: "Nama", field: "nama", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Formal", field: "formal", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Non Formal", field: "nonformal", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Jabatan", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Kompetensi", field: "kompetensi", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Formal Persyaratan", field: "formal_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Non Formal Persyaratan", field: "nonformal_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Jabatan Persyaratan", field: "jabatan_baru", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Kompetensi Persyaratan", field: "kompetensi_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Keterangan", field: "keterangan", width: 190, filterParams: {newRowsAction: 'keep'}},
 
     ];
 
@@ -390,51 +390,51 @@
         gridOptionsfrom2.api.setQuickFilter(document.getElementById('filter-text-box').value);
     }
 
-	function CellRenderer (params){
-    var closeSpan = document.createElement("span");
-	if(params.value ==='Tidak Sesuai'){
-    closeSpan.setAttribute("class","badge badge-danger");
-	closeSpan.textContent = "Tidak Sesuai";
-	}else if(params.value ==='Dengan Syarat'){
-	closeSpan.setAttribute("class","badge badge-warning");
-	closeSpan.textContent = "Dengan Syarat";
-	}else if(params.value ==='Sudah Sesuai'){
-	closeSpan.setAttribute("class","badge badge-success");
-	closeSpan.textContent = "Sudah Sesuai";
-	}else if(params.value ===null){
-	closeSpan.setAttribute("class","badge badge-light");
-	closeSpan.textContent = "Belum Diproses";
-	}
-	return closeSpan;
-	}
-	
-    function loadfrom2() {
-        $.ajax({
-            url: BASE_URL + 'persyaratan/pengajuan/listdatadetail',
-            headers: {
-                'Authorization': localStorage.getItem("Token"),
-                'X_CSRF_TOKEN': 'donimaulana',
-                'Content-Type': 'application/json'
-            },
-            dataType: 'json',
-            type: 'get',
-            contentType: 'application/json',
-            processData: false,
-            success: function (data, textStatus, jQxhr) {
+    function CellRenderer (params){
+        var closeSpan = document.createElement("span");
+        if(params.value ==='Tidak Sesuai'){
+            closeSpan.setAttribute("class","badge badge-danger");
+            closeSpan.textContent = "Tidak Sesuai";
+        }else if(params.value ==='Dengan Syarat'){
+           closeSpan.setAttribute("class","badge badge-warning");
+           closeSpan.textContent = "Dengan Syarat";
+       }else if(params.value ==='Sudah Sesuai'){
+           closeSpan.setAttribute("class","badge badge-success");
+           closeSpan.textContent = "Sudah Sesuai";
+       }else if(params.value ===null){
+           closeSpan.setAttribute("class","badge badge-light");
+           closeSpan.textContent = "Belum Diproses";
+       }
+       return closeSpan;
+   }
+   
+   function loadfrom2() {
+    $.ajax({
+        url: BASE_URL + 'persyaratan/pengajuan/listdatadetail',
+        headers: {
+            'Authorization': localStorage.getItem("Token"),
+            'X_CSRF_TOKEN': 'donimaulana',
+            'Content-Type': 'application/json'
+        },
+        dataType: 'json',
+        type: 'get',
+        contentType: 'application/json',
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
 
 
-                gridOptionsfrom2.api.setRowData(data.result);
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-                alert('error');
-            }
-        });
-    }
+            gridOptionsfrom2.api.setRowData(data.result);
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            alert('error');
+        }
+    });
+}
 
 
-    loadfrom2();
+loadfrom2();
 
 </script>
 <script src="js/login.js" type="text/javascript">
 </script>
- 
+

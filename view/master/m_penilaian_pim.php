@@ -51,57 +51,57 @@
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">
-$('.judul-menu').html('Master Penilaian Pimpinan');
+  $('.judul-menu').html('Master Penilaian Pimpinan');
   // specify the columns
   var columnDefs = [
-      
-    
-	{
-      headerName: "No", field: "n", width: 100, filterParams:{
-        newRowsAction: 'keep'}
+  
+  
+  {
+    headerName: "No", field: "n", width: 100, filterParams:{
+      newRowsAction: 'keep'}
     },{
       headerName: "Parameter", field: "nama", width: 400, filterParams:{
         newRowsAction: 'keep'}
-    },{
-      headerName: "Bobot", field: "no", width: 210, filterParams:{
-        newRowsAction: 'keep'}
-    }
-  ];
-  
-   
+      },{
+        headerName: "Bobot", field: "no", width: 210, filterParams:{
+          newRowsAction: 'keep'}
+        }
+        ];
+        
+        
 
-  var gridOptions = {
-    enableSorting: true,
-    enableFilter: true,
-    suppressRowClickSelection: false,
-    onRowClicked: bukasetting,
-    onRowDoubleClicked:proses_edit,
-    groupSelectsChildren: true,
-    debug: true,
-    rowSelection: 'single',
-    enableColResize: true,
-    rowGroupPanelShow: 'no',
-    pivotPanelShow: 'always',
-    enableRangeSelection: true,
-    columnDefs: columnDefs,
-    pagination: false ,
-    defaultColDef:{
-      editable: false ,
-      
-      enableRowGroup:true,
-               enablePivot:true,
-               enableValue:true
-    }
-  };
- 
-   var gridDivsub = document.querySelector('#myGrid');
-  new agGrid.Grid(gridDivsub, gridOptions);
-   
-  
-  
-   
-  function proses_delete(){
-    var selectedRows = gridOptions.api.getSelectedRows();
+        var gridOptions = {
+          enableSorting: true,
+          enableFilter: true,
+          suppressRowClickSelection: false,
+          onRowClicked: bukasetting,
+          onRowDoubleClicked:proses_edit,
+          groupSelectsChildren: true,
+          debug: true,
+          rowSelection: 'single',
+          enableColResize: true,
+          rowGroupPanelShow: 'no',
+          pivotPanelShow: 'always',
+          enableRangeSelection: true,
+          columnDefs: columnDefs,
+          pagination: false ,
+          defaultColDef:{
+            editable: false ,
+            
+            enableRowGroup:true,
+            enablePivot:true,
+            enableValue:true
+          }
+        };
+        
+        var gridDivsub = document.querySelector('#myGrid');
+        new agGrid.Grid(gridDivsub, gridOptions);
+        
+        
+        
+        
+        function proses_delete(){
+          var selectedRows = gridOptions.api.getSelectedRows();
     // alert('>>'+selectedRows+'<<<');
     if(selectedRows == ''){
       onMessage('Silahkan Pilih Data Terlebih dahulu!');
@@ -115,7 +115,7 @@ $('.judul-menu').html('Master Penilaian Pimpinan');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
       submit_get(BASE_URL+'<?php echo $nama_modul?>/delete/?id_group='+selectedRowsString,loaddata);
       //loaddata();
     }
@@ -136,7 +136,7 @@ $('.judul-menu').html('Master Penilaian Pimpinan');
         }
         selectedRowsString += selectedRow.id;
       }
-                          );
+      );
       $.ajax({
         url: BASE_URL+'<?php echo $nama_modul?>/getitemkpi/?idp='+selectedRowsString,
         headers: {
@@ -153,9 +153,9 @@ $('.judul-menu').html('Master Penilaian Pimpinan');
           $('#f_group_group').val(res[0].nama);
           $('#f_group_bot').val(res[0].no);
          // $('#f_group_ket').val(res[0].deskripsi);
-		 $('#id_kpi').val(res[0].id_kpi);
-          $('#id_group').val(res[0].id);
-		  $('#f_group_awal').val(res[0].no);
+         $('#id_kpi').val(res[0].id_kpi);
+         $('#id_group').val(res[0].id);
+         $('#f_group_awal').val(res[0].no);
           // gridOptions.api.setRowData(data);
         }
         ,
@@ -163,7 +163,7 @@ $('.judul-menu').html('Master Penilaian Pimpinan');
           alert('error');
         }
       }
-            );
+      );
       var input='<form class="form-horizontal">';
       input += '<div class="panel-body mar-all">';
       input +='<div class="form-group">';
@@ -172,15 +172,15 @@ $('.judul-menu').html('Master Penilaian Pimpinan');
       input +='<input placeholder="" id="f_group_group" class="form-control" type="text">';
       input +='<input placeholder="ID Group" id="id_group" style="display:none" class="form-control" type="text">';
       input +='<input placeholder="ID Kpi" id="id_kpi" style="display:none" class="form-control" type="text">';
-	  input += '</div>';
       input += '</div>';
-	  input +='<div class="form-group">';
-	  input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Bobot</label>';
+      input += '</div>';
+      input +='<div class="form-group">';
+      input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Bobot</label>';
       input +='<div class="col-sm-5">';
-	  input +='<input placeholder="" id="f_group_bot" class="form-control" type="text">';
-	  input +='<input placeholder="" id="f_group_awal" class="form-control" type="text" style="display:none">';
-	  input += '</div>';
-	  input += '</div>';
+      input +='<input placeholder="" id="f_group_bot" class="form-control" type="text">';
+      input +='<input placeholder="" id="f_group_awal" class="form-control" type="text" style="display:none">';
+      input += '</div>';
+      input += '</div>';
       input += '</div>';
       input +='</form>';
       bootbox.dialog({ 
@@ -213,15 +213,15 @@ $('.judul-menu').html('Master Penilaian Pimpinan');
                 container : 'floating',
                 timer : 5000
               }
-                         );
+              );
             }
           }
         }
       }
-                    );
+      );
     }
   }
- 
+  
   function agGroupCellRenderer(params){
     var input = document.createElement("input");
     input.type = "checkbox";
@@ -250,7 +250,7 @@ $('.judul-menu').html('Master Penilaian Pimpinan');
       }
       selectedRowsString += selectedRow.id;
     }
-                        );
+    );
     //  alert(selectedRowsString);
     $.ajax({
       url: BASE_URL+'<?php echo $nama_modul?>/getgroup/?id='+selectedRowsString,
@@ -266,14 +266,14 @@ $('.judul-menu').html('Master Penilaian Pimpinan');
       processData: false,
       success: function( data, textStatus, jQxhr ){
         if(data.result !=='empty'){
-        gridOptionsDetail.api.setRowData(data);
-        gridOptionsDetail.api.forEachLeafNode(function(node,index) {
+          gridOptionsDetail.api.setRowData(data);
+          gridOptionsDetail.api.forEachLeafNode(function(node,index) {
           //node.setExpanded(true);
           if(node.data.front==='1'){
             node.setSelected(true, false);
           }
         }
-                                             );
+        );
         }else{
           gridOptionsDetail.api.setRowData([]);
         }
@@ -283,7 +283,7 @@ $('.judul-menu').html('Master Penilaian Pimpinan');
         alert('error');
       }
     }
-          );
+    );
   }
   
   function checkboxCellRenderer (params){
@@ -297,7 +297,7 @@ $('.judul-menu').html('Master Penilaian Pimpinan');
     return input;
   }
   
-   
+  
   
   function getFileCellRenderer (params){
     var input = document.createElement("input");
@@ -308,75 +308,75 @@ $('.judul-menu').html('Master Penilaian Pimpinan');
   }
   
   $('#demo-bootbox-bounce').on('click', function(){
-	getOptions("f_group_bot",BASE_URL+"master/getbobot");
-    var input='<form class="form-horizontal">';
-    input += '<div class="panel-body">';
-    input +='<div class="form-group">';
-    input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Kategori Dokumen</label>';
-    input +='<div class="col-sm-5">';
-    input +='<input placeholder="" id="f_group_group" class="form-control" type="text">';
-    
-    input +='<input placeholder="ID Group" id="f_group_awal" style="display:none" class="form-control" type="text">';
-    
-    input +='<input placeholder="ID Group" id="id_group" style="display:none" class="form-control" type="text">';
-	input +='<input placeholder="ID Kpi" id="id_kpi" style="display:none" class="form-control" type="text">';
-    input += '</div>';
-    input += '</div>';
-	input +='<div class="form-group">';
-    input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Bobot</label>';
-    input +='<div class="col-sm-5">';
-	input +='<input placeholder="" id="f_group_bot" class="form-control" type="text">';
-    input += '</div>';
-    input += '</div>';
-    input += '</div>';
-    input +='</form>';
-    bootbox.dialog({ 
-      message:input, 
-      animateIn: 'bounceIn',
-      animateOut : 'bounceOut',
-      buttons: {
-        success: {
-          label: "Save",
-          className: "btn-primary",
-          callback: function() {
-            if(simpan('add')){
-              return true;
-            }
-            else{
-              return false;
-            }
+   getOptions("f_group_bot",BASE_URL+"master/getbobot");
+   var input='<form class="form-horizontal">';
+   input += '<div class="panel-body">';
+   input +='<div class="form-group">';
+   input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Kategori Dokumen</label>';
+   input +='<div class="col-sm-5">';
+   input +='<input placeholder="" id="f_group_group" class="form-control" type="text">';
+   
+   input +='<input placeholder="ID Group" id="f_group_awal" style="display:none" class="form-control" type="text">';
+   
+   input +='<input placeholder="ID Group" id="id_group" style="display:none" class="form-control" type="text">';
+   input +='<input placeholder="ID Kpi" id="id_kpi" style="display:none" class="form-control" type="text">';
+   input += '</div>';
+   input += '</div>';
+   input +='<div class="form-group">';
+   input +='<label class="col-sm-3 control-label" for="demo-hor-inputemail">Bobot</label>';
+   input +='<div class="col-sm-5">';
+   input +='<input placeholder="" id="f_group_bot" class="form-control" type="text">';
+   input += '</div>';
+   input += '</div>';
+   input += '</div>';
+   input +='</form>';
+   bootbox.dialog({ 
+    message:input, 
+    animateIn: 'bounceIn',
+    animateOut : 'bounceOut',
+    buttons: {
+      success: {
+        label: "Save",
+        className: "btn-primary",
+        callback: function() {
+          if(simpan('add')){
+            return true;
           }
-        }
-        ,
-        main: {
-          label: "Cancel",
-          className: "btn-warning",
-          callback: function() {
-            $.niftyNoty({
-              type: 'dark',
-              message : "Bye Bye",
-              container : 'floating',
-              timer : 5000
-            }
-                       );
+          else{
+            return false;
           }
         }
       }
+      ,
+      main: {
+        label: "Cancel",
+        className: "btn-warning",
+        callback: function() {
+          $.niftyNoty({
+            type: 'dark',
+            message : "Bye Bye",
+            container : 'floating',
+            timer : 5000
+          }
+          );
+        }
+      }
     }
-                  );
   }
-                              );
+  );
+ }
+ );
 
   function simpan(action){
     group_aplikasi	= '1';
     group_group     = $("#f_group_group").get(0).value;
-	id_group     = $("#id_group").get(0).value;
-	id_kpi     = $("#id_kpi").get(0).value;
+    id_group     = $("#id_group").get(0).value;
+    id_kpi     = $("#id_kpi").get(0).value;
     id_parent = 17; //rubah disini aja
-	max=20;
-	pilih=$("#f_group_bot").get(0).value;
-	awal=$("#f_group_awal").get(0).value;
-	if(!group_group){
+    max=20;
+    pilih=$("#f_group_bot").get(0).value;
+    awal=$("#f_group_awal").get(0).value;
+    if(!group_group){
       alert('Nama Kategori Tidak Boleh Kosong');
       return false;
     }
@@ -385,10 +385,10 @@ $('.judul-menu').html('Master Penilaian Pimpinan');
         group_aplikasi:group_aplikasi,                                                        
         group_group:group_group,
         id_group:id_group,
-		id_kpi:id_kpi,
-		max:max,
-		awal:awal,
-		pilih:pilih,
+        id_kpi:id_kpi,
+        max:max,
+        awal:awal,
+        pilih:pilih,
         id_parent:id_parent
       };
       var URL;
@@ -402,7 +402,7 @@ $('.judul-menu').html('Master Penilaian Pimpinan');
       return true;
     }
   }
- 
+  
 </script>
 <script src="js/login.js">
 </script>

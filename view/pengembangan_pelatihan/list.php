@@ -9,129 +9,129 @@
                         <div class="btn-group">
                             <!-- <button class="btn btn-primary btn-labeled fa fa-plus-square btn-sm" id=
                             "demo-bootbox-bounce">Add
-                            </button> -->
-						</div>
+                        </button> -->
                     </div>
-                </div>
-				
-                <div class="dataTables_filter" id="demo-dt-addrow_filter">
-                    <button class=
-                    "btn btn-success btn-labeled fa fa-check btn-sm" onclick="download();">Download
-					</button>
-					<input aria-controls="demo-dt-addrow" class="form-control input-sm tanggal_cek" placeholder="Tanggal Awal"
-                                         type="text" name="tanggal_awal" id="tanggal_awal">
-					<input aria-controls="demo-dt-addrow" class="form-control input-sm tanggal_cek" placeholder="Tanggal Akhir"
-                                        type="text" name="tanggal_akhir" id="tanggal_akhir">
-					<button class="btn btn-success btn-labeled fa fa-check btn-sm " onclick= "loaddata(0);">Proses Filter
-					</button>
-					<label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
-                                         type="search" id="search"
-                                         onkeydown="if(event.keyCode=='13'){loaddata(0, this);}"></label>
                 </div>
             </div>
-            <div class="bootstrap-table">
-                <div class="fixed-table-container" style="padding-bottom: 0px;">
-                    <div class="ag-theme-balham" id="myGrid" style="height: 400px;width:100%;">
-                    </div>
+            
+            <div class="dataTables_filter" id="demo-dt-addrow_filter">
+                <button class=
+                "btn btn-success btn-labeled fa fa-check btn-sm" onclick="download();">Download
+            </button>
+            <input aria-controls="demo-dt-addrow" class="form-control input-sm tanggal_cek" placeholder="Tanggal Awal"
+            type="text" name="tanggal_awal" id="tanggal_awal">
+            <input aria-controls="demo-dt-addrow" class="form-control input-sm tanggal_cek" placeholder="Tanggal Akhir"
+            type="text" name="tanggal_akhir" id="tanggal_akhir">
+            <button class="btn btn-success btn-labeled fa fa-check btn-sm " onclick= "loaddata(0);">Proses Filter
+            </button>
+            <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
+               type="search" id="search"
+               onkeydown="if(event.keyCode=='13'){loaddata(0, this);}"></label>
+           </div>
+       </div>
+       <div class="bootstrap-table">
+        <div class="fixed-table-container" style="padding-bottom: 0px;">
+            <div class="ag-theme-balham" id="myGrid" style="height: 400px;width:100%;">
+            </div>
 
-                    <div class="paging pull-right mar-all">
-                    </div>
-                </div>
+            <div class="paging pull-right mar-all">
             </div>
         </div>
     </div>
+</div>
+</div>
 
-    <!-- form add -->
-    <div class="tab-pane fade" id="demo-lft-tab-2">
-        <div class="row">
-            <div class="eq-height">
-                <div class="col-sm-7 eq-box-sm ">
-                    <!--Basic Panel-->
-                    <!--===================================================-->
-                    <div class="panel pad-all">
-                        <div class="panel-body">
-                            <form class="form-horizontal" id="form-add">
-                                <div class="panel-body">
-                                    <div class="form-group hidden">
-                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">No. Indeks</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="id" id="id" style="width: 220px;display:none"
-                                                   class="form-control"/>
-                                            <input type="text" name="no_disposisi" id="no_disposisi" class="form-control"/>
-                                        </div>
+<!-- form add -->
+<div class="tab-pane fade" id="demo-lft-tab-2">
+    <div class="row">
+        <div class="eq-height">
+            <div class="col-sm-7 eq-box-sm ">
+                <!--Basic Panel-->
+                <!--===================================================-->
+                <div class="panel pad-all">
+                    <div class="panel-body">
+                        <form class="form-horizontal" id="form-add">
+                            <div class="panel-body">
+                                <div class="form-group hidden">
+                                    <label class="col-sm-2 control-label" for="demo-hor-inputemail">No. Indeks</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" name="id" id="id" style="width: 220px;display:none"
+                                        class="form-control"/>
+                                        <input type="text" name="no_disposisi" id="no_disposisi" class="form-control"/>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">Jenis Biaya</label>
-                                        <div class="col-sm-5">
-                                            <select name="jenis_biaya" id="jenis_biaya" class="select-chosen">
-                                                <option value="">Pilih</option>
-                                                <option value="BLU">BLU</option>
-                                                <option value="Sponsor">Sponsor</option>
-                                                <option value="Sendiri">Sendiri</option>
-                                            </select>
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Jenis Biaya</label>
+                                    <div class="col-sm-5">
+                                        <select name="jenis_biaya" id="jenis_biaya" class="select-chosen">
+                                            <option value="">Pilih</option>
+                                            <option value="BLU">BLU</option>
+                                            <option value="Sponsor">Sponsor</option>
+                                            <option value="Sendiri">Sendiri</option>
+                                        </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">Jenis Surat</label>
-                                        <div class="col-sm-5">
-                                            <select name="jenis_surat" id="jenis_surat"
-                                                    class="form-control select-chosen">
-                                                <option value="">Pilih</option>
-                                            </select>
-                                        </div>
-                                    </div>
-								
-									<div class="form-group">
-                                        <label class="col-sm-2 control-label">Plh</label>
-                                        <div class="col-sm-5">
-                                         <select name="phl" id="phl"
-                                                    class="form-control select-chosen">
-                                         </select>
-										</div>
-                                    </div>
-									<div class="form-group">
-                                        <label class="col-sm-2 control-label">Jenis Plh</label>
-                                        <div class="col-sm-5">
-                                            <select name="jenis_plh" id="jenis_plh" class="form-control select-chosen">
-                                                <option value="">Pilih</option>
-                                                <option value="Plh">Plh</option>
-                                                <option value="an">an</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Nama Pelatihan</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="nama_pelatihan" id="nama_pelatihan" class="form-control" autocomplete="off" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Tempat</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="tujuan" id="tujuan" class="form-control"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Institusi Latbang</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="institusi" id="institusi" class="form-control"/>
-                                        </div>
-                                    </div>
-									<div class="form-group">
-                                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Kota / Negara</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="alamat" id="alamat" class="form-control"/>
-                                        </div>
-                                    </div>
-                                    <div class="body-content-calendar">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="demo-hor-inputemail">Tgl
-                                                Pelaksanaan</label>
-                                            <div class="col-sm-5">
-                                                <input type="text" name="tanggal[]" class="form-control tanggal daterangepicker"
-                                                       id="tanggal"
-                                                />
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Jenis Surat</label>
+                                    <div class="col-sm-5">
+                                        <select name="jenis_surat" id="jenis_surat"
+                                        class="form-control select-chosen">
+                                        <option value="">Pilih</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Plh</label>
+                                <div class="col-sm-5">
+                                   <select name="phl" id="phl"
+                                   class="form-control select-chosen">
+                               </select>
+                           </div>
+                       </div>
+                       <div class="form-group">
+                        <label class="col-sm-2 control-label">Jenis Plh</label>
+                        <div class="col-sm-5">
+                            <select name="jenis_plh" id="jenis_plh" class="form-control select-chosen">
+                                <option value="">Pilih</option>
+                                <option value="Plh">Plh</option>
+                                <option value="an">an</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Nama Pelatihan</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="nama_pelatihan" id="nama_pelatihan" class="form-control" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Tempat</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="tujuan" id="tujuan" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Institusi Latbang</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="institusi" id="institusi" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="demo-hor-inputemail">Kota / Negara</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="alamat" id="alamat" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="body-content-calendar">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="demo-hor-inputemail">Tgl
+                            Pelaksanaan</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="tanggal[]" class="form-control tanggal daterangepicker"
+                                id="tanggal"
+                                />
+                            </div>
                                             <!-- <div class="col-xs-3 pull right">
                                                 <div class="btn btn-default btn-sm" id="add-data-calendar">Add</div>
                                             </div> -->
@@ -167,93 +167,93 @@
                                         <label class="col-sm-2 control-label" for="demo-hor-inputemail">Total Hari Kerja</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="id" id="id" style="width: 220px;display:none"
-                                                   class="form-control"/>
+                                            class="form-control"/>
                                             <input type="text" name="total_hari_kerja" id="total_hari_kerja" class="form-control numeric-only"/>
-										</div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Jenis Kegiatan</label>
                                         <div class="col-sm-5">
                                             <select name="pengembangan_pelatihan_kegiatan" id="pengembangan_pelatihan_kegiatan"
-                                                    class="form-control select-chosen">
-                                            </select>
-                                        </div>
+                                            class="form-control select-chosen">
+                                        </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">Status</label>
-                                        <div class="col-sm-5">
-                                            <select name="pengembangan_pelatihan_kegiatan_status" id="pengembangan_pelatihan_kegiatan_status"
-                                                    class="form-control select-chosen">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">Jenis Perjalanan</label>
-                                        <div class="col-sm-5">
-                                            <select name="jenis_perjalanan" id="jenis_perjalanan"
-                                                    class="form-control select-chosen"
-													onChange="getperjalanan(this.value);">
-                                                <option value="">Pilih</option>
-                                                <option>Dalam Negeri</option>
-                                                <option>Luar Negeri</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group jenis_perjalanan_dalam_negeri hidden">
-                                        <label class="col-sm-2 control-label"></label>
-                                        <div class="col-sm-5">
-                                            <select name="dalam_negeri" id="dalam_negeri" class="form-control select-chosen">
-                                                <option value="">Pilih</option>
-                                                <option>Dalam Kota</option>
-                                                <option>Luar Kota</option>
-                                            </select>
-                                        </div>
-                                    </div> 
-                                    <div class="form-group dalam_negeri-luarkota hidden">
-                                        <label class="col-sm-2 control-label">Alat Angkut</label>
-                                        <div class="col-sm-5">
-                                            <select name="surat_tugas_dalam_negeri_luarkota" id="surat_tugas_dalam_negeri_luarkota"
-                                                    class="form-control select-chosen">
-                                                <option value="">Pilih</option>
-                                            </select>
-                                        </div>
-                                    </div>
-									<div class="luar">
-									<div class="form-group target_kinerja">
-                                        <label class="col-sm-2 control-label">Target Kinerja </label>
-                                        <div class="col-sm-10">
-                                            <input type="text area" name="target_kinerja" id="target_kinerja" class="form-control"/>
-                                        </div>
-                                    </div>
-									<div class="form-group">
-                                        <label class="col-sm-2 control-label">Tanggal Pergi</label>
-                                        <div class="body-detail">
-                                            <div class="col-sm-4">
-                                                <input type="text" name="tanggal_go[]" class="form-control tanggal_go daterangepicker"
-                                                       id="tanggal_go"
-                                                />
-                                            </div>
-											<label class="col-sm-2 control-label">Hari Pergi</label>
-											<div class="col-xs-4">
-                                                <input type="text" name="hari_go" id="hari_go" class="form-control numeric-only"/>
-											</div>
-                                        </div>
-                                    </div>
-									<div class="form-group">
-                                        <label class="col-sm-2 control-label">Tanggal Pulang</label>
-                                        <div class="body-detail">
-                                            <div class="col-sm-4">
-                                                <input type="text" name="tanggal_back[]" class="form-control tanggal_back daterangepicker"
-                                                       id="tanggal_back"
-                                                />
-                                            </div>
-											<label class="col-sm-2 control-label">Hari Pulang</label>
-											<div class="col-xs-4">
-                                                <input type="text" name="hari_back" id="hari_back" class="form-control numeric-only"/>
-                                            </div>
-                                        </div>
-                                    </div>
-									</div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Status</label>
+                                    <div class="col-sm-5">
+                                        <select name="pengembangan_pelatihan_kegiatan_status" id="pengembangan_pelatihan_kegiatan_status"
+                                        class="form-control select-chosen">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Jenis Perjalanan</label>
+                                <div class="col-sm-5">
+                                    <select name="jenis_perjalanan" id="jenis_perjalanan"
+                                    class="form-control select-chosen"
+                                    onChange="getperjalanan(this.value);">
+                                    <option value="">Pilih</option>
+                                    <option>Dalam Negeri</option>
+                                    <option>Luar Negeri</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group jenis_perjalanan_dalam_negeri hidden">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-5">
+                                <select name="dalam_negeri" id="dalam_negeri" class="form-control select-chosen">
+                                    <option value="">Pilih</option>
+                                    <option>Dalam Kota</option>
+                                    <option>Luar Kota</option>
+                                </select>
+                            </div>
+                        </div> 
+                        <div class="form-group dalam_negeri-luarkota hidden">
+                            <label class="col-sm-2 control-label">Alat Angkut</label>
+                            <div class="col-sm-5">
+                                <select name="surat_tugas_dalam_negeri_luarkota" id="surat_tugas_dalam_negeri_luarkota"
+                                class="form-control select-chosen">
+                                <option value="">Pilih</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="luar">
+                       <div class="form-group target_kinerja">
+                        <label class="col-sm-2 control-label">Target Kinerja </label>
+                        <div class="col-sm-10">
+                            <input type="text area" name="target_kinerja" id="target_kinerja" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Tanggal Pergi</label>
+                        <div class="body-detail">
+                            <div class="col-sm-4">
+                                <input type="text" name="tanggal_go[]" class="form-control tanggal_go daterangepicker"
+                                id="tanggal_go"
+                                />
+                            </div>
+                            <label class="col-sm-2 control-label">Hari Pergi</label>
+                            <div class="col-xs-4">
+                                <input type="text" name="hari_go" id="hari_go" class="form-control numeric-only"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Tanggal Pulang</label>
+                        <div class="body-detail">
+                            <div class="col-sm-4">
+                                <input type="text" name="tanggal_back[]" class="form-control tanggal_back daterangepicker"
+                                id="tanggal_back"
+                                />
+                            </div>
+                            <label class="col-sm-2 control-label">Hari Pulang</label>
+                            <div class="col-xs-4">
+                                <input type="text" name="hari_back" id="hari_back" class="form-control numeric-only"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                                     <!--<div class="form-group dalam_negeri-dalamkota hidden">
                                         <label class="col-sm-3 control-label"></label>
                                         <div class="col-sm-5">
@@ -301,49 +301,49 @@
                                         <label class="col-sm-2 control-label" for="demo-hor-inputemail">NIP</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="nip" id="nip" class="form-control"
-                                                   readonly="true"/>
+                                            readonly="true"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="demo-hor-inputemail">NIK</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="nik" id="nik" class="form-control"
-                                                   readonly="true"/>
+                                            readonly="true"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="demo-hor-inputemail">Nama Pegawai</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control"
-                                                   readonly="true"/>
+                                            readonly="true"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="demo-hor-inputemail">Jabatan</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="jabatan" id="jabatan" class="form-control"
-                                                   readonly="true"/>
+                                            readonly="true"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="demo-hor-inputemail">Pangkat</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="pangkat" id="pangkat" class="form-control"
-                                                   readonly="true"/>
+                                            readonly="true"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="demo-hor-inputemail">Golongan</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="golongan" id="golongan" class="form-control"
-                                                   readonly="true"/>
+                                            readonly="true"/>
                                         </div>
                                     </div> 
-									<div class="form-group" hidden>
+                                    <div class="form-group" hidden>
                                         <label class="col-sm-2 control-label" for="demo-hor-inputemail">berkas</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="berkas" id="berkas" class="form-control"
-                                                   />
+                                            />
                                         </div>
                                     </div>
 									<!--<div class="form-group">
@@ -352,13 +352,13 @@
                                             <input type="number" name="akomodasi" id="akomodasi" class="form-control"/>
                                         </div>
                                     </div>-->
-									<div class="form-group">
-									<label class="col-sm-2 control-label" for="demo-hor-inputemail"></label>
-                                        <div class="col-sm-5">
-                                            <input type="checkbox" name="laporan_kegiatan" id="laporan_kegiatan">Laporan Kegiatan
-                                        </div>
+                                    <div class="form-group">
+                                       <label class="col-sm-2 control-label" for="demo-hor-inputemail"></label>
+                                       <div class="col-sm-5">
+                                        <input type="checkbox" name="laporan_kegiatan" id="laporan_kegiatan">Laporan Kegiatan
                                     </div>
-                                    <!-- <div class="body-content"> -->
+                                </div>
+                                <!-- <div class="body-content"> -->
                                         <!-- <div class="form-group" id="row_1">
                                             <label class="col-sm-3 control-label">Uraian Biaya</label>
                                             <div class="body-detail">
@@ -380,66 +380,66 @@
                                                 <div class="btn btn-default btn-sm" id="add-data">Add</div>
                                             </div>
                                         </div> -->
-                                    <!-- </div> -->
-                                    <table class="body-content">
-                                        <tbody>
-                                        <tr id="row_1">
-                                        <td>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Uraian Biaya</label>
-                                            <div class="body-detail">
-                                                <div class="col-xs-2">
-                                                    <input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_1" placeholder="Uraian"/>
-                                                </div>
-                                                <div class="col-xs-2">
-                                                    <input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_1" title="Jumlah Keterangan" min="1" value="1" required onkeyup="getTotal(1)"/>
-                                                </div>
-												<div class="col-xs-2">
-                                                    <input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_1" placeholder="Ket nominal"/>
-                                                </div>
-                                                <div class="col-xs-3">
-                                                    <input type="text" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_1" min="0" placeholder="0" required onkeyup="getTotal(1)"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-1 pull right">
-                                                <div class="btn btn-default btn-sm" id="add-data">Add</div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label"></label>
-                                            <div class="body-detail">
-                                                <div class="col-xs-3">
-                                                    <input type="text" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_1" min="0" value="0"
-                                                           readonly/>
-                                                </div>
-												<div class="col-xs-2">
-                                                    <input type="number" name="orang[]" class="form-control orang" title="Jumlah Orang" id="orang_1" min="0" placeholder="0" required onkeyup="getTotal(1)"/>
-                                                </div>
-												<div class="col-xs-4">
-                                                    <input type="text" name="total[]" class="form-control total" id="total_1" min="0" value="0"
-                                                           readonly/>
-                                                </div>
-												<div class="col-xs-1">
-                                                    <input type="text" name="muncul[]" class="muncul" id="muncul_1" title="Rincian biaya yg Diterima" placeholder="Rincian biaya yg Diterima">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div class="panel-footer" style="border:none;background-color : #e9e9e9">
-                                        <button type="button" class="btn btn-primary btn-pegawai-add" onclick="addRowTable()">
-                                            <span class="fa fa-edit"></span>Tambah Pegawai
-                                        </button>
-                                        <button type="button" class="btn btn-primary hidden btn-pegawai-edit" value="" onclick="updateRowTable()">
-                                            <span class="fa fa-edit"></span>Edit
-                                        </button>
-                                        <button type="button" class="btn btn-primary hidden btn-pegawai-remove" value="" onclick="removeRowTable()">
-                                            <span class="fa fa-remove"></span>Hapus
-                                        </button>
-                                        <button type="button" class="btn btn-primary hidden btn-pegawai-remove"
-                                                onclick="clearAddPegawai()">
+                                        <!-- </div> -->
+                                        <table class="body-content">
+                                            <tbody>
+                                                <tr id="row_1">
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label">Uraian Biaya</label>
+                                                            <div class="body-detail">
+                                                                <div class="col-xs-2">
+                                                                    <input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_1" placeholder="Uraian"/>
+                                                                </div>
+                                                                <div class="col-xs-2">
+                                                                    <input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_1" title="Jumlah Keterangan" min="1" value="1" required onkeyup="getTotal(1)"/>
+                                                                </div>
+                                                                <div class="col-xs-2">
+                                                                    <input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_1" placeholder="Ket nominal"/>
+                                                                </div>
+                                                                <div class="col-xs-3">
+                                                                    <input type="text" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_1" min="0" placeholder="0" required onkeyup="getTotal(1)"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-1 pull right">
+                                                                <div class="btn btn-default btn-sm" id="add-data">Add</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label"></label>
+                                                            <div class="body-detail">
+                                                                <div class="col-xs-3">
+                                                                    <input type="text" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_1" min="0" value="0"
+                                                                    readonly/>
+                                                                </div>
+                                                                <div class="col-xs-2">
+                                                                    <input type="number" name="orang[]" class="form-control orang" title="Jumlah Orang" id="orang_1" min="0" placeholder="0" required onkeyup="getTotal(1)"/>
+                                                                </div>
+                                                                <div class="col-xs-4">
+                                                                    <input type="text" name="total[]" class="form-control total" id="total_1" min="0" value="0"
+                                                                    readonly/>
+                                                                </div>
+                                                                <div class="col-xs-1">
+                                                                    <input type="text" name="muncul[]" class="muncul" id="muncul_1" title="Rincian biaya yg Diterima" placeholder="Rincian biaya yg Diterima">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="panel-footer" style="border:none;background-color : #e9e9e9">
+                                            <button type="button" class="btn btn-primary btn-pegawai-add" onclick="addRowTable()">
+                                                <span class="fa fa-edit"></span>Tambah Pegawai
+                                            </button>
+                                            <button type="button" class="btn btn-primary hidden btn-pegawai-edit" value="" onclick="updateRowTable()">
+                                                <span class="fa fa-edit"></span>Edit
+                                            </button>
+                                            <button type="button" class="btn btn-primary hidden btn-pegawai-remove" value="" onclick="removeRowTable()">
+                                                <span class="fa fa-remove"></span>Hapus
+                                            </button>
+                                            <button type="button" class="btn btn-primary hidden btn-pegawai-remove"
+                                            onclick="clearAddPegawai()">
                                             <span class="fa fa-remove"></span>Cancel
                                         </button>
                                     </div>
@@ -476,17 +476,17 @@
 <script>
     $('.judul-menu').html('List Pelatihan');
     function download(){
-    var datalist = { 
-        fileName: 'Latbang',
-        sheetName: 'Latbang'
-    };
-		gridOptionsList.api.exportDataAsExcel(datalist);
-	}
-	var listPI = [
-        {headerName: "NOPEG", field: "nopeg", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "NAMA", field: "nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "JABATAN", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
-     ];
+        var datalist = { 
+            fileName: 'Latbang',
+            sheetName: 'Latbang'
+        };
+        gridOptionsList.api.exportDataAsExcel(datalist);
+    }
+    var listPI = [
+    {headerName: "NOPEG", field: "nopeg", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "NAMA", field: "nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "JABATAN", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
+    ];
     var gridPI = {
         enableSorting: true,
         enableFilter: true,
@@ -514,62 +514,62 @@
     new agGrid.Grid(gridDiv, gridPI);
 
     var columnListData = [
-            {headerName: "Nomer Berkas", field: "pengembangan_pelatihan_detail.berkas", width:90, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Nopeg", field: "pengembangan_pelatihan_detail.nopeg", width: 90, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Nama pegawai", field: "pengembangan_pelatihan_detail.nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
-            
-			{headerName: "Tanggal dan Jam Pelatihan", field: "tanggal_from", width: 190, filterParams: {newRowsAction: 'keep'}},
-			{headerName: "Nama Kegiatan", field: "nama_pelatihan", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Nomer Berkas", field: "pengembangan_pelatihan_detail.berkas", width:90, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Nopeg", field: "pengembangan_pelatihan_detail.nopeg", width: 90, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Nama pegawai", field: "pengembangan_pelatihan_detail.nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
+    
+    {headerName: "Tanggal dan Jam Pelatihan", field: "tanggal_from", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Nama Kegiatan", field: "nama_pelatihan", width: 190, filterParams: {newRowsAction: 'keep'}},
             // , rowGroup:true
             {headerName: "Status", field: "pengembangan_pelatihan_kegiatan_status.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
-			{headerName: "Jenis Kegiatan", field: "pengembangan_pelatihan_kegiatan.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Jenis Kegiatan", field: "pengembangan_pelatihan_kegiatan.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
             {headerName: "Tempat Kegiatan", field: "tujuan", width: 190, filterParams: {newRowsAction: 'keep'}},
-			{headerName: "Lembaga", field: "institusi", width: 190, filterParams: {newRowsAction: 'keep'}},
-			{headerName: "Per orang", field: "pernominal", width: 190, filterParams: {newRowsAction: 'keep'}},
-			{headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}},
-			{headerName: "Date By", field: "created", width: 190, filterParams: {newRowsAction: 'keep'}},
-            	{headerName: "Laporan Kegiatan",field: "laporan", 
-				  cellRenderer: checkboxCellRenderer
-				},
-			{headerName: "Created By Laporan", field: "pengembangan_pelatihan_detail.laporan_by", width: 190, filterParams: {newRowsAction: 'keep'}},
-			{headerName: "Date By Laporan", field: "pengembangan_pelatihan_detail.laporan_date", width: 190, filterParams: {newRowsAction: 'keep'}},
-            
-				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file", 
-				  cellRenderer: function(params) {
-					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Usulan</a>'
-				  }
-				},
-				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_izn", 
-				  cellRenderer: function(params) {
-					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Tugas/Izin</a>'
-				  }
-				},
-				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_rak", 
-				  cellRenderer: function(params) {
-					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> RAK</a>'
-				  }
-				},
-				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_spd", 
-				  cellRenderer: function(params) {
-					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> SPD</a>'
-				  }
-				},
-				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_rkm", 
-				  cellRenderer: function(params) {
-					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Rekomendasi</a>'
-				  }
-				},
-				{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_lap", 
-				  cellRenderer: function(params) {
-					  return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Laporan Kegiatan</a>'
-				  }
-				},
-    ];
+            {headerName: "Lembaga", field: "institusi", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Per orang", field: "pernominal", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Date By", field: "created", width: 190, filterParams: {newRowsAction: 'keep'}},
+            {headerName: "Laporan Kegiatan",field: "laporan", 
+            cellRenderer: checkboxCellRenderer
+        },
+        {headerName: "Created By Laporan", field: "pengembangan_pelatihan_detail.laporan_by", width: 190, filterParams: {newRowsAction: 'keep'}},
+        {headerName: "Date By Laporan", field: "pengembangan_pelatihan_detail.laporan_date", width: 190, filterParams: {newRowsAction: 'keep'}},
+        
+        {headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file", 
+        cellRenderer: function(params) {
+         return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Usulan</a>'
+     }
+ },
+ {headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_izn", 
+ cellRenderer: function(params) {
+     return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Tugas/Izin</a>'
+ }
+},
+{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_rak", 
+cellRenderer: function(params) {
+ return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> RAK</a>'
+}
+},
+{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_spd", 
+cellRenderer: function(params) {
+ return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> SPD</a>'
+}
+},
+{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_rkm", 
+cellRenderer: function(params) {
+ return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Rekomendasi</a>'
+}
+},
+{headerName: "Dokumen",field: "pengembangan_pelatihan_detail.file_lap", 
+cellRenderer: function(params) {
+ return '<a href="api/upload/data/latbang/'+params.value+'" target="_blank"><i class="fa fa-eye"></i> Laporan Kegiatan</a>'
+}
+},
+];
 
-    var gridOptionsList = {
-        enableSorting: true,
-        enableFilter: true,
-        suppressRowClickSelection: false,
+var gridOptionsList = {
+    enableSorting: true,
+    enableFilter: true,
+    suppressRowClickSelection: false,
         // groupDefaultExpanded: 2,
         groupSelectsChildren: true,
         debug: true,
@@ -607,41 +607,41 @@
     var dataTable = [];
     var isClickRowTable = true;
     $('.daterangepicker').daterangepicker({
-           locale: {
-             format: 'DD-MM-YYYY'
-           }
-    });
-	
-	$('.select-chosen').chosen();
+     locale: {
+       format: 'DD-MM-YYYY'
+   }
+});
+    
+    $('.select-chosen').chosen();
     $('.chosen-container').css({"width": "100%"});
     $('.buttoenedit').hide();
 
-	function checkboxCellRenderer (params){
-    var input = document.createElement("input");
-	if(params.value ==='Melakukan Kegiatan'){
-    input.type = "submit";
-    input.value = "Melakukan Kegiatan";
-    input.className = "btn-success btn-labeled";
-    }else if(params.value ==='Menunggu Laporkan'){
-    input.type = "submit";
-    input.value = "Menunggu Laporkan";
-    input.className = "btn-warning btn-labeled";
-    }else if(params.value ==='Belum Melaporkan'){
-    input.type = "submit";
-    input.value = "Belum Melaporkan";
-    input.className = "btn-danger btn-labeled";
-    }else if(params.value ==='Pengajuang Baru'){
-    input.type = "submit";
-    input.value = "Pengajuang Baru";
-    input.className = "btn-default btn-labeled";
-    }else if(params.value ==='Sudah Melaporkan'){
-    input.type = "submit";
-    input.value = "Sudah Melaporkan";
-    input.className = "btn-primary btn-labeled";
-	}
-	return input;
-	}
-	
+    function checkboxCellRenderer (params){
+        var input = document.createElement("input");
+        if(params.value ==='Melakukan Kegiatan'){
+            input.type = "submit";
+            input.value = "Melakukan Kegiatan";
+            input.className = "btn-success btn-labeled";
+        }else if(params.value ==='Menunggu Laporkan'){
+            input.type = "submit";
+            input.value = "Menunggu Laporkan";
+            input.className = "btn-warning btn-labeled";
+        }else if(params.value ==='Belum Melaporkan'){
+            input.type = "submit";
+            input.value = "Belum Melaporkan";
+            input.className = "btn-danger btn-labeled";
+        }else if(params.value ==='Pengajuang Baru'){
+            input.type = "submit";
+            input.value = "Pengajuang Baru";
+            input.className = "btn-default btn-labeled";
+        }else if(params.value ==='Sudah Melaporkan'){
+            input.type = "submit";
+            input.value = "Sudah Melaporkan";
+            input.className = "btn-primary btn-labeled";
+        }
+        return input;
+    }
+    
     $("#jenis_biaya").on("change", function () {
         jenis_biaya = $(this).val();
         if (jenis_biaya == "BLU") {
@@ -692,10 +692,10 @@
             // reset value
             $("#dalam_negeri").prop('selectedIndex', 0);
             $("#dalam_negeri").trigger("chosen:updated");
-			$('#surat_tugas_dalam_negeri_luarkota').prop('selectedIndex', 0);
+            $('#surat_tugas_dalam_negeri_luarkota').prop('selectedIndex', 0);
             $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
-			$(".dalam_negeri-luarkota").removeClass('hidden');
-						
+            $(".dalam_negeri-luarkota").removeClass('hidden');
+            
         }
         else{
             $(".jenis_perjalanan_dalam_negeri").addClass('hidden');
@@ -722,155 +722,155 @@
     });
 
     function changeDalamNegeri(argument = null) {
-         console.log("changeDalamNegeri" + argument);
-         if (argument == "Dalam Kota"){
-             $("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
-             $("#surat_tugas_dalam_negeri_luarkota").trigger('chosen:updated');
-             $(".dalam_negeri-dalamkota").removeClass('hidden');
-             $(".dalam_negeri-luarkota").addClass('hidden');
-         }
-         else if (argument == "Luar Kota"){
-             $("#surat_tugas_dalam_negeri_dalamkota").prop('selectedIndex', 0);
-             $("#surat_tugas_dalam_negeri_dalamkota").trigger('chosen:updated');
-             $(".dalam_negeri-dalamkota").addClass('hidden');
-             $(".dalam_negeri-luarkota").removeClass('hidden');
-         }
-         else{        
-             $("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
-             $("#surat_tugas_dalam_negeri_dalamkota").prop('selectedIndex', 0);
-             $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
-             $("#surat_tugas_dalam_negeri_dalamkota").trigger("chosen:updated");
-         }
-     }
+       console.log("changeDalamNegeri" + argument);
+       if (argument == "Dalam Kota"){
+           $("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
+           $("#surat_tugas_dalam_negeri_luarkota").trigger('chosen:updated');
+           $(".dalam_negeri-dalamkota").removeClass('hidden');
+           $(".dalam_negeri-luarkota").addClass('hidden');
+       }
+       else if (argument == "Luar Kota"){
+           $("#surat_tugas_dalam_negeri_dalamkota").prop('selectedIndex', 0);
+           $("#surat_tugas_dalam_negeri_dalamkota").trigger('chosen:updated');
+           $(".dalam_negeri-dalamkota").addClass('hidden');
+           $(".dalam_negeri-luarkota").removeClass('hidden');
+       }
+       else{        
+           $("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
+           $("#surat_tugas_dalam_negeri_dalamkota").prop('selectedIndex', 0);
+           $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
+           $("#surat_tugas_dalam_negeri_dalamkota").trigger("chosen:updated");
+       }
+   }
 
-     $("#dalam_negeri").on("change", function(){
-         changeDalamNegeri($(this).val());
-     });
+   $("#dalam_negeri").on("change", function(){
+       changeDalamNegeri($(this).val());
+   });
 
-    function loadUser(id, url, valueEdit = null) {
-        $('#' + id).children().remove();
-        $('#' + id).append('<option value="" selected="selected">Pilih</option>');
+   function loadUser(id, url, valueEdit = null) {
+    $('#' + id).children().remove();
+    $('#' + id).append('<option value="" selected="selected">Pilih</option>');
 
-        $.ajax({
-            type: "GET",
-            url: url,
-            headers: {
-                'Authorization': localStorage.getItem("Token"),
-                'X_CSRF_TOKEN': 'donimaulana',
-                'Content-Type': 'application/json'
-            },
-            dataType: "json",
-            success: function (e) {
-                for (var i = 0; i < e.result.length; i++) {
-                    $('#' + id).append('<option ' + (e.result[i].id == valueEdit ? 'selected' : '') + ' value="' + e.result[i].id + '" data-nik="' + e.result[i].nik + '" data-laporan="' + e.result[i].laporan_kegiatan + '" data-nip="' + e.result[i].nip + '" data-golongan="' + e.result[i].golongan + '"data-akomodasi="' + e.result[i].akomodasi +'"data-berkas="' + e.result[i].berkas + '" data-pangkat="' + e.result[i].pangkat +'" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_uk + '" >' + e.result[i].id + ' - ' + e.result[i].nama + '</option>');
-                }
-                $('#' + id).trigger("chosen:updated");
+    $.ajax({
+        type: "GET",
+        url: url,
+        headers: {
+            'Authorization': localStorage.getItem("Token"),
+            'X_CSRF_TOKEN': 'donimaulana',
+            'Content-Type': 'application/json'
+        },
+        dataType: "json",
+        success: function (e) {
+            for (var i = 0; i < e.result.length; i++) {
+                $('#' + id).append('<option ' + (e.result[i].id == valueEdit ? 'selected' : '') + ' value="' + e.result[i].id + '" data-nik="' + e.result[i].nik + '" data-laporan="' + e.result[i].laporan_kegiatan + '" data-nip="' + e.result[i].nip + '" data-golongan="' + e.result[i].golongan + '"data-akomodasi="' + e.result[i].akomodasi +'"data-berkas="' + e.result[i].berkas + '" data-pangkat="' + e.result[i].pangkat +'" data-nama="' + e.result[i].nama + '" data-nama-group="' + e.result[i].nama_uk + '" >' + e.result[i].id + ' - ' + e.result[i].nama + '</option>');
             }
-        });
-    }
-
-    loadUser("nopeg", BASE_URL + "users/list_usernew");
-
-    function loadPengembanganPelatihanKegiatan(id, url, valueEdit = null) {
-        $('#' + id).children().remove();
-        $('#' + id).append('<option value="" selected="selected">Pilih</option>');
-
-        $.ajax({
-            type: "GET",
-            url: url,
-            headers: {
-                'Authorization': localStorage.getItem("Token"),
-                'X_CSRF_TOKEN': 'donimaulana',
-                'Content-Type': 'application/json'
-            },
-            dataType: "json",
-            success: function (e) {
-                for (var i = 0; i < e.result.length; i++) {
-                    $('#' + id).append('<option value='+e.result[i].id+' '+(e.result[i].id == valueEdit ? 'selected' : '') + '" >' + e.result[i].nama + '</option>');
-                }
-                $('#' + id).trigger("chosen:updated");
-            }
-        });
-    }
-
-    loadPengembanganPelatihanKegiatan("pengembangan_pelatihan_kegiatan", BASE_URL + "pengembangan_pelatihan_kegiatan/list");
-
-	function loadPengembanganPelatihanKegiatanStatus(id, url, valueEdit = null) {
-        $('#' + id).children().remove();
-        $('#' + id).append('<option value="" selected="selected">Pilih</option>');
-
-        $.ajax({
-            type: "GET",
-            url: url,
-            headers: {
-                'Authorization': localStorage.getItem("Token"),
-                'X_CSRF_TOKEN': 'donimaulana',
-                'Content-Type': 'application/json'
-            },
-            dataType: "json",
-            success: function (e) {
-                for (var i = 0; i < e.result.length; i++) {
-                    $('#' + id).append('<option value='+e.result[i].id+'  '+(e.result[i].id == valueEdit ? 'selected' : '') + '" >' + e.result[i].nama + '</option>');
-                }
-                $('#' + id).trigger("chosen:updated");
-            }
-        });
-    }
-
-    loadPengembanganPelatihanKegiatanStatus("pengembangan_pelatihan_kegiatan_status", BASE_URL + "pengembangan_pelatihan_kegiatan_status/list");
-
-    $(document).on('keydown', ".numeric-only", function (e) {
-        $('.numeric-only').jStepper({minValue:0, minLength:1});
+            $('#' + id).trigger("chosen:updated");
+        }
     });
+}
 
-    $("#add-data").on("click", function () {
-        var count_body = $(".body-content tr").length;
-        var row_id = count_body + 1;
-        var row = 
-                '<tr id="row_'+row_id+'">'+
-                '<td>'+
-                '<div class="form-group body-remove">' +
-                   ' <label class="col-sm-2 control-label"></label>' +
-                   '<div class="body-detail">' +
-                        '<div class="col-xs-2">' +
-                            '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian"/>' +
-                        '</div>' +
-                        '<div class="col-xs-2">' +
-                            '<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" title="Jumlah Keterangan" min="1" value="1" required onkeyup="getTotal('+row_id+')"/>' +
-                        '</div>' +
-						'<div class="col-xs-2">' +
-                            '<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal'+row_id+'" placeholder="Ket uraian"/>' +
-                        '</div>' +
-                        '<div class="col-xs-3">' +
-                            '<input type="text" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" placeholder="0" required onkeyup="getTotal('+row_id+')"/>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="col-xs-1 pull right">' +
-                        '<div class="btn btn-default btn-sm btn-remove" onclick="removeRow(\''+row_id+'\')"><i class="fa fa-trash-o"></i></div>' +
-                    '</div>' +
-                '</div>' +
-                '<div class="form-group body-remove">' +
-                   ' <label class="col-sm-2 control-label"></label>' +
-                   '<div class="body-detail">' +
-                        '<div class="col-xs-3">' +
-                            '<input type="text" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" placeholder="0" readonly/>' +
-                        '</div> '+  
-						'<div class="col-xs-2">' +
-                            '<input type="number" name="orang[]" class="form-control orang" title="Jumlah Orang" id="orang_'+row_id+'" min="0" placeholder="0" required onkeyup="getTotal(\''+row_id+'\')"/>' +
-                        '</div> '+
-						'<div class="col-xs-4">' +
-                            '<input type="text" name="total[]" class="form-control total" id="total_'+row_id+'" min="0" value="0" readonly/>' +
-                        '</div> '+
-						'<div class="col-xs-1">' +
-                            '<input type="text" name="muncul[]" class="muncul" title="Rincian biaya yg Diterima" placeholder="Rincian biaya yg Diterima" id="muncul_'+row_id+'">' +
-                        '</div> '+
-                    '</div>' +
-                '</div>'
-                + '</td>'
-                + '</tr>'
-                ;
-        $(".body-content tbody").append(row);
+loadUser("nopeg", BASE_URL + "users/list_usernew");
+
+function loadPengembanganPelatihanKegiatan(id, url, valueEdit = null) {
+    $('#' + id).children().remove();
+    $('#' + id).append('<option value="" selected="selected">Pilih</option>');
+
+    $.ajax({
+        type: "GET",
+        url: url,
+        headers: {
+            'Authorization': localStorage.getItem("Token"),
+            'X_CSRF_TOKEN': 'donimaulana',
+            'Content-Type': 'application/json'
+        },
+        dataType: "json",
+        success: function (e) {
+            for (var i = 0; i < e.result.length; i++) {
+                $('#' + id).append('<option value='+e.result[i].id+' '+(e.result[i].id == valueEdit ? 'selected' : '') + '" >' + e.result[i].nama + '</option>');
+            }
+            $('#' + id).trigger("chosen:updated");
+        }
     });
+}
+
+loadPengembanganPelatihanKegiatan("pengembangan_pelatihan_kegiatan", BASE_URL + "pengembangan_pelatihan_kegiatan/list");
+
+function loadPengembanganPelatihanKegiatanStatus(id, url, valueEdit = null) {
+    $('#' + id).children().remove();
+    $('#' + id).append('<option value="" selected="selected">Pilih</option>');
+
+    $.ajax({
+        type: "GET",
+        url: url,
+        headers: {
+            'Authorization': localStorage.getItem("Token"),
+            'X_CSRF_TOKEN': 'donimaulana',
+            'Content-Type': 'application/json'
+        },
+        dataType: "json",
+        success: function (e) {
+            for (var i = 0; i < e.result.length; i++) {
+                $('#' + id).append('<option value='+e.result[i].id+'  '+(e.result[i].id == valueEdit ? 'selected' : '') + '" >' + e.result[i].nama + '</option>');
+            }
+            $('#' + id).trigger("chosen:updated");
+        }
+    });
+}
+
+loadPengembanganPelatihanKegiatanStatus("pengembangan_pelatihan_kegiatan_status", BASE_URL + "pengembangan_pelatihan_kegiatan_status/list");
+
+$(document).on('keydown', ".numeric-only", function (e) {
+    $('.numeric-only').jStepper({minValue:0, minLength:1});
+});
+
+$("#add-data").on("click", function () {
+    var count_body = $(".body-content tr").length;
+    var row_id = count_body + 1;
+    var row = 
+    '<tr id="row_'+row_id+'">'+
+    '<td>'+
+    '<div class="form-group body-remove">' +
+    ' <label class="col-sm-2 control-label"></label>' +
+    '<div class="body-detail">' +
+    '<div class="col-xs-2">' +
+    '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian"/>' +
+    '</div>' +
+    '<div class="col-xs-2">' +
+    '<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" title="Jumlah Keterangan" min="1" value="1" required onkeyup="getTotal('+row_id+')"/>' +
+    '</div>' +
+    '<div class="col-xs-2">' +
+    '<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal'+row_id+'" placeholder="Ket uraian"/>' +
+    '</div>' +
+    '<div class="col-xs-3">' +
+    '<input type="text" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" placeholder="0" required onkeyup="getTotal('+row_id+')"/>' +
+    '</div>' +
+    '</div>' +
+    '<div class="col-xs-1 pull right">' +
+    '<div class="btn btn-default btn-sm btn-remove" onclick="removeRow(\''+row_id+'\')"><i class="fa fa-trash-o"></i></div>' +
+    '</div>' +
+    '</div>' +
+    '<div class="form-group body-remove">' +
+    ' <label class="col-sm-2 control-label"></label>' +
+    '<div class="body-detail">' +
+    '<div class="col-xs-3">' +
+    '<input type="text" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" placeholder="0" readonly/>' +
+    '</div> '+  
+    '<div class="col-xs-2">' +
+    '<input type="number" name="orang[]" class="form-control orang" title="Jumlah Orang" id="orang_'+row_id+'" min="0" placeholder="0" required onkeyup="getTotal(\''+row_id+'\')"/>' +
+    '</div> '+
+    '<div class="col-xs-4">' +
+    '<input type="text" name="total[]" class="form-control total" id="total_'+row_id+'" min="0" value="0" readonly/>' +
+    '</div> '+
+    '<div class="col-xs-1">' +
+    '<input type="text" name="muncul[]" class="muncul" title="Rincian biaya yg Diterima" placeholder="Rincian biaya yg Diterima" id="muncul_'+row_id+'">' +
+    '</div> '+
+    '</div>' +
+    '</div>'
+    + '</td>'
+    + '</tr>'
+    ;
+    $(".body-content tbody").append(row);
+});
 
     // $(document).on('click', '.btn-remove', function (event) {
     //     // console.log("remove" + $(this));
@@ -878,47 +878,47 @@
     // });
 
     function removeRow(tr_id)
-      {
+    {
         $(".body-content tbody tr#row_"+tr_id).remove();
-      }
-	
-	function formatAngka(angka) {
-	 if (typeof(angka) != 'string') angka = angka.toString();
-	 var reg = new RegExp('([0-9]+)([0-9]{3})');
-	 while(reg.test(angka)) angka = angka.replace(reg, '$1.$2');
-	 return angka;
-	}
-	
-    function getTotal(row = null) {
-        if(row) {
-		  $("#biaya_nominal_"+row).on('keypress', function(e) {
-			 var c = e.keyCode || e.charCode;
-			 switch (c) {
-			  case 8: case 9: case 27: case 13: return;
-			  case 65:
-			   if (e.ctrlKey === true) return;
-			 }
-			 if (c < 48 || c > 57) e.preventDefault();
-			})
-			 var inp = $("#biaya_nominal_"+row).val().replace(/\./g, '');
+    }
+    
+    function formatAngka(angka) {
+      if (typeof(angka) != 'string') angka = angka.toString();
+      var reg = new RegExp('([0-9]+)([0-9]{3})');
+      while(reg.test(angka)) angka = angka.replace(reg, '$1.$2');
+      return angka;
+  }
+  
+  function getTotal(row = null) {
+    if(row) {
+        $("#biaya_nominal_"+row).on('keypress', function(e) {
+            var c = e.keyCode || e.charCode;
+            switch (c) {
+               case 8: case 9: case 27: case 13: return;
+               case 65:
+               if (e.ctrlKey === true) return;
+           }
+           if (c < 48 || c > 57) e.preventDefault();
+       })
+        var inp = $("#biaya_nominal_"+row).val().replace(/\./g, '');
 			 // set nilai ke variabel bayar
 			 bayar = new Number(inp);
 			 $("#biaya_nominal_"+row).val(formatAngka(inp));
 			 
 			 var total = Number($("#qty_nominal_"+row).val()) * bayar;
 			  // total = total.toFixed(2);
-			 $("#total_nominal_"+row).val(formatAngka(total));
-			 
-			 var total_biaya = total * Number($("#orang_"+row).val());
+              $("#total_nominal_"+row).val(formatAngka(total));
+              
+              var total_biaya = total * Number($("#orang_"+row).val());
 			  // total = total.toFixed(2);
-			 $("#total_"+row).val(formatAngka(total_biaya));
-			
-        } else {
-          alert('no row !! please refresh the page');
-        }
-    }
+              $("#total_"+row).val(formatAngka(total_biaya));
+              
+          } else {
+              alert('no row !! please refresh the page');
+          }
+      }
 
-    $("#add-data-calendar").on("click", function () {
+      $("#add-data-calendar").on("click", function () {
         var row = $(
             '<div class="form-group body-remove-calendar">' +
             '<label class="col-sm-3 control-label" for="demo-hor-inputemail"></label>' +
@@ -938,11 +938,11 @@
             }
         });
     });
-    $(document).on('click', '.btn-remove-calendar', function (event) {
+      $(document).on('click', '.btn-remove-calendar', function (event) {
         $(this).parentsUntil(".body-remove-calendar").parent().remove();
     });
 
-    $("#nopeg").on("change", function () {
+      $("#nopeg").on("change", function () {
         if ($(this).find(':selected').attr("data-nama") != undefined) {
             $("#nama_pegawai").val($(this).find(':selected').attr("data-nama"));
             $("#jabatan").val($(this).find(':selected').attr("data-nama-group"));
@@ -959,36 +959,36 @@
 
 
 
-    function addRowTable(idRow = "") {
+      function addRowTable(idRow = "") {
         if ($("#nopeg").val().length == "") {
             onMessage("Silahkan pilih pegawai .");
             return;
         }
-		var hasil;
-		var message;
-		var datas = {};
-		datas.tanggal = $(".tanggal").serializeArray();
-		datas.nopeg = $("#nopeg").val();
-		console.log(datas);
-		var URL = BASE_URL + "surat/cek";;
-		$.ajax({
-			url: URL,
-			headers: {
-				'Authorization': localStorage.getItem("Token"),
-				'X_CSRF_TOKEN': 'donimaulana',
-				'Content-Type': 'application/json'
-			},
-			dataType: 'json',
-			type: 'post',
-			contentType: 'application/json',
-			processData: false,
-			data: JSON.stringify(datas),
-			success: function (data, textStatus, jQxhr) {
-				hasil = data.hasil;
-				message = data.message;
-				if (hasil == "success") {
+        var hasil;
+        var message;
+        var datas = {};
+        datas.tanggal = $(".tanggal").serializeArray();
+        datas.nopeg = $("#nopeg").val();
+        console.log(datas);
+        var URL = BASE_URL + "surat/cek";;
+        $.ajax({
+         url: URL,
+         headers: {
+            'Authorization': localStorage.getItem("Token"),
+            'X_CSRF_TOKEN': 'donimaulana',
+            'Content-Type': 'application/json'
+        },
+        dataType: 'json',
+        type: 'post',
+        contentType: 'application/json',
+        processData: false,
+        data: JSON.stringify(datas),
+        success: function (data, textStatus, jQxhr) {
+            hasil = data.hasil;
+            message = data.message;
+            if (hasil == "success") {
 
-					var dataRow = {};
+               var dataRow = {};
 					//var itemUraian = {};
 					//var biaya_uraian = $(".biaya_uraian").serializeArray();
 					//var uraian_nominal = $(".uraian_nominal").serializeArray();
@@ -1015,18 +1015,18 @@
 					//}
 
 				   // dataRow.uraian_total = uraian_total;
-					dataRow.nopeg = $("#nopeg").val();
-					dataRow.nip = $("#nip").val();
-					dataRow.nik = $("#nik").val();
-					dataRow.laporan_kegiatan = 0;
-					if ($('#laporan_kegiatan').is(":checked")){
-						dataRow.laporan_kegiatan = 1;
-					};
-					dataRow.pangkat = $("#pangkat").val();
-					dataRow.golongan = $("#golongan").val();
-					dataRow.akomodasi = $("#akomodasi").val();
-					dataRow.nama_pegawai = $("#nama_pegawai").val();
-					dataRow.jabatan = $("#jabatan").val();
+                  dataRow.nopeg = $("#nopeg").val();
+                  dataRow.nip = $("#nip").val();
+                  dataRow.nik = $("#nik").val();
+                  dataRow.laporan_kegiatan = 0;
+                  if ($('#laporan_kegiatan').is(":checked")){
+                      dataRow.laporan_kegiatan = 1;
+                  };
+                  dataRow.pangkat = $("#pangkat").val();
+                  dataRow.golongan = $("#golongan").val();
+                  dataRow.akomodasi = $("#akomodasi").val();
+                  dataRow.nama_pegawai = $("#nama_pegawai").val();
+                  dataRow.jabatan = $("#jabatan").val();
 					//dataRow.detail_uraian = detail_uraian;
 					if (idRow == ""){
 						dataTable.push(dataRow);//disini masih ngak ada masalah, karena actionnya push, entah berapapun indexnya data di masukan di atas index terakhir
@@ -1044,17 +1044,17 @@
 					clearAddPegawai();
 				} else if(hasil == "error") {
 					bootbox.dialog({
-					message: message,
-					animateIn: 'bounceIn',
-					animateOut: 'bounceOut',
-					backdrop: false,
-					buttons: {
-						success: {
-							label: "Save",
-							className: "btn-primary",
-							callback: function () {
-							
-							var dataRow = {};
+                       message: message,
+                       animateIn: 'bounceIn',
+                       animateOut: 'bounceOut',
+                       backdrop: false,
+                       buttons: {
+                          success: {
+                             label: "Save",
+                             className: "btn-primary",
+                             callback: function () {
+                                 
+                                 var dataRow = {};
 							//var itemUraian = {};
 							//var biaya_uraian = $(".biaya_uraian").serializeArray();
 							//var uraian_nominal = $(".uraian_nominal").serializeArray();
@@ -1081,18 +1081,18 @@
 							//}
 
 						   // dataRow.uraian_total = uraian_total;
-							dataRow.nopeg = $("#nopeg").val();
-							dataRow.nip = $("#nip").val();
-							dataRow.nik = $("#nik").val();
-							dataRow.laporan_kegiatan = 0;
-							if ($('#laporan_kegiatan').is(":checked")){
-								dataRow.laporan_kegiatan = 1;
-							};
-							dataRow.pangkat = $("#pangkat").val();
-							dataRow.golongan = $("#golongan").val();
-							dataRow.akomodasi = $("#akomodasi").val();
-							dataRow.nama_pegawai = $("#nama_pegawai").val();
-							dataRow.jabatan = $("#jabatan").val();
+                        dataRow.nopeg = $("#nopeg").val();
+                        dataRow.nip = $("#nip").val();
+                        dataRow.nik = $("#nik").val();
+                        dataRow.laporan_kegiatan = 0;
+                        if ($('#laporan_kegiatan').is(":checked")){
+                            dataRow.laporan_kegiatan = 1;
+                        };
+                        dataRow.pangkat = $("#pangkat").val();
+                        dataRow.golongan = $("#golongan").val();
+                        dataRow.akomodasi = $("#akomodasi").val();
+                        dataRow.nama_pegawai = $("#nama_pegawai").val();
+                        dataRow.jabatan = $("#jabatan").val();
 							//dataRow.detail_uraian = detail_uraian;
 							if (idRow == ""){
 								dataTable.push(dataRow);//disini masih ngak ada masalah, karena actionnya push, entah berapapun indexnya data di masukan di atas index terakhir
@@ -1108,34 +1108,34 @@
 							gridPI.api.setRowData(dataTable);
 							isClickRowTable = true;
 							clearAddPegawai();
-							}
-						},
+                     }
+                 },
 
-						main: {
-							label: "Close",
-							className: "btn-warning",
-							callback: function () {
+                 main: {
+                     label: "Close",
+                     className: "btn-warning",
+                     callback: function () {
 
-							}
-						}
-					}
-				});
+                     }
+                 }
+             }
+         });
 				}else if(hasil == "eror") {
 					bootbox.dialog({
-					message: message,
-					animateIn: 'bounceIn',
-					animateOut: 'bounceOut',
-					backdrop: false,
-					buttons: {
-						main: {
-							label: "Close",
-							className: "btn-warning",
-							callback: function () {
+                       message: message,
+                       animateIn: 'bounceIn',
+                       animateOut: 'bounceOut',
+                       backdrop: false,
+                       buttons: {
+                          main: {
+                             label: "Close",
+                             className: "btn-warning",
+                             callback: function () {
 
-							}
-						}
-					}
-				});
+                             }
+                         }
+                     }
+                 });
 				}
 
 
@@ -1185,44 +1185,44 @@
                 $('#golongan').val(selectedRow.golongan);
                 $('#akomodasi').val(selectedRow.akomodasi);
                 $('#berkas').val(selectedRow.berkas);
-				
-				if (selectedRow.laporan_kegiatan == "1"){
-                   $('#laporan_kegiatan').prop("checked", true);
-                }
-                else{
-                    $('#laporan_kegiatan').prop("checked", false);
-                }
                 
-                isClickRowTable = false;
-                btnActionEdit(indexId);
+                if (selectedRow.laporan_kegiatan == "1"){
+                 $('#laporan_kegiatan').prop("checked", true);
+             }
+             else{
+                $('#laporan_kegiatan').prop("checked", false);
             }
+            
+            isClickRowTable = false;
+            btnActionEdit(indexId);
         }
     }
+}
 
-    function btnActionEdit(nopeg) {
+function btnActionEdit(nopeg) {
+    $(".btn-pegawai-add").addClass('hidden');
+    $(".btn-pegawai-remove").attr('value', nopeg);
+    $(".btn-pegawai-remove").removeClass('hidden');
+    $(".btn-pegawai-edit").attr('value', nopeg);
+    $(".btn-pegawai-edit").removeClass('hidden');
+    $(".btn-pegawai-cancel").removeClass('hidden');
+}
+
+function btnActionAdd() {
+    if ($('#jenis').val()=='Kelompok') {
+        $(".btn-pegawai-add").removeClass('hidden');
+    } else if ($('#jenis').val()=='Individu'){
         $(".btn-pegawai-add").addClass('hidden');
-        $(".btn-pegawai-remove").attr('value', nopeg);
-        $(".btn-pegawai-remove").removeClass('hidden');
-        $(".btn-pegawai-edit").attr('value', nopeg);
-        $(".btn-pegawai-edit").removeClass('hidden');
-        $(".btn-pegawai-cancel").removeClass('hidden');
+    } else {
+        $(".btn-pegawai-add").removeClass('hidden');
     }
+    $(".btn-pegawai-remove").addClass('hidden');
+    $(".btn-pegawai-edit").addClass('hidden');
+    $(".btn-pegawai-cancel").addClass('hidden');
+}
 
-    function btnActionAdd() {
-        if ($('#jenis').val()=='Kelompok') {
-            $(".btn-pegawai-add").removeClass('hidden');
-        } else if ($('#jenis').val()=='Individu'){
-            $(".btn-pegawai-add").addClass('hidden');
-        } else {
-            $(".btn-pegawai-add").removeClass('hidden');
-        }
-        $(".btn-pegawai-remove").addClass('hidden');
-        $(".btn-pegawai-edit").addClass('hidden');
-        $(".btn-pegawai-cancel").addClass('hidden');
-    }
-
-    function updateRowTable() {
-        var idRowDataTable = $(".btn-pegawai-edit").val();
+function updateRowTable() {
+    var idRowDataTable = $(".btn-pegawai-edit").val();
         // dataTable = $.grep(dataTable, function(e){ 
         //      return e.nopeg != idRowDataTable; 
         // });
@@ -1234,8 +1234,8 @@
     function removeRowTable(){
         var idRowDataTable = $(".btn-pegawai-remove").val();
         dataTable = $.grep(dataTable, function(e, i){ 
-             return i != idRowDataTable; 
-        });
+           return i != idRowDataTable; 
+       });
         console.log('delete dataTable', dataTable);
         btnActionAdd();
         clearAddPegawai();
@@ -1261,45 +1261,45 @@
     }
 
     function form_reset() {
-		$(".body-remove").remove();
-        clearAddPegawai();
-        dataTable = [];
-        gridPI.api.setRowData(dataTable);
-        console.log(dataTable);
-        isClickRowTable = true;
-        $("#form-add").trigger('reset');
-        $("#pengembangan_pelatihan_kegiatan").prop('selectedIndex', 0);
-        $("#pengembangan_pelatihan_kegiatan").trigger("chosen:updated");
-        $("#pengembangan_pelatihan_kegiatan_status").prop('selectedIndex', 0);
-        $("#pengembangan_pelatihan_kegiatan_status").trigger("chosen:updated");
-        $("#jenis_perjalanan").prop('selectedIndex', 0);
-        $("#jenis_perjalanan").trigger("chosen:updated");
-        $("#jenis_perjalanan").trigger('change');  
-		getOptions("phl", BASE_URL + "master/plh");
-		$("#jenis_plh").prop('selectedIndex', 0);
-        $("#jenis_plh").trigger("chosen:updated");
-		$("#plh").prop('selectedIndex', 0);
-        $("#plh").trigger("chosen:updated");
-		$("#dalam_negeri").prop('selectedIndex', 0);
-        $("#dalam_negeri").trigger("chosen:updated");
-		$("#biaya_uraian_1").val("");
-		$("#uraian_nominal_1").val("");
-        $("#orang_1").val("");
-        $("#total_1").val("");
-        $("#muncul_1").val("");
-        $("#biaya_nominal_1").val("");
-        $("#total_nominal_1").val(0);
-        $("#qty_nominal_1").val(1);
-		$("#jenis_biaya").prop('selectedIndex', 0);
-        $("#jenis_biaya").trigger('chosen:updated');
-        $("#jenis_biaya").trigger('change');
-        $("#jenis").prop('selectedIndex', 0);
-        $("#jenis").trigger("chosen:updated");
-		$("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
-        $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
-		getOptions("surat_tugas_dalam_negeri_luarkota", BASE_URL + "master/alat_angkut");
-		
-	}
+      $(".body-remove").remove();
+      clearAddPegawai();
+      dataTable = [];
+      gridPI.api.setRowData(dataTable);
+      console.log(dataTable);
+      isClickRowTable = true;
+      $("#form-add").trigger('reset');
+      $("#pengembangan_pelatihan_kegiatan").prop('selectedIndex', 0);
+      $("#pengembangan_pelatihan_kegiatan").trigger("chosen:updated");
+      $("#pengembangan_pelatihan_kegiatan_status").prop('selectedIndex', 0);
+      $("#pengembangan_pelatihan_kegiatan_status").trigger("chosen:updated");
+      $("#jenis_perjalanan").prop('selectedIndex', 0);
+      $("#jenis_perjalanan").trigger("chosen:updated");
+      $("#jenis_perjalanan").trigger('change');  
+      getOptions("phl", BASE_URL + "master/plh");
+      $("#jenis_plh").prop('selectedIndex', 0);
+      $("#jenis_plh").trigger("chosen:updated");
+      $("#plh").prop('selectedIndex', 0);
+      $("#plh").trigger("chosen:updated");
+      $("#dalam_negeri").prop('selectedIndex', 0);
+      $("#dalam_negeri").trigger("chosen:updated");
+      $("#biaya_uraian_1").val("");
+      $("#uraian_nominal_1").val("");
+      $("#orang_1").val("");
+      $("#total_1").val("");
+      $("#muncul_1").val("");
+      $("#biaya_nominal_1").val("");
+      $("#total_nominal_1").val(0);
+      $("#qty_nominal_1").val(1);
+      $("#jenis_biaya").prop('selectedIndex', 0);
+      $("#jenis_biaya").trigger('chosen:updated');
+      $("#jenis_biaya").trigger('change');
+      $("#jenis").prop('selectedIndex', 0);
+      $("#jenis").trigger("chosen:updated");
+      $("#surat_tugas_dalam_negeri_luarkota").prop('selectedIndex', 0);
+      $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
+      getOptions("surat_tugas_dalam_negeri_luarkota", BASE_URL + "master/alat_angkut");
+      
+  }
 
     // CRUD
     function simpan() {
@@ -1322,7 +1322,7 @@
         obj.total = $(".total").serializeArray();
         obj.muncul = $(".muncul").serializeArray();
         obj.qty_nominal = $(".qty_nominal").serializeArray();
-		obj.tanggal_go = $(".tanggal_go").serializeArray();
+        obj.tanggal_go = $(".tanggal_go").serializeArray();
         obj.tanggal_back = $(".tanggal_back").serializeArray();
         obj.jam_mulai = $("#jam_mulai").val();
         obj.jam_sampai = $("#jam_sampai").val();
@@ -1347,7 +1347,7 @@
         // obj.surat_tugas_luar_negeri = $("#surat_tugas_luar_negeri").val();
         obj.phl = $("#phl").val();
         obj.jenis_plh = $("#jenis_plh").val();
-		obj.hari_go = $("#hari_go").val();
+        obj.hari_go = $("#hari_go").val();
         obj.hari_back = $("#hari_back").val();
         obj.target_kinerja = $("#target_kinerja").val();
         obj.surat_tugas_dalam_negeri_luarkota = $("#surat_tugas_dalam_negeri_luarkota").val();
@@ -1373,10 +1373,10 @@
         if ($('#search').val() !== '') {
             search = $('#search').val();
         }
-		var dari = $('#tanggal_awal').val();
+        var dari = $('#tanggal_awal').val();
         var sampai = $('#tanggal_akhir').val();
-		
-		$.ajax({
+        
+        $.ajax({
             url: BASE_URL + 'pengembangan_pelatihan/list_uk/' + jml + '/' +search + '/' + dari + '/' +sampai,
             headers: {
                 'Authorization': localStorage.getItem("Token"),
@@ -1401,9 +1401,9 @@
                     $("#users-monev").addClass('hidden');
                 }
                 gridOptionsList.api.setRowData(data.result);
-             pagingDatatable(data.total,data.limit,'loaddata');
-                     
-			 },
+                pagingDatatable(data.total,data.limit,'loaddata');
+                
+            },
             error: function (jqXhr, textStatus, errorThrown) {
                 alert('error');
             }
@@ -1431,228 +1431,228 @@
     loaddata(0);
 
     function proses_edit(){
-		form_reset();
-		var selectedRows = gridOptionsList.api.getSelectedRows();
-		if (selectedRows.length != 1) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-            var selectedRow = selectedRows[0];
-            console.log(selectedRow);
-            var selectedRowsString = selectedRow.id;
-            $.ajax({
-                url: BASE_URL + 'surat/get/?id=' + selectedRowsString,
-                headers: {
-                    'Authorization': localStorage.getItem("Token"),
-                    'X_CSRF_TOKEN': 'donimaulana',
-                    'Content-Type': 'application/json'
-                },
-                dataType: 'json',
-                type: 'get',
-                contentType: 'application/json',
-                processData: false,
-                success: function (res, textStatus, jQxhr) {
-                    $('#id').val(res.data.id);
-                    $('#no_disposisi').val(res.data.no_disposisi);
-                    $('#total_hari_kerja').val(res.data.total_hari_kerja);
+      form_reset();
+      var selectedRows = gridOptionsList.api.getSelectedRows();
+      if (selectedRows.length != 1) {
+        onMessage('Silahkan Pilih Data Terlebih dahulu!');
+        return false;
+    } 
+    else {
+        var selectedRow = selectedRows[0];
+        console.log(selectedRow);
+        var selectedRowsString = selectedRow.id;
+        $.ajax({
+            url: BASE_URL + 'surat/get/?id=' + selectedRowsString,
+            headers: {
+                'Authorization': localStorage.getItem("Token"),
+                'X_CSRF_TOKEN': 'donimaulana',
+                'Content-Type': 'application/json'
+            },
+            dataType: 'json',
+            type: 'get',
+            contentType: 'application/json',
+            processData: false,
+            success: function (res, textStatus, jQxhr) {
+                $('#id').val(res.data.id);
+                $('#no_disposisi').val(res.data.no_disposisi);
+                $('#total_hari_kerja').val(res.data.total_hari_kerja);
 
-                    if (res.data.pengembangan_pelatihan_kegiatan != null){                    
-                        $('#pengembangan_pelatihan_kegiatan').val(res.data.pengembangan_pelatihan_kegiatan.id);
-                        $("#pengembangan_pelatihan_kegiatan").trigger("chosen:updated");
-                    };
-                    if (res.data.pengembangan_pelatihan_kegiatan_status != null){                    
-                        $('#pengembangan_pelatihan_kegiatan_status').val(res.data.pengembangan_pelatihan_kegiatan_status.id);
-                        $("#pengembangan_pelatihan_kegiatan_status").trigger("chosen:updated");
-                    };
+                if (res.data.pengembangan_pelatihan_kegiatan != null){                    
+                    $('#pengembangan_pelatihan_kegiatan').val(res.data.pengembangan_pelatihan_kegiatan.id);
+                    $("#pengembangan_pelatihan_kegiatan").trigger("chosen:updated");
+                };
+                if (res.data.pengembangan_pelatihan_kegiatan_status != null){                    
+                    $('#pengembangan_pelatihan_kegiatan_status').val(res.data.pengembangan_pelatihan_kegiatan_status.id);
+                    $("#pengembangan_pelatihan_kegiatan_status").trigger("chosen:updated");
+                };
 
-                    $("#nama_pelatihan").val(res.data.nama_pelatihan);
-                    $("#tujuan").val(res.data.tujuan);
-                    $("#membaca").val(res.data.membaca);
-                    $("#yth").val(res.data.yth);
-                    $("#target_kinerja").val(res.data.target_kinerja);
-                    $("#institusi").val(res.data.institusi);
-                    $("#alamat").val(res.data.alamat);
-                    $("#jam_mulai").val(res.data.jam_mulai);
-                    $("#jam_sampai").val(res.data.jam_sampai);
-					getOptionsEdit("phl", BASE_URL + "master/plh",res.data.phl);
-					getOptionsEdit("surat_tugas_dalam_negeri_luarkota", BASE_URL + "master/alat_angkut",res.data.alat_angkut);
-					getperjalanan(res.data.jenis_perjalanan);
-                    $('#jenis').val(res.data.jenis);
-					$("#jenis").trigger("chosen:updated");
-                    $('#jenis_plh').val(res.data.jenis_plh);
-                    $("#jenis_plh").trigger("chosen:updated");
+                $("#nama_pelatihan").val(res.data.nama_pelatihan);
+                $("#tujuan").val(res.data.tujuan);
+                $("#membaca").val(res.data.membaca);
+                $("#yth").val(res.data.yth);
+                $("#target_kinerja").val(res.data.target_kinerja);
+                $("#institusi").val(res.data.institusi);
+                $("#alamat").val(res.data.alamat);
+                $("#jam_mulai").val(res.data.jam_mulai);
+                $("#jam_sampai").val(res.data.jam_sampai);
+                getOptionsEdit("phl", BASE_URL + "master/plh",res.data.phl);
+                getOptionsEdit("surat_tugas_dalam_negeri_luarkota", BASE_URL + "master/alat_angkut",res.data.alat_angkut);
+                getperjalanan(res.data.jenis_perjalanan);
+                $('#jenis').val(res.data.jenis);
+                $("#jenis").trigger("chosen:updated");
+                $('#jenis_plh').val(res.data.jenis_plh);
+                $("#jenis_plh").trigger("chosen:updated");
 
-					for (var id = 0; id < res.data.detail_uraian.length; id++) {
-						if (id == 0) {
-							$("#biaya_uraian_1").val(res.data.detail_uraian[id].uraian);
-							$("#total_nominal_1").val(formatAngka(res.data.detail_uraian[id].nominal));
-							$("#uraian_nominal_1").val(res.data.detail_uraian[id].uraian_nominal);
-							$("#biaya_nominal_1").val(formatAngka(res.data.detail_uraian[id].pernominal));
-							$("#qty_nominal_1").val(res.data.detail_uraian[id].qty);
-							$("#orang_1").val(res.data.detail_uraian[id].orang);
-							$("#total_1").val(formatAngka(res.data.detail_uraian[id].total));
-							$("#muncul_1").val(res.data.detail_uraian[id].muncul);
-							
-						}
-						else {
-							var row_id = id + 1
-							var row = 
-									'<tr id="row_'+row_id+'">'+
-									'<td>'+
-									'<div class="form-group body-remove">' +
-									   ' <label class="col-sm-2 control-label"></label>' +
-									   '<div class="body-detail">' +
-											'<div class="col-xs-2">' +
-												'<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian" value="' + res.data.detail_uraian[id].uraian + '" />' +
-											'</div>' +
-											'<div class="col-xs-2">' +
-												'<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" title="Jumlah Keterangan" min="1" value=' + res.data.detail_uraian[id].qty + ' required onkeyup="getTotal('+row_id+')"/>' +
-											'</div>' +
-											'<div class="col-xs-2">' +
-												'<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_'+row_id+'" placeholder="Ket uraian" value="' + res.data.detail_uraian[id].uraian_nominal + '" />' +
-											'</div>' +
-											'<div class="col-xs-3">' +
-												'<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" value=' + formatAngka(res.data.detail_uraian[id].pernominal) + ' required onkeyup="getTotal('+row_id+')"/>' +
-											'</div>' +
-										'</div>' +
-										'<div class="col-xs-1 pull right">' +
-											'<div class="btn btn-default btn-sm btn-remove" onclick="removeRow(\''+row_id+'\')"><i class="fa fa-trash-o"></i></div>' +
-										'</div>' +
-									'</div>' +
-									'<div class="form-group body-remove">' +
-									   ' <label class="col-sm-2 control-label"></label>' +
-									   '<div class="body-detail">' +
-											'<div class="col-xs-3">' +
-												'<input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" value=' + formatAngka(res.data.detail_uraian[id].nominal) + ' readonly/>' +
-											'</div> '+ 
-											'<div class="col-xs-2">' +
-												'<input type="number" name="orang[]" class="form-control orang" title="Jumlah Orang" id="orang_'+row_id+'" min="0" placeholder="0" value=' + res.data.detail_uraian[id].orang + ' required onkeyup="getTotal(\''+row_id+'\')"/>' +
-											'</div> '+
-											'<div class="col-xs-4">' +
-												'<input type="number" name="total[]" class="form-control total" id="total_'+row_id+'" min="0" value=' + formatAngka(res.data.detail_uraian[id].total) + ' readonly/>' +
-											'</div> '+
-											'<div class="col-xs-1">' +
-												'<input type="text" name="muncul[]" class="muncul[]" title="Rincian biaya yg Diterima" placeholder="Rincian biaya yg Diterima" id="muncul_'+row_id+'" value=' + res.data.detail_uraian[id].muncul + '>' +
-											'</div> '+
-										'</div>' +
-									'</div>'
-									+ '</td>'
-									+ '</tr>'
-									;
-							$(".body-content tbody").append(row);
-						}
-					};
-                    if (res.data.monev == "1"){
-                        $('#monev').prop("checked", true);
-                    }
-                    else{
-                        $('#monev').prop("checked", false);
-                    }
-                    if (res.data.laporan == "1"){
-                        $('#laporan').prop("checked", true);
-                    }
-                    else{
-                        $('#laporan').prop("checked", false);
-                    }
-                    $('#jenis_perjalanan').val(res.data.jenis_perjalanan);
-                    $("#jenis_perjalanan").trigger("chosen:updated");
+                for (var id = 0; id < res.data.detail_uraian.length; id++) {
+                  if (id == 0) {
+                     $("#biaya_uraian_1").val(res.data.detail_uraian[id].uraian);
+                     $("#total_nominal_1").val(formatAngka(res.data.detail_uraian[id].nominal));
+                     $("#uraian_nominal_1").val(res.data.detail_uraian[id].uraian_nominal);
+                     $("#biaya_nominal_1").val(formatAngka(res.data.detail_uraian[id].pernominal));
+                     $("#qty_nominal_1").val(res.data.detail_uraian[id].qty);
+                     $("#orang_1").val(res.data.detail_uraian[id].orang);
+                     $("#total_1").val(formatAngka(res.data.detail_uraian[id].total));
+                     $("#muncul_1").val(res.data.detail_uraian[id].muncul);
+                     
+                 }
+                 else {
+                     var row_id = id + 1
+                     var row = 
+                     '<tr id="row_'+row_id+'">'+
+                     '<td>'+
+                     '<div class="form-group body-remove">' +
+                     ' <label class="col-sm-2 control-label"></label>' +
+                     '<div class="body-detail">' +
+                     '<div class="col-xs-2">' +
+                     '<input type="text" name="biaya_uraian[]" class="form-control biaya_uraian" id="biaya_uraian_'+row_id+'" placeholder="Uraian" value="' + res.data.detail_uraian[id].uraian + '" />' +
+                     '</div>' +
+                     '<div class="col-xs-2">' +
+                     '<input type="number" name="qty_nominal[]" class="form-control qty_nominal" id="qty_nominal_'+row_id+'" title="Jumlah Keterangan" min="1" value=' + res.data.detail_uraian[id].qty + ' required onkeyup="getTotal('+row_id+')"/>' +
+                     '</div>' +
+                     '<div class="col-xs-2">' +
+                     '<input type="text" name="uraian_nominal[]" class="form-control uraian_nominal" id="uraian_nominal_'+row_id+'" placeholder="Ket uraian" value="' + res.data.detail_uraian[id].uraian_nominal + '" />' +
+                     '</div>' +
+                     '<div class="col-xs-3">' +
+                     '<input type="number" name="biaya_nominal[]" class="form-control biaya_nominal" id="biaya_nominal_'+row_id+'" min="0" value=' + formatAngka(res.data.detail_uraian[id].pernominal) + ' required onkeyup="getTotal('+row_id+')"/>' +
+                     '</div>' +
+                     '</div>' +
+                     '<div class="col-xs-1 pull right">' +
+                     '<div class="btn btn-default btn-sm btn-remove" onclick="removeRow(\''+row_id+'\')"><i class="fa fa-trash-o"></i></div>' +
+                     '</div>' +
+                     '</div>' +
+                     '<div class="form-group body-remove">' +
+                     ' <label class="col-sm-2 control-label"></label>' +
+                     '<div class="body-detail">' +
+                     '<div class="col-xs-3">' +
+                     '<input type="number" name="total_nominal[]" class="form-control total_nominal" id="total_nominal_'+row_id+'" min="0" value=' + formatAngka(res.data.detail_uraian[id].nominal) + ' readonly/>' +
+                     '</div> '+ 
+                     '<div class="col-xs-2">' +
+                     '<input type="number" name="orang[]" class="form-control orang" title="Jumlah Orang" id="orang_'+row_id+'" min="0" placeholder="0" value=' + res.data.detail_uraian[id].orang + ' required onkeyup="getTotal(\''+row_id+'\')"/>' +
+                     '</div> '+
+                     '<div class="col-xs-4">' +
+                     '<input type="number" name="total[]" class="form-control total" id="total_'+row_id+'" min="0" value=' + formatAngka(res.data.detail_uraian[id].total) + ' readonly/>' +
+                     '</div> '+
+                     '<div class="col-xs-1">' +
+                     '<input type="text" name="muncul[]" class="muncul[]" title="Rincian biaya yg Diterima" placeholder="Rincian biaya yg Diterima" id="muncul_'+row_id+'" value=' + res.data.detail_uraian[id].muncul + '>' +
+                     '</div> '+
+                     '</div>' +
+                     '</div>'
+                     + '</td>'
+                     + '</tr>'
+                     ;
+                     $(".body-content tbody").append(row);
+                 }
+             };
+             if (res.data.monev == "1"){
+                $('#monev').prop("checked", true);
+            }
+            else{
+                $('#monev').prop("checked", false);
+            }
+            if (res.data.laporan == "1"){
+                $('#laporan').prop("checked", true);
+            }
+            else{
+                $('#laporan').prop("checked", false);
+            }
+            $('#jenis_perjalanan').val(res.data.jenis_perjalanan);
+            $("#jenis_perjalanan").trigger("chosen:updated");
 
-                    for (var i = 0; i < res.data.tanggal.length; i++) {
-						$('#hari_go').val(res.data.tanggal[i].hari_go);
-						$('#hari_back').val(res.data.tanggal[i].hari_back);
-                        if (i == 0){
-                            $("#tanggal").val(res.data.tanggal[i].tanggal_from +" - "+ res.data.tanggal[i].tanggal_to);
-                        }
-                        else{
-                            var row = $(
-                                '<div class="form-group body-remove-calendar">' +
-                                '<label class="col-sm-3 control-label" for="demo-hor-inputemail"></label>' +
-                                '<div class="col-sm-5">' +
-                                '<input type="text" name="tanggal[]" class="form-control tanggal daterangepicker" value="'+ res.data.tanggal[i].tanggal_from +" - "+ res.data.tanggal[i].tanggal_to +'" />' +
-                                '</div>' +
-                                '<div class="col-xs-3 pull right">' +
-                                '<div class="btn btn-default btn-sm btn-remove-calendar">' +
-                                '<i class="fa fa-trash-o"></i>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>');
-                            $(".body-content-calendar").append(row);
-                            $('.daterangepicker').daterangepicker({
-                                   locale: {
-                                     format: 'DD-MM-YYYY'
-                                   }
-                            });
-                        }if (i == 0){
-                            $("#tanggal_go").val(res.data.tanggal[i].tanggal_go +" - "+ res.data.tanggal[i].tanggal_go1);
-                        }
-                        else{
-                            var row = $(
-                                '<div class="form-group body-remove-calendar">' +
-                                '<label class="col-sm-3 control-label" for="demo-hor-inputemail"></label>' +
-                                '<div class="col-sm-5">' +
-                                '<input type="text" name="tanggal_go[]" class="form-control tanggal_go daterangepicker" value="'+ res.data.tanggal[i].tanggal_go +" - "+ res.data.tanggal[i].tanggal_go1 +'" />' +
-                                '</div>' +
-                                '<div class="col-xs-3 pull right">' +
-                                '<div class="btn btn-default btn-sm btn-remove-calendar">' +
-                                '<i class="fa fa-trash-o"></i>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>');
-                            $(".body-content-calendar").append(row);
-                            $('.daterangepicker').daterangepicker({
-                                   locale: {
-                                     format: 'DD-MM-YYYY'
-                                   }
-                            });
-                        }if (i == 0){
-                            $("#tanggal_back").val(res.data.tanggal[i].tanggal_back +" - "+ res.data.tanggal[i].tanggal_back);
-                        }
-                        else{
-                            var row = $(
-                                '<div class="form-group body-remove-calendar">' +
-                                '<label class="col-sm-3 control-label" for="demo-hor-inputemail"></label>' +
-                                '<div class="col-sm-5">' +
-                                '<input type="text" name="tanggal_back[]" class="form-control tanggal_back daterangepicker" value="'+ res.data.tanggal[i].tanggal_back +" - "+ res.data.tanggal[i].tanggal_back1 +'" />' +
-                                '</div>' +
-                                '<div class="col-xs-3 pull right">' +
-                                '<div class="btn btn-default btn-sm btn-remove-calendar">' +
-                                '<i class="fa fa-trash-o"></i>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>');
-                            $(".body-content-calendar").append(row);
-                            $('.daterangepicker').daterangepicker({
-                                   locale: {
-                                     format: 'DD-MM-YYYY'
-                                   }
-                            });
-                        }
-                    };
+            for (var i = 0; i < res.data.tanggal.length; i++) {
+              $('#hari_go').val(res.data.tanggal[i].hari_go);
+              $('#hari_back').val(res.data.tanggal[i].hari_back);
+              if (i == 0){
+                $("#tanggal").val(res.data.tanggal[i].tanggal_from +" - "+ res.data.tanggal[i].tanggal_to);
+            }
+            else{
+                var row = $(
+                    '<div class="form-group body-remove-calendar">' +
+                    '<label class="col-sm-3 control-label" for="demo-hor-inputemail"></label>' +
+                    '<div class="col-sm-5">' +
+                    '<input type="text" name="tanggal[]" class="form-control tanggal daterangepicker" value="'+ res.data.tanggal[i].tanggal_from +" - "+ res.data.tanggal[i].tanggal_to +'" />' +
+                    '</div>' +
+                    '<div class="col-xs-3 pull right">' +
+                    '<div class="btn btn-default btn-sm btn-remove-calendar">' +
+                    '<i class="fa fa-trash-o"></i>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
+                $(".body-content-calendar").append(row);
+                $('.daterangepicker').daterangepicker({
+                 locale: {
+                   format: 'DD-MM-YYYY'
+               }
+           });
+            }if (i == 0){
+                $("#tanggal_go").val(res.data.tanggal[i].tanggal_go +" - "+ res.data.tanggal[i].tanggal_go1);
+            }
+            else{
+                var row = $(
+                    '<div class="form-group body-remove-calendar">' +
+                    '<label class="col-sm-3 control-label" for="demo-hor-inputemail"></label>' +
+                    '<div class="col-sm-5">' +
+                    '<input type="text" name="tanggal_go[]" class="form-control tanggal_go daterangepicker" value="'+ res.data.tanggal[i].tanggal_go +" - "+ res.data.tanggal[i].tanggal_go1 +'" />' +
+                    '</div>' +
+                    '<div class="col-xs-3 pull right">' +
+                    '<div class="btn btn-default btn-sm btn-remove-calendar">' +
+                    '<i class="fa fa-trash-o"></i>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
+                $(".body-content-calendar").append(row);
+                $('.daterangepicker').daterangepicker({
+                 locale: {
+                   format: 'DD-MM-YYYY'
+               }
+           });
+            }if (i == 0){
+                $("#tanggal_back").val(res.data.tanggal[i].tanggal_back +" - "+ res.data.tanggal[i].tanggal_back);
+            }
+            else{
+                var row = $(
+                    '<div class="form-group body-remove-calendar">' +
+                    '<label class="col-sm-3 control-label" for="demo-hor-inputemail"></label>' +
+                    '<div class="col-sm-5">' +
+                    '<input type="text" name="tanggal_back[]" class="form-control tanggal_back daterangepicker" value="'+ res.data.tanggal[i].tanggal_back +" - "+ res.data.tanggal[i].tanggal_back1 +'" />' +
+                    '</div>' +
+                    '<div class="col-xs-3 pull right">' +
+                    '<div class="btn btn-default btn-sm btn-remove-calendar">' +
+                    '<i class="fa fa-trash-o"></i>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
+                $(".body-content-calendar").append(row);
+                $('.daterangepicker').daterangepicker({
+                 locale: {
+                   format: 'DD-MM-YYYY'
+               }
+           });
+            }
+        };
 
-                    if (res.data.jenis_perjalanan == "Dalam Negeri") {
-                        $("#dalam_negeri").val(res.data.dalam_negeri);
-                        $("#dalam_negeri").trigger("chosen:updated");
-						if (res.data.dalam_negeri == "Luar Kota") {
-						$(".dalam_negeri").removeClass('hidden');
-						$('#surat_tugas_dalam_negeri_luarkota').val(res.data.alat_angkut);
-                        $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
-						$(".dalam_negeri-luarkota").removeClass('hidden');
-						$(".jenis_perjalanan_dalam_negeri").removeClass('hidden');
-						}else if (res.data.dalam_negeri == "Dalam Kota") {
-						$(".jenis_perjalanan_dalam_negeri").removeClass('hidden');
-						}
-                        } 
-                    else {
-                        $(".jenis_perjalanan_dalam_negeri").addClass('hidden');
-                        $(".dalam_negeri").addClass('hidden');
+        if (res.data.jenis_perjalanan == "Dalam Negeri") {
+            $("#dalam_negeri").val(res.data.dalam_negeri);
+            $("#dalam_negeri").trigger("chosen:updated");
+            if (res.data.dalam_negeri == "Luar Kota") {
+              $(".dalam_negeri").removeClass('hidden');
+              $('#surat_tugas_dalam_negeri_luarkota').val(res.data.alat_angkut);
+              $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
+              $(".dalam_negeri-luarkota").removeClass('hidden');
+              $(".jenis_perjalanan_dalam_negeri").removeClass('hidden');
+          }else if (res.data.dalam_negeri == "Dalam Kota") {
+              $(".jenis_perjalanan_dalam_negeri").removeClass('hidden');
+          }
+      } 
+      else {
+        $(".jenis_perjalanan_dalam_negeri").addClass('hidden');
+        $(".dalam_negeri").addClass('hidden');
                         // show
                         $(".jenis_perjalanan_luar_negeri").removeClass('hidden');
                         // reset value
-						$('#surat_tugas_dalam_negeri_luarkota').val(res.data.alat_angkut);
+                        $('#surat_tugas_dalam_negeri_luarkota').val(res.data.alat_angkut);
                         $("#surat_tugas_dalam_negeri_luarkota").trigger("chosen:updated");
-						$(".dalam_negeri-luarkota").removeClass('hidden');
-						
+                        $(".dalam_negeri-luarkota").removeClass('hidden');
+                        
                         $("#dalam_negeri").prop('selectedIndex', 0);
                         $("#surat_tugas_luar_negeri").val(res.data.surat_tugas_luar_negeri);
                         $("#surat_tugas_luar_negeri").trigger('chosen:updated');
@@ -1701,74 +1701,74 @@
                     alert('error');
                 }
             });
-        }
+}
+}
+
+function proses_add() {
+    form_reset();
+    btnActionAdd();
+}
+
+function getperjalanan(a){
+  if((a==='Luar Negeri')){
+     $('.luar').show('slow');
+ }else{
+     $('.luar').hide('slow');
+ }
+}
+
+function del() {
+    var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+    if (selectedRowsSelesai.length <= 0) {
+        onMessage('Silahkan Pilih Data Terlebih dahulu!');
+        return false;
+    } 
+    else {
+        submit_get(BASE_URL + 'surat/del/?id=' + selectedRowsSelesai[0].kode, loaddata);
     }
+}
 
-    function proses_add() {
-        form_reset();
-        btnActionAdd();
-    }
+function cetak() {
+    var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+    if (selectedRowsSelesai.length <= 0) {
+        onMessage('Silahkan Pilih Data Terlebih dahulu!');
+        return false;
+    } 
+    else {
+     if (selectedRowsSelesai[0].jenis_perjalanan!='Dalam Negeri') {
+         gopop(BASE_URL + 'surat/preview/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf,'large');
+     }else{
+         gopop(BASE_URL + 'surat/preview/?id=' + selectedRowsSelesai[0].id,pdf,'large');
+     }
+ }
+}
 
-	function getperjalanan(a){
-		if((a==='Luar Negeri')){
-			$('.luar').show('slow');
-		}else{
-			$('.luar').hide('slow');
-		}
-	}
-	
-    function del() {
-        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-            submit_get(BASE_URL + 'surat/del/?id=' + selectedRowsSelesai[0].kode, loaddata);
-        }
-    }
+function pdf() {
+    var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+    if (selectedRowsSelesai.length <= 0) {
+        onMessage('Silahkan Pilih Data Terlebih dahulu!');
+        return false;
+    } else {
+     if (selectedRowsSelesai[0].jenis_perjalanan!='Dalam Negeri') {
+        window.open(BASE_URL + 'surat/cetak/?id=' + selectedRowsSelesai[0].id+ '&surat='+ selectedRowsSelesai[0].jenis_surat+ '&kode=' + selectedRowsSelesai[0].kode);
+    }else{
+     window.open(BASE_URL + 'surat/cetak/?id=' + selectedRowsSelesai[0].id+ '&surat='+ selectedRowsSelesai[0].jenis_surat);
+ }
+}
+}
 
-    function cetak() {
-        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-			if (selectedRowsSelesai[0].jenis_perjalanan!='Dalam Negeri') {
-			gopop(BASE_URL + 'surat/preview/?id=' + selectedRowsSelesai[0].id + '&kode=' + selectedRowsSelesai[0].kode,pdf,'large');
-			}else{
-			gopop(BASE_URL + 'surat/preview/?id=' + selectedRowsSelesai[0].id,pdf,'large');
-			}
-		}
-    }
-
-    function pdf() {
-        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-	   if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } else {
-			if (selectedRowsSelesai[0].jenis_perjalanan!='Dalam Negeri') {
-            window.open(BASE_URL + 'surat/cetak/?id=' + selectedRowsSelesai[0].id+ '&surat='+ selectedRowsSelesai[0].jenis_surat+ '&kode=' + selectedRowsSelesai[0].kode);
-            }else{
-			window.open(BASE_URL + 'surat/cetak/?id=' + selectedRowsSelesai[0].id+ '&surat='+ selectedRowsSelesai[0].jenis_surat);
-			}
-		}
-	}
-
-   		$(document).ready(function () {
-		$('.tanggal').datepicker({
-            format: "dd-mm-yyyy",
-        }).on('change', function(){
-			$('.datepicker').hide();
-		  });
-		});
-		$(document).ready(function () {
-		$('.tanggal_cek').datepicker({
-            format: "dd-mm-yyyy",
-        }).on('change', function(){
-			$('.datepicker').hide();
-		  });
-		});
+$(document).ready(function () {
+  $('.tanggal').datepicker({
+    format: "dd-mm-yyyy",
+}).on('change', function(){
+ $('.datepicker').hide();
+});
+});
+$(document).ready(function () {
+  $('.tanggal_cek').datepicker({
+    format: "dd-mm-yyyy",
+}).on('change', function(){
+ $('.datepicker').hide();
+});
+});
 </script>

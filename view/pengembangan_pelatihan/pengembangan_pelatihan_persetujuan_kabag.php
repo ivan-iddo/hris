@@ -7,18 +7,18 @@
     <div class="alert alert-warning hidden" id="users-monev" role="alert">
         Anda memiliki pelatihan & pengembangan saat ini (Monitoring & Evaluasi).
     </div>
-  <li class="active">
-    <a data-toggle="tab" href="#demo-lft-tab-1">
-      <i class="demo-psi-home">
-      </i> List
-    </a>
+    <li class="active">
+        <a data-toggle="tab" href="#demo-lft-tab-1">
+          <i class="demo-psi-home">
+          </i> List
+      </a>
   </li>
   <li>
     <a data-toggle="tab" href="#demo-lft-tab-2" onclick="proses_add()">
       <i class="demo-psi-pen-5">
       </i> Add
-    </a>
-  </li>
+  </a>
+</li>
 </ul>
 <div class="tab-content">
     <div class="tab-pane fade active in" id="demo-lft-tab-1">
@@ -31,83 +31,83 @@
                         <div class="btn-group">
                             <!-- <button class="btn btn-primary btn-labeled fa fa-plus-square btn-sm" id=
                             "demo-bootbox-bounce">Add
-                            </button> -->
-                            <button class=
-                                    "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
-                                    "proses_update(<?php echo STATUS_LATBANG_KABAG ?>);">Persetujuan Kabag
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="dataTables_filter" id="demo-dt-addrow_filter">
-                    <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
-                                         type="search" id="search"
-                                         onkeydown="if(event.keyCode=='13'){loaddata(0, this);}"></label>
-                </div>
-            </div>
-            <div class="bootstrap-table">
-                <div class="fixed-table-container" style="padding-bottom: 0px;">
-                    <div class="ag-theme-balham" id="myGrid" style="height: 400px;width:100%;">
-                    </div>
-
-                    <div class="paging pull-right mar-all">
-                    </div>
+                        </button> -->
+                        <button class=
+                        "btn btn-success btn-labeled fa fa-check btn-sm" onclick=
+                        "proses_update(<?php echo STATUS_LATBANG_KABAG ?>);">Persetujuan Kabag
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="dataTables_filter" id="demo-dt-addrow_filter">
+            <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
+               type="search" id="search"
+               onkeydown="if(event.keyCode=='13'){loaddata(0, this);}"></label>
+           </div>
+       </div>
+       <div class="bootstrap-table">
+        <div class="fixed-table-container" style="padding-bottom: 0px;">
+            <div class="ag-theme-balham" id="myGrid" style="height: 400px;width:100%;">
+            </div>
 
-    <!-- form add -->
-    <div class="tab-pane fade" id="demo-lft-tab-2">
-        <div class="row">
-            <div class="eq-height">
-                <div class="col-sm-3 eq-box-sm ">
-                    <!--Basic Panel-->
-                    <!--===================================================-->
-                    <div class="panel pad-all">
-                        <div class="panel-body">
-                            <form class="form-horizontal" id="form-add">
-                                <div class="panel-body">
-                                    <div class="form-group hidden">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">No. Indeks</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="id" id="id" style="width: 220px;display:none"
-                                                   class="form-control"/>
-                                            <input type="text" name="no_disposisi" id="no_disposisi" class="form-control"/>
-                                        </div>
+            <div class="paging pull-right mar-all">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- form add -->
+<div class="tab-pane fade" id="demo-lft-tab-2">
+    <div class="row">
+        <div class="eq-height">
+            <div class="col-sm-3 eq-box-sm ">
+                <!--Basic Panel-->
+                <!--===================================================-->
+                <div class="panel pad-all">
+                    <div class="panel-body">
+                        <form class="form-horizontal" id="form-add">
+                            <div class="panel-body">
+                                <div class="form-group hidden">
+                                    <label class="col-sm-3 control-label" for="demo-hor-inputemail">No. Indeks</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" name="id" id="id" style="width: 220px;display:none"
+                                        class="form-control"/>
+                                        <input type="text" name="no_disposisi" id="no_disposisi" class="form-control"/>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="demo-hor-inputemail">Nama Pelatihan</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" name="nama_pelatihan" id="nama_pelatihan" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="demo-hor-inputemail">Tujuan</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" name="tujuan" id="tujuan" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="demo-hor-inputemail">Institusi Latbang</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" name="institusi" id="institusi" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="body-content-calendar">
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Nama Pelatihan</label>
+                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Tgl
+                                        Pelaksanaan</label>
                                         <div class="col-sm-5">
-                                            <input type="text" name="nama_pelatihan" id="nama_pelatihan" class="form-control"/>
+                                            <input type="text" name="tanggal[]" class="form-control tanggal daterangepicker"
+                                            id="tanggal"
+                                            />
+                                        </div>
+                                        <div class="col-xs-3 pull right">
+                                            <div class="btn btn-default btn-sm" id="add-data-calendar">Add</div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Tujuan</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="tujuan" id="tujuan" class="form-control"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Institusi Latbang</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="institusi" id="institusi" class="form-control"/>
-                                        </div>
-                                    </div>
-                                    <div class="body-content-calendar">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label" for="demo-hor-inputemail">Tgl
-                                                Pelaksanaan</label>
-                                            <div class="col-sm-5">
-                                                <input type="text" name="tanggal[]" class="form-control tanggal daterangepicker"
-                                                       id="tanggal"
-                                                />
-                                            </div>
-                                            <div class="col-xs-3 pull right">
-                                                <div class="btn btn-default btn-sm" id="add-data-calendar">Add</div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                </div>
 <!--                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Laporan</label>
                                         <div class="col-sm-5">
@@ -124,7 +124,7 @@
                                         <label class="col-sm-3 control-label" for="demo-hor-inputemail">Total Hari Kerja</label>
                                         <div class="col-sm-5">
                                             <input type="text" name="id" id="id" style="width: 220px;display:none"
-                                                   class="form-control"/>
+                                            class="form-control"/>
                                             <input type="text" name="total_hari_kerja" id="total_hari_kerja" class="form-control numeric-only"/>
                                         </div>
                                     </div>
@@ -132,220 +132,220 @@
                                         <label class="col-sm-3 control-label">Jenis Kegiatan</label>
                                         <div class="col-sm-5">
                                             <select name="pengembangan_pelatihan_kegiatan" id="pengembangan_pelatihan_kegiatan"
-                                                    class="form-control select-chosen">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Status</label>
-                                        <div class="col-sm-5">
-                                            <select name="pengembangan_pelatihan_kegiatan_status" id="pengembangan_pelatihan_kegiatan_status"
-                                                    class="form-control select-chosen">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Jenis Perjalanan</label>
-                                        <div class="col-sm-5">
-                                            <select name="jenis_perjalanan" id="jenis_perjalanan"
-                                                    class="form-control select-chosen">
-                                                <option value="">Pilih</option>
-                                                <option>Dalam Negeri</option>
-                                                <option>Luar Negeri</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group jenis_perjalanan_dalam_negeri hidden">
-                                        <label class="col-sm-3 control-label"></label>
-                                        <div class="col-sm-5">
-                                            <select name="dalam_negeri" id="dalam_negeri" class="form-control select-chosen">
-                                                <option value="">Pilih</option>
-                                                <option>Dalam Kota</option>
-                                                <option>Luar Kota</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group dalam_negeri-luarkota hidden">
-                                        <label class="col-sm-3 control-label"></label>
-                                        <div class="col-sm-5">
-                                            <select name="surat_tugas_dalam_negeri_luarkota" id="surat_tugas_dalam_negeri_luarkota"
-                                                    class="form-control select-chosen">
-                                                <option value="">Pilih</option>
-                                                <option>Surat Tugas</option>
-                                                <option>SPPD</option>
-                                                <option>RAK</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group dalam_negeri-dalamkota hidden">
-                                        <label class="col-sm-3 control-label"></label>
-                                        <div class="col-sm-5">
-                                            <select name="surat_tugas_dalam_negeri_dalamkota" id="surat_tugas_dalam_negeri_dalamkota"
-                                                    class="form-control select-chosen">
-                                                <option value="">Pilih</option>
-                                                <option>Surat Izin</option>
-                                                <option>RAK</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group jenis_perjalanan_luar_negeri hidden">
-                                        <label class="col-sm-3 control-label"></label>
-                                        <div class="col-sm-5">
-                                            <select name="surat_tugas_luar_negeri" id="surat_tugas_luar_negeri"
-                                                    class="form-control select-chosen">
-                                                <option value="">Pilih</option>
-                                                <option>Surat Tugas</option>
-                                                <option>Surat Izin</option>
-                                                <option>SPPD</option>
-                                                <option>Surat Rekomendasi</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Jenis Biaya</label>
-                                        <div class="col-sm-5">
-                                            <select name="jenis_biaya" id="jenis_biaya" class="select-chosen">
-                                                <option value="">Pilih</option>
-                                                <option>BLU</option>
-                                                <option>Sponsor</option>
-                                                <option>Sendiri</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Tipe</label>
-                                        <div class="col-sm-5">
-                                            <select name="jenis" id="jenis" class="form-control select-chosen">
-                                                <option value="">Pilih</option>
-                                                <option>Individu</option>
-                                                <option>Kelompok</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Nopeg</label>
-                                        <div class="col-sm-5">
-                                            <select name="nopeg" id="nopeg" class="select-chosen">
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">NIP</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="nip" id="nip" class="form-control"
-                                                   readonly="true"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">NIK</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="nik" id="nik" class="form-control"
-                                                   readonly="true"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Nama Pegawai</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control"
-                                                   readonly="true"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Jabatan/Unit
-                                            Kerja</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="jabatan" id="jabatan" class="form-control"
-                                                   readonly="true"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Pangkat</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="pangkat" id="pangkat" class="form-control"
-                                                   readonly="true"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="demo-hor-inputemail">Golongan</label>
-                                        <div class="col-sm-5">
-                                            <input type="text" name="golongan" id="golongan" class="form-control"
-                                                   readonly="true"/>
-                                        </div>
-                                    </div>
-                                    <div class="body-content">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">Uraian Biaya</label>
-                                            <div class="body-detail">
-                                                <div class="col-sm-3">
-                                                    <input type="text" name="biaya_uraian[]" class="form-control biaya_uraian"
-                                                           id="biaya_uraian"
-                                                           placeholder="Uraian"/>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input type="text" name="biaya_nominal[]"
-                                                           class="form-control biaya_nominal numeric-only" id="biaya_nominal" min="0" value="0"
-                                                           placeholder="Biaya"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-3 pull right">
-                                                <div class="btn btn-default btn-sm" id="add-data">Add</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel-footer" style="border:none;background-color : #e9e9e9">
-                                        <button type="button" class="btn btn-primary btn-pegawai-add" onclick="addRowTable()">
-                                            <span class="fa fa-edit"></span>Tambah Pegawai
-                                        </button>
-                                        <button type="button" class="btn btn-primary hidden btn-pegawai-edit" value="" onclick="updateRowTable()">
-                                            <span class="fa fa-edit"></span>Edit
-                                        </button>
-                                        <button type="button" class="btn btn-primary hidden btn-pegawai-remove" value="" onclick="removeRowTable()">
-                                            <span class="fa fa-remove"></span>Hapus
-                                        </button>
-                                        <button type="button" class="btn btn-primary hidden btn-pegawai-remove"
-                                                onclick="clearAddPegawai()">
-                                            <span class="fa fa-remove"></span>Cancel
-                                        </button>
+                                            class="form-control select-chosen">
+                                        </select>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!--===================================================-->
-                <!--End Basic Panel-->
-                <div class="col-sm-4 eq-box-sm">
-                    <!--Panel with Header-->
-                    <!--===================================================-->
-                    <div class="panel">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Data Peserta</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div id="gridPI" style="width:100%;height: 500px;" class="ag-theme-balham"></div>
-                            <div class="paging pull-right mar-all">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Status</label>
+                                    <div class="col-sm-5">
+                                        <select name="pengembangan_pelatihan_kegiatan_status" id="pengembangan_pelatihan_kegiatan_status"
+                                        class="form-control select-chosen">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Jenis Perjalanan</label>
+                                <div class="col-sm-5">
+                                    <select name="jenis_perjalanan" id="jenis_perjalanan"
+                                    class="form-control select-chosen">
+                                    <option value="">Pilih</option>
+                                    <option>Dalam Negeri</option>
+                                    <option>Luar Negeri</option>
+                                </select>
                             </div>
                         </div>
+                        <div class="form-group jenis_perjalanan_dalam_negeri hidden">
+                            <label class="col-sm-3 control-label"></label>
+                            <div class="col-sm-5">
+                                <select name="dalam_negeri" id="dalam_negeri" class="form-control select-chosen">
+                                    <option value="">Pilih</option>
+                                    <option>Dalam Kota</option>
+                                    <option>Luar Kota</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group dalam_negeri-luarkota hidden">
+                            <label class="col-sm-3 control-label"></label>
+                            <div class="col-sm-5">
+                                <select name="surat_tugas_dalam_negeri_luarkota" id="surat_tugas_dalam_negeri_luarkota"
+                                class="form-control select-chosen">
+                                <option value="">Pilih</option>
+                                <option>Surat Tugas</option>
+                                <option>SPPD</option>
+                                <option>RAK</option>
+                            </select>
+                        </div>
                     </div>
-                    <!--===================================================-->
-                    <!--End Panel with Header-->
+                    <div class="form-group dalam_negeri-dalamkota hidden">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-5">
+                            <select name="surat_tugas_dalam_negeri_dalamkota" id="surat_tugas_dalam_negeri_dalamkota"
+                            class="form-control select-chosen">
+                            <option value="">Pilih</option>
+                            <option>Surat Izin</option>
+                            <option>RAK</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group jenis_perjalanan_luar_negeri hidden">
+                    <label class="col-sm-3 control-label"></label>
+                    <div class="col-sm-5">
+                        <select name="surat_tugas_luar_negeri" id="surat_tugas_luar_negeri"
+                        class="form-control select-chosen">
+                        <option value="">Pilih</option>
+                        <option>Surat Tugas</option>
+                        <option>Surat Izin</option>
+                        <option>SPPD</option>
+                        <option>Surat Rekomendasi</option>
+                    </select>
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Jenis Biaya</label>
+                <div class="col-sm-5">
+                    <select name="jenis_biaya" id="jenis_biaya" class="select-chosen">
+                        <option value="">Pilih</option>
+                        <option>BLU</option>
+                        <option>Sponsor</option>
+                        <option>Sendiri</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Tipe</label>
+                <div class="col-sm-5">
+                    <select name="jenis" id="jenis" class="form-control select-chosen">
+                        <option value="">Pilih</option>
+                        <option>Individu</option>
+                        <option>Kelompok</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Nopeg</label>
+                <div class="col-sm-5">
+                    <select name="nopeg" id="nopeg" class="select-chosen">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="demo-hor-inputemail">NIP</label>
+                <div class="col-sm-5">
+                    <input type="text" name="nip" id="nip" class="form-control"
+                    readonly="true"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="demo-hor-inputemail">NIK</label>
+                <div class="col-sm-5">
+                    <input type="text" name="nik" id="nik" class="form-control"
+                    readonly="true"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="demo-hor-inputemail">Nama Pegawai</label>
+                <div class="col-sm-5">
+                    <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control"
+                    readonly="true"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="demo-hor-inputemail">Jabatan/Unit
+                Kerja</label>
+                <div class="col-sm-5">
+                    <input type="text" name="jabatan" id="jabatan" class="form-control"
+                    readonly="true"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="demo-hor-inputemail">Pangkat</label>
+                <div class="col-sm-5">
+                    <input type="text" name="pangkat" id="pangkat" class="form-control"
+                    readonly="true"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="demo-hor-inputemail">Golongan</label>
+                <div class="col-sm-5">
+                    <input type="text" name="golongan" id="golongan" class="form-control"
+                    readonly="true"/>
+                </div>
+            </div>
+            <div class="body-content">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Uraian Biaya</label>
+                    <div class="body-detail">
+                        <div class="col-sm-3">
+                            <input type="text" name="biaya_uraian[]" class="form-control biaya_uraian"
+                            id="biaya_uraian"
+                            placeholder="Uraian"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" name="biaya_nominal[]"
+                            class="form-control biaya_nominal numeric-only" id="biaya_nominal" min="0" value="0"
+                            placeholder="Biaya"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 pull right">
+                        <div class="btn btn-default btn-sm" id="add-data">Add</div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer" style="border:none;background-color : #e9e9e9">
+                <button type="button" class="btn btn-primary btn-pegawai-add" onclick="addRowTable()">
+                    <span class="fa fa-edit"></span>Tambah Pegawai
+                </button>
+                <button type="button" class="btn btn-primary hidden btn-pegawai-edit" value="" onclick="updateRowTable()">
+                    <span class="fa fa-edit"></span>Edit
+                </button>
+                <button type="button" class="btn btn-primary hidden btn-pegawai-remove" value="" onclick="removeRowTable()">
+                    <span class="fa fa-remove"></span>Hapus
+                </button>
+                <button type="button" class="btn btn-primary hidden btn-pegawai-remove"
+                onclick="clearAddPegawai()">
+                <span class="fa fa-remove"></span>Cancel
+            </button>
         </div>
-        <button class="btn btn-primary" onclick="simpan()">
-            Simpan
-        </button>
     </div>
+</form>
+</div>
+</div>
+</div>
+<!--===================================================-->
+<!--End Basic Panel-->
+<div class="col-sm-4 eq-box-sm">
+    <!--Panel with Header-->
+    <!--===================================================-->
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Data Peserta</h3>
+        </div>
+        <div class="panel-body">
+            <div id="gridPI" style="width:100%;height: 500px;" class="ag-theme-balham"></div>
+            <div class="paging pull-right mar-all">
+            </div>
+        </div>
+    </div>
+    <!--===================================================-->
+    <!--End Panel with Header-->
+</div>
+</div>
+</div>
+<button class="btn btn-primary" onclick="simpan()">
+    Simpan
+</button>
+</div>
 </div>
 
 <script>
     $('.judul-menu').html('Pengembangan Pelatihan');
     var listPI = [
-        {headerName: "NOPEG", field: "nopeg", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "NAMA", field: "nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "JABATAN", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
-        {headerName: "TOTAL BIAYA", field: "uraian_total", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "NOPEG", field: "nopeg", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "NAMA", field: "nama_pegawai", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "JABATAN", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "TOTAL BIAYA", field: "uraian_total", width: 190, filterParams: {newRowsAction: 'keep'}},
     ];
     var gridPI = {
         enableSorting: true,
@@ -374,16 +374,16 @@
     new agGrid.Grid(gridDiv, gridPI);
 
     var columnListData = [
-            {headerName: "Nama Pelatihan", field: "nama_pelatihan", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Tujuan", field: "tujuan", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Institusi", field: "institusi", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Kegiatan", field: "pengembangan_pelatihan_kegiatan.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Pengembangan Pelatihan Status", field: "pengembangan_pelatihan_kegiatan_status.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Tipe", field: "jenis", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Jenis Perjalanan", field: "jenis_perjalanan", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Jenis Biaya", field: "jenis_biaya", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Created Date", field: "created", width: 190, filterParams: {newRowsAction: 'keep'}},
-            {headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}}
+    {headerName: "Nama Pelatihan", field: "nama_pelatihan", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Tujuan", field: "tujuan", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Institusi", field: "institusi", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Kegiatan", field: "pengembangan_pelatihan_kegiatan.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Pengembangan Pelatihan Status", field: "pengembangan_pelatihan_kegiatan_status.nama", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Tipe", field: "jenis", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Jenis Perjalanan", field: "jenis_perjalanan", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Jenis Biaya", field: "jenis_biaya", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Created Date", field: "created", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Created By", field: "createdby", width: 190, filterParams: {newRowsAction: 'keep'}}
     ];
 
     var gridOptionsList = {
@@ -421,10 +421,10 @@
     var dataTable = [];
     var isClickRowTable = true;
     $('.daterangepicker').daterangepicker({
-           locale: {
-             format: 'DD-MM-YYYY'
-           }
-    });
+     locale: {
+       format: 'DD-MM-YYYY'
+   }
+});
     $('.select-chosen').chosen();
     $('.chosen-container').css({"width": "100%"});
     $('.judul-menu').html('Penilaian Kerja Individu');
@@ -489,7 +489,7 @@
         changeDalamNegeri($(this).val());
     });
 
-      function loadUser(id, url, valueEdit = null) {
+    function loadUser(id, url, valueEdit = null) {
         $('#' + id).children().remove();
         $('#' + id).append('<option value="" selected="selected">Pilih</option>');
 
@@ -746,8 +746,8 @@
     function updateRowTable() {
         var idRowDataTable = $(".btn-pegawai-edit").val();
         dataTable = $.grep(dataTable, function(e){ 
-             return e.nopeg != idRowDataTable; 
-        });
+           return e.nopeg != idRowDataTable; 
+       });
         btnActionAdd();
         addRowTable(idRowDataTable);
     }
@@ -755,14 +755,14 @@
     function removeRowTable(){
         var idRowDataTable = $(".btn-pegawai-remove").val();
         dataTable = $.grep(dataTable, function(e){ 
-             return e.nopeg != idRowDataTable; 
-        });
+           return e.nopeg != idRowDataTable; 
+       });
         btnActionAdd();
         clearAddPegawai();
         gridPI.api.setRowData(dataTable);
     }
 
-     function clearAddPegawai() {
+    function clearAddPegawai() {
         $(".body-remove").remove();
         $(".body-remove-calendar").remove();
         $("#nopeg").prop('selectedIndex', 0);
@@ -999,10 +999,10 @@
                                 '</div>');
                             $(".body-content-calendar").append(row);
                             $('.daterangepicker').daterangepicker({
-                                   locale: {
-                                     format: 'DD-MM-YYYY'
-                                   }
-                            });
+                             locale: {
+                               format: 'DD-MM-YYYY'
+                           }
+                       });
                         }
                     };
 
@@ -1045,31 +1045,31 @@
                     alert('error');
                 }
             });
-        }
-    }
+}
+}
 
-    function proses_add() {
-        form_reset();
-    }
+function proses_add() {
+    form_reset();
+}
 
-    function laporan_selesai() {
-        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-            submit_get(BASE_URL + 'pengembangan_pelatihan/laporan_selesai/?id=' + selectedRowsSelesai[0].id, loaddata);
-        }
+function laporan_selesai() {
+    var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+    if (selectedRowsSelesai.length <= 0) {
+        onMessage('Silahkan Pilih Data Terlebih dahulu!');
+        return false;
+    } 
+    else {
+        submit_get(BASE_URL + 'pengembangan_pelatihan/laporan_selesai/?id=' + selectedRowsSelesai[0].id, loaddata);
     }
-    function cetak() {
-        var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
-        if (selectedRowsSelesai.length <= 0) {
-            onMessage('Silahkan Pilih Data Terlebih dahulu!');
-            return false;
-        } 
-        else {
-            window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id);
-        }
+}
+function cetak() {
+    var selectedRowsSelesai = gridOptionsList.api.getSelectedRows();
+    if (selectedRowsSelesai.length <= 0) {
+        onMessage('Silahkan Pilih Data Terlebih dahulu!');
+        return false;
+    } 
+    else {
+        window.open(BASE_URL + 'pengembangan_pelatihan/cetak/?id=' + selectedRowsSelesai[0].id);
     }
+}
 </script>
