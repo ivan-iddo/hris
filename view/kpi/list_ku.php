@@ -76,7 +76,7 @@
 </div>
 <script>
   $('.judul-menu').html('Persetujuan KPI'); 
-  
+
   var listUK = [
   {headerName: "No", field: "no", width: 60, filterParams:{newRowsAction: "keep"}},
   {headerName: "No.Pegawai", field: "nopeg", width: 90, filterParams:{newRowsAction: "keep"}},
@@ -89,161 +89,161 @@
   {headerName: "Bulan", field: "bulan", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Tahun", field: "tahun", width: 90, filterParams:{newRowsAction: "keep"}},
   ]; 
-  
-  
+
+
 
 
   var autoGroupColumnDef = {
-   headerName: 'Group',
-   width: 200,
-   field: 'nama_group',
-   valueGetter: function(params) {
-    if (params.node.group) {
-     return params.node.key;
-   } else {
-     return params.data[params.colDef.field];
-   }
- },
- headerCheckboxSelection: true,
-			// headerCheckboxSelectionFilteredOnly: true,
-			cellRenderer:'agGroupCellRenderer',
-			cellRendererParams: {
-				checkbox: true
-			}
-   };
-   
-   var gridTK = {
-     enableSorting: true,
-     enableFilter: true,
-     suppressRowClickSelection: false, 
-     groupSelectsChildren: true,
-     debug: true,
-     rowSelection: 'single', 
-     enableColResize: true, 
-     rowGroupPanelShow: 'always',
-     onRowDoubleClicked: ukdetail,
-     pivotPanelShow: 'always',
-     enableRangeSelection: true,
-     columnDefs: listUK,
-     pagination: false,
-     paginationPageSize: 50,   
-     defaultColDef:{
-      editable: false,
-      enableRowGroup:true,
-      enablePivot:true,
-      enableValue:true
-    } 
+    headerName: 'Group',
+    width: 200,
+    field: 'nama_group',
+    valueGetter: function(params) {
+      if (params.node.group) {
+        return params.node.key;
+      } else {
+        return params.data[params.colDef.field];
+      }
+    },
+    headerCheckboxSelection: true,
+// headerCheckboxSelectionFilteredOnly: true,
+cellRenderer:'agGroupCellRenderer',
+cellRendererParams: {
+  checkbox: true
+}
+};
+
+var gridTK = {
+  enableSorting: true,
+  enableFilter: true,
+  suppressRowClickSelection: false, 
+  groupSelectsChildren: true,
+  debug: true,
+  rowSelection: 'single', 
+  enableColResize: true, 
+  rowGroupPanelShow: 'always',
+  onRowDoubleClicked: ukdetail,
+  pivotPanelShow: 'always',
+  enableRangeSelection: true,
+  columnDefs: listUK,
+  pagination: false,
+  paginationPageSize: 50,   
+  defaultColDef:{
+    editable: false,
+    enableRowGroup:true,
+    enablePivot:true,
+    enableValue:true
+  } 
+};
+
+
+
+// setup the grid after the page has finished loading 
+var gridDiv = document.querySelector('#gridUK');
+new agGrid.Grid(gridDiv,gridTK);
+
+function ukdetail(){
+  var selectedRows = gridTK.api.getSelectedRows();
+// alert('>>'+selectedRows+'<<<');
+if(selectedRows == ''){
+  onMessage('Silahkan Pilih Unit kerja Terlebih dahulu!');
+  return false;
+}else{
+  var selectedRowsString = '';
+  var level = '';
+  selectedRows.forEach( function(selectedRow, index) {
+
+    if (index!==0) {
+      selectedRowsString += ', ';
+    }
+    selectedRowsString += selectedRow.id;
+  });
+
+  bootbox.dialog({ 
+    message:$('<div></div>').load('view/kpi/listkpi.php?id=16&pid='+selectedRowsString),
+    animateIn: 'bounceIn',
+    animateOut : 'bounceOut',
+    backdrop: false,
+    size:'large',
+    buttons: {
+
+
+      main: {
+        label: "Close",
+        className: "btn-warning",
+        callback: function() {
+
+        }
+      }
+    }
+  });
+
+}
+}
+
+function detailaction(){
+  var iddettk = $('#iddettk').val();	
+}
+function listFromuk(){
+  var thn= $('#thnuk').val(); 
+  var uk =  $('#txtdirektoratuk').val();
+  var uri = BASE_URL+'kpi/mpenilaian/listik?tahun='+thn+'&status=16';
+  if(empty(thn)){
+    var d = new Date();
+    var n = d.getFullYear();
+    thn = n;
+  }
+
+  if(!empty(thn)){
+    uri = BASE_URL+'kpi/mpenilaian/listik?tahun='+thn+'&id_uk='+uk+'&status=16';
+  }
+
+  $('#thnuk').val(thn);
+
+  getJson(loadfrmuk,uri);
+}
+
+function loadfrmuk(result){
+  if(!empty(result)){
+    if(result.hasil ==='success'){
+      gridTK.api.setRowData(result.result);
+    }else{
+      gridTK.api.setRowData([]);
+    }
+  }else{
+    gridTK.api.setRowData([]);
+  }
+}
+
+listFromuk();
+
+function searchtk(){
+  var thn=$('#thnuk').val();
+  var bulan=$('#bulanuk').val();
+  var uk=$('#txtdirektoratuk').val();
+  var group = localStorage.getItem('group');
+  var uri = BASE_URL+'kpi/mpenilaian/listik?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk+'&status=16'; 
+  if(empty(thn)){
+    alert('Tahun harus dipilih');
+    return false;
+  }
+
+
+
+  getJson(loadfrmuk,uri);
+}
+function downloadku(){
+  var params = { 
+    fileName: 'KPI Pimpinan',
+    sheetName: 'KPI Pimpinan'
   };
-  
-  
-  
-		 // setup the grid after the page has finished loading 
-    var gridDiv = document.querySelector('#gridUK');
-    new agGrid.Grid(gridDiv,gridTK);
-    
-    function ukdetail(){
-      var selectedRows = gridTK.api.getSelectedRows();
-            // alert('>>'+selectedRows+'<<<');
-            if(selectedRows == ''){
-             onMessage('Silahkan Pilih Unit kerja Terlebih dahulu!');
-             return false;
-           }else{
-            var selectedRowsString = '';
-            var level = '';
-            selectedRows.forEach( function(selectedRow, index) {
-              
-             if (index!==0) {
-               selectedRowsString += ', ';
-             }
-             selectedRowsString += selectedRow.id;
-           });
 
-            bootbox.dialog({ 
-             message:$('<div></div>').load('view/kpi/listkpi.php?id=16&pid='+selectedRowsString),
-             animateIn: 'bounceIn',
-             animateOut : 'bounceOut',
-             backdrop: false,
-             size:'large',
-             buttons: {
-              
-
-               main: {
-                 label: "Close",
-                 className: "btn-warning",
-                 callback: function() {
-                   
-                 }
-               }
-             }
-           });
-            
-          }
-        }
-
-        function detailaction(){
-          var iddettk = $('#iddettk').val();	
-        }
-        function listFromuk(){
-          var thn= $('#thnuk').val(); 
-          var uk =  $('#txtdirektoratuk').val();
-          var uri = BASE_URL+'kpi/mpenilaian/listik?tahun='+thn+'&status=16';
-          if(empty(thn)){
-           var d = new Date();
-           var n = d.getFullYear();
-           thn = n;
-         }
-         
-         if(!empty(thn)){
-           uri = BASE_URL+'kpi/mpenilaian/listik?tahun='+thn+'&id_uk='+uk+'&status=16';
-         }
-         
-         $('#thnuk').val(thn);
-         
-         getJson(loadfrmuk,uri);
-       }
-       
-       function loadfrmuk(result){
-         if(!empty(result)){
-          if(result.hasil ==='success'){
-            gridTK.api.setRowData(result.result);
-          }else{
-            gridTK.api.setRowData([]);
-          }
-        }else{
-          gridTK.api.setRowData([]);
-        }
-      }
-      
-      listFromuk();
-      
-      function searchtk(){
-        var thn=$('#thnuk').val();
-        var bulan=$('#bulanuk').val();
-        var uk=$('#txtdirektoratuk').val();
-        var group = localStorage.getItem('group');
-        var uri = BASE_URL+'kpi/mpenilaian/listik?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk+'&status=16'; 
-        if(empty(thn)){
-          alert('Tahun harus dipilih');
-          return false;
-        }
-        
-        
-        
-        getJson(loadfrmuk,uri);
-      }
-      function downloadku(){
-        var params = { 
-         fileName: 'KPI Pimpinan',
-         sheetName: 'KPI Pimpinan'
-       };
-       
-       gridTK.api.exportDataAsExcel(params);
-     }
-   </script>
-   <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
-     <script>
-      $('.select-chosen').chosen();
-      $('.chosen-container').css({"width": "100%"});
-      getOptions("txtdirektoratuk",BASE_URL+"master/direktoratSub");
-    </script>
-    <?php } ?> 
+  gridTK.api.exportDataAsExcel(params);
+}
+</script>
+<?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
+  <script>
+    $('.select-chosen').chosen();
+    $('.chosen-container').css({"width": "100%"});
+    getOptions("txtdirektoratuk",BASE_URL+"master/direktoratSub");
+  </script>
+  <?php } ?> 

@@ -1,19 +1,13 @@
 
 
 function tabPelatihan(){
-  
-	
-  $("#page-pelatihan").load("view/pegawai/form_pelatihan.php");
-  loadPelatihan();
-  
+ $("#page-pelatihan").load("view/pegawai/form_pelatihan.php");
+ loadPelatihan();  
 }
 
 function tabPelatihanView(){
-  
-	
   $("#page-pelatihan").load("view/pegawai/form_pelatihan_view.php");
-  loadPelatihan();
-  
+  loadPelatihan(); 
 }
 
 
@@ -139,125 +133,125 @@ function addPelatihan(){
 
 function editPelatihan(){
   var selectedRows = gridPelatihanOpt.api.getSelectedRows();
-           // alert('>>'+selectedRows+'<<<');
-           if(selectedRows == ''){
-            onMessage('Silahkan Pilih Pelatihan Terlebih dahulu!');
-            return false;
-          }else{
-           var selectedRowsString = '';
-           selectedRows.forEach( function(selectedRow, index) {
-            
-             if (index!==0) {
-               selectedRowsString += ', ';
-             }
-             selectedRowsString += selectedRow.id;
-           });
-           
-           bootbox.dialog({ 
-             message:$('<div></div>').load('view/pegawai/input_pelatihan.php'),
-             backdrop: false,
-             size:'large',
-             buttons: {
-               success: {
-                 label: "Save",
-                 className: "btn-success",
-                 callback: function() {
-                   
-                  simpanPelatihan('edit');
-                  return false;
-                  
-                  
-                }
-              },
-              
-              main: {
-               label: "Close",
-               className: "btn-warning",
-               callback: function() {
-                 $.niftyNoty({
-                   type: 'dark',
-                   message : "Bye Bye",
-                   container : 'floating',
-                   timer : 5000
-                 });
-               }
-             }
-           }
-         });
-           
-           $.ajax({
-            url: BASE_URL+'pegawais/pelatihan/getpelatihan/'+selectedRowsString,
-            headers: {
-              'Authorization': localStorage.getItem("Token"),
-              'X_CSRF_TOKEN':'donimaulana',
-              'Content-Type':'application/json'
-            },
-            dataType: 'json',
-            type: 'get',
-            contentType: 'application/json', 
-            processData: false,
-            success: function( data, textStatus, jQxhr ){
-              
-             
-              
-             
-              $('#nama').val(data.nama);
-              $('#penyelenggara').val(data.penyelenggara); 
-              $('#durasi').val(data.durasi);
-              $('#mulai').val(data.mulai);
+// alert('>>'+selectedRows+'<<<');
+if(selectedRows == ''){
+  onMessage('Silahkan Pilih Pelatihan Terlebih dahulu!');
+  return false;
+}else{
+  var selectedRowsString = '';
+  selectedRows.forEach( function(selectedRow, index) {
 
-              $('#sampai').val(data.sampai);
-              $('#jenis_sertifikat').val(data.jenis_sertifikat);
-              $('#no_sertifikat').val(data.no_sertifikat); 
-              $('#id_pelatihan').val(data.id); 
+    if (index!==0) {
+      selectedRowsString += ', ';
+    }
+    selectedRowsString += selectedRow.id;
+  });
 
-              if(!empty(data.file)){
-               var datafile='';
-               datafile+='<tr>';
-               datafile+='<td>1.';
-               datafile+='</td>';
-               datafile+='<td>';
-               datafile +=data.file.substring(0, 30)+'...';
-               datafile+='</td>';
-               datafile+='<td>';
-               
-               datafile +='<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/data/'+data.file+'\')"><i class="fa fa-eye"></i></a>';
-               datafile+='</td>';
-               datafile+='</tr>';
-               $('#fileIjazah').html(datafile);
+  bootbox.dialog({ 
+    message:$('<div></div>').load('view/pegawai/input_pelatihan.php'),
+    backdrop: false,
+    size:'large',
+    buttons: {
+      success: {
+        label: "Save",
+        className: "btn-success",
+        callback: function() {
 
-             }
-             
-
-             
-             getOptionsEdit("penanggung",BASE_URL+"master/penanggung",data.penanggung);  
-             getOptionsEdit("tempat",BASE_URL+"master/tempat",data.tempat);  
-             
-           } 
-         });
-           
-         }
-       }
+          simpanPelatihan('edit');
+          return false;
 
 
-       function deletPelatihan(){
-        var selectedRows = gridPelatihanOpt.api.getSelectedRows();
-           // alert('>>'+selectedRows+'<<<');
-           if(selectedRows == ''){
-            onMessage('Silahkan Pilih Group Terlebih dahulu!');
-            return false;
-          }else{
-           var selectedRowsString = '';
-           selectedRows.forEach( function(selectedRow, index) {
-             
-            if (index!==0) {
-              selectedRowsString += ', ';
-            }
-            selectedRowsString += selectedRow.id;
+        }
+      },
+
+      main: {
+        label: "Close",
+        className: "btn-warning",
+        callback: function() {
+          $.niftyNoty({
+            type: 'dark',
+            message : "Bye Bye",
+            container : 'floating',
+            timer : 5000
           });
-           
-           submit_get(BASE_URL+'pegawais/pelatihan/deletepelatihan/?id='+selectedRowsString,loadPelatihan);
-           
-           
-         }
-       }
+        }
+      }
+    }
+  });
+
+  $.ajax({
+    url: BASE_URL+'pegawais/pelatihan/getpelatihan/'+selectedRowsString,
+    headers: {
+      'Authorization': localStorage.getItem("Token"),
+      'X_CSRF_TOKEN':'donimaulana',
+      'Content-Type':'application/json'
+    },
+    dataType: 'json',
+    type: 'get',
+    contentType: 'application/json', 
+    processData: false,
+    success: function( data, textStatus, jQxhr ){
+
+
+
+
+      $('#nama').val(data.nama);
+      $('#penyelenggara').val(data.penyelenggara); 
+      $('#durasi').val(data.durasi);
+      $('#mulai').val(data.mulai);
+
+      $('#sampai').val(data.sampai);
+      $('#jenis_sertifikat').val(data.jenis_sertifikat);
+      $('#no_sertifikat').val(data.no_sertifikat); 
+      $('#id_pelatihan').val(data.id); 
+
+      if(!empty(data.file)){
+        var datafile='';
+        datafile+='<tr>';
+        datafile+='<td>1.';
+        datafile+='</td>';
+        datafile+='<td>';
+        datafile +=data.file.substring(0, 30)+'...';
+        datafile+='</td>';
+        datafile+='<td>';
+
+        datafile +='<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/data/'+data.file+'\')"><i class="fa fa-eye"></i></a>';
+        datafile+='</td>';
+        datafile+='</tr>';
+        $('#fileIjazah').html(datafile);
+
+      }
+
+
+
+      getOptionsEdit("penanggung",BASE_URL+"master/penanggung",data.penanggung);  
+      getOptionsEdit("tempat",BASE_URL+"master/tempat",data.tempat);  
+
+    } 
+  });
+
+}
+}
+
+
+function deletPelatihan(){
+  var selectedRows = gridPelatihanOpt.api.getSelectedRows();
+// alert('>>'+selectedRows+'<<<');
+if(selectedRows == ''){
+  onMessage('Silahkan Pilih Group Terlebih dahulu!');
+  return false;
+}else{
+  var selectedRowsString = '';
+  selectedRows.forEach( function(selectedRow, index) {
+
+    if (index!==0) {
+      selectedRowsString += ', ';
+    }
+    selectedRowsString += selectedRow.id;
+  });
+
+  submit_get(BASE_URL+'pegawais/pelatihan/deletepelatihan/?id='+selectedRowsString,loadPelatihan);
+
+
+}
+}
