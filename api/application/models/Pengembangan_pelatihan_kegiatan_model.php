@@ -72,6 +72,25 @@ class Pengembangan_pelatihan_kegiatan_model extends MY_Model
 			return $query->row();
 		}
 	}
+	
+	
+	function get_by1($id, $statue = 1)
+	{
+		$this->db->select("$this->table1.*,sys_grup_user.grup");
+		$this->db->from($this->table1);
+		$this->db->join("sys_user", "surat_detail.nopeg = sys_user.id_user", "left");
+		$this->db->join("sys_grup_user", "sys_user.id_grup = sys_grup_user.id_grup", "left");
+		$this->db->where("id", $id);
+		$this->db->where("statue", $statue);
+		$query = $this->db->get();
+
+		if($query->num_rows()<1){
+			return null;
+		}
+		else{
+			return $query->row();
+		}
+	}
 
 	function get_by_uniq_value($uniq_value, $statue = 1)
 	{

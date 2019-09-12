@@ -218,7 +218,7 @@ public function list_get($offset = 0, $param_search = "", $dari="", $sampai="")
 
                     $results["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["kegiatan"]);
                     $results["result"][$key]["pengembangan_pelatihan_kegiatan_status"] = $this->Pengembangan_pelatihan_kegiatan_status_model->get_by_id($value["pengembangan_pelatihan_kegiatan_status"]);
-                    $results["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by($value["kode"]);
+                    $results["result"][$key]["pengembangan_pelatihan_detail"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by1($value["kode"]);
                     $results["result"][$key]["tanggal"] = $this->Surat_model->get_detail("surat_pelaksanaan", array("surat_id" => $value["id"]));
                     $results["result"][$key]["detail"] = $this->Surat_model->get_detail("surat_detail", array("surat_id" => $value["id"]));
                     $results["result"][$key]["detail_uraian"] = $this->Surat_model->get_detail("surat_detail_biaya", array("surat_detail_id" => $value["id"]));
