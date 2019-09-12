@@ -8,28 +8,28 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 class Penghargaan extends MY_Controller
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->model("His_penghargaan_model");
-	}
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model("His_penghargaan_model");
+    }
 
-	public function index($id = null)
-	{
+    public function index($id = null)
+    {
         $response['success'] = true; 
         if($id <> null){
-        $response['data'] = $this->view($id);
+            $response['data'] = $this->view($id);
         }
         $this->set_response($response);
-	}
-	private function view($id)
-	{
-		$datas["result"] = $this->His_penghargaan_model->get_all(array("id_user" => $id));
-		$view = $this->load->view('pegawai/view_penghargaan', $datas, true);
-		return $view;
-	}
+    }
+    private function view($id)
+    {
+        $datas["result"] = $this->His_penghargaan_model->get_all(array("id_user" => $id));
+        $view = $this->load->view('pegawai/view_penghargaan', $datas, true);
+        return $view;
+    }
 
-	public function add()
+    public function add()
     {
         $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';

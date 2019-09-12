@@ -8,20 +8,20 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 class Punishment extends MY_Controller
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->model("Punishment_model");
-	}
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model("Punishment_model");
+    }
 
-	public function index($id = null)
-	{
+    public function index($id = null)
+    {
         $response['success'] = true;
         if($id <> null){
-        $response['data'] = $this->view($id);
+            $response['data'] = $this->view($id);
         }
-	    $this->set_response($response);
-	}
+        $this->set_response($response);
+    }
 
     private function view($id)
     {
@@ -30,7 +30,7 @@ class Punishment extends MY_Controller
         return $view;
     }
 
-	public function add()
+    public function add()
     {
         $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
@@ -50,7 +50,7 @@ class Punishment extends MY_Controller
         $datas["date_start"] = ($this->input->post('date_start')?$this->input->post('date_start'):NULL);
         $datas["date_end"] = ($this->input->post('date_end')?$this->input->post('date_end'):NULL);
         $datas["url"] = ($filename?$filename:NULL);
-        
+
         $create = $this->Punishment_model->create($datas);
 
         if ($create) {

@@ -18,7 +18,7 @@ class Str extends MY_Controller
     {
         $response['success'] = true; 
         if($id <> null){
-        $response['data'] = $this->view($id);
+            $response['data'] = $this->view($id);
         }
         $this->set_response($response);
     }
@@ -31,7 +31,7 @@ class Str extends MY_Controller
 
     public function add()
     {
-        // print_r($_POST);die();
+// print_r($_POST);die();
         $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
@@ -43,9 +43,9 @@ class Str extends MY_Controller
             $data = array('inputfileupload' => $this->upload->data());
             $filename = $data['inputfileupload']['file_name'];
         }
-		$date_start = date_format(date_create($this->input->post('date_start')), "Y-m-d");
-		$date_end = date_format(date_create($this->input->post('date_end')), "Y-m-d");
-        
+        $date_start = date_format(date_create($this->input->post('date_start')), "Y-m-d");
+        $date_end = date_format(date_create($this->input->post('date_end')), "Y-m-d");
+
         $datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
         $datas["str"] = ($this->input->post('str')?$this->input->post('str'):NULL);
         $datas["date_start"] = ($date_start?$date_start:NULL);

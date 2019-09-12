@@ -35,8 +35,8 @@ class Upload extends CI_Controller
         }
         echo json_encode($arr);
     }
-	
-	public function upload_pendidikan()
+
+    public function upload_pendidikan()
     {
         $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
@@ -63,10 +63,10 @@ class Upload extends CI_Controller
         }
         echo json_encode($arr);
     }
-	
-	public function upload_latbang_file()
+
+    public function upload_latbang_file()
     {   
-        // print_r($_POST);die();
+// print_r($_POST);die();
 
         $config['upload_path'] = 'upload/data/latbang';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
@@ -78,44 +78,44 @@ class Upload extends CI_Controller
             $upload = $this->upload->data();
             $arrdata["file"] = $upload['file_name'];
         }
-		if (!$this->upload->do_upload('inputfileuploadizn')) {
+        if (!$this->upload->do_upload('inputfileuploadizn')) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $upload = $this->upload->data();
             $arrdata["file_izn"] = $upload['file_name'];
         }
-		if (!$this->upload->do_upload('inputfileuploadspd')) {
+        if (!$this->upload->do_upload('inputfileuploadspd')) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $upload = $this->upload->data();
             $arrdata["file_spd"] = $upload['file_name'];
         }
-		if (!$this->upload->do_upload('inputfileuploadrak')) {
+        if (!$this->upload->do_upload('inputfileuploadrak')) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $upload = $this->upload->data();
             $arrdata["file_rak"] = $upload['file_name'];
         }
-		if (!$this->upload->do_upload('inputfileuploadrkm')) {
+        if (!$this->upload->do_upload('inputfileuploadrkm')) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $upload = $this->upload->data();
             $arrdata["file_rkm"] = $upload['file_name'];
         }
-		if (!$this->upload->do_upload('inputfileuploadlap')) {
+        if (!$this->upload->do_upload('inputfileuploadlap')) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $upload = $this->upload->data();
             $arrdata["file_lap"] = $upload['file_name'];
         }
-        //print_r($arrdata);die();
+//print_r($arrdata);die();
 
         $id = $this->input->post("id_latbang");
 
         $this->db->where("id", $id);
         $result = $this->db->update('pengembangan_pelatihan_detail', $arrdata);
 
-	
+
         if ($result) {
             $response['hasil'] = 'success';
             $response['message'] = 'File berhasil diuload!';
@@ -182,8 +182,8 @@ class Upload extends CI_Controller
         }
         echo json_encode($arr);
     } 
-	
-	public function upload_jabasn()
+
+    public function upload_jabasn()
     {
         $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
@@ -230,14 +230,14 @@ class Upload extends CI_Controller
         }
 
         $id = $this->input->post('id_userfile');
-		
-		$id_kategori = $this->input->post('kategorifile'); 
+
+        $id_kategori = $this->input->post('kategorifile'); 
 
         $datas = array(
-                'id_user' => $id,
-                'kategori_id' => $id_kategori,
-                'nama_file' =>$this->input->post('namafile'),
-                'url' => $filename);
+            'id_user' => $id,
+            'kategori_id' => $id_kategori,
+            'nama_file' =>$this->input->post('namafile'),
+            'url' => $filename);
 
         $this->db->insert('his_files', $datas);
 
@@ -254,9 +254,9 @@ class Upload extends CI_Controller
 
         echo json_encode($arr);                                           
     }
-	
-	
-	public function uploadidentitas()
+
+
+    public function uploadidentitas()
     {
         $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
@@ -275,12 +275,12 @@ class Upload extends CI_Controller
         }
 
         $id = $this->input->post('f_id_edit');
-        
+
         $datas = array(
-                'id_user' => $id,
-                'kategori_id' => '10',
-                'nama_file' =>$this->input->post('namafileidentitas'),
-                'url' => $filename);
+            'id_user' => $id,
+            'kategori_id' => '10',
+            'nama_file' =>$this->input->post('namafileidentitas'),
+            'url' => $filename);
 
         $this->db->insert('his_files', $datas);
 

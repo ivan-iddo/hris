@@ -8,28 +8,28 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 class Sip extends MY_Controller
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->model("His_sip_model");
-	}
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model("His_sip_model");
+    }
 
-	public function index($id = null)
-	{
+    public function index($id = null)
+    {
         $response['success'] = true; 
         if($id <> null){
-        $response['data'] = $this->view($id);
+            $response['data'] = $this->view($id);
         }
         $this->set_response($response);
-	}
-	private function view($id)
-	{
-		$datas["result"] = $this->His_sip_model->get_all(array("id_user" => $id));
-		$view = $this->load->view('pegawai/view_sip', $datas, true);
-		return $view;
-	}
+    }
+    private function view($id)
+    {
+        $datas["result"] = $this->His_sip_model->get_all(array("id_user" => $id));
+        $view = $this->load->view('pegawai/view_sip', $datas, true);
+        return $view;
+    }
 
-	public function add()
+    public function add()
     {
         $config['upload_path'] = 'upload/data';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
@@ -42,8 +42,8 @@ class Sip extends MY_Controller
             $data = array('inputfileupload' => $this->upload->data());
             $filename = $data['inputfileupload']['file_name'];
         }
-		$date_start = date_format(date_create($this->input->post('date_start')), "Y-m-d");
-		$date_end = date_format(date_create($this->input->post('date_end')), "Y-m-d");
+        $date_start = date_format(date_create($this->input->post('date_start')), "Y-m-d");
+        $date_end = date_format(date_create($this->input->post('date_end')), "Y-m-d");
         $datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
         $datas["sip"] = ($this->input->post('sip')?$this->input->post('sip'):NULL);
         $datas["date_start"] = ($date_start?$date_start:NULL);

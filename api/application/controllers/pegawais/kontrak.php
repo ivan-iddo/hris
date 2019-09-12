@@ -18,10 +18,10 @@ class Kontrak extends MY_Controller
     {
         $response['success'] = true; 
         if($id <> null){
-        $response['data'] = $this->view($id);
+            $response['data'] = $this->view($id);
         }
         $this->set_response($response);
-        
+
     }
     private function view($id)
     {
@@ -43,10 +43,10 @@ class Kontrak extends MY_Controller
             $data = array('inputfileupload' => $this->upload->data());
             $filename = $data['inputfileupload']['file_name'];
         }
-		
-		$awall=date_format(date_create($this->input->post('tmtawal')), "Y-m-d");
-		$kontraks=date_format(date_create($this->input->post('tglktr')), "Y-m-d");
-		$akhirs=date_format(date_create($this->input->post('tglakhir')), "Y-m-d");
+
+        $awall=date_format(date_create($this->input->post('tmtawal')), "Y-m-d");
+        $kontraks=date_format(date_create($this->input->post('tglktr')), "Y-m-d");
+        $akhirs=date_format(date_create($this->input->post('tglakhir')), "Y-m-d");
         $datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
         $datas["noktr"] = ($this->input->post('noktr')?$this->input->post('noktr'):NULL);
         $datas["tmtawal"] = ($awall?$awall:NULL);
