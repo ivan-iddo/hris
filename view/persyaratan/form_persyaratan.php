@@ -57,6 +57,12 @@
 				</select>
 			</div>
 		</div>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="lain">Lain - Lain</label>
+			<div class="col-sm-8">
+				<textarea placeholder="" class="form-control input-sm" id="lain" name="lain" type="text"></textarea>
+			</div>
+		</div>
 		<!-- <div class="form-group">
 			<label class="col-sm-4 control-label" for="inputrw">Bagian</label>
 			<div class="col-sm-8">

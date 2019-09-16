@@ -29,10 +29,11 @@ class Cuti extends REST_Controller
 
                 $id_user = $this->input->get('id_user');
                 $this->db->select('m_jenis_cuti.nama as namcut,his_cuti.*,dm_term.nama as statuspros');
-                $this->db->join('m_jenis_cuti', 'm_jenis_cuti.id = his_cuti.jenis_cuti');
+                $this->db->join('m_jenis_cuti', 'm_jenis_cuti.abid = his_cuti.jenis_cuti');
                 $this->db->join('dm_term', 'dm_term.id = his_cuti.status');
                 $this->db->where('id_user', $id_user);
                 $this->db->where('EXTRACT(YEAR FROM his_cuti.tgl_cuti) =',$thn);
+                $this->db->where('m_jenis_cuti.tahun =',$thn);
                 $this->db->where('his_cuti.tampilkan', '1');
                 $this->db->order_by('tgl_cuti', 'DESC');
                 $resCek = $this->db->get('his_cuti')->result();
@@ -86,16 +87,12 @@ class Cuti extends REST_Controller
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
-                $id_cuti = $this->input->get('id');
                 $id_user = $this->input->get('id_user');
                 $tahun = date('Y');
                 $tahunskrg = $tahun;
                 $tahunlalu = ($tahun - 1);
 
-                $this->db->where('id', $id_cuti);
-                $this->db->where('tampilkan', '1');
-                $res = $this->db->get('m_jenis_cuti')->row();
-                $kd_jenis_cuti = $res->abid;
+                $kd_jenis_cuti = $this->input->get('id');
 
                 $this->db->where('abid', $kd_jenis_cuti);
                 $this->db->where('tampilkan', '1');
@@ -104,7 +101,7 @@ class Cuti extends REST_Controller
                 $max_cuti_skrg = $resMaxSkrg->jumlah;
 
                 $this->db->select('sum(total) as total_cuti');
-                $this->db->where('jenis_cuti', $id_cuti);
+                $this->db->where('jenis_cuti', $kd_jenis_cuti);
                 $this->db->where('id_user', $id_user);
                 $this->db->where('status != 108');
                 $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', $tahun);
@@ -133,13 +130,13 @@ class Cuti extends REST_Controller
                     }
 
                     $this->db->select('sum(total) as total_cuti');
-                    $this->db->where('jenis_cuti', $id_cuti);
+                    $this->db->where('jenis_cuti', $kd_jenis_cuti);
                     $this->db->where('id_user', $id_user);
-                    $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', ($tahun - 1));
+                    $this->db->where('tahun =', ($tahun - 1));
                     $this->db->where('status != 108');
                     $this->db->where('tampilkan', '1');
                     $resCekLalu = $this->db->get('his_cuti')->row();
-//print_r($resCekLalu);die();
+					
                     $this->db->where('abid', $kd_jenis_cuti);
                     $this->db->where('tampilkan', '1');
                     $this->db->where('tahun', $tahunlalu);
@@ -153,7 +150,7 @@ class Cuti extends REST_Controller
                     } else {
                         $jumcuti = $cuti_kmrn;
                     }
-
+					
                     $cutithnlalu = $max_cuti_kmrn - $jumcuti;
                     $jumlahtot = $max_cuti_skrg + $cutithnlalu;
 
@@ -303,15 +300,10 @@ class Cuti extends REST_Controller
                 $lama_cuti2 = $lama_cuti1 - 1;
                 if(!empty($this->uri->segment(4))){
                     $id_user = $this->input->get('id_user');
-                    $id_jenis_cuti = $this->input->get('id_jenis_cuti');
+                    $kd_jenis_cuti = $this->input->get('id_jenis_cuti');
                     $tglawal = date('Y-m-d', strtotime($this->uri->segment(4)));
                     $thn = date('Y');
                     $tglakhir = date('Y-m-d', strtotime('+'.$lama_cuti2.' days', strtotime($tglawal))); 
-
-                    $this->db->where('id', $id_jenis_cuti);
-                    $this->db->where('tampilkan', '1');
-                    $res = $this->db->get('m_jenis_cuti')->row();
-                    $kd_jenis_cuti = $res->abid;
 
                     $this->db->select('libur.tanggal as tgl');
                     $this->db->where('tahun', $thn);
@@ -435,7 +427,7 @@ function savecuti_post()
 // echo " ";
 // print_r($sampainew);die();
 //cek lagi
-            $jenis_cuti = ($this->input->post('jenis_cuti'))?$this->input->post('jenis_cuti'):null;
+            $kd_jenis_cuti = ($this->input->post('jenis_cuti'))?$this->input->post('jenis_cuti'):null;
             $id_user = ($this->input->post('id_user'))?$this->input->post('id_user'):null;
             $id_group = ($this->input->post('id_group'))?$this->input->post('id_group'):null;
             $keterangan = ($this->input->post('keterangan'))?$this->input->post('keterangan'):null;
@@ -446,10 +438,10 @@ function savecuti_post()
             $tahunskrg = $tahun;
             $tahunlalu = ($tahun - 1);
 
-            $this->db->where('id', $jenis_cuti);
+            /*$this->db->where('id', $jenis_cuti);
             $this->db->where('tampilkan', '1');
             $res = $this->db->get('m_jenis_cuti')->row();
-            $kd_jenis_cuti = $res->abid;
+            $kd_jenis_cuti = $res->abid;*/
 
             $this->db->where('id_grup', $id_group);
             $this->db->where('tampilkan', '1');
@@ -465,13 +457,14 @@ function savecuti_post()
                 'total' => $jml,
                 'tgl_cuti' => $tglnew,
                 'tgl_akhir_cuti' => $sampainew,
-                'jenis_cuti' => $jenis_cuti,
+                'jenis_cuti' => $kd_jenis_cuti,
                 'status' => '102',
                 'keterangan' => $keterangan,
                 'alamat' => $alamat,
                 'no_telp' => $no_telp,
                 'tanggung_jawab' => $tanggung_jawab,
-                'id_group' => $id_group
+                'id_group' => $id_group,
+                'tahun' => date('Y'),
 
             );
             $query = $this->db->insert('his_cuti', $datacuti);
@@ -686,12 +679,14 @@ function listcutiall_get()
 
 //$id_user = $this->input->get('id_user');
             $this->db->select('m_jenis_cuti.nama as namcut,his_cuti.*,dm_term.nama as statuspros,sys_user.name as namapegawai');
-            $this->db->join('m_jenis_cuti', 'm_jenis_cuti.id = his_cuti.jenis_cuti');
+            $this->db->join('m_jenis_cuti', 'm_jenis_cuti.abid = his_cuti.jenis_cuti');
             $this->db->join('dm_term', 'dm_term.id = his_cuti.status');
             $this->db->join('sys_user', 'sys_user.id_user = his_cuti.id_user');
             $this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
             $this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
-            $this->db->where('his_cuti.tampilkan', '1');
+            $this->db->where('m_jenis_cuti.tahun =',date('Y'));
+               
+			$this->db->where('his_cuti.tampilkan', '1');
             $this->db->where('his_cuti.status', '102');
 //if ($user_froup!=1) {
 //$this->db->where("riwayat_kedinasan.bagian",$user_froup);  
@@ -853,12 +848,13 @@ function listcutisdm_get()
             $user_froup = $decodedToken->data->_pnc_id_grup;
             $id_user = $this->input->get('id_user');
             $this->db->select('m_jenis_cuti.nama as namcut,his_cuti.*,dm_term.nama as statuspros,sys_user.name as namapegawai');
-            $this->db->join('m_jenis_cuti', 'm_jenis_cuti.id = his_cuti.jenis_cuti');
+            $this->db->join('m_jenis_cuti', 'm_jenis_cuti.abid = his_cuti.jenis_cuti');
             $this->db->join('dm_term', 'dm_term.id = his_cuti.status');
             $this->db->join('sys_user', 'sys_user.id_user = his_cuti.id_user');
             $this->db->where('his_cuti.tampilkan', '1');
             $this->db->where('his_cuti.status', '107');
-
+			$this->db->where('m_jenis_cuti.tahun =',date('Y'));
+            
             if (($user_froup == '1') OR ($user_froup == '6')) {
                 if ((!empty($this->input->get('id_uk'))) AND ($this->input->get('id_uk') <> 'null')) {
                     $this->db->where('sys_user.id_grup', $this->input->get('id_uk'));
@@ -949,11 +945,12 @@ function list_cutis_get()
             $user_froup = $decodedToken->data->_pnc_id_grup;
             $id_user = $this->input->get('id_user');
             $this->db->select('m_jenis_cuti.nama as namcut,his_cuti.*,dm_term.nama as statuspros,sys_user.name as namapegawai');
-            $this->db->join('m_jenis_cuti', 'm_jenis_cuti.id = his_cuti.jenis_cuti');
+            $this->db->join('m_jenis_cuti', 'm_jenis_cuti.abid = his_cuti.jenis_cuti');
             $this->db->join('dm_term', 'dm_term.id = his_cuti.status');
             $this->db->join('sys_user', 'sys_user.id_user = his_cuti.id_user');
             $this->db->where('his_cuti.tampilkan', '1');
-
+			$this->db->where('m_jenis_cuti.tahun =',date('Y'));
+               
             if (($user_froup == '1') OR ($user_froup == '6') or ($user_froup == '97') or ($user_froup == '98') or ($user_froup == '99') or ($user_froup == '100')) {
                 if ((!empty($this->input->get('id_uk'))) AND ($this->input->get('id_uk') <> 'null')) {
                     $this->db->where('sys_user.id_grup', $this->input->get('id_uk'));

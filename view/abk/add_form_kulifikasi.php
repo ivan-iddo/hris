@@ -46,7 +46,9 @@
                                 <div class="col-sm-7">
                                     <select aria-hidden="true" class="select-chosen" id="katsdmfrm4" name="katsdmfrm4" style="width: 70%;" tabindex="-1">
                                     </select>
-                                </div>
+                                <span class="text-xs text-danger">* Wajib diisi</span>
+				
+								</div>
                             </div> 
                         </div>
                         <div class="form-group">
@@ -112,8 +114,9 @@
                             ?>
                             <option value="<?php echo $i?>" <?php echo $sele?>><?php echo $i?></option>
                         <?php }?>
-                    </select> 
-                </div>
+                    </select>
+				<span class="text-xs text-danger">* Wajib diisi</span>
+				</div>
 
             </div> 
         </div>
@@ -146,7 +149,8 @@
 
 <div class="row mar-all"> 
     <div class="form-group">
-        <label class="col-sm-2 control-label" for="inputstatus">Jenis kelamin</label>
+        <label class="col-sm-2 control-label" for="inputstatus">Jenis kelamin<span class="text-xs text-danger">*</span>
+				</label>
         <div class="col-sm-7">
             <div id="kelamin" class="kelamin"></div>
         </div>
@@ -188,7 +192,8 @@
 
 
             </select> 
-        </div> 
+        <span class="text-xs text-danger">* Wajib diisi</span>
+		</div> 
     </div> 
 </div>
 <div class="row mar-all"> 
@@ -229,7 +234,9 @@
                         <select class="form-control select-chosen" id="kompi" name="kompi" style="width: 100%;" >
 
 
-                        </select> 
+                        </select>
+					<span class="text-xs text-danger">* Wajib diisi</span>
+					
                     </div>
                     <div class="col-sm-7">
                         <div id="level_kompi" class="media_type"></div>
@@ -244,7 +251,8 @@
 
 
                         </select> 
-                    </div>
+                    <span class="text-xs text-danger">* Wajib diisi</span>
+					</div>
                     <div class="col-sm-7">
                         <div id="level_bahasa" class="media_type"></div>
                     </div> 
@@ -259,7 +267,8 @@
 
 
                         </select> 
-                    </div>
+                    <span class="text-xs text-danger">* Wajib diisi</span>
+					</div>
 
                 </div> 
             </div>

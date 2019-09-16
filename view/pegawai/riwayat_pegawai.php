@@ -433,6 +433,7 @@
                                      $('#txtjabatan1').prop('disabled', true);
                                      $('#txtjabatan2').prop('disabled', true);
                                      $('#txtgolongan').prop('disabled', true);
+                                     $('#txtpendidikan').prop('disabled', true);
                                      $('#staff').prop('disabled', true);
                                      $('#kaunit').prop('disabled', true);
                                      $('#txtbagian').prop('disabled', true);
@@ -549,6 +550,7 @@ function simpan(){
  $('#txtjabatan1').prop('disabled', false);
  $('#txtjabatan2').prop('disabled', false);
  $('#txtgolongan').prop('disabled', false);
+ $('#txtpendidikan').prop('disabled', false);
  $('#staff').prop('disabled', false);
  $('#kaunit').prop('disabled', false);
  $('#txtbagian').prop('disabled', false);

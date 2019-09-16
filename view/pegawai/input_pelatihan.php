@@ -39,7 +39,10 @@
                         <label class="col-sm-4 control-label" for="inputrt">Penanggung Biaya</label>
                         <div class="col-sm-8">
                           <select class="form-control select2" id="penanggung" name="penanggung" style="width: 100%;">
-                           
+                           <option value="1">Sendiri</option>
+						   <option value="2">Kantor</option>     
+						   <option value="3">Sponsor</option>     
+              
                           </select>
                         </div>
                       </div>

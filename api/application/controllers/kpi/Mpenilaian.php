@@ -451,10 +451,10 @@ public function saveiku_post()
 			$max = 100;
 			if(empty($bobot)){
 				$arr['hasil']='Maaf';
-				$arr['message'] = 'Perhatian! Total Bobot Anda Belum ada kurang dari 100%. Total Bobot harus 100%';
+				$arr['message'] = 'Perhatian! Total Bobot Anda kurang atau lebih dari 100%. Total Bobot harus 100%';
 			}else if($bobot!=100){
 				$arr['hasil']='Maaf';
-				$arr['message'] = 'Perhatian! Total Bobot Anda '. $bobot .' kurang atau lebih dari 100%. Total Bobot harus 100%';
+				$arr['message'] = 'Perhatian! Total Bobot Anda kurang atau lebih dari 100%. Total Bobot harus 100%';
 			}else{
 				foreach ($_POST as $dat) {
 					if($dat['id_kpi_d']!=1){
@@ -507,10 +507,10 @@ public function saveikubaru_post()
 			$max = 100;
 			if(empty($bobot)){
 				$arr['hasil']='Maaf';
-				$arr['message'] = 'Perhatian! Total Bobot Anda Belum ada kurang dari 100%. Total Bobot harus 100%';
+				$arr['message'] = 'Perhatian! Total Bobot Anda kurang atau lebih dari 100%. Total Bobot harus 100%';
 			}else if($bobot!=100){
 				$arr['hasil']='Maaf';
-				$arr['message'] = 'Perhatian! Total Bobot Anda '. $bobot .' kurang atau lebih dari 100%. Total Bobot harus 100%';
+				$arr['message'] = 'Perhatian! Total Bobot Anda kurang atau lebih dari 100%. Total Bobot harus 100%';
 			}else{
 				$this->db->where('id', $id_kpi);
 				$result = $this->db->update('his_kpi',array('nilai_akhir' => round($jumlah, 2)));

@@ -390,7 +390,7 @@ function add(){
     onMessage('Data Tahun tidak boleh kosong');
     return false;
   }else if(empty($('#katsdmfrm4').val())){
-    onMessage('Kategori SDM harus dipilih');
+    onMessage('Jabatan harus dipilih');
     return false;
   }else if(empty($('#f_kelamin').val())){
     onMessage('Data Gender tidak boleh kosong');
@@ -401,14 +401,8 @@ function add(){
   }else if(empty($('#kompi').val())){
     onMessage('Pilih Keterampilan Komputer');
     return false;
-  }else if(empty($('#f_level_kompi').val())){
-    onMessage('Level komputer harus dipilih');
-    return false;
   }else if(empty($('#bahasa').val())){
     onMessage('Bahasa Asing wajib dipilih');
-    return false;
-  }else if(empty($('#f_level_bahasa').val())){
-    onMessage('Level Bahasa Wajib dipilih');
     return false;
   }else if(empty($('#pengalaman').val())){
     onMessage('Pengalaman kerja wajib dipilih');
@@ -474,14 +468,8 @@ function editaction(){
   }else if(empty($('#kompi').val())){
     onMessage('Pilih Keterampilan Komputer');
     return false;
-  }else if(empty($('#f_level_kompi').val())){
-    onMessage('Level komputer harus dipilih');
-    return false;
   }else if(empty($('#bahasa').val())){
     onMessage('Bahasa Asing wajib dipilih');
-    return false;
-  }else if(empty($('#f_level_bahasa').val())){
-    onMessage('Level Bahasa Wajib dipilih');
     return false;
   }else if(empty($('#pengalaman').val())){
     onMessage('Pengalaman kerja wajib dipilih');

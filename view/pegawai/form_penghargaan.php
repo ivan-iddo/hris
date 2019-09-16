@@ -10,7 +10,7 @@ input[type="date"]:valid:before {
     content: "";
 }
 </style>
-<?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
+<?php //if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
     <form name="form-file-penghargaan" id="form-file-penghargaan" class="form-horizontal">
         <div class="panel-body pad-all">
             <div class="row">
@@ -55,7 +55,7 @@ input[type="date"]:valid:before {
                       </div>
                   </div>
               </div>
-          <?php }?>
+          <?php //}?>
           <div class="row"></div>
           <div class="row pad-all">
             <div class="table-responsive">

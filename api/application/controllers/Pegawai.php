@@ -3462,8 +3462,10 @@ function listfile_get()
             } else {
                 $this->db->where('id_user', 0);
             }
+			if(!empty($this->input->get('kategori'))){
             $this->db->where('kategori_id', $this->input->get('kategori'));
-            $this->db->where('tampilkan', '1');
+            }
+			$this->db->where('tampilkan', '1');
             $this->db->order_by('tgl', 'DESC');
             $resCek = $this->db->get('his_files')->result();
 

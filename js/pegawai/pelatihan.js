@@ -93,7 +93,6 @@ function loadPelatihan(){
 }
 
 function addPelatihan(){
-  getOptions("penanggung",BASE_URL+"master/penanggung");
   getOptions("tempat",BASE_URL+"master/tempat");
   
   

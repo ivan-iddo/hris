@@ -801,7 +801,7 @@ public function jenis_cuti_get(){
 			$this->db->where('tahun',date('Y'));
 			$res = $this->db->get('m_jenis_cuti')->result();
 			foreach($res as $d){
-				$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id);
+				$arr['result'][]=array('label'=>$d->nama,'value'=>$d->abid);
 			}
 
 			$this->set_response($arr, REST_Controller::HTTP_OK);

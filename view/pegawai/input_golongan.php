@@ -25,7 +25,7 @@
           <div class="form-group">
             <label class="col-sm-4 control-label" for="tmt_golongan_akhir">TMT Akhir</label>
             <div class="col-sm-8">
-              <input class="form-control tgl" id="tmt_golongan_akhir" name="tmt_golongan_akhir" placeholder="dd-mm-yyyy" type="text" readonly>
+              <input class="form-control" id="tmt_golongan_akhir" name="tmt_golongan_akhir" placeholder="dd-mm-yyyy" type="text" readonly>
             </div>
           </div>
           <div class="form-group">
@@ -71,8 +71,8 @@
             <div class="col-sm-8">
               <select class="form-control" id="status" name="status" type="text" onChange="getTmtakhir(this.value);">
                 <option value="">--Silahkan Pilih--</option>
-                              <!-- <option value="fungsional">Fungsional</option>
-                                <option value="reguler">Reguler</option> -->
+                                <option value="110">Fungsional</option>
+                                <option value="111">Reguler</option>
                               </select>
                             </div>
                           </div>

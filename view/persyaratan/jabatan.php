@@ -245,9 +245,6 @@
     }else if(empty($('#masajbt').val())){
       onMessage('Masa jabatan tidak boleh kosong');
       return false;
-    }else if(empty($('#txtjabatans').val())){
-      onMessage('Data Nama Jabatan yang pernah diemban tidak boleh kosong');
-      return false;
     }else if(empty($('#tufoksi').val())){
       onMessage('Tupoksi tidak boleh kosong');
       return false;

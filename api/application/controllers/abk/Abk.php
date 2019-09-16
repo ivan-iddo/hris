@@ -1548,11 +1548,18 @@ class Abk extends REST_Controller
                     $array = $array + $arrtam;
                 } 
                 else {
+					if(!empty($this->input->post('adduk'))){
+					$id_parent = $this->System_auth_model->getparent($this->input->post('adduk'), '1');
+                    $arrtam['id_atasan'] = $id_parent;
+                    $arrtam['id_uk'] = ($this->input->post('adduk')?$this->input->post('adduk'):NULL);
+                    $array = $array + $arrtam;
+					}else{
                     $id_parent = $this->System_auth_model->getparent($decodedToken->data->_pnc_id_grup, '1');
                     $arrtam['id_atasan'] = $id_parent;
                     $arrtam['id_uk'] = $decodedToken->data->_pnc_id_grup;
                     $array = $array + $arrtam;
-                }
+					}
+				}
 // print_r($decodedToken);
 // print_r($array);
 // echo $this->db->last_query();die;
@@ -2136,9 +2143,14 @@ class Abk extends REST_Controller
                     $arrtam['id_uk'] = $this->input->post('adduk');
                     $array = $array + $arrtam;
                 } else {
-                    $arrtam['id_uk'] = $decodedToken->data->_pnc_id_grup;
+				if(!empty($this->input->post('adduk'))){
+                    $arrtam['id_uk'] = $this->input->post('adduk');
                     $array = $array + $arrtam;
-                }
+                }else{
+					$arrtam['id_uk'] = $decodedToken->data->_pnc_id_grup;
+                    $array = $array + $arrtam;
+				}
+				}
 
                 $this->db->where('id', $this->input->post('id_tk'));
                 $res = $this->db->update('abk_pengajuan_tn', $array);

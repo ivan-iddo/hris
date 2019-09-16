@@ -30,7 +30,10 @@
             <label class="col-sm-4 control-label" for="inputpropinsi">Akreditasi</label>
             <div class="col-sm-8">
               <select class="form-control select2" id="txtJakreditasi" name="txtJakreditasi" style="width: 100%;">
-               
+                <option value="1">Akreditasi A</option>
+                <option value="2">Akreditasi B</option>
+                <option value="3">Akreditasi C</option>
+                <option value="4">Akreditasi Ban PT</option>     
               </select>
             </div>
           </div>
@@ -63,7 +66,9 @@
             <label class="col-sm-4 control-label" for="inputpropinsi">Status</label>
             <div class="col-sm-8">
               <select class="form-control select2" id="txtStatusLulus" name="txtStatusLulus" style="width: 100%;">
-               
+                <option value="1">Lulus</option>
+                <option value="2">Tidak Lulus</option>     
+              
               </select>
             </div>
           </div>

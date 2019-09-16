@@ -66,6 +66,7 @@ public function listdata_get(){
 						'jabatan_lama'=> $dat->lama,
 						'id_jabatan_lama'=> $dat->jabatan_lama,
 						'kd_jabatan'=> $dat->kd_jabatan,
+						'lain'=> $dat->lain,
 						'tufoksi'=> $dat->tufoksi
 					);
 				}
@@ -99,7 +100,8 @@ public function save_post(){
 					'formal'=> ($this->input->post('formal')?$this->input->post('formal'):NULL),
 					'nonformal'=> ($this->input->post('nonformal')?$this->input->post('nonformal'):NULL),
 					'jabatan_lama'=> ($this->input->post('txtjabatans')?$this->input->post('txtjabatans'):NULL),
-					'tufoksi'=> ($this->input->post('tufoksi')?$this->input->post('tufoksi'):NULL)
+					'tufoksi'=> ($this->input->post('tufoksi')?$this->input->post('tufoksi'):NULL),
+				    'lain'=> ($this->input->post('lain')?$this->input->post('lain'):NULL),
 				);
 
 				$this->db->where('id_persyaratan',$id);
@@ -113,7 +115,9 @@ public function save_post(){
 					'formal'=> ($this->input->post('formal')?$this->input->post('formal'):NULL),
 					'nonformal'=> ($this->input->post('nonformal')?$this->input->post('nonformal'):NULL),
 					'jabatan_lama'=> ($this->input->post('txtjabatans')?$this->input->post('txtjabatans'):NULL),
-					'tufoksi'=> ($this->input->post('tufoksi')?$this->input->post('tufoksi'):NULL)
+					'tufoksi'=> ($this->input->post('tufoksi')?$this->input->post('tufoksi'):NULL),
+					'lain'=> ($this->input->post('lain')?$this->input->post('lain'):NULL),
+			
 				); 
 				$res = $this->db->insert($this->table,$arr);
 			}

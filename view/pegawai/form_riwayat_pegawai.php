@@ -656,6 +656,7 @@ aria-expanded="false">Penghargaan</a></li>
       $('#txtjabatan1').prop('disabled', true);
       $('#txtjabatan2').prop('disabled', true);
       $('#txtgolongan').prop('disabled', true);
+      $('#txtpendidikan').prop('disabled', true);
       $('#staff').prop('disabled', true);
       $('#kaunit').prop('disabled', true);
       $('#txtbagian').prop('disabled', true);

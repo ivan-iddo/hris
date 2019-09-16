@@ -38,11 +38,12 @@ public function listjasn_get(){
 		if ($decodedToken != false) {
 //$this->db->limit('100');
 //$this->db->order_by();	
-			$this->db->select('his_jabatan_asn.*,d.grup as jabatan,e.grup as bagian_jabatan,f.grup as sub_bagian_jabatan,');
+			$this->db->select('his_jabatan_asn.*,dm_term.nama as s_kerja,d.grup as jabatan,e.grup as bagian_jabatan,f.grup as sub_bagian_jabatan,');
 			$this->db->join('sys_grup_user as d','d.id_grup = his_jabatan_asn.jabatan','LEFT');
 			$this->db->join('sys_grup_user as e','e.id_grup = his_jabatan_asn.bagian_jabatan','LEFT');
 			$this->db->join('sys_grup_user as f','f.id_grup = his_jabatan_asn.sub_bagian_jabatan','LEFT');
 			$this->db->join('sys_user','sys_user.id_user = his_jabatan_asn.user_id','LEFT');
+			$this->db->join('dm_term','dm_term.id = his_jabatan_asn.satuan_kerja');
 			$this->db->where('sys_user.status','1'); 
 			$this->db->where('his_jabatan_asn.tampilkan','1'); 
 			$this->db->where('his_jabatan_asn.user_id',$this->uri->segment('4')); 
@@ -66,7 +67,7 @@ public function listjasn_get(){
 						'jabfungasn' => $d->jabfungasn,
 						'ahlifungasn' => $d->ahlifungasn,
 						'ketahlijabfungasn' => $d->ketahlijabfungasn,
-						'satuan_kerja' => $d->satuan_kerja,
+						'satuan_kerja' => $d->s_kerja,
 					);
 				}
 			}else{
@@ -109,6 +110,7 @@ public function getjasn_get(){
 				'nilai_pak' => $d->nilai_pak,
 				'keterangan' => $d->keterangan,
 				'satuan_kerja' => $d->satuan_kerja,
+				'id_satker' => $d->satuan_kerja,
 				'jabfungasn' => $d->jabfungasn,
 				'ahlifungasn' => $d->ahlifungasn,
 				'ketahlijabfungasn' => $d->ketahlijabfungasn,
