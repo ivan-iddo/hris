@@ -359,12 +359,6 @@ function validateUsername(fld) {
         onMessage(error);
         return false;
 
-    } else if ((fld < 5) || (fld > 15)) {
-
-        error = "The username is the wrong length.\n";
-        onMessage(error);
-        return false;
-
     } else if (illegalChars.test(fld)) {
 
         error = "The username contains illegal characters.\n";

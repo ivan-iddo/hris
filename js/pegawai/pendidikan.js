@@ -93,8 +93,6 @@ function loadPendidikan(){
 }
 
 function addPendidikan(){
-  getOptions("txtStatusLulus",BASE_URL+"master/statuslulus");
-  getOptions("txtJakreditasi",BASE_URL+"master/akreditas");
   getOptions("txtJPend",BASE_URL+"master/getpen?id=29");
 
 

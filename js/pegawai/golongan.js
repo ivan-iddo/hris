@@ -93,7 +93,6 @@ function loadGolongan(){
 
 function addGolongan(){
   getOptions("pangkat_id",BASE_URL+"master/golongan_pegawai");
-  getOptions("status",BASE_URL+"master/getmaster?id=45");
   
   
   bootbox.dialog({ 
