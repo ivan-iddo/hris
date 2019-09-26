@@ -119,7 +119,7 @@
 				</div>
 
 			</div>
-			<a style="margin-left:3px" class="btn btn-success" onclick="proses('84')"><i class="fa fa-file-excel-o"></i> Setujui dan kirim ke SDM</a>
+			<a style="margin-left:3px" class="btn btn-success" onclick="proses('117')"><i class="fa fa-file-excel-o"></i> Setujui dan kirim ke SDM</a>
 
 		</div>
 	</div>

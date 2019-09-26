@@ -26,6 +26,11 @@
 	</div>
 </div>
 
+<div class="panel">
+	<div class="panel-body">
+		<div id="pendidikan_all" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+	</div>
+</div>
 
 
 <script type="text/javascript">
@@ -37,5 +42,7 @@
 	generateChart('keluar','chart/chart_keluar','Populasi Pegawai Berdasarkan Aktif','Jumlah Pegawai','column');
 	
 	generateChart('pendidikan','chart/chart_pendidikan','Populasi Pegawai Berdasarkan Pendidikan','Jumlah Pegawai','column');
+	
+	generateChart('pendidikan_all','chart/chart_pendidikan_all','Populasi Pegawai Berdasarkan Pendidikan','Jumlah Pegawai','column');
 	
 </script>

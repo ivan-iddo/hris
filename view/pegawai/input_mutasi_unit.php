@@ -5,8 +5,7 @@
 				<label class="col-sm-4 control-label" for="inputrt">Direktorat Tujuan</label>
 				<div class="col-sm-8">
 					<input id="txtIdUser" name="txtIdUser" style="display:none" type="text">
-					<input id="status" name="status" style="display:none" type="text">
-					<input name="iddok" id="iddok" style="display:none" type="text">
+					<input id="txtIdUser" name="iddok" id="iddok" style="display:none" type="text">
 					
 					<select aria-hidden="true" class="select-chosen" id="txtdirektorat" name="txtdirektorat" onchange="getToSub(this.value,'txtbagian','master/direktoratSub/')" style="width: 70%;" tabindex="-1">
 						
@@ -78,7 +77,7 @@
 									
 								</select>
 							</div>
-							<a style="margin-left:3px" class="btn btn-success mar-all" onclick="prosesmutasi()"><i class="fa fa-file-excel-o"></i> Setujui & Kirim ke UK</a>
+							<a style="margin-left:3px" class="btn btn-success mar-all" onclick="prosesmutasi()"><i class="fa fa-file-excel-o"></i> Setujui & Kirim ke Direksi</a>
 						</div>  
 						
 					</div>
@@ -130,7 +129,7 @@
 							</div>
 							
 						</div>
-						<a style="margin-left:3px" class="btn btn-danger" onclick="updatestatus('89')"><i class="fa fa-file-excel-o"></i> Tolak & Kembalikan Ke Pengaju</a>
+						<a style="margin-left:3px" class="btn btn-danger" onclick="updatestatus('101')"><i class="fa fa-file-excel-o"></i> Tolak & Kembalikan Ke Pengaju</a>
 						
 					</div>
 					

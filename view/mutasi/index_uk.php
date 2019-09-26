@@ -14,22 +14,22 @@
        </a>
      </li>
 
-     <li class="active">
+    <li class="active">
       <a href="#demo-lft-tab-2" data-toggle="tab">
         <span class="block text-center">
          <i class="fa fa-laptop fa-2x text-danger"></i> 
        </span>
-       Permohonan Baru
+       Permohonan Asal
      </a> 
    </li>
    <li>
-    <a href="#demo-lft-tab-mutasi" data-toggle="tab">
-      <span class="block text-center">
-       <i class="fa fa-mail-forward fa-2x text-danger"></i> 
-     </span>
-     Riwayat Permohonan Mutasi
-   </a>
- </li>
+      <a href="#demo-lft-tab-4" data-toggle="tab">
+        <span class="block text-center">
+         <i class="fa fa-laptop fa-2x text-danger"></i> 
+       </span>
+       Permohonan Tujuan
+     </a> 
+   </li>
  <li> 
    <a href="#demo-lft-tab-3" data-toggle="tab">
     <span class="block text-center">
@@ -90,24 +90,54 @@
   </div>
 </div>
 </div>
-<div class="tab-pane fade " id="demo-lft-tab-mutasi">
-  <div class="col-sm-6 table-toolbar-left">
+ <div class="tab-pane fade" id="demo-lft-tab-4">
+    <div class="fixed-table-toolbar">
+     
+    </div>
     
-   
-   <button style="margin-left:3px" class="btn btn-primary" onclick="cetak()"><i class="fa fa fa-print"></i> Cetak  Permohonan</button>
-   
-   
-   
-   
- </div>
- <div class="dataTables_filter" id="demo-dt-addrow_filter">
-  <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder="" type="search" id="filter-text-box" oninput="onFilterTextBoxChanged()" ></label>
-  
-</div> 
+    <div class="panel-group accordion" id="accordion" >
+     <div class="panel" style="border:none">
+       
+       <!--Accordion title-->
+       <div class="panel-heading">
+         <h4 class="panel-title">
+           <a data-parent="#accordion" data-toggle="collapse" href="#collapseOne" aria-expanded="true" class="text-warning"><i class="fa fa-folder"></i> List Mutasi </a>
+         </h4>
+       </div>
+       
+       <div class="panel-collapse collapse in" id="collapseOne" aria-expanded="true" style="">
+        <div class="panel-body">
+          <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="demo-dt-addrow_wrapper">
+            <div class="newtoolbar">
+              <div class="table-toolbar-left" id="demo-custom-toolbar2">
+               <div class="btn-group">
+                 <button style="margin-left:3px" class="btn btn-success" onclick="editmutasi7()"><i class="fa fa-gear"></i> Proses  Permohonan</button>
+               </div>
+             </div>
+           </div>
+           <div class="dataTables_filter" id="demo-dt-addrow_filter">
+            <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder="" type="search" id="search" onkeydown="if(event.keyCode=='13'){loaddata(0);}" ></label>
+            
+          </div>
+          
+        </div>
+        <div class="bootstrap-table">
+          <div class="fixed-table-container" style="padding-bottom: 0px;">
+            <div class="ag-theme-balham" id="myGrid7" style="height: 400px;width:100%;">
+            </div>
+            
+            <div class="paging pull-right mar-all"> 
+            </div>
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
-<div class="ag-theme-balham" id="myGridMutasi" style="height: 400px;width:100%;">
-</div>
-</div>
 <div class="tab-pane fade" id="demo-lft-tab-3">
  
 </div>
@@ -174,7 +204,7 @@
            pivotPanelShow: 'always',
            enableRangeSelection: true,
            columnDefs: columnDefs,
-           pagination: false,
+           pagination: true,
            paginationPageSize: 50,
            autoGroupColumnDef: autoGroupColumnDef,
            defaultColDef:{
@@ -197,7 +227,7 @@
               search = $('#search').val();
             }
             $.ajax({
-             url: BASE_URL+'pegawai/listmutasidireksi?status=113',
+             url: BASE_URL+'pegawai/listmutasi_uk?status=88',
              headers: {
                'Authorization': localStorage.getItem("Token"),
                'X_CSRF_TOKEN':'donimaulana',
@@ -211,7 +241,7 @@
               
               
                gridOptions.api.setRowData(data.result);
-               paging(data.total,'loaddata');
+               
              },
              error: function( jqXhr, textStatus, errorThrown ){
                alert('error');
@@ -221,6 +251,99 @@
           }
           
           loaddata(0);
+		  
+		  var columnDefs7 =[
+           {headerName: "Status", field: "status", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Tgl.Mutasi", field: "tgl", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Keterangan", field: "keterangan", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Direktorat Tujuan", field: "dir_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Bagian Tujuan", field: "bag_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Sub Bagian Tujuan", field: "subbag_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Direktorat Asal", field: "dir_asal", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Bagian Asal", field: "bag_asal", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Sub Bagian Asal", field: "subbag_asal", width: 190, filterParams:{newRowsAction: 'keep'}},
+           
+           ];
+
+           var autoGroupColumnDef = {
+             headerName: "Group",
+             width: 200,
+             field: 'nama_group',
+             valueGetter: function(params) {
+               if (params.node.group) {
+                 return params.node.key;
+               } else {
+                 return params.data[params.colDef.field];
+               }
+             },
+             headerCheckboxSelection: true,
+           // headerCheckboxSelectionFilteredOnly: true,
+           cellRenderer:'agGroupCellRenderer',
+           cellRendererParams: {
+             checkbox: true
+           }
+         };
+
+         var gridOptions7 = {
+           enableSorting: true,
+           enableFilter: true,
+           suppressRowClickSelection: false,
+           onRowDoubleClicked: proses_mutasi, 
+           groupSelectsChildren: true,
+           debug: true,
+           rowSelection: 'single',
+           enableColResize: true,
+           rowGroupPanelShow: 'always',
+           pivotPanelShow: 'always',
+           enableRangeSelection: true,
+           columnDefs: columnDefs7,
+           pagination: true,
+           paginationPageSize: 50,
+           autoGroupColumnDef: autoGroupColumnDef,
+           defaultColDef:{
+             editable: false,
+             enableRowGroup:true,
+             enablePivot:true,
+             enableValue:true
+           }
+         };
+
+        // setup the grid after the page has finished loading 
+        var gridDi = document.querySelector('#myGrid7');
+        new agGrid.Grid(gridDi, gridOptions7);
+
+           // do http request to get our sample data - not using any framework to keep the example self contained.
+           // you will probably use a framework like JQuery, Angular or something else to do your HTTP calls.
+            function loaddata7(jml){
+            var search = 0;
+            if($('#search').val() !==''){
+              search = $('#search').val();
+            }
+            $.ajax({
+             url: BASE_URL+'pegawai/listmutasi_uk?status=114',
+             headers: {
+               'Authorization': localStorage.getItem("Token"),
+               'X_CSRF_TOKEN':'donimaulana',
+               'Content-Type':'application/json'
+             },
+             dataType: 'json',
+             type: 'get',
+             contentType: 'application/json', 
+             processData: false,
+             success: function( data, textStatus, jQxhr ){
+              
+              
+               gridOptions7.api.setRowData(data.result);
+             },
+             error: function( jqXhr, textStatus, errorThrown ){
+               alert('error');
+             }
+           });
+
+          }
+          
+          loaddata7(0);
           
           
           
@@ -363,85 +486,6 @@ function simpan(){
                             
                          }  
                        }
-                       
-                       
-                       
-                       
-  //]]>
-  
-  
-
-  
-  var columnDefsHis = [
-  {headerName: "Status", field: "status", width: 190, rowGroup:true, cellRenderer: CellRenderer},
-  {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Tgl.Mutasi", field: "tgl", width: 190, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Keterangan", field: "keterangan", width: 190, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Direktorat Tujuan", field: "dir_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Bagian Tujuan", field: "bag_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Sub Bagian Tujuan", field: "subbag_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Direktorat Asal", field: "dir_asal", width: 190, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Bagian Asal", field: "bag_asal", width: 190, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Sub Bagian Asal", field: "subbag_asal", width: 190, filterParams:{newRowsAction: 'keep'}},
-  
-  ];
-
-  var gridOptionsMutasi = {
-   enableSorting: true,
-   enableFilter: true,
-   suppressRowClickSelection: false, 
-   groupSelectsChildren: true,
-   debug: true,
-   rowSelection: 'single',
-   enableColResize: true,
-   rowGroupPanelShow: 'always',
-   pivotPanelShow: 'always',
-   enableRangeSelection: true,
-   columnDefs: columnDefsHis,
-   pagination: false,
-   paginationPageSize: 50,
-   autoGroupColumnDef: autoGroupColumnDef,
-   defaultColDef:{
-     editable: false,
-     enableRowGroup:true,
-     enablePivot:true,
-     enableValue:true
-   }
- };
-
-        // setup the grid after the page has finished loading 
-        var gridDiv = document.querySelector('#myGridMutasi');
-        new agGrid.Grid(gridDiv, gridOptionsMutasi);
-
-        function onFilterTextBoxChanged() {
-          gridOptionsMutasi.api.setQuickFilter(document.getElementById('filter-text-box').value);
-        }
-        
-        function loadMutasi(){
-          $.ajax({
-           url: BASE_URL+'pegawai/listmutasidireksi',
-           headers: {
-             'Authorization': localStorage.getItem("Token"),
-             'X_CSRF_TOKEN':'donimaulana',
-             'Content-Type':'application/json'
-           },
-           dataType: 'json',
-           type: 'get',
-           contentType: 'application/json', 
-           processData: false,
-           success: function( data, textStatus, jQxhr ){
-            
-            
-            gridOptionsMutasi.api.setRowData(data.result); 
-          },
-          error: function( jqXhr, textStatus, errorThrown ){
-           alert('error');
-         }
-       });
-        }
-        
-
-        loadMutasi();
         function editmutasi(){
           var selectedRows = gridOptions.api.getSelectedRows();
             // alert('>>'+selectedRows+'<<<');
@@ -462,45 +506,85 @@ function simpan(){
             
             getJson(setPengajuan,BASE_URL+'hrd/mutasi/listdata?id='+selectedRowsString);
 //POPUP
-bootbox.dialog({ 
- message:$('<div></div>').load('view/pegawai/input_mutasi_direksi.php'),
- animateIn: 'bounceIn',
- animateOut : 'bounceOut',
- backdrop: false,
- size:'large',
- buttons: {
-  
+			bootbox.dialog({ 
+			 message:$('<div></div>').load('view/pegawai/input_mutasi_unit.php'),
+			 animateIn: 'bounceIn',
+			 animateOut : 'bounceOut',
+			 backdrop: false,
+			 size:'large',
+			 buttons: {
+			  
 
-   main: {
-     label: "Close",
-     className: "btn-warning",
-     callback: function() {
-       $.niftyNoty({
-         type: 'dark',
-         message : "Bye Bye",
-         container : 'floating',
-         timer : 5000
-       });
-     }
-   }
- }
-});
+			   main: {
+				 label: "Close",
+				 className: "btn-warning",
+				 callback: function() {
+				   $.niftyNoty({
+					 type: 'dark',
+					 message : "Bye Bye",
+					 container : 'floating',
+					 timer : 5000
+				   });
+				 }
+			   }
+			 }
+			});
+			getOptions("txtdirektorat",BASE_URL+"master/direktorat");
+			getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
+			getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
+			getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural_fix");
+			}
+			}
+			
+			function editmutasi7(){
+          var selectedRows = gridOptions7.api.getSelectedRows();
+            // alert('>>'+selectedRows+'<<<');
+            if(selectedRows == ''){
+             onMessage('Silahkan Pilih Pegawai yang akan dimutasi Terlebih dahulu!');
+             return false;
+           }else{
+            var selectedRowsString = '';
+            selectedRows.forEach( function(selectedRow, index) {
+              
+             if (index!==0) {
+               selectedRowsString += ', ';
+             }
+             selectedRowsString += selectedRow.id;
+           });
 
 
+            
+            getJson(setPengajuan,BASE_URL+'hrd/mutasi/listdata?id='+selectedRowsString);
+//POPUP
+			bootbox.dialog({ 
+			 message:$('<div></div>').load('view/pegawai/input_mutasi_unit_k.php'),
+			 animateIn: 'bounceIn',
+			 animateOut : 'bounceOut',
+			 backdrop: false,
+			 size:'large',
+			 buttons: {
+			  
 
-getOptions("txtdirektorat",BASE_URL+"master/direktorat");
-getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
-getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
-getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural_fix");
-
-
-
-
-
-
-}
-
-}
+			   main: {
+				 label: "Close",
+				 className: "btn-warning",
+				 callback: function() {
+				   $.niftyNoty({
+					 type: 'dark',
+					 message : "Bye Bye",
+					 container : 'floating',
+					 timer : 5000
+				   });
+				 }
+			   }
+			 }
+			});
+			getOptions("txtdirektorat",BASE_URL+"master/direktorat");
+			getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
+			getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
+			getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural_fix");
+			}
+			}
 
 function setPengajuan(a){
   getOptionsEdit("txtdirektorat",BASE_URL+"master/direktorat",a.result[0].direktorat_tujuan);
@@ -522,7 +606,6 @@ function setPengajuan(a){
     $('#isi').val('');
     $('#txtIdUser').val(a.result[0].user_id);
     $('#iddok').val(a.result[0].id);
-    $('#sts').val(a.result[0].status);
     id = $('#idtk').val();
     getJson(listchat,BASE_URL+'abk/abk/getchatall?kategori=1&id='+id);
   }, 1000);
@@ -617,14 +700,17 @@ function listchatAll(obj){
 
 
 	function prosesmutasi(){
+  
        // postForm('form-mutasi',BASE_URL+'pegawai/editmutasi',loaddata); 
-	   status=$('#sts').val();
-	   if(status==113){
-       getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=84');
-       }
-	   if(status==116){
-	   getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=117');
-	   }
+       getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=113');
+       
+    }
+	
+	function prosesmutasiuk(){
+  
+       // postForm('form-mutasi',BASE_URL+'pegawai/editmutasi',loaddata); 
+       getJson(hasilstatu,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=115');
+       
      }
 
      function chat(){
@@ -654,9 +740,15 @@ function listchatAll(obj){
       loaddata(0);
     }else{
       swal('Gagal!',res.message);
-    }
-
-    
+    }   
+  }
+  function hasilstatu(res){
+    if(res.hasil ==='success'){
+      swal('Sukses!',res.message,'success');
+      loaddata7(0);
+    }else{
+      swal('Gagal!',res.message);
+    }   
   }
 
   function cetak(){
@@ -674,41 +766,7 @@ function listchatAll(obj){
    }
  }
 }
-function CellRenderer (params){
-  var closeSpan = document.createElement("span");
-  if(params.value ==='Ditolak'){
-	closeSpan.setAttribute("class","badge badge-danger");
-	closeSpan.textContent = "Ditolak";
-  }else if(params.value ==='Disetujui'){
-   closeSpan.setAttribute("class","badge badge-success");
-   closeSpan.textContent = "Disetujui";
- }else if(params.value ==='Dikembalikan untuk dilengkapi'){
-   closeSpan.setAttribute("class","badge badge-warning");
-   closeSpan.textContent = "Dikembalikan untuk dilengkapi";
- }else if(params.value ==='Disetujui Direksi, menunggu Dirum'){
-   closeSpan.setAttribute("class","badge badge-light");
-   closeSpan.textContent = "Disetujui Direksi, menunggu Dirum";
- }else if(params.value ==='Disetujui Dirum,menunggu SDM'){
-   closeSpan.setAttribute("class","badge badge-light");
-   closeSpan.textContent = "Disetujui Dirum,menunggu SDM";
- }else if(params.value ==='Disetujui SDM, menunggu UK'){
-   closeSpan.setAttribute("class","badge badge-light");
-   closeSpan.textContent = "Disetujui SDM, menunggu UK";
- }else if(params.value ==='Disetujui Ka. Unit,menunggu Direksi'){
-   closeSpan.setAttribute("class","badge badge-light");
-   closeSpan.textContent = "Disetujui Ka. Unit,menunggu Direksi";
- }else if(params.value ==='Disetujui Direksi,Belum Diferivikasi HRD'){
-   closeSpan.setAttribute("class","badge badge-light");
-   closeSpan.textContent = "Disetujui Direksi,Belum Diferivikasi HRD";
- }else if(params.value ==='Pengajuan Baru'){
-   closeSpan.setAttribute("class","badge badge-info");
-   closeSpan.textContent = "Pengajuan Baru";
- }else if(params.value ==='Pengajuan Unit,menunggu Direksi'){
-   closeSpan.setAttribute("class","badge badge-info");
-   closeSpan.textContent = "Pengajuan Unit,menunggu Direksi";
- }
- return closeSpan;
-}
+
 </script><script src="js/login.js" type="text/javascript">
 </script>
 

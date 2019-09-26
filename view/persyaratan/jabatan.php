@@ -121,7 +121,7 @@
 
    </div>
 
-   <div class="ag-theme-balham" id="myGridfrom2" style="height: 400px;width:100%;">
+   <div class="ag-theme-balham" id="myGridfrom" style="height: 400px;width:100%;">
    </div>
  </div>
  <div class="tab-pane fade" id="demo-lft-tab-3"></div>
@@ -448,7 +448,7 @@
 
     //statusEnding();
   }
-  var columnDefsHis = [
+  var columnDefs = [
   {headerName: "Status", field: "status", width: 190, cellRenderer: CellRenderer},
   {headerName: "Nama", field: "nama", width: 190, filterParams: {newRowsAction: 'keep'}},
   {headerName: "Formal", field: "formal", width: 190, filterParams: {newRowsAction: 'keep'}},
@@ -462,7 +462,7 @@
 
   ];
 
-  var gridOptionsfrom2 = {
+  var gridOptionsfrom = {
     enableSorting: true,
     enableFilter: true,
     suppressRowClickSelection: false,
@@ -473,10 +473,9 @@
     rowGroupPanelShow: 'always',
     pivotPanelShow: 'always',
     enableRangeSelection: true,
-    columnDefs: columnDefsHis,
+    columnDefs: columnDefs,
     pagination: false,
     paginationPageSize: 50,
-    autoGroupColumnDef: autoGroupColumnDef,
     defaultColDef: {
       editable: false,
       enableRowGroup: true,
@@ -485,12 +484,13 @@
     }
   };
 
+  
     // setup the grid after the page has finished loading
-    var gridDiv = document.querySelector('#myGridfrom2');
-    new agGrid.Grid(gridDiv, gridOptionsfrom2);
+    var gridDi = document.querySelector('#myGridfrom');
+    new agGrid.Grid(gridDi, gridOptionsfrom);
 
     function onFilterTextBoxChanged() {
-      gridOptionsfrom2.api.setQuickFilter(document.getElementById('filter-text-box').value);
+      gridOptionsfrom.api.setQuickFilter(document.getElementById('filter-text-box').value);
     }
 
     function CellRenderer (params){
@@ -526,7 +526,7 @@
       success: function (data, textStatus, jQxhr) {
 
 
-        gridOptionsfrom2.api.setRowData(data.result);
+        gridOptionsfrom.api.setRowData(data.result);
       },
       error: function (jqXhr, textStatus, errorThrown) {
         alert('error');

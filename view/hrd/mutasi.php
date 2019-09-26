@@ -197,7 +197,7 @@ function loaddata(jml){
     search = $('#search').val();
   }
   $.ajax({
-   url: BASE_URL+'pegawai/listmutasihrd?status=84',
+   url: BASE_URL+'pegawai/listmutasihrd?sts=118',
    headers: {
      'Authorization': localStorage.getItem("Token"),
      'X_CSRF_TOKEN':'donimaulana',
@@ -373,9 +373,9 @@ $.ajax({
 
 
 var columnDefsHis = [
-{headerName: "Status", field: "status", width: 190, filterParams:{newRowsAction: 'keep'}},
+{headerName: "Status", field: "status", width: 190, rowGroup:true, cellRenderer: CellRenderer},
 {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
-{headerName: "Tgl.Mutasi", field: "tgl", width: 190, rowGroup:true, filterParams:{newRowsAction: 'keep'}},
+{headerName: "Tgl.Mutasi", field: "tgl", width: 190, filterParams:{newRowsAction: 'keep'}},
 {headerName: "Keterangan", field: "keterangan", width: 190, filterParams:{newRowsAction: 'keep'}},
 {headerName: "Direktorat Tujuan", field: "dir_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
 {headerName: "Bagian Tujuan", field: "bag_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
@@ -524,6 +524,7 @@ function setPengajuan(a){
     $('#isi').val('');
     $('#txtIdUser').val(a.result[0].user_id);
     $('#iddok').val(a.result[0].id);
+    $('#status').val(a.result[0].status);
     id = $('#idtk').val();
     getJson(listchat,BASE_URL+'abk/abk/getchatall?kategori=1&id='+id);
   }, 1000);
@@ -618,11 +619,18 @@ if(idgue===value.id_user){
 
 
 function prosesmutasi(){
-
 // postForm('form-mutasi',BASE_URL+'pegawai/editmutasi',loadMutasi);
-getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=90');
+sts=$('#status').val();
+if(sts!=118){
+getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=114');
+}else{
+getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=115');
+}
 }
 
+function hasilstat(){
+  loadMutasi();
+}
 function chat(){
   if(empty($('#isi').val())){
     alert('Tidakada text untuk dikirim');
@@ -662,7 +670,41 @@ function cetak(){
     }
   }
 }
-
+function CellRenderer (params){
+  var closeSpan = document.createElement("span");
+  if(params.value ==='Ditolak'){
+	closeSpan.setAttribute("class","badge badge-danger");
+	closeSpan.textContent = "Ditolak";
+  }else if(params.value ==='Disetujui'){
+   closeSpan.setAttribute("class","badge badge-success");
+   closeSpan.textContent = "Disetujui";
+ }else if(params.value ==='Dikembalikan untuk dilengkapi'){
+   closeSpan.setAttribute("class","badge badge-warning");
+   closeSpan.textContent = "Dikembalikan untuk dilengkapi";
+ }else if(params.value ==='Disetujui Direksi, menunggu Dirum'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui Direksi, menunggu Dirum";
+ }else if(params.value ==='Disetujui Dirum,menunggu SDM'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui Dirum,menunggu SDM";
+ }else if(params.value ==='Disetujui SDM, menunggu UK'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui SDM, menunggu UK";
+ }else if(params.value ==='Disetujui Ka. Unit,menunggu Direksi'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui Ka. Unit,menunggu Direksi";
+ }else if(params.value ==='Disetujui Direksi,Belum Diferivikasi HRD'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui Direksi,Belum Diferivikasi HRD";
+ }else if(params.value ==='Pengajuan Baru'){
+   closeSpan.setAttribute("class","badge badge-info");
+   closeSpan.textContent = "Pengajuan Baru";
+ }else if(params.value ==='Pengajuan Unit,menunggu Direksi'){
+   closeSpan.setAttribute("class","badge badge-info");
+   closeSpan.textContent = "Pengajuan Unit,menunggu Direksi";
+ }
+ return closeSpan;
+}
 </script><script src="js/login.js" type="text/javascript">
 </script>
 

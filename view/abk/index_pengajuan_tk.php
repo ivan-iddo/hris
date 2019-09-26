@@ -130,18 +130,7 @@
 </div>
 <script>
   var headerTK = [{headerName: "No.Pengajuan", field: "id", width: 90, filterParams:{newRowsAction: "keep"}},
-  {headerName: "Status", field: "status", width: 190, filterParams:{newRowsAction: "keep"},
-  cellStyle: function(params) {
-    if (params.value=='Ditolak') {
-//mark police cells as red
-return {color: 'white', backgroundColor: 'red'};
-}else if (params.value=='Disetujui') {
-//mark police cells as red
-return {color: 'white', backgroundColor: 'green'};
-} else {
-  return null;
-}
-}},
+  {headerName: "Status", field: "status", width: 190, cellRenderer: CellRenderer},
 {headerName: "Tahun", field: "tahun", width: 190, filterParams:{newRowsAction: "keep"}},
 {headerName: "Unit Kerja", field: "id_uk", width: 190, filterParams:{newRowsAction: "keep"}},
 {headerName: "Kebutuhan SDM", field: "kategori_sdm", width: 190, filterParams:{newRowsAction: "keep"}},
@@ -257,6 +246,7 @@ function loadfrmtk(result){
 }
 
 listFromtk();
+
 
 function searchtk(){
   var thn=$('#thn').val();
@@ -554,6 +544,26 @@ if(selectedRows == ''){
 }
 
 }
+function CellRenderer (params){
+  var closeSpan = document.createElement("span");
+  if(params.value ==='Ditolak'){
+	closeSpan.setAttribute("class","badge badge-danger");
+	closeSpan.textContent = "Ditolak";
+  }else if(params.value ==='Disetujui'){
+   closeSpan.setAttribute("class","badge badge-success");
+   closeSpan.textContent = "Disetujui";
+ }else if(params.value ==='Disetujui Direksi, menunggu Dirum'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui Direksi, menunggu Dirum";
+ }else if(params.value ==='Disetujui Dirum,menunggu SDM'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui Dirum,menunggu SDM";
+ }else if(params.value ==='Pengajuan Baru'){
+   closeSpan.setAttribute("class","badge badge-info");
+   closeSpan.textContent = "Pengajuan Baru";
+ }
+ return closeSpan;
+}
 </script>
 <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6') ){?>
   <script>
@@ -562,9 +572,3 @@ if(selectedRows == ''){
     getOptions("txtdirektorat",BASE_URL+"master/direktoratSub");
   </script>
 <?php } ?> 
-
-
-
-
-
-

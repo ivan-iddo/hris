@@ -97,7 +97,8 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="txtjabatanspengaju">Jabatan Yang Telah Diemban</label>
 			<div class="col-sm-9">
-				<textarea placeholder="" class="form-control input-sm" id="txtjabatanspengaju" name="txtjabatanspengaju" type="text" style="border:none" readonly></textarea>
+				<div id="txtjabatanspengaju" class="txtjabatanspengaju"></div>
+				
 			</div>
 		</div>
 		
@@ -126,6 +127,7 @@
 			getJson(getdata, BASE_URL+'pegawai/kualifikasi?id='+id);
 			getInputTypeOptions("formalpengaju",BASE_URL+'pegawai/getPend?id='+id);
 			getInputTypeOptions("nonformalpengaju",BASE_URL+'pegawais/pelatihan/getPel?id='+id);
+			//getInputTypeOptions("txtjabatanspengaju",BASE_URL+'pegawais/pelatihan/getPend?id='+id);
 			
 		}
 	},500);
@@ -134,7 +136,8 @@
 
 	function getdata(result){
 		$('#txtIdUser').val(result.id);
-		$('#txtjabatanspengaju').val(result.jabatan);
+		//$('#txtjabatanspengaju').val(result.jabatan);
+
 	}
 	function loaddata(id, url, valueEdit = null) {
 		$('#' + id).children().remove();
@@ -151,7 +154,7 @@
 			dataType: "json",
 			success: function (e) {
 				for (var i = 0; i < e.result.length; i++) {
-					$('#' + id).append('<option ' + (e.result[i].id == valueEdit ? 'selected' : '') + ' value="' + e.result[i].id + '" data-id-persyaratan="' + e.result[i].id + '"data-id="' + e.result[i].id_jabatan + '"data-baru="' + e.result[i].jabatan_baru + '" data-masa="' + e.result[i].masa_jabatan + '"data-kompetensi="' + e.result[i].kompetensi + '"data-formal="' + e.result[i].formal + '"data-nonformal="' + e.result[i].nonformal + '"data-jabatan-lama="' + e.result[i].jabatan_lama + '"data-tufoksi="' + e.result[i].tufoksi + '">' + e.result[i].jabatan_baru + ' [Kode :' + e.result[i].kd_jabatan + ']</option>');
+					$('#' + id).append('<option ' + (e.result[i].id == valueEdit ? 'selected' : '') + ' value="' + e.result[i].id + '" data-id-persyaratan="' + e.result[i].id + '"data-id="' + e.result[i].id_jabatan + '"data-baru="' + e.result[i].jabatan_baru + '" data-masa="' + e.result[i].masa_jabatan + '"data-kompetensi="' + e.result[i].kompetensi + '"data-formal="' + e.result[i].formal + '"data-nonformal="' + e.result[i].nonformal + '"data-jabatan-lama="' + e.result[i].jabatan_lama + ', '+ e.result[i].lain +'"data-tufoksi="' + e.result[i].tufoksi + '">' + e.result[i].jabatan_baru + ' [Kode :' + e.result[i].kd_jabatan + ']</option>');
 				}
 				$('#' + id).trigger("chosen:updated");
 			}

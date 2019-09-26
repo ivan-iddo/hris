@@ -118,6 +118,7 @@
 									<div class="row">
 										<div class="col-xs-9">
 											<input type="text" id="idtk" name="idtk" style="display:none">
+											<input type="text" id="sts" name="sts" style="display:none">
 											<input placeholder="Enter your text" class="form-control chat-input" type="text" id="isi" name="isi">
 										</div>
 										<div class="col-xs-3">

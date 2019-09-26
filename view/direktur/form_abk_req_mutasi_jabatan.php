@@ -77,7 +77,7 @@
 
 		</select>
 	</div>
-	<a style="margin-left:3px" class="btn btn-success mar-all" onclick="prosesmutasi()"><i class="fa fa-file-excel-o"></i> Direktur Setujui</a>
+	<a style="margin-left:3px" class="btn btn-success mar-all" onclick="prosesmutasi()"><i class="fa fa-file-excel-o"></i> Setujui Kirim Ke SDM</a>
 </div>  
 
 </div>

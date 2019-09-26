@@ -75,7 +75,7 @@
         <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
           <div class="row">
             <div class="col-sm-6 table-toolbar-left">
-              <button style="margin-left:3px" class="btn btn-success" onclick="proses('87')"><i class="fa fa-file-excel-o"></i> Setujui Permohonan</button>
+              <button style="margin-left:3px" class="btn btn-success" onclick="proses('118')"><i class="fa fa-file-excel-o"></i> Setujui Permohonan</button>
               <button style="margin-left:3px" class="btn btn-danger" onclick="tolak()"><i class="fa fa-file-excel-o"></i> Tolak</button>
 
 
@@ -208,7 +208,7 @@ new agGrid.Grid(gridDiv,gridTK);
 function listFromtk(){
   var thn= $('#thn').val(); 
   var uk =  $('#txtdirektorat').val();
-  var uri = BASE_URL+'abk/abk/listtkhrd?view=direktur&year='+thn+'&status=85';
+  var uri = BASE_URL+'abk/abk/listtkhrd?view=direktur&year='+thn+'&status=117';
   if(empty(thn)){
     var d = new Date();
     var n = d.getFullYear();
@@ -216,7 +216,7 @@ function listFromtk(){
   }
 
   if(!empty(thn)){
-    uri = BASE_URL+'abk/abk/listtkhrd?view=direktur&year='+thn+'&id_uk='+uk+'&status=85';
+    uri = BASE_URL+'abk/abk/listtkhrd?view=direktur&year='+thn+'&id_uk='+uk+'&status=117';
   }
 
   $('#thn').val(thn);

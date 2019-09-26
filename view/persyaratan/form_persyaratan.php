@@ -155,6 +155,7 @@
 		$('#nonformal').val(result.result[0].nonformal);
 		getOptionsEdit("txtjabatans",BASE_URL+"master/jabatan_struktural_fix_label",result.result[0].id_jabatan_lama);
 		$('#tufoksi').val(result.result[0].tufoksi);
+		$('#lain').val(result.result[0].lain);
 	}
 
 </script>

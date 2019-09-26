@@ -81,7 +81,7 @@
           <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
             <div class="row">
               <div class="col-sm-6 table-toolbar-left">
-                <button style="margin-left:3px" class="btn btn-success" onclick="proses('85')"><i class="fa fa-file-excel-o"></i> Setujui & Kirim ke Direktur</button>
+                <button style="margin-left:3px" class="btn btn-success" onclick="proses('115')"><i class="fa fa-file-excel-o"></i> Setujui</button>
                 <button style="margin-left:3px" class="btn btn-danger" onclick="tolak()"><i class="fa fa-file-excel-o"></i> Tolak & Beri Arahan</button>
 
 
@@ -214,7 +214,7 @@ var gridTK = {
   function listFromtk(){
     var thn= $('#thn').val(); 
     var uk =  $('#txtdirektorat').val();
-    var uri = BASE_URL+'abk/abk/listtkhrd?year='+thn+'&status=84';
+    var uri = BASE_URL+'abk/abk/listtksdm?year='+thn+'&status=118';
     if(empty(thn)){
       var d = new Date();
       var n = d.getFullYear();
@@ -222,7 +222,7 @@ var gridTK = {
     }
 
     if(!empty(thn)){
-      uri = BASE_URL+'abk/abk/listtkhrd?year='+thn+'&id_uk='+uk+'&status=84';
+      uri = BASE_URL+'abk/abk/listtksdm?year='+thn+'&id_uk='+uk+'&status=118';
     }
 
     $('#thn').val(thn);

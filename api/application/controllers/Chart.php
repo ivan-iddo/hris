@@ -242,7 +242,7 @@ function chart_pendidikan(){
 		$data2[$val->grup][$val->nama] = $val->jml;
 		$datanama[$val->nama]=$val->nama;
 	} 
-
+	
 	$numero =1; 
 	foreach($datanama as $dat3){
 
@@ -274,8 +274,48 @@ function chart_pendidikan(){
 	echo  json_encode($h); 
 }
 
+function chart_pendidikan_all(){
+	$this->db->select('count(*) as jml,dm_term.nama as nama');
+	$this->db->join('sys_user_profile','sys_user.id_user = sys_user_profile.id_user','LEFT');
+	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
+	$this->db->where('a.aktif','1');
+	$this->db->join('dm_term','dm_term.id = sys_user_profile.pendidikan_akhir','LEFT');
+	$this->db->where('sys_user.kd_keluar is not null', NULL, FALSE);
+	$this->db->where('sys_user_profile.pendidikan_akhir is not null', NULL, FALSE);
+	$this->db->group_by('dm_term.nama');
+	
+	$res = $this->db->get('sys_user')->result();
+//$arr=array();
+	
+	foreach($res as $val){
+//$data[0]['category']=($val->grup);
+		$data2[$val->nama] = $val->jml;
+		$datanama[$val->nama]=$val->nama;
+	} 
+	
+	$numero =1; 
+	foreach($datanama as $dat3){
+		if(!empty($data2[$dat3])){
+				$arrz[$dat3][0] = (int)$data2[$dat3];
+			}else{
+				$arrz[$dat3][0] = 0;
+			}
 
+		$arr[(int)$numero]['data'] = $arrz[$dat3]; 
+		$arr[(int)$numero]['name'] = "Pegawai ".$dat3;
+		++$numero;
+	}
+	$arr[0]['category'][0] = 'Seluruh Pegawai';
+	asort($arr); 
+//$array = json_decode(json_encode($arr), true);
+//print_r($array);
+	$h=array();
 
-
+	foreach($arr as $dat){
+//	$h = array($dat);
+		array_push($h,$dat);
+	}
+	echo  json_encode($h); 
+}
 
 }

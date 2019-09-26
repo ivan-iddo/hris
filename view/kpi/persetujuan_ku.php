@@ -95,7 +95,7 @@
           <button style="margin-left:3px" class="btn btn-warning" onclick="proses('1')"><i class="fa fa-file-excel-o"></i> Perbaikan </button>
           <button style="margin-left:3px" class="btn btn-danger" onclick="proses('3')"><i class="fa fa-file-excel-o"></i> Tolak</button>
           <button style="margin-left:3px" class="btn btn-primary" onclick="update()"><i class="fa fa-file-excel-o"></i> Simpan</button>
-          <button style="margin-left:3px" class="btn btn-primary" onclick="filters()"><i class="fa fa-file-excel-o"></i> Filter iki 8</button>
+          <button style="margin-left:3px" class="btn btn-primary" onclick="filters()"><i class="fa fa-file-excel-o"></i> Filter iki 1</button>
           <button style="margin-left:3px" class="btn btn-danger" onclick="reset()"><i class="fa fa-file-excel-o"></i> Reset</button>          
         </div>
         <div class="col-sm-4 table-toolbar-right">
@@ -241,7 +241,7 @@
         function listFromtk(){
           var thn= $('#thn').val(); 
           var uk =  $('#txtdirektorat').val();
-          var uri = BASE_URL+'kpi/mpenilaian/listiki?tahun='+thn+'&status=16';
+          var uri = BASE_URL+'kpi/mpenilaian/listiku?tahun='+thn+'&status=16';
           if(empty(thn)){
            var d = new Date();
            var n = d.getFullYear();
@@ -249,7 +249,7 @@
          }
          
          if(!empty(thn)){
-           uri = BASE_URL+'kpi/mpenilaian/listiki?tahun='+thn+'&id_uk='+uk+'&status=16';
+           uri = BASE_URL+'kpi/mpenilaian/listiku?tahun='+thn+'&id_uk='+uk+'&status=16';
          }
          
          $('#thn').val(thn);
@@ -272,7 +272,7 @@
       listFromtk();
       
       function filters() {
-        gridTK.api.setFilterModel({nilai: ['8.0']});
+        gridTK.api.setFilterModel({nilai: ['1.0']});
       }
       function reset() {
         gridTK.api.setFilterModel(null);
@@ -486,7 +486,7 @@
           var bulan=$('#bulan').val();
           var uk=$('#txtdirektorat').val();
           var group = localStorage.getItem('group');
-          var uri = BASE_URL+'kpi/mpenilaian/listiki?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk+'&status=16'; 
+          var uri = BASE_URL+'kpi/mpenilaian/listiku?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk+'&status=16'; 
           if(empty(thn)){
             onMessage('Tahun harus dipilih');
             return false;

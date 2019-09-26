@@ -126,7 +126,7 @@ var gridTK = {
   pivotPanelShow: 'always',
   enableRangeSelection: true,
   columnDefs: listpim,
-  pagination: false,
+  pagination: true,
   paginationPageSize: 50,   
   defaultColDef:{
     editable: false,
@@ -189,7 +189,7 @@ function detailaction(){
 function listFrompim(){
   var thn= $('#thnpim').val(); 
   var uk =  $('#txtdirektoratpim').val();
-  var uri = BASE_URL+'kpi/mpenilaian/listik?tahun='+thn+'&status=17';
+  var uri = BASE_URL+'kpi/mpenilaian/listiki_uk?tahun='+thn+'&status=17';
   if(empty(thn)){
     var d = new Date();
     var n = d.getFullYear();
@@ -197,7 +197,7 @@ function listFrompim(){
   }
 
   if(!empty(thn)){
-    uri = BASE_URL+'kpi/mpenilaian/listik?tahun='+thn+'&id_uk='+uk+'&status=17';
+    uri = BASE_URL+'kpi/mpenilaian/listiki_uk?tahun='+thn+'&id_uk='+uk+'&status=17';
   }
 
   $('#thnpim').val(thn);
@@ -224,7 +224,7 @@ function searchtk(){
   var bulan=$('#bulanpim').val();
   var uk=$('#txtdirektoratpim').val();
   var group = localStorage.getItem('group');
-  var uri = BASE_URL+'kpi/mpenilaian/listik?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk+'&status=17'; 
+  var uri = BASE_URL+'kpi/mpenilaian/listiki_uk?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk+'&status=17'; 
   if(empty(thn)){
     alert('Tahun harus dipilih');
     return false;

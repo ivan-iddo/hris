@@ -158,6 +158,19 @@ class System_auth_model extends CI_Model
             return $id;
         }
     }
+	
+	function parent_get($id)
+    {
+        $this->db->where('migrasi_jabatan_detail_id', $id);
+        $dat = $this->db->get('m_index_jabatan_asn_detail')->row();
+
+        if (!empty($dat->parent)) {
+            return $dat->parent;      
+        } 
+        else {
+            return 0;
+        }
+    }
 
     function full_copy($source, $target)
     {
@@ -268,15 +281,16 @@ class System_auth_model extends CI_Model
 
         $root_item_id = $id;
         $all_childs = $obj_parentchild->getAllChilds($root_item_id);
-        // print_r($all_childs);die();
-
+        if($all_childs!=array()){
         foreach ($all_childs as $chld) {
             $dataarr[] = trim($chld[$obj_parentchild->item_list_field_name]);
 
         }
-
+		}else{
+		$dataarr='0';
+		}
         return $dataarr;
-        // print_r($dataarr);die();
+        //print_r($dataarr);die();
         //Getting the path of an item from the root : added on 18 january, 2011 : start
         //	echo "<p><b>Example : the full path for element q : </b></p>";
         $item_id = $id;

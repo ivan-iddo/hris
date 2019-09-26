@@ -13,6 +13,7 @@
             <input  style="display:none" type="text" id="id_pi" name="id_pi">
             <input style="display:none" type="text" id="id_grup" name="id_grup">
             <input style="display:none" type="text" id="id_user" name="id_user">
+            <input style="display:none" type="text" id="id_jab" name="id_jab">
             <div class="col-sm-4">
              <div class="form-group">
                <label class="control-label">NIP</label>
@@ -132,6 +133,7 @@ function simpanPI(){
  var nip = $('#nip').val();
  var id_grup = $('#id_grup').val();
  var id_user = $('#id_user').val();
+ var id_jab = $('#id_jab').val();
  var nama_pegawai = $('#nama_pegawai').val();
  var awal = $('#awal').val();
  var akhir = $('#akhir').val();
@@ -164,6 +166,7 @@ function simpanPI(){
   
   $('#id_grup').val(id_grup)
   $('#id_user').val(id_user)
+  $('#id_jab').val(id_jab)
   $('.buttoenedit').hide();
   $('#simpan').show();
   $( "#nip" ).prop( "disabled", true );
@@ -219,6 +222,7 @@ var gridPI = {
           var akhir ='';
           var id_pi='';
           var id_user='';
+          var id_jab='';
           var id_uk='';
           var nama_group=''
 
@@ -240,6 +244,7 @@ var gridPI = {
              akhir += selectedRow.akhir;
              id_uk += selectedRow.id_uk;
              id_user += selectedRow.id_user;
+             id_jab += selectedRow.id_jab;
              nama_group += selectedRow.nama_group;
            });
           }
@@ -252,6 +257,7 @@ var gridPI = {
           $('.buttoenedit').show(); 
           $('#id_grup').val(id_uk);
           $('#id_user').val(id_user);
+          $('#id_jab').val(id_jab);
           $('#uk').val(nama_group);
           
           getJson(prosesData,BASE_URL+'kpi/mpenilaian/getitemkpi?id=5&pid='+selectedRowsString);
