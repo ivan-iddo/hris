@@ -54,6 +54,7 @@ function savepelatihan_post(){
 				'mulai'=>($mulai?$mulai:NULL),
 				'sampai'=>($sampai?$sampai:NULL),
 				'jenis_sertifikat' => ($this->input->post('jenis_sertifikat')?$this->input->post('jenis_sertifikat'):NULL),
+				'kategori' => ($this->input->post('kategori')?$this->input->post('kategori'):NULL),
 				'no_sertifikat' => ($this->input->post('no_sertifikat')?$this->input->post('no_sertifikat'):NULL)
 			);
 
@@ -136,6 +137,7 @@ public function getPel_get()
 				$this->db->where('his_pelatihan.id_user', $id);
 			}
 			$this->db->where('his_pelatihan.tampilkan', '1');
+			$this->db->where('his_pelatihan.kategori', '119');
 			$this->db->order_by('his_pelatihan.id', 'DESC');
 			$res = $this->db->get('his_pelatihan')->result();
 			if (!empty($res)) {
@@ -179,6 +181,7 @@ function editpelatihan_post(){
 				'mulai'=>($mulai?$mulai:NULL),
 				'sampai'=>($sampai?$sampai:NULL),
 				'jenis_sertifikat' => ($this->input->post('jenis_sertifikat')?$this->input->post('jenis_sertifikat'):NULL),
+				'kategori' => ($this->input->post('kategori')?$this->input->post('kategori'):NULL),
 				'no_sertifikat' => ($this->input->post('no_sertifikat')?$this->input->post('no_sertifikat'):NULL)
 			);
 
@@ -229,6 +232,7 @@ function getpelatihan_get(){
 					'durasi'=>$d->durasi,
 					'mulai'=>$d->mulai,
 					'sampai'=>$d->sampai,
+					'kategori'=>$d->kategori,
 					'jenis_sertifikat' =>$d->jenis_sertifikat,
 					'no_sertifikat' =>$d->no_sertifikat,
 					'file' => $d->file_url

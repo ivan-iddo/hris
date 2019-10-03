@@ -22,6 +22,31 @@
        Persyaratan Jabatan
      </a> 
    </li>
+
+   <li>
+    <a href="#demo-lft-tab-pengajuan" data-toggle="tab">
+      <span class="block text-center">
+        <i class="fa fa-mail-forward fa-2x text-danger"></i> 
+      </span>
+      Riwayat Kompetensi Jabatan
+    </a>
+  </li>
+  <li>
+    <a href="#demo-lft-mutasi" data-toggle="tab">
+     <span class="block text-center">
+      <i class="fa fa-mail-forward fa-2x text-danger"></i> 
+    </span>
+    Semua Disetujui
+  </a>
+</li>
+<li>
+    <a href="#demo-lft-tab-mutasi" data-toggle="tab">
+     <span class="block text-center">
+      <i class="fa fa-mail-forward fa-2x text-danger"></i> 
+    </span>
+    Riwayat Semua
+  </a>
+</li>
 <li> 
  <a href="#demo-lft-tab-3" data-toggle="tab">
   <span class="block text-center">
@@ -40,6 +65,7 @@
     <div class="dataTables_filter" id="demo-dt-addrow_filter" style="text-align:left">
      <div class="col-sm-8 table-toolbar-left">
       <button id="demo-btn-addrow" class="btn btn-purple" onclick="add_persyaratan()"><i class="demo-pli-add"></i> Tambah Persyaratan Jabatan</button>
+      <button style="margin-left:3px" class="btn btn-mint" onclick="lihat_pengajuan()"><i class="fa fa-eye"></i> Lihat Detail Pengajuan</button>
       <button style="margin-left:3px" class="btn btn-warning" onclick="edit_persyaratan()"><i class="fa fa-file-excel-o"></i> Edit</button>
       <button class="btn btn-danger" onclick="delete_persyaratan()"><i class="fa fa-file-excel-o"></i> Delete</button>
       
@@ -57,6 +83,65 @@
 <div class="ag-theme-balham" id="myGrid_persyaratan" style="height: 400px;width:100%;">
 </div>
 </div>
+
+<div id="demo-lft-tab-pengajuan" class="tab-pane fade">
+ 
+  <div class="panel-body">
+    <div class="bootstrap-table">
+      <div class="fixed-table-container " style="padding-bottom: 0px;">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            
+            <div class="toolbar">
+              <div id="demo-custom-toolbar" class="table-toolbar-left">
+                <button class="btn btn-purple btn-labeled fa fa-eye btn-sm" onClick="lihat_pengajuan_detail();">Lihat Detail Pengaju
+                </button>
+              </div>
+            </div>
+
+            <div id="demo-dt-delete_filter" class="dataTables_filter">
+              <input type="hidden" id="id_persyaratan_search" name="id_persyaratan_search" >
+              <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder="" type="search" id="search_pengajuan" onkeydown="if(event.keyCode=='13'){loaddata_pengajuan(0);}" >
+                <button id="demo-panel-network-refresh" data-toggle="panel-overlay" data-target="#demo-panel-network" class="btn" onClick="resetsearch_pengajuan();"><i class="demo-pli-repeat-2 icon-lg"></i></button>
+              </label>
+              
+            </div>
+
+            <div id="myGrid_pengajuan" style="height: 300px;width:100%" class="ag-theme-balham">
+            </div>
+            <div class="paging pull-right mar-all"> 
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="tab-pane fade" id="demo-lft-mutasi">
+  <div class="dataTables_filter" id="demo-dt-addrow_filter">
+    <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
+     type="search" id="filter-text-box" oninput="onFilterTextBoxChanged()"></label>
+
+   </div>
+
+   <div class="ag-theme-balham" id="myGridfromall" style="height: 400px;width:100%;">
+   </div>
+ </div>
+<div class="tab-pane fade" id="demo-lft-tab-mutasi">
+  <div class="dataTables_filter" id="demo-dt-addrow_filter">
+    <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
+     type="search" id="filter-text-box" oninput="onFilterTextBoxChanged()"></label>
+
+   </div>
+
+   <div class="ag-theme-balham" id="myGridfrom" style="height: 400px;width:100%;">
+   </div>
+ </div>
  <div class="tab-pane fade" id="demo-lft-tab-3"></div>
 
 </div>
@@ -119,7 +204,7 @@
       search = $('#search_persyaratan').val();
     }
 	$.ajax({
-      url: url_api+'listdata/'+search+'/'+jml,
+      url: url_api+'listdata1/'+search+'/'+jml,
       headers: {
         'Authorization': localStorage.getItem("Token"),
         'X_CSRF_TOKEN':'donimaulana',
@@ -243,6 +328,53 @@
     }
     );
   }
+
+  var columnDefs_pengajuan =  
+  [
+  {headerName: "Id Pengajuan", field: "id", width: 50, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Nama Pengaju", field: "nama", width: 100, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Masa Jabatan", field: "masa_jabatan", width: 100, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Kompetensi", field: "kompetensi", width: 190, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Pendidikan Formal", field: "formal", width: 190, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Pendidikan Non Formal", field: "nonformal", width: 190, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Jabatan Saat Ini", field: "jabatan", width: 190, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Tupoksi", field: "tufoksi", width: 190, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Status", field: "status", width: 190, filterParams:{newRowsAction: "keep"}},
+  ];
+  
+  var gridOptions_pengajuan = {
+    enableSorting: true,
+    enableFilter: true,
+    suppressRowClickSelection: false, 
+    groupSelectsChildren: true,
+    debug: true,
+    rowSelection: 'single',
+    enableColResize: true,
+    rowGroupPanelShow: 'always',
+    pivotPanelShow: 'always',
+    enableRangeSelection: true,
+    columnDefs: columnDefs_pengajuan,
+    pagination: false ,
+    defaultColDef:{
+      editable: false,
+      enableRowGroup:true,
+      enablePivot:true,
+      enableValue:true 
+    }
+  };
+
+  var gridDivPengajuan = document.querySelector('#myGrid_pengajuan');
+  new agGrid.Grid(gridDivPengajuan, gridOptions_pengajuan);
+
+  function lihat_pengajuan_detail(){
+    var idcell = getGridId(gridOptions_pengajuan,'id');
+    if(!empty(idcell)){
+      gopop(url_view+'form_pengajuan_detail.php',save_pengajuan,'large');
+    }else{
+      onMessage('Silahkan Pilih Nama Pengaju Terlebih dahulu!');
+    }
+    
+  }
   
   function resetsearch_pengajuan(){
     $('#search_pengajuan').val('');
@@ -334,6 +466,122 @@
 
     //statusEnding();
   }
+  var columnDefs = [
+  {headerName: "Status", field: "status", width: 190, cellRenderer: CellRenderer},
+  {headerName: "Nama", field: "nama", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Formal", field: "formal", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Non Formal", field: "nonformal", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Jabatan", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Kompetensi", field: "kompetensi", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Formal Persyaratan", field: "formal_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Non Formal Persyaratan", field: "nonformal_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Jabatan Persyaratan", field: "jabatan_baru", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Kompetensi Persyaratan", field: "kompetensi_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
+
+  ];
+
+  var gridOptionsfrom = {
+    enableSorting: true,
+    enableFilter: true,
+    suppressRowClickSelection: false,
+    groupSelectsChildren: true,
+    debug: true,
+    rowSelection: 'single',
+    enableColResize: true,
+    rowGroupPanelShow: 'always',
+    pivotPanelShow: 'always',
+    enableRangeSelection: true,
+    columnDefs: columnDefs,
+    pagination: false,
+    paginationPageSize: 50,
+    defaultColDef: {
+      editable: false,
+      enableRowGroup: true,
+      enablePivot: true,
+      enableValue: true
+    }
+  };
+
+  
+    // setup the grid after the page has finished loading
+    var gridDi = document.querySelector('#myGridfrom');
+    new agGrid.Grid(gridDi, gridOptionsfrom);
+
+    function onFilterTextBoxChanged() {
+      gridOptionsfrom.api.setQuickFilter(document.getElementById('filter-text-box').value);
+    }
+   
+   function loadfrom2() {
+    $.ajax({
+      url: BASE_URL + 'persyaratan/pengajuan/listdatadetail',
+      headers: {
+        'Authorization': localStorage.getItem("Token"),
+        'X_CSRF_TOKEN': 'donimaulana',
+        'Content-Type': 'application/json'
+      },
+      dataType: 'json',
+      type: 'get',
+      contentType: 'application/json',
+      processData: false,
+      success: function (data, textStatus, jQxhr) {
+
+
+        gridOptionsfrom.api.setRowData(data.result);
+      },
+      error: function (jqXhr, textStatus, errorThrown) {
+        alert('error');
+      }
+    });
+  }
+
+
+  loadfrom2();
+
+    var columnDefsall = [
+  {headerName: "Status", field: "status", width: 190, cellRenderer: CellRenderer},
+  {headerName: "Nama", field: "nama", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Formal", field: "formal", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Non Formal", field: "nonformal", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Jabatan", field: "jabatan", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Kompetensi", field: "kompetensi", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Formal Persyaratan", field: "formal_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Non Formal Persyaratan", field: "nonformal_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Jabatan Persyaratan", field: "jabatan_baru", width: 190, filterParams: {newRowsAction: 'keep'}},
+  {headerName: "Kompetensi Persyaratan", field: "kompetensi_persyaratan", width: 190, filterParams: {newRowsAction: 'keep'}},
+
+  ];
+
+  var gridOptionsfromall = {
+    enableSorting: true,
+    enableFilter: true,
+    suppressRowClickSelection: false,
+    groupSelectsChildren: true,
+    debug: true,
+    rowSelection: 'single',
+    enableColResize: true,
+    rowGroupPanelShow: 'always',
+    pivotPanelShow: 'always',
+    enableRangeSelection: true,
+    columnDefs: columnDefsall,
+    pagination: false,
+    paginationPageSize: 50,
+    defaultColDef: {
+      editable: false,
+      enableRowGroup: true,
+      enablePivot: true,
+      enableValue: true
+    }
+  };
+
+  
+    // setup the grid after the page has finished loading
+    var gridDi = document.querySelector('#myGridfromall');
+    new agGrid.Grid(gridDi, gridOptionsfromall);
+
+    function onFilterTextBoxChanged() {
+      gridOptionsfromall.api.setQuickFilter(document.getElementById('filter-text-box').value);
+    }
+
     function CellRenderer (params){
       var closeSpan = document.createElement("span");
       if(params.value ==='Tidak Sesuai'){
@@ -352,5 +600,29 @@
      return closeSpan;
    }
    
+   function loadfrom2all() {
+    $.ajax({
+      url: BASE_URL + 'persyaratan/pengajuan/listdatadetailok',
+      headers: {
+        'Authorization': localStorage.getItem("Token"),
+        'X_CSRF_TOKEN': 'donimaulana',
+        'Content-Type': 'application/json'
+      },
+      dataType: 'json',
+      type: 'get',
+      contentType: 'application/json',
+      processData: false,
+      success: function (data, textStatus, jQxhr) {
+
+
+        gridOptionsfromall.api.setRowData(data.result);
+      },
+      error: function (jqXhr, textStatus, errorThrown) {
+        alert('error');
+      }
+    });
+  }
+
+  loadfrom2all();
 </script>
 <script src="js/login.js"></script>

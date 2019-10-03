@@ -21,6 +21,14 @@
                     </span>
                 </div>
             </div>
+			<div class="text-right form-group">
+                <div class="col-sm-12">
+                    <a href="" style="width:180px" id='download' class="form-control btn btn-primary btn-md" download>
+					  <i class="fa fa-download padd-left"></i> 
+					  Download Dokument
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -96,7 +104,26 @@ function filedelete(result) {
     }
     loadfileupload();
 }
-
+function down(){
+	var id_pelatihan = $('#f_id_edit').val();
+    $.ajax({
+        url   : BASE_URL+'pegawai/getuser/?id='+id_pelatihan,
+        headers: {
+         'Authorization': localStorage.getItem("Token"),
+         'X_CSRF_TOKEN':'donimaulana',
+         'Content-Type':'application/json'
+     },
+     dataType: 'json',
+     type: 'get',
+     contentType: 'application/json', 
+     processData: false,
+     success: function( res, textStatus, jQxhr ){
+        $('#download').attr('href', res[0].zip);
+     }
+     
+ });
+}
+down();
 function hapusfile(a) {
     swal({
         title: "Apakah Anda sudah Yakin?",

@@ -223,6 +223,7 @@ if(selectedRows == ''){
 
 
 
+      getOptionsEdit("kategori",BASE_URL+"master/kategori",data.kategori);  
       getOptionsEdit("penanggung",BASE_URL+"master/penanggung",data.penanggung);  
       getOptionsEdit("tempat",BASE_URL+"master/tempat",data.tempat);  
 

@@ -94,6 +94,15 @@
                           <input class="form-control" id="no_sertifikat" name="no_sertifikat" placeholder="" type="text">
                         </div>
                       </div>
+					  <div class="form-group">
+                        <label class="col-sm-4 control-label" for="inputrt">Kategori</label>
+                        <div class="col-sm-8">
+                          <select class="form-control select2" id="kategori" name="kategori" style="width: 100%;">
+                           <option value="119">Kopetensi</option>
+						   <option value="120">Profesi</option>     
+		                  </select>
+                        </div>
+                      </div>
                       
                     </div>
                   </div><!-- /.box -->

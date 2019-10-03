@@ -72,7 +72,8 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="masajbtpengaju">Masa Jabatan</label>
 			<div class="col-sm-9">
-				<input class="form-control" type="text" id="masajbtpengaju" name="masajbtpengaju">
+				<input class="form-control" type="text" id="masajbtpengaju1" name="masajbtpengaju1" style="border:none" readonly>
+				<input class="form-control" type="hidden" id="masajbtpengaju" name="masajbtpengaju">
 			</div>
 		</div>
 		<div class="form-group">
@@ -127,7 +128,7 @@
 			getJson(getdata, BASE_URL+'pegawai/kualifikasi?id='+id);
 			getInputTypeOptions("formalpengaju",BASE_URL+'pegawai/getPend?id='+id);
 			getInputTypeOptions("nonformalpengaju",BASE_URL+'pegawais/pelatihan/getPel?id='+id);
-			//getInputTypeOptions("txtjabatanspengaju",BASE_URL+'pegawais/pelatihan/getPend?id='+id);
+			getInputTypeOptions("txtjabatanspengaju",BASE_URL+'pegawai/getjab_peg?id='+id);
 			
 		}
 	},500);
@@ -136,7 +137,8 @@
 
 	function getdata(result){
 		$('#txtIdUser').val(result.id);
-		//$('#txtjabatanspengaju').val(result.jabatan);
+		$('#masajbtpengaju').val(result.tgl_mutasi);
+		$('#masajbtpengaju1').val(result.tgl_mutasi);
 
 	}
 	function loaddata(id, url, valueEdit = null) {
@@ -160,7 +162,7 @@
 			}
 		});
 	}
-	loaddata("jabatan", BASE_URL + "persyaratan/persyaratan/listdata");
+	loaddata("jabatan", BASE_URL + "persyaratan/persyaratan/listdata1");
 	
 	$("#jabatan").on("change", function () {
 		if ($(this).find(':selected').attr("data-id") != undefined) {

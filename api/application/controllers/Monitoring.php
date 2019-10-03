@@ -61,7 +61,7 @@ function penyebut($nilai) {
 	}     
 	return $temp;
 }
-
+					
 function terbilang($nilai) {
 	if($nilai<0) {
 		$hasil = "minus ". trim(penyebut($nilai));

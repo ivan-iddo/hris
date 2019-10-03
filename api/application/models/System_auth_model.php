@@ -171,6 +171,50 @@ class System_auth_model extends CI_Model
             return 0;
         }
     }
+	
+	function grup_get()
+    {
+		$this->db->select("riwayat_kedinasan.jabatan_struktural");
+      	
+        $q = $this->db->get('riwayat_kedinasan');	
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row->jabatan_struktural;
+            }
+            return $data;
+        }
+        return FALSE;     
+    }
+	
+	function grups_get($id)
+    {
+		$this->db->select('riwayat_kedinasan.jabatan_struktural');
+		$this->db->where_in('riwayat_kedinasan.jabatan_struktural',$id);
+		$this->db->where_in('riwayat_kedinasan.jabatan2',0);
+        $q = $this->db->get('riwayat_kedinasan');	
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row->jabatan_struktural;
+            }
+            return $data;
+        }
+        return 1;     
+    }
+	
+	function grupn_get($id)
+    {
+		$this->db->select('riwayat_kedinasan.jabatan2');
+		$this->db->where_in('riwayat_kedinasan.jabatan2',$id);
+		$this->db->where('riwayat_kedinasan.jabatan2 !=',0);
+        $q = $this->db->get('riwayat_kedinasan');	
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row->jabatan2;
+            }
+            return $data;
+        }
+        return 1;     
+    }
 
     function full_copy($source, $target)
     {

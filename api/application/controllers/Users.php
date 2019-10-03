@@ -35,6 +35,15 @@ public function list_get(){
     if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
         $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
         if ($decodedToken != false) {
+			$group = $decodedToken->data->_pnc_id_grup;
+            $id_user = $decodedToken->data->id;
+
+            $this->db->select('riwayat_kedinasan.direktorat,riwayat_kedinasan.bagian,riwayat_kedinasan.sub_bagian');
+            $this->db->where('id_user',$id_user);
+            $uk = $this->db->get('riwayat_kedinasan')->row();
+            $dir = $uk->direktorat;
+            $bagian = $uk->bagian;
+            $sub_bag = $uk->sub_bagian;	
 //$this->db->limit('100');
 //$this->db->order_by();
 
@@ -42,7 +51,20 @@ public function list_get(){
             $this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
             $this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
             $this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
-            $this->db->where('riwayat_kedinasan.aktif','1');
+            if($group!=1){
+
+                if($sub_bag==0){
+                    $this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+                    if($bagian==0){
+                        $this->db->where_in('riwayat_kedinasan.direktorat', $dir);
+                    }
+                }else{
+                    $this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+                    $this->db->where_in('riwayat_kedinasan.sub_bagian', $sub_bag);
+                }
+            }
+
+			$this->db->where('riwayat_kedinasan.aktif','1');
             $this->db->join('dm_term','sys_user_profile.pendidikan_akhir = dm_term.id','LEFT');
             $this->db->join('m_kode_profesi_group','sys_user_profile.kategori_profesi = m_kode_profesi_group.id','LEFT');
 
@@ -57,7 +79,7 @@ public function list_get(){
             if(!empty($this->uri->segment(3))){
 
 // $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param); 
-                $this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip, ' ', sys_grup_user.grup) ilike",$param2); 
+                $this->db->where("CONCAT(sys_user.name,' ', sys_user.id_user, ' ', sys_grup_user.grup) ilike",$param2); 
 // $this->db->like("sys_user.name",$param); 
 //$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
             }
@@ -76,7 +98,20 @@ public function list_get(){
             $this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
             $this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
             $this->db->where('riwayat_kedinasan.aktif','1');
-            $this->db->join('dm_term','sys_user_profile.pendidikan_akhir = dm_term.id','LEFT');
+            if($group!=1){
+
+                if($sub_bag==0){
+                    $this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+                    if($bagian==0){
+                        $this->db->where_in('riwayat_kedinasan.direktorat', $dir);
+                    }
+                }else{
+                    $this->db->where_in('riwayat_kedinasan.bagian', $bagian);
+                    $this->db->where_in('riwayat_kedinasan.sub_bagian', $sub_bag);
+                }
+            }
+
+			$this->db->join('dm_term','sys_user_profile.pendidikan_akhir = dm_term.id','LEFT');
             $this->db->join('m_kode_profesi_group','sys_user_profile.kategori_profesi = m_kode_profesi_group.id','LEFT');
 // if(!empty($this->uri->segment(3))){
 // 	$this->db->like("sys_user.name",$this->uri->segment(3)); 
@@ -85,7 +120,7 @@ public function list_get(){
             if(!empty($this->uri->segment(3))){
 
 // $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param);
-                $this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip, ' ', sys_grup_user.grup) ilike",$param2);
+                $this->db->where("CONCAT(sys_user.name,' ', sys_user.id_user, ' ', sys_grup_user.grup) ilike",$param2);
 // $this->db->like("sys_user.name",$param);  
 //$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 

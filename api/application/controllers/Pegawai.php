@@ -290,6 +290,7 @@ public function getuser_get()
                 sys_user.id_grup,
                 sys_user.status,
                 sys_user.foto,
+                sys_user.zip,
                 sys_user.id_shift,
                 sys_user.kd_keluar,
                 sys_user.acces,
@@ -397,6 +398,7 @@ public function getuser_get()
                         'kecamatan_ktp' => $d->kec_ktp,
                         'kelurahan_ktp' => $d->kel_ktp,
                         'foto' => 'api/upload/data/' . $d->foto,
+                        'zip' => 'api/upload/zip' . $d->zip,
                         'jabatan' => $d->nama_jabatan,
                         'id_bank' => $d->id_bank,
                         'bpjs_kes' => $d->bpjs_kes,
@@ -443,19 +445,31 @@ public function kualifikasi_get()
 
             $this->db->select('
                 sys_user.id_user,
+                his_mutasi_jabatan.tgl_mutasi,
                 m_index_jabatan_asn_detail.ds_jabatan as nama_jabatan,
                 ');
             if ($id != ''){
                 $this->db->where('sys_user.id_user', $id);
             }
             $this->db->join('riwayat_kedinasan', 'riwayat_kedinasan.id_user = sys_user.id_user', 'LEFT');
+            $this->db->join('his_mutasi_jabatan', 'his_mutasi_jabatan.user_id = sys_user.id_user', 'LEFT');
             $this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
             $this->db->where('riwayat_kedinasan.aktif', '1');
             $res = $this->db->get('sys_user')->result();
             if (!empty($res)) {
                 foreach ($res as $d) {
-                    $arr = array(
+					function hitung_umur($tanggal_lahir) {
+						list($year,$month,$day) = explode("-",$tanggal_lahir);
+						$year_diff  = date("Y") - $year;
+						$month_diff = date("m") - $month;
+						$day_diff   = date("d") - $day;
+						if ($month_diff < 0) $year_diff--;
+							elseif (($month_diff==0) && ($day_diff < 0)) $year_diff--;
+						return $year_diff;
+					}
+					$arr = array(
                         'id' => $d->id_user,
+                        'tgl_mutasi' => hitung_umur($d->tgl_mutasi) .' Tahun',
                         'jabatan' => $d->nama_jabatan,
                     );
                 }
@@ -498,6 +512,43 @@ public function getPend_get()
             if (!empty($res)) {
                 foreach($res as $d){
                     $arr['result'][]=array('label'=>$d->pendidikan.' '.$d->jurusan,'value'=>$d->id);
+                }
+
+            } else {
+                $arr['hasil'] = 'error';
+            }
+
+            $this->set_response($arr, REST_Controller::HTTP_OK);
+
+
+            return;
+        }
+    }
+
+    $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+
+}
+public function getjab_peg_get()
+{
+    $headers = $this->input->request_headers();
+
+    if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+        $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+        if ($decodedToken != false) {
+
+            $id = $this->input->get('id');
+
+            $this->db->select('
+                m_index_jabatan_asn_detail.ds_jabatan');
+            if ($id != ''){
+                $this->db->where('his_mutasi_jabatan.user_id', $id);
+            }
+            $this->db->join('m_index_jabatan_asn_detail', 'm_index_jabatan_asn_detail.migrasi_jabatan_detail_id = his_mutasi_jabatan.jabatan', 'LEFT');
+            $this->db->order_by('m_index_jabatan_asn_detail.ds_jabatan', 'DESC');
+            $res = $this->db->get('his_mutasi_jabatan')->result();
+            if (!empty($res)) {
+                foreach($res as $d){
+                    $arr['result'][]=array('label'=>$d->ds_jabatan,'value'=>$d->ds_jabatan);
                 }
 
             } else {

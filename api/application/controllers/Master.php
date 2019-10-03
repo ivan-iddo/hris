@@ -61,6 +61,30 @@ public function kelamin_get(){
 	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 }
 
+
+public function kategori_get(){
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+			$this->db->order_by('id','ASC');
+			$this->db->where('tampilkan','1');
+			$this->db->where('child','48');
+			$res = $this->db->get('dm_term')->result();
+			foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->nama,'value'=>$d->id);
+			}
+
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+
+			return;
+		}
+	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
 public function agama_get(){
 	$headers = $this->input->request_headers();
 

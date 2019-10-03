@@ -110,6 +110,97 @@ public function listdatadetail_get(){
 						'status'=> $dat->status,
 						'keterangan'=> $dat->keterangan,
 						'nama'=> $dat->name,
+						'id_user'=> $dat->id_user,
+						'jabatan_baru'=> $dat->jabatan_baru,
+						'masa_jabatan_persyaratan'=> $dat->masa_jabatan_persyaratan,
+						'kompetensi_persyaratan'=> $dat->kompetensi_persyaratan,
+						'formal_persyaratan'=> $dat->formal,
+						'nonformal_persyaratan'=> $dat->nonformal_persyaratan,
+						'jabatan_lama'=> $dat->jabatan_lama,
+						'tufoksi_persyaratan'=> $dat->tufoksi_persyaratan,
+					);
+				}
+				$arr['total']=$total_rows;
+				$arr['paging'] = $pagination['limit'][1];
+				$arr['perpage']=$this->perpage;
+			}else{
+				$arr['result'] ='empty';
+			}
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+
+			return;
+		}
+	}
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
+public function listdatadetailok_get(){
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+			$id_user = $decodedToken->data->id;
+			$grup = $decodedToken->data->_pnc_id_grup;
+
+			$this->db->select('riwayat_kedinasan.direktorat,riwayat_kedinasan.bagian,riwayat_kedinasan.sub_bagian');
+			$this->db->where('riwayat_kedinasan.id_user',$id_user);
+			$uk = $this->db->get('riwayat_kedinasan')->row();
+			$dir = $uk->direktorat;
+			$bagian = $uk->bagian;
+			$sub_bag = $uk->sub_bagian;
+
+			$id_pengajuan = $this->input->get('id');
+			if(!empty($id_pengajuan)){
+				$this->db->where('id_pengajuan',$id_pengajuan);
+			}
+			$this->db->where_in('status',array('Sudah Sesuai','Dengan Syarat'));
+			
+			$total_rows = $this->db->count_all_results($this->table);
+			$pagination = create_pagination_endless('/persyaratan//0/', $total_rows,$this->perpage,5);
+			$this->db->select('pengajuan_jabatan.*,
+				baru.ds_jabatan as jabatan_baru,
+				persyaratan_jabatan.masa_jabatan as masa_jabatan_persyaratan,
+				persyaratan_jabatan.kompetensi as kompetensi_persyaratan,
+				persyaratan_jabatan.formal as formal,
+				persyaratan_jabatan.nonformal as nonformal_persyaratan,
+				his_pelatihan.nama as nonformal,
+				lama.ds_jabatan as jabatan_lama,
+				dm_term.nama as pendidikan,
+				his_pendidikan.pen_jur as jurusan,
+				persyaratan_jabatan.tufoksi as tufoksi_persyaratan,sys_user.name');
+			$this->db->join('persyaratan_jabatan','pengajuan_jabatan.id_persyaratan = persyaratan_jabatan.id_persyaratan','LEFT');
+			$this->db->join('m_index_jabatan_asn_detail as baru', 'baru.migrasi_jabatan_detail_id = persyaratan_jabatan.id_jabatan', 'LEFT');
+			$this->db->join('m_index_jabatan_asn_detail as lama', 'lama.migrasi_jabatan_detail_id = persyaratan_jabatan.jabatan_lama', 'LEFT');
+			$this->db->join('his_pendidikan', 'his_pendidikan.id = pengajuan_jabatan.formal', 'LEFT');
+			$this->db->join('his_pelatihan', 'his_pelatihan.id = pengajuan_jabatan.nonformal', 'LEFT');
+			$this->db->join('dm_term', 'dm_term.id = his_pendidikan.pen_code', 'LEFT');
+
+			$this->db->join('sys_user','sys_user.id_user = pengajuan_jabatan.id_user','LEFT');
+			$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = pengajuan_jabatan.id_user','LEFT');
+			if(!empty($id_pengajuan)){
+				$this->db->where('id_pengajuan',$id_pengajuan);
+			}
+			$this->db->where_in('pengajuan_jabatan.status',array('Sudah Sesuai','Dengan Syarat'));
+
+			$this->db->where($this->table.'.tampilkan','1');
+			$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
+			$res = $this->db->get($this->table)->result();
+
+			if(!empty($res)){
+				foreach($res as $dat){
+					$arr['result'][]= array(
+						'id' => $dat->id_pengajuan,
+						'id_persyaratan' => $dat->id_persyaratan,
+						'masa_jabatan'=> $dat->masa_jabatan,
+						'kompetensi'=> $dat->kompetensi,
+						'formal'=> $dat->pendidikan.' '.$dat->jurusan,
+						'nonformal'=> $dat->nonformal,
+						'jabatan'=> $dat->jabatan,
+						'tufoksi'=> $dat->tufoksi,
+						'status'=> $dat->status,
+						'keterangan'=> $dat->keterangan,
+						'nama'=> $dat->name,
 						'jabatan_baru'=> $dat->jabatan_baru,
 						'masa_jabatan_persyaratan'=> $dat->masa_jabatan_persyaratan,
 						'kompetensi_persyaratan'=> $dat->kompetensi_persyaratan,
@@ -212,7 +303,7 @@ function save_post()
 				'kompetensi'=> ($this->input->post('kompetensipengaju')?$this->input->post('kompetensipengaju'):NULL),
 				'formal'=> ($this->input->post('f_formalpengaju')?$this->input->post('f_formalpengaju'):NULL),
 				'nonformal'=> ($this->input->post('f_nonformalpengaju')?$this->input->post('f_nonformalpengaju'):NULL),
-				'jabatan'=> ($this->input->post('txtjabatanspengaju')?$this->input->post('txtjabatanspengaju'):NULL),
+				'jabatan'=> ($this->input->post('f_txtjabatanspengaju')?$this->input->post('f_txtjabatanspengaju'):NULL),
 				'tufoksi'=> ($this->input->post('tufoksipengaju')?$this->input->post('tufoksipengaju'):NULL),
 			);
 //print_r($arr);die();
@@ -391,6 +482,33 @@ public function sav_post(){
 	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 }
 
+
+public function update_get(){
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+
+			$id= $this->input->get('id'); 
+			$this->db->where('id_pengajuan',$id);
+			$query=$this->db->update($this->table,array('status'=>Null));
+			if($query){
+				$arr['hasil']='success';
+				$arr['message']='Data berhasil dihapus!';
+			}else{
+				$arr['hasil']='error';
+				$arr['message']='Data Gagal dihapus!';
+			}
+
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+
+			return;
+		}
+	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
 
 public function delete_get(){
 	$headers = $this->input->request_headers();

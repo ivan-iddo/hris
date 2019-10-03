@@ -104,6 +104,310 @@ function chart_gender(){
 	echo  json_encode($h); 
 }
 
+function chart_pns(){
+	$this->db->select('count(*) as jml,b.grup,m_status_pegawai.nama');
+
+	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
+	$this->db->where('a.aktif','1');
+	$this->db->join('sys_grup_user as b','b.id_grup = a.direktorat','LEFT');
+	$this->db->where('b.child','1');
+	$this->db->where('b.tampilkan','1');
+	$this->db->join('m_status_pegawai','m_status_pegawai.id = a.status_pegawai','LEFT');
+	$this->db->where('m_status_pegawai.flagpns','1');
+	$this->db->group_by('b.grup,m_status_pegawai.nama');
+	$res = $this->db->get('sys_user_profile')->result();
+
+	foreach($res as $val){
+//$data[0]['category']=($val->grup);
+		$data[$val->nama][$val->grup] = $val->jml;
+		$data2[$val->grup][$val->nama] = $val->jml;
+		$datanama[$val->nama]=$val->nama;
+	} 
+
+	$numero =1; 
+	foreach($datanama as $dat3){
+
+		foreach($data2 as $g=>$val3){
+			$dath[]= $g;
+			if(!empty($data2[$g][$dat3])){
+				$arrz[$dat3][] = (int)$data2[$g][$dat3];
+			}else{
+				$arrz[$dat3][] = 0;
+			}
+
+		}
+
+
+		
+
+
+		//$arr[$numero]['color']= $warna; 
+		$arr[$numero]['name'] ="Pegawai ".$dat3;
+		$arr[$numero]['data'] = $arrz[$dat3];
+
+
+
+		++$numero;
+	}
+	$arr[0]['category'] = array_unique($dath);
+	asort($arr);
+
+
+	$h=array();
+
+	foreach($arr as $dat){
+//	$h = array($dat);
+		array_push($h,$dat);
+	}
+	echo  json_encode($h); 
+}
+function chart_status(){
+	$this->db->select('count(*) as jml,b.nama as grup,m_status_pegawai.nama');
+
+	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
+	$this->db->where('a.aktif','1');
+	$this->db->join('m_status_pegawai as b','b.id = a.status_pegawai_tetap','LEFT');
+	$this->db->join('m_status_pegawai','m_status_pegawai.id = a.status_pegawai','LEFT');
+	$this->db->group_by('b.nama,m_status_pegawai.nama');
+	$res = $this->db->get('sys_user_profile')->result();
+
+	foreach($res as $val){
+//$data[0]['category']=($val->grup);
+		$data[$val->nama][$val->grup] = $val->jml;
+		$data2[$val->grup][$val->nama] = $val->jml;
+		$datanama[$val->nama]=$val->nama;
+	} 
+
+	$numero =1; 
+	foreach($datanama as $dat3){
+
+		foreach($data2 as $g=>$val3){
+			$dath[]= $g;
+			if(!empty($data2[$g][$dat3])){
+				$arrz[$dat3][] = (int)$data2[$g][$dat3];
+			}else{
+				$arrz[$dat3][] = 0;
+			}
+
+		}
+
+
+		
+
+
+		//$arr[$numero]['color']= $warna; 
+		$arr[$numero]['name'] ="Pegawai ".$dat3;
+		$arr[$numero]['data'] = $arrz[$dat3];
+
+
+
+		++$numero;
+	}
+	$arr[0]['category'] = array_unique($dath);
+	asort($arr);
+
+
+	$h=array();
+
+	foreach($arr as $dat){
+//	$h = array($dat);
+		array_push($h,$dat);
+	}
+	echo  json_encode($h); 
+}
+
+function chart_profesi(){
+	$this->db->select('count(*) as jml,b.ds_group_jabatan as grup,m_status_pegawai.nama');
+
+	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
+	$this->db->where('a.aktif','1');
+	$this->db->join('m_kode_profesi_group as b','b.id = sys_user_profile.kategori_profesi','LEFT');
+	$this->db->join('m_status_pegawai','m_status_pegawai.id = a.status_pegawai','LEFT');
+	$this->db->group_by('b.ds_group_jabatan,m_status_pegawai.nama');
+	$res = $this->db->get('sys_user_profile')->result();
+
+	foreach($res as $val){
+//$data[0]['category']=($val->grup);
+		$data[$val->nama][$val->grup] = $val->jml;
+		$data2[$val->grup][$val->nama] = $val->jml;
+		$datanama[$val->nama]=$val->nama;
+	} 
+
+	$numero =1; 
+	foreach($datanama as $dat3){
+
+		foreach($data2 as $g=>$val3){
+			$dath[]= $g;
+			if(!empty($data2[$g][$dat3])){
+				$arrz[$dat3][] = (int)$data2[$g][$dat3];
+			}else{
+				$arrz[$dat3][] = 0;
+			}
+
+		}
+
+
+
+
+		//$arr[$numero]['color']= $warna; 
+		$arr[$numero]['name'] ="Pegawai ".$dat3;
+		$arr[$numero]['data'] = $arrz[$dat3];
+
+
+
+		++$numero;
+	}
+	$arr[0]['category'] = array_unique($dath);
+	asort($arr);
+
+
+	$h=array();
+
+	foreach($arr as $dat){
+//	$h = array($dat);
+		array_push($h,$dat);
+	}
+	echo  json_encode($h); 
+}
+
+function chart_tetap(){
+	$this->db->select('count(*) as jml,b.grup,m_status_pegawai.nama');
+
+	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
+	$this->db->where('a.aktif','1');
+	$this->db->join('sys_grup_user as b','b.id_grup = a.direktorat','LEFT');
+	$this->db->where('b.child','1');
+	$this->db->where('b.tampilkan','1');
+	$this->db->join('m_status_pegawai','m_status_pegawai.id = a.status_pegawai_tetap','LEFT');
+	$this->db->where('m_status_pegawai.flagpns','0');
+	$this->db->group_by('b.grup,m_status_pegawai.nama');
+	$res = $this->db->get('sys_user_profile')->result();
+
+	foreach($res as $val){
+//$data[0]['category']=($val->grup);
+		$data[$val->nama][$val->grup] = $val->jml;
+		$data2[$val->grup][$val->nama] = $val->jml;
+		$datanama[$val->nama]=$val->nama;
+	} 
+
+	$numero =1; 
+	foreach($datanama as $dat3){
+
+		foreach($data2 as $g=>$val3){
+			$dath[]= $g;
+			if(!empty($data2[$g][$dat3])){
+				$arrz[$dat3][] = (int)$data2[$g][$dat3];
+			}else{
+				$arrz[$dat3][] = 0;
+			}
+
+		}
+
+
+
+		//$arr[$numero]['color']= $warna; 
+		$arr[$numero]['name'] ="Pegawai ".$dat3;
+		$arr[$numero]['data'] = $arrz[$dat3];
+
+
+
+		++$numero;
+	}
+	$arr[0]['category'] = array_unique($dath);
+	asort($arr);
+
+
+	$h=array();
+
+	foreach($arr as $dat){
+//	$h = array($dat);
+		array_push($h,$dat);
+	}
+	echo  json_encode($h); 
+}
+
+function chart_tetapall(){
+	$this->db->select('count(*) as jml,m_status_pegawai.nama');
+
+	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
+	$this->db->where('a.aktif','1');
+	$this->db->join('m_status_pegawai','m_status_pegawai.id = a.status_pegawai_tetap','LEFT');
+	$this->db->where('m_status_pegawai.flagpns','0');
+	$this->db->group_by('m_status_pegawai.nama');
+	$res = $this->db->get('sys_user_profile')->result();
+
+	foreach($res as $val){
+//$data[0]['category']=($val->grup);
+		$data2[$val->nama] = $val->jml;
+		$datanama[$val->nama]=$val->nama;
+	} 
+	
+	$numero =1; 
+	foreach($datanama as $dat3){
+		if(!empty($data2[$dat3])){
+				$arrz[$dat3][0] = (int)$data2[$dat3];
+			}else{
+				$arrz[$dat3][0] = 0;
+			}
+
+		$arr[(int)$numero]['data'] = $arrz[$dat3]; 
+		$arr[(int)$numero]['name'] = "Pegawai ".$dat3;
+		++$numero;
+	}
+	$arr[0]['category'][0] = 'Seluruh Pegawai';
+	asort($arr);
+
+
+	$h=array();
+
+	foreach($arr as $dat){
+//	$h = array($dat);
+		array_push($h,$dat);
+	}
+	echo  json_encode($h); 
+}
+
+function chart_pnsall(){
+	$this->db->select('count(*) as jml,m_status_pegawai.nama');
+
+	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
+	$this->db->where('a.aktif','1');
+	$this->db->join('m_status_pegawai','m_status_pegawai.id = a.status_pegawai','LEFT');
+	$this->db->where('m_status_pegawai.flagpns','1');
+	$this->db->group_by('m_status_pegawai.nama');
+	$res = $this->db->get('sys_user_profile')->result();
+
+	foreach($res as $val){
+//$data[0]['category']=($val->grup);
+		$data2[$val->nama] = $val->jml;
+		$datanama[$val->nama]=$val->nama;
+	} 
+	
+	$numero =1; 
+	foreach($datanama as $dat3){
+		if(!empty($data2[$dat3])){
+				$arrz[$dat3][0] = (int)$data2[$dat3];
+			}else{
+				$arrz[$dat3][0] = 0;
+			}
+
+		$arr[(int)$numero]['data'] = $arrz[$dat3]; 
+		$arr[(int)$numero]['name'] = "Pegawai ".$dat3;
+		++$numero;
+	}
+	$arr[0]['category'][0] = 'Seluruh Pegawai';
+	asort($arr);
+
+
+	$h=array();
+
+	foreach($arr as $dat){
+//	$h = array($dat);
+		array_push($h,$dat);
+	}
+	echo  json_encode($h); 
+}
+
 function chart_shift(){
 	$this->db->select('count(*) as jml,b.grup,dm_term.nama');
 	$this->db->join('sys_user_profile','sys_user.id_user = sys_user_profile.id_user','LEFT');

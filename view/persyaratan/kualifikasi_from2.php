@@ -95,7 +95,13 @@
 </div>
 </div>
 <div class="tab-pane fade" id="demo-lft-tab-mutasi">
-    <div class="dataTables_filter" id="demo-dt-addrow_filter">
+    <div class="table-toolbar-left" id="demo-custom-toolbar2">
+		<div class="btn-group">
+			<button class="btn btn-mint btn-labeled fa fa-edit btn-sm"
+			onclick="save_pengajuan();">Pengajuan Ulang</button>
+		</div>
+	</div>
+	<div class="dataTables_filter" id="demo-dt-addrow_filter">
         <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder=""
            type="search" id="filter-text-box" oninput="onFilterTextBoxChanged()"></label>
 
@@ -276,9 +282,81 @@
         }
 
     }
+	
+	function pengaju() {
+        var selectedRows = gridOptionsfrom2.api.getSelectedRows();
+            // alert('>>'+selectedRows+'<<<');
+            if(selectedRows == ''){
+             onMessage('Silahkan Pilih Pegawai Terlebih dahulu!');
+             return false;
+         }else{
+            var selectedRowsString = '';
+            selectedRows.forEach( function(selectedRow, index) {
+                
+             if (index!==0) {
+                 selectedRowsString += ', ';
+             }
+             selectedRowsString += selectedRow.id;
+           });//POPUP
+            bootbox.dialog({
+                message: $('<div></div>').load('view/persyaratan/add_kualifikasi_from2.php'),
+                backdrop: false,
+                size: 'large',
+                buttons: {
+                    success: {
+                        label: "Save",
+                        className: "btn-primary",
+                        callback: function () {
+                           
+                            if (simpan()) {
+                                return true;
+                            } else {
+                                return false;
+                            }
 
+                        }
+                    },
 
-    function simpan() {
+                    main: {
+                        label: "Close",
+                        className: "btn-warning",
+                        callback: function () {
+                            $.niftyNoty({
+                                type: 'dark',
+                                message: "Bye Bye",
+                                container: 'floating',
+                                timer: 5000
+                            });
+                        }
+                    }
+                }
+            });
+
+        }
+
+    }
+
+function save_pengajuan() {
+     var selectedRows = gridOptionsfrom2.api.getSelectedRows();
+            // alert('>>'+selectedRows+'<<<');
+            if(selectedRows == ''){
+             onMessage('Silahkan Pilih Pegawai Terlebih dahulu!');
+             return false;
+         }else{
+            var selectedRowsString = '';
+            selectedRows.forEach( function(selectedRow, index) {
+                
+             if (index!==0) {
+                 selectedRowsString += ', ';
+             }
+             selectedRowsString += selectedRow.id;
+        });
+        submit_get(BASE_URL + 'persyaratan/pengajuan/update/?id='+selectedRowsString,loadfrom2);
+        }
+    }
+	
+    
+function simpan() {
      if (empty($('#tufoksipengaju').val())) {
         onMessage("Tufoksi Pegawai Wajib diisi");
 
