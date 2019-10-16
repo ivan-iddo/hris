@@ -394,7 +394,7 @@ public function get_theme(){
 }
 
 public function uploadcover_data(){	
-	$config['upload_path'] = 'upload/data';
+	$config['upload_path'] = 'upload/foto';
 	$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
 	$config['max_size'] = '50000000'; 
 	$this->load->library('upload', $config);

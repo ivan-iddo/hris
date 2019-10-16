@@ -397,7 +397,7 @@ public function getuser_get()
                         'kota_ktp' => $d->kota_ktp,
                         'kecamatan_ktp' => $d->kec_ktp,
                         'kelurahan_ktp' => $d->kel_ktp,
-                        'foto' => 'api/upload/data/' . $d->foto,
+                        'foto' => 'api/upload/foto/' . $d->foto,
                         'zip' => 'api/upload/zip' . $d->zip,
                         'jabatan' => $d->nama_jabatan,
                         'id_bank' => $d->id_bank,
