@@ -1312,7 +1312,7 @@ function savemutasi_post()
                     $arr['hasil'] = 'error';
                     $arr['message'] = 'Data gagal disimpan,pegawai sedang dalam proses mutasi juga!';
                 } else {
-
+					$tgl=date_format(date_create($this->input->post('tgl_sk')), "Y-m-d");
 
                     $arrdata = array(
                         'user_id' => $id,
@@ -1324,7 +1324,7 @@ function savemutasi_post()
                         'sub_bagian_tujuan' => ($this->input->post('unitkerja'))?$this->input->post('unitkerja'):null,
                         'tgl_mutasi' => $this->input->post('tgl_mutasi'),
                         'keterangan' => $this->input->post('keterangan'),
-                        'tgl_sk' => ($this->input->post('tgl_sk'))?$this->input->post('tgl_sk'):null,
+                        'tgl_sk' => ($tgl)?$tgl:null,
                         'no_sk' => $this->input->post('no_sk'),
                         'id_satker' => ($this->input->post('satuan_kerja'))?$this->input->post('satuan_kerja'):null,
                         'id_kelas' => ($this->input->post('kelas_jabatan'))?$this->input->post('kelas_jabatan'):null,
