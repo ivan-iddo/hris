@@ -837,19 +837,18 @@ public function preview_laporan_jpl_get()
         $to = date("Y-m-d", strtotime($hingga));
     }$nopeg = $this->input->get("nopeg");
     $unit = $this->input->get("unit");
+    $jpl = (($this->input->get("jpl")*8)/11);
+	//print_r($jpl);die();
     $jenis = $this->input->get("jenis");
     $total_pegawai = $this->input->get("total_pegawai");
     $kegiatan = $this->input->get("kegiatan");
     $jenis_surat = $this->input->get("surat");
     if($jenis_surat=="laporan18"){
-        $jpl = 30;
-        $id_grup=array('33','40','45','30','31','37','36','47');        
-    }else if($jenis_surat=="laporan19"){
-        $jpl = 20;
+        $id_grup=$this->Pengembangan_pelatihan_model->getjpl();       
     }
     $filtr = "pengembangan_pelatihan.id,pengembangan_pelatihan.total_hari_kerja,sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_grup_user.grup, pengembangan_pelatihan_detail.nama_pegawai, pengembangan_pelatihan_detail.nopeg";
     $result['result'] = $this->Pengembangan_pelatihan_model->get_jpl(null, $nopeg, $offset, 500, $from, $to, null, null, $filtr, $unit, $kegiatan, $jenis, $jpl, $id_grup);
-//print_r($result["result"]);die;
+	//print_r($get);die;
     if (!empty($result['result'])) {
         foreach ($result["result"] as $key => $value) {
             $result["result"][$key]["pengembangan_pelatihan_kegiatan"] = $this->Pengembangan_pelatihan_kegiatan_model->get_by_id($value["pengembangan_pelatihan_kegiatan"]);
@@ -880,17 +879,15 @@ public function cetak_laporan_jpl_get()
         $to = date("Y-m-d", strtotime($hingga));
     }$nopeg = $this->input->get("nopeg");
     $unit = $this->input->get("unit");
-    $jenis = $this->input->get("jenis");
+	$jpl = (($this->input->get("jpl")*8)/11);
+	$jenis = $this->input->get("jenis");
     $kegiatan = $this->input->get("kegiatan");
     $jenis_surat = $this->input->get("surat");
     $filtr = "pengembangan_pelatihan.id,pengembangan_pelatihan.total_hari_kerja,sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_grup_user.grup, pengembangan_pelatihan_detail.nama_pegawai, pengembangan_pelatihan_detail.nopeg";
 
-//print_r($jenis_surat);die();
+	//print_r($jenis_surat);die();
     if($jenis_surat=="laporan18"){
-        $jpl = 30;
-        $id_grup=array('33','40','45','30','31','37','36','47');        
-    }else if($jenis_surat=="laporan19"){
-        $jpl = 20;
+        $id_grup=$this->Pengembangan_pelatihan_model->getjpl();       
     }
     $filtr = "pengembangan_pelatihan.id,pengembangan_pelatihan.total_hari_kerja,sys_user_profile.gelar_depan, sys_user_profile.gelar_belakang, sys_grup_user.grup, pengembangan_pelatihan_detail.nama_pegawai, pengembangan_pelatihan_detail.nopeg";
     $result['result'] = $this->Pengembangan_pelatihan_model->get_jpl(null, $nopeg, $offset, 500, $from, $to, null, null, $filtr, $unit, $kegiatan, $jenis, $jpl, $id_grup);
@@ -1048,8 +1045,8 @@ public function preview_laporan2_get()
         $kegiatan="profesi";
         $filt_kegiatan="m_kode_profesi_group.ds_group_jabatan";
     }else if ($jenis_surat=="laporan6"){
-        $group_prof="pengembangan_pelatihan_kegiatan.nama";
-        $as_prof="pengembangan_pelatihan_kegiatan.nama as nama_kegiatan";
+        $group_prof="sys_grup_user.grup,pengembangan_pelatihan_kegiatan.nama";
+        $as_prof="sys_grup_user.grup,pengembangan_pelatihan_kegiatan.nama as nama_kegiatan";
         $group="pengembangan_pelatihan_kegiatan.nama";
         $filt="pengembangan_pelatihan_kegiatan.nama";
         $as="pengembangan_pelatihan_kegiatan.nama as nama_kegiatan";
@@ -1163,8 +1160,8 @@ public function cetak_laporan2_get()
         $kegiatan="profesi";
         $filt_kegiatan="m_kode_profesi_group.ds_group_jabatan";
     }else if ($jenis_surat=="laporan6"){
-        $group_prof="pengembangan_pelatihan_kegiatan.nama";
-        $as_prof="pengembangan_pelatihan_kegiatan.nama as nama_kegiatan";
+        $group_prof="sys_grup_user.grup,pengembangan_pelatihan_kegiatan.nama";
+        $as_prof="sys_grup_user.grup,pengembangan_pelatihan_kegiatan.nama as nama_kegiatan";
         $group="pengembangan_pelatihan_kegiatan.nama";
         $filt="pengembangan_pelatihan_kegiatan.nama";
         $as="pengembangan_pelatihan_kegiatan.nama as nama_kegiatan";
@@ -1417,8 +1414,8 @@ public function preview_laporan4_get()
     $filt="m_kode_profesi_group.ds_group_jabatan";
     $jenis="m_kode_profesi_group.ds_group_jabatan, pengembangan_pelatihan_kegiatan.nama";
     $kegiatan="pengembangan_pelatihan_kegiatan.nama";
-    $pelatihan="pengembangan_pelatihan.id,pengembangan_pelatihan_detail.golongan,pengembangan_pelatihan_detail.id,pengembangan_pelatihan_pelaksanaan.total_jam,pengembangan_pelatihan_kegiatan.nama,pengembangan_pelatihan_kegiatan_status.nama,pengembangan_pelatihan_pelaksanaan.tanggal_to,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan_detail.nama_pegawai, m_kode_profesi_group.ds_group_jabatan, pengembangan_pelatihan_detail.uraian_total,pengembangan_pelatihan.total_hari_kerja";
-    $pelatihan_as="pengembangan_pelatihan.id,pengembangan_pelatihan_detail.golongan,pengembangan_pelatihan_detail.id as kode,pengembangan_pelatihan_pelaksanaan.total_jam,pengembangan_pelatihan_kegiatan.nama,pengembangan_pelatihan_kegiatan_status.nama as status,pengembangan_pelatihan_pelaksanaan.tanggal_to,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan_detail.nama_pegawai, m_kode_profesi_group.ds_group_jabatan, pengembangan_pelatihan_detail.uraian_total,pengembangan_pelatihan.total_hari_kerja";
+    $pelatihan="pengembangan_pelatihan_detail.nopeg,sys_grup_user.grup,pengembangan_pelatihan.id,pengembangan_pelatihan_detail.golongan,pengembangan_pelatihan_detail.id,pengembangan_pelatihan_pelaksanaan.total_jam,pengembangan_pelatihan_kegiatan.nama,pengembangan_pelatihan_kegiatan_status.nama,pengembangan_pelatihan_pelaksanaan.tanggal_to,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan_detail.nama_pegawai, m_kode_profesi_group.ds_group_jabatan, pengembangan_pelatihan_detail.uraian_total,pengembangan_pelatihan.total_hari_kerja";
+    $pelatihan_as="pengembangan_pelatihan_detail.nopeg,sys_grup_user.grup,pengembangan_pelatihan.id,pengembangan_pelatihan_detail.golongan,pengembangan_pelatihan_detail.id as kode,pengembangan_pelatihan_pelaksanaan.total_jam,pengembangan_pelatihan_kegiatan.nama,pengembangan_pelatihan_kegiatan_status.nama as status,pengembangan_pelatihan_pelaksanaan.tanggal_to,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan_detail.nama_pegawai, m_kode_profesi_group.ds_group_jabatan, pengembangan_pelatihan_detail.uraian_total,pengembangan_pelatihan.total_hari_kerja";
     $id="ds_group_jabatan";
     $nama="nama";
     $filt_kegiatan="pengembangan_pelatihan_kegiatan.nama";
@@ -1494,8 +1491,8 @@ public function cetak_laporan4_get()
     $filt="m_kode_profesi_group.ds_group_jabatan";
     $jenis="m_kode_profesi_group.ds_group_jabatan, pengembangan_pelatihan_kegiatan.nama";
     $kegiatan="pengembangan_pelatihan_kegiatan.nama";
-    $pelatihan="pengembangan_pelatihan.id,pengembangan_pelatihan_detail.golongan,pengembangan_pelatihan_detail.id,pengembangan_pelatihan_pelaksanaan.total_jam,pengembangan_pelatihan_kegiatan.nama,pengembangan_pelatihan_kegiatan_status.nama,pengembangan_pelatihan_pelaksanaan.tanggal_to,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan_detail.nama_pegawai, m_kode_profesi_group.ds_group_jabatan, pengembangan_pelatihan_detail.uraian_total,pengembangan_pelatihan.total_hari_kerja";
-    $pelatihan_as="pengembangan_pelatihan.id,pengembangan_pelatihan_detail.golongan,pengembangan_pelatihan_detail.id as kode,pengembangan_pelatihan_pelaksanaan.total_jam,pengembangan_pelatihan_kegiatan.nama,pengembangan_pelatihan_kegiatan_status.nama as status,pengembangan_pelatihan_pelaksanaan.tanggal_to,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan_detail.nama_pegawai, m_kode_profesi_group.ds_group_jabatan, pengembangan_pelatihan_detail.uraian_total,pengembangan_pelatihan.total_hari_kerja";
+    $pelatihan="pengembangan_pelatihan_detail.nopeg,sys_grup_user.grup,pengembangan_pelatihan.id,pengembangan_pelatihan_detail.golongan,pengembangan_pelatihan_detail.id,pengembangan_pelatihan_pelaksanaan.total_jam,pengembangan_pelatihan_kegiatan.nama,pengembangan_pelatihan_kegiatan_status.nama,pengembangan_pelatihan_pelaksanaan.tanggal_to,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan_detail.nama_pegawai, m_kode_profesi_group.ds_group_jabatan, pengembangan_pelatihan_detail.uraian_total,pengembangan_pelatihan.total_hari_kerja";
+    $pelatihan_as="pengembangan_pelatihan_detail.nopeg,sys_grup_user.grup,pengembangan_pelatihan.id,pengembangan_pelatihan_detail.golongan,pengembangan_pelatihan_detail.id as kode,pengembangan_pelatihan_pelaksanaan.total_jam,pengembangan_pelatihan_kegiatan.nama,pengembangan_pelatihan_kegiatan_status.nama as status,pengembangan_pelatihan_pelaksanaan.tanggal_to,pengembangan_pelatihan.tujuan,pengembangan_pelatihan.nama_pelatihan,pengembangan_pelatihan_detail.nama_pegawai, m_kode_profesi_group.ds_group_jabatan, pengembangan_pelatihan_detail.uraian_total,pengembangan_pelatihan.total_hari_kerja";
     $id="ds_group_jabatan";
     $nama="nama";
     $filt_kegiatan="pengembangan_pelatihan_kegiatan.nama";
@@ -2837,16 +2834,16 @@ function cek_post()
                 $cek_cuti=$this->db->get('his_cuti')->row();
 
                 $this->db->where('surat_detail.nopeg', $nopeg);
-                $this->db->where("surat_pelaksanaan.tanggal_from <=", $from);
-                $this->db->where("surat_pelaksanaan.tanggal_to >=", $to);
+                $this->db->where("surat_pelaksanaan.tanggal_from <=", date_format(date_create($from), "Y-m-d"));
+                $this->db->where("surat_pelaksanaan.tanggal_to >=", date_format(date_create($to), "Y-m-d"));
                 $this->db->join("surat_pelaksanaan", "surat_detail.surat_id = surat_pelaksanaan.surat_id");
                 $this->db->join("surat", "surat_detail.surat_id = surat.id");
                 $cek_surat=$this->db->get('surat_detail')->row();
 
 
                 $this->db->where('pengembangan_pelatihan_detail.nopeg', $nopeg);
-                $this->db->where("pengembangan_pelatihan_pelaksanaan.tanggal_from <=", $from);
-                $this->db->where("pengembangan_pelatihan_pelaksanaan.tanggal_to >=", $to);
+                $this->db->where("pengembangan_pelatihan_pelaksanaan.tanggal_from <=", date_format(date_create($from), "Y-m-d"));
+                $this->db->where("pengembangan_pelatihan_pelaksanaan.tanggal_to >=", date_format(date_create($to), "Y-m-d"));
                 $this->db->join("pengembangan_pelatihan_pelaksanaan", "pengembangan_pelatihan_detail.pengembangan_pelatihan_id = pengembangan_pelatihan_pelaksanaan.pengembangan_pelatihan_id");
                 $this->db->join("pengembangan_pelatihan", "pengembangan_pelatihan_detail.pengembangan_pelatihan_id = pengembangan_pelatihan.id");
                 $cek=$this->db->get('pengembangan_pelatihan_detail')->row();

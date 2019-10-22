@@ -1044,7 +1044,7 @@ public function listuserunitk_get(){
 				$id_ja1[]=$jabatan1;
 			}
 			
-			//print_r($ja1);die();
+			//print_r($jabatan2);die();
 			if($jabatan2!=0){
 				$id_jab2=$this->m->getchild($jabatan2);
 			}else{
@@ -1086,7 +1086,6 @@ public function listuserunitk_get(){
 //  }
 			//print_r($jabs2);die();	
 			if($jabs2!=1){
-			
 			if(array_intersect($jabs2,$id_jab1)){
 				$this->db->where_in('riwayat_kedinasan.jabatan_struktural',$id_jab1);
 				$this->db->where_in('riwayat_kedinasan.jabatan2',$id_jab);
@@ -1139,7 +1138,7 @@ public function listuserunitk_get(){
 					if($jabs2!=1){
 					if(array_intersect($jabs2,$id_jab1)){
 						$this->db->where_in('riwayat_kedinasan.jabatan_struktural',$id_jab1);
-						$this->db->where_in('riwayat_kedinasan.jabatan2',$id_jab);
+						//$this->db->where_in('riwayat_kedinasan.jabatan2',$id_jab);
 						//$this->db->or_where_in('jabatan3.jabatan_struktural',$id_jab1);
 						$id_j=array('0','1','2','3','4','13','22','38','39','47','55','70','83','115','148','171','216','231','244','273','293','306','366','398','411','443','475','509','522','523','555','588','589','654','667','699','732','745','746','2605','781','814','815','847','881','894','935','948','961','962','996','1030','1572','1580','1581','1582','1583','1593','1603','1604','1614','1624','1646','1662','1680','1717','1718','1726','1733','1734','1863','1864','1957','2005','2006','2033','2066','2182','2195','2196','2206','2249','2250','2251','2252','2275','2298','2299','2331','2353','2375','2376','2398','2427','2428','2429','2444','2466','2488','2489','2497','2505','2506','2514','2522','2523','2538','2553','2554','2555','2556','2557','2567','2577','2578','2584','2590','2611','2612','2625','2642','2643','2644','2653','2663','2664','2690','2700','2719','2720','2730','2749','2756','2769','2782','2783','2784','2795','2811','2812','2832','2834','2836','2838','2856','2857','2860','2862','2864','2877','2878','2889','2900','2911','2922','2930','2932','2933','2942','2948','2949','2950','2967','2968','2969','2977','2987','3028','3029','3039','3049','3064','3065','3073','3081','3089','3114');
 						$this->db->where_in('riwayat_kedinasan.jabatan_struktural',$id_j);
@@ -1848,7 +1847,7 @@ if(!empty($res)){
 		$nilai=$d->nilai;
 		$total_bbt += $bobot;
 		$nilai_bobot= round($bobot/100*$nilai,2);
-		$nil_bob += round($nilai_bobot/$jmlh,2);
+		$nil_bob += round($nilai_bobot,2);
 		$arr[]=array('child'=> $d->child, 'n' => $ik.++$i,'id'=>$d->id_grup,'nama'=>$d->grup, 'id_kpi'=>$d->id_kpi, 'id_kpi_d'=>$d->id_kpi_d, 'pid'=>$id_kpi, 'idpeg'=>$d->no_pegawai, 'no'=>$d->bobot, 'target_kinerja'=>$d->target_kinerja, 'capaian'=>$d->capaian, 'capaian_persen'=>$d->capaian_persen, 'nilai_bobot'=>$nilai_bobot, 'nilai'=>$d->nilai, 'keterangan'=>$d->keterangan);
 	}
 	$arr[] = array(
@@ -2418,8 +2417,8 @@ public function listiki_get()
 			$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
 			$this->db->join('sys_user','sys_user.id_user = his_kpi.id_user','LEFT');
 			$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
-			$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
-			$this->db->join('m_index_jabatan_asn_detail as aa','aa.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan2','LEFT');
+			$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = his_kpi.id_jab','LEFT');
+			$this->db->join('m_index_jabatan_asn_detail as aa','aa.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
 			$this->db->join('m_status_proses','m_status_proses.id = his_kpi.status','LEFT');
 			$this->db->where('his_kpi.id_jenis',$id_jenis);
 			$this->db->where('EXTRACT(YEAR FROM his_kpi.akhir) =',$thn);
@@ -2679,16 +2678,14 @@ public function listiku_get()
 					$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
 					$this->db->join('sys_user','sys_user.id_user = his_kpi.id_user','LEFT');
 					$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
-					$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
+					$this->db->join('m_index_jabatan_asn_detail as aa','aa.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
+					$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id =his_kpi.id_jab','LEFT');
 					$this->db->join('m_status_proses','m_status_proses.id = his_kpi.status','LEFT');
 					$this->db->where('EXTRACT(MONTH FROM his_kpi.akhir) =',$bulan);
 					$this->db->where('EXTRACT(YEAR FROM his_kpi.akhir) =',$thn);
 					$this->db->where('his_kpi.id_jenis',16);
 					$this->db->where_in('his_kpi.status',array('1','2','3','5'));
-					if(!empty($this->input->get('nopeg'))){
-						$this->db->where('sys_user.id_user',$this->input->get('nopeg'));
-						$this->db->where('his_kpi.status',2);
-					}
+			
 					if($id_jenis=='16'){
 						if($user_froup == '3'){
 							$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');

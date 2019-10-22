@@ -905,15 +905,15 @@ function cek_post()
                 $cek_cuti=$this->db->get('his_cuti')->row();
 
                 $this->db->where('pengembangan_pelatihan_detail.nopeg', $nopeg);
-                $this->db->where("pengembangan_pelatihan_pelaksanaan.tanggal_from <=", $from);
-                $this->db->where("pengembangan_pelatihan_pelaksanaan.tanggal_to >=", $to);
+                $this->db->where("pengembangan_pelatihan_pelaksanaan.tanggal_from <=", date_format(date_create($from), "Y-m-d"));
+                $this->db->where("pengembangan_pelatihan_pelaksanaan.tanggal_to >=", date_format(date_create($to), "Y-m-d"));
                 $this->db->join("pengembangan_pelatihan_pelaksanaan", "pengembangan_pelatihan_detail.pengembangan_pelatihan_id = pengembangan_pelatihan_pelaksanaan.pengembangan_pelatihan_id");
                 $this->db->join("pengembangan_pelatihan", "pengembangan_pelatihan_detail.pengembangan_pelatihan_id = pengembangan_pelatihan.id");
                 $cek=$this->db->get('pengembangan_pelatihan_detail')->row();
 
                 $this->db->where('surat_detail.nopeg', $nopeg);
-                $this->db->where("surat_pelaksanaan.tanggal_from <=", $from);
-                $this->db->where("surat_pelaksanaan.tanggal_to >=", $to);
+                $this->db->where("surat_pelaksanaan.tanggal_from <=", date_format(date_create($from), "Y-m-d"));
+                $this->db->where("surat_pelaksanaan.tanggal_to >=", date_format(date_create($to), "Y-m-d"));
                 $this->db->join("surat_pelaksanaan", "surat_detail.surat_id = surat_pelaksanaan.surat_id");
                 $this->db->join("surat", "surat_detail.surat_id = surat.id");
                 $cek_surat=$this->db->get('surat_detail')->row();

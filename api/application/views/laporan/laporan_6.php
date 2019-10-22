@@ -37,12 +37,21 @@
 	</table>
 	</div>
 <div id="content">
-<table width="95%" border="0" class="table-1" style="margin:30px">
+<table width="95%" border="0px" cellpadding="1" cellspacing="0" class="table2" style="margin:10px 10px 10px 30px">
+		<tbody>
+			<tr>
+			  <td align="left" width="5%">Unit</td>
+			  <td align="left" width="1%">:</td>
+			  <td align="left" width="89%"><?php echo $result[0]["grup"]; ?></td>
+			</tr>
+		</tbody>
+	</table>
+<table width="95%" border="0px" cellpadding="1" cellspacing="0" class="table2" style="margin:10px 10px 10px 30px">
 	<tr>
-            <td rowspan="2" width="20%">Jenis Kegiatan</td>
+            <td rowspan="2" width="15%">Jenis Kegiatan</td>
             <td rowspan="2" align="center" width="2%">No</td>
-			<td rowspan="2" width="15%">Nama Kegiatan</td>
-            <td rowspan="2" width="10%">Tempat</td>
+			<td rowspan="2" width="10%">Nama Kegiatan</td>
+            <td rowspan="2" width="30%">Tempat</td>
             <td colspan="2" align="center" width="4%">Durasi</td>
             <td rowspan="2" align="center" width="12%">Tanggal</td>
             <td rowspan="2" align="center" width="15%">Biaya</td>
@@ -56,7 +65,7 @@
             <?php foreach ($result[$ke]["data"] as $key => $val): ?>
               <tr>
 			    <td valign="top"><?php echo $val["nama_kegiatan"]; ?></td>
-			    <td align="center">
+			    <td valign="top" align="center">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
 				  <?php foreach ($result[$ke]["data"][$key]["pegawai"] as $key_jum => $value_jum): ?>
 					  <tr>
@@ -65,7 +74,7 @@
 				  <?php endforeach ?>
 				</table>
 				</td>
-				<td>
+				<td valign="top">
 				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
 				  <?php if (!empty($result[$ke]["data"][$key]["pegawai"])): ?>
 					<?php foreach ($result[$ke]["data"][$key]["pegawai"] as $key_status => $value_status): ?>
@@ -130,7 +139,7 @@
 						  <tr>
 							<td width="30%"></td>
 							<td width="10%">Rp.</td>
-							<td align="right" width="50%"><?php echo number_format($value_nom["pernominal"], 0, ",", ".")?></td>
+							<td align="right" width="50%"><?php echo number_format($value_nom["pernominal"], 0, ",", "."); $total += $value_nom["pernominal"];?></td>
 							<td width="20%"></td>
 						   </tr>
 					  </table>
@@ -144,6 +153,21 @@
             <?php endforeach ?>
             <?php endforeach ?>
           <?php endif ?>
+</table>
+<table width="95%" border="0px" cellpadding="1" cellspacing="0" class="table2" style="margin:10px 10px 10px 30px">
+	<tr>
+        <td align="right" width="85%"><b>Total</b></td>
+        <td width="15%">
+		<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+		  <tr>
+			<td width="30%"></td>
+			<td width="10%">Rp.</td>
+			<td align="right" width="50%"><b><?php echo number_format($total, 0, ",", ".")?></b></td>
+			<td width="20%"></td>
+		   </tr>
+	    </table>
+	    </td>
+	</tr>
 </table>
 </div>
 </body></html>

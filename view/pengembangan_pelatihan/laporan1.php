@@ -1253,6 +1253,20 @@
               </div>
           </div>                 
       </div>
+	   <div class="admininput">
+                <div class="row pad-top"> 
+                    <div class="form-group">
+                       <label class="col-sm-3 control-label" for="inputstatus">JPL</label>
+                       <div class="col-sm-7">
+                           <select class="form-control select-chosen" id="jpl30" name="jpl30" style="width: 100%;" >                       
+                            <?php for($j=0;$j<=100;$j++){?>
+                                <option value="<?php echo $j?>"><?php echo $j?></option>
+                            <?php }?>
+                        </select>                          
+                    </div>
+                </div>
+            </div>                 
+        </div>
       
       <div class="row "> 
         <div class="form-group">
@@ -1315,7 +1329,20 @@
               </div>
           </div>                 
       </div>
-      
+      <div class="admininput">
+                <div class="row pad-top"> 
+                    <div class="form-group">
+                       <label class="col-sm-3 control-label" for="inputstatus">JPL</label>
+                       <div class="col-sm-7">
+                           <select class="form-control select-chosen" id="jpl20" name="jpl20" style="width: 100%;" >                       
+                            <?php for($j=0;$j<=100;$j++){?>
+                                <option value="<?php echo $j?>"><?php echo $j?></option>
+                            <?php }?>
+                        </select>                          
+                    </div>
+                </div>
+            </div>                 
+        </div>
       <div class="row "> 
         <div class="form-group">
             <label class="col-sm-3 control-label" for="inputstatus"></label>
@@ -1583,43 +1610,49 @@ function preview18(){
  var dari = $('#tgl_awal18').val();
  var sampai = $('#tgl_akhir18').val();
  var unit = $('#unit').val();
+ var jpl = $('#jpl30').val();
  var total_pegawai18 = $('#total_pegawai18').val();
- gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai18,pdf_preview18,'large');
+ gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai18+'&jpl='+jpl,pdf_preview18,'large');
 }
 function preview18_excel(){
  var dari = $('#tgl_awal18').val();
  var sampai = $('#tgl_akhir18').val();
  var unit = $('#unit').val();
+ var jpl = $('#jpl30').val();
  var total_pegawai18 = $('#total_pegawai18').val();
- window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai18);
+ window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai18+'&jpl='+jpl);
 }
 function pdf_preview18() {
  var dari = $('#tgl_awal18').val();
  var sampai = $('#tgl_akhir18').val();
  var unit = $('#unit').val();
- var total_pegawai18 = $('#total_pegawai18').val();
- window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai18);
+ var jpl = $('#jpl30').val();
+  var total_pegawai18 = $('#total_pegawai18').val();
+ window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan_jpl/?&surat=laporan18&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai18+'&jpl='+jpl);
 }
 function preview19(){
  var dari = $('#tgl_awal19').val();
  var sampai = $('#tgl_akhir19').val();
  var unit = $('#unit').val();
- var total_pegawai19 = $('#total_pegawai19').val();
- gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai19,pdf_preview19,'large');
+ var jpl = $('#jpl20').val();
+  var total_pegawai19 = $('#total_pegawai19').val();
+ gopop(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai19+'&jpl='+jpl,pdf_preview19,'large');
 }
 function preview19_excel(){
  var dari = $('#tgl_awal19').val();
  var sampai = $('#tgl_akhir19').val();
  var unit = $('#unit').val();
+ var jpl = $('#jpl20').val();
  var total_pegawai19 = $('#total_pegawai19').val();
- window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai19);
+ window.open(BASE_URL + 'pengembangan_pelatihan/preview_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai19+'&jpl='+jpl);
 }
 function pdf_preview19() {
  var dari = $('#tgl_awal19').val();
  var sampai = $('#tgl_akhir19').val();
  var unit = $('#unit').val();
+ var jpl = $('#jpl20').val();
  var total_pegawai19 = $('#total_pegawai19').val();
- window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai19);
+ window.open(BASE_URL + 'pengembangan_pelatihan/cetak_laporan_jpl/?&surat=laporan19&awal='+dari+'&akhir='+sampai+'&unit='+unit+'&total_pegawai='+total_pegawai19+'&jpl='+jpl);
 }
 function preview6(){
  var dari = $('#tgl_awal6').val();

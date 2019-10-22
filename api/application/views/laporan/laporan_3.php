@@ -36,8 +36,28 @@
 	</tbody>
 	</table>
 	</div>
+	</div>
 <div id="content">
-<table width="95%" border="1px" cellpadding="1" cellspacing="0" class="table2" style="margin:30px">
+	<table width="95%" border="0px" cellpadding="1" cellspacing="0" class="table2" style="margin:10px 10px 10px 30px">
+		<tbody>
+			<tr>
+			  <td align="left" width="5%">Nama</td>
+			  <td align="left" width="1%">:</td>
+			  <td align="left" width="89%"><?php echo $result[0]["nama_pegawai"]; ?></td>
+			</tr>
+			<tr>
+			  <td align="left" width="5%">Nopeg</td>
+			  <td align="left" width="1%">:</td>
+			  <td align="left" width="89%"><?php echo $result[0]["pengembangan_pelatihan_detail"]->nopeg; ?></td>
+			</tr>
+			<tr>
+			  <td align="left" width="5%">Unit</td>
+			  <td align="left" width="1%">:</td>
+			  <td align="left" width="89%"><?php echo $result[0]["grup"]; ?></td>
+			</tr>
+		</tbody>
+	</table>
+<table width="95%" border="1px" cellpadding="1" cellspacing="0" class="table2" style="margin:10px 10px 10px 30px">
 		<tr>
             <td rowspan="2" align="center" width="1%">No</td>
 			<td rowspan="2" align="center" width="13%">Nama Kegiatan</td>
@@ -66,24 +86,33 @@
 				<td><?php echo $result[$key]["pengembangan_pelatihan_kegiatan"]->nama; ?></td>
                 <td align="center"><?php echo $value["tujuan"]; ?></td>
                 <td>
-				<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
-				 <tr>
-					 <td>
-						<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+					<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
 							<tr>
 							  <td width="20%"></td>
 							  <td width="10%">Rp.</td>
-							  <td align="right" width="50%"><?php echo number_format($value["pernominal"], 0, ",", ".")?></td>
+							  <td align="right" width="50%"><?php echo number_format($value["pernominal"], 0, ",", "."); $total += $value["pernominal"];?></td>
 							  <td width="20%"></td>
 							</tr>
-						</table>
-					  </td>
-				  </tr>
-				</table>
+					</table>
 				</td>
-              </tr>
+				</tr>
             <?php endforeach ?>
           <?php endif ?>
+</table>
+<table width="95%" border="0px" cellpadding="1" cellspacing="0" class="table2" style="margin:10px 10px 10px 30px">
+	<tr>
+        <td align="right" width="75%"><b>Total</b></td>
+        <td width="25%">
+		<table width="100%" border="0px" cellpadding="1" cellspacing="0" class="table2">
+		  <tr>
+			<td width="30%"></td>
+			<td width="10%">Rp.</td>
+			<td align="right" width="50%"><b><?php echo number_format($total, 0, ",", ".")?></b></td>
+			<td width="20%"></td>
+		   </tr>
+	    </table>
+	    </td>
+	</tr>
 </table>
 </div>
 </body></html>

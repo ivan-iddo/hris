@@ -37,7 +37,26 @@
 	</table>
 	</div>
 <div id="content">
-<table width="95%" border="0" class="table-1" style="margin:30px">
+	<table width="95%" border="0px" cellpadding="1" cellspacing="0" class="table2" style="margin:10px 10px 10px 30px">
+		<tbody>
+			<tr>
+			  <td align="left" width="5%">Nama</td>
+			  <td align="left" width="1%">:</td>
+			  <td align="left" width="89%"><?php echo $result[0]["prof"][0]["kegiatan"][0]["nama_pegawai"]; ?></td>
+			</tr>
+			<tr>
+			  <td align="left" width="5%">Nopeg</td>
+			  <td align="left" width="1%">:</td>
+			  <td align="left" width="89%"><?php echo $result[0]["prof"][0]["kegiatan"][0]["nopeg"]?></td>
+			</tr>
+			<tr>
+			  <td align="left" width="5%">Unit</td>
+			  <td align="left" width="1%">:</td>
+			  <td align="left" width="89%"><?php echo $result[0]["prof"][0]["kegiatan"][0]["grup"] ?></td>
+			</tr>
+		</tbody>
+	</table>
+<table width="95%" border="0px" cellpadding="1" cellspacing="0" class="table2" style="margin:10px 10px 10px 30px">
 	<tr>
 		    <td rowspan="2" align="center" width="5%">Jenis Pegawai</td>
             <td rowspan="2" align="center" width="10%">Jenis Kegiatan</td>

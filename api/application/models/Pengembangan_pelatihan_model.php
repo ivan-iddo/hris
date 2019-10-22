@@ -1473,6 +1473,18 @@ class Pengembangan_pelatihan_model extends MY_Model
 		return false;
 	}
 
+	public function getjpl(){
+		$this->db->select('id_grup');
+		$this->db->where('tampilkan','1');
+		$res = $this->db->get('jpl')->result();
+
+		foreach ($res as $row){
+            $data[] = $row->id_grup;
+        }
+		return $data;
+	}
+
+
 	function update_pegawai($id, $item)
 	{
 		// default active = 1, 2 = done

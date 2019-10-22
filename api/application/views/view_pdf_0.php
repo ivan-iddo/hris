@@ -103,20 +103,20 @@
     <tr>
       <td colspan="3">
         <table border="0" width="100%">
-          <tr>
+		  <tr>
+            <td width="55%">&nbsp;</td>
+            <td width="15%">Lampiran</td>
+            <td width="30%">: <?php echo $result["jenis_surat"]; ?></td>
+          </tr>
+		  <tr>
             <td width="55%">&nbsp;</td>
             <td width="15%">Nomor</td>
             <td width="30%">: KP.03.04/XX.4/       /<?php echo date('Y'); ?></td>
           </tr>
           <tr>
             <td width="55%">&nbsp;</td>
-            <td width="15%">Lampiran</td>
-            <td width="30%">: <?php echo $result["jenis_surat"]; ?></td>
-          </tr>
-          <tr>
-            <td width="55%">&nbsp;</td>
-            <td width="15%">Hal</td>
-            <td width="30%">: <?php echo $result["pengembangan_pelatihan_kegiatan_status"]->nama;?></td>
+            <td width="15%">Tanggal</td>
+            <td width="30%">: <?php echo date('d-m-Y');?></td>
           </tr>
         </table>
       </td>
