@@ -38,7 +38,7 @@ class Upload extends CI_Controller
 
     public function upload_pendidikan()
     {
-        $config['upload_path'] = 'upload/data';
+        $config['upload_path'] = 'upload/pendidikan';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
@@ -49,10 +49,16 @@ class Upload extends CI_Controller
             $data = array('upload_data' => $this->upload->data());
             $filename = $data['upload_data']['file_name'];
         }
-        $datas = array('file_url' => $filename);
+        $user = $this->input->post('id_userfile');;
         $id = $this->input->post('id_pendidikan');
-        $this->db->where('id', $id);
-        $result=$this->db->update('his_pendidikan', $datas);
+        $datas = array(
+		'id_user' => $user,
+        'kategori_id' => 13,
+        'nama_file' =>$this->input->post('namafile'),
+        'id_pendidikan' =>$id,
+        'url' => $filename);
+		$result=$this->db->insert('his_files_pen', $datas);
+		
         if ($result) {
             $arr['file'] = $filename;
             $arr['hasil'] = 'success';
@@ -129,7 +135,7 @@ class Upload extends CI_Controller
 
     public function upload_pelatihan()
     {
-        $config['upload_path'] = 'upload/data';
+        $config['upload_path'] = 'upload/pelatihan';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
@@ -140,11 +146,15 @@ class Upload extends CI_Controller
             $data = array('upload_data' => $this->upload->data());
             $filename = $data['upload_data']['file_name'];
         }
-        $datas = array('file_url' => $filename);
         $id = $this->input->post('id_pelatihan');
-        $this->db->where('id', $id);
-        $this->db->update('his_pelatihan', $datas);
-        if ($this->db->affected_rows() == '1') {
+        $user = $this->input->post('id_userfile');;
+        $datas = array(
+		'id_user' => $user,
+        'kategori_id' => 13,
+        'nama_file' =>$this->input->post('namafile'),
+        'id_pelatihan' =>$id,
+        'url' => $filename);
+		$this->db->insert('his_files_pel', $datas); if ($this->db->affected_rows() == '1') {
             $arr['file'] = $filename;
             $arr['hasil'] = 'success';
             $arr['message'] = 'Data berhasil ditambah!';
@@ -157,7 +167,7 @@ class Upload extends CI_Controller
 
     public function upload_golongan()
     {
-        $config['upload_path'] = 'upload/data';
+        $config['upload_path'] = 'upload/golongan';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
@@ -168,11 +178,16 @@ class Upload extends CI_Controller
             $data = array('upload_data' => $this->upload->data());
             $filename = $data['upload_data']['file_name'];
         }
-        $datas = array('file_url' => $filename);
+        $user = $this->input->post('id_userfile');;
         $id = $this->input->post('id_golongan');
-        $this->db->where('id', $id);
-        $this->db->update('his_golongan', $datas);
-        if ($this->db->affected_rows() == '1') {
+        $datas = array(
+		'id_user' => $user,
+        'kategori_id' => 12,
+        'nama_file' =>$this->input->post('namafile'),
+        'id_golongan' =>$id,
+        'url' => $filename);
+		$this->db->insert('his_files_gol', $datas);
+		if ($this->db->affected_rows() == '1') {
             $arr['file'] = $filename;
             $arr['hasil'] = 'success';
             $arr['message'] = 'Data berhasil ditambah!';
@@ -185,7 +200,7 @@ class Upload extends CI_Controller
 
     public function upload_jabasn()
     {
-        $config['upload_path'] = 'upload/data';
+        $config['upload_path'] = 'upload/asn';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
@@ -198,8 +213,14 @@ class Upload extends CI_Controller
         }
         $datas = array('file_url' => $filename);
         $id = $this->input->post('idasn');
-        $this->db->where('id', $id);
-        $this->db->update('his_jabatan_asn', $datas);
+        $user = $this->input->post('id_userfile');;
+        $datas = array(
+		'id_user' => $user,
+        'kategori_id' => 13,
+        'nama_file' =>$this->input->post('namafile'),
+        'id_asn' =>$id,
+        'url' => $filename);
+		$this->db->insert('his_files_asn', $datas); 
         if ($this->db->affected_rows() == '1') {
             $arr['file'] = $filename;
             $arr['hasil'] = 'success';

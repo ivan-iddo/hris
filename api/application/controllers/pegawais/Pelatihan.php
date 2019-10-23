@@ -160,6 +160,113 @@ public function getPel_get()
 
 }
 
+function deletelist_get()
+{
+    $headers = $this->input->request_headers();
+
+    if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+        $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+        $arr['hasil'] = 'error';
+        $arr['message'] = 'Data Gagal Ditambah!';
+        if ($decodedToken != false) {
+
+            $arrdata = array(
+                'tampilkan' => '0'
+            );
+
+            $this->db->where('id', $_GET['id']);
+            $this->db->update('his_files_pel', $arrdata);
+
+            if ($this->db->affected_rows() == '1') {
+                $arr['hasil'] = 'success';
+                $arr['message'] = 'Data berhasil ditambah!';
+            } else {
+                $arr['hasil'] = 'error';
+                $arr['message'] = 'Data Gagal Ditambah!';
+            }
+
+
+            $this->set_response($arr, REST_Controller::HTTP_OK);
+
+            return;
+        }
+    }
+
+    $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
+function file_pel_get()
+{
+    $headers = $this->input->request_headers();
+
+    if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+        $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+        if ($decodedToken != false) {
+
+            $id_user = $this->input->get('id');
+            if ($id_user != "") {
+                $this->db->where('id_user', $id_user);
+            } else {
+                $this->db->where('id_user', 0);
+            }
+            if(!empty($this->input->get('id_pel'))){
+                $this->db->where('id_pelatihan', $this->input->get('id_pel'));
+            }
+            $this->db->where('tampilkan', '1');
+            $resCek = $this->db->get('his_files_pel')->result();
+
+            $da = '';
+            $no = 0;
+            if(!empty($this->input->get('id_pel'))){
+                foreach ($resCek as $val) {
+                    ++$no;
+                    $text = 'text-success';
+
+                    $da .= '<tr>';
+                    $da .= '<td>';
+                    $da .= $no;
+                    $da .= '</td>';
+                    $da .= '<td class="' . $text . '">';
+                    $da .= $val->nama_file;
+                    $da .= '</td>';
+                    $da .= '<td>';
+                    $da .= '<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/pelatihan/' . $val->url . '\')"><i class="fa fa-eye"></i></a>';
+                    $da .= '</td>';
+                    $da .= '<td><a class="label label-danger" href="javascript:void(0);" onClick="hapusfile(\'' . $val->id . '\')">';
+                    $da .= 'Hapus';
+                    $da .= '</a>';
+                    $da .= '</td>';
+
+                    $da .= '</tr>';
+                }
+            }else{
+                $text = 'text-success';
+
+                $da .= '<tr>';
+                $da .= '<td>';
+                $da .= '</td>';
+                $da .= '<td class="' . $text . '">';
+                $da .= '</td>';
+                $da .= '<td>';
+                $da .= '</td>';
+                $da .= '<td>';
+                $da .= '</td>';
+                $da .= '</tr>';
+            }
+
+            $arr['hasil'] = 'success';
+            $arr['isi'] = $da;
+            $this->set_response($arr, REST_Controller::HTTP_OK);
+
+            return;
+        }
+    }
+
+    $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+
+
+}
+
 function editpelatihan_post(){
 	$headers = $this->input->request_headers();
 

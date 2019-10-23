@@ -293,7 +293,7 @@ function filedelete(result) {
     loadfileupload();
 }
 
-function hapusfile() {
+function hapusfile(a) {
     swal({
         title: "Apakah Anda sudah Yakin?",
         text: "Data yang sudah dihapus tidak bisa di hidupkan kembali!",

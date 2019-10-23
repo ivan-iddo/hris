@@ -1,5 +1,7 @@
 <form id="form-jfung"  method="post" role="form" class="form-horizontal pad-all">
 	<div class="row">
+	<input type="text" style="display:none" name="kategorifile" id="kategorifile" value="13">
+		  <input type="text" style="display:none" name="id_userfile" id="id_userfile">
 		<div class="col-lg-5">
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="inputrt">Direktorat</label>
@@ -121,6 +123,7 @@
 			<div class="box-body">
 				
 				<div class="btn-group mar-rgt">
+					<input type="text" placeholder="nama file" class="form-control" id="namafile" name="namafile">
 					<input name="doc_file" id="doc_file" type="file" class="btn btn-success btn-sm fileinput-button dz-clickable">
 					
 				</div>
@@ -145,7 +148,7 @@
 								<th>Action</th>
 							</tr>
 						</thead>
-						<tbody id="fileIjazah">
+						<tbody id="fileasn">
 							
 						</tbody>
 					</table>
@@ -156,10 +159,38 @@
 
 
 	<script>
+	 function getfileasn(result) {
+				$('#fileasn').html(result.isi);
+			}
+
+    function loadfileasn() {
+	var id_user = $('#id_user').val();
+      var selectedRows = gridJOpt.api.getSelectedRows();
+      var selectedRowsString = '';
+      selectedRows.forEach( function(selectedRow, index) {
+       
+        if (index!==0) {
+            selectedRowsString += ', ';
+        }
+        selectedRowsString += selectedRow.id;
+    });
+      getJson(getfileasn, BASE_URL + 'pegawais/jabatan_asn/file_asn/?id=' + id_user + '&id_asn=' + selectedRowsString +'&kategori=' + $('#kategorifile').val());
+  }
+
+  loadfileasn();
+  
 		function upload_file(){
-			var form = $("#form-jfung");
+			var id_user = $('#id_user').val();
+			$('#id_userfile').val(id_user);
+            var form = $("#form-jfung");
 			var idasn = $('#idasn').val();
-			
+			if (empty($('#doc_file').val())) {
+				swal('PERHATIAN!', 'Anda belum memilih file untuk di upload');
+				return false;
+			} else if (empty($('#namafile').val())) {
+				swal('PERHATIAN!', 'Anda memasukkan nama file');
+				return false;
+			}
 			if(!empty(idasn)){
 				$.ajax({
 	                url: BASE_URL+"pegawais/upload/upload_jabasn", // Url to which the request is send 
@@ -171,34 +202,14 @@
 	                success: function(data)   // A function to be called if request succeeds
 	                {
 	                	hasil=data.hasil;
-	                	var datafile='';
-	                	datafile+='<tr>';
-	                	datafile+='<td>1.';
-	                	datafile+='</td>';
-	                	datafile+='<td>';
-	                	datafile +=data.file.substring(0, 30)+'...';
-	                	datafile+='</td>';
-	                	datafile+='<td>';
-	                	
-	                	datafile +='<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/data/'+data.file+'\')"><i class="fa fa-eye"></i></a>';
-	                	datafile+='</td>';
-	                	datafile+='</tr>';
-	                	$('#fileIjazah').html(datafile);
-	                	
-	                	message=data.message; 
-	                	if(hasil=="success"){ 
-	                		
-	                		$.niftyNoty({
-	                			type: 'success',
-	                			title: 'Success',
-	                			message: message,
-	                			container: 'floating',
-	                			timer: 5000
-	                		});  
-	                	}else{
-	                		alert(message);
-	                		return false;	
-	                	}
+	                	 message = data.message;
+							if (hasil == "success") {
+								swal("Good job!", message, "success");
+								loadfileasn();
+							}else{
+                              alert(message);
+                              return false;	
+                            }
 	                }
 	            });
 			}else{
@@ -215,4 +226,27 @@
 				$('.datepicker').hide();
 			});
 		});
+		
+		function filedelete(result) {
+    if (result.hasil === 'success') {
+        swal("Deleted!", "Data berhail dihapus.", "success");
+    } else {
+        swal("GAGAL!", "Data gagal dihapus.");
+    }
+    loadfileasn();
+}
+
+function hapusfile(a) {
+    swal({
+        title: "Apakah Anda sudah Yakin?",
+        text: "Data yang sudah dihapus tidak bisa di hidupkan kembali!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Ya, Hapus saja!",
+        closeOnConfirm: false
+    }, function () {
+        getJson(filedelete, BASE_URL + 'pegawais/jabatan_asn/deletelist/?id=' + a);
+    });
+}
 	</script>
