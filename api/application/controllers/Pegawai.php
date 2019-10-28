@@ -421,12 +421,16 @@ public function getuser_get()
 
             $id = $this->input->get('id');
             $str = $this->cek_tugas($id);
+			if(!empty($str)){
 			if($str->tanggal_from>=date('Y-m-d')){
 			$surat_tugas='Pada tanggal '.date_format(date_create($str->tanggal_from), "d-m-Y").' - ' .date_format(date_create($str->tanggal_too), "d-m-Y"). ' Mengikuti kegiatan '.$str->nama_pelatihan;
 			}else{
 			$surat_tugas='';
 			}
-			//print_r($srt);die();
+			}else{
+			$surat_tugas='';
+			}
+			//print_r($str);die();
             $this->db->select('sys_user.id_uk, 
                 sys_user.name,
                 sys_user.username,
