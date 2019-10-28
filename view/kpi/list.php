@@ -10,7 +10,7 @@
           <span class="block text-center">
             <i class="fa fa-check-square-o fa-2x text-danger"></i> 
           </span>
-          Persetujuan KPI Individu
+          List KPI Individu
         </a>
       </li>
       <li class="">
@@ -18,7 +18,7 @@
           <span class="block text-center">
             <i class="fa fa-check-square-o fa-2x text-danger"></i> 
           </span>
-          Persetujuan KPI Unit
+          List KPI Unit
         </a>
       </li>
       <li class="">
@@ -26,7 +26,7 @@
           <span class="block text-center">
             <i class="fa fa-check-square-o fa-2x text-danger"></i> 
           </span>
-          Persetujuan KPI Pimpinan
+          list KPI Pimpinan
         </a>
       </li>
       
@@ -132,7 +132,7 @@
 
 </div>
 <script>
-  $('.judul-menu').html('Persetujuan KPI'); 
+  $('.judul-menu').html('List KPI'); 
   
   var headerTK = [
   {headerName: "No", field: "no", width: 60, filterParams:{newRowsAction: "keep"}},
@@ -140,7 +140,6 @@
   {headerName: "Nama Pegawai", field: "nama", width: 160, filterParams:{newRowsAction: "keep"}},
   {headerName: "Unit Kerja", field: "unit", width: 190, filterParams:{newRowsAction: "keep"}},
   {headerName: "Nilai IKI", field: "nilai", width: 90, filterParams:{newRowsAction: "keep"}},
-  {headerName: "Nilai IKU", field: "iku", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Status", field: "status", width: 120, cellRenderer: CellRenderer},
   {headerName: "Keterangan", field: "ket", width: 190, filterParams:{newRowsAction: "keep"}},
   {headerName: "Bulan", field: "bulan", width: 90, filterParams:{newRowsAction: "keep"}},

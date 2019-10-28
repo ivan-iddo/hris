@@ -300,10 +300,10 @@
 
   var columnDefs_warning = [
   {headerName: "ID", field: "id", width: 70, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "NIP", field: "nip", width: 100, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
+  {headerName: "NIP", field: "nip", width: 180, filterParams:{newRowsAction: 'keep'}},
+  {headerName: "Nama", field: "nama", width: 250, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Divisi", field: "nama_group", width: 250, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Status Kontrak", field: "tgl_kontrak", width: 250, filterParams:{newRowsAction: 'keep'}},
+  {headerName: "Status Kontrak", field: "tgl_kontrak", width: 250, cellRenderer: checkboxCellRenderer},
   ];
   
   
@@ -311,25 +311,23 @@
   var gridOptions_warning = {
     enableSorting: true,
     enableFilter: true,
-    suppressRowClickSelection: false, 
-    groupSelectsChildren: true,
-    debug: true,
-    rowSelection: 'single',
-    enableColResize: true,
-    rowGroupPanelShow: 'always',
-    pivotPanelShow: 'always',
-    enableRangeSelection: true,
-    columnDefs: columnDefs_warning,
-    pagination: true ,
-    defaultColDef:{
-      editable: false,
-      enableRowGroup:true,
-      enablePivot:true,
-      enableValue:true,
-      sortable:true,
-      resizable: true,
-      filter: true
-    }
+    suppressRowClickSelection: false,
+        // groupDefaultExpanded: 2,
+        groupSelectsChildren: true,
+        debug: true,
+        rowSelection: 'single',
+        enableColResize: true,
+        rowGroupPanelShow: 'always',
+        pivotPanelShow: 'always',
+        enableRangeSelection: true,
+        columnDefs: columnDefs_warning,
+        pagination: false,
+        defaultColDef: {
+            editable: false,
+            enableRowGroup: true,
+            enablePivot: true,
+            enableValue: true
+        },
   };
   
   // setup the grid after the page has finished loading 
@@ -392,10 +390,10 @@
 
   var columnDefs_warning_str = [
   {headerName: "ID", field: "id", width: 70, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "NIP", field: "nip", width: 100, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
+  {headerName: "NIP", field: "nip", width: 180, filterParams:{newRowsAction: 'keep'}},
+  {headerName: "Nama", field: "nama", width: 250, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Divisi", field: "nama_group", width: 250, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Status STR", field: "tgl_str", width: 250, filterParams:{newRowsAction: 'keep'}},
+  {headerName: "Status STR", field: "tgl_str", width: 250, cellRenderer: checkboxCellRenderer},
   
   ];
   
@@ -404,25 +402,23 @@
   var gridOptions_warning_str = {
     enableSorting: true,
     enableFilter: true,
-    suppressRowClickSelection: false, 
-    groupSelectsChildren: true,
-    debug: true,
-    rowSelection: 'single',
-    enableColResize: true,
-    rowGroupPanelShow: 'always',
-    pivotPanelShow: 'always',
-    enableRangeSelection: true,
-    columnDefs: columnDefs_warning_str,
-    pagination: true ,
-    defaultColDef:{
-      editable: false,
-      enableRowGroup:true,
-      enablePivot:true,
-      enableValue:true,
-      sortable:true,
-      resizable: true,
-      filter: true
-    }
+    suppressRowClickSelection: false,
+        // groupDefaultExpanded: 2,
+        groupSelectsChildren: true,
+        debug: true,
+        rowSelection: 'single',
+        enableColResize: true,
+        rowGroupPanelShow: 'always',
+        pivotPanelShow: 'always',
+        enableRangeSelection: true,
+        columnDefs: columnDefs_warning_str,
+        pagination: false,
+        defaultColDef: {
+            editable: false,
+            enableRowGroup: true,
+            enablePivot: true,
+            enableValue: true
+        },
   };
   
   // setup the grid after the page has finished loading 
@@ -467,6 +463,28 @@
 
   loaddata_warning_str();
 
+  function checkboxCellRenderer (params){
+        var input = document.createElement("input");
+        if(params.value ==='1 tahun'){
+            input.type = "submit";
+            input.value = "Kurang Dari 1 Tahun Lagi";
+            input.className = "btn-success btn-labeled";
+        }else if(params.value ==='6 bulan'){
+            input.type = "submit";
+            input.value = "Kurang Dari 6 Bulan Lagi";
+            input.className = "btn-warning btn-labeled";
+        }else if(params.value ==='3 bulan'){
+            input.type = "submit";
+            input.value = "Kurang Dari 3 Bulan Lagi";
+            input.className = "btn-danger btn-labeled";
+        }else if(params.value ==='habis'){
+            input.type = "submit";
+            input.value = "Sudah Habis";
+            input.className = "btn-danger btn-labeled";
+        }
+        return input;
+    }
+	
   function downloadformstr(){
     var today = new Date();
     var dd = today.getDate();
@@ -487,10 +505,10 @@
 
   var columnDefs_warning_sip = [
   {headerName: "ID", field: "id", width: 70, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "NIP", field: "nip", width: 100, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
+  {headerName: "NIP", field: "nip", width: 180, filterParams:{newRowsAction: 'keep'}},
+  {headerName: "Nama", field: "nama", width: 250, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Divisi", field: "nama_group", width: 250, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Status SIP", field: "tgl_sip", width: 250, filterParams:{newRowsAction: 'keep'}},
+  {headerName: "Status SIP", field: "tgl_sip", width: 250, cellRenderer: checkboxCellRenderer},
   
   ];
   
@@ -499,25 +517,23 @@
   var gridOptions_warning_sip = {
     enableSorting: true,
     enableFilter: true,
-    suppressRowClickSelection: false, 
-    groupSelectsChildren: true,
-    debug: true,
-    rowSelection: 'single',
-    enableColResize: true,
-    rowGroupPanelShow: 'always',
-    pivotPanelShow: 'always',
-    enableRangeSelection: true,
-    columnDefs: columnDefs_warning_sip,
-    pagination: true ,
-    defaultColDef:{
-      editable: false,
-      enableRowGroup:true,
-      enablePivot:true,
-      enableValue:true,
-      sortable:true,
-      resizable: true,
-      filter: true
-    }
+    suppressRowClickSelection: false,
+        // groupDefaultExpanded: 2,
+        groupSelectsChildren: true,
+        debug: true,
+        rowSelection: 'single',
+        enableColResize: true,
+        rowGroupPanelShow: 'always',
+        pivotPanelShow: 'always',
+        enableRangeSelection: true,
+        columnDefs: columnDefs_warning_sip,
+        pagination: false,
+        defaultColDef: {
+            editable: false,
+            enableRowGroup: true,
+            enablePivot: true,
+            enableValue: true
+        },
   };
   
   // setup the grid after the page has finished loading 

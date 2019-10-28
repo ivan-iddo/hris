@@ -598,7 +598,6 @@ function cekarray($startDate)
 	echo '<pre>';
 	print_r($startDate);
 }
-
 function tglini(){
 	return strtotime(date('Y-m-d 23:i:s'));
 }

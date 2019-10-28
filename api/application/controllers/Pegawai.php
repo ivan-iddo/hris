@@ -5,6 +5,7 @@ header("Access-Control-Allow-Methods: PUT, GET, POST");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
 require APPPATH . '/libraries/REST_Controller.php';
+require APPPATH . '/controllers/Monitoring.php';
 $rest_json = file_get_contents("php://input");
 
 $_POST = json_decode($rest_json, true);
@@ -15,6 +16,7 @@ class Pegawai extends REST_Controller
 * URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
 * Method: GET
 */
+
 
 function changepass_post()
 {
@@ -46,6 +48,52 @@ function changepass_post()
                 }
             }
 
+            $this->set_response($arr, REST_Controller::HTTP_OK);
+
+            return;
+        }
+    }
+
+    $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
+function newupdate_post()
+{
+    $headers = $this->input->request_headers();
+
+    if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+        $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+        if ($decodedToken != false) {
+//$this->db->limit('100');
+//$this->db->order_by();
+            $arr = array();
+			$id_user = $decodedToken->data->id;
+				
+				$this->db->where('id_user', $id_user);
+				$this->db->update('sys_user', array('email2' => $this->input->post('email2')));
+				$data=array(
+				'phone' => $this->input->post('no_hp')
+				,
+				'phone2' => $this->input->post('no_hp1')
+				,
+				'kode_pos' => $this->input->post('kd_pos')
+				,'alamat_tinggal' => $this->input->post('alamat')
+				,'rt_tinggal' => $this->input->post('rt')
+				,'rw_tinggal' => $this->input->post('rw')
+				,'prov_tinggal' => $this->input->post('txtprov')
+				,'kota_tinggal' => $this->input->post('txtkota')
+				,'kec_tinggal' => $this->input->post('txtkecamatan')
+				,'kel_tinggal' => $this->input->post('txtkelurahan')
+				,);
+				$this->db->where('id_user', $id_user);
+				$this->db->update('sys_user_profile', $data);
+				if ($this->db->affected_rows() == '1') {
+					$arr['hasil'] = 'success';
+					$arr['message'] = 'Password Berhasil Dirubah!';
+				} else {
+					$arr['hasil'] = 'error';
+					$arr['message'] = 'Data Gagal Dirubah!';
+				}
             $this->set_response($arr, REST_Controller::HTTP_OK);
 
             return;
@@ -272,6 +320,97 @@ function save_post()
     $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 }
 
+function cek_tugas($nopeg)
+{		
+				$besok = date('Y-m-d', strtotime("+7 day"));
+				//print_r($besok);die();
+                $this->db->where('pengembangan_pelatihan_detail.nopeg', $nopeg);
+				$this->db->where('pengembangan_pelatihan_pelaksanaan.tanggal_from <=', $besok);
+				$this->db->order_by('pengembangan_pelatihan_detail.id','DESC');
+                $this->db->join("pengembangan_pelatihan_pelaksanaan", "pengembangan_pelatihan_detail.pengembangan_pelatihan_id = pengembangan_pelatihan_pelaksanaan.pengembangan_pelatihan_id");
+                $this->db->join("pengembangan_pelatihan", "pengembangan_pelatihan_detail.pengembangan_pelatihan_id = pengembangan_pelatihan.id");
+                $cek=$this->db->get('pengembangan_pelatihan_detail')->row();
+				return $cek;
+}
+
+function cuti($id_cuti,$id_user)
+{
+            $tahun = date('Y');
+            $tahunskrg = $tahun;
+            $tahunlalu = ($tahun - 1);
+
+            $this->db->where('id', $id_cuti);
+            $this->db->where('tampilkan', '1');
+            $res = $this->db->get('m_jenis_cuti')->row();
+            $kd_jenis_cuti = $res->abid;
+
+            $this->db->where('id_user', $id_user);
+            $resShift = $this->db->get('sys_user')->row();
+            $status_shift = $resShift->id_shift;
+            $this->db->select('sum(total) as total_cuti');
+            $this->db->where('jenis_cuti', $kd_jenis_cuti);
+            $this->db->where('id_user', $id_user);
+            $this->db->where('status != 108');
+            $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', $tahun);
+            $this->db->where('tampilkan', '1');
+            $resCekSkrg = $this->db->get('his_cuti')->row();
+
+            $this->db->where('abid', $kd_jenis_cuti);
+            $this->db->where('tampilkan', '1');
+            $this->db->where('tahun', $tahunskrg);
+            $resMaxSkrg = $this->db->get('m_jenis_cuti')->row();
+
+            $cuti_skrg = $resCekSkrg->total_cuti;
+            $max_cuti_skrg = $resMaxSkrg->jumlah;
+
+            $this->db->select('sum(total) as total_cuti');
+            $this->db->where('jenis_cuti', $kd_jenis_cuti);
+            $this->db->where('id_user', $id_user);
+            $this->db->where('EXTRACT(YEAR FROM tgl_cuti) =', ($tahun - 1));
+            $this->db->where('status != 108');
+            $this->db->where('tampilkan', '1');
+            $resCekLalu = $this->db->get('his_cuti')->row();
+            $this->db->where('abid', $kd_jenis_cuti);
+            $this->db->where('tampilkan', '1');
+            $this->db->where('tahun', $tahunlalu);
+            $resMaxLalu = $this->db->get('m_jenis_cuti')->row();
+
+            $cuti_kmrn = $resCekLalu->total_cuti;
+            $max_cuti_kmrn = $resMaxLalu->jumlah;
+
+            if ($cuti_kmrn > 12) {
+                $jumcuti = 12;
+            } else {
+                $jumcuti = $cuti_kmrn;
+            }
+
+            $cutithnlalu = $max_cuti_kmrn - $jumcuti;
+            $jumlahtot = $max_cuti_skrg + $cutithnlalu;
+
+            if ($jumlahtot > 18) {
+                $jumlah = 18;
+            } else {
+                $jumlah = $jumlahtot;
+            }
+
+            $jumlahcuti = $jumlah - $cuti_skrg;
+
+            if (!empty($cuti_kmrn)) {
+                if ($jumlahcuti > 18) {
+                    $cc = 18;
+                } else {
+                    $cc = $jumlahcuti;
+                }
+            }else{
+                if(!empty($cuti_skrg)){
+                    $cc = $max_cuti_skrg - $cuti_skrg;
+                }else{
+                    $cc = $max_cuti_skrg;
+                }
+            }
+	return $cc;
+}
+
 public function getuser_get()
 {
     $headers = $this->input->request_headers();
@@ -281,12 +420,19 @@ public function getuser_get()
         if ($decodedToken != false) {
 
             $id = $this->input->get('id');
-
+            $str = $this->cek_tugas($id);
+			if($str->tanggal_from>=date('Y-m-d')){
+			$surat_tugas='Pada tanggal '.date_format(date_create($str->tanggal_from), "d-m-Y").' - ' .date_format(date_create($str->tanggal_too), "d-m-Y"). ' Mengikuti kegiatan '.$str->nama_pelatihan;
+			}else{
+			$surat_tugas='';
+			}
+			//print_r($srt);die();
             $this->db->select('sys_user.id_uk, 
                 sys_user.name,
                 sys_user.username,
                 sys_user.password,
                 sys_user.email,
+				sys_user.email2,
                 sys_user.id_grup,
                 sys_user.status,
                 sys_user.foto,
@@ -336,12 +482,25 @@ public function getuser_get()
             $res = $this->db->get('sys_user')->result();
             if (!empty($res)) {
                 foreach ($res as $d) {
+					//print_r($d->id_shift);die();
+					if($d->id_shift=51){
+					$shift=27;
+					}else{
+					$shift=28;
+					}
+					$sisa=$this->cuti($shift,$id);
+					if($sisa!=0){
+					$cuti ='Sisa cuti tinggal '.$sisa.' Hari';
+					}else{
+					$cuti='';
+					}
                     $arr[] = array('id_uk' => $d->id_uk,
                         'id' => $d->id_user,
                         'nama' => $d->name,
                         'username' => $d->username,
                         'pass' => $d->password,
                         'email' => $d->email,
+                        'email2' => $d->email2,
                         'acces' => $d->acces,
                         'id_group' => $d->id_grup,
                         'status' => $d->status,
@@ -414,6 +573,8 @@ public function getuser_get()
                         'tgl_kontrak' => $d->tglakhir,
                         'tgl_str' => $d->date_end_str,
                         'tgl_sip' => $d->date_end,
+                        'sisa_cuti' => $cuti,
+                        'surat' => $surat_tugas,
 
                     );
 }
@@ -2589,6 +2750,7 @@ function cekcuti_get()
     $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 }
 
+
 function cekizin_get()
 {
     $headers = $this->input->request_headers();
@@ -3734,6 +3896,8 @@ function setjabatan_get()
     }
     $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 }
+
+
 function setgolongan_get()
 {
     $headers = $this->input->request_headers();

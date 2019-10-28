@@ -2,36 +2,6 @@
 
     <div class="tab-base mar-all">
         <!--Nav Tabs-->
-
-        <ul class="nav nav-tabs">
-            <li>
-                <a href="#demo-lft-tab-1" data-toggle="tab">
-                  <span class="block text-center">
-                     <i class="fa fa-home fa-2x text-danger"></i> 
-                 </span>
-                 Dashboard
-             </a>
-         </li>
-
-         <li class="active">
-            <a href="#demo-lft-tab-2" data-toggle="tab">
-              <span class="block text-center">
-                 <i class="fa fa-laptop fa-2x text-danger"></i> 
-             </span>
-             View Data
-         </a>
-     </li>
-
-     <li>
-        <a href="#demo-lft-tab-3" data-toggle="tab">
-          <span class="block text-center">
-             <i class="fa fa-lightbulb-o fa-2x text-warning"></i> 
-         </span>
-         Help
-     </a>
- </li>
-</ul>
-
 <div class="tab-content">
     <div class="tab-pane fade" id="demo-lft-tab-1">
        <div class="panel-group accordion" id="accordion">
@@ -61,13 +31,6 @@
         <div class="panel" style="border:none">
 
             <!--Accordion title-->
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-parent="#accordion" data-toggle="collapse" href="#collapseOne"
-                    aria-expanded="true" class="text-warning"><i class="fa fa-folder"></i> Data
-                Pegawai</a>
-            </h4>
-        </div>
 
         <div class="panel-collapse collapse in" id="collapseOne" aria-expanded="true" style="">
             <div class="panel-body">
@@ -92,13 +55,17 @@
 
 
 <script charset="utf-8" type="text/javascript">
-    $('.judul-menu').html('Data Pegawai');
+    $('.judul-menu').html('Riwayat Pegawai');
     //<![CDATA[
     // specify the columns
     function bukaProfile() {
 
         var selectedRowsString = localStorage.getItem("id_user");
 
+		var d = new Date();
+		  var n = d.getMonth();
+		  bulan = n+1;
+  
         $.ajax({
             url: BASE_URL + 'pegawai/getuser/?id=' + selectedRowsString,
             headers: {
@@ -118,8 +85,10 @@
                 if (res.hasil !== 'error') {
                     
                     window.setTimeout(function () {
-                        $('#page_nama').html(res[0].nama);
-                        $('#page_foto').attr('src', res[0].foto);
+                        $('#page_nama').html(res[0].nama+' ( NOPEG '+res[0].id+' )');
+						$('#page_cuti').html(res[0].sisa_cuti);
+						$('#page_surat').html(res[0].surat);
+						$('#page_foto').attr('src', res[0].foto);
 
                         
                         if(res[0].status_pegawai_tetap!=4){
@@ -213,11 +182,31 @@
 
                     $('.page-jabatan').html(res[0].jabatan);
                     $('#pass').val(res[0].pass);
+                    $('#alamat').val(res[0].alamat_tinggal);
+					$('#rt').val(res[0].rt_tinggal);
+					$('#rw').val(res[0].rw_tinggal);
+					$('#kd_pos').val(res[0].kode_pos);
+					$('#no_hp').val(res[0].phone);
+					$('#no_hp1').val(res[0].phone2);
+					$('#email').val(res[0].email);
+					$('#email2').val(res[0].email2);
+					getOptionsEdit("txtprov",BASE_URL+"master/provinsi",res[0].prov);
+					if(res[0].prov !=='0'){
+					   getOptionsEdit("txtkota",BASE_URL+"master/kota/"+res[0].prov,res[0].kota);
+					 }
+				 
+					 if(res[0].kota !=='0'){ 
+					   getOptionsEdit("txtkecamatan",BASE_URL+"master/kecamatan/"+res[0].kota,res[0].kecamatan);
+					 }
+					 if(res[0].kecamatan !=='0'){
+					   
+					   getOptionsEdit("txtkelurahan",BASE_URL+"master/kelurahan/"+res[0].kecamatan,res[0].kelurahan);
+					 }
                     $('#id_user').val(res[0].id);
                     $('#f_id_edit').val(res[0].id);
                     $('#nop').val(res[0].nip);
                 }, 1000);
-$('#profilePage').load('view/pegawai/profile_view.php');
+$('#profilePage').load('view/pegawai/profile_view.php?bulan='+bulan+'&id='+selectedRowsString);
 }
 
 },
@@ -231,15 +220,6 @@ error: function (jqXhr, textStatus, errorThrown) {
 
 
 bukaProfile();
-
-function buka() {
-  var d = new Date();
-  var n = d.getMonth();
-  bulan = n+1;
-  var user = localStorage.getItem("id_user");
-  $('#profile').load('view/kpi/kpi_pegawai.php?bulan='+bulan+'&nopeg='+user);
-}
-buka();
     //]]>
 
 

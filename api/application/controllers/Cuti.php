@@ -945,12 +945,11 @@ function list_cutis_get()
             $user_froup = $decodedToken->data->_pnc_id_grup;
             $id_user = $this->input->get('id_user');
             $this->db->select('m_jenis_cuti.nama as namcut,his_cuti.*,dm_term.nama as statuspros,sys_user.name as namapegawai');
-            $this->db->join('m_jenis_cuti', 'm_jenis_cuti.abid = his_cuti.jenis_cuti');
-            $this->db->join('dm_term', 'dm_term.id = his_cuti.status');
-            $this->db->join('sys_user', 'sys_user.id_user = his_cuti.id_user');
+            $this->db->join('m_jenis_cuti', 'm_jenis_cuti.abid = his_cuti.jenis_cuti','left');
+            $this->db->join('dm_term', 'dm_term.id = his_cuti.status','left');
+            $this->db->join('sys_user', 'sys_user.id_user = his_cuti.id_user','left');
             $this->db->where('his_cuti.tampilkan', '1');
-			$this->db->where('m_jenis_cuti.tahun =',date('Y'));
-               
+			   
             if (($user_froup == '1') OR ($user_froup == '6') or ($user_froup == '97') or ($user_froup == '98') or ($user_froup == '99') or ($user_froup == '100')) {
                 if ((!empty($this->input->get('id_uk'))) AND ($this->input->get('id_uk') <> 'null')) {
                     $this->db->where('sys_user.id_grup', $this->input->get('id_uk'));
@@ -959,15 +958,22 @@ function list_cutis_get()
                 $this->db->where('sys_user.id_grup', $user_froup);
             }
 
-            if (empty($this->input->get('tahun'))) {
-                $thn = date('Y');
-            } else {
-                $thn = $this->input->get('tahun');
+            if (empty($this->input->get('awal'))) {
+                $awal = date('Y-m-d');
+			} else {
+                $awal = $this->input->get('awal');
+			}
+			$this->db->where('his_cuti.tgl_cuti >=',$awal);
+            
+			//$this->db->where('his_cuti.tgl_akhir_cuti >=',$awal);
+            
+			if (!empty($this->input->get('akhir'))) {
+                $ahir = $this->input->get('akhir');
+				$this->db->where('his_cuti.tgl_cuti <=',$ahir);
+				//$this->db->where('his_cuti.tgl_akhir_cuti <=',$ahir);
             }
-            $this->db->where('EXTRACT(YEAR FROM his_cuti.tgl_akhir_cuti) =',$thn);
-            if(!empty($this->input->get('bulan'))){
-                $this->db->where('EXTRACT(MONTH FROM his_cuti.tgl_akhir_cuti) =',$this->input->get('bulan'));
-            }
+            
+            
             $this->db->order_by('tgl_cuti', 'DESC');
             $resCek = $this->db->get('his_cuti')->result();
             $count=count($resCek);

@@ -27,38 +27,34 @@ require_once('../../connectdb.php');
               <div class="box-body">
 
                 <div class="row pad-top">
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label" for="inputstatus">Bulan</label>
-                    <div class="col-sm-3">
-                      <select class="form-control select2" id="bulan" name="bulan" style="width: 100%;">
-                        <option value="">Bulan</option>
-                        <?php for($i=1;$i<=12;$i++){?>
-                          <option value="<?php echo $i?>"><?php echo $i?></option>
-                        <?php }?>
-                      </select> 
-                    </div>
-
-                  </div> 								
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label" for="inputstatus">Tahun</label>
-                    <div class="col-sm-3">
-                      <select class="form-control select2" id="thn" name="thn" style="width: 100%;">
-                        <option value="">--TAHUN--</option>
-                        <?php for($i=date('Y');$i>=2010;$i--){?>
-                          <option value="<?php echo $i?>"><?php echo $i?></option>
-                        <?php }?>
-                      </select> 
-                    </div>
-
-                  </div> 
+				<div class="admininput">
+                   <div class="row pad-top"> 
+					 <div class="form-group">
+					   <label class="col-sm-3 control-label" for="inputstatus">Tanggal Awal</label>
+					   <div class="col-sm-7">
+						  <input  id="awal" name="awal" class="form-control tanggal" placeholder="Awal dd-mm-yyyy" type="text">
+					  </div>                          
+					</div>
+				</div>                          
+			    </div>
+			  <div class="admininput">
+				<div class="row pad-top"> 
+					<div class="form-group">
+					   <label class="col-sm-3 control-label" for="inputstatus">Tanggal Akhir</label>
+					   <div class="col-sm-7">
+						  <input  name="akhir" id="akhir" class="form-control tanggal" placeholder="Akhir dd-mm-yyyy" type="text">
+					  </div>                          
+					</div>
+				</div>
+			  </div>
                 </div>
                 <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6')OR ($_SESSION['userdata']['group']=='97')OR ($_SESSION['userdata']['group']=='98')OR ($_SESSION['userdata']['group']=='99')OR ($_SESSION['userdata']['group']=='100') ){?>
 
                   <div class="admininput">
                     <div class="row pad-top"> 
                       <div class="form-group">
-                        <label class="col-sm-2 control-label" for="inputstatus">Unit Kerja</label>
-                        <div class="col-sm-9">
+                        <label class="col-sm-3 control-label" for="inputstatus">Unit Kerja</label>
+                        <div class="col-sm-7">
                           <select class="form-control select-chosen" id="txtdirektorat" name="txtdirektorat" style="width: 100%;">
 
 
@@ -74,7 +70,7 @@ require_once('../../connectdb.php');
 
                 <div class="row "> 
                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="inputstatus"></label>
+                    <label class="col-sm-3 control-label" for="inputstatus"></label>
                     <div class="col-sm-5">
 
                       <div class="row  text-left"> 
@@ -159,11 +155,11 @@ require_once('../../connectdb.php');
   $('.judul-menu').html('Persetujuan Cuti SDM'); 
   search();
   function search(){
-    var thn=$('#thn').val();
-    var bulan=$('#bulan').val();
+    var awal=$('#awal').val();
+    var akhir=$('#akhir').val();
     var uk=$('#txtdirektorat').val();
     $.ajax({
-      url: BASE_URL+'cuti/list_cutis?bulan='+bulan+'&tahun='+thn+'&id_uk='+uk,
+      url: BASE_URL+'cuti/list_cutis?awal='+awal+'&akhir='+akhir+'&id_uk='+uk,
       headers: {
         'Authorization': localStorage.getItem("Token"),
         'X_CSRF_TOKEN':'donimaulana',
@@ -182,6 +178,14 @@ require_once('../../connectdb.php');
 
   }
 
+    $(document).ready(function () {
+		$('.tanggal').datepicker({
+            format: "dd-mm-yyyy",
+        }).on('change', function(){
+         $('.datepicker').hide();
+     });
+    });
+	
   $('.select-chosen').chosen();
   $('.chosen-container').css({"width": "100%"});
 </script>

@@ -81,61 +81,38 @@ public function list_warning_kontrak_get(){
 // if(!empty($this->uri->segment(4))){
 //      $this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param);
 //  }
-
+	  if(empty($sampai)){
+	  $this->db->where('sub_kontrak.tglakhir <=', date('d-m-Y', strtotime("+183 day", strtotime(date('d-m-Y')))));
+	  }
       $this->db->where('sys_user.status','1');
       $res = $this->db->get('sys_user')->result();
       $arr['result']=array();
       foreach($res as $d){
         $tanggalKontrak = $d->tglakhir;
-        if ($tanggalKontrak != '') {
-          $tanggalN = date('d M Y',strtotime($tanggalKontrak));
-          $tanggal = strtotime($tanggalKontrak);
-          $today = time();
-          $diff = $tanggal - $today ;
-          $sisa = floor($diff / (60 * 60 * 24));
-          $tanggal1 = new DateTime($tanggalKontrak);
-          $today1 = new DateTime('today');
-          $y = $today1->diff($tanggal1)->y;
-          $m = $today1->diff($tanggal1)->m;
-          $day = $today1->diff($tanggal1)->d;
-
-          if ($sisa <= 30 && $sisa > 0) {
-            $dayKontrak = 'Sisa Kontrak tinggal '. $sisa . ' hari lagi';
+		$tanggal = date('d-m-Y');
+		$tiga = date('d-m-Y', strtotime("+92 day", strtotime($tanggal)));
+		$enam = date('d-m-Y', strtotime("+183 day", strtotime($tanggal)));
+		if ($tanggalKontrak != '') {
+		   if (strtotime($tanggalKontrak)<=strtotime($enam) && strtotime($tanggalKontrak)>=strtotime($tiga)){
+		   $daykontrak = '6 bulan';
+		   }else{
+		   if (strtotime($tanggalKontrak)<=strtotime($tiga) && strtotime($tanggalKontrak)<=strtotime($tanggal)){
+		   $daykontrak = 'habis';
+		   }else{
+		   $daykontrak = '3 bulan';
+		   }
+		   }
             $arr['result'][]=array(
               'id'=>$d->id_user,
-              'nama'=>$d->name,
+              'nama'=>$tanggalKontrak,
               'nama_group'=>$d->grup,
               'nip'=>$d->nip,
-              'tgl_kontrak' => $dayKontrak,
+              'tgl_kontrak' => $daykontrak,
             );
 
-          }
-          if ($sisa <= 180 && $sisa > 30) {
-            $dayKontrak = 'Sisa Kontrak tinggal '. $m . ' bulan '. $day . ' hari lagi';
-            $arr['result'][]=array(
-              'id'=>$d->id_user,
-              'nama'=>$d->name,
-              'nama_group'=>$d->grup,
-              'nip'=>$d->nip,
-              'tgl_kontrak' => $dayKontrak,
-            );
-
-          }
-          if ($sisa <= 0 && $sisa >= -14) {
-            $dayKontrak = 'Kontrak Telah Berakhir Tanggal '. $tanggalN;
-            $dayKontrak = 'Sisa Kontrak tinggal '. $sisa . ' hari lagi';
-            $arr['result'][]=array(
-              'id'=>$d->id_user,
-              'nama'=>$d->name,
-              'nama_group'=>$d->grup,
-              'nip'=>$d->nip,
-              'tgl_kontrak' => $dayKontrak,
-            );
-
-          }
-
-        } 
-
+        }else{
+		$arr['result'][]=array();
+		}
       }
 
       $this->set_response($arr, REST_Controller::HTTP_OK);
@@ -178,6 +155,8 @@ public function list_warning_str_get(){
       if(!empty($direktorat) && $direktorat != "null"){
         $this->db->where("sys_grup_user.id_grup",$direktorat);
       }
+       
+	   
 
 // $param = "%".urldecode($this->uri->segment(4))."%";
 // if(!empty($this->uri->segment(4))){
@@ -185,7 +164,7 @@ public function list_warning_str_get(){
 //  }
 
       if($user_froup!=1){
-        if($sub_bag==0){
+		if($sub_bag==0){
           $this->db->where_in('riwayat_kedinasan.bagian', $bagian);
           if($bagian==0){
             $this->db->where_in('riwayat_kedinasan.direktorat', $dir);
@@ -195,28 +174,33 @@ public function list_warning_str_get(){
           $this->db->where_in('riwayat_kedinasan.sub_bagian', $sub_bag);
         }
       }
-
+	  if(empty($sampai)){
+	  $this->db->where('sub_str.date_end <=', date('d-m-Y', strtotime("+360 day", strtotime(date('d-m-Y')))));
+	  }
       $this->db->where('sys_user.status','1');
       $res = $this->db->get('sys_user')->result();
-// print_r($res);die();
+	  //print_r($res);die();
       $arr['result']=array();
       foreach($res as $d){
-
-        $tanggalSTR = $d->date_end_str;
+		$tanggalSTR = $d->date_end_str;
+		$tanggal = date('d-m-Y');
+		$tiga = date('d-m-Y', strtotime("+92 day", strtotime($tanggal)));
+		$enam = date('d-m-Y', strtotime("+183 day", strtotime($tanggal)));
+		$satu = date('d-m-Y', strtotime("+360 day", strtotime($tanggal)));
         if ($tanggalSTR != '') {
-          $tanggalN = date('d M Y',strtotime($tanggalSTR));
-          $tanggal = strtotime($tanggalSTR);
-          $today = time();
-          $diff = $tanggal - $today ;
-          $sisa = floor($diff / (60 * 60 * 24));
-          $tanggal1 = new DateTime($tanggalSTR);
-          $today1 = new DateTime('today');
-          $y = $today1->diff($tanggal1)->y;
-          $m = $today1->diff($tanggal1)->m;
-          $day = $today1->diff($tanggal1)->d;
-
-          if ($sisa <= 30 && $sisa > 0) {
-            $daySTR = 'Sisa STR tinggal '. $sisa . ' hari lagi';
+		   if (strtotime($tanggalSTR)<=strtotime($satu) && strtotime($tanggalSTR)>=strtotime($enam)){
+		   $daySTR = '1 tahun';
+		   }else{
+		   if (strtotime($tanggalSTR)<=strtotime($enam) && strtotime($tanggalSTR)>=strtotime($tiga)){
+		   $daySTR = '6 bulan';
+		   }else{
+		   if (strtotime($tanggalSTR)<=strtotime($tiga) && strtotime($tanggalSTR)<=strtotime($tanggal)){
+		   $daySTR = 'habis';
+		   }else{
+		   $daySTR = '3 bulan';
+		   }
+		   }
+		   }
             $arr['result'][]=array(
               'id'=>$d->id_user,
               'nama'=>$d->name,
@@ -225,29 +209,9 @@ public function list_warning_str_get(){
               'tgl_str' => $daySTR,
             );
 
-          }
-          if ($sisa <= 180 && $sisa > 30) {
-            $daySTR = 'Sisa STR tinggal '. $m . ' bulan '. $day . ' hari lagi';
-            $arr['result'][]=array(
-              'id'=>$d->id_user,
-              'nama'=>$d->name,
-              'nama_group'=>$d->grup,
-              'nip'=>$d->nip,
-              'tgl_str' => $daySTR,
-            );
-
-          }
-          if ($sisa <= 0 && $sisa >= -14) {
-            $daySTR = 'STR Telah Berakhir Tanggal '. $tanggalN;
-            $arr['result'][]=array('id'=>$d->id_user,
-              'nama'=>$d->name,
-              'nama_group'=>$d->grup,
-              'nip'=>$d->nip,
-              'tgl_str' => $daySTR,
-            );
-          }
-
-        } 
+        }else{
+		$arr['result'][]=array();
+		}
 
       }
       $this->set_response($arr, REST_Controller::HTTP_OK);
@@ -307,60 +271,44 @@ public function list_warning_sip_get(){
         $this->db->where_in('riwayat_kedinasan.bagian', $bagian);
         $this->db->where_in('riwayat_kedinasan.sub_bagian', $sub_bag);
       }
-
+	  if(empty($sampai)){
+	  $this->db->where('sub_sip.date_end <=', date('d-m-Y', strtotime("+360 day", strtotime(date('d-m-Y')))));
+	  }
       $this->db->where('sys_user.status','1');
       $res = $this->db->get('sys_user')->result();
       $arr['result']=array();
       foreach($res as $d){
 
         $tanggalSIP = $d->date_end;
+        $tanggal = date('d-m-Y');
+		$tiga = date('d-m-Y', strtotime("+92 day", strtotime($tanggal)));
+		$enam = date('d-m-Y', strtotime("+183 day", strtotime($tanggal)));
+		$satu = date('d-m-Y', strtotime("+360 day", strtotime($tanggal)));
         if ($tanggalSIP != '') {
-          $tanggalN = date('d M Y',strtotime($tanggalSIP)); 
-          $tanggal = strtotime($tanggalSIP);
-          $today = time();
-          $diff = $tanggal - $today ;
-          $sisa = floor($diff / (60 * 60 * 24));
-          $tanggal1 = new DateTime($tanggalSIP);
-          $today1 = new DateTime('today');
-          $y = $today1->diff($tanggal1)->y;
-          $m = $today1->diff($tanggal1)->m;
-          $day = $today1->diff($tanggal1)->d;
-
-          if ($sisa <= 30 && $sisa > 0) {
-            $daySIP = 'Sisa Masa Berlaku Pangkat tinggal '. $sisa . ' hari lagi';
+		   if (strtotime($tanggalSIP)<=strtotime($satu) && strtotime($tanggalSIP)>=strtotime($enam)){
+		   $daySip = '1 tahun';
+		   }else{
+		   if (strtotime($tanggalSIP)<=strtotime($enam) && strtotime($tanggalSIP)>=strtotime($tiga)){
+		   $daySip = '6 bulan';
+		   }else{
+		   if (strtotime($tanggalSIP)<=strtotime($tiga) && strtotime($tanggalSIP)<=strtotime($tanggal)){
+		   $daySip = 'habis';
+		   }else{
+		   $daySip = '3 bulan';
+		   }
+		   }
+		   }
             $arr['result'][]=array(
               'id'=>$d->id_user,
               'nama'=>$d->name,
               'nama_group'=>$d->grup,
               'nip'=>$d->nip,
-              'tgl_sip' => $daySIP,
+              'tgl_sip' => $daySip,
             );
 
-          }
-          if ($sisa <= 180 && $sisa > 30) {
-            $daySIP = 'Sisa Masa Berlaku Pangkat tinggal '. $m . ' bulan '. $day . ' hari lagi';
-            $arr['result'][]=array(
-              'id'=>$d->id_user,
-              'nama'=>$d->name,
-              'nama_group'=>$d->grup,
-              'nip'=>$d->nip,
-              'tgl_sip' => $daySIP,
-            );
-
-          }
-          if ($sisa <= 0 && $sisa >= -14) {
-            $daySIP = 'SIP Telah Berakhir Tanggal '. $tanggalN;
-            $arr['result'][]=array('id'=>$d->id_user,
-              'nama'=>$d->name,
-              'nama_group'=>$d->grup,
-              'nip'=>$d->nip,
-              'tgl_sip' => $daySIP,
-            );
-
-          }
-
-        } 
-
+        }else{
+		$arr['result'][]=array();
+		}
       } 
 
       $this->set_response($arr, REST_Controller::HTTP_OK);

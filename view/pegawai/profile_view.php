@@ -1,6 +1,14 @@
 <div class="">
   <div class="fixed-sm-200 fixed-lg-250 pull-sm-left">
-    <div class="panel">
+	  
+	<div class="panel">
+	 <div class="table">
+		   <table class="table">
+			   <tbody id="tabel">
+				  
+			   </tbody>
+		   </table>
+	   </div>
       <!-- Simple profile -->
       <div class="text-center pad-all bord-btm">
         <div class="pad-ver"><img alt="Profile Picture" class="img-lg img-border img-circle" id="page_foto" src=""></div>
@@ -16,8 +24,12 @@
         </div>
         <hr>
         <button class="btn btn-block btn-success page-jabatan">Follow</button> 
-      </div>
-    </div>
+        
+		<h4 class="text-overflow text-center" id="page_cuti"></h4><br>
+		<h5 class="text-overflow text-left" id="page_surat"></h5>
+    
+	  </div>
+	</div>
   </div>
   <div class="fluid">
     <div class="bg-trans-light pad-all mar-btm clearfix">
@@ -29,6 +41,8 @@
             <a data-toggle="tab" href="#demo-lft-tab-1a"><span class="block text-center text-success"><i class="fa fa-credit-card fa-2x"></i></span> Akun</a>
           </li>
           <li>
+            <a data-toggle="tab" href="#demo-lft-tab-1i" onclick="tabIdentitasView();"><span class="block text-center text-success"><i class="fa fa-user fa-2x"></i></span> Identitas</a>
+          </li> <li>
             <a data-toggle="tab" href="#demo-lft-tab-1b" onclick="tabKeluargaView();"><span class="block text-center text-success"><i class="fa fa-group fa-2x"></i></span> Keluarga</a>
           </li>
           <li>
@@ -133,7 +147,92 @@ Medical</a></li>
      
    </div>
  </div>
- <div class="tab-pane fade active in" id="demo-lft-tab-1b">
+ <div class="tab-pane fade" id="demo-lft-tab-1i">
+	<div class="row"><!-- left column -->
+	<div class="col-md-12">
+      <form class="form-update" id="form-update" method="post" >
+        <input id="id_user" name="id_user" style="display:none" type="text">
+		<div class="form-group">
+         <label for="demo-inline-inputpass">Alamat</label>
+         <textarea placeholder="Alamat" id="alamat" name="alamat" style="width:400px" class="form-control" type="text"></textarea>
+        </div>
+		<div class="form-group">
+         <label for="demo-inline-inputpass">Rt</label>
+         <input placeholder="Rt" id="rt" name="rt" style="width:100px" class="form-control" type="text">
+        </div>
+		<div class="form-group">
+         <label for="demo-inline-inputpass" >Rw</label>
+         <input placeholder="Rw" id="rw" name="rw" style="width:100px" class="form-control" type="text">
+        </div>
+		<label for="demo-inline-inputpass">Provinsi</label>
+         
+		<div class="form-group">
+         <select aria-hidden="true" class="select-chosen"
+			id="txtprov" name="txtprov"
+			onchange="getKota(this.value,'txtkota')"
+			style="width:300px"
+			tabindex="-1"></select>
+        </div>
+		<label for="demo-inline-inputpass">Kota</label>
+         
+		<div class="form-group">
+         <select aria-hidden="true" class="select-chosen"
+			id="txtkota" name="txtkota"
+			onchange="getKecamatan(this.value,'txtkecamatan')"
+			style="width:300px" tabindex="-1">
+			<option selected="selected"></option>
+		  </select>
+        </div>
+		<label for="demo-inline-inputpass">Kecamatan</label>
+		<div class="form-group">
+         
+         <select aria-hidden="true" class="select-chosen"
+			id="txtkecamatan"
+			name="txtkecamatan"
+			onchange="getKelurahan(this.value,'txtkelurahan')"
+			style="width:300px" tabindex="-1">
+			<option selected="selected"></option>
+		  </select>
+        </div>
+		<label for="demo-inline-inputpass">Kelurahan</label>
+		<div class="form-group">
+        <select aria-hidden="true" class="select-chosen"
+		  id="txtkelurahan"
+		  name="txtkelurahan"
+		  style="width:300px" tabindex="-1">
+		  <option selected="selected"></option>
+		</select></option>
+		  </select>
+        </div><!-- End Hori sontal -->
+	    <div class="form-group">
+         <label for="demo-inline-inputpass">Kode Pos</label>
+         <input placeholder="Kode Pos" id="kd_pos" name="kd_pos" style="width:100px" class="form-control" type="text">
+        </div>
+		<div class="form-group">
+         <label for="demo-inline-inputpass">Email RS</label>
+         <input placeholder="contoh@pjnhk.co.id" id="email" name="email" style="width:300px" class="form-control" type="email" readonly>
+        </div>
+		<div class="form-group">
+         <label for="demo-inline-inputpass">Email Pribadi</label>
+         <input placeholder="contoh@pjnhk.co.id" id="email2" name="email2" style="width:300px" class="form-control" type="email">
+        </div>
+		<div class="form-group">
+         <label for="demo-inline-inputpass">No Hp 1</label>
+         <input placeholder="08121*******" id="no_hp" name="no_hp" style="width:300px" class="form-control" type="text">
+        </div>
+		<div class="form-group">
+         <label for="demo-inline-inputpass">No Hp 2</label>
+         <input placeholder="08121*******" id="no_hp1" name="no_hp1" style="width:300px" class="form-control" type="text">
+        </div>
+     
+	  <button class="btn btn-primary" type="submit" onClick="update();return false;">Update</button>
+	
+     </form>
+     
+   </div>
+   </div>
+</div>
+<div class="tab-pane fade active in" id="demo-lft-tab-1b">
   <div id="page-keluarga"></div>
 </div>
 <div class="tab-pane fade" id="demo-lft-tab-2a">
@@ -178,6 +277,9 @@ Medical</a></li>
 </div>
 </div><!-- END TAB -->
 <script>
+  $('.select-chosen').chosen();
+  $('.chosen-container').css({"width": "400px"});
+  getOptions("txtprovktp", BASE_URL + "master/provinsi");
   
   function removeActiveDropDown(){
     $('ul.dropdown-menu').children().removeClass('active');
@@ -196,10 +298,47 @@ Medical</a></li>
     } 
     
   }
+  function update(){
+        postForm('form-update',BASE_URL+'pegawai/newupdate',gogo);
+  } 
 
   function gogo(){
     return false;
   }
+  
+  getJson(reskpi,BASE_URL+'kpi/mpenilaian/listiki_peg?nopeg=<?php echo $_GET["id"]?>&bulan=<?php echo $_GET["bulan"]?>');
+
+    function reskpi(result){
+        var Nama = '';
+        var Unit = '';
+        var Iki = '';
+        var Iku ='';
+
+
+        var table ='';
+        $.each( result.result, function( key, value ) {
+            bulan = value.bulan;
+            tahun = value.tahun;
+            Iki = value.nilai;
+            Iku = value.iku;
+            
+            table +='<tr class="text-success h4">';
+            table +='<td>';
+            table += 'Nilai IKI Bulan<b> '+bulan+' '+tahun+' : '+Iki;
+            table +='</td>';
+            table +='<td align="right">';
+            table += 'Nilai IKU Bulan<b> '+bulan+' '+tahun+' : '+Iku;
+            table +='</td>';
+            table +='</tr>';
+            
+
+        });
+
+        $('#tabel').html(table);
+
+
+
+    }
 </script>
 <script src="js/pegawai/riwayat.js"></script>
 <script src="js/pegawai/pendidikan.js"></script>

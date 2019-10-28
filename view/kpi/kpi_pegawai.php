@@ -8,7 +8,7 @@
    </div>
 </div>
 <script>
-    getJson(reskpi,BASE_URL+'kpi/mpenilaian/listiki?nopeg=<?php echo $_GET["nopeg"]?>&bulan=<?php echo $_GET["bulan"]?>&status=5');
+    getJson(reskpi,BASE_URL+'kpi/mpenilaian/listiki_peg?nopeg=<?php echo $_GET["nopeg"]?>&bulan=<?php echo $_GET["bulan"]?>&status=5');
 
     function reskpi(result){
         var Nama = '';

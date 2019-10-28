@@ -94,6 +94,7 @@ aria-expanded="false">Penghargaan</a></li>
           style="width: 150px" class="form-control">
           <option value="">Please Select</option>
           <option value="Kepala">Kepala</option>
+          <option value="Khusus">Khusus</option>
           <option value="Staff">Staff</option>
         </select></div>
       </div>

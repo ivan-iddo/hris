@@ -84,7 +84,6 @@
   {headerName: "Nama Pegawai", field: "nama", width: 160, filterParams:{newRowsAction: "keep"}},
   {headerName: "Unit Kerja", field: "unit", width: 190, filterParams:{newRowsAction: "keep"}},
   {headerName: "Nilai IKP", field: "nilai", width: 90, filterParams:{newRowsAction: "keep"}},
-  {headerName: "Nilai IKU", field: "iku", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Status", field: "status", width: 120, cellRenderer: CellRenderer},
   {headerName: "Keterangan", field: "ket", width: 190, filterParams:{newRowsAction: "keep"}},
   {headerName: "Bulan", field: "bulan", width: 90, filterParams:{newRowsAction: "keep"}},
