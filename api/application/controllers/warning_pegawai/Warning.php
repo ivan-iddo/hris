@@ -56,10 +56,10 @@ public function list_warning_kontrak_get(){
       $this->db->join('(SELECT id_user, max(tglakhir) as tglakhir FROM his_kontrak WHERE statue = 1 GROUP BY id_user) AS sub_kontrak', 'sys_user.id_user = sub_kontrak.id_user', 'INNER');
 
       if(!empty($dari)){
-        $this->db->where('sub_kontrak.tglakhir >=', $dari);
+        $this->db->where('sub_kontrak.tglakhir >=', date_format(date_create($dari), "Y-m-d"));
       }
       if(!empty($sampai)){
-        $this->db->where('sub_kontrak.tglakhir <=', $sampai);
+        $this->db->where('sub_kontrak.tglakhir <=', date_format(date_create($sampai), "Y-m-d"));
       }
       if(!empty($direktorat) && $direktorat != "null"){
         $this->db->where("sys_grup_user.id_grup",$direktorat);
@@ -82,13 +82,13 @@ public function list_warning_kontrak_get(){
 //      $this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param);
 //  }
 	  if(empty($sampai)){
-	  $this->db->where('sub_kontrak.tglakhir <=', date('d-m-Y', strtotime("+183 day", strtotime(date('d-m-Y')))));
+	  $this->db->where('sub_kontrak.tglakhir <=', date('Y-m-d', strtotime("+183 day", strtotime(date('Y-m-d')))));
 	  }
       $this->db->where('sys_user.status','1');
       $res = $this->db->get('sys_user')->result();
       $arr['result']=array();
       foreach($res as $d){
-        $tanggalKontrak = $d->tglakhir;
+        $tanggalKontrak = date_format(date_create($d->tglakhir), "d-m-Y");
 		$tanggal = date('d-m-Y');
 		$tiga = date('d-m-Y', strtotime("+92 day", strtotime($tanggal)));
 		$enam = date('d-m-Y', strtotime("+183 day", strtotime($tanggal)));
@@ -147,10 +147,10 @@ public function list_warning_str_get(){
       $this->db->join('(SELECT id_user, max(date_end) as date_end FROM his_str WHERE statue = 1 GROUP BY id_user) AS sub_str', 'sys_user.id_user = sub_str.id_user', 'INNER');
 
       if(!empty($dari)){
-        $this->db->where('sub_str.date_end >=', $dari);
+        $this->db->where('sub_str.date_end >=', date_format(date_create($dari), "Y-m-d"));
       }
       if(!empty($sampai)){
-        $this->db->where('sub_str.date_end <=', $sampai);
+        $this->db->where('sub_str.date_end <=', date_format(date_create($sampai), "Y-m-d"));
       }
       if(!empty($direktorat) && $direktorat != "null"){
         $this->db->where("sys_grup_user.id_grup",$direktorat);
@@ -175,14 +175,14 @@ public function list_warning_str_get(){
         }
       }
 	  if(empty($sampai)){
-	  $this->db->where('sub_str.date_end <=', date('d-m-Y', strtotime("+360 day", strtotime(date('d-m-Y')))));
+	  $this->db->where('sub_str.date_end <=', date('Y-m-d', strtotime("+360 day", strtotime(date('Y-m-d')))));
 	  }
       $this->db->where('sys_user.status','1');
       $res = $this->db->get('sys_user')->result();
 	  //print_r($res);die();
       $arr['result']=array();
       foreach($res as $d){
-		$tanggalSTR = $d->date_end_str;
+		$tanggalSTR = date_format(date_create($d->date_end_str), "d-m-Y");
 		$tanggal = date('d-m-Y');
 		$tiga = date('d-m-Y', strtotime("+92 day", strtotime($tanggal)));
 		$enam = date('d-m-Y', strtotime("+183 day", strtotime($tanggal)));
@@ -248,10 +248,10 @@ public function list_warning_sip_get(){
 
       if($user_froup!=1){
         if(!empty($dari)){
-          $this->db->where('sub_sip.date_end >=', $dari);
+          $this->db->where('sub_sip.date_end >=', date_format(date_create($dari), "Y-m-d"));
         }
         if(!empty($sampai)){
-          $this->db->where('sub_sip.date_end <=', $sampai);
+          $this->db->where('sub_sip.date_end <=', date_format(date_create($sampai), "Y-m-d"));
         }
         if(!empty($direktorat) && $direktorat != "null"){
           $this->db->where("sys_grup_user.id_grup",$direktorat);
@@ -272,14 +272,14 @@ public function list_warning_sip_get(){
         $this->db->where_in('riwayat_kedinasan.sub_bagian', $sub_bag);
       }
 	  if(empty($sampai)){
-	  $this->db->where('sub_sip.date_end <=', date('d-m-Y', strtotime("+360 day", strtotime(date('d-m-Y')))));
+	  $this->db->where('sub_sip.date_end <=', date('Y-m-d', strtotime("+360 day", strtotime(date('Y-m-d')))));
 	  }
       $this->db->where('sys_user.status','1');
       $res = $this->db->get('sys_user')->result();
       $arr['result']=array();
       foreach($res as $d){
 
-        $tanggalSIP = $d->date_end;
+        $tanggalSIP = date_format(date_create($d->date_end), "d-m-Y");
         $tanggal = date('d-m-Y');
 		$tiga = date('d-m-Y', strtotime("+92 day", strtotime($tanggal)));
 		$enam = date('d-m-Y', strtotime("+183 day", strtotime($tanggal)));
