@@ -4269,7 +4269,7 @@ function editjasn_post()
                     'keterangan' => ($this->input->post('keterangan'))?$this->input->post('keterangan'):null
                 );
                 $this->db->where('id', $id);
-                $this->db->update('his_jabatan_asn', $arrdata);
+                $query=$this->db->update('his_jabatan_asn', $arrdata);
 
 
             }
@@ -4277,7 +4277,7 @@ function editjasn_post()
 //update user
 
 
-            if ($this->db->affected_rows() == '1') {
+            if ($query) {
                 $arr['hasil'] = 'success';
                 $arr['message'] = 'Data berhasil ditambah!';
             } else {

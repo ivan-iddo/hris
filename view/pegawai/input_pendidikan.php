@@ -36,6 +36,7 @@
                 <option value="2">Akreditasi B</option>
                 <option value="3">Akreditasi C</option>
                 <option value="4">Akreditasi Ban PT</option>     
+                <option value="5"> - </option>     
               </select>
             </div>
           </div>

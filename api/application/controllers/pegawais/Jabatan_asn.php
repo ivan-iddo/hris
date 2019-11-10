@@ -136,10 +136,10 @@ function deletejasn_get(){
 		if ($decodedToken != false) {
 
 			$this->db->where('id',$this->input->get('id'));
-			$this->db->where('aktif','0');
-			$this->db->update('his_jabatan_asn',array('tampilkan'=>'0'));
+			//$this->db->where('aktif','0');
+			$query=$this->db->update('his_jabatan_asn',array('tampilkan'=>'0'));
 //$res = $this->db->get('m_jenis_cuti')->result();
-			if($this->db->affected_rows() == '1'){
+			if($query){
 				$arr['hasil']='success';
 				$arr['message']='Data berhasil ditambah!';
 			}else{
