@@ -43,7 +43,8 @@ public function listdata_get(){
 			$this->load->model('System_auth_model', 'm');
 			$jabatan = $decodedToken->data->_jabatan1;
 			$user_froup = $decodedToken->data->_pnc_id_grup;
-			if(($user_froup!=6) OR ($user_froup!=1)){
+			//print_r($user_froup);die();
+			if(($user_froup!=6)){
 			$id_jab=$this->m->getchild($jabatan);
 		    }
 			
@@ -59,7 +60,7 @@ public function listdata_get(){
 			$this->db->where('persyaratan_jabatan.tampilkan','1');
 			$this->db->join('m_index_jabatan_asn_detail as baru', 'baru.migrasi_jabatan_detail_id = persyaratan_jabatan.id_jabatan', 'LEFT');
 			$this->db->join('m_index_jabatan_asn_detail as lama', 'lama.migrasi_jabatan_detail_id = persyaratan_jabatan.jabatan_lama', 'LEFT');
-			if(($user_froup!=6) OR ($user_froup!=1)){
+			if(($user_froup!=6)){
 			$this->db->where_in('lama.parent',$id_jab);
 			}
 			$res = $this->db->get($this->table)->result();

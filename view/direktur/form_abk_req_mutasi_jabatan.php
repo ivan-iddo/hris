@@ -38,9 +38,9 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label" for="inputrw">Tgl.Mutasi</label>
+				<label class="col-sm-4 control-label" for="inputrw">Tanggal Usulan Mutasi</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" id="tgl_mutasi" name="tgl_mutasi" placeholder="dd-mm-yyyy">
+					<input class="form-control" type="text" id="tgl_mutasi" name="tgl_mutasi" readonly>
 				</div>
 			</div>
 			<div class="form-group">
@@ -143,11 +143,6 @@
 	$('.select-chosen').chosen();
 	$('.chosen-container').css({"width": "100%"});
 	$(document).ready(function () {
-		$('#tgl_mutasi').datepicker({
-			format: "dd-mm-yyyy",
-		}).on('change', function(){
-			$('.datepicker').hide();
-		});
 		$('#tgl_sk').datepicker({
 			format: "dd-mm-yyyy",
 		}).on('change', function(){

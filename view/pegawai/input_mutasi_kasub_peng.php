@@ -70,6 +70,18 @@
 									
 								</select>
 							</div>
+						</div><div class="form-group">
+							<label class="col-sm-4 control-label" for="inputpropinsi">Grade</label>
+							<div class="col-sm-8">
+								<select aria-hidden="true" class="select-chosen" id="grade" name="grade" style="width: 100%;" tabindex="-1">
+									
+								</select>
+							</div>
+						</div><div class="form-group">
+							<label class="col-sm-4 control-label" for="inputrw">Tmt.Mutasi</label>
+							<div class="col-sm-8">
+								<input class="form-control" type="text" id="mutasi" name="mutasi" readonly>
+							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-4 control-label" for="inputpropinsi">Satuan Kerja</label>
@@ -78,7 +90,7 @@
 									
 								</select>
 							</div>
-							<a style="margin-left:3px" class="btn btn-success mar-all" onclick="prosesmutasi()"><i class="fa fa-file-excel-o"></i> Setujui & Kirim ke UK</a>
+							<a style="margin-left:3px" class="btn btn-success mar-all" onclick="prosesmutasi()"><i class="fa fa-file-excel-o"></i> Setujui & Kirim ke HI</a>
 						</div>  
 						
 					</div>
@@ -144,7 +156,7 @@
 			$('.select-chosen').chosen();
 			$('.chosen-container').css({"width": "100%"});
 			$(document).ready(function () {
-				$('#tgl_mutasi').datepicker({
+				$('#mutasi').datepicker({
 					format: "dd-mm-yyyy",
 				}).on('change', function(){
 					$('.datepicker').hide();

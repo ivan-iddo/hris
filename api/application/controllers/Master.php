@@ -494,14 +494,35 @@ public function jabatan_fix_abk_get(){
 	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 }
 
+public function jabatan($code) {
+	$q = $this->db->get_where('m_index_jabatan_asn_detail', array('kd_jabatan' => $code), 1);
+	if ($q->num_rows() > 0) {
+		return $q->row();
+	}
+	return FALSE;
+}
+public function gruop($id) {
+	$q = $this->db->get_where('sys_grup_user', array('id_grup' => $id), 1);
+	if ($q->num_rows() > 0) {
+		return $q->row();
+	}
+	return FALSE;
+}
 public function jabatan_struktural_fix_get(){
 	$headers = $this->input->request_headers();
 
 	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
 		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
 		if ($decodedToken != false) {
+			$id=$this->input->get('id');
+			$grup=$this->gruop($id);
+			$jab=$this->jabatan($grup->kode);
+			$this->load->model('System_auth_model', 'm');
+			$id_ja1=$this->m->getchild($jab->migrasi_jabatan_detail_id);
+			$id_ja1[]=$jab->migrasi_jabatan_detail_id;
 			$this->db->order_by('ds_jabatan','ASC');
 			$this->db->where('tampilkan','1');
+			$this->db->where_in('migrasi_jabatan_detail_id',$id_ja1);
 
 			$res = $this->db->get('m_index_jabatan_asn_detail')->result();
 			foreach($res as $d){

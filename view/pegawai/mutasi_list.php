@@ -70,7 +70,7 @@
     {headerName: "Jenis Mutasi", field: "jm", width: 90, filterParams: {newRowsAction: 'keep'}},
     {headerName: "Status", field: "status", width: 190, filterParams: {newRowsAction: 'keep'}},
     {headerName: "Nama", field: "nama", width: 190, filterParams: {newRowsAction: 'keep'}},
-    {headerName: "Tgl.Mutasi", field: "tgl", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Tanggal Usulan Mutasi", field: "tgl", width: 190, filterParams: {newRowsAction: 'keep'}},
     {headerName: "Keterangan", field: "keterangan", width: 190, filterParams: {newRowsAction: 'keep'}},
     {headerName: "Direktorat Tujuan", field: "dir_tujuan", width: 190, filterParams: {newRowsAction: 'keep'}},
     {headerName: "Bagian Tujuan", field: "bag_tujuan", width: 190, filterParams: {newRowsAction: 'keep'}},

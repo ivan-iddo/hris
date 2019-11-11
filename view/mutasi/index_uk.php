@@ -161,7 +161,7 @@
            var columnDefs =[
            {headerName: "Status", field: "status", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
-           {headerName: "Tgl.Mutasi", field: "tgl", width: 190, filterParams:{newRowsAction: 'keep'}},
+           {headerName: "Tanggal Usulan Mutasi", field: "tgl", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Keterangan", field: "keterangan", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Direktorat Tujuan", field: "dir_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
            {headerName: "Bagian Tujuan", field: "bag_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
@@ -406,7 +406,6 @@ bootbox.dialog({
 getOptions("txtdirektorat",BASE_URL+"master/direktorat");
 getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
 getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
-getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural_fix");
 
 
 
@@ -532,7 +531,6 @@ function simpan(){
 			getOptions("txtdirektorat",BASE_URL+"master/direktorat");
 			getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
 			getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
-			getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural_fix");
 			}
 			}
 			
@@ -582,7 +580,6 @@ function simpan(){
 			getOptions("txtdirektorat",BASE_URL+"master/direktorat");
 			getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
 			getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
-			getOptions("txtjabatan", BASE_URL + "master/jabatan_struktural_fix");
 			}
 			}
 
@@ -590,10 +587,21 @@ function setPengajuan(a){
   getOptionsEdit("txtdirektorat",BASE_URL+"master/direktorat",a.result[0].direktorat_tujuan);
   getOptionsEdit("txtbagian",BASE_URL+"master/direktoratsub/"+a.result[0].direktorat_tujuan,a.result[0].bagian_tujuan); 
   getOptionsEdit("unitkerja",BASE_URL+"master/direktoratsub/"+a.result[0].bagian_tujuan,a.result[0].sub_bagian_tujuan); 
-
+	 $('#txtdirektorat').change(function() {
+			var a=$('#txtdirektorat').val();
+			getOptions("txtjabatan", BASE_URL +"master/jabatan_struktural_fix?id="+a);
+		});
+		$('#txtbagian').change(function() {
+			var b=$('#txtbagian').val();
+			getOptions("txtjabatan", BASE_URL +"master/jabatan_struktural_fix?id="+b);
+		});
+		$('#unitkerja').change(function() {
+			var c=$('#unitkerja').val();
+			getOptions("txtjabatan", BASE_URL +"master/jabatan_struktural_fix?id="+c);
+		});
   getOptionsEdit("satuan_kerja",BASE_URL+"master/getmaster?id=25",a.result[0].id_satker);
   getOptionsEdit("kelas_jabatan",BASE_URL+"master/getmaster?id=24",a.result[0].id_kelas);
-  getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural_fix",a.result[0].jabatan_struktural);
+  getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural_fix_label",a.result[0].jabatan_struktural);
   
   
   setTimeout(function(){ 

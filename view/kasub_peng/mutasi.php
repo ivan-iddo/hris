@@ -15,11 +15,19 @@
       </li>
 
       <li class="active">
+        <a href="#demo-lft-tab-2" data-toggle="tab">
+          <span class="block text-center">
+            <i class="fa fa-laptop fa-2x text-danger"></i> 
+          </span>
+          Permohonan Baru
+        </a> 
+      </li>
+      <li>
         <a href="#demo-lft-tab-mutasi" data-toggle="tab">
           <span class="block text-center">
             <i class="fa fa-mail-forward fa-2x text-danger"></i> 
           </span>
-          Permohonan Mutasi
+          Riwayat Permohonan Mutasi
         </a>
       </li>
       <li> 
@@ -35,7 +43,7 @@
     <div class="tab-content">
       <div class="tab-pane fade" id="demo-lft-tab-1"></div>
 
-      <div class="tab-pane fade" id="demo-lft-tab-2">
+      <div class="tab-pane fade active in" id="demo-lft-tab-2">
         <div class="fixed-table-toolbar">
 
         </div>
@@ -46,7 +54,7 @@
             <!--Accordion title-->
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-parent="#accordion" data-toggle="collapse" href="#collapseOne" aria-expanded="true" class="text-warning"><i class="fa fa-folder"></i> Data Pegawai</a>
+                <a data-parent="#accordion" data-toggle="collapse" href="#collapseOne" aria-expanded="true" class="text-warning"><i class="fa fa-folder"></i> List Mutasi </a>
               </h4>
             </div>
 
@@ -56,7 +64,7 @@
                   <div class="newtoolbar">
                     <div class="table-toolbar-left" id="demo-custom-toolbar2">
                       <div class="btn-group">
-                        <button class="btn btn-mint btn-labeled fa fa-edit btn-sm" onclick="proses_mutasi();">Proses Mutasi Jabatan</button> 
+                        <button style="margin-left:3px" class="btn btn-success" onclick="editmutasi()"><i class="fa fa-gear"></i> Proses  Permohonan</button>
                       </div>
                     </div>
                   </div>
@@ -82,27 +90,29 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane fade active in" id="demo-lft-tab-mutasi">
+      <div class="tab-pane fade " id="demo-lft-tab-mutasi">
         <div class="col-sm-6 table-toolbar-left">
-          <button style="margin-left:3px" class="btn btn-success" onclick="editmutasi()"><i class="fa fa-file-excel-o"></i> Proses  Permohonan</button>
+          
+         
+         <button style="margin-left:3px" class="btn btn-primary" onclick="cetak()"><i class="fa fa fa-print"></i> Cetak  Permohonan</button>
+         
+         
+         
+         
+       </div>
+       <div class="dataTables_filter" id="demo-dt-addrow_filter">
+        <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder="" type="search" id="filter-text-box" oninput="onFilterTextBoxChanged()" ></label>
 
+      </div> 
 
-
-
-        </div>
-        <div class="dataTables_filter" id="demo-dt-addrow_filter">
-          <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder="" type="search" id="filter-text-box" oninput="onFilterTextBoxChanged()" ></label>
-
-        </div> 
-
-        <div class="ag-theme-balham" id="myGridMutasi" style="height: 400px;width:100%;">
-        </div>
-      </div>
-      <div class="tab-pane fade" id="demo-lft-tab-3">
-
+      <div class="ag-theme-balham" id="myGridMutasi" style="height: 400px;width:100%;">
       </div>
     </div>
+    <div class="tab-pane fade" id="demo-lft-tab-3">
+
+    </div>
   </div>
+</div>
 
 
 </div>
@@ -118,14 +128,17 @@
   $('.judul-menu').html('Mutasi Jabatan Pegawai');
 //<![CDATA[
 // specify the columns
-var columnDefs = [
-{headerName: "NIP", field: "nip", width: 190, filterParams:{newRowsAction: 'keep'}},
-{headerName: "NIK", field: "nik", width: 190, filterParams:{newRowsAction: 'keep'}},
+var columnDefs =[
+{headerName: "Status", field: "status", width: 190, filterParams:{newRowsAction: 'keep'}},
 {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
-{headerName: "Direktorat", field: "nama_group", width: 190, filterParams:{newRowsAction: 'keep'}},
-{headerName: "Jabatan", field: "nama_uk", width: 190, filterParams:{newRowsAction: 'keep'}},
-{headerName: "Username", field: "username", width: 190, filterParams:{newRowsAction: 'keep'}},
-{headerName: "E-Mail", field: "email", width: 190, filterParams:{newRowsAction: 'keep'}},
+{headerName: "Tgl.Mutasi", field: "tgl", width: 190, filterParams:{newRowsAction: 'keep'}},
+{headerName: "Keterangan", field: "keterangan", width: 190, filterParams:{newRowsAction: 'keep'}},
+{headerName: "Direktorat Tujuan", field: "dir_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
+{headerName: "Bagian Tujuan", field: "bag_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
+{headerName: "Sub Bagian Tujuan", field: "subbag_tujuan", width: 190, filterParams:{newRowsAction: 'keep'}},
+{headerName: "Direktorat Asal", field: "dir_asal", width: 190, filterParams:{newRowsAction: 'keep'}},
+{headerName: "Bagian Asal", field: "bag_asal", width: 190, filterParams:{newRowsAction: 'keep'}},
+{headerName: "Sub Bagian Asal", field: "subbag_asal", width: 190, filterParams:{newRowsAction: 'keep'}},
 
 ];
 
@@ -184,26 +197,26 @@ function loaddata(jml){
     search = $('#search').val();
   }
   $.ajax({
-    url: BASE_URL+'users/list/'+search+'/'+jml,
-    headers: {
-      'Authorization': localStorage.getItem("Token"),
-      'X_CSRF_TOKEN':'donimaulana',
-      'Content-Type':'application/json'
-    },
-    dataType: 'json',
-    type: 'get',
-    contentType: 'application/json', 
-    processData: false,
-    success: function( data, textStatus, jQxhr ){
+   url: BASE_URL+'pegawai/listmutasihrd?sts=118',
+   headers: {
+     'Authorization': localStorage.getItem("Token"),
+     'X_CSRF_TOKEN':'donimaulana',
+     'Content-Type':'application/json'
+   },
+   dataType: 'json',
+   type: 'get',
+   contentType: 'application/json', 
+   processData: false,
+   success: function( data, textStatus, jQxhr ){
 
 
-      gridOptions.api.setRowData(data.result);
-      paging(data.total,'loaddata');
-    },
-    error: function( jqXhr, textStatus, errorThrown ){
-      alert('error');
-    }
-  });
+    gridOptions.api.setRowData(data.result);
+    paging(data.total,'loaddata');
+  },
+  error: function( jqXhr, textStatus, errorThrown ){
+   alert('error');
+ }
+});
 
 }
 
@@ -242,27 +255,27 @@ bootbox.dialog({
       callback: function() {
         $('#txtIdUser').val(selectedRowsString);
         if(simpan()){
-          return true;
-        }else{
-          return false;
-        }
+         return true;
+       }else{
+         return false;
+       }
+       
+     }
+   },
 
-      }
-    },
-
-    main: {
-      label: "Close",
-      className: "btn-warning",
-      callback: function() {
-        $.niftyNoty({
-          type: 'dark',
-          message : "Bye Bye",
-          container : 'floating',
-          timer : 5000
-        });
-      }
-    }
-  }
+   main: {
+    label: "Close",
+    className: "btn-warning",
+    callback: function() {
+     $.niftyNoty({
+       type: 'dark',
+       message : "Bye Bye",
+       container : 'floating',
+       timer : 5000
+     });
+   }
+ }
+}
 });
 
 
@@ -270,7 +283,6 @@ bootbox.dialog({
 getOptions("txtdirektorat",BASE_URL+"master/direktorat");
 getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
 getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
-
 
 
 
@@ -318,7 +330,7 @@ $.ajax({
     hasil=data.hasil;
     message=data.message; 
     if(hasil=="success"){         
-
+      
       $.niftyNoty({
         type: 'success',
         title: 'Success',
@@ -326,27 +338,27 @@ $.ajax({
         container: 'floating',
         timer: 5000
       });
-// $("#f_id_edit").val(data.id);
-loaddata(0);
-loadMutasi();
-$('.modal').modal('hide');
-}else{
-
-  return false;	
-}
-
-
-},
-error: function( jqXhr, textStatus, errorThrown ){
-  $.niftyNoty({
-    type: 'danger',
-    title: 'Warning!',
-    message: message,
-    container: 'floating',
-    timer: 5000
-  });
-}
-});
+																			// $("#f_id_edit").val(data.id);
+                                     loaddata(0);
+                                     loadMutasi();
+                                     $('.modal').modal('hide');
+                                   }else{
+                                     
+                                     return false;	
+                                   }
+                                   
+                                   
+                                 },
+                                 error: function( jqXhr, textStatus, errorThrown ){
+                                  $.niftyNoty({
+                                    type: 'danger',
+                                    title: 'Warning!',
+                                    message: message,
+                                    container: 'floating',
+                                    timer: 5000
+                                  });
+                                }
+                              });
 
 }  
 }
@@ -360,7 +372,7 @@ error: function( jqXhr, textStatus, errorThrown ){
 
 
 var columnDefsHis = [
-{headerName: "Status", field: "status", width: 190, filterParams:{newRowsAction: 'keep'}},
+{headerName: "Status", field: "status", width: 190, rowGroup:true, cellRenderer: CellRenderer},
 {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
 {headerName: "Tanggal Usulan Mutasi", field: "tgl", width: 190, filterParams:{newRowsAction: 'keep'}},
 {headerName: "Keterangan", field: "keterangan", width: 190, filterParams:{newRowsAction: 'keep'}},
@@ -406,31 +418,32 @@ function onFilterTextBoxChanged() {
 
 function loadMutasi(){
   $.ajax({
-    url: BASE_URL+'pegawai/listmutasihrd?status=117',
-    headers: {
-      'Authorization': localStorage.getItem("Token"),
-      'X_CSRF_TOKEN':'donimaulana',
-      'Content-Type':'application/json'
-    },
-    dataType: 'json',
-    type: 'get',
-    contentType: 'application/json', 
-    processData: false,
-    success: function( data, textStatus, jQxhr ){
+   url: BASE_URL+'pegawai/listmutasipeng',
+   headers: {
+     'Authorization': localStorage.getItem("Token"),
+     'X_CSRF_TOKEN':'donimaulana',
+     'Content-Type':'application/json'
+   },
+   dataType: 'json',
+   type: 'get',
+   contentType: 'application/json', 
+   processData: false,
+   success: function( data, textStatus, jQxhr ){
 
 
-      gridOptionsMutasi.api.setRowData(data.result); 
-    },
-    error: function( jqXhr, textStatus, errorThrown ){
-      alert('error');
-    }
-  });
+    gridOptionsMutasi.api.setRowData(data.result); 
+  },
+  error: function( jqXhr, textStatus, errorThrown ){
+   alert('error');
+ }
+});
 }
 
 
 loadMutasi();
+
 function editmutasi(){
-  var selectedRows = gridOptionsMutasi.api.getSelectedRows();
+  var selectedRows = gridOptions.api.getSelectedRows();
 // alert('>>'+selectedRows+'<<<');
 if(selectedRows == ''){
   onMessage('Silahkan Pilih Pegawai yang akan dimutasi Terlebih dahulu!');
@@ -450,7 +463,7 @@ if(selectedRows == ''){
   getJson(setPengajuan,BASE_URL+'hrd/mutasi/listdata?id='+selectedRowsString);
 //POPUP
 bootbox.dialog({ 
-  message:$('<div></div>').load('view/direktur/form_abk_req_mutasi_jabatan.php'),
+  message:$('<div></div>').load('view/pegawai/input_mutasi_hrd.php'),
   animateIn: 'bounceIn',
   animateOut : 'bounceOut',
   backdrop: false,
@@ -462,15 +475,15 @@ bootbox.dialog({
       label: "Close",
       className: "btn-warning",
       callback: function() {
-        $.niftyNoty({
-          type: 'dark',
-          message : "Bye Bye",
-          container : 'floating',
-          timer : 5000
-        });
-      }
-    }
-  }
+       $.niftyNoty({
+         type: 'dark',
+         message : "Bye Bye",
+         container : 'floating',
+         timer : 5000
+       });
+     }
+   }
+ }
 });
 
 
@@ -489,28 +502,30 @@ getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
 }
 
 function setPengajuan(a){
-  getOptionsEdit("txtdirektorat",BASE_URL+"master/direktorat",a.result[0].direktorat_tujuan);
-  getOptionsEdit("txtbagian",BASE_URL+"master/direktoratsub/"+a.result[0].direktorat_tujuan,a.result[0].bagian_tujuan); 
-  getOptionsEdit("unitkerja",BASE_URL+"master/direktoratsub/"+a.result[0].bagian_tujuan,a.result[0].sub_bagian_tujuan); 
-	$('#txtdirektorat').change(function() {
-		var a=$('#txtdirektorat').val();
-		getOptions("txtjabatan", BASE_URL +"master/jabatan_struktural_fix?id="+a);
-	});
-	$('#txtbagian').change(function() {
-		var b=$('#txtbagian').val();
-		getOptions("txtjabatan", BASE_URL +"master/jabatan_struktural_fix?id="+b);
-	});
-	$('#unitkerja').change(function() {
-		var c=$('#unitkerja').val();
-		getOptions("txtjabatan", BASE_URL +"master/jabatan_struktural_fix?id="+c);
-	});
-  getOptionsEdit("satuan_kerja",BASE_URL+"master/getmaster?id=25",a.result[0].id_satker);
-  getOptionsEdit("kelas_jabatan",BASE_URL+"master/getmaster?id=24",a.result[0].id_kelas);
-  getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural_fix_label",a.result[0].jabatan_struktural);
+
 
 
   setTimeout(function(){ 
     Pace.restart();
+    getOptionsEdit("txtdirektorat",BASE_URL+"master/direktorat",a.result[0].direktorat_tujuan);
+    getOptionsEdit("txtbagian",BASE_URL+"master/direktoratsub/"+a.result[0].direktorat_tujuan,a.result[0].bagian_tujuan); 
+    getOptionsEdit("unitkerja",BASE_URL+"master/direktoratsub/"+a.result[0].bagian_tujuan,a.result[0].sub_bagian_tujuan); 
+
+	$('#txtdirektorat').change(function() {
+			var a=$('#txtdirektorat').val();
+			getOptions("txtjabatan", BASE_URL +"master/jabatan_struktural_fix?id="+a);
+		});
+		$('#txtbagian').change(function() {
+			var b=$('#txtbagian').val();
+			getOptions("txtjabatan", BASE_URL +"master/jabatan_struktural_fix?id="+b);
+		});
+		$('#unitkerja').change(function() {
+			var c=$('#unitkerja').val();
+			getOptions("txtjabatan", BASE_URL +"master/jabatan_struktural_fix?id="+c);
+		});
+    getOptionsEdit("satuan_kerja",BASE_URL+"master/getmaster?id=25",a.result[0].id_satker);
+    getOptionsEdit("kelas_jabatan",BASE_URL+"master/getmaster?id=24",a.result[0].id_kelas);
+    getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural_fix_label",a.result[0].jabatan_struktural);
     $('#idtk').val(a.result[0].id);
     $('#tgl_mutasi').val(a.result[0].tgl_mutasi);
     $('#keterangan').val(a.result[0].keterangan);
@@ -519,6 +534,7 @@ function setPengajuan(a){
     $('#isi').val('');
     $('#txtIdUser').val(a.result[0].user_id);
     $('#iddok').val(a.result[0].id);
+    $('#status').val(a.result[0].status);
     id = $('#idtk').val();
     getJson(listchat,BASE_URL+'abk/abk/getchatall?kategori=1&id='+id);
   }, 1000);
@@ -613,9 +629,18 @@ if(idgue===value.id_user){
 
 
 function prosesmutasi(){
-  getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=118');
+// postForm('form-mutasi',BASE_URL+'pegawai/editmutasi',loadMutasi);
+sts=$('#status').val();
+if(sts!=118){
+getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=114');
+}else{
+getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=115');
+}
 }
 
+function hasilstat(){
+  loadMutasi();
+}
 function chat(){
   if(empty($('#isi').val())){
     alert('Tidakada text untuk dikirim');
@@ -640,6 +665,56 @@ function hasilstat(){
   loadMutasi();
 }
 
+function cetak(){
+  var selectedRowsSelesai = gridOptionsMutasi.api.getSelectedRows();
+  if (selectedRowsSelesai.length <= 0) {
+    onMessage('Silahkan Pilih Data Terlebih dahulu!');
+    return false;
+  }
+  else {
+    if (selectedRowsSelesai[0].stat!='91') {
+      onMessage('Maaf tidak dapat di cetak belom di setujui direktur!');
+      return false;
+    }else {
+      window.open(BASE_URL+'hrd/Supplier/cetak/?tgl_mutasi=' + selectedRowsSelesai[0].tgl_mutasi);
+    }
+  }
+}
+function CellRenderer (params){
+  var closeSpan = document.createElement("span");
+  if(params.value ==='Ditolak'){
+	closeSpan.setAttribute("class","badge badge-danger");
+	closeSpan.textContent = "Ditolak";
+  }else if(params.value ==='Disetujui'){
+   closeSpan.setAttribute("class","badge badge-success");
+   closeSpan.textContent = "Disetujui";
+ }else if(params.value ==='Dikembalikan untuk dilengkapi'){
+   closeSpan.setAttribute("class","badge badge-warning");
+   closeSpan.textContent = "Dikembalikan untuk dilengkapi";
+ }else if(params.value ==='Disetujui Direksi, menunggu Dirum'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui Direksi, menunggu Dirum";
+ }else if(params.value ==='Disetujui Dirum,menunggu SDM'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui Dirum,menunggu SDM";
+ }else if(params.value ==='Disetujui SDM, menunggu UK'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui SDM, menunggu UK";
+ }else if(params.value ==='Disetujui Ka. Unit,menunggu Direksi'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui Ka. Unit,menunggu Direksi";
+ }else if(params.value ==='Disetujui Direksi,Belum Diferivikasi HRD'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui Direksi,Belum Diferivikasi HRD";
+ }else if(params.value ==='Pengajuan Baru'){
+   closeSpan.setAttribute("class","badge badge-info");
+   closeSpan.textContent = "Pengajuan Baru";
+ }else if(params.value ==='Pengajuan Unit,menunggu Direksi'){
+   closeSpan.setAttribute("class","badge badge-info");
+   closeSpan.textContent = "Pengajuan Unit,menunggu Direksi";
+ }
+ return closeSpan;
+}
 </script><script src="js/login.js" type="text/javascript">
 </script>
 
