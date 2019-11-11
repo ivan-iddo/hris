@@ -418,7 +418,7 @@ function onFilterTextBoxChanged() {
 
 function loadMutasi(){
   $.ajax({
-   url: BASE_URL+'pegawai/listmutasipeng',
+   url: BASE_URL+'pegawai/listmutasihi',
    headers: {
      'Authorization': localStorage.getItem("Token"),
      'X_CSRF_TOKEN':'donimaulana',
@@ -630,7 +630,7 @@ if(idgue===value.id_user){
 
 function prosesmutasi(){
 // postForm('form-mutasi',BASE_URL+'pegawai/editmutasi',loadMutasi);
-getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=121');
+getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=122');
 }
 
 function hasilstat(){
