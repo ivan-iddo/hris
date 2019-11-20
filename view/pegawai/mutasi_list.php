@@ -68,7 +68,7 @@
     var columnDefsHis = [
     {headerName: "ID Mutasi", field: "id", width: 90, filterParams: {newRowsAction: 'keep'}},
     {headerName: "Jenis Mutasi", field: "jm", width: 90, filterParams: {newRowsAction: 'keep'}},
-    {headerName: "Status", field: "status", width: 190, filterParams: {newRowsAction: 'keep'}},
+    {headerName: "Status", field: "status", width: 190, cellRenderer: CellRenderer},
     {headerName: "Nama", field: "nama", width: 190, filterParams: {newRowsAction: 'keep'}},
     {headerName: "Tanggal Usulan Mutasi", field: "tgl", width: 190, filterParams: {newRowsAction: 'keep'}},
     {headerName: "Keterangan", field: "keterangan", width: 190, filterParams: {newRowsAction: 'keep'}},
@@ -141,6 +141,47 @@
         loaddata();
     }
 
+	function CellRenderer (params){
+  var closeSpan = document.createElement("span");
+  if(params.value ==='Ditolak'){
+	closeSpan.setAttribute("class","badge badge-danger");
+	closeSpan.textContent = "Ditolak";
+  }else if(params.value ==='Disetujui'){
+   closeSpan.setAttribute("class","badge badge-success");
+   closeSpan.textContent = "Disetujui";
+ }else if(params.value ==='Dikembalikan untuk dilengkapi'){
+   closeSpan.setAttribute("class","badge badge-warning");
+   closeSpan.textContent = "Dikembalikan untuk dilengkapi";
+ }else if(params.value ==='Disetujui Direksi, menunggu Dirum'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui Direksi, menunggu Dirum";
+ }else if(params.value ==='Disetujui Dirum,menunggu SDM'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui Dirum,menunggu SDM";
+ }else if(params.value ==='Disetujui SDM, menunggu UK'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui SDM, menunggu UK";
+ }else if(params.value ==='Disetujui Ka. Unit,menunggu Direksi'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui Ka. Unit,menunggu Direksi";
+ }else if(params.value ==='Disetujui Direksi,Belum Diferivikasi HRD'){
+   closeSpan.setAttribute("class","badge badge-light");
+   closeSpan.textContent = "Disetujui Direksi,Belum Diferivikasi HRD";
+ }else if(params.value ==='Pengajuan Baru'){
+   closeSpan.setAttribute("class","badge badge-info");
+   closeSpan.textContent = "Pengajuan Baru";
+ }else if(params.value ==='Pengajuan Unit,menunggu Direksi'){
+   closeSpan.setAttribute("class","badge badge-info");
+   closeSpan.textContent = "Pengajuan Unit,menunggu Direksi";
+ }else if(params.value ==='Disetujui, Kirim Ke HI'){
+   closeSpan.setAttribute("class","badge badge-info");
+   closeSpan.textContent = "Disetujui, Kirim Ke HI";
+ }else if(params.value ==='Selesai'){
+   closeSpan.setAttribute("class","badge badge-success");
+   closeSpan.textContent = "Selesai";
+ }
+ return closeSpan;
+}
 </script>
 <script src="js/login.js" type="text/javascript">
 </script>

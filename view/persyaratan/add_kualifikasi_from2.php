@@ -9,6 +9,7 @@
 					<input type="hidden" id="txtIdUser" name="txtIdUser"  type="text">
 					<select aria-hidden="true" class="select-chosen" id="jabatan" name="jabatan" style="width: 70%;" tabindex="-1">
 					</select>
+					<span class="text-xs text-danger">* Wajib Diisi</span>
 					
 				</div>
 			</div>
@@ -107,6 +108,7 @@
 			<label class="col-sm-3 control-label" for="tufoksipengaju">Tupoksi</label>
 			<div class="col-sm-9">
 				<textarea placeholder="" class="form-control input-sm" id="tufoksipengaju" name="tufoksipengaju" type="text"></textarea>
+				<span class="text-xs text-danger">* Wajib Diisi</span>
 			</div>
 		</div>
 	</div>

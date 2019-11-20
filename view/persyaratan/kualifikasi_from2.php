@@ -357,9 +357,11 @@ function save_pengajuan() {
 	
     
 function simpan() {
-     if (empty($('#tufoksipengaju').val())) {
+     if (empty($('#jabatan').val())) {
+        onMessage("Jabatan Pegawai From 1 Wajib diisi");
+        return false;
+    } else if (empty($('#tufoksipengaju').val())) {
         onMessage("Tufoksi Pegawai Wajib diisi");
-
         return false;
     } else {
             var data = formJson('form-pengajuan-detail');//$("#form-upload").serializeArray();

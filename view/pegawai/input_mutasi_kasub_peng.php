@@ -80,7 +80,7 @@
 						</div><div class="form-group">
 							<label class="col-sm-4 control-label" for="inputrw">Tmt.Mutasi</label>
 							<div class="col-sm-8">
-								<input class="form-control" type="text" id="mutasi" name="mutasi" readonly>
+								<input class="form-control" type="text" id="mutasi" name="mutasi">
 							</div>
 						</div>
 						<div class="form-group">

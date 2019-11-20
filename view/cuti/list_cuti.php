@@ -63,18 +63,36 @@ require_once('../../connectdb.php');
 
                       </div>
                     </div>
-                  <?php } ?>
+					</div>
+					<div class="admininput">
+                    <div class="row pad-top"> 
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label" for="inputstatus">Pegawai</label>
+                        <div class="col-sm-7">
+                          <select class="form-control select-chosen" id="user" name="user" style="width: 100%;">
 
-                </div>
+
+                          </select> 
+                        </div>
+
+                      </div>
+                    </div>
+					</div>
+                  <?php } ?>
 
 
                 <div class="row "> 
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="inputstatus"></label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-2">
 
                       <div class="row  text-left"> 
                         <button class="btn btn-primary mar-all" href="javascript:void(0);" onClick="search();">Search</button> 
+                      </div>
+                    </div>
+					<div class="col-sm-2">
+                      <div class="row  text-left"> 
+                        <button class="btn btn-primary mar-all" href="javascript:void(0);" onClick="cetak();">Cetak</button> 
                       </div>
                     </div>
                   </div>
@@ -152,14 +170,22 @@ require_once('../../connectdb.php');
 
 </div>
 <script>
+	function cetak() {
+	var awal=$('#awal').val();
+	var akhir=$('#akhir').val();
+	var uk=$('#txtdirektorat').val();
+	var user=$('#user').val();
+	window.open(BASE_URL + 'laporan_cuti/cetak?awal='+awal+'&akhir='+akhir+'&id_uk='+uk+'&user='+user);
+	}
   $('.judul-menu').html('Persetujuan Cuti SDM'); 
   search();
   function search(){
     var awal=$('#awal').val();
     var akhir=$('#akhir').val();
     var uk=$('#txtdirektorat').val();
+    var user=$('#user').val();
     $.ajax({
-      url: BASE_URL+'cuti/list_cutis?awal='+awal+'&akhir='+akhir+'&id_uk='+uk,
+      url: BASE_URL+'cuti/list_cutis?awal='+awal+'&akhir='+akhir+'&id_uk='+uk+'&user='+user,
       headers: {
         'Authorization': localStorage.getItem("Token"),
         'X_CSRF_TOKEN':'donimaulana',
@@ -191,6 +217,29 @@ require_once('../../connectdb.php');
 </script>
 <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6')OR ($_SESSION['userdata']['group']=='97')OR ($_SESSION['userdata']['group']=='98')OR ($_SESSION['userdata']['group']=='99')OR ($_SESSION['userdata']['group']=='100') ){?>                             
   <script>
+
+    function loadUser(id, url, valueEdit = null) {
+    $('#' + id).children().remove();
+    $('#' + id).append('<option value="null" selected="selected">Pilih</option>');
+
+    $.ajax({
+        type: "GET",
+        url: url,
+        headers: {
+            'Authorization': localStorage.getItem("Token"),
+            'X_CSRF_TOKEN': 'donimaulana',
+            'Content-Type': 'application/json'
+        },
+        dataType: "json",
+        success: function (e) {
+            for (var i = 0; i < e.result.length; i++) {
+                $('#' + id).append('<option ' + (e.result[i].id == valueEdit ? 'selected' : '') + ' value="' + e.result[i].id + '" >' + e.result[i].id + ' - ' + e.result[i].nama + '</option>');
+            }
+            $('#' + id).trigger("chosen:updated");
+			}
+		});
+	}
+	loadUser("user", BASE_URL + "users/list_usernew");
     getOptions("txtdirektorat",BASE_URL+"master/direktoratSub");
   </script>
 <?php } ?>

@@ -12,12 +12,16 @@
 	
 
   var columnPendidikan = [ 
+  {headerName: "Dokumen", field: "url", 
+  cellRenderer: function(params) {
+    return '<a href="api/upload/data/'+params.value+'" target="_blank"><i class="fa fa-eye"></i>Lihat Dokumen</a>'
+  }},
   {headerName: "Jenjang", field: "jenjang", width: 100, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Nama Sekolah", field: "nama_sekolah", width: 190, filterParams:{newRowsAction: 'keep'}}, 
   {headerName: "Tahun Lulus", field: "tahun", width: 100, filterParams:{newRowsAction: 'keep'}}, 
   {headerName: "No.Ijazah", field: "no_ijazah", width: 190, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Tgl.Ijazah", field: "tgl_ijazah", width: 190, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Kepala Sekolah", field: "pen_nkep", width: 190, filterParams:{newRowsAction: 'keep'}}, 
+  {headerName: "Kepala Sekolah", field: "pen_nkep", width: 190, filterParams:{newRowsAction: 'keep'}},
   ];
 
   var gridPendidikanOpt = {

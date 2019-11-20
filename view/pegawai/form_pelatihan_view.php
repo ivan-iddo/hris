@@ -25,6 +25,10 @@
 	
 
   var columnPelatihan = [ 
+  {headerName: "Dokumen", field: "url", 
+  cellRenderer: function(params) {
+    return '<a href="api/upload/data/'+params.value+'" target="_blank"><i class="fa fa-eye"></i>Lihat Dokumen</a>'
+  }},
   {headerName: "Pelatihan", field: "nama", width: 100, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Tempat", field: "tempat", width: 190, filterParams:{newRowsAction: 'keep'}}, 
   {headerName: "Penyelenggara", field: "penyelenggara", width: 100, filterParams:{newRowsAction: 'keep'}}, 

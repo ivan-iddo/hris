@@ -6,7 +6,6 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
 require APPPATH . '/libraries/REST_Controller.php';
 $rest_json = file_get_contents("php://input");
-
 $_POST = json_decode($rest_json, true);
 
 class Cuti extends REST_Controller
@@ -94,7 +93,11 @@ class Cuti extends REST_Controller
 
                 $kd_jenis_cuti = $this->input->get('id');
 
-                $this->db->where('abid', $kd_jenis_cuti);
+                $this->db->where('id_user', $id_user);
+                $cutis = $this->db->get('sys_user_profile')->row();
+                $add_sisa = $cutis->sisa;
+				//print_r($add_sisa);die();
+				$this->db->where('abid', $kd_jenis_cuti);
                 $this->db->where('tampilkan', '1');
                 $this->db->where('tahun', $tahunskrg);
                 $resMaxSkrg = $this->db->get('m_jenis_cuti')->row();
@@ -166,13 +169,13 @@ class Cuti extends REST_Controller
                         if ($jumlahcuti > 18) {
                             $cc = 18;
                         } else {
-                            $cc = $jumlahcuti;
+                            $cc = $jumlahcuti + $add_sisa;
                         }
                     }else{
                         if(!empty($cuti_skrg)){
-                            $cc = $max_cuti_skrg - $cuti_skrg;
+                            $cc = $max_cuti_skrg - $cuti_skrg + $add_sisa;
                         }else{
-                            $cc = $max_cuti_skrg;
+                            $cc = $max_cuti_skrg + $add_sisa;
                         }
                     }
                     $arr['cuti'] = $cc;
@@ -963,7 +966,14 @@ function list_cutis_get()
 			} else {
                 $awal = date_format(date_create($this->input->get('awal')), "Y-m-d");
 			}
-			$this->db->where('his_cuti.tgl_cuti >=',$awal);
+			
+			if ($this->input->get('user')!='null') {
+                $this->db->where('sys_user.id_user',$this->input->get('user'));
+			}else{
+				$this->db->where('his_cuti.tgl_cuti >=',$awal);
+			}
+			
+			$this->db->where('m_jenis_cuti.tahun=',date('Y'));
             
 			//$this->db->where('his_cuti.tgl_akhir_cuti >=',$awal);
             
@@ -977,7 +987,7 @@ function list_cutis_get()
             $this->db->order_by('tgl_cuti', 'DESC');
             $resCek = $this->db->get('his_cuti')->result();
             $count=count($resCek);
-
+			//print_r($count);die();
             $da = '';
             foreach ($resCek as $val) {
                 $text = 'text-success';
@@ -1029,6 +1039,72 @@ function list_cutis_get()
 
     $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 
+}
+
+public function proses_post()
+{
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+
+		if ($decodedToken != false) {
+			foreach ($_POST as $dat) {
+//print_r($dat);die();
+
+				if (!empty($dat['jum'])) {
+					$this->db->where('id_user', $dat['id']);
+					$ada=$this->db->update('sys_user_profile', array('sisa'=>$dat['jum']));
+				}
+			}
+
+			if ($ada) {
+				$arr['hasil'] = 'success';
+				$arr['message'] = 'Data berhasil diupdate!';
+			} else {
+				$arr['hasil'] = 'error';
+				$arr['message'] = 'Data Gagal diupdate!';
+			}
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+
+			return;
+		}
+	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
+public function reset_post()
+{
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+
+		if ($decodedToken != false) {
+			foreach ($_POST as $dat) {
+//print_r($dat);die();
+
+				if (!empty($dat['jum'])) {
+					$this->db->where('id_user', $dat['id']);
+					$ada=$this->db->update('sys_user_profile', array('sisa'=>''));
+				}
+			}
+
+			if ($ada) {
+				$arr['hasil'] = 'success';
+				$arr['message'] = 'Data berhasil diupdate!';
+			} else {
+				$arr['hasil'] = 'error';
+				$arr['message'] = 'Data Gagal diupdate!';
+			}
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+
+			return;
+		}
+	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 }
 
 }

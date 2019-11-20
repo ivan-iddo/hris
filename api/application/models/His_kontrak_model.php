@@ -22,7 +22,7 @@ class His_kontrak_model extends MY_Model
 
 	function get_all($params_array = array(), $like = array(), $offset = "", $limit = "", $from = "", $to = "", $where_in = "", $order_by = "")
 	{	
-		$this->db->select("*");
+		$this->db->select("his_kontrak.*, pns_name.nama as status_pns, tetap_name.nama as status_tetap");
 		$this->db->from($this->table);
 		$this->db->where("statue !=", 0);
 		if (!empty($params_array) && is_array($params_array)) {
@@ -35,13 +35,14 @@ class His_kontrak_model extends MY_Model
                 $this->db->where_in($value["key"], $value["value_array"]);
             }
 		}
-
+		$this->db->join('m_status_pegawai as tetap_name', 'tetap_name.id = his_kontrak.tetap', 'LEFT');
+		$this->db->join('m_status_pegawai as pns_name', 'pns_name.id = his_kontrak.pns', 'LEFT');
 		if (!empty($from)) {
-			$this->db->where("created >=", $from);
+			$this->db->where("his_kontrak.created >=", $from);
 		}
 
 		if (!empty($to)) {
-			$this->db->where("created <=", $to);
+			$this->db->where("his_kontrak.created <=", $to);
 		}
 
 		if (is_array($like) && !empty($like)) {

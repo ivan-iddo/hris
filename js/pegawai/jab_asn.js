@@ -11,17 +11,10 @@ function tabJabatanViewasn(){
 }
 
 function simpanJasn(action){
-  var tgl_skjafung = 	$('#tgl_skjafung').val();
   var gouirl = 'pegawai/savejfung';
   if(action==='edit'){
     gouirl = 'pegawai/editjasn';
   }
-  if(empty(tgl_skjafung)){
-    onMessage("Data 'Tanggal' Wajib dipilih");
-
-    return false;
-
-  }else{
     
     var data = formJson('form-jfung');//$("#form-upload").serializeArray();
     $.ajax({
@@ -75,7 +68,7 @@ error: function( jqXhr, textStatus, errorThrown ){
 }
 });
     
-  }  
+   
 }
 
 

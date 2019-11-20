@@ -119,7 +119,7 @@ class Appdata extends REST_Controller
                     return;
                 }
                 $this->db->order_by('ds_jabatan', 'ASC');
-                $this->db->where('tampilkan', '1');
+                //$this->db->where('tampilkan', '1');
 
                 $param = urldecode($this->uri->segment(3));
                 $param2 = "%".$param."%"; 

@@ -282,7 +282,8 @@
                 getOptions("txtdirektorat", BASE_URL + "master/direktorat");
                 getOptions("satuan_kerja", BASE_URL + "master/getmaster?id=25");
                 getOptions("kelas_jabatan", BASE_URL + "master/getmaster?id=24");
-                $('#txtdirektorat').change(function() {
+                getOptions("jenis_mutasi", BASE_URL + "master/getmaster?id=43");
+				$('#txtdirektorat').change(function() {
 					var a=$('#txtdirektorat').val();
 					getOptions("txtjabatan", BASE_URL +"master/jabatan_struktural_fix?id="+a);
 				});
@@ -294,7 +295,6 @@
 					var c=$('#unitkerja').val();
 					getOptions("txtjabatan", BASE_URL +"master/jabatan_struktural_fix?id="+c);
 				});
-                getOptions("jenis_mutasi", BASE_URL + "master/getmaster?id=43");
             }, 2000);
 
 
@@ -305,18 +305,18 @@
 
     function simpan() {
         var direktorat = $('#txtdirektorat').val();
-        var tgl_mutasi = $('#tgl_mutasi').val();
+        var jenis_mutasi = $('#jenis_mutasi').val();
         var jabatan = $('#txtjabatan').val();
         var satuan_kerja = $('#satuan_kerja').val();
-        if (empty(direktorat)) {
+        if (empty(jenis_mutasi)) {
+            onMessage("Data 'JenisMutasi' Wajib dipilih");
+
+            return false;
+
+        }else if (empty(direktorat)) {
             onMessage("Data 'Direktorat' Wajib dipilih");
 
             return false;
-        } else if (empty(tgl_mutasi)) {
-            onMessage("Data 'Tanggal Mutasi' Wajib dipilih");
-
-            return false;
-
         } else if (empty(jabatan)) {
             onMessage("Data 'Jabatan Struktural' Wajib dipilih");
 
@@ -700,6 +700,12 @@ function CellRenderer (params){
  }else if(params.value ==='Pengajuan Unit,menunggu Direksi'){
    closeSpan.setAttribute("class","badge badge-info");
    closeSpan.textContent = "Pengajuan Unit,menunggu Direksi";
+ }else if(params.value ==='Disetujui, Kirim Ke HI'){
+   closeSpan.setAttribute("class","badge badge-info");
+   closeSpan.textContent = "Disetujui, Kirim Ke HI";
+ }else if(params.value ==='Selesai'){
+   closeSpan.setAttribute("class","badge badge-success");
+   closeSpan.textContent = "Selesai";
  }
  return closeSpan;
 }

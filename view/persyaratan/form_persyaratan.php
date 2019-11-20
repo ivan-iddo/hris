@@ -8,6 +8,7 @@
 					<select aria-hidden="true" class="select-chosen" id="txtjabatan" name="txtjabatan" style="width: 70%;" tabindex="-1">
 						
 					</select>
+					<span class="text-xs text-danger">* Wajib Diisi</span>
 				</div>
 			</div>
 		<!-- <div class="form-group">
@@ -29,6 +30,7 @@
 			<label class="col-sm-4 control-label" for="masajbt">Masa Jabatan</label>
 			<div class="col-sm-8">
 				<input class="form-control" type="text" id="masajbt" name="masajbt">
+				<span class="text-xs text-danger">* Wajib Diisi</span>
 			</div>
 		</div>
 		<div class="form-group">
@@ -83,6 +85,7 @@
 			<label class="col-sm-4 control-label" for="tufoksi">Tupoksi</label>
 			<div class="col-sm-8">
 				<textarea placeholder="" class="form-control input-sm" id="tufoksi" name="tufoksi" type="text"></textarea>
+				<span class="text-xs text-danger">* Wajib Diisi</span>
 			</div>
 		</div>
 		<!-- <div class="body-content">
@@ -127,7 +130,8 @@
 		console.log("remove" + $(this));
 		$(this).parentsUntil(".body-remove").parent().remove();
 	});
-	getOptions("txtjabatan",BASE_URL+"master/jabatan_struktural_fix_label");
+	var group = localStorage.getItem('group');
+	getOptions("txtjabatan",BASE_URL+"master/jabatan_struktural_fix?id="+group);
 	getOptions("txtjabatans",BASE_URL+"master/jabatan_struktural_fix_label");
 	$('.select-chosen').chosen();
 	$('.chosen-container').css({"width": "100%"});

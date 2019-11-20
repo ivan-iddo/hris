@@ -7,6 +7,7 @@
                     <select aria-hidden="true" class="select-chosen" id="jenis_mutasi" name="jenis_mutasi"
                     style="width: 100%;" tabindex="-1">
                 </select>
+				<span class="text-xs text-danger">* Wajib Diisi</span>
             </div>
         </div>
         <div class="form-group">
@@ -18,6 +19,7 @@
                 tabindex="-1">
 
             </select>
+			<span class="text-xs text-danger">* Wajib Diisi</span>
         </div>
     </div>
     <div class="form-group">
@@ -45,6 +47,7 @@
         style="width: 100%;" tabindex="-1">
 
     </select>
+	<span class="text-xs text-danger">* Wajib Diisi</span>
 </div>
 </div>
 <div class="form-group">
@@ -91,6 +94,7 @@
                 style="width: 100%;" tabindex="-1">
 
             </select>
+			<span class="text-xs text-danger">* Wajib Diisi</span>
         </div>
     </div>
 </div>

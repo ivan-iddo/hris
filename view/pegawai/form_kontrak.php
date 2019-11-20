@@ -45,6 +45,25 @@ input[type="date"]:valid:before {
                                 required name="jnsktr"></div>
                                 <div class="col-sm-3"></div>
                             </div>
+							 <div class="form-group"><label
+								class="col-sm-3 control-label"></label>
+								<div class="col-sm-6"><select class="select-chosen" id="statustetap"
+								  name="statustetap" style="width: 100%;">
+								</select>
+								<span
+								class="text-xs text-danger">*Wajib diisi Status Tetap</span>
+							  </div>
+							</div>
+							<div class="form-group"><label
+							  class="col-sm-3 control-label"></label>
+							  <div class="col-sm-6"><select class="select-chosen" id="status"
+								name="status" style="width: 100%;"
+								onChange="getjabatanasn(this.value);">
+							  </select>
+							  <span
+							  class="text-xs text-danger">*Wajib diisi Status PNS</span>
+							</div>
+						  </div>
                             <div class="form-group">
                              <div class="col-sm-3"></div>
                              <div class="col-sm-6"><input type="text" placeholder="Tanggal Akhir Kontrak" class="form-control tgl" id="tglakhir"
@@ -73,6 +92,8 @@ input[type="date"]:valid:before {
                             <th>TMT awal Kotrak</th>
                             <th>Tanggal Kontrak</th>
                             <th>Jenis Kontrak</th>
+							<th>Status</th>
+                            <th>PNS</th>
                             <th>TMT Akhir Kontrak</th>
                             <th>Action</th>
                         </tr>
@@ -92,7 +113,13 @@ $("form").on("submit", function(e){
     var id_pelatihan = $('#f_id_edit').val();
     $('#id_userfile').val(id_pelatihan);
     var form = $("#form-file-kontrak");
-
+	if(empty($('#statustetap').val())){
+         onMessage("Data 'Status Tetap' is required"); 
+         return false;
+    }else if(empty($('#status').val())){
+         onMessage("Data 'Status PNS' is required"); 
+         return false;
+    }
     if (id_pelatihan !== '') {
         $.ajax({
             url: BASE_URL + "pegawais/kontrak/add", /* Url to which the request is send*/
@@ -115,6 +142,7 @@ $("form").on("submit", function(e){
                 }
             }
         });
+	
     } 
     else {
         swal('PERHATIAN!', 'Anda harus menyimpan data Pegawai Terlebih dahulu sebelum melakukan upload file!');
@@ -160,4 +188,10 @@ $(document).ready(function () {
   $('.datepicker').hide();
 });
 });
+$('.select-chosen').chosen();
+$('.chosen-container').css({"width": "100%"});
+getOptions("status", BASE_URL + "master/status_pegawai_pns");
+getOptions("statustetap", BASE_URL + "master/status_pegawai_tetap");
+ 
+     
 </script>

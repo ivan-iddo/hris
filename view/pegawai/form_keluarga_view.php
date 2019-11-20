@@ -1,16 +1,3 @@
- 
-<div class="row ">
-
-  <div class="newtoolbar">
-    <div class="table-toolbar-left" id="demo-custom-toolbar2">
-      <div class="btn-group" style="padding-left:10px">
-        <button class="btn btn-mint btn-labeled fa fa-plus-square btn-sm" onclick="addKeluarga();">Add</button>
-        <button class="btn btn-mint btn-labeled fa fa-edit btn-sm" onclick="editKeluarga();">Edit</button>
-        <button class="btn btn-warning btn-labeled fa fa-close btn-sm" onclick="deletKeluarga();">Delete</button>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="bootstrap-table">
   <div class="fixed-table-container" style="padding-bottom: 0px;">
     <div class="ag-theme-balham" id="gridKeluarga" style="height: 200px;width:100%;"></div>
@@ -19,6 +6,10 @@
 </div>
 <script>
   var columnKeluarga = [ 
+  {headerName: "Dokumen", field: "url", 
+  cellRenderer: function(params) {
+    return '<a href="api/upload/data/'+params.value+'" target="_blank"><i class="fa fa-eye"></i>Lihat Dokumen</a>'
+  }},
   {headerName: "NIK", field: "nik", width: 190, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Nama", field: "nama", width: 190, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Tempat Lahir", field: "tpt_lahir", width: 190, filterParams:{newRowsAction: 'keep'}}, 
@@ -28,11 +19,7 @@
   {headerName: "Kartu Nikah", field: "karn", width: 190, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Pendidikan", field: "pendidikan", width: 190, filterParams:{newRowsAction: 'keep'}}, 
   {headerName: "Pekerjaan", field: "pekerjaan", width: 190, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Dokumen", field: "url", 
-  cellRenderer: function(params) {
-    return '<a href="api/upload/data/'+params.value+'" target="_blank"><i class="fa fa-eye"></i>Lihat Dokumen</a>'
-  }
-},
+  
 ];
 
 var gridKeluargaOpt = {

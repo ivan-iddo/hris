@@ -54,6 +54,7 @@ public function savedetail_post(){
 				$nama1=strtolower($dat['nama']);
 				$nama=ucwords($nama1);
 				$this->db->select('m_penilaian_kpi.id_grup,m_penilaian_kpi.bobot');
+				$this->db->where('tampilkan',1);
 				$this->db->where('grup',$nama);
 				$res = $this->db->get('m_penilaian_kpi')->row();
 				if(!empty($res)){
@@ -2388,7 +2389,6 @@ public function listiki_get()
 			$this->db->where('his_kpi.id_jenis',$id_jenis);
 			$this->db->where('EXTRACT(YEAR FROM his_kpi.akhir) =',$thn);
 			$this->db->where('his_kpi.tampilkan','1');
-			$this->db->where_in('his_kpi.status',array('1','2','3','5'));
 			$this->db->order_by('his_kpi.id','DESC');
 			if(!empty($this->input->get('nopeg'))){
 				$this->db->where('sys_user.id_user',$this->input->get('nopeg'));
@@ -2399,28 +2399,37 @@ public function listiki_get()
 			}
 			if($id_jenis=='5'){
 				if($user_froup == '99'){
-					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');
+					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',1);
 				}else if($user_froup == '3'){
-					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');
+					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');$this->db->where_in('his_kpi.status',1);
+				}else{
+					$this->db->where_in('his_kpi.status',array('1','2','3','5'));
+			
 				}
 			}
 			if($id_jenis=='17'){
 				$id_jab=array('1','2','3','38','70','83','115','148','231','244','273','293','306','366','398','411','443','475','509','523','555','589','654','667','699','732','746','781','815','847','881','894','935','948','962','996','1572','1580','1581','1646','1718','1726','1733','1734','1863','1864','1957','2005','2033','2066','2182','2195','2249','2250','2252','2275','2427','2522','2553','2554','2555','2590','2642','2749','2782','2832','2856','2877','2922','2930','2942','2948','2967','2969','2977','2987','3028','3064','3089','3114');
 				if($user_froup == '3'){
-					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');
+					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');$this->db->where_in('his_kpi.status',1);
 				}else if($user_froup == '92'){
 				    $this->db->where_in("his_kpi.id_jab",$id_jab);
-					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');
+					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',1);
 				}else if($user_froup == '97'){
 					$this->db->where_not_in("his_kpi.id_jab",$id_jab);
-					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');
+					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',1);
+				}else{
+					$this->db->where_in('his_kpi.status',array('1','2','3','5'));
+			
 				}
 			}
 			if($id_jenis=='16'){
 				if($user_froup == '3'){
-					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');
+					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');$this->db->where_in('his_kpi.status',1);
 				}else if ($user_froup == '92'){
-					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');
+					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',1);
+				}else{
+					$this->db->where_in('his_kpi.status',array('1','2','3','5'));
+			
 				}
 			}
 			$this->db->order_by('sys_user.name', 'ASC');
@@ -2744,13 +2753,16 @@ public function listiku_get()
 					$this->db->where('EXTRACT(MONTH FROM his_kpi.akhir) =',$bulan);
 					$this->db->where('EXTRACT(YEAR FROM his_kpi.akhir) =',$thn);
 					$this->db->where('his_kpi.id_jenis',16);
-					$this->db->where_in('his_kpi.status',array('1','2','3','5'));
-			
+					
 					if($id_jenis=='16'){
 						if($user_froup == '3'){
 							$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');
-						}else if ($user_froup == '92'){
+							$this->db->where_in('his_kpi.status',1);
+						}else if ($user_froup == '9'){
 							$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');
+							$this->db->where_in('his_kpi.status',1);
+						}else{
+						$this->db->where_in('his_kpi.status',array('1','2','3','5'));
 						}
 					}
 					$this->db->order_by('sys_user.name', 'ASC');

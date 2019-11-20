@@ -583,11 +583,15 @@ function simpan(){
 			}
 			}
 
-function setPengajuan(a){
-  getOptionsEdit("txtdirektorat",BASE_URL+"master/direktorat",a.result[0].direktorat_tujuan);
-  getOptionsEdit("txtbagian",BASE_URL+"master/direktoratsub/"+a.result[0].direktorat_tujuan,a.result[0].bagian_tujuan); 
-  getOptionsEdit("unitkerja",BASE_URL+"master/direktoratsub/"+a.result[0].bagian_tujuan,a.result[0].sub_bagian_tujuan); 
-	 $('#txtdirektorat').change(function() {
+function setPengajuan(a) {
+
+
+    setTimeout(function () {
+        Pace.restart();
+        getOptionsEdit("txtdirektorat", BASE_URL + "master/direktorat", a.result[0].direktorat_tujuan);
+        getOptionsEdit("txtbagian", BASE_URL + "master/direktoratsub/" + a.result[0].direktorat_tujuan, a.result[0].bagian_tujuan);
+        getOptionsEdit("unitkerja", BASE_URL + "master/direktoratsub/" + a.result[0].bagian_tujuan, a.result[0].sub_bagian_tujuan);
+		$('#txtdirektorat').change(function() {
 			var a=$('#txtdirektorat').val();
 			getOptions("txtjabatan", BASE_URL +"master/jabatan_struktural_fix?id="+a);
 		});
@@ -599,26 +603,24 @@ function setPengajuan(a){
 			var c=$('#unitkerja').val();
 			getOptions("txtjabatan", BASE_URL +"master/jabatan_struktural_fix?id="+c);
 		});
-  getOptionsEdit("satuan_kerja",BASE_URL+"master/getmaster?id=25",a.result[0].id_satker);
-  getOptionsEdit("kelas_jabatan",BASE_URL+"master/getmaster?id=24",a.result[0].id_kelas);
-  getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural_fix_label",a.result[0].jabatan_struktural);
-  
-  
-  setTimeout(function(){ 
-    Pace.restart();
-    $('#idtk').val(a.result[0].id);
-    $('#tgl_mutasi').val(a.result[0].tgl_mutasi);
-    $('#keterangan').val(a.result[0].keterangan);
-    $('#no_sk').val(a.result[0].no_sk);
-    $('#tgl_sk').val(a.result[0].tgl_sk);
-    $('#isi').val('');
-    $('#txtIdUser').val(a.result[0].user_id);
-    $('#iddok').val(a.result[0].id);
-    id = $('#idtk').val();
-    getJson(listchat,BASE_URL+'abk/abk/getchatall?kategori=1&id='+id);
-  }, 1000);
-  
-  
+
+        getOptionsEdit("satuan_kerja", BASE_URL + "master/getmaster?id=25", a.result[0].id_satker);
+        getOptionsEdit("kelas_jabatan", BASE_URL + "master/getmaster?id=24", a.result[0].id_kelas);
+        getOptionsEdit("txtjabatan", BASE_URL + "master/jabatan_struktural_fix_label", a.result[0].jabatan_struktural);
+        getOptionsEdit("jenis_mutasi", BASE_URL + "master/getmaster?id=43", a.result[0].jm);
+        $('#idtk').val(a.result[0].id);
+        $('#tgl_mutasi').val(a.result[0].tgl_mutasi);
+        $('#keterangan').val(a.result[0].keterangan);
+        $('#no_sk').val(a.result[0].no_sk);
+        $('#tgl_sk').val(a.result[0].tgl_sk);
+        $('#isi').val('');
+        $('#txtIdUser').val(a.result[0].user_id);
+        $('#iddok').val(a.result[0].id);
+        id = $('#idtk').val();
+        getJson(listchat, BASE_URL + 'abk/abk/getchatall?kategori=1&id=' + id);
+    }, 100);
+
+
 }
 
 function listchat(obj){

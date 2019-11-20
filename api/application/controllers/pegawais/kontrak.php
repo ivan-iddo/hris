@@ -52,6 +52,8 @@ class Kontrak extends MY_Controller
         $datas["tmtawal"] = ($awall?$awall:NULL);
         $datas["tglktr"] = ($kontraks?$kontraks:NULL);
         $datas["jnsktr"] = ($this->input->post('jnsktr')?$this->input->post('jnsktr'):NULL);
+        $datas["tetap"] = ($this->input->post('statustetap')?$this->input->post('statustetap'):NULL);
+		$datas["pns"] = ($this->input->post('status')?$this->input->post('status'):NULL);
         $datas["tglakhir"] = ($akhirs?$akhirs:NULL);
         $datas["url"] = $filename;
 

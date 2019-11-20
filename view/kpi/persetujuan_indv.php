@@ -1,3 +1,4 @@
+<?php session_start();?>
 <div class="row">
 	
   <div class="tab-base mar-all">
@@ -91,17 +92,18 @@
       
       <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
        <div class="row">
-         <div class="col-sm-8 table-toolbar-left">
+         <div class="col-sm-8 table-toolbar-left">  		
+		 <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6')OR ($_SESSION['userdata']['group']=='3')OR ($_SESSION['userdata']['group']=='92')OR ($_SESSION['userdata']['group']=='97')OR ($_SESSION['userdata']['group']=='99') ){?>
           <button style="margin-left:3px" class="btn btn-success" onclick="proses('2')"><i class="fa fa-file-excel-o"></i> Setujui Permohonan</button>
-          <button style="margin-left:3px" class="btn btn-warning" onclick="proses('1')"><i class="fa fa-file-excel-o"></i> Perbaikan </button>
           <button style="margin-left:3px" class="btn btn-danger" onclick="proses('3')"><i class="fa fa-file-excel-o"></i> Tolak</button>
-          <button style="margin-left:3px" class="btn btn-primary" onclick="update()"><i class="fa fa-file-excel-o"></i> Simpan</button>
           <button style="margin-left:3px" class="btn btn-primary" onclick="filters()"><i class="fa fa-file-excel-o"></i> Filter iki 1</button>
-          <button style="margin-left:3px" class="btn btn-danger" onclick="reset()"><i class="fa fa-file-excel-o"></i> Reset</button>          
+          <button style="margin-left:3px" class="btn btn-danger" onclick="reset()"><i class="fa fa-file-excel-o"></i> Reset</button> 
+		  <?php }else{?>
+		   <button style="margin-left:3px" class="btn btn-primary" onclick="update()"><i class="fa fa-file-excel-o"></i> Simpan</button>
+		  <button style="margin-left:3px" class="btn btn-warning" onclick="proses('1')"><i class="fa fa-file-excel-o"></i> Perbaikan </button>		  
+		  <button class="btn btn-default"  onCLick="downloadindv();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
+		 <?php }?>
         </div>
-        <div class="col-sm-4 table-toolbar-right">
-         <button class="btn btn-default"  onCLick="downloadindv();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
-       </div>
      </div>
    </div>
    
@@ -111,7 +113,8 @@
 </div>
 </div>
 </div>
-<div class="row">
+<?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6')OR ($_SESSION['userdata']['group']=='3')OR ($_SESSION['userdata']['group']=='92')OR ($_SESSION['userdata']['group']=='97')OR ($_SESSION['userdata']['group']=='99') ){?>
+<?php }else{?><div class="row">
 	<div class="col-sm-8 table-toolbar-left">
 		<button style="margin-left:3px" class="btn btn-mint" onclick="getRowData()"><i class="fa fa-file-excel-o"></i> Simpan Perubahan</button>
    <button class="btn btn-success" onclick="get()"><i class="fa fa-file-excel-o"></i> Selesai kirim ke SDM</button>                                                   				                     
@@ -124,8 +127,11 @@
 </div>
 </div>
 <div id="myGrid"  style="width:100%;height: 900px;" class="ag-theme-balham"></div> 
-
+<?php }?>
 <script>
+	$('.select-chosen').chosen();
+    $('.chosen-container').css({"width": "100%"});
+    getOptions("txtdirektorat",BASE_URL+"master/direktoratSub");
   $('.judul-menu').html('Persetujuan KPI Individu'); 
   
   var headerTK = [
@@ -551,7 +557,4 @@
             submit_get(BASE_URL+'kpi/mpenilaian/updateiki/?id='+selectedRowsString+'&type='+a,listFromtk);
           }
         }
-        $('.select-chosen').chosen();
-        $('.chosen-container').css({"width": "100%"});
-        getOptions("txtdirektorat",BASE_URL+"master/direktoratSub");
       </script>

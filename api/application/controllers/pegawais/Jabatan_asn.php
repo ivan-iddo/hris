@@ -49,19 +49,29 @@ public function listjasn_get(){
 			$this->db->where('his_jabatan_asn.user_id',$this->uri->segment('4')); 
 			$res = $this->db->get('his_jabatan_asn')->result();
 			if(!empty($res)){
-
-
 				foreach($res as $d){
+				if(!empty($d->tmt_jfung)){
+				$tmt_jfung=date_format(date_create($d->tmt_jfung), "d-m-Y");
+				}else{$tmt_jfung=$d->tmt_jfung;}
+				if(!empty($d->tmt_jfung)){
+				$tgl_skjafung=date_format(date_create($d->tgl_skjafung), "d-m-Y");
+				}else{$tgl_skjafung=$d->tgl_skjafung;}
+				if(!empty($d->tmt_jfung)){
+				$tmt_pak=date_format(date_create($d->tmt_pak), "d-m-Y");
+				}else{$tmt_pak=$d->tmt_pak;}
+				if(!empty($d->tgl_pak)){
+				$tgl_pak=date_format(date_create($d->tgl_pak), "d-m-Y");
+				}else{$tgl_pak=$d->tgl_pak;}
 					$arr[]=array('id'=>$d->id,
 						'jabatan' => $d->jabatan,
 						'bagian_jabatan' => $d->bagian_jabatan,
 						'sub_bagian_jabatan' => $d->sub_bagian_jabatan,
-						'tmt_jfung' => date_format(date_create($d->tmt_jfung), "d-m-Y"),
+						'tmt_jfung' => $tmt_jfung,
 						'no_skjfung' => $d->no_skjfung,
-						'tgl_skjafung' => date_format(date_create($d->tgl_skjafung), "d-m-Y"),
+						'tgl_skjafung' => $tgl_skjafung,
 						'no_pak' => $d->no_pak,
-						'tmt_pak' => date_format(date_create($d->tmt_pak), "d-m-Y"),
-						'tgl_pak' => date_format(date_create($d->tgl_pak), "d-m-Y"),
+						'tmt_pak' => $tmt_pak,
+						'tgl_pak' => $tgl_pak,
 						'nilai_pak' => $d->nilai_pak,
 						'keterangan' => $d->keterangan,
 						'jabfungasn' => $d->jabfungasn,
@@ -96,17 +106,28 @@ public function getjasn_get(){
 			$this->db->where('his_jabatan_asn.tampilkan','1');
 			$this->db->where('his_jabatan_asn.id',$this->uri->segment('4')); 
 			$d = $this->db->get('his_jabatan_asn')->row();
-
+			if(!empty($d->tmt_jfung)){
+			$tmt_jfung=date_format(date_create($d->tmt_jfung), "d-m-Y");
+			}else{$tmt_jfung=$d->tmt_jfung;}
+			if(!empty($d->tmt_jfung)){
+			$tgl_skjafung=date_format(date_create($d->tgl_skjafung), "d-m-Y");
+			}else{$tgl_skjafung=$d->tgl_skjafung;}
+			if(!empty($d->tmt_jfung)){
+			$tmt_pak=date_format(date_create($d->tmt_pak), "d-m-Y");
+			}else{$tmt_pak=$d->tmt_pak;}
+			if(!empty($d->tgl_pak)){
+			$tgl_pak=date_format(date_create($d->tgl_pak), "d-m-Y");
+			}else{$tgl_pak=$d->tgl_pak;}
 			$arr=array('id'=>$d->id,
 				'jabatan' => $d->jabatan,
 				'bagian_jabatan' => $d->bagian_jabatan,
 				'sub_bagian_jabatan' => $d->sub_bagian_jabatan,
-				'tmt_jfung' => date_format(date_create($d->tmt_jfung), "d-m-Y"),
+				'tmt_jfung' => $tmt_jfung,
 				'no_skjfung' => $d->no_skjfung,
-				'tgl_skjafung' => date_format(date_create($d->tgl_skjafung), "d-m-Y"),
+				'tgl_skjafung' => $tgl_skjafung,
 				'no_pak' => $d->no_pak,
-				'tmt_pak' => date_format(date_create($d->tmt_pak), "d-m-Y"),
-				'tgl_pak' => date_format(date_create($d->tgl_pak), "d-m-Y"),
+				'tmt_pak' => $tmt_pak,
+				'tgl_pak' => $tgl_pak,
 				'nilai_pak' => $d->nilai_pak,
 				'keterangan' => $d->keterangan,
 				'satuan_kerja' => $d->satuan_kerja,

@@ -1,39 +1,4 @@
-<form name="form-file-upload-dok" style="display:none" id="form-file-upload-dok" class="form-horizontal">
-    <div class="panel-body pad-all">
-        <div class="row">
-            <input type="text" name="kategorifile" id="kategorifile" value="<?php echo $_GET['id'] ?>">
-            <input type="text" style="display:none" name="id_userfile" id="id_userfile">
-            <div class="form-group">
-                <div class="col-sm-4">
-                    <input name="inputfileupload" id="inputfileupload" type="file" class="btn btn-success btn-sm fileinput-button dz-clickable">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-4">
-                    <input type="text" placeholder="nama file" class="form-control" id="namafile" name="namafile">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-4">
-                    <span id="uploadbtn" style="width:80px" class="form-control btn btn-primary btn-md  upload-btn" onclick="upload_file2()">
-                        <i class="fa fa-save padd-left"></i> 
-                        Upload
-                    </span>
-                </div>
-            </div>
-			<div class="text-right form-group">
-                <div class="col-sm-12">
-                    <a href="" style="width:180px" id='download' class="form-control btn btn-primary btn-md" download>
-					  <i class="fa fa-download padd-left"></i> 
-					  Download Dokument
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<div class="row"></div>
+<div class="row"> <input type="text" style="display:none" name="kategorifile" id="kategorifile" value="<?php echo $_GET['id'] ?>"></div>
 <div class="row pad-all">
     <div class="table-responsive">
         <table class="table table-striped table-hover table-vcenter">
@@ -42,14 +7,13 @@
                     <th class="min-width" style="width:20px">No.</th>
                     <th>Nama File</th>
                     <th class="min-width" style="width:20px">View</th>
-                    <th class="min-width" style="width:20px">Delete</th>
                 </tr>
             </thead>
             <tbody id="filedok"></tbody>
         </table>
     </div>
 </div>
-</form>
+
 <script> function upload_file2() {
     var id_pelatihan = $('#f_id_edit').val();
     $('#id_userfile').val(id_pelatihan);
@@ -91,7 +55,7 @@ function getfileupload(result) {
 }
 
 function loadfileupload() {
-    getJson(getfileupload, BASE_URL + 'pegawai/listfile/?id=' + $('#f_id_edit').val() + '&kategori=' + $('#kategorifile').val());
+    getJson(getfileupload, BASE_URL + 'pegawai/listfiletg/?id=' + $('#f_id_edit').val() + '&kategori=9');
 }
 
 loadfileupload();

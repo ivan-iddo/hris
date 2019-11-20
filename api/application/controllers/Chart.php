@@ -64,6 +64,7 @@ function chart_gender(){
 	} 
 
 	$numero =1; 
+	if(!empty($datanama)){
 	foreach($datanama as $dat3){
 
 		foreach($data2 as $g=>$val3){
@@ -93,6 +94,10 @@ function chart_gender(){
 	}
 	$arr[0]['category'] = array_unique($dath);
 	asort($arr);
+	}else{
+	$arr[0]['category'] = '';
+	asort($arr);
+	}
 
 
 	$h=array();
@@ -105,14 +110,27 @@ function chart_gender(){
 }
 
 function chart_pns(){
+	$tgl_awal=date_format(date_create($this->input->get('tgl_awal')), "Y-m-d");
+	$tgl_akhir=date_format(date_create($this->input->get('tgl_akhir')), "Y-m-d");
+	$direktorat=$this->input->get('direktorat');
 	$this->db->select('count(*) as jml,b.grup,m_status_pegawai.nama');
 
 	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
-	$this->db->where('a.aktif','1');
+	$this->db->join('his_kontrak as c','c.id_user = sys_user_profile.id_user','LEFT');
+	if(!empty($this->input->get('tgl_awal'))){
+	$this->db->where('c.tglktr >=',$tgl_awal);
+	}
+	if(!empty($this->input->get('tgl_akhir'))){
+	$this->db->where('c.tglktr <=',$tgl_akhir);
+	}
+	if(!empty($this->input->get('direktorat'))){
+	$this->db->where('a.direktorat',$direktorat);
+	}
+	$this->db->where('c.aktif',1);
 	$this->db->join('sys_grup_user as b','b.id_grup = a.direktorat','LEFT');
 	$this->db->where('b.child','1');
 	$this->db->where('b.tampilkan','1');
-	$this->db->join('m_status_pegawai','m_status_pegawai.id = a.status_pegawai','LEFT');
+	$this->db->join('m_status_pegawai','m_status_pegawai.id = c.pns','LEFT');
 	$this->db->where('m_status_pegawai.flagpns','1');
 	$this->db->group_by('b.grup,m_status_pegawai.nama');
 	$res = $this->db->get('sys_user_profile')->result();
@@ -125,6 +143,7 @@ function chart_pns(){
 	} 
 
 	$numero =1; 
+	if(!empty($datanama)){
 	foreach($datanama as $dat3){
 
 		foreach($data2 as $g=>$val3){
@@ -151,8 +170,12 @@ function chart_pns(){
 	}
 	$arr[0]['category'] = array_unique($dath);
 	asort($arr);
-
-
+	
+	}else{
+	$arr[0]['category'] = '';
+	asort($arr);
+	}
+	
 	$h=array();
 
 	foreach($arr as $dat){
@@ -162,12 +185,24 @@ function chart_pns(){
 	echo  json_encode($h); 
 }
 function chart_status(){
+	$tgl_awal=date_format(date_create($this->input->get('tgl_awal')), "Y-m-d");
+	$tgl_akhir=date_format(date_create($this->input->get('tgl_akhir')), "Y-m-d");
+	$direktorat=$this->input->get('direktorat');
 	$this->db->select('count(*) as jml,b.nama as grup,m_status_pegawai.nama');
 
 	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
-	$this->db->where('a.aktif','1');
-	$this->db->join('m_status_pegawai as b','b.id = a.status_pegawai_tetap','LEFT');
-	$this->db->join('m_status_pegawai','m_status_pegawai.id = a.status_pegawai','LEFT');
+	$this->db->join('his_kontrak as c','c.id_user = sys_user_profile.id_user','LEFT');
+	if(!empty($this->input->get('tgl_awal'))){
+	$this->db->where('c.tglktr >=',$tgl_awal);
+	}
+	if(!empty($this->input->get('tgl_akhir'))){
+	$this->db->where('c.tglktr <=',$tgl_akhir);
+	}
+	if(!empty($this->input->get('direktorat'))){
+	$this->db->where('a.direktorat',$direktorat);
+	}$this->db->where('c.aktif','1');
+	$this->db->join('m_status_pegawai as b','b.id = c.tetap','LEFT');
+	$this->db->join('m_status_pegawai','m_status_pegawai.id = c.pns','LEFT');
 	$this->db->group_by('b.nama,m_status_pegawai.nama');
 	$res = $this->db->get('sys_user_profile')->result();
 
@@ -179,6 +214,7 @@ function chart_status(){
 	} 
 
 	$numero =1; 
+	if(!empty($datanama)){
 	foreach($datanama as $dat3){
 
 		foreach($data2 as $g=>$val3){
@@ -205,6 +241,10 @@ function chart_status(){
 	}
 	$arr[0]['category'] = array_unique($dath);
 	asort($arr);
+	}else{
+	$arr[0]['category'] = '';
+	asort($arr);
+	}
 
 
 	$h=array();
@@ -217,12 +257,24 @@ function chart_status(){
 }
 
 function chart_profesi(){
+	$tgl_awal=date_format(date_create($this->input->get('tgl_awal')), "Y-m-d");
+	$tgl_akhir=date_format(date_create($this->input->get('tgl_akhir')), "Y-m-d");
+	$direktorat=$this->input->get('direktorat');
 	$this->db->select('count(*) as jml,b.ds_group_jabatan as grup,m_status_pegawai.nama');
 
 	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
-	$this->db->where('a.aktif','1');
+	$this->db->join('his_kontrak as c','c.id_user = sys_user_profile.id_user','LEFT');
+	if(!empty($this->input->get('tgl_awal'))){
+	$this->db->where('c.tglktr >=',$tgl_awal);
+	}
+	if(!empty($this->input->get('tgl_akhir'))){
+	$this->db->where('c.tglktr <=',$tgl_akhir);
+	}
+	if(!empty($this->input->get('direktorat'))){
+	$this->db->where('a.direktorat',$direktorat);
+	}$this->db->where('c.aktif','1');
 	$this->db->join('m_kode_profesi_group as b','b.id = sys_user_profile.kategori_profesi','LEFT');
-	$this->db->join('m_status_pegawai','m_status_pegawai.id = a.status_pegawai','LEFT');
+	$this->db->join('m_status_pegawai','m_status_pegawai.id = c.pns','LEFT');
 	$this->db->group_by('b.ds_group_jabatan,m_status_pegawai.nama');
 	$res = $this->db->get('sys_user_profile')->result();
 
@@ -234,6 +286,7 @@ function chart_profesi(){
 	} 
 
 	$numero =1; 
+	if(!empty($datanama)){
 	foreach($datanama as $dat3){
 
 		foreach($data2 as $g=>$val3){
@@ -259,6 +312,10 @@ function chart_profesi(){
 	}
 	$arr[0]['category'] = array_unique($dath);
 	asort($arr);
+	}else{
+	$arr[0]['category'] = '';
+	asort($arr);
+	}
 
 
 	$h=array();
@@ -271,14 +328,26 @@ function chart_profesi(){
 }
 
 function chart_tetap(){
+	$tgl_awal=date_format(date_create($this->input->get('tgl_awal')), "Y-m-d");
+	$tgl_akhir=date_format(date_create($this->input->get('tgl_akhir')), "Y-m-d");
+	$direktorat=$this->input->get('direktorat');
 	$this->db->select('count(*) as jml,b.grup,m_status_pegawai.nama');
-
+	
 	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
-	$this->db->where('a.aktif','1');
+	$this->db->join('his_kontrak as c','c.id_user = sys_user_profile.id_user','LEFT');
+	if(!empty($this->input->get('tgl_awal'))){
+	$this->db->where('c.tglktr >=',$tgl_awal);
+	}
+	if(!empty($this->input->get('tgl_akhir'))){
+	$this->db->where('c.tglktr <=',$tgl_akhir);
+	}
+	if(!empty($this->input->get('direktorat'))){
+	$this->db->where('a.direktorat',$direktorat);
+	}$this->db->where('c.aktif','1');
 	$this->db->join('sys_grup_user as b','b.id_grup = a.direktorat','LEFT');
 	$this->db->where('b.child','1');
 	$this->db->where('b.tampilkan','1');
-	$this->db->join('m_status_pegawai','m_status_pegawai.id = a.status_pegawai_tetap','LEFT');
+	$this->db->join('m_status_pegawai','m_status_pegawai.id = c.tetap','LEFT');
 	$this->db->where('m_status_pegawai.flagpns','0');
 	$this->db->group_by('b.grup,m_status_pegawai.nama');
 	$res = $this->db->get('sys_user_profile')->result();
@@ -291,6 +360,7 @@ function chart_tetap(){
 	} 
 
 	$numero =1; 
+	if(!empty($datanama)){
 	foreach($datanama as $dat3){
 
 		foreach($data2 as $g=>$val3){
@@ -315,6 +385,10 @@ function chart_tetap(){
 	}
 	$arr[0]['category'] = array_unique($dath);
 	asort($arr);
+	}else{
+	$arr[0]['category'] = '';
+	asort($arr);
+	}
 
 
 	$h=array();
@@ -327,11 +401,23 @@ function chart_tetap(){
 }
 
 function chart_tetapall(){
+	$tgl_awal=date_format(date_create($this->input->get('tgl_awal')), "Y-m-d");
+	$tgl_akhir=date_format(date_create($this->input->get('tgl_akhir')), "Y-m-d");
+	$direktorat=$this->input->get('direktorat');
 	$this->db->select('count(*) as jml,m_status_pegawai.nama');
 
 	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
-	$this->db->where('a.aktif','1');
-	$this->db->join('m_status_pegawai','m_status_pegawai.id = a.status_pegawai_tetap','LEFT');
+	$this->db->join('his_kontrak as c','c.id_user = sys_user_profile.id_user','LEFT');
+	if(!empty($this->input->get('tgl_awal'))){
+	$this->db->where('c.tglktr >=',$tgl_awal);
+	}
+	if(!empty($this->input->get('tgl_akhir'))){
+	$this->db->where('c.tglktr <=',$tgl_akhir);
+	}
+	if(!empty($this->input->get('direktorat'))){
+	$this->db->where('a.direktorat',$direktorat);
+	}$this->db->where('c.aktif','1');
+	$this->db->join('m_status_pegawai','m_status_pegawai.id = c.tetap','LEFT');
 	$this->db->where('m_status_pegawai.flagpns','0');
 	$this->db->group_by('m_status_pegawai.nama');
 	$res = $this->db->get('sys_user_profile')->result();
@@ -343,6 +429,7 @@ function chart_tetapall(){
 	} 
 	
 	$numero =1; 
+	if(!empty($datanama)){
 	foreach($datanama as $dat3){
 		if(!empty($data2[$dat3])){
 				$arrz[$dat3][0] = (int)$data2[$dat3];
@@ -354,8 +441,11 @@ function chart_tetapall(){
 		$arr[(int)$numero]['name'] = "Pegawai ".$dat3;
 		++$numero;
 	}
+	
+	}
 	$arr[0]['category'][0] = 'Seluruh Pegawai';
 	asort($arr);
+	
 
 
 	$h=array();
@@ -368,11 +458,24 @@ function chart_tetapall(){
 }
 
 function chart_pnsall(){
+	$tgl_awal=date_format(date_create($this->input->get('tgl_awal')), "Y-m-d");
+	$tgl_akhir=date_format(date_create($this->input->get('tgl_akhir')), "Y-m-d");
+	$direktorat=$this->input->get('direktorat');
 	$this->db->select('count(*) as jml,m_status_pegawai.nama');
 
 	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
-	$this->db->where('a.aktif','1');
-	$this->db->join('m_status_pegawai','m_status_pegawai.id = a.status_pegawai','LEFT');
+	$this->db->join('his_kontrak as c','c.id_user = sys_user_profile.id_user','LEFT');
+	if(!empty($this->input->get('tgl_awal'))){
+	$this->db->where('c.tglktr >=',$tgl_awal);
+	}
+	if(!empty($this->input->get('tgl_akhir'))){
+	$this->db->where('c.tglktr <=',$tgl_akhir);
+	}
+	if(!empty($this->input->get('direktorat'))){
+	$this->db->where('a.direktorat',$direktorat);
+	}
+	$this->db->where('c.aktif','1');
+	$this->db->join('m_status_pegawai','m_status_pegawai.id = c.pns','LEFT');
 	$this->db->where('m_status_pegawai.flagpns','1');
 	$this->db->group_by('m_status_pegawai.nama');
 	$res = $this->db->get('sys_user_profile')->result();
@@ -383,7 +486,8 @@ function chart_pnsall(){
 		$datanama[$val->nama]=$val->nama;
 	} 
 	
-	$numero =1; 
+	$numero =1;
+	if(!empty($datanama)){	
 	foreach($datanama as $dat3){
 		if(!empty($data2[$dat3])){
 				$arrz[$dat3][0] = (int)$data2[$dat3];
@@ -394,6 +498,8 @@ function chart_pnsall(){
 		$arr[(int)$numero]['data'] = $arrz[$dat3]; 
 		$arr[(int)$numero]['name'] = "Pegawai ".$dat3;
 		++$numero;
+	}
+	
 	}
 	$arr[0]['category'][0] = 'Seluruh Pegawai';
 	asort($arr);
@@ -434,6 +540,7 @@ function chart_shift(){
 	$numero =1;
 	$warna[1] = '#FF0000';
 	$warna[2] = '#2980b9';
+	if(!empty($datanama)){
 	foreach($datanama as $dat3){
 
 		foreach($data2 as $g=>$val3){
@@ -456,6 +563,10 @@ function chart_shift(){
 	}
 	$arr[0]['category'] = array_unique($dath);
 	asort($arr);
+	}else{
+	$arr[0]['category'] = '';
+	asort($arr);
+	}
 
 
 	$h=array();
@@ -492,6 +603,7 @@ function chart_keluar(){
 	} 
 
 	$numero =1; 
+	if(!empty($datanama)){
 	foreach($datanama as $dat3){
 
 		foreach($data2 as $g=>$val3){
@@ -510,7 +622,10 @@ function chart_keluar(){
 		++$numero;
 	}
 	$arr[0]['category'] = array_unique($dath);
-	asort($arr); 
+	asort($arr); }else{
+	$arr[0]['category'] = '';
+	asort($arr);
+	}
 //$array = json_decode(json_encode($arr), true);
 //print_r($array);
 	$h=array();
@@ -526,7 +641,7 @@ function chart_pendidikan(){
 	$this->db->select('count(*) as jml,b.grup,dm_term.nama as nama');
 	$this->db->join('sys_user_profile','sys_user.id_user = sys_user_profile.id_user','LEFT');
 	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
-	$this->db->where('a.aktif','1');
+	$this->db->where('sys_user.aktif','1');
 	$this->db->join('sys_grup_user as b','b.id_grup = a.direktorat','LEFT');
 	$this->db->where('b.child','1');
 	$this->db->where('b.tampilkan','1');
@@ -548,6 +663,7 @@ function chart_pendidikan(){
 	} 
 	
 	$numero =1; 
+	if(!empty($datanama)){
 	foreach($datanama as $dat3){
 
 		foreach($data2 as $g=>$val3){
@@ -566,7 +682,10 @@ function chart_pendidikan(){
 		++$numero;
 	}
 	$arr[0]['category'] = array_unique($dath);
-	asort($arr); 
+	asort($arr); }else{
+	$arr[0]['category'] = '';
+	asort($arr);
+	}
 //$array = json_decode(json_encode($arr), true);
 //print_r($array);
 	$h=array();
@@ -579,13 +698,27 @@ function chart_pendidikan(){
 }
 
 function chart_pendidikan_all(){
+	$tgl_awal=date_format(date_create($this->input->get('tgl_awal')), "Y-m-d");
+	$tgl_akhir=date_format(date_create($this->input->get('tgl_akhir')), "Y-m-d");
+	$direktorat=$this->input->get('direktorat');
 	$this->db->select('count(*) as jml,dm_term.nama as nama');
+	if(!empty($this->input->get('tgl_awal'))){
+	$this->db->join('his_pendidikan','sys_user.id_user = his_pendidikan.id_user','LEFT');
+	$this->db->join('riwayat_kedinasan as a','a.id_user = his_pendidikan.id_user','LEFT');
+	$this->db->where('his_pendidikan.pen_dijz >=',$tgl_awal);
+	$this->db->where('his_pendidikan.pen_dijz <=',$tgl_akhir);
+	$this->db->where('a.aktif','1');
+	$this->db->join('dm_term','dm_term.id = his_pendidikan.pen_code','LEFT');
+	$this->db->where('sys_user.kd_keluar is not null', NULL, FALSE);
+	$this->db->where('his_pendidikan.pen_code is not null', NULL, FALSE);
+	}else{
 	$this->db->join('sys_user_profile','sys_user.id_user = sys_user_profile.id_user','LEFT');
 	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
 	$this->db->where('a.aktif','1');
 	$this->db->join('dm_term','dm_term.id = sys_user_profile.pendidikan_akhir','LEFT');
 	$this->db->where('sys_user.kd_keluar is not null', NULL, FALSE);
 	$this->db->where('sys_user_profile.pendidikan_akhir is not null', NULL, FALSE);
+	}
 	$this->db->group_by('dm_term.nama');
 	
 	$res = $this->db->get('sys_user')->result();
@@ -597,7 +730,8 @@ function chart_pendidikan_all(){
 		$datanama[$val->nama]=$val->nama;
 	} 
 	
-	$numero =1; 
+	$numero =1;
+	if(!empty($datanama)){
 	foreach($datanama as $dat3){
 		if(!empty($data2[$dat3])){
 				$arrz[$dat3][0] = (int)$data2[$dat3];
@@ -611,6 +745,10 @@ function chart_pendidikan_all(){
 	}
 	$arr[0]['category'][0] = 'Seluruh Pegawai';
 	asort($arr); 
+	}else{
+	$arr[0]['category'] = '';
+	asort($arr);
+	}
 //$array = json_decode(json_encode($arr), true);
 //print_r($array);
 	$h=array();

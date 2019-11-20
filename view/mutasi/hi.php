@@ -197,7 +197,7 @@ function loaddata(jml){
     search = $('#search').val();
   }
   $.ajax({
-   url: BASE_URL+'pegawai/listmutasihrd?sts=118',
+   url: BASE_URL+'pegawai/listmutasihi?sts=121',
    headers: {
      'Authorization': localStorage.getItem("Token"),
      'X_CSRF_TOKEN':'donimaulana',
@@ -243,7 +243,7 @@ if(selectedRows == ''){
 
 //POPUP
 bootbox.dialog({ 
-  message:$('<div></div>').load('view/pegawai/input_mutasi.php'),
+  message:$('<div></div>').load('view/pegawai/input_mutasi_kasub_hi.php'),
   animateIn: 'bounceIn',
   animateOut : 'bounceOut',
   backdrop: false,
@@ -418,7 +418,7 @@ function onFilterTextBoxChanged() {
 
 function loadMutasi(){
   $.ajax({
-   url: BASE_URL+'pegawai/listmutasipeng',
+   url: BASE_URL+'pegawai/listmutasihi',
    headers: {
      'Authorization': localStorage.getItem("Token"),
      'X_CSRF_TOKEN':'donimaulana',
@@ -463,7 +463,7 @@ if(selectedRows == ''){
   getJson(setPengajuan,BASE_URL+'hrd/mutasi/listdata?id='+selectedRowsString);
 //POPUP
 bootbox.dialog({ 
-  message:$('<div></div>').load('view/pegawai/input_mutasi_hrd.php'),
+  message:$('<div></div>').load('view/pegawai/input_mutasi_kasub_hi.php'),
   animateIn: 'bounceIn',
   animateOut : 'bounceOut',
   backdrop: false,
@@ -489,6 +489,7 @@ bootbox.dialog({
 
 
 getOptions("txtdirektorat",BASE_URL+"master/direktorat");
+getOptions("grade", BASE_URL + "master/peringkat_jabatan");
 getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
 getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
 
@@ -508,6 +509,7 @@ function setPengajuan(a){
   setTimeout(function(){ 
     Pace.restart();
     getOptionsEdit("txtdirektorat",BASE_URL+"master/direktorat",a.result[0].direktorat_tujuan);
+	getOptionsEdit("grade",BASE_URL+"master/peringkat_jabatan",a.result[0].grade);
     getOptionsEdit("txtbagian",BASE_URL+"master/direktoratsub/"+a.result[0].direktorat_tujuan,a.result[0].bagian_tujuan); 
     getOptionsEdit("unitkerja",BASE_URL+"master/direktoratsub/"+a.result[0].bagian_tujuan,a.result[0].sub_bagian_tujuan); 
 
@@ -527,6 +529,7 @@ function setPengajuan(a){
     getOptionsEdit("kelas_jabatan",BASE_URL+"master/getmaster?id=24",a.result[0].id_kelas);
     getOptionsEdit("txtjabatan",BASE_URL+"master/jabatan_struktural_fix_label",a.result[0].jabatan_struktural);
     $('#idtk').val(a.result[0].id);
+    $('#mutasi').val(a.result[0].tmt);
     $('#tgl_mutasi').val(a.result[0].tgl_mutasi);
     $('#keterangan').val(a.result[0].keterangan);
     $('#no_sk').val(a.result[0].no_sk);
@@ -630,7 +633,7 @@ if(idgue===value.id_user){
 
 function prosesmutasi(){
 // postForm('form-mutasi',BASE_URL+'pegawai/editmutasi',loadMutasi);
-getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=121');
+getJson(loaddata,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=122&grade='+$('#grade').val()+'&tmt='+$('#mutasi').val());
 }
 
 function hasilstat(){
@@ -707,6 +710,12 @@ function CellRenderer (params){
  }else if(params.value ==='Pengajuan Unit,menunggu Direksi'){
    closeSpan.setAttribute("class","badge badge-info");
    closeSpan.textContent = "Pengajuan Unit,menunggu Direksi";
+ }else if(params.value ==='Disetujui, Kirim Ke HI'){
+   closeSpan.setAttribute("class","badge badge-info");
+   closeSpan.textContent = "Disetujui, Kirim Ke HI";
+ }else if(params.value ==='Selesai'){
+   closeSpan.setAttribute("class","badge badge-success");
+   closeSpan.textContent = "Selesai";
  }
  return closeSpan;
 }

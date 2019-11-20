@@ -632,9 +632,9 @@ function prosesmutasi(){
 // postForm('form-mutasi',BASE_URL+'pegawai/editmutasi',loadMutasi);
 sts=$('#status').val();
 if(sts!=118){
-getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=114');
+getJson(loaddata,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=114');
 }else{
-getJson(hasilstat,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=115');
+getJson(loaddata,BASE_URL+'pegawai/updatestatusmutasi?id='+$('#idtk').val()+'&status=115');
 }
 }
 
@@ -712,6 +712,12 @@ function CellRenderer (params){
  }else if(params.value ==='Pengajuan Unit,menunggu Direksi'){
    closeSpan.setAttribute("class","badge badge-info");
    closeSpan.textContent = "Pengajuan Unit,menunggu Direksi";
+ }else if(params.value ==='Disetujui, Kirim Ke HI'){
+   closeSpan.setAttribute("class","badge badge-info");
+   closeSpan.textContent = "Disetujui, Kirim Ke HI";
+ }else if(params.value ==='Selesai'){
+   closeSpan.setAttribute("class","badge badge-success");
+   closeSpan.textContent = "Selesai";
  }
  return closeSpan;
 }

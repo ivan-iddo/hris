@@ -47,7 +47,6 @@ public function listdata_get(){
 			if(($user_froup!=6)){
 			$id_jab=$this->m->getchild($jabatan);
 		    }
-			
 			$this->db->select('persyaratan_jabatan.*,baru.kd_jabatan,baru.ds_jabatan as baru,lama.ds_jabatan as lama');
 
 			if(!empty($this->input->get('id'))){
@@ -61,7 +60,7 @@ public function listdata_get(){
 			$this->db->join('m_index_jabatan_asn_detail as baru', 'baru.migrasi_jabatan_detail_id = persyaratan_jabatan.id_jabatan', 'LEFT');
 			$this->db->join('m_index_jabatan_asn_detail as lama', 'lama.migrasi_jabatan_detail_id = persyaratan_jabatan.jabatan_lama', 'LEFT');
 			if(($user_froup!=6)){
-			$this->db->where_in('lama.parent',$id_jab);
+			$this->db->where_in('persyaratan_jabatan.id_jabatan',$id_jab);
 			}
 			$res = $this->db->get($this->table)->result();
 			if(!empty($res)){

@@ -498,6 +498,42 @@ public function getuser_get()
 					}else{
 					$cuti='';
 					}
+					if(!empty($d->tgl_lahir)){
+					$tgl_lahir=date_format(date_create($d->tgl_lahir), "d-m-Y");
+					}else{
+					$tgl_lahir='';
+					}
+					if(!empty($d->tgl_nikah)){
+					$tgl_nikah=date_format(date_create($d->tgl_nikah), "d-m-Y");
+					}else{
+					$tgl_nikah='';
+					}
+					if(!empty($d->tmt_cpns)){
+					$tmt_cpns=date_format(date_create($d->tmt_cpns), "d-m-Y");
+					}else{
+					$tmt_cpns='';
+					}if(!empty($d->tmt_pns)){
+					$tmt_pns=date_format(date_create($d->tmt_pns), "d-m-Y");
+					}else{
+					$tmt_pns='';
+					}if(!empty($d->tmt_jabatan_asn)){
+					$tmt_jabatan_asn=date_format(date_create($d->tmt_jabatan_asn), "d-m-Y");
+					}else{
+					$tmt_jabatan_asn='';
+					}if(!empty($d->tmt_jabatan)){
+					$tmt_jabatan=date_format(date_create($d->tmt_jabatan), "d-m-Y");
+					}else{
+					$tmt_jabatan='';
+					}if(!empty($d->tmt_golongan)){
+					$tmt_golongan=date_format(date_create($d->tmt_golongan), "d-m-Y");
+					}else{
+					$tmt_golongan='';
+					}if(!empty($d->tgl_bergabung)){
+					$tgl_bergabung=date_format(date_create($d->tgl_bergabung), "d-m-Y");
+					}else{
+					$tgl_bergabung='';
+					}
+                        
                     $arr[] = array('id_uk' => $d->id_uk,
                         'id' => $d->id_user,
                         'nama' => $d->name,
@@ -529,12 +565,12 @@ public function getuser_get()
                         'sub_bagian' => $d->sub_bagian,
                         'kaunit' => $d->kaunit,
                         'staff' => $d->staff,
-                        'tmt_cpns' => date_format(date_create($d->tmt_cpns), "d-m-Y"),
-                        'tmt_pns' => date_format(date_create($d->tmt_pns), "d-m-Y"),
-                        'tmt_jabatan' => date_format(date_create($d->tmt_jabatan), "d-m-Y"),
-                        'tmt_jabatan_asn' => date_format(date_create($d->tmt_jabatan_asn), "d-m-Y"),
-                        'tmt_golongan' => date_format(date_create($d->tmt_golongan), "d-m-Y"),
-                        'tgl_bergabung' => date_format(date_create($d->tgl_bergabung), "d-m-Y"),
+                        'tmt_cpns' => $tmt_cpns,
+                        'tmt_pns' => $tmt_pns,
+                        'tmt_jabatan' => $tmt_jabatan,
+                        'tmt_jabatan_asn' => $tmt_jabatan_asn,
+                        'tmt_golongan' => $tmt_golongan,
+                        'tgl_bergabung' => $tgl_bergabung,
                         'peringkat' => $d->peringkat,
                         'no_index_dok' => $d->no_index_dok,
                         'rt_tinggal' => $d->rt_tinggal,
@@ -547,13 +583,13 @@ public function getuser_get()
                         'nopeg' => $d->nopeg,
                         'karpeg' => $d->karpeg,
                         'sts_p' => $d->sts_p,
-                        'tgl_nikah' => date_format(date_create($d->tgl_nikah), "d-m-Y"),
+                        'tgl_nikah' => $tgl_nikah,
                         'kode_pos' => $d->kode_pos,
                         'kode_posktp' => $d->kode_posktp,
                         'gelar_depan' => $d->gelar_depan,
                         'kategori_profesi' => $d->kategori_profesi,
                         'gelar_belakang' => $d->gelar_belakang,
-                        'tgl_lahir' => date_format(date_create($d->tgl_lahir), "d-m-Y"),
+                        'tgl_lahir' => $tgl_lahir,
                         'tempat_lahir' => $d->tempat_lahir,
                         'phone' => $d->phone,
                         'phone2' => $d->phone2,
@@ -1688,17 +1724,21 @@ function updatestatusmutasi_get()
 
 //cek dulu kalau ada yg aktif non aktifkan dulu
 
-
-            $arrdata = array(
-                'status' => $this->input->get('status')
-            );
+			if(!empty($this->input->get('grade'))){
+			$arrdata['grade']=$this->input->get('grade');
+			}
+			if(!empty($this->input->get('tmt'))){
+			$arrdata['tmt']=date_format(date_create($this->input->get('tmt')), "Y-m-d");
+			}
+			
+            $arrdata['status'] = $this->input->get('status');
 
 
             $this->db->where('id', $this->input->get('id'));
-            $this->db->update('abk_req_mutasi_jabatan', $arrdata);
+			//print_r($arrdata);die();
+            $sql=$this->db->update('abk_req_mutasi_jabatan', $arrdata);
 
-
-            if ($this->db->affected_rows() == '1') {
+            if ($sql) {
                 $arr['hasil'] = 'success';
                 $arr['message'] = 'Data berhasil dikirim!';
             } else {
@@ -2447,7 +2487,7 @@ public function listmutasipeng_get()
                 $this->db->where('abk_req_mutasi_jabatan.status',$this->input->get('status'));
             }
 			if (!empty($this->input->get('sts'))) {
-                $this->db->where_in('abk_req_mutasi_jabatan.status',array(115));
+                $this->db->where_in('abk_req_mutasi_jabatan.status','115');
             }
 
 
@@ -2487,7 +2527,7 @@ public function listmutasipeng_get()
                 $this->db->where('abk_req_mutasi_jabatan.status',$this->input->get('status'));
             }
 			if (!empty($this->input->get('sts'))) {
-                $this->db->where_in('abk_req_mutasi_jabatan.status',array(118,84));
+                $this->db->where_in('abk_req_mutasi_jabatan.status',115);
             }
 
 
@@ -2541,6 +2581,8 @@ public function listmutasipeng_get()
 			
             $this->db->select('sys_user.*,a.grup as dir_asal,abk_req_mutasi_jabatan.tgl_mutasi,abk_req_mutasi_jabatan.keterangan,
                 abk_req_mutasi_jabatan.id as idmutasi,
+                abk_req_mutasi_jabatan.tmt,
+                abk_req_mutasi_jabatan.grade,
                 abk_req_mutasi_jabatan.direktorat_tujuan,
                 abk_req_mutasi_jabatan.direktorat_asal,
                 abk_req_mutasi_jabatan.status as stat,
@@ -2581,6 +2623,8 @@ public function listmutasipeng_get()
 
             $this->db->select('sys_user.*,a.grup as dir_asal,abk_req_mutasi_jabatan.tgl_mutasi,abk_req_mutasi_jabatan.keterangan,
                 abk_req_mutasi_jabatan.id as idmutasi,
+                abk_req_mutasi_jabatan.tmt,
+                abk_req_mutasi_jabatan.grade,
                 abk_req_mutasi_jabatan.direktorat_tujuan,
                 abk_req_mutasi_jabatan.direktorat_asal,
                 abk_req_mutasi_jabatan.status as stat,
@@ -2611,7 +2655,7 @@ public function listmutasipeng_get()
                 $this->db->where('abk_req_mutasi_jabatan.status',$this->input->get('status'));
             }
 			if (!empty($this->input->get('sts'))) {
-                $this->db->where_in('abk_req_mutasi_jabatan.status',array(118,84));
+                $this->db->where_in('abk_req_mutasi_jabatan.status',array(121));
             }
 
 
@@ -2639,6 +2683,8 @@ public function listmutasipeng_get()
                         'stat' => $d->stat,
                         'status' => $d->namastatus,
                         'tgl_mutasi' => date_format(date_create($d->tgl_mutasi), "d-m-Y"),
+                        'tmt' => date_format(date_create($d->tmt), "d-m-Y"),
+                        'grade' => $d->grade,
                         'jm' => $d->namamutasi
                     );
                 }
@@ -4067,7 +4113,7 @@ function editjabatan_post()
                 );
                 $this->db->where('id', $id);
                 $this->db->where('aktif', '0');
-                $this->db->update('his_mutasi_jabatan', $arrdata);
+                $sql=$this->db->update('his_mutasi_jabatan', $arrdata);
 
 
             }
@@ -4075,7 +4121,7 @@ function editjabatan_post()
 //update user
 
 
-            if ($this->db->affected_rows() == '1') {
+            if ($sql) {
                 $arr['hasil'] = 'success';
                 $arr['message'] = 'Data berhasil ditambah!';
             } else {
@@ -4220,6 +4266,60 @@ function listfile_get()
                 $da .= '<td><a class="label label-danger" href="javascript:void(0);" onClick="hapusfile(\'' . $val->id . '\')">';
                 $da .= 'Hapus';
                 $da .= '</a>';
+                $da .= '</td>';
+
+                $da .= '</tr>';
+            }
+
+            $arr['hasil'] = 'success';
+            $arr['isi'] = $da;
+            $this->set_response($arr, REST_Controller::HTTP_OK);
+
+            return;
+        }
+    }
+
+    $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+
+
+}
+
+function listfiletg_get()
+{
+    $headers = $this->input->request_headers();
+
+    if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+        $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+        if ($decodedToken != false) {
+
+            $id_user = $this->input->get('id');
+            if ($id_user != "") {
+                $this->db->where('id_user', $id_user);
+            } else {
+                $this->db->where('id_user', 0);
+            }
+			if(!empty($this->input->get('kategori'))){
+            $this->db->where('kategori_id', $this->input->get('kategori'));
+            }
+			$this->db->where('tampilkan', '1');
+            $this->db->order_by('tgl', 'DESC');
+            $resCek = $this->db->get('his_files')->result();
+
+            $da = '';
+            $no = 0;
+            foreach ($resCek as $val) {
+                ++$no;
+                $text = 'text-success';
+
+                $da .= '<tr>';
+                $da .= '<td>';
+                $da .= $no;
+                $da .= '</td>';
+                $da .= '<td class="' . $text . '">';
+                $da .= $val->nama_file;
+                $da .= '</td>';
+                $da .= '<td>';
+                $da .= '<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/data/' . $val->url . '\')"><i class="fa fa-eye"></i></a>';
                 $da .= '</td>';
 
                 $da .= '</tr>';
@@ -4429,11 +4529,15 @@ function savejfung_post()
 
 //cari dulu diriwayat kedinasan
             if (!empty($id = $this->input->post('txtIdUser'))) {
-
+				if(!empty($this->input->post('tmt_jabfung'))){
                 $tmt_jfung=date_format(date_create($this->input->post('tmt_jabfung')), "Y-m-d");
-                $tgl_skjafung=date_format(date_create($this->input->post('tgl_skjafung')), "Y-m-d");
-                $tmt_pak=date_format(date_create($this->input->post('tmt_pak')), "Y-m-d");
-                $tgl_pak=date_format(date_create($this->input->post('tgl_pak')), "Y-m-d");
+				}else{$tmt_jfung=null;}
+				if(!empty($this->input->post('tgl_skjafung'))){
+                $tgl_skjafung=date_format(date_create($this->input->post('tgl_skjafung')), "Y-m-d");}else{$tgl_skjafung=null;}
+				if(!empty($this->input->post('tmt_pak'))){
+                $tmt_pak=date_format(date_create($this->input->post('tmt_pak')), "Y-m-d");}else{$tmt_pak=null;}
+				if(!empty($this->input->post('tgl_pak'))){
+                $tgl_pak=date_format(date_create($this->input->post('tgl_pak')), "Y-m-d");}else{$tgl_pak=null;}
                 $arrdata = array(
                     'user_id' => $id,
                     'jabatan' => ($this->input->post('txtjabatan'))?$this->input->post('txtjabatan'):null,
@@ -4490,11 +4594,15 @@ function editjasn_post()
         $arr['hasil'] = 'error';
         $arr['message'] = 'Data Gagal Ditambah!';
         if ($decodedToken != false) {
-            $tmt_jfung=date_format(date_create($this->input->post('tmt_jabfung')), "Y-m-d");
-            $tgl_skjafung=date_format(date_create($this->input->post('tgl_skjafung')), "Y-m-d");
-            $tmt_pak=date_format(date_create($this->input->post('tmt_pak')), "Y-m-d");
-            $tgl_pak=date_format(date_create($this->input->post('tgl_pak')), "Y-m-d");
-
+            if(!empty($this->input->post('tmt_jabfung'))){
+			$tmt_jfung=date_format(date_create($this->input->post('tmt_jabfung')), "Y-m-d");
+			}else{$tmt_jfung=null;}
+			if(!empty($this->input->post('tgl_skjafung'))){
+			$tgl_skjafung=date_format(date_create($this->input->post('tgl_skjafung')), "Y-m-d");}else{$tgl_skjafung=null;}
+			if(!empty($this->input->post('tmt_pak'))){
+			$tmt_pak=date_format(date_create($this->input->post('tmt_pak')), "Y-m-d");}else{$tmt_pak=null;}
+			if(!empty($this->input->post('tgl_pak'))){
+			$tgl_pak=date_format(date_create($this->input->post('tgl_pak')), "Y-m-d");}else{$tgl_pak=null;}
 
 //cari dulu diriwayat kedinasan
             if (!empty($id = $this->input->post('idasn'))) {

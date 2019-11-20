@@ -470,7 +470,7 @@ public function list_usernew_get(){
             $total_rows = $this->db->count_all_results('sys_user');
             $pagination = create_pagination_endless('/user/list_userlat/0/', $total_rows,$total_rows);
 
-            $this->db->select('sys_user.*,riwayat_kedinasan.*,m_golongan_peg.pangkat as pangkat,m_golongan_peg.gol_romawi as gol_romawi,sys_grup_user.grup,m_index_jabatan_asn_detail.ds_jabatan as nama,sys_user_profile.nip,sys_user_profile.nik,dm_term.nama as pendidikan,m_kode_profesi_group.ds_group_jabatan as profesi');
+            $this->db->select('sys_user.*,riwayat_kedinasan.*,m_golongan_peg.pangkat as pangkat,m_golongan_peg.gol_romawi as gol_romawi,sys_grup_user.grup,m_index_jabatan_asn_detail.ds_jabatan as nama,sys_user_profile.nip,sys_user_profile.sisa,sys_user_profile.nik,dm_term.nama as pendidikan,m_kode_profesi_group.ds_group_jabatan as profesi');
             $this->db->join('sys_grup_user','sys_user.id_grup = sys_grup_user.id_grup','LEFT');
             $this->db->join('sys_user_profile','sys_user_profile.id_user = sys_user.id_user','LEFT');
             $this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
@@ -498,6 +498,7 @@ public function list_usernew_get(){
 
 //}
             $this->db->where('sys_user.status','1');
+           //$this->db->where('sys_user.id_user','2222');
             $this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
             $this->db->order_by('sys_user.name','ACS');
 
@@ -517,6 +518,7 @@ public function list_usernew_get(){
                     'nik'=>$d->nik,
                     'pangkat'=>$d->pangkat,
                     'golongan'=>$d->gol_romawi,
+                    'jum'=>$d->sisa,
                     'pendidikan'=>$d->pendidikan,
                 );
             }

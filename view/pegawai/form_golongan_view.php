@@ -5,6 +5,10 @@
 </div>
 <script>
   var columnGolongan = [ 
+  {headerName: "Dokumen", field: "url", 
+  cellRenderer: function(params) {
+    return '<a href="api/upload/data/'+params.value+'" target="_blank"><i class="fa fa-eye"></i>Lihat Dokumen</a>'
+  }},
   {headerName: "Golongan", field: "namaGolongan", width: 100, filterParams:{newRowsAction: 'keep'}},
   {headerName: "TMT Golongan", field: "tmt_golongan", width: 190, filterParams:{newRowsAction: 'keep'}}, 
   {headerName: "No.SK", field: "no_sk", width: 100, filterParams:{newRowsAction: 'keep'}}, 

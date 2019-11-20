@@ -6,6 +6,10 @@
 </div>
 <script>
   var columnJabatan = [ 
+  {headerName: "Dokumen", field: "url", 
+  cellRenderer: function(params) {
+    return '<a href="api/upload/data/'+params.value+'" target="_blank"><i class="fa fa-eye"></i>Lihat Dokumen</a>'
+  }},
   {headerName: "Jabatan", field: "jabatan", width: 190, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Bagian Jabatan", field: "bagian_jabatan", width: 190, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Sub Bagian Jabatan", field: "sub_bagian_jabatan", width: 190, filterParams:{newRowsAction: 'keep'}},
@@ -18,6 +22,7 @@
   {headerName: "Nilai PAK", field: "nilai_pak", width: 190, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Satuan Kerja", field: "satuan_kerja", width: 190, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Keterangan", field: "keterangan", width: 190, filterParams:{newRowsAction: 'keep'}},
+
 
   ];
 

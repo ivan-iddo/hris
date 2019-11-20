@@ -63,7 +63,7 @@ public function listdata_get(){
 
 			if(!empty($res)){
 				foreach($res as $dat){
-					$arr['result'][]= array('id'=> $dat->id,'user_id'=> $dat->user_id,'direktorat_asal'=> $dat->direktorat_asal,'bagian_asal'=> $dat->bagian_asal,'sub_bagian_asal'=> $dat->sub_bagian_asal,'direktorat_tujuan'=> $dat->direktorat_tujuan,'bagian_tujuan'=> $dat->bagian_tujuan,'sub_bagian_tujuan'=> $dat->sub_bagian_tujuan,'tgl_mutasi'=> date_format(date_create($dat->tgl_mutasi), "d-m-Y"),'keterangan'=> $dat->keterangan,'tampilkan'=> $dat->tampilkan,'aktif'=> $dat->aktif,'no_sk'=> $dat->no_sk,'tgl_sk'=> date_format(date_create($dat->tgl_sk), "d-m-Y"),'id_satker'=> $dat->id_satker,'id_kelas'=> $dat->id_kelas,'jabatan_struktural'=> $dat->jabatan_struktural,'status'=> $dat->status,'grup'=> $dat->grup,'author'=> $dat->author,'jm'=> $dat->jenis_mutasi,);
+					$arr['result'][]= array('id'=> $dat->id,'user_id'=> $dat->user_id,'direktorat_asal'=> $dat->direktorat_asal,'bagian_asal'=> $dat->bagian_asal,'sub_bagian_asal'=> $dat->sub_bagian_asal,'direktorat_tujuan'=> $dat->direktorat_tujuan,'bagian_tujuan'=> $dat->bagian_tujuan,'sub_bagian_tujuan'=> $dat->sub_bagian_tujuan,'tgl_mutasi'=> date_format(date_create($dat->tgl_mutasi), "d-m-Y"),'tmt'=> date_format(date_create($dat->tmt), "d-m-Y"),'keterangan'=> $dat->keterangan,'grade'=> $dat->grade,'tampilkan'=> $dat->tampilkan,'aktif'=> $dat->aktif,'no_sk'=> $dat->no_sk,'tgl_sk'=> date_format(date_create($dat->tgl_sk), "d-m-Y"),'id_satker'=> $dat->id_satker,'id_kelas'=> $dat->id_kelas,'jabatan_struktural'=> $dat->jabatan_struktural,'status'=> $dat->status,'grup'=> $dat->grup,'author'=> $dat->author,'jm'=> $dat->jenis_mutasi,);
 				}
 				$arr['total']=$total_rows;
 				$arr['paging'] = $pagination['limit'][1];
