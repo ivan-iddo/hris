@@ -202,7 +202,7 @@
 					   
 					   getOptionsEdit("txtkelurahan",BASE_URL+"master/kelurahan/"+res[0].kecamatan,res[0].kelurahan);
 					 }
-                    $('#id_user').val(res[0].id);
+                    $('#id_user').val(selectedRowsString);
                     $('#f_id_edit').val(res[0].id);
                     $('#nop').val(res[0].nip);
                 }, 1000);

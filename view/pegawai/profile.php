@@ -60,9 +60,9 @@
 
                                         <div class="form-group">
                                             <label for="demo-inline-inputpass" class="sr-only">Password</label>
-                                            <input id="id_user" name="id_user" style="display:none" type="text">
                                             <input placeholder="Password" id="passwordchn" name="passwordchn"
                                             style="width:300px" class="form-control" type="password">
+											<input id="id_user" name="id_user" style="display:none" type="text">
                                         </div>
 
                                         <button class="btn btn-primary" type="submit" onClick="changePass();return false;">
