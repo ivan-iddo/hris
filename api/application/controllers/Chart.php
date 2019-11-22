@@ -641,7 +641,7 @@ function chart_pendidikan(){
 	$this->db->select('count(*) as jml,b.grup,dm_term.nama as nama');
 	$this->db->join('sys_user_profile','sys_user.id_user = sys_user_profile.id_user','LEFT');
 	$this->db->join('riwayat_kedinasan as a','a.id_user = sys_user_profile.id_user','LEFT');
-	$this->db->where('sys_user.aktif','1');
+	$this->db->where('sys_user.status','1');
 	$this->db->join('sys_grup_user as b','b.id_grup = a.direktorat','LEFT');
 	$this->db->where('b.child','1');
 	$this->db->where('b.tampilkan','1');
