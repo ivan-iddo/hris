@@ -83,7 +83,7 @@
                 
 
                 if (res.hasil !== 'error') {
-                    
+                    $('#id_user').val(selectedRowsString);
                     window.setTimeout(function () {
                         $('#page_nama').html(res[0].nama+' ( NOPEG '+res[0].id+' )');
 						$('#page_cuti').html(res[0].sisa_cuti);
@@ -202,7 +202,6 @@
 					   
 					   getOptionsEdit("txtkelurahan",BASE_URL+"master/kelurahan/"+res[0].kecamatan,res[0].kelurahan);
 					 }
-                    $('#id_user').val(selectedRowsString);
                     $('#f_id_edit').val(res[0].id);
                     $('#nop').val(res[0].nip);
                 }, 1000);
