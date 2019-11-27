@@ -93,10 +93,6 @@ function loadPendidikan(){
 }
 
 function addPendidikan(){
-  getOptions("txtJPend",BASE_URL+"master/getpen?id=29");
-
-
-
   bootbox.dialog({ 
     message:$('<div></div>').load('view/pegawai/input_pendidikan.php'),
     backdrop: false,

@@ -13,6 +13,15 @@
             <label class="col-sm-4 control-label" for="inputpropinsi">Jenjang Pendidikan</label>
             <div class="col-sm-8">
               <select class="form-control select2" id="txtJPend" name="txtJPend" style="width: 100%;" onChange="getpendidikan(this.value);">
+				<option value="54">SD</option>
+                <option value="55">SLTP</option>
+                <option value="56">SLTA</option>
+                <option value="57">DIII</option>     
+                <option value="94">DIV</option>  
+                <option value="100">S1</option>  
+                <option value="101">S2</option>  
+                <option value="105">S3</option>  
+                <option value="122">Spesialis</option>  
               </select>
             </div>
           </div>

@@ -43,15 +43,7 @@ function simpanJasn(action){
          });
 // $("#f_id_edit").val(data.id);
 loadJasn();
-$('.modal').modal('hide');
-}else{
-  $.niftyNoty({
-    type: 'danger',
-    title: 'PERHATIAN!',
-    message: message,
-    container: 'floating',
-    timer: 5000
-  });    
+}else{  
   return false;	
 }
 

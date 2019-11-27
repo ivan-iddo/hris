@@ -147,9 +147,9 @@ function addJabatan(){
   getOptions("txtdirektorat",BASE_URL+"master/direktorat");
   getOptions("satuan_kerja",BASE_URL+"master/getmaster?id=25");
   getOptions("kelas_jabatan",BASE_URL+"master/getmaster?id=24");
-  getOptions("jabatan",BASE_URL+"master/jabatan_struktural_fix");
-  getOptions("jabatan2",BASE_URL+"master/jabatan_struktural_fix");
-  getOptions("jabatan3",BASE_URL+"master/jabatan_struktural_fix");
+  getOptions("jabatan",BASE_URL+"master/jabatan_struktural_fix_label");
+  getOptions("jabatan2",BASE_URL+"master/jabatan_struktural_fix_label");
+  getOptions("jabatan3",BASE_URL+"master/jabatan_struktural_fix_label");
 }
 
 
