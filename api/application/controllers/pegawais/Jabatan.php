@@ -79,9 +79,9 @@ public function listjabatan_get(){
 
 				foreach($res as $d){
 					if(!empty($d->tgl_mutasi)){
-					$tgl=date_format(date_create($d->tgl_mutasi), "d-m-Y");}else{$tgl="";}
+					$tgl=date_format(date_create($d->tgl_mutasi), "d-m-Y")}else{$tgl=""}
 					if(!empty($d->tgl_sk)){
-					$sk=date_format(date_create($d->tgl_sk), "d-m-Y");}else{$sk="";}
+					$sk=date_format(date_create($d->tgl_sk), "d-m-Y")}else{$sk=""}
 					$arr[]=array('id'=>$d->idhis,
 						'nama'=>$d->name, 
 						'dir_asal' => $d->dir_asal,
