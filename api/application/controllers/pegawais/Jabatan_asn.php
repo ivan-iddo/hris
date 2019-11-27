@@ -106,18 +106,18 @@ public function getjasn_get(){
 			$this->db->where('his_jabatan_asn.tampilkan','1');
 			$this->db->where('his_jabatan_asn.id',$this->uri->segment('4')); 
 			$d = $this->db->get('his_jabatan_asn')->row();
-			if(!empty($d->tmt_jfung)){
+			if($d->tmt_jfung!=null){
 			$tmt_jfung=date_format(date_create($d->tmt_jfung), "d-m-Y");
-			}else{$tmt_jfung=$d->tmt_jfung;}
-			if(!empty($d->tmt_jfung)){
+			}else{$tmt_jfung='';}
+			if($d->tmt_jfung!=null){
 			$tgl_skjafung=date_format(date_create($d->tgl_skjafung), "d-m-Y");
-			}else{$tgl_skjafung=$d->tgl_skjafung;}
-			if(!empty($d->tmt_jfung)){
+			}else{$tgl_skjafung='';}
+			if($d->tmt_jfung!=null){
 			$tmt_pak=date_format(date_create($d->tmt_pak), "d-m-Y");
-			}else{$tmt_pak=$d->tmt_pak;}
-			if(!empty($d->tgl_pak)){
+			}else{$tmt_pak='';}
+			if($d->tgl_pak!=null){
 			$tgl_pak=date_format(date_create($d->tgl_pak), "d-m-Y");
-			}else{$tgl_pak=$d->tgl_pak;}
+			}else{$tgl_pak='';}
 			$arr=array('id'=>$d->id,
 				'jabatan' => $d->jabatan,
 				'bagian_jabatan' => $d->bagian_jabatan,

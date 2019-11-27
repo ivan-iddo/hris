@@ -8,7 +8,7 @@
   var columnJabatan = [ 
   {headerName: "Dokumen", field: "url", 
   cellRenderer: function(params) {
-    return '<a href="api/upload/data/'+params.value+'" target="_blank"><i class="fa fa-eye"></i>Lihat Dokumen</a>'
+    return '<i class="fa fa-eye"></i>Lihat Dokumen'
   }},
   {headerName: "Jabatan", field: "jabatan", width: 190, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Bagian Jabatan", field: "bagian_jabatan", width: 190, filterParams:{newRowsAction: 'keep'}},
@@ -30,7 +30,7 @@
    enableSorting: true,
    enableFilter: true,
    suppressRowClickSelection: false, 
-   onRowDoubleClicked: editJasn,
+   onRowDoubleClicked: Jasn,
    groupSelectsChildren: true,
    debug: true,
    rowSelection: 'single',
@@ -47,4 +47,43 @@
  };
  var gridDiv = document.querySelector('#gridj');
  new agGrid.Grid(gridDiv, gridJOpt);
+ 
+ function Jasn(){
+  var selectedRows = gridJOpt.api.getSelectedRows();
+// alert('>>'+selectedRows+'<<<');
+if(selectedRows == ''){
+  onMessage('Silahkan Pilih Keluarga Terlebih dahulu!');
+  return false;
+}else{
+  var selectedRowsString = '';
+  selectedRows.forEach( function(selectedRow, index) {
+
+    if (index!==0) {
+      selectedRowsString += ', ';
+    }
+    selectedRowsString += selectedRow.id;
+  });
+
+  bootbox.dialog({ 
+    message: $('<div></div>').load('view/pegawai/view_jabatan_asn.php'),
+    backdrop: false,
+    size:'large',
+    buttons: {
+	main: {
+	  label: "Close",
+	  className: "btn-warning",
+	  callback: function() {
+		$.niftyNoty({
+		  type: 'dark',
+		  message : "Bye Bye",
+		  container : 'floating',
+		  timer : 5000
+		});
+	  }
+	}
+}
+});
+$('#id_jans').val(selectedRowsString);
+}
+}
 </script>

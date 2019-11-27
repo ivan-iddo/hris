@@ -27,7 +27,7 @@
   var columnPelatihan = [ 
   {headerName: "Dokumen", field: "url", 
   cellRenderer: function(params) {
-    return '<a href="api/upload/data/'+params.value+'" target="_blank"><i class="fa fa-eye"></i>Lihat Dokumen</a>'
+    return '<i class="fa fa-eye"></i>Lihat Dokumen'
   }},
   {headerName: "Pelatihan", field: "nama", width: 100, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Tempat", field: "tempat", width: 190, filterParams:{newRowsAction: 'keep'}}, 
@@ -60,18 +60,8 @@
      enableValue:true
    }
  };
- 
- 
-
 
  var gridDiv = document.querySelector('#gridPelatihan');
  new agGrid.Grid(gridDiv, gridPelatihanOpt);
- 
- 
- 
- 
- 
- 
- 
- 
+  
 </script>
