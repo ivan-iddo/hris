@@ -13,7 +13,27 @@
             <label class="col-sm-4 control-label" for="inputstatus">Pangkat</label>
             <div class="col-sm-8">
               <select class="form-control select2" id="pangkat_id" name="pangkat_id" style="width: 100%; ">
-               
+                <option value="21">I / Non PNS GOL 1</option>
+                <option value="20">I/A / JURU MUDA</option>
+                <option value="19">I/B / JURU MUDA TK.1</option>
+                <option value="18">I/C / JURU</option>     
+                <option value="17">I/D / JURU TK.1</option>  
+                <option value="16">II / Non PNS GOL 2</option>  
+                <option value="15">II/A / PENGATUR MUDA</option>  
+                <option value="14">II/B / PENGATUR MUDA TK.1</option>  
+                <option value="13">II/C / PENGATUR</option> 
+				<option value="12">II/D / PENGATUR TK.1</option>
+                <option value="11">III / Non PNS GOL 3</option>
+                <option value="10">III/A / PENATA MUDA</option>
+                <option value="9">III/B / PENATA MUDA TK.1</option>     
+                <option value="8">III/C / PENATA</option>  
+                <option value="7">III/D / PENATA TK.1</option>  
+                <option value="6">IV / Non PNS GOL 4</option>  
+                <option value="4">IV/A / PEMBINA</option>  
+                <option value="3">IV/B / PEMBINA TK.1</option> 
+				<option value="2">IV/C / PEMBINA UTAMA MUDA</option>  
+                <option value="1">IV/D / PEMBINA UTAMA MADYA</option>  
+                <option value="5">IV/E / PEMBINA UTAMA</option> 
               </select>
               <input class="form-control" id="id_golongan" name="id_golongan" placeholder="" type="text" style="display:none">
             </div>
