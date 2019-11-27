@@ -132,7 +132,7 @@ Medical</a></li>
         
        <div class="form-group">
          <label for="demo-inline-inputpass" class="sr-only">Password</label>
-         <input id="id_user" name="id_user" style="display:none" type="text">
+         <input id="id_user" name="id_user" style="display:none" value="<?php echo $_GET["id"]?>" type="text">
          <input id="pass" name="pass" style="display:none" type="text">
          <input placeholder="Password Lama" id="passwordlm" name="passwordlm" style="width:300px" class="form-control" type="password">
        </div>
@@ -151,7 +151,7 @@ Medical</a></li>
 	<div class="row"><!-- left column -->
 	<div class="col-md-12">
       <form class="form-update" id="form-update" method="post" >
-        <input id="id_user" name="id_user" style="display:none" type="text">
+        <input id="id_user" name="id_user" style="display:none" value="<?php echo $_GET["id"]?>" type="text">
 		<div class="form-group">
          <label for="demo-inline-inputpass">Alamat</label>
          <textarea placeholder="Alamat" id="alamat" name="alamat" style="width:400px" class="form-control" type="text"></textarea>

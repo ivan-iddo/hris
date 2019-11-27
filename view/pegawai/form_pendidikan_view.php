@@ -14,7 +14,7 @@
   var columnPendidikan = [ 
   {headerName: "Dokumen", field: "url", 
   cellRenderer: function(params) {
-    return '<a href="api/upload/data/'+params.value+'" target="_blank"><i class="fa fa-eye"></i>Lihat Dokumen</a>'
+    return '<i class="fa fa-eye"></i>Lihat Dokumen'
   }},
   {headerName: "Jenjang", field: "jenjang", width: 100, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Nama Sekolah", field: "nama_sekolah", width: 190, filterParams:{newRowsAction: 'keep'}}, 
@@ -30,6 +30,7 @@
    suppressRowClickSelection: false,  
    groupSelectsChildren: true,
    debug: true,
+   onRowClicked: pendidikan,
    rowSelection: 'single',
    enableColResize: true, 
    enableRangeSelection: true,
@@ -49,7 +50,44 @@
  var gridDiv = document.querySelector('#gridPendidikan');
  new agGrid.Grid(gridDiv, gridPendidikanOpt);
  
- 
+ function pendidikan(){
+  var selectedRows = gridPendidikanOpt.api.getSelectedRows();
+// alert('>>'+selectedRows+'<<<');
+if(selectedRows == ''){
+  onMessage('Silahkan Pilih Keluarga Terlebih dahulu!');
+  return false;
+}else{
+  var selectedRowsString = '';
+  selectedRows.forEach( function(selectedRow, index) {
+
+    if (index!==0) {
+      selectedRowsString += ', ';
+    }
+    selectedRowsString += selectedRow.id;
+  });
+
+  bootbox.dialog({ 
+    message: $('<div></div>').load('view/pegawai/view_pendidikan.php'),
+    backdrop: false,
+    size:'large',
+    buttons: {
+	main: {
+	  label: "Close",
+	  className: "btn-warning",
+	  callback: function() {
+		$.niftyNoty({
+		  type: 'dark',
+		  message : "Bye Bye",
+		  container : 'floating',
+		  timer : 5000
+		});
+	  }
+	}
+}
+});
+$('#id_pen').val(selectedRowsString);
+}
+}
  
  
  
