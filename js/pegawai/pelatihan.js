@@ -93,7 +93,7 @@ function loadPelatihan(){
 }
 
 function addPelatihan(){
-  getOptions("tempat",BASE_URL+"master/tempat");
+ // getOptions("tempat",BASE_URL+"master/tempat");
   
   
   bootbox.dialog({ 
