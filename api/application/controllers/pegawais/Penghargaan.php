@@ -46,7 +46,8 @@ class Penghargaan extends MY_Controller
         $datas["nosk"] = ($this->input->post('nosk')?$this->input->post('nosk'):NULL);
         $datas["penghargaan"] = ($this->input->post('penghargaan')?$this->input->post('penghargaan'):NULL);
         $datas["instansi"] = ($this->input->post('instansi')?$this->input->post('instansi'):NULL);
-        $datas["tanggal"] = ($this->input->post('tanggal')?$this->input->post('tanggal'):NULL);
+		if(!empty($this->input->post('tanggal'))){
+		$datas["tanggal"]=date_format(date_create($this->input->post('tanggal')), "Y-m-d");}else{$datas["tanggal"]=NULL;}
         $datas["url"] = ($filename?$filename:NULL);
 
         $create = $this->His_penghargaan_model->create($datas);
