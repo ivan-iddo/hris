@@ -1,7 +1,7 @@
-<form name="form-file-upload-dok" style="display:none" id="form-file-upload-dok" class="form-horizontal">
+<form name="form-file-upload-dok" id="form-file-upload-dok" class="form-horizontal">
     <div class="panel-body pad-all">
         <div class="row">
-            <input type="text" name="kategorifile" id="kategorifile" value="<?php echo $_GET['id'] ?>">
+            <input type="text" name="kategorifile" style="display:none" id="kategorifile" value="<?php echo $_GET['id'] ?>">
             <input type="text" style="display:none" name="id_userfile" id="id_userfile">
             <div class="form-group">
                 <div class="col-sm-4">

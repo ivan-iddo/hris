@@ -52,7 +52,7 @@
             <a data-toggle="tab" href="#demo-lft-tab-3a" onclick="tabPelatihanView();"><span class="block text-center text-success"><i class="fa fa-briefcase fa-2x"></i></span> Pelatihan</a>
           </li>
           <li>
-            <a data-toggle="tab" href="#demo-lft-tab-4a" onclick="tabGolonganView();"><span class="block text-center text-success"><i class="fa fa-cubes fa-2x"></i></span> Golongan/Ruang</a>
+            <a data-toggle="tab" href="#demo-lft-tab-4a" onclick="tabGolonganView();"><span class="block text-center text-success"><i class="fa fa-cubes fa-2x"></i></span> Golongan/Pangkat</a>
           </li>
           <li>
             <a data-toggle="tab" href="#demo-lft-tab-5a" onclick="tabJabatanView();"><span class="block text-center text-success"><i class="fa fa-home fa-2x"></i></span> Jabatan</a>
