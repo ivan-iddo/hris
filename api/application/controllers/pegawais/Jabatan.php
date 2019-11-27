@@ -78,12 +78,16 @@ public function listjabatan_get(){
 
 
 				foreach($res as $d){
+					if(!empty($d->tgl_mutasi)){
+					$tgl=date_format(date_create($d->tgl_mutasi), "d-m-Y");}else{$tgl="";}
+					if(!empty($d->tgl_sk)){
+					$sk=date_format(date_create($d->tgl_sk), "d-m-Y");}else{$sk="";}
 					$arr[]=array('id'=>$d->idhis,
 						'nama'=>$d->name, 
 						'dir_asal' => $d->dir_asal,
-						'tgl' => date_format(date_create($d->tgl_mutasi), "d-m-Y"),
+						'tgl' => ,
 						'no_sk' => $d->no_sk,
-						'tgl_sk' => date_format(date_create($d->tgl_sk), "d-m-Y"),
+						'tgl_sk' => ,
 						'jabatan' => '[Kode: '.$d->kd_jabatan.'] '.$d->ds_jabatan,
 						'dir_tujuan' => $d->dir_tujuan,
 						'bag_tujuan' => $d->bag_tujuan,

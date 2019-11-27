@@ -4027,9 +4027,13 @@ function savejabatan_post()
 //cari dulu diriwayat kedinasan
             if (!empty($id = $this->input->post('txtIdUser'))) {
 
-                $tgl_mutasi=date_format(date_create($this->input->post('tgl_mutasi')), "Y-m-d");
+                
+				if(!empty($this->input->post('tgl_mutasi'))){
+				$tgl_mutasi=date_format(date_create($this->input->post('tgl_mutasi')), "Y-m-d");
+				}else{$tgl_mutasi="";}
+				if(!empty($this->input->post('tgl_sk'))){
                 $tgl_sk=date_format(date_create($this->input->post('tgl_sk')), "Y-m-d");
-
+				}else{$tgl_sk="";}
                 $arrdata = array(
                     'user_id' => $id,
                     'direktorat_tujuan' => ($this->input->post('txtdirektorat'))?$this->input->post('txtdirektorat'):null,
@@ -4091,10 +4095,12 @@ function editjabatan_post()
 //cari dulu diriwayat kedinasan
             if (!empty($id = $this->input->post('idjabatan'))) {
 
-                $tgl_mutasi=date_format(date_create($this->input->post('tgl_mutasi')), "Y-m-d");
+                if(!empty($this->input->post('tgl_mutasi'))){
+				$tgl_mutasi=date_format(date_create($this->input->post('tgl_mutasi')), "Y-m-d");
+				}else{$tgl_mutasi="";}
+				if(!empty($this->input->post('tgl_sk'))){
                 $tgl_sk=date_format(date_create($this->input->post('tgl_sk')), "Y-m-d");
-
-
+				}else{$tgl_sk="";}
                 $arrdata = array(
                     'direktorat_tujuan' => ($this->input->post('txtdirektorat'))?$this->input->post('txtdirektorat'):null,
                     'bagian_tujuan' => ($this->input->post('txtbagian'))?$this->input->post('txtbagian'):null,
