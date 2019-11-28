@@ -74,7 +74,7 @@ function getfileupload(result) {
 }
 
 function loadData() {
-    getJson(getfileupload, BASE_URL + 'pegawais/kontrak/user/' + id);
+    getJson(getfileupload, BASE_URL + 'pegawais/kontrak/user?id' + id);
 }
 
 loadData();
