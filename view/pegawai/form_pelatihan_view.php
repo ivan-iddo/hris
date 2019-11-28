@@ -48,6 +48,7 @@
    suppressRowClickSelection: false,  
    groupSelectsChildren: true,
    debug: true,
+   onRowDoubleClicked: editPelatihan,
    rowSelection: 'single',
    enableColResize: true, 
    enableRangeSelection: true,

@@ -246,7 +246,7 @@ function file_gol_get()
     if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
         $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
         if ($decodedToken != false) {
-
+		$group = $decodedToken->data->_pnc_id_grup;
             $id_user = $this->input->get('id');
             if ($id_user != "") {
                 $this->db->where('id_user', $id_user);
@@ -276,11 +276,12 @@ function file_gol_get()
                     $da .= '<td>';
                     $da .= '<a title="Lihat File" id="book1-trigger" class="btn btn-default" href="javascript:void(0)" onclick="buildBook(\'api/upload/golongan/' . $val->url . '\')"><i class="fa fa-eye"></i></a>';
                     $da .= '</td>';
+					if($group==1 OR $group==6){
                     $da .= '<td><a class="label label-danger" href="javascript:void(0);" onClick="hapusfile(\'' . $val->id . '\')">';
                     $da .= 'Hapus';
                     $da .= '</a>';
                     $da .= '</td>';
-
+					}
                     $da .= '</tr>';
                 }
             }else{

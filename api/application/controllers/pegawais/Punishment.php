@@ -28,6 +28,22 @@ class Punishment extends MY_Controller
         $datas["result"] = $this->Punishment_model->get_all(array("id_user" => $id));
         $view = $this->load->view('pegawai/view_punishment', $datas, true);
         return $view;
+    } 
+	
+	public function user($id = null)
+    {
+        $response['success'] = true;
+        if($id <> null){
+            $response['data'] = $this->user_view($id);
+        }
+        $this->set_response($response);
+    }
+
+    private function user_view($id)
+    {
+        $datas["result"] = $this->Punishment_model->get_all(array("id_user" => $id));
+        $view = $this->load->view('pegawai/view_punishmentview', $datas, true);
+        return $view;
     }
 
     public function add()

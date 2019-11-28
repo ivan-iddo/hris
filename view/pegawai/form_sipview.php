@@ -69,7 +69,7 @@ function getfileupload(result) {
 }
 
 function loadData() {
-    getJson(getfileupload, BASE_URL + 'pegawais/sip/' + id);
+    getJson(getfileupload, BASE_URL + 'pegawais/sip/user/' + id);
 }
 
 loadData();

@@ -69,7 +69,7 @@ function getfileupload(result) {
 }
 
 function loadData() {
-    getJson(getfileupload, BASE_URL + 'pegawais/punishment/' + id);
+    getJson(getfileupload, BASE_URL + 'pegawais/punishment/user/' + id);
 }
 
 loadData();

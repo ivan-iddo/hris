@@ -28,6 +28,23 @@ class Kontrak extends MY_Controller
         $datas["result"] = $this->His_kontrak_model->get_all(array("id_user" => $id));
         $view = $this->load->view('pegawai/view_kontrak', $datas, true);
         return $view;
+    } 
+	
+	 public function user($id = null)
+    {
+        $response['success'] = true; 
+        if($id <> null){
+            $response['data'] = $this->user_view($id);
+        }
+        $this->set_response($response);
+
+    }
+	private function user_view($id)
+    {
+		 $response['success'] = true; 
+        $datas["result"] = $this->His_kontrak_model->get_all(array("id_user" => $id));
+        $userview = $this->load->view('pegawai/view_kontrakview', $datas, true);
+        return $userview;
     }
 
     public function add()

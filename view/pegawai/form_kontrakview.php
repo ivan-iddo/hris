@@ -20,6 +20,8 @@ input[type="date"]:valid:before {
                             <th>TMT awal Kotrak</th>
                             <th>Tanggal Kontrak</th>
                             <th>Jenis Kontrak</th>
+                            <th>PNS</th>
+                            <th>Tetap</th>
                             <th>TMT Akhir Kontrak</th>
                             <th>Action</th>
                         </tr>
@@ -72,7 +74,7 @@ function getfileupload(result) {
 }
 
 function loadData() {
-    getJson(getfileupload, BASE_URL + 'pegawais/kontrak/' + id);
+    getJson(getfileupload, BASE_URL + 'pegawais/kontrak/user/' + id);
 }
 
 loadData();
