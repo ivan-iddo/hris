@@ -14,7 +14,7 @@ class Kontrak extends MY_Controller
         $this->load->model("His_kontrak_model");
     }
 
-    public function index($id = null)
+    public function inde($id = null)
     {
         $response['success'] = true; 
         if($id <> null){

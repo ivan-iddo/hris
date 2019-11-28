@@ -154,7 +154,7 @@ function getfileupload(result) {
 }
 
 function loadData() {
-    getJson(getfileupload, BASE_URL + 'pegawais/kontrak/' + id);
+    getJson(getfileupload, BASE_URL + 'pegawais/kontrak/inde/' + id);
 }
 
 loadData();
