@@ -30,7 +30,7 @@ class Kontrak extends MY_Controller
         return $view;
     } 
 	
-	 public function user($id=null)
+	 public function data($id=null)
     {
 		if($id!=null){
 		$idn=$id;
