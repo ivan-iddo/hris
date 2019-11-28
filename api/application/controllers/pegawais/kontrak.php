@@ -30,9 +30,13 @@ class Kontrak extends MY_Controller
         return $view;
     } 
 	
-	 public function user()
+	 public function user($id=null)
     {
+		if($id!=null){
+		$idn=$id;
+		}else{
 		$idn = $this->input->get("id");
+		}
         $response['success'] = true; 
         if($idn <> null){
             $response['data'] = $this->user_view($idn);

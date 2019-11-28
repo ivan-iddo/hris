@@ -9,6 +9,7 @@ input[type="date"]:valid:before {
     content: "";
 }
 </style>
+<input type="text" name="id_userfile" id="id_userfile" style="display:none">
           <div class="row"></div>
           <div class="row pad-all">
             <div class="table-responsive">
@@ -74,7 +75,7 @@ function getfileupload(result) {
 }
 
 function loadData() {
-    getJson(getfileupload, BASE_URL + 'pegawais/kontrak/user?id=' + id);
+    getJson(getfileupload, BASE_URL + 'pegawais/kontrak/user/' + id);
 }
 
 loadData();
