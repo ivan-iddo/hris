@@ -32,18 +32,18 @@ class Kontrak extends MY_Controller
 	
 	 public function user()
     {
-		$id = $this->input->get("id");
+		$idn = $this->input->get("id");
         $response['success'] = true; 
-        if($id <> null){
-            $response['data'] = $this->user_view($id);
+        if($idn <> null){
+            $response['data'] = $this->user_view($idn);
         }
         $this->set_response($response);
 
     }
-	private function user_view($id)
+	private function user_view($idn)
     {
 		 $response['success'] = true; 
-        $datas["result"] = $this->His_kontrak_model->get_all(array("id_user" => $id));
+        $datas["result"] = $this->His_kontrak_model->get_all(array("id_user" => $idn));
         $userview = $this->load->view('pegawai/view_kontrakview', $datas, true);
         return $userview;
     }
