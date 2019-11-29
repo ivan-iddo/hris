@@ -34,6 +34,21 @@ var $table='persyaratan_jabatan';
 var $perpage = 20;
 
 
+public function jabatan($code) {
+	$q = $this->db->get_where('m_index_jabatan_asn_detail', array('kd_jabatan' => $code), 1);
+	if ($q->num_rows() > 0) {
+		return $q->row();
+	}
+	return FALSE;
+}
+public function gruop($id) {
+	$q = $this->db->get_where('sys_grup_user', array('id_grup' => $id), 1);
+	if ($q->num_rows() > 0) {
+		return $q->row();
+	}
+	return FALSE;
+}
+
 public function listdata_get(){
 	$headers = $this->input->request_headers();
 
@@ -43,10 +58,10 @@ public function listdata_get(){
 			$this->load->model('System_auth_model', 'm');
 			$jabatan = $decodedToken->data->_jabatan1;
 			$user_froup = $decodedToken->data->_pnc_id_grup;
-			//print_r($user_froup);die();
 			if(($user_froup!=6)){
 			$id_jab=$this->m->getchild($jabatan);
 		    }
+			//print_r($id_jab);die();
 			$this->db->select('persyaratan_jabatan.*,baru.kd_jabatan,baru.ds_jabatan as baru,lama.ds_jabatan as lama');
 
 			if(!empty($this->input->get('id'))){
@@ -82,6 +97,66 @@ public function listdata_get(){
 				}
 			}else{
 				$arr['result'] ='empty';
+			}
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+
+			return;
+		}
+	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
+public function listdat_get($id = null){
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+			$this->load->model('System_auth_model', 'm');
+			$jabatan = $decodedToken->data->_jabatan1;
+			$user_froup = $decodedToken->data->_pnc_id_grup;
+			if(($user_froup!=6)){
+			$id_jab=$this->m->getchild($jabatan);
+		    }else{
+			$grup=$this->gruop($id);
+			$jab1=$this->jabatan($grup->kode);
+			//print_r($jab1->migrasi_jabatan_detail_id);die();
+			$id_jab=$this->m->getchild($jab1->migrasi_jabatan_detail_id);
+			$id_jab[]=$jab1->migrasi_jabatan_detail_id;
+			}
+			if(!empty($id_jab)){
+			$this->db->select('persyaratan_jabatan.*,baru.kd_jabatan,baru.ds_jabatan as baru,lama.ds_jabatan as lama');
+
+			if(!empty($this->input->get('id'))){
+				$this->db->where('id_persyaratan',$this->input->get('id'));
+			}
+			$this->db->where('persyaratan_jabatan.tampilkan','1');
+			$this->db->join('m_index_jabatan_asn_detail as baru', 'baru.migrasi_jabatan_detail_id = persyaratan_jabatan.id_jabatan', 'LEFT');
+			$this->db->join('m_index_jabatan_asn_detail as lama', 'lama.migrasi_jabatan_detail_id = persyaratan_jabatan.jabatan_lama', 'LEFT');
+			$this->db->where_in('persyaratan_jabatan.id_jabatan',$id_jab);
+			$res = $this->db->get($this->table)->result();
+			}else{$res="";}
+			//print_r($res);die();
+			if(!empty($res)){
+				foreach($res as $dat){
+					$arr['result'][]= array(
+						'id' => $dat->id_persyaratan,
+						'id_jabatan'=> $dat->id_jabatan,
+						'jabatan_baru'=> $dat->baru,
+						'masa_jabatan'=> $dat->masa_jabatan,
+						'kompetensi'=> $dat->kompetensi,
+						'formal'=> $dat->formal,
+						'nonformal'=> $dat->nonformal,
+						'jabatan_lama'=> $dat->lama,
+						'id_jabatan_lama'=> $dat->jabatan_lama,
+						'kd_jabatan'=> $dat->kd_jabatan,
+						'lain'=> $dat->lain,
+						'tufoksi'=> $dat->tufoksi
+					);
+				}
+			}else{
+				$arr['result'] ='';
 			}
 			$this->set_response($arr, REST_Controller::HTTP_OK);
 

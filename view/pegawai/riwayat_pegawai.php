@@ -415,7 +415,7 @@
                                      getOptionsEdit("txtjabfung",BASE_URL+"m/group_jabatan_asn/getoption",res[0].jabatan_asn);
                                      getOptionsEdit("subjabasn",BASE_URL+"master/getmaster?id=40",res[0].subjabasn);
                                      getOptionsEdit("ketahli",BASE_URL+"m/keahlian_asn/getoption/"+res[0].subjabasn,res[0].ketahli);
-                                     getOptionsEdit("id_profesi",BASE_URL+"masterp/profesi/getoption/"+res[0].kategori_profesi,res[0].id_profesi);
+                                     getOptionsEdit("id_profesi",BASE_URL+"masterp/profesi/getoption/"+res[0].grp_profesi,res[0].profesi);
                                      getjabatanasn(res[0].status_pegawai);
                                      
                                      
@@ -428,8 +428,10 @@
                                      getOptionsEdit("unitkerja",BASE_URL+"master/direktoratSub/"+res[0].bagian,res[0].sub_bagian);
                                      getOptionsEdit("kaunit",BASE_URL+"master/direktoratSub/"+res[0].sub_bagian,res[0].kaunit);
                                      getOptionsEdit("staff",BASE_URL+"master/direktoratSub/"+res[0].kaunit,res[0].staff);
-                                     getOptionsEdit("kategori_profesi",BASE_URL+'masterp/group_profesi/getoption',res[0].kategori_profesi);
+                                     getOptionsEdit("kategori_profesi",BASE_URL+'masterp/group_profesi/getoption',res[0].grp_profesi);
                                      $('#txtjabatan').prop('disabled', true);
+                                     $('#kategori_profesi').prop('disabled', true);
+                                     $('#id_profesi').prop('disabled', true);
                                      $('#txtjabatan1').prop('disabled', true);
                                      $('#txtjabatan2').prop('disabled', true);
                                      $('#txtgolongan').prop('disabled', true);

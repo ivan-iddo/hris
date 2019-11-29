@@ -468,6 +468,8 @@ public function getuser_get()
                 riwayat_kedinasan.peringkat,
                 riwayat_kedinasan.no_index_dok,
                 m_index_jabatan_asn_detail.ds_jabatan as nama_jabatan,
+                m_index_jabatan_asn_detail.kd_grp_job_profesi as grp_profesi,
+                m_index_jabatan_asn_detail.profesi as prf,
                 sub_kontrak.tglakhir,
                 sub_str.date_end as date_end_str,
                 sub_sip.date_end
@@ -615,6 +617,8 @@ public function getuser_get()
                         'tgl_sip' => $d->date_end,
                         'sisa_cuti' => $cuti,
                         'surat' => $surat_tugas,
+                        'profesi' => $d->prf,
+                        'grp_profesi' => $d->grp_profesi,
 
                     );
 }

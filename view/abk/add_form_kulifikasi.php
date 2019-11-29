@@ -474,7 +474,10 @@ function loaddata(id, url, valueEdit = null) {
         }
     });
 }
-loaddata("katsdmfrm4", BASE_URL + "persyaratan/persyaratan/listdata");
+$('#adduk').change(function() {
+var a=$('#adduk').val();
+loaddata("katsdmfrm4", BASE_URL + "persyaratan/persyaratan/listdat/"+a);
+});
 
 $("#katsdmfrm4").on("change", function () {
     if ($(this).find(':selected').attr("data-id") != undefined) {
@@ -483,7 +486,7 @@ $("#katsdmfrm4").on("change", function () {
         $("#kompetensi").val($(this).find(':selected').attr("data-kompetensi"));
         $("#formal").val($(this).find(':selected').attr("data-formal"));
         $("#nonformal").val($(this).find(':selected').attr("data-nonformal"));
-        getOptionsEdit("txtkjabatans",BASE_URL+"master/jabatan_struktural_fix",$(this).find(':selected').attr("jabatan-lama"));
+        getOptionsEdit("txtkjabatans",BASE_URL+"master/jabatan_struktural_fix_label",$(this).find(':selected').attr("jabatan-lama"));
         $("#tufoksi").val($(this).find(':selected').attr("data-tufoksi"));
     }else{
         $("#id_jabatan").val('');
