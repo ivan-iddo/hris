@@ -995,12 +995,17 @@ public function listuser_get(){
 // $this->db->limit('1');
 					$res = $this->db->get('sys_user')->result();
 					foreach($res as $d){
+						if($jabatan2!=0){
+						$nam=$d->nama;
+						$id_jb=$d->id_jab;
+						}else{
 						if($jabs2!=1){
 						$nam=$d->nam_jab;
 						$id_jb=$d->jabs;
 						}else{
 						$nam=$d->nama;
 						$id_jb=$d->id_jab;
+						}
 						}
 						$arr['result'][]=array('nama_uk'=>$nam,
 							'id_uk'=>$d->id_uk,
@@ -1059,7 +1064,7 @@ public function listuserunitk_get(){
 			$id_jab1=$id_ja1;
 			}
 			$jabs2=$this->m->grupn_get($id_jab1);
-
+			//print_r($jabs2);die();
 			//if(!empty($jabatan3)){
 			//	$id_jab3=$this->m->getchild($jabatan3);
 			//}
@@ -1164,12 +1169,17 @@ public function listuserunitk_get(){
 // $this->db->limit('1');
 					$res = $this->db->get('sys_user')->result();
 					foreach($res as $d){
+						if($jabatan2==0){
+						$nam=$d->nama;
+						$id_jb=$d->id_jab;
+						}else{
 						if($jabs2!=1){
 						$nam=$d->nam_jab;
 						$id_jb=$d->jabs;
 						}else{
 						$nam=$d->nama;
 						$id_jb=$d->id_jab;
+						}
 						}
 						$arr['result'][]=array('nama_uk'=>$nam,
 							'id_uk'=>$d->id_uk,
