@@ -233,7 +233,7 @@
   loaddata_persyaratan(0);
   
   function add_persyaratan(){
-    gopop(url_view+'form_persyaratan.php',save_persyaratan,'medium');
+    gopop(url_view+'form_persyaratan2.php',save_persyaratan,'medium');
     window.setTimeout(function(){
       $('#id_persyaratan').val('');
     },500);

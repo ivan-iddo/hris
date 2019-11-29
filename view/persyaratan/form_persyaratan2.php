@@ -131,7 +131,7 @@
 		$(this).parentsUntil(".body-remove").parent().remove();
 	});
 	var group = localStorage.getItem('group');
-	getOptions("txtjabatan",BASE_URL+"master/jabatan_struktural_fix?id="+group);
+	getOptions("txtjabatan",BASE_URL+"master/jabatan_struktural_fix_label");
 	getOptions("txtjabatans",BASE_URL+"master/jabatan_struktural_fix_label");
 	$('.select-chosen').chosen();
 	$('.chosen-container').css({"width": "100%"});
