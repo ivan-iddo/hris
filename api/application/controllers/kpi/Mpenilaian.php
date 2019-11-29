@@ -541,7 +541,7 @@ public function listpi_get(){
 		if ($decodedToken != false) {
 		$jabatan1 = $decodedToken->data->_jabatan1;
 		$this->load->model('System_auth_model', 'm');
-		if($jabatan1!=2701){
+		if($jabatan1==1345 OR $jabatan1==2553 OR $jabatan1==3 OR $jabatan1==2663 OR $jabatan1==2642){
 		if($jabatan1!=0){
 			$id_ja1=$this->m->getchild($jabatan1);
 			$id_ja1[]=$jabatan1;
@@ -565,7 +565,7 @@ public function listpi_get(){
 			if(!empty($this->uri->segment(5))){
 				$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param2); 
 			}
-			if($jabatan1!=2701){
+			if($jabatan1==1345 OR $jabatan1==2553 OR $jabatan1==3 OR $jabatan1==2663 OR $jabatan1==2642){
 			if(!empty($this->uri->segment(7))){
 			$this->db->where_in("his_kpi.id_jab",$id_ja1); 
 			}
@@ -594,7 +594,7 @@ public function listpi_get(){
 			if(!empty($this->uri->segment(5))){
 				$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param2); 
 			}
-			if($jabatan1!=2701){
+			if($jabatan1==1345 OR $jabatan1==2553 OR $jabatan1==3 OR $jabatan1==2663 OR $jabatan1==2642){
 			if(!empty($this->uri->segment(7))){
 			$this->db->where_in("his_kpi.id_jab",$id_ja1); 
 			}
@@ -2771,7 +2771,7 @@ public function listiku_get()
 						if($user_froup == '3'){
 							$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');
 							$this->db->where_in('his_kpi.status',1);
-						}else if ($user_froup == '9'){
+						}else if ($user_froup == '97'){
 							$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');
 							$this->db->where_in('his_kpi.status',1);
 						}else{

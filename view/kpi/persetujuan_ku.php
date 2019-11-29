@@ -91,7 +91,7 @@
       
       <div class="pad-btm form-inline" style="border-top:1px solid #dedede;padding:10px">
        <div class="row">
-          <?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6')OR ($_SESSION['userdata']['group']=='3')OR ($_SESSION['userdata']['group']=='92')OR ($_SESSION['userdata']['group']=='97')OR ($_SESSION['userdata']['group']=='99') ){?>
+          <?php if(($_SESSION['data']['_pnc_id_jab']=='1345') OR ($_SESSION['data']['_pnc_id_jab']=='2553')OR ($_SESSION['data']['_pnc_id_jab']=='3')OR ($_SESSION['data']['_pnc_id_jab']=='2663')OR ($_SESSION['data']['_pnc_id_jab']=='2642')){?>
 		  <button style="margin-left:3px" class="btn btn-success" onclick="proses('2')"><i class="fa fa-file-excel-o"></i> Setujui Permohonan</button>
           <button style="margin-left:3px" class="btn btn-danger" onclick="proses('3')"><i class="fa fa-file-excel-o"></i> Tolak</button>
           <button style="margin-left:3px" class="btn btn-primary" onclick="filters()"><i class="fa fa-file-excel-o"></i> Filter iki 1</button>
@@ -110,7 +110,7 @@
 </div>
 </div>   
 </div>
-<?php if(($_SESSION['userdata']['group']=='1') OR ($_SESSION['userdata']['group']=='6')OR ($_SESSION['userdata']['group']=='3')OR ($_SESSION['userdata']['group']=='92')OR ($_SESSION['userdata']['group']=='97')OR ($_SESSION['userdata']['group']=='99') ){?>
+<?php if(($_SESSION['data']['_pnc_id_jab']=='1345') OR ($_SESSION['data']['_pnc_id_jab']=='2553')OR ($_SESSION['data']['_pnc_id_jab']=='3')OR ($_SESSION['data']['_pnc_id_jab']=='2663')OR ($_SESSION['data']['_pnc_id_jab']=='2642')){?>
 <?php }else{?><div class="row">
 	<div class="col-sm-8 table-toolbar-left">
 		<button style="margin-left:3px" class="btn btn-mint" onclick="getRowData()"><i class="fa fa-file-excel-o"></i> Simpan Perubahan</button>
