@@ -1428,12 +1428,12 @@ public function listuserunitk_get(){
 							$this->db->where('id_user',$id_user);
 							$this->db->where('id_jab',$id_jab);
 							$res = $this->db->get('his_kpi')->row();
-							//print_r($res);die();
 							$this->db->where('id_user',$id_user);
 							$profil = $this->db->get('sys_user_profile')->result();
 							if(empty($res)){
 								$this->db->order_by('id','DESC');
 								$this->db->limit('1');
+								$this->db->where('id_jenis',$id_jenis);
 								$this->db->where('id_user',$id_user);
 								$this->db->where('id_jab',$id_jab);
 								$pegid = $this->db->get('his_kpi')->result();
