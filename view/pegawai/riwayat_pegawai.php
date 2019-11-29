@@ -428,7 +428,7 @@
                                      getOptionsEdit("unitkerja",BASE_URL+"master/direktoratSub/"+res[0].bagian,res[0].sub_bagian);
                                      getOptionsEdit("kaunit",BASE_URL+"master/direktoratSub/"+res[0].sub_bagian,res[0].kaunit);
                                      getOptionsEdit("staff",BASE_URL+"master/direktoratSub/"+res[0].kaunit,res[0].staff);
-                                     getOptionsEdit("kategori_profesi",BASE_URL+'masterp/group_profesi/getoption',res[0].grp_profesi);
+                                     getOptionsEdit("kategori_profesi",BASE_URL+'masterp/group_profesi/getoption3',res[0].grp_profesi);
                                      $('#txtjabatan').prop('disabled', true);
                                      $('#kategori_profesi').prop('disabled', true);
                                      $('#id_profesi').prop('disabled', true);

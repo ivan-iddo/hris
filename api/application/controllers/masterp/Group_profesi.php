@@ -194,6 +194,30 @@ public function getoption_get(){
 	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 }
 
+public function getoption3_get(){
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+
+			$this->db->where('tampilkan',1);
+			$this->db->order_by('ds_group_jabatan','ASC');
+
+			$res = $this->db->get($this->table)->result();
+			foreach($res as $d){
+				$arr['result'][]=array('label'=>$d->ds_group_jabatan,'value'=>$d->kd_grp_job_profesi);
+			}
+
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+
+			return;
+		}
+	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
 public function getoption2_get(){
 	$headers = $this->input->request_headers();
 
