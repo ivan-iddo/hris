@@ -541,9 +541,11 @@ public function listpi_get(){
 		if ($decodedToken != false) {
 		$jabatan1 = $decodedToken->data->_jabatan1;
 		$this->load->model('System_auth_model', 'm');
+		if($jabatan1!=2701){
 		if($jabatan1!=0){
 			$id_ja1=$this->m->getchild($jabatan1);
 			$id_ja1[]=$jabatan1;
+		}
 		}
 //$this->db->limit('100');
 //$this->db->order_by();
@@ -563,9 +565,10 @@ public function listpi_get(){
 			if(!empty($this->uri->segment(5))){
 				$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param2); 
 			}
-
+			if($jabatan1!=2701){
 			if(!empty($this->uri->segment(7))){
 			$this->db->where_in("his_kpi.id_jab",$id_ja1); 
+			}
 			}
 			$total_rows = $this->db->count_all_results('his_kpi');
 			$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,6);
@@ -591,11 +594,11 @@ public function listpi_get(){
 			if(!empty($this->uri->segment(5))){
 				$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param2); 
 			}
-
+			if($jabatan1!=2701){
 			if(!empty($this->uri->segment(7))){
 			$this->db->where_in("his_kpi.id_jab",$id_ja1); 
 			}
-
+			}
 			$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
 
 
