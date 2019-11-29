@@ -55,8 +55,10 @@ public function savedetail_post(){
 				$nama=ucwords($nama1);
 				$this->db->select('m_penilaian_kpi.id_grup,m_penilaian_kpi.bobot');
 				$this->db->where('tampilkan',1);
+				//$this->db->where_in('child',array($dat['child'],20,30,40));
 				$this->db->where('grup',$nama);
 				$res = $this->db->get('m_penilaian_kpi')->row();
+				//print_r($res);die();
 				if(!empty($res)){
 					$kpi_id = $res->id_grup;
 					$bobot_a = $res->bobot;
