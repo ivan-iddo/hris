@@ -99,9 +99,9 @@ function loadKeluarga() {
 function addKeluarga() {
 
 //getOptions("txtKelamin", BASE_URL + "master/kelamin");
-getOptions("txtPendidikan", BASE_URL + "master/pendidikan");
-getOptions("txtPekerjaan", BASE_URL + "master/pekerjaan");
-getOptions("txtHubungan", BASE_URL + "master/hubkeluarga");
+//getOptions("txtPendidikan", BASE_URL + "master/pendidikan");
+//getOptions("txtPekerjaan", BASE_URL + "master/pekerjaan");
+//getOptions("txtHubungan", BASE_URL + "master/hubkeluarga");
 bootbox.dialog({
   message: $('<div></div>').load('view/pegawai/input_keluarga.php'),
   backdrop: false,

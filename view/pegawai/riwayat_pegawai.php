@@ -595,9 +595,9 @@ if(!validateUsername(user_username)){
          //     }else if(empty($('#txtjabatan').val())){
 						   // onMessage("Data 'Jabatan struktural' is required"); 
          //                   return false;
-       }else if(empty($('#kategori_profesi').val())){
-         onMessage("Data 'Kelompok Profesi' is required"); 
-         return false;
+       //}else if(empty($('#kategori_profesi').val())){
+        // onMessage("Data 'Kelompok Profesi' is required"); 
+        // return false;
        }else if(!empty(user_password)){
          if(!validatePassword(user_password)){
            $("#user_password").focus();
