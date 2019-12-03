@@ -72,7 +72,7 @@
                     <div class="col-sm-8">
                         <select class="form-control select2" id="txtPendidikan" name="txtPendidikan"
                         style="width: 100%;">
-						<option value="null">Please select..</option>				
+						<option value="">Please select..</option>				
 						<option value="54">SD</option>
 						<option value="55">SLTP</option>
 						<option value="56">SLTA</option>
@@ -90,7 +90,7 @@
                 <div class="col-sm-8">
                     <select class="form-control select2" id="txtPekerjaan" name="txtPekerjaan"
                     style="width: 100%;">
-					<option value="null">Please select..</option>				
+					<option value="">Please select..</option>				
 					<option value="1">Pelajar</option>
 					<option value="2">PNS</option>
 					<option value="3">Karyawan Swasta</option>
@@ -104,7 +104,7 @@
             <div class="col-sm-8">
                 <select class="form-control select2" id="txtHubungan" name="txtHubungan"
                 style="width: 100%;">
-				<option value="null">Please select..</option>
+				<option value="">Please select..</option>
 				<option value="1">Pasangan</option>
                 <option value="2">Anak</option>
                 <option value="3">Orang Tua</option>
