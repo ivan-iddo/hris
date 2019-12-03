@@ -56,7 +56,7 @@ public function listjasn_get(){
 				if(!empty($d->tmt_jfung)){
 				$tgl_skjafung=date_format(date_create($d->tgl_skjafung), "d-m-Y");
 				}else{$tgl_skjafung=$d->tgl_skjafung;}
-				if(!empty($d->tmt_jfung)){
+				if(!empty($d->tmt_pak)){
 				$tmt_pak=date_format(date_create($d->tmt_pak), "d-m-Y");
 				}else{$tmt_pak=$d->tmt_pak;}
 				if(!empty($d->tgl_pak)){
@@ -109,10 +109,10 @@ public function getjasn_get(){
 			if($d->tmt_jfung!=null){
 			$tmt_jfung=date_format(date_create($d->tmt_jfung), "d-m-Y");
 			}else{$tmt_jfung='';}
-			if($d->tmt_jfung!=null){
+			if($d->tgl_skjafung!=null){
 			$tgl_skjafung=date_format(date_create($d->tgl_skjafung), "d-m-Y");
 			}else{$tgl_skjafung='';}
-			if($d->tmt_jfung!=null){
+			if($d->tmt_pak!=null){
 			$tmt_pak=date_format(date_create($d->tmt_pak), "d-m-Y");
 			}else{$tmt_pak='';}
 			if($d->tgl_pak!=null){
