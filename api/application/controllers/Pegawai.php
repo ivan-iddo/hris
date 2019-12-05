@@ -117,7 +117,7 @@ function save_post()
             $f_user_email = ($this->input->post('f_user_email'))?$this->input->post('f_user_email'):null;
             $f_user_password = ($this->input->post('f_user_password'))?$this->input->post('f_user_password'):null;
             $acces = ($this->input->post('acces'))?$this->input->post('acces'):null;
-            $f_user_status_aktif = ($this->input->post('f_user_status_aktif'))?$this->input->post('f_user_status_aktif'):null;
+            $f_user_status_aktif = ($this->input->post('f_user_status_aktif'))?$this->input->post('f_user_status_aktif'):1;
             $f_user_username = ($this->input->post('f_user_username'))?$this->input->post('f_user_username'):null;
             $inputphone = ($this->input->post('inputphone'))?$this->input->post('inputphone'):null;
             $inputphone2 = ($this->input->post('inputphone2'))?$this->input->post('inputphone2'):null;
@@ -788,7 +788,7 @@ function edit_post()
             $f_user_email = ($this->input->post('f_user_email'))?$this->input->post('f_user_email'):null;
             $f_user_password = ($this->input->post('f_user_password'))?$this->input->post('f_user_password'):null;
             $acces = ($this->input->post('acces'))?$this->input->post('acces'):null;
-            $f_user_status_aktif = ($this->input->post('f_user_status_aktif'))?$this->input->post('f_user_status_aktif'):null;
+            $f_user_status_aktif = ($this->input->post('f_user_status_aktif'))?$this->input->post('f_user_status_aktif'):1;
             $f_user_username = ($this->input->post('f_user_username'))?$this->input->post('f_user_username'):null;
             $inputphone = ($this->input->post('inputphone'))?$this->input->post('inputphone'):null;
             $inputphone2 = ($this->input->post('inputphone2'))?$this->input->post('inputphone2'):null;

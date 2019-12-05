@@ -289,13 +289,13 @@ Medical</a></li>
     var fld = $('#passwordchn').val();
     var pass = $('#pass').val();
     
-    if(validatePassword(fld)){
+    //if(validatePassword(fld)){
       if(passlm==pass){
         postForm('form-gantipass',BASE_URL+'pegawai/changepass',gogo);
       }else{
         onMessage('Pasword Tidak cocok');
       }
-    } 
+   // } 
     
   }
   function update(){
