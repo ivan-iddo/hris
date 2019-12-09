@@ -599,10 +599,10 @@ if(!validateUsername(user_username)){
         // onMessage("Data 'Kelompok Profesi' is required"); 
         // return false;
        }else if(!empty(user_password)){
-         if(!validatePassword(user_password)){
+         /*if(!validatePassword(user_password)){
            $("#user_password").focus();
            return false;
-         }else{
+         }else{*/
            
 														var data = formJson('form-upload');//$("#form-upload").serializeArray();
 														$.ajax({
@@ -650,7 +650,7 @@ if(!validateUsername(user_username)){
                                                           });
                             
                            
-                         }
+                        // }
                        }else{
                         
 														var data = formJson('form-upload');//$("#form-upload").serializeArray();
