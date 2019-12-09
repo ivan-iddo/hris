@@ -170,7 +170,7 @@ function getfileupload(result) {
 }
 
 function loadfileupload() {
-    getJson(getfileupload, BASE_URL + 'pegawai/listfile/?id=' + $('#f_id_edit').val());
+    getJson(getfileupload, BASE_URL + 'pegawai/listfile/?id=' + $('#f_id_edit').val()+'&kategori=10');
 }
 
 loadfileupload();

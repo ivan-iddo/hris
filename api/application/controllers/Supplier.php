@@ -410,9 +410,9 @@ public function uploadcover_data(){
 		$data = array('upload_data' => $this->upload->data());
 		$filename = $data['upload_data']['file_name'];
 	}
-
+print_r($filename);die();
 	$datas = array(
-		'foto' =>$filename 
+		'foto' =>$filename
 	);
 	$this->db->where('id_user',$this->input->post('id_userfile'));
 	$this->db->update('sys_user', $datas);
