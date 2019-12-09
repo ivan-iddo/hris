@@ -567,9 +567,7 @@ function simpan(){
 
 
 
-if(!validateUsername(user_username)){ 
- $("#username").focus();
- return false;
+
          //               }else if(direktorat===""){
          //                                   onMessage("Data 'Direktorat' is required");
          
@@ -577,7 +575,7 @@ if(!validateUsername(user_username)){
          //               }else if(txtjabatan === ''){
 						   // onMessage("Data 'Jabatan Struktural' is required"); 
          //                   return false;
-       }else if(empty($('#txtnopeg').val())){
+       if(empty($('#txtnopeg').val())){
          onMessage("Data 'Nopeg' is required"); 
          return false;
        }else if(empty($('#txtnip').val())){
@@ -599,10 +597,7 @@ if(!validateUsername(user_username)){
         // onMessage("Data 'Kelompok Profesi' is required"); 
         // return false;
        }else if(!empty(user_password)){
-         /*if(!validatePassword(user_password)){
-           $("#user_password").focus();
-           return false;
-         }else{*/
+    
            
 														var data = formJson('form-upload');//$("#form-upload").serializeArray();
 														$.ajax({
