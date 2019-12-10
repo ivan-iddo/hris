@@ -410,7 +410,7 @@ public function uploadcover_data(){
 		$data = array('upload_data' => $this->upload->data());
 		$filename = $data['upload_data']['file_name'];
 	}
-//print_r($filename);die();
+//print_r($this->upload->data());die();
 	$datas = array(
 		'foto' =>$filename
 	);
