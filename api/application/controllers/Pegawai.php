@@ -4571,16 +4571,12 @@ function savejfung_post()
                 );
 
                 $this->db->insert('his_jabatan_asn', $arrdata);
-
-
-            }
-
-//update user
-
+				$saved_id = $this->db->insert_id('his_jabatan_asnid_seq');
+			}
 
             if ($this->db->affected_rows() == '1') {
                 $arr['hasil'] = 'success';
-                $arr['message'] = 'Data berhasil ditambah!';
+                $arr['id'] = $saved_id;
             } else {
                 $arr['hasil'] = 'error';
                 $arr['message'] = 'Data Gagal Ditambah!';

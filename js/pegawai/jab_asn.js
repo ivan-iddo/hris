@@ -41,7 +41,8 @@ function simpanJasn(action){
            container: 'floating',
            timer: 5000
          });
-// $("#f_id_edit").val(data.id);
+		 
+$("#idasn").val(data.id);
 loadJasn();
 }else{  
   return false;	
