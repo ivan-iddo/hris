@@ -4123,7 +4123,7 @@ function editjabatan_post()
 
                 );
                 $this->db->where('id', $id);
-                $this->db->where('aktif', '0');
+                //$this->db->where('aktif', '0');
                 $sql=$this->db->update('his_mutasi_jabatan', $arrdata);
 
 
