@@ -98,14 +98,20 @@ public function listpelatihan_get(){
 			}
 			$res = $this->db->get('his_pelatihan')->result();
 			foreach($res as $d){
+				if(!empty($d->mulai)){
+					$mulai=date_format(date_create($d->mulai), "d-m-Y");
+				}else{$mulai='';}
+				if(!empty($d->sampai)){
+					$sampai=date_format(date_create($d->sampai), "d-m-Y");
+				}else{$sampai='';}
 				$arr[]=array('id'=>$d->id,
 					'penanggung'=> $d->nama_p,
 					'nama'=> $d->nama,
 					'tempat'=> $d->tempat,
 					'penyelenggara'=> $d->penyelenggara, 
 					'durasi' => $d->durasi,
-					'mulai' => date_format(date_create($d->mulai), "d-m-Y"),
-					'sampai' => date_format(date_create($d->sampai), "d-m-Y"),
+					'mulai' => $mulai,
+					'sampai' => $sampai,
 					'jenis_sertifikat' => $d->jenis_sertifikat,
 					'no_sertifikat' => $d->no_sertifikat 
 				);
@@ -330,6 +336,12 @@ function getpelatihan_get(){
 			}
 			$res = $this->db->get('his_pelatihan')->result();
 			foreach($res as $d){
+				if(!empty($d->mulai)){
+					$mulai=date_format(date_create($d->mulai), "d-m-Y");
+				}else{$mulai='';}
+				if(!empty($d->sampai)){
+					$sampai=date_format(date_create($d->sampai), "d-m-Y");
+				}else{$sampai='';}
 				$arr=array('id'=>$d->id,
 					'id_user'=>$d->id_user,
 					'nama'=>$d->nama, 
@@ -337,8 +349,8 @@ function getpelatihan_get(){
 					'penyelenggara'=>$d->penyelenggara,
 					'penanggung'=>$d->penanggung,
 					'durasi'=>$d->durasi,
-					'mulai'=>$d->mulai,
-					'sampai'=>$d->sampai,
+					'mulai'=>$mulai,
+					'sampai'=>$sampai,
 					'kategori'=>$d->kategori,
 					'jenis_sertifikat' =>$d->jenis_sertifikat,
 					'no_sertifikat' =>$d->no_sertifikat,
