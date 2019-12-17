@@ -27,6 +27,7 @@
           </div>
           <div class="form-group">
             <label class="col-sm-4 control-label" for="inputpropinsi">Program Studi</label>
+			
             <div class="col-sm-8">
               <input class="form-control" id="txtJjurusan" name="txtJjurusan"  placeholder="" type="text">
             </div>
