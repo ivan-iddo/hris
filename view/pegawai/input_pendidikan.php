@@ -141,14 +141,14 @@
  </div>
 </form>
 <script>
-	function getpendidikan(a){
+	/*function getpendidikan(a){
 
 		if((a==='101') || (a==='105')){
      $('#Spesialis').show('slow');
    }else{
      $('#Spesialis').hide('slow');
    }
- }
+ }*/
  
  function getfileijazah(result) {
         $('#fileijazah').html(result.isi);
