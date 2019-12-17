@@ -27,8 +27,8 @@
 
   var columnPendidikan = [ 
   {headerName: "Jenjang", field: "jenjang", width: 100, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Jurusan", field: "jurusan", width: 100, filterParams:{newRowsAction: 'keep'}},
-  {headerName: "Spesialis", field: "spesialis", width: 100, filterParams:{newRowsAction: 'keep'}},
+  {headerName: "Program Studi", field: "jurusan", width: 100, filterParams:{newRowsAction: 'keep'}},
+  {headerName: "Jurusan", field: "spesialis", width: 100, filterParams:{newRowsAction: 'keep'}},
   {headerName: "Nama Sekolah", field: "nama_sekolah", width: 190, filterParams:{newRowsAction: 'keep'}}, 
   {headerName: "Tahun Lulus", field: "tahun", width: 100, filterParams:{newRowsAction: 'keep'}}, 
   {headerName: "No.Ijazah", field: "no_ijazah", width: 190, filterParams:{newRowsAction: 'keep'}},
