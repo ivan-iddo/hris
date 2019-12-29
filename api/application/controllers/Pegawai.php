@@ -1285,7 +1285,12 @@ public function listpendidikan_get()
             if (!empty($id = $this->uri->segment(3))) {
                 $this->db->where('his_pendidikan.id_user', $id);
             }
-            $res = $this->db->get('his_pendidikan')->result();
+			if(!empty($d->pen_dijz)){
+			$pen_dijz=date_format(date_create($d->pen_dijz), "d-m-Y");
+			}else{
+			$pen_dijz='';
+			}
+			$res = $this->db->get('his_pendidikan')->result();
             foreach ($res as $d) {
                 $arr[] = array('id' => $d->id,
                     'nama_sekolah' => $d->pen_name,
@@ -1295,7 +1300,7 @@ public function listpendidikan_get()
                     'jenjang' => $d->namaPendidikan,
                     'tahun' => $d->pen_tahn,
                     'no_ijazah' => $d->pen_nijz,
-                    'tgl_ijazah' => date_format(date_create($d->pen_dijz), "d-m-Y"),
+                    'tgl_ijazah' => $pen_dijz,
                     'pen_nkep' => $d->pen_nkep
                 );
             }
