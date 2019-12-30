@@ -119,7 +119,7 @@
     <div class="form-group">
         <label class="col-sm-4 control-label" for="inputstatus">Karis/Karsu</label>
         <div class="col-sm-8">
-            <input type="number" class="form-control" id="txtkarn" name="txtkarn" placeholder="">
+            <input type="text" class="form-control" id="txtkarn" name="txtkarn" placeholder="">
         </div>
     </div><!-- End Hori sontal -->
 </div>
