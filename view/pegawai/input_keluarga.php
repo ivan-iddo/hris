@@ -62,8 +62,8 @@
                         <div class="col-sm-8">
                             <select class="form-control select2" id="txtKelamin" name="txtKelamin"
                             style="width: 100%;">
-                            <option value="71">Laki - Laki</option>
-                            <option value="72">Perempuan</option>
+                            <option value="1">Laki - Laki</option>
+                            <option value="2">Perempuan</option>
                         </select>
                     </div>
                 </div>
