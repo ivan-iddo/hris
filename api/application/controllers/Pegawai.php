@@ -1285,13 +1285,13 @@ public function listpendidikan_get()
             if (!empty($id = $this->uri->segment(3))) {
                 $this->db->where('his_pendidikan.id_user', $id);
             }
-			if(!empty($d->pen_dijz)){
-			$pen_dijz=date_format(date_create($d->pen_dijz), "d-m-Y");
-			}else{
-			$pen_dijz='';
-			}
 			$res = $this->db->get('his_pendidikan')->result();
             foreach ($res as $d) {
+				if(!empty($d->pen_dijz)){
+				$pen_dijz=date_format(date_create($d->pen_dijz), "d-m-Y");
+				}else{
+				$pen_dijz='';
+				}
                 $arr[] = array('id' => $d->id,
                     'nama_sekolah' => $d->pen_name,
                     'jurusan' => $d->pen_jur,
@@ -1378,12 +1378,17 @@ function getpendidikan_get()
             }
             $res = $this->db->get('his_pendidikan')->result();
             foreach ($res as $d) {
+				if(!empty($d->pen_dijz)){
+				$pen_dijz=date_format(date_create($d->pen_dijz), "d-m-Y");
+				}else{
+				$pen_dijz='';
+				}
                 $arr = array('id' => $d->id,
                     'pen_name' => $d->pen_name,
                     'pen_adrs' => $d->pen_adrs,
                     'pen_tahn' => $d->pen_tahn,
                     'pen_nijz' => $d->pen_nijz,
-                    'pen_dijz' => date_format(date_create($d->pen_dijz), "d-m-Y"),
+                    'pen_dijz' => $pen_dijz,
                     'pekerjaan' => $d->pen_dijz,
                     'pen_nkep' => $d->pen_nkep,
                     'pen_desc' => $d->pen_desc,
