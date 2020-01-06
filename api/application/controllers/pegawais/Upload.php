@@ -239,8 +239,9 @@ class Upload extends CI_Controller
         $config['max_size'] = '50000000'; 
         $this->load->library('upload', $config);
         $filename='logo.png';
+		$id = $this->input->post('id_userfile');
 
-        if (!$this->upload->do_upload('inputfileupload'))
+        if (!$this->upload->do_upload('inputfileupload', $id))
         {
             $error = array('error' => $this->upload->display_errors());
         }
@@ -249,9 +250,8 @@ class Upload extends CI_Controller
             $data = array('inputfileupload' => $this->upload->data());
             $filename = $data['inputfileupload']['file_name'];
         }
-
-        $id = $this->input->post('id_userfile');
-
+		//print_r($data);die();
+        
         $id_kategori = $this->input->post('kategorifile'); 
 
         $datas = array(

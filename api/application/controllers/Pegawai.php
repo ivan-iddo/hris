@@ -359,8 +359,9 @@ function cuti($id_cuti,$id_user)
             $this->db->where('tampilkan', '1');
             $this->db->where('tahun', $tahunskrg);
             $resMaxSkrg = $this->db->get('m_jenis_cuti')->row();
-
-            $cuti_skrg = $resCekSkrg->total_cuti;
+			
+			$cuti_skrg = $resCekSkrg->total_cuti;
+			
             $max_cuti_skrg = $resMaxSkrg->jumlah;
 
             $this->db->select('sum(total) as total_cuti');
