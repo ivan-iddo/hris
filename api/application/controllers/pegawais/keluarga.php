@@ -148,8 +148,9 @@ public function upload_file_klg()
     $config['max_size'] = '50000000'; 
     $this->load->library('upload', $config);
     $filename='logo.png';
-
-    if (!$this->upload->do_upload('inputfileupload'))
+	$id = $this->input->post('id_userfile');
+    
+    if (!$this->upload->do_upload('inputfileupload', $id))
     {
         $error = array('error' => $this->upload->display_errors());
     }
@@ -159,7 +160,6 @@ public function upload_file_klg()
         $filename = $data['inputfileupload']['file_name'];
     }
 
-    $id = $this->input->post('id_userfile');
     $id_klg = $this->input->post('id_keluarga');
 
     $id_kategori = $this->input->post('kategorifile'); 

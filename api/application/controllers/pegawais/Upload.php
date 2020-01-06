@@ -15,14 +15,15 @@ class Upload extends CI_Controller
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
         $filename = 'logo.png';
-        if (!$this->upload->do_upload('doc_file')) {
+		$id = $this->input->post('id_pendidikan');
+        
+        if (!$this->upload->do_upload('doc_file', $id)) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $data = array('upload_data' => $this->upload->data());
             $filename = $data['upload_data']['file_name'];
         }
         $datas = array('file_url' => $filename);
-        $id = $this->input->post('id_pendidikan');
         $this->db->where('id', $id);
         $this->db->update('his_pendidikan', $datas);
         if ($this->db->affected_rows() == '1') {
@@ -43,7 +44,9 @@ class Upload extends CI_Controller
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
         $filename = 'logo.png';
-        if (!$this->upload->do_upload('doc_file')) {
+		$user = $this->input->post('id_userfile');;
+        
+        if (!$this->upload->do_upload('doc_file', $user)) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $data = array('upload_data' => $this->upload->data());
@@ -140,14 +143,15 @@ class Upload extends CI_Controller
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
         $filename = 'logo.png';
-        if (!$this->upload->do_upload('doc_file')) {
+		$user = $this->input->post('id_userfile');;
+        
+        if (!$this->upload->do_upload('doc_file', $user)) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $data = array('upload_data' => $this->upload->data());
             $filename = $data['upload_data']['file_name'];
         }
         $id = $this->input->post('id_pelatihan');
-        $user = $this->input->post('id_userfile');;
         $datas = array(
 		'id_user' => $user,
         'kategori_id' => 13,
@@ -172,13 +176,14 @@ class Upload extends CI_Controller
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
         $filename = 'logo.png';
-        if (!$this->upload->do_upload('doc_file')) {
+		$user = $this->input->post('id_userfile');;
+        
+        if (!$this->upload->do_upload('doc_file', $user)) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $data = array('upload_data' => $this->upload->data());
             $filename = $data['upload_data']['file_name'];
         }
-        $user = $this->input->post('id_userfile');;
         $id = $this->input->post('id_golongan');
         $datas = array(
 		'id_user' => $user,
@@ -205,7 +210,9 @@ class Upload extends CI_Controller
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
         $filename = 'logo.png';
-        if (!$this->upload->do_upload('doc_file')) {
+		$user = $this->input->post('id_userfile');;
+        
+        if (!$this->upload->do_upload('doc_file', $user)) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $data = array('upload_data' => $this->upload->data());
@@ -213,7 +220,6 @@ class Upload extends CI_Controller
         }
         $datas = array('file_url' => $filename);
         $id = $this->input->post('idasn');
-        $user = $this->input->post('id_userfile');;
         $datas = array(
 		'id_user' => $user,
         'kategori_id' => 13,
@@ -284,8 +290,9 @@ class Upload extends CI_Controller
         $config['max_size'] = '50000000'; 
         $this->load->library('upload', $config);
         $filename='logo.png';
+		$id = $this->input->post('f_id_edit');
 
-        if (!$this->upload->do_upload('fileidentitas'))
+        if (!$this->upload->do_upload('fileidentitas', $id))
         {
             $error = array('error' => $this->upload->display_errors());
         }
@@ -294,8 +301,6 @@ class Upload extends CI_Controller
             $data = array('fileidentitas' => $this->upload->data());
             $filename = $data['fileidentitas']['file_name'];
         }
-
-        $id = $this->input->post('f_id_edit');
 
         $datas = array(
             'id_user' => $id,

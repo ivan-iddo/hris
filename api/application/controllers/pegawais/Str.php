@@ -52,7 +52,8 @@ class Str extends MY_Controller
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
         $filename = 'logo.png';
-        if (!$this->upload->do_upload('inputfileupload')) {
+		$datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
+        if (!$this->upload->do_upload('inputfileupload', $datas["id_user"])) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $data = array('inputfileupload' => $this->upload->data());
@@ -60,8 +61,6 @@ class Str extends MY_Controller
         }
         $date_start = date_format(date_create($this->input->post('date_start')), "Y-m-d");
         $date_end = date_format(date_create($this->input->post('date_end')), "Y-m-d");
-
-        $datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
         $datas["str"] = ($this->input->post('str')?$this->input->post('str'):NULL);
         $datas["date_start"] = ($date_start?$date_start:NULL);
         $datas["date_end"] = ($date_end?$date_end:NULL);

@@ -50,13 +50,14 @@ class Penghargaan extends MY_Controller
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
         $filename = 'logo.png';
-        if (!$this->upload->do_upload('inputfileupload')) {
+		$datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
+        if (!$this->upload->do_upload('inputfileupload', $datas["id_user"])) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $data = array('inputfileupload' => $this->upload->data());
             $filename = $data['inputfileupload']['file_name'];
         }
-        $datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
+        
         $datas["nosk"] = ($this->input->post('nosk')?$this->input->post('nosk'):NULL);
         $datas["penghargaan"] = ($this->input->post('penghargaan')?$this->input->post('penghargaan'):NULL);
         $datas["instansi"] = ($this->input->post('instansi')?$this->input->post('instansi'):NULL);

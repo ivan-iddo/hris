@@ -53,13 +53,13 @@ class Punishment extends MY_Controller
         $config['max_size'] = '50000000';
         $this->load->library('upload', $config);
         $filename = 'logo.png';
-        if (!$this->upload->do_upload('inputfileupload')) {
+		$datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
+        if (!$this->upload->do_upload('inputfileupload', $datas["id_user"])) {
             $error = array('error' => $this->upload->display_errors());
         } else {
             $data = array('inputfileupload' => $this->upload->data());
             $filename = $data['inputfileupload']['file_name'];
         }
-        $datas["id_user"] = ($this->input->post('id_userfile')?$this->input->post('id_userfile'):NULL);
         $datas["keterangan"] = ($this->input->post('keterangan')?$this->input->post('keterangan'):NULL);
         $datas["kasus"] = ($this->input->post('kasus')?$this->input->post('kasus'):NULL);
         $datas["tindakan"] = ($this->input->post('tindakan')?$this->input->post('tindakan'):NULL);
