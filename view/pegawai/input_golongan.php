@@ -261,7 +261,7 @@
                   } else {
                     if(a==='110'){
                       var date = new Date($('#tmt_golongan').val());
-                      var test = date.addDays(3)
+                      var test = date.addDays(2)
                       var tust = formatDate(test)
                       document.getElementById("tmt_golongan").readOnly = true;
                       $('#tmt_golongan_akhir').val(tust);
