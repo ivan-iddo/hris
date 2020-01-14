@@ -1283,7 +1283,7 @@ public function listpendidikan_get()
             $this->db->join('m_status_lulus', 'm_status_lulus.id = his_pendidikan.pen_desc', 'LEFT');
             $this->db->join('dm_term', 'dm_term.id = his_pendidikan.pen_code', 'LEFT');
             $this->db->where('his_pendidikan.tampilkan', '1');
-			$this->db->order_by('his_pendidikan.pen_tahn','ASC');
+			$this->db->order_by('his_pendidikan.pen_code','ASC');
             if (!empty($id = $this->uri->segment(3))) {
                 $this->db->where('his_pendidikan.id_user', $id);
             }
