@@ -1111,6 +1111,7 @@ public function listkeluarga_get()
             $this->db->join('m_pendidikan', 'm_pendidikan.id = his_keluarga.id_pendidikan', 'LEFT');
             $this->db->join('m_hubungan_keluarga', 'm_hubungan_keluarga.id = his_keluarga.id_hubkel', 'LEFT');
             $this->db->join('m_pekerjaan', ' m_pekerjaan.id = his_keluarga.id_pekerjaan', 'LEFT');
+			$this->db->order_by('his_keluarga.tgl_lahir','ASC');
             $this->db->where('his_keluarga.tampilkan', '1');
             if (!empty($id = $this->uri->segment(3))) {
                 $this->db->where('his_keluarga.id_user', $id);
