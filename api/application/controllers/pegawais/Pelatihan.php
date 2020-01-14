@@ -91,7 +91,8 @@ public function listpelatihan_get(){
 			$arr=array();
 			$this->db->select('his_pelatihan.*,m_tempat.nama as tempat,m_penanggung.nama as nama_p'); 
 			$this->db->join('m_penanggung','m_penanggung.id = his_pelatihan.penanggung','LEFT'); 
-			$this->db->join('m_tempat','m_tempat.id = his_pelatihan.tempat','LEFT'); 
+			$this->db->join('m_tempat','m_tempat.id = his_pelatihan.tempat','LEFT');
+			$this->db->order_by('his_pelatihan.mulai','ASC');			
 			$this->db->where('his_pelatihan.tampilkan','1');
 			if(!empty($id = $this->uri->segment(4))){
 				$this->db->where('his_pelatihan.id_user',$id);
