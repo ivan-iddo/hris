@@ -91,6 +91,7 @@ public function listgolongan_get()
             $this->db->select('his_golongan.*,m_golongan_peg.gol_romawi as nama_p,m_golongan_peg.pangkat,his_golongan.no_sk');
             $this->db->join('m_golongan_pegawai', 'm_golongan_pegawai.id = his_golongan.golongan_id', 'LEFT');
             $this->db->join('m_golongan_peg', 'm_golongan_peg.id = his_golongan.golongan_id', 'LEFT');
+            $this->db->order_by('his_golongan.golongan_id','DESC');
             $this->db->where('his_golongan.tampilkan', '1');
             if (!empty($id = $this->uri->segment(4))) {
                 $this->db->where('his_golongan.id_user', $id);
