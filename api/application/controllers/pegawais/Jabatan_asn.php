@@ -47,6 +47,7 @@ public function listjasn_get(){
 			$this->db->where('sys_user.status','1'); 
 			$this->db->where('his_jabatan_asn.tampilkan','1'); 
 			$this->db->where('his_jabatan_asn.user_id',$this->uri->segment('4')); 
+			$this->db->order_by('his_jabatan_asn.tmt_jfung','ASC');
 			$res = $this->db->get('his_jabatan_asn')->result();
 			if(!empty($res)){
 				foreach($res as $d){

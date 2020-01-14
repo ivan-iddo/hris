@@ -72,7 +72,7 @@ public function listjabatan_get(){
 			$this->db->where('sys_user.status','1'); 
 			$this->db->where('his_mutasi_jabatan.tampilkan','1'); 
 			$this->db->where('his_mutasi_jabatan.user_id',$this->uri->segment('4')); 
-			$this->db->order_by('his_mutasi_jabatan.tgl_sk','DESC');
+			$this->db->order_by('his_mutasi_jabatan.tgl_mutasi','ASC');
 			$res = $this->db->get('his_mutasi_jabatan')->result();
 			if(!empty($res)){
 
