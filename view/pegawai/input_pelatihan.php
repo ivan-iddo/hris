@@ -371,7 +371,7 @@
             function upload_file(){
 			  var id_user = $('#id_user').val();
 			  $('#id_userfile').val(id_user);
-              var form = $("#form-pelatihan");
+			  var data = formJson('form-pelatihan');
               var id_pelatihan = $('#id_pelatihan').val();
 			  if (empty($('#doc_file').val())) {
 					swal('PERHATIAN!', 'Anda belum memilih file untuk di upload');
@@ -383,13 +383,17 @@
               if(id_pelatihan!==''){
                 $.ajax({
                             url: BASE_URL+"pegawais/upload/upload_pelatihan", // Url to which the request is send 
-                            type: "POST", 
-                            data: new FormData(form[0]), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-                            contentType: false,       // The content type used when sending data to the server.
-                            cache: false,             // To unable request pages to be cached
-                            processData:false,        // To send DOMDocument or non processed data file it is set to false
-                            success: function(data)   // A function to be called if request succeeds
-                            {
+                             headers: {
+				'Authorization': localStorage.getItem("Token"),
+				'X_CSRF_TOKEN':'donimaulana',
+				'Content-Type':'application/json'
+			  },
+			  dataType: 'json',
+			  type: 'post',
+			  contentType: 'application/json', 
+			  processData: false,
+              data:data,
+              success: function( data, textStatus, jQxhr ){
                               hasil=data.hasil;
                                message = data.message;
 							if (hasil == "success") {

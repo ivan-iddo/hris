@@ -17,7 +17,6 @@ class Pegawai extends REST_Controller
 * Method: GET
 */
 
-
 function changepass_post()
 {
     $headers = $this->input->request_headers();

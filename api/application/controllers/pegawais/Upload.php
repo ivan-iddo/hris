@@ -2,11 +2,76 @@
 header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: PUT, GET, POST");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");/* Changes: 1. This project contains .htaccess file for windows machine. Please update as per your requirements. Samples (Win/Linux): http://stackoverflow.com/questions/28525870/removing-index-php-from-url-in-codeigniter-on-mandriva 2. Change 'encryption_key' in application\config\config.php Link for encryption_key: http://jeffreybarke.net/tools/codeigniter-encryption-key-generator/ 3. Change 'jwt_key' in application\config\jwt.php */
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
-class Upload extends CI_Controller
+require APPPATH . '/libraries/REST_Controller.php';
+require APPPATH . '/controllers/Monitoring.php';
+$rest_json = file_get_contents("php://input");
+
+$_POST = json_decode($rest_json, true);
+
+class Upload extends REST_Controller
 {
+	
+	/**
+	* URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
+	* Method: GET
+	*/
+	public function upload_file_post(){
+	$headers = $this->input->request_headers();
 
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+			$created=$decodedToken->data->_pnc_username;
+			
+			$config['upload_path'] = 'upload/data';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
+			$config['max_size'] = '50000000'; 
+			$this->load->library('upload', $config);
+			$filename='logo.png';
+			$id = $this->input->post('id_userfile');
+			//print_r($id);die();
+			if (!$this->upload->do_upload('inputfileupload', $id))
+			{
+				$error = array('error' => $this->upload->display_errors());
+			}
+			else
+			{
+				$data = array('inputfileupload' => $this->upload->data());
+				$filename = $data['inputfileupload']['file_name'];
+			}
+
+			$id_kategori = $this->input->post('kategorifile'); 
+
+			$datas = array(
+				'id_user' => $id,
+				'kategori_id' => $id_kategori,
+				'nama_file' =>$this->input->post('namafile'),
+				'url' => $filename,
+				'createdby' => $created,
+				'tgl' => date("Y-m-d H:i:s"));
+
+			$this->db->insert('his_files', $datas);
+
+			if($this->db->affected_rows() == '1'){
+				$arr['file'] = $filename;
+				$arr['nama'] = $this->input->post('namafile');
+				$arr['hasil']='success';
+				$arr['message']='Data berhasil ditambah!'; 
+			}
+			else{
+				$arr['hasil']='error';
+				$arr['message']='Data Gagal Ditambah!';
+			}
+			
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+			return;
+		}
+	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
     /** URL: http://localhost/CodeIgniter-JWT-Sample/auth/token Method: GET */
     public function upload_ijazah()
     {
@@ -37,8 +102,15 @@ class Upload extends CI_Controller
         echo json_encode($arr);
     }
 
-    public function upload_pendidikan()
+    public function upload_pendidikan_post()
     {
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+			$created=$decodedToken->data->_pnc_username;
+			
         $config['upload_path'] = 'upload/pendidikan';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
@@ -59,7 +131,9 @@ class Upload extends CI_Controller
         'kategori_id' => 13,
         'nama_file' =>$this->input->post('namafile'),
         'id_pendidikan' =>$id,
-        'url' => $filename);
+        'url' => $filename,
+		'createdby' => $created,
+		'tgl' => date("Y-m-d H:i:s"));
 		$result=$this->db->insert('his_files_pen', $datas);
 		
         if ($result) {
@@ -70,8 +144,14 @@ class Upload extends CI_Controller
             $arr['hasil'] = 'error';
             $arr['message'] = 'Data Gagal Ditambah!';
         }
-        echo json_encode($arr);
-    }
+        
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+			return;
+		}
+	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
 
     public function upload_latbang_file()
     {   
@@ -136,8 +216,15 @@ class Upload extends CI_Controller
         echo json_encode($response);
     }
 
-    public function upload_pelatihan()
+    public function upload_pelatihan_post()
     {
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+			$created=$decodedToken->data->_pnc_username;
+		
         $config['upload_path'] = 'upload/pelatihan';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
@@ -157,7 +244,9 @@ class Upload extends CI_Controller
         'kategori_id' => 13,
         'nama_file' =>$this->input->post('namafile'),
         'id_pelatihan' =>$id,
-        'url' => $filename);
+        'url' => $filename,
+		'createdby' => $created,
+		'tgl' => date("Y-m-d H:i:s"));
 		$this->db->insert('his_files_pel', $datas); if ($this->db->affected_rows() == '1') {
             $arr['file'] = $filename;
             $arr['hasil'] = 'success';
@@ -166,11 +255,23 @@ class Upload extends CI_Controller
             $arr['hasil'] = 'error';
             $arr['message'] = 'Data Gagal Ditambah!';
         }
-        echo json_encode($arr);
-    }
+       	$this->set_response($arr, REST_Controller::HTTP_OK);
+			return;
+		}
+	}
 
-    public function upload_golongan()
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+
+    public function upload_golongan_post()
     {
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+			$created=$decodedToken->data->_pnc_username;
+		
         $config['upload_path'] = 'upload/golongan';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
@@ -190,7 +291,9 @@ class Upload extends CI_Controller
         'kategori_id' => 12,
         'nama_file' =>$this->input->post('namafile'),
         'id_golongan' =>$id,
-        'url' => $filename);
+        'url' => $filename,
+		'createdby' => $created,
+		'tgl' => date("Y-m-d H:i:s"));
 		$this->db->insert('his_files_gol', $datas);
 		if ($this->db->affected_rows() == '1') {
             $arr['file'] = $filename;
@@ -200,11 +303,23 @@ class Upload extends CI_Controller
             $arr['hasil'] = 'error';
             $arr['message'] = 'Data Gagal Ditambah!';
         }
-        echo json_encode($arr);
-    } 
+        	$this->set_response($arr, REST_Controller::HTTP_OK);
+			return;
+		}
+	}
 
-    public function upload_jabasn()
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
+
+    public function upload_jabasn_post()
     {
+	$headers = $this->input->request_headers();
+
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+			$created=$decodedToken->data->_pnc_username;
+		
         $config['upload_path'] = 'upload/asn';
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
         $config['max_size'] = '50000000';
@@ -225,7 +340,9 @@ class Upload extends CI_Controller
         'kategori_id' => 13,
         'nama_file' =>$this->input->post('namafile'),
         'id_asn' =>$id,
-        'url' => $filename);
+        'url' => $filename,
+		'createdby' => $created,
+		'tgl' => date("Y-m-d H:i:s"));
 		$this->db->insert('his_files_asn', $datas); 
         if ($this->db->affected_rows() == '1') {
             $arr['file'] = $filename;
@@ -235,53 +352,13 @@ class Upload extends CI_Controller
             $arr['hasil'] = 'error';
             $arr['message'] = 'Data Gagal Ditambah!';
         }
-        echo json_encode($arr);
-    }
+      	$this->set_response($arr, REST_Controller::HTTP_OK);
+			return;
+		}
+	}
 
-    public function upload_file()
-    {
-        $config['upload_path'] = 'upload/data';
-        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xls|doc|xlsx';
-        $config['max_size'] = '50000000'; 
-        $this->load->library('upload', $config);
-        $filename='logo.png';
-		$id = $this->input->post('id_userfile');
-
-        if (!$this->upload->do_upload('inputfileupload', $id))
-        {
-            $error = array('error' => $this->upload->display_errors());
-        }
-        else
-        {
-            $data = array('inputfileupload' => $this->upload->data());
-            $filename = $data['inputfileupload']['file_name'];
-        }
-		//print_r($data);die();
-        
-        $id_kategori = $this->input->post('kategorifile'); 
-
-        $datas = array(
-            'id_user' => $id,
-            'kategori_id' => $id_kategori,
-            'nama_file' =>$this->input->post('namafile'),
-            'url' => $filename);
-
-        $this->db->insert('his_files', $datas);
-
-        if($this->db->affected_rows() == '1'){
-            $arr['file'] = $filename;
-            $arr['nama'] = $this->input->post('namafile');
-            $arr['hasil']='success';
-            $arr['message']='Data berhasil ditambah!'; 
-        }
-        else{
-            $arr['hasil']='error';
-            $arr['message']='Data Gagal Ditambah!';
-        }
-
-        echo json_encode($arr);                                           
-    }
-
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+	}
 
     public function uploadidentitas()
     {
