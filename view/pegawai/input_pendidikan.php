@@ -182,9 +182,10 @@
 		swal('PERHATIAN!', 'Anda memasukkan nama file');
 		return false;
 	}
-  if(id_pendidikan!==''){
+	if(id_pendidikan!==''){
     $.ajax({
-              url: BASE_URL+"pegawais/upload/upload_pendidikan", // Url headers: {
+              url: BASE_URL+"pegawais/upload/upload_pendidikan", // Url to which the request is send 
+                             headers: {
 				'Authorization': localStorage.getItem("Token"),
 				'X_CSRF_TOKEN':'donimaulana',
 				'Content-Type':'application/json'
@@ -206,7 +207,7 @@
                             }
                           }
                         });
-  }else{
+              }else{
     alert('Anda harus menyimpan data pendidikan terlebih dahulu sebelum melakukan upload ijazah!');
   }
 }

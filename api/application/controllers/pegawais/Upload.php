@@ -124,7 +124,6 @@ class Upload extends REST_Controller
             $data = array('upload_data' => $this->upload->data());
             $filename = $data['upload_data']['file_name'];
         }
-        $user = $this->input->post('id_userfile');;
         $id = $this->input->post('id_pendidikan');
         $datas = array(
 		'id_user' => $user,
