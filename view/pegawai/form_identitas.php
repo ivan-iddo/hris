@@ -1,3 +1,7 @@
+<?php
+require_once('../../connectdb.php');
+
+?>
 <form name="form-file-identitas" id="form-file-identitas" class="form-horizontal">
     <div class="panel-body pad-all">
         <div class="row">
@@ -11,6 +15,7 @@
              class="fa fa-save"></i> Upload</a>
          </div>
          <div class="col-md-6">
+		 <input type="hidden" value="<?php echo $_SESSION['userdata']['_pnc_username'] ; ?>" name="created" id="created">
             <input type="text" style="display:none" name="kategorifile" id="kategorifile" value="<?php echo $_GET['id'] ?>">
             <input type="text" style="display:none" name="id_userfile" id="id_userfile">
             <div class="form-group">
@@ -57,7 +62,7 @@
 <script> function upload_file2() {
     var id_pelatihan = $('#f_id_edit').val();
     $('#id_userfile').val(id_pelatihan);
-    var data = formJson('form-file-identitas');
+    var form = $("#form-file-identitas");
     if (empty($('#inputfileupload').val())) {
         swal('PERHATIAN!', 'Anda belum memilih file untuk di upload');
         return false;
@@ -68,17 +73,12 @@
     if (id_pelatihan !== '') {
         $.ajax({ 
             url: BASE_URL + "pegawais/upload/upload_file", /* Url to which the request is send*/
-             headers: {
-				'Authorization': localStorage.getItem("Token"),
-				'X_CSRF_TOKEN':'donimaulana',
-				'Content-Type':'application/json'
-			  },
-			  dataType: 'json',
-			  type: 'post',
-			  contentType: 'application/json', 
-			  processData: false,
-              data:data,
-              success: function( data, textStatus, jQxhr ){
+			type: "POST",
+            data: new FormData(form[0]), /* Data sent to server, a set of key/value pairs (i.e. form fields and values)*/
+            contentType: false,       /* The content type used when sending data to the server.*/
+            cache: false,             /* To unable request pages to be cached*/
+            processData: false,        /* To send DOMDocument or non processed data file it is set to false*/
+            success: function (data)   /* A function to be called if request succeeds*/ {
                 hasil = data.hasil;
                 message = data.message;
                 if (hasil == "success") {

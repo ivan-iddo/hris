@@ -1,3 +1,7 @@
+<?php
+require_once('../../connectdb.php');
+
+?>
 <form id="form-pelatihan"  method="post" role="form" class="pad-all">
   <div class="row">
     <!-- left column -->
@@ -10,6 +14,7 @@
 		<input type="text" style="display:none" name="kategorifile" id="kategorifile" value="13">
 		  <input type="text" style="display:none" name="id_userfile" id="id_userfile">
           <div class="form-group">
+		  <input type="hidden" value="<?php echo $_SESSION['userdata']['_pnc_username'] ; ?>" name="created" id="created">
             <label class="col-sm-4 control-label" for="inputstatus">Pelatihan</label>
             <div class="col-sm-8">
               <input class="form-control" id="nama" name="nama" placeholder="" type="text">
@@ -371,7 +376,7 @@
             function upload_file(){
 			  var id_user = $('#id_user').val();
 			  $('#id_userfile').val(id_user);
-			  var data = formJson('form-pelatihan');
+			  var form = $("#form-pelatihan");
               var id_pelatihan = $('#id_pelatihan').val();
 			  if (empty($('#doc_file').val())) {
 					swal('PERHATIAN!', 'Anda belum memilih file untuk di upload');
@@ -382,18 +387,14 @@
 				}
               if(id_pelatihan!==''){
                 $.ajax({
-                            url: BASE_URL+"pegawais/upload/upload_pelatihan", // Url to which the request is send 
-                             headers: {
-				'Authorization': localStorage.getItem("Token"),
-				'X_CSRF_TOKEN':'donimaulana',
-				'Content-Type':'application/json'
-			  },
-			  dataType: 'json',
-			  type: 'post',
-			  contentType: 'application/json', 
-			  processData: false,
-              data:data,
-              success: function( data, textStatus, jQxhr ){
+                            url: BASE_URL+"pegawais/upload/upload_pelatihan", 
+							type: "POST", 
+			data: new FormData(form[0]), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+			contentType: false,       // The content type used when sending data to the server.
+			cache: false,             // To unable request pages to be cached
+			processData:false,        // To send DOMDocument or non processed data file it is set to false
+			success: function(data)   // A function to be called if request succeeds
+			{
                               hasil=data.hasil;
                                message = data.message;
 							if (hasil == "success") {
