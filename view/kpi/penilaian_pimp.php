@@ -271,15 +271,15 @@ var gridPI = {
         function loadDataPI(jml){
           var search = 0;
           var group = localStorage.getItem("group");
-          var url = BASE_URL + 'kpi/mpenilaian/listpi/17/' + search + '/' + jml;
+          var url = BASE_URL + 'kpi/mpenilaian/list_pi/17/' + search + '/' + jml;
           
           if($('#search').val() !==''){
             search = $('#search').val();
-            url = BASE_URL + 'kpi/mpenilaian/listpi/17/' + search + '/' + jml;
+            url = BASE_URL + 'kpi/mpenilaian/list_pi/17/' + search + '/' + jml;
           }
           
           if ((group !== '1') && (group !== '6')) {
-            url = BASE_URL + 'kpi/mpenilaian/listpi/17/' + search + '/' + jml + "/" + group;
+            url = BASE_URL + 'kpi/mpenilaian/list_pi/17/' + search + '/' + jml + "/" + group;
           }
           getJson(prosesDataPI,url);
         }

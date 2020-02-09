@@ -272,15 +272,15 @@ var gridPI = {
         function loadDataPI(jml){
           var search = 0;
           var group = localStorage.getItem("group");
-          var url = BASE_URL + 'kpi/mpenilaian/listpi/16/' + search + '/' + jml;
+          var url = BASE_URL + 'kpi/mpenilaian/list_pi/16/' + search + '/' + jml;
           
           if($('#search').val() !==''){
             search = $('#search').val();
-            url = BASE_URL + 'kpi/mpenilaian/listpi/16/' + search + '/' + jml;
+            url = BASE_URL + 'kpi/mpenilaian/list_pi/16/' + search + '/' + jml;
           }
           
           if ((group !== '1') && (group !== '6')) {
-            url = BASE_URL + 'kpi/mpenilaian/listpi/16/' + search + '/' + jml + "/" + group;
+            url = BASE_URL + 'kpi/mpenilaian/list_pi/16/' + search + '/' + jml + "/" + group;
           }
           getJson(prosesDataPI,url);
         }
@@ -421,7 +421,7 @@ var gridPI = {
       var newData = {
         pid : selectedRowsString,
         child : 16,
-        max : 6,
+        max : 20,
         nama: '',
         no: 0,
         target_kinerja: 0,

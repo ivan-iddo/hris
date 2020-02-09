@@ -83,7 +83,7 @@
   <!--===================================================-->
   <div class="panel">
     <div class="panel-heading">
-      <h3 class="panel-title">List Data Penilaian Kerja Individu</h3>
+      <h3 class="panel-title">List Data Penilaian Kerja Staf</h3>
     </div>
     <div class="panel-body">
       <div class="dataTables_filter" id="demo-dt-addrow_filter" style="margin-right:5px">
@@ -270,15 +270,15 @@ var gridPI = {
         function loadDataPI(jml){
           var search = 0;
           var group = localStorage.getItem("group");
-          var url = BASE_URL + 'kpi/mpenilaian/listpi/5/' + search + '/' + jml;
+          var url = BASE_URL + 'kpi/mpenilaian/list_pi/5/' + search + '/' + jml;
           
           if($('#search').val() !==''){
             search = $('#search').val();
-            url = BASE_URL + 'kpi/mpenilaian/listpi/5/' + search + '/' + jml;
+            url = BASE_URL + 'kpi/mpenilaian/list_pi/5/' + search + '/' + jml;
           }
           
           if ((group !== '1') && (group !== '6')) {
-            url = BASE_URL + 'kpi/mpenilaian/listpi/5/' + search + '/' + jml + "/" + group;
+            url = BASE_URL + 'kpi/mpenilaian/list_pi/5/' + search + '/' + jml + "/" + group;
           }
           getJson(prosesDataPI,url);
         }

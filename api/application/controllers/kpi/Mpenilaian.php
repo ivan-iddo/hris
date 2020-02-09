@@ -631,6 +631,110 @@ public function listpi_get(){
 	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
 }
 
+public function list_pi_get(){
+	$headers = $this->input->request_headers(); 
+	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
+		$decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
+		if ($decodedToken != false) {
+			$jabatan1 = $decodedToken->data->_jabatan1;
+			$jabatan2 = $decodedToken->data->_jabatan2;
+			//$jabatan3 = $decodedToken->data->_jabatan3;
+			$this->load->model('System_auth_model', 'm');
+//$this->db->limit('100');
+//$this->db->order_by();
+			if($jabatan1!=0){
+				$id_jab1=$this->m->getchild($jabatan1);
+				$id_jab1[]=$jabatan1;
+			}
+			
+			if($jabatan2!=0){
+				$id_jab2=$this->m->getchild($jabatan2);
+				$id_jab2[]=$jabatan2;
+			}
+			if($jabatan2!=0){
+			$id_ja1=array_merge($id_jab1,$id_jab2);
+			}else{
+			$id_ja1=$id_jab1;
+			}
+
+			$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
+			$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.nip','LEFT');
+			$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
+			$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+			$this->db->where('his_kpi.tampilkan','1');
+			$this->db->where('his_kpi.status','0');
+			$this->db->where('his_kpi.id_jenis',$this->uri->segment(4));
+
+			$param = urldecode($this->uri->segment(5));
+			$param2 = "%".$param."%";
+			if(!empty($this->uri->segment(5))){
+				$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param2); 
+			}
+			
+			if(!empty($this->uri->segment(7))){
+			$this->db->where_in("his_kpi.id_jab",$id_ja1); 
+			}
+			
+			$total_rows = $this->db->count_all_results('his_kpi');
+			$pagination = create_pagination_endless('/user/list/0/', $total_rows,20,6);
+
+
+			$this->db->select('his_kpi.*,sys_grup_user.grup,sys_grup_user.grup as nama_uk,
+				sys_user.id_user,
+				sys_user_profile.nip,
+				sys_user_profile.nik,
+				sys_user.name,sys_user_profile.kategori_profesi as profesi');
+
+			$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
+			$this->db->join('sys_user_profile','his_kpi.id_user = sys_user_profile.id_user','LEFT');
+			$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
+			$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
+			$this->db->where('his_kpi.tampilkan','1');
+			$this->db->where('his_kpi.status','0');
+			$this->db->order_by('his_kpi.id','DESC');
+			$this->db->where('his_kpi.id_jenis',$this->uri->segment(4));
+
+			$param = urldecode($this->uri->segment(5));
+			$param2 = "%".$param."%";
+			if(!empty($this->uri->segment(5))){
+				$this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip) ilike",$param2); 
+			}
+			
+			if(!empty($this->uri->segment(7))){
+			$this->db->where_in("his_kpi.id_jab",$id_ja1); 
+			}
+			
+			$this->db->limit($pagination['limit'][0], $pagination['limit'][1]);
+
+
+			$res = $this->db->get('his_kpi')->result();
+			foreach($res as $d){
+				$arr['result'][]=array('nama_uk'=>$d->nama_uk,
+					'id_uk'=>$d->id_unitkerja, 
+					'id'=>$d->id,
+					'nama'=>$d->name, 
+					'nama_group'=>$d->grup,
+					'nip'=>$d->nip,
+					'nik'=>$d->nik,
+					'id_user'=>$d->id_user,
+					'awal' => date_format(date_create($d->awal), "d-m-Y"),
+					'akhir'=> date_format(date_create($d->akhir), "d-m-Y"),
+					'profesi' => $d->profesi
+				);
+			}
+
+			$arr['total']=$total_rows;
+			$arr['paging'] = $pagination['limit'][1];
+			$this->set_response($arr, REST_Controller::HTTP_OK);
+
+			return;
+		}
+	}
+
+	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
+
+
 public function list_us_get(){
 	$headers = $this->input->request_headers(); 
 	if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
@@ -1789,7 +1893,7 @@ public function listuserunitk_get(){
 							$child = $this->input->get('child');
 							if(($child==16)){
 								$ik='IKU ';
-								$max=6;
+								$max=20;
 							}else if(($child==17)){
 								$ik='IKP ';
 								$max=20;
