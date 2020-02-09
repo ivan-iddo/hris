@@ -339,7 +339,7 @@ var gridPI = {
               rowData.push(node.data);
             });
     //console.log('Row Data:'); 
-    save(BASE_URL+'kpi/mpenilaian/savedetail',rowData,tektok);
+    save(BASE_URL+'kpi/mpenilaian/savedetail?id=17',rowData,tektok);
   }
 
   function get() {

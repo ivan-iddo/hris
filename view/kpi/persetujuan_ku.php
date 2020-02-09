@@ -136,6 +136,7 @@
   {headerName: "No.Pegawai", field: "nopeg", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Nama Pegawai", field: "nama", width: 160, filterParams:{newRowsAction: "keep"}},
   {headerName: "Unit Kerja", field: "unit", width: 190, filterParams:{newRowsAction: "keep"}},
+  {headerName: "Jabatan", field: "jabatan", width: 190, filterParams:{newRowsAction: "keep"}},
   {headerName: "Nilai IKU", field: "nilai", width: 90, filterParams:{newRowsAction: "keep"}},
   {headerName: "Nilai IKU Awal", field: "nilai_awal", width: 130, filterParams:{newRowsAction: "keep"}},
   {headerName: "Status", field: "status", width: 120, cellRenderer: CellRenderer},

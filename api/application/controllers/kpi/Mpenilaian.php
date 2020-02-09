@@ -53,9 +53,17 @@ public function savedetail_post(){
 				$jumlah = $dat['nilai_bobot'];
 				$nama1=strtolower($dat['nama']);
 				$nama=ucwords($nama1);
-				$this->db->select('m_penilaian_kpi.id_grup,m_penilaian_kpi.bobot');
+				$chil=$this->input->get('id');
+				if($chil==5){
+				$chils=array(5,20);
+				}if($chil==17){
+				$chils=array(17,25);
+				}if($chil==16){
+				$chils=array(16,30);
+				}
+				$this->db->select('m_penilaian_kpi.child,m_penilaian_kpi.id_grup,m_penilaian_kpi.bobot');
 				$this->db->where('tampilkan',1);
-				//$this->db->where_in('child',array($dat['child'],20,30,40));
+				$this->db->where_in('child',$chils);
 				$this->db->where('grup',$nama);
 				$res = $this->db->get('m_penilaian_kpi')->row();
 				//print_r($res);die();
@@ -130,10 +138,12 @@ public function savedetail_post(){
 						$nama1=strtolower($dat['nama']);
 						$nama=ucwords($nama1);
 						$data = array(
-							'grup'=>$nama,'bobot'=>$dat['no'],'child'=>$dat['child'],);
+							'grup'=>$nama,'bobot'=>$dat['no'],'child'=>$chil);
 						$this->db->insert('m_penilaian_kpi',$data);
 						$this->db->select('m_penilaian_kpi.id_grup');
+						$this->db->where('child',$chil);
 						$this->db->where('grup',$nama);
+						$this->db->where('tampilkan',1);
 						$res = $this->db->get('m_penilaian_kpi')->row();
 						$kpi = $res->id_grup;
 						if (empty($dat['id_kpi_d'])) {
@@ -553,7 +563,6 @@ public function listpi_get(){
 //$this->db->order_by();
 
 
-
 			$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
 			$this->db->join('sys_user_profile','his_kpi.no_pegawai = sys_user_profile.nip','LEFT');
 			$this->db->join('sys_user','sys_user.id_user = sys_user_profile.id_user','LEFT');
@@ -605,6 +614,8 @@ public function listpi_get(){
 
 
 			$res = $this->db->get('his_kpi')->result();
+			
+			
 			foreach($res as $d){
 				$arr['result'][]=array('nama_uk'=>$d->nama_uk,
 					'id_uk'=>$d->id_unitkerja, 
@@ -2487,6 +2498,7 @@ public function listiki_get()
 
 			$id_jenis=$this->input->get('status');
 			$user_froup = $decodedToken->data->_pnc_id_grup;
+			$jabatan = $decodedToken->data->_jabatan1;
 			$this->load->model('System_auth_model', 'm');
 			
 			//print_r($id_jenis);die();
@@ -2506,12 +2518,11 @@ public function listiki_get()
 				$thn = $this->input->get('tahun');
 			}
 
-			$this->db->select('his_kpi.*,riwayat_kedinasan.jabatan_struktural as jabatan1,riwayat_kedinasan.jabatan2 as jabatan2,riwayat_kedinasan.jabatan3 as jabatan3,m_status_proses.nama as status_name, sys_grup_user.grup as nama_uk,sys_user.name, EXTRACT(MONTH FROM his_kpi.akhir) AS bulan, EXTRACT(YEAR FROM his_kpi.akhir) AS tahun');
+			$this->db->select('his_kpi.*,m_index_jabatan_asn_detail.ds_jabatan, riwayat_kedinasan.jabatan_struktural as jabatan1,riwayat_kedinasan.jabatan2 as jabatan2,riwayat_kedinasan.jabatan3 as jabatan3,m_status_proses.nama as status_name, sys_grup_user.grup as nama_uk,sys_user.name, EXTRACT(MONTH FROM his_kpi.akhir) AS bulan, EXTRACT(YEAR FROM his_kpi.akhir) AS tahun');
 			$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
 			$this->db->join('sys_user','sys_user.id_user = his_kpi.id_user','LEFT');
 			$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 			$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = his_kpi.id_jab','LEFT');
-			$this->db->join('m_index_jabatan_asn_detail as aa','aa.migrasi_jabatan_detail_id = riwayat_kedinasan.jabatan_struktural','LEFT');
 			$this->db->join('m_status_proses','m_status_proses.id = his_kpi.status','LEFT');
 			$this->db->where('his_kpi.id_jenis',$id_jenis);
 			$this->db->where('EXTRACT(YEAR FROM his_kpi.akhir) =',$thn);
@@ -2525,10 +2536,12 @@ public function listiki_get()
 				$this->db->where('EXTRACT(MONTH FROM his_kpi.akhir) =',$this->input->get('bulan'));
 			}
 			if($id_jenis=='5'){
-				if($user_froup == '99'){
+				if($jabatan == '2663'){
 					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',1);
-				}else if($user_froup == '3'){
+				}else if($jabatan == '3'){
 					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');$this->db->where_in('his_kpi.status',1);
+				}else if($jabatan == '2701'){
+					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',1);
 				}else{
 					$this->db->where_in('his_kpi.status',array('1','2','3','5'));
 			
@@ -2536,24 +2549,28 @@ public function listiki_get()
 			}
 			if($id_jenis=='17'){
 				$id_jab=array('1','2','3','38','70','83','115','148','231','244','273','293','306','366','398','411','443','475','509','523','555','589','654','667','699','732','746','781','815','847','881','894','935','948','962','996','1572','1580','1581','1646','1718','1726','1733','1734','1863','1864','1957','2005','2033','2066','2182','2195','2249','2250','2252','2275','2427','2522','2553','2554','2555','2590','2642','2749','2782','2832','2856','2877','2922','2930','2942','2948','2967','2969','2977','2987','3028','3064','3089','3114');
-				if($user_froup == '3'){
+				if($jabatan == '3'){
 					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');$this->db->where_in('his_kpi.status',1);
-				}else if($user_froup == '92'){
+				}else if($jabatan == '2553'){
 				    $this->db->where_in("his_kpi.id_jab",$id_jab);
 					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',1);
-				}else if($user_froup == '97'){
+				}else if($jabatan == '2642'){
 					$this->db->where_not_in("his_kpi.id_jab",$id_jab);
 					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',1);
+				}else if($jabatan == '2701'){
+					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',5);
 				}else{
 					$this->db->where_in('his_kpi.status',array('1','2','3','5'));
 			
 				}
 			}
 			if($id_jenis=='16'){
-				if($user_froup == '3'){
+				if($jabatan == '3'){
 					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');$this->db->where_in('his_kpi.status',1);
-				}else if ($user_froup == '92'){
+				}else if ($jabatan == '2553'){
 					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',1);
+				}else if ($jabatan == '2642'){
+					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',5);
 				}else{
 					$this->db->where_in('his_kpi.status',array('1','2','3','5'));
 			
@@ -2602,6 +2619,7 @@ public function listiki_get()
 							'nilai'=>$d->nilai_akhir,
 							'iku'=>$iku,
 							'ket'=>$d->ket,
+							'jabatan'=>$d->ds_jabatan,
 							'bulan'=>$d->bulan,
 							'id_uk'=>$d->id_unitkerja,
 							'tahun'=>$d->tahun
@@ -2845,18 +2863,10 @@ public function listiku_get()
 
 			$id_jenis=$this->input->get('status');
 			$user_froup = $decodedToken->data->_pnc_id_grup;
+			$jabatan = $decodedToken->data->_jabatan1;
 			$this->load->model('System_auth_model', 'm');
 					
 			//print_r($id_jenis);die();
-			if (($user_froup == '1') OR ($user_froup == '6') OR ($user_froup == '3') OR ($user_froup == '92') OR ($user_froup == '97') OR ($user_froup == '99')) {
-				if ((!empty($this->input->get('id_uk'))) AND ($this->input->get('id_uk') <> 'null')) {
-					$this->db->where('id_unitkerja', $this->input->get('id_uk'));
-				}
-
-			}else{
-				$this->db->where('id_unitkerja', $user_froup);
-			}
-
 
 			if (empty($this->input->get('tahun'))) {
 				$thn = date('Y');
@@ -2870,7 +2880,7 @@ public function listiku_get()
 			}
 
 			
-					$this->db->select('his_kpi.*,his_kpi.nilai as iku,riwayat_kedinasan.jabatan_struktural as jabatan1,riwayat_kedinasan.jabatan2 as jabatan2,riwayat_kedinasan.jabatan3 as jabatan3,m_status_proses.nama as status_name, sys_grup_user.grup as nama_uk,sys_user.name, EXTRACT(MONTH FROM his_kpi.akhir) AS bulan, EXTRACT(YEAR FROM his_kpi.akhir) AS tahun');		
+					$this->db->select('his_kpi.*, m_index_jabatan_asn_detail.ds_jabatan, his_kpi.nilai as iku,riwayat_kedinasan.jabatan_struktural as jabatan1,riwayat_kedinasan.jabatan2 as jabatan2,riwayat_kedinasan.jabatan3 as jabatan3,m_status_proses.nama as status_name, sys_grup_user.grup as nama_uk,sys_user.name, EXTRACT(MONTH FROM his_kpi.akhir) AS bulan, EXTRACT(YEAR FROM his_kpi.akhir) AS tahun');		
 					$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
 					$this->db->join('sys_user','sys_user.id_user = his_kpi.id_user','LEFT');
 					$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
@@ -2882,16 +2892,23 @@ public function listiku_get()
 					$this->db->where('his_kpi.id_jenis',16);
 					
 					if($id_jenis=='16'){
-						if($user_froup == '3'){
+						if($jabatan == '3'){
 							$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');
 							$this->db->where_in('his_kpi.status',1);
-						}else if ($user_froup == '97'){
+						}else if ($jabatan == '2642'){
 							$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');
 							$this->db->where_in('his_kpi.status',1);
+						}else if ($jabatan == '2701'){
+							$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');
+							$this->db->where_in('his_kpi.status',5);
+						}else if ($user_froup == '1'){
+							$this->db->where_in('his_kpi.status',array('1','2','3','5'));
 						}else{
-						$this->db->where_in('his_kpi.status',array('1','2','3','5'));
+							$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');
+							$this->db->where_in('his_kpi.status',1);
 						}
 					}
+			
 					$this->db->order_by('sys_user.name', 'ASC');
 					$n_unit = $this->db->get('his_kpi')->result();
 					$i=0;
@@ -2907,6 +2924,7 @@ public function listiku_get()
 							'nilai'=>$n->nilai_akhir,
 							'iku'=>$n->iku,
 							'ket'=>$n->ket,
+							'jabatan'=>$n->ds_jabatan,
 							'bulan'=>$n->bulan,
 							'id_uk'=>$n->id_unitkerja,
 							'tahun'=>$n->tahun
