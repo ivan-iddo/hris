@@ -1112,17 +1112,12 @@ public function listuser_get(){
 					$res = $this->db->get('sys_user')->result();
 					//print_r($res);die();
 					foreach($res as $d){
-						if($jabatan==0){
+						if($jabatan2!=0){
 						$nam=$d->nama;
 						$id_jb=$d->id_jab;
 						}else{
-						if($jabs2!=1){
 						$nam=$d->nam_jab;
 						$id_jb=$d->jabs;
-						}else{
-						$nam=$d->nama;
-						$id_jb=$d->id_jab;
-						}
 						}
 						$arr['result'][]=array('nama_uk'=>$nam,
 							'id_uk'=>$d->id_uk,
