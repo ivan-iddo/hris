@@ -1590,7 +1590,7 @@ public function listuserunitk_get(){
 									);
 									$this->db->insert('his_kpi',$data);
 									$id = $this->db->insert_id('his_kpiid_seq');
-									if($profil[0]->kategori_profesi!=2){
+									if($profil[0]->kategori_profesi!=02){
 										if($id_jenis=="5"){
 											$this->db->where('tampilkan',1);
 											$this->db->where('child','20');
