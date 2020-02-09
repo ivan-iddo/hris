@@ -648,8 +648,10 @@ public function list_pi_get(){
 			}
 			
 			if($jabatan2!=0){
-				$id_jab2=$this->m->getchild($jabatan2);
-				print_r($id_jab2);die();
+				$id_ab2=$this->m->getchild($jabatan2);
+				if($id_ab2!=0){
+				$id_jab2=$id_ab2;
+				}
 				$id_jab2[]=$jabatan2;
 			}
 			
