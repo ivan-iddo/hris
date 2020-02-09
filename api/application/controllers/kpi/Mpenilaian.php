@@ -771,7 +771,7 @@ public function list_us_get(){
 			if($jabs2==1){
 			$g_jabs2=$id_jab1;
 			}else{
-			$g_jabs2=array_intersect($g_jabs2,$id_jab1);
+			$g_jabs2=array_intersect($jabs2,$id_jab1);
 			}
 			//if(!empty($jabatan3)){
 			//	$id_jab3=$this->m->getchild($jabatan3);
