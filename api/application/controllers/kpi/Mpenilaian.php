@@ -649,8 +649,10 @@ public function list_pi_get(){
 			
 			if($jabatan2!=0){
 				$id_jab2=$this->m->getchild($jabatan2);
+				print_r($id_jab2);die();
 				$id_jab2[]=$jabatan2;
 			}
+			
 			if($jabatan2!=0){
 			$id_ja1=array_merge($id_jab1,$id_jab2);
 			}else{
