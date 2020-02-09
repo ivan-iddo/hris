@@ -762,7 +762,9 @@ public function list_us_get(){
 			}else{
 			$id_jab1=$id_ja1;
 			}
+
 			$g_jab2=$this->m->grups_get($id_jab1);
+			print_r($g_jab2);die();
 			$jab_s=$this->m->grup_get();
 			$jabs2=$this->m->grupn_get($id_jab1);
 
