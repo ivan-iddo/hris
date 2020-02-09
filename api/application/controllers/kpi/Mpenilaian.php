@@ -1110,6 +1110,7 @@ public function listuser_get(){
 // $this->db->order_by('his_sip.date_end','DESC');
 // $this->db->limit('1');
 					$res = $this->db->get('sys_user')->result();
+					print_r($res);die();
 					foreach($res as $d){
 						if($jabatan2!=0){
 						$nam=$d->nama;
