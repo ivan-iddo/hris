@@ -1541,8 +1541,9 @@ public function listuserunitk_get(){
 							$this->db->where('id_user',$id_user);
 							$this->db->where('id_jab',$id_jab);
 							$res = $this->db->get('his_kpi')->row();
-							$this->db->where('id_user',$id_user);
-							$profil = $this->db->get('sys_user_profile')->result();
+							
+							$this->db->where('migrasi_jabatan_detail_id',$id_jab);
+							$profil = $this->db->get('m_index_jabatan_asn_detail')->result();
 							if(empty($res)){
 								$this->db->order_by('id','DESC');
 								$this->db->limit('1');
@@ -1590,7 +1591,7 @@ public function listuserunitk_get(){
 									);
 									$this->db->insert('his_kpi',$data);
 									$id = $this->db->insert_id('his_kpiid_seq');
-									if($profil[0]->kategori_profesi!=02){
+									if($profil[0]->kd_grp_job_profesi!=02){
 										if($id_jenis=="5"){
 											$this->db->where('tampilkan',1);
 											$this->db->where('child','20');
