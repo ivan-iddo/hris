@@ -77,11 +77,11 @@ public function list_get(){
             $param = urldecode($this->uri->segment(3));
             $param2 = "%".$param."%";
             if(!empty($this->uri->segment(3))){
-
-// $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param); 
-                $this->db->where("CONCAT(sys_user.name,' ', sys_user.id_user, ' ', sys_grup_user.grup) ilike",$param2); 
-// $this->db->like("sys_user.name",$param); 
-//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
+			   if(strlen($param)<3){
+			   $this->db->where("sys_user.id_user",$param);
+			   }else{
+               $this->db->where("CONCAT(sys_user.name,' ', sys_user.id_user, ' ', sys_grup_user.grup) ilike",$param2);
+			   }
             }
             if(!empty($this->uri->segment(5))){
 
@@ -118,12 +118,11 @@ public function list_get(){
 // 	$this->db->or_like('sys_user_profile.nip',$this->uri->segment(3));
 //  }
             if(!empty($this->uri->segment(3))){
-
-// $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param);
-                $this->db->where("CONCAT(sys_user.name,' ', sys_user.id_user, ' ', sys_grup_user.grup) ilike",$param2);
-// $this->db->like("sys_user.name",$param);  
-//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
-
+			   if(strlen($param)<3){
+			   $this->db->where("sys_user.id_user",$param);
+			   }else{
+               $this->db->where("CONCAT(sys_user.name,' ', sys_user.id_user, ' ', sys_grup_user.grup) ilike",$param2);
+			   }
             }
             if(!empty($this->uri->segment(5))){
 
