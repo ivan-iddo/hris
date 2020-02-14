@@ -459,6 +459,15 @@ public function list_usernew_get(){
 // $this->db->like("sys_user.name",$param); 
 //$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
             }
+			$para = urldecode($this->uri->segment(4));
+            $para2 = "%".$para."%";
+            if(!empty($this->uri->segment(4))){
+
+// $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param); 
+                $this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip, ' ', sys_grup_user.grup) ilike",$para2); 
+// $this->db->like("sys_user.name",$param); 
+//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
+            }
 //if(!empty($this->uri->segment(5))){
 
 //$this->db->where("riwayat_kedinasan.bagian",$this->uri->segment(5)); 
@@ -489,6 +498,15 @@ public function list_usernew_get(){
 // $this->db->like("sys_user.name",$param);  
 //$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
 
+            }
+			$para = urldecode($this->uri->segment(4));
+            $para2 = "%".$para."%";
+            if(!empty($this->uri->segment(4))){
+
+// $this->db->like("CONCAT(sys_user.name,' ', sys_user_profile.nip)",$param); 
+                $this->db->where("CONCAT(sys_user.name,' ', sys_user_profile.nip, ' ', sys_grup_user.grup) ilike",$para2); 
+// $this->db->like("sys_user.name",$param); 
+//$this->db->or_like('sys_grup_user.grup',$this->uri->segment(3));
             }
 // if(!empty($this->uri->segment(5))){
 

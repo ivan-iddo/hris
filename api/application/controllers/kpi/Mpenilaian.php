@@ -1987,6 +1987,12 @@ public function getikpi_get(){
 			$id = $this->input->get('id');
 			$idp = $this->input->get('idp');
 			$child = $this->input->get('child');
+			$s = $this->input->get('s');
+			$para = urldecode($s);
+            $para2 = "%".$para."%";
+            if(!empty($s)){
+                $this->db->where("grup ilike",$para2); 
+            }
 			if(!empty($idp)){
 				$this->db->where('m_penilaian_kpi.id_grup',$this->input->get('idp'));
 			}

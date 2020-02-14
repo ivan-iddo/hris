@@ -679,6 +679,7 @@ aria-expanded="false">Penghargaan</a></li>
       $('.datepicker').hide();
     });
   });
+
   function copykpos(){
 
     $("#inputkposktp").val($("#inputkpos").val());
