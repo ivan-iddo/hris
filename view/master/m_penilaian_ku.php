@@ -38,6 +38,11 @@
                 <button class="btn btn-danger btn-labeled fa fa-close btn-sm" onClick="proses_delete();">Delete
                 </button>
               </div>
+			   <div id="demo-dt-delete_filter" class="dataTables_filter">
+                  <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder="" type="search" id="search" onkeydown="if(event.keyCode=='13'){loaddata();}" >
+                  </label>
+                  
+                </div>
               <h4>Indikator Kerja</h4>
               <div id="myGrid" style="height: 400px;width:100%" class="ag-theme-balham">
               </div>
@@ -233,7 +238,11 @@
   }
 
   function loaddata(){
-    getJson(getdata,BASE_URL+'<?php echo $nama_modul?>/getikpi?child=5&id=5&pid=0');
+	var search = 0;
+    if($('#search').val() !==''){
+      search = $('#search').val();
+    }
+    getJson(getdata,BASE_URL+'<?php echo $nama_modul?>/getikpi?child=5&id=5&pid=0&s='+search);
   }
 
 
