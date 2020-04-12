@@ -78,6 +78,20 @@ require_once('../../connectdb.php');
                       </div>
                     </div>
 					</div>
+					<div class="admininput">
+                    <div class="row pad-top"> 
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label" for="inputstatus">Jenis Cuti</label>
+                        <div class="col-sm-7">
+                          <select class="form-control select-chosen" id="jenis" name="jenis" style="width: 100%;">
+
+
+                          </select> 
+                        </div>
+
+                      </div>
+                    </div>
+					</div>
                   <?php } ?>
 
 
@@ -184,8 +198,9 @@ require_once('../../connectdb.php');
     var akhir=$('#akhir').val();
     var uk=$('#txtdirektorat').val();
     var user=$('#user').val();
+    var jenis=$('#jenis').val();
     $.ajax({
-      url: BASE_URL+'cuti/list_cutis?awal='+awal+'&akhir='+akhir+'&id_uk='+uk+'&user='+user,
+      url: BASE_URL+'cuti/list_cutis?awal='+awal+'&akhir='+akhir+'&id_uk='+uk+'&user='+user+'&jenis='+jenis,
       headers: {
         'Authorization': localStorage.getItem("Token"),
         'X_CSRF_TOKEN':'donimaulana',
@@ -240,6 +255,7 @@ require_once('../../connectdb.php');
 		});
 	}
 	loadUser("user", BASE_URL + "users/list_usernew");
+    getOptions("jenis",BASE_URL+"master/jenis_cuti");
     getOptions("txtdirektorat",BASE_URL+"master/direktoratSub");
   </script>
 <?php } ?>

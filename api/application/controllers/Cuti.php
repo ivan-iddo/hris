@@ -977,6 +977,11 @@ function list_cutis_get()
             
 			//$this->db->where('his_cuti.tgl_akhir_cuti >=',$awal);
             
+			if (!empty($this->input->get('jenis'))) {
+                $this->db->where('his_cuti.jenis_cuti =',$this->input->get('jenis'));
+				//$this->db->where('his_cuti.tgl_akhir_cuti <=',$ahir);
+            }
+			
 			if (!empty($this->input->get('akhir'))) {
                 $ahir = date_format(date_create($this->input->get('akhir')), "Y-m-d");
 				$this->db->where('his_cuti.tgl_cuti <=',$ahir);
