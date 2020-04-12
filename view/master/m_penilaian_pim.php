@@ -143,7 +143,7 @@
       }
       );
       $.ajax({
-        url: BASE_URL+'<?php echo $nama_modul?>/getitemkpi/?idp='+selectedRowsString,
+        url: BASE_URL+'<?php echo $nama_modul?>/getikpi/?idp='+selectedRowsString,
         headers: {
           'Authorization': localStorage.getItem("Token"),
           'X_CSRF_TOKEN':'donimaulana',

@@ -64,8 +64,7 @@
        </div>
        <div class="col-sm-9 text-left buttoenedit">
          <a href="javascript:void(0)" class="btn btn-warning" id="edit" name="edit" type="submit" onClick="simpanPI();return false;">Edit</a> 
-         <a href="javascript:void(0)" class="btn btn-mint" id="simpan" name="simpan" type="submit" onClick="$('#simpan').show('slow');$('.buttoenedit').hide('slow');document.getElementById('form-pi').reset(); return false;">Buat Baru</a> 
-         
+       
        </div>
      </div>
      
@@ -87,6 +86,9 @@
     </div>
     <div class="panel-body">
       <div class="dataTables_filter" id="demo-dt-addrow_filter" style="margin-right:5px">
+	   <div style="padding:4px">
+         <a href="javascript:void(0)" class="btn btn-mint" id="simpan" name="simpan" type="submit" onClick="$('#simpan').show('slow');$('.buttoenedit').hide('slow');document.getElementById('form-pi').reset(); return false;" style="float: left;">Buat Baru</a> 
+	  </div>
         <label>Search:<input aria-controls="demo-dt-addrow" class="form-control input-sm" placeholder="" type="search" id="search" onkeydown="if(event.keyCode=='13'){loadDataPI(0);}" ></label>
         
       </div>

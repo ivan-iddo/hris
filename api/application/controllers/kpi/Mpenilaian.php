@@ -461,6 +461,14 @@ public function saveiku_post()
 				$jumlah = $dat['nilai_bobot'];
 				$id_kpi = $dat['pid'];
 				$bobot = $dat['no'];
+				//print_r($dat['nilai_bobot']);die();
+				if($dat['nilai_bobot']=='0'){
+					$arr['hasil']='Maaf';
+					$arr['message'] = 'Kolom Nilai Harus Terisi Lengkap';
+				$this->set_response($arr, REST_Controller::HTTP_OK);
+				return;
+				}
+				
 			}
 			$max = 100;
 			if(empty($bobot)){
@@ -471,6 +479,8 @@ public function saveiku_post()
 				$arr['message'] = 'Perhatian! Total Bobot Anda kurang atau lebih dari 100%. Total Bobot harus 100%';
 			}else{
 				foreach ($_POST as $dat) {
+					//print_r($dat['nilai']);die();
+					
 					if($dat['id_kpi_d']!=1){
 						$array = array(
 							'id_lama'=>$dat['id_kpi_d'],
@@ -485,6 +495,7 @@ public function saveiku_post()
 						);
 						$this->db->insert('his_kpi_detail_lama',$array);
 					}
+					
 				}
 				$this->db->where('id', $id_kpi);
 				$result = $this->db->update('his_kpi',array('nilai' => round($jumlah, 2),'nilai_akhir' => round($jumlah, 2), 'status' => '5'));
@@ -2066,6 +2077,11 @@ public function save_post(){
 			$bobot= $_POST['pilih'];
 			$nama1=strtolower($_POST['group_group']);
 			$group_group=ucwords($nama1);
+			$this->db->where('m_penilaian_kpi.child',$id_parent);
+			$this->db->where('m_penilaian_kpi.grup',$group_group);
+			$cek = $this->db->get('m_penilaian_kpi')->num_rows();
+			//print_r($cek);die();
+			if($cek==0){
 			$data = array(
 				'grup'=>$group_group,'bobot'=>$bobot);
 
@@ -2081,7 +2097,10 @@ public function save_post(){
 				$arr['hasil']='error';
 				$arr['message']='Data Gagal Ditambah!';
 			}
-		}
+			}else{
+				$arr['hasil']='error';
+				$arr['message']='Data Sudah ada!';
+			}
 
 		$this->set_response($arr, REST_Controller::HTTP_OK);
 
@@ -2089,6 +2108,7 @@ public function save_post(){
 	}
 
 	$this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+}
 }
 
 
