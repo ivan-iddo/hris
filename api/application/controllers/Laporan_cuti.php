@@ -48,12 +48,17 @@ function cetak_get()
 		$awal = date_format(date_create($this->input->get('awal')), "Y-m-d");
 	}
 	
+	
+			
 	if ($this->input->get('user')!='null') {
 		$this->db->where('sys_user.id_user',$this->input->get('user'));
 	}else{
 		$this->db->where('his_cuti.tgl_cuti >=',$awal);
 	}
-	
+	if (!empty($this->input->get('jenis'))) {
+		$this->db->where('his_cuti.jenis_cuti =',$this->input->get('jenis'));
+		//$this->db->where('his_cuti.tgl_akhir_cuti <=',$ahir);
+	}
 	$this->db->where('m_jenis_cuti.tahun=',date('Y'));
 	
 	//$this->db->where('his_cuti.tgl_akhir_cuti >=',$awal);
