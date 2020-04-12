@@ -98,7 +98,7 @@
            <button style="margin-left:3px" class="btn btn-danger" onclick="reset()"><i class="fa fa-file-excel-o"></i> Reset</button>
 		   <?php }else{?>
 			<button style="margin-left:3px" class="btn btn-primary" onclick="update()"><i class="fa fa-file-excel-o"></i> Simpan</button>
-           <button style="margin-left:3px" class="btn btn-warning" onclick="proses('1')"><i class="fa fa-file-excel-o"></i> Perbaikan </button>		   
+           <button style="margin-left:3px" class="btn btn-warning" onclick="proses('1')"><i class="fa fa-file-excel-o"></i> Ketua DPK </button>		   
 		   <button class="btn btn-default"  onCLick="downloadpimp();return false;"><i class="fa fa-file-excel-o"></i> Download Excel</button>
 			<?php }?>		   
          </div>
@@ -115,7 +115,7 @@
 <div class="row">
 	<div class="col-sm-8 table-toolbar-left">
 		<button style="margin-left:3px" class="btn btn-mint" onclick="getRowData()"><i class="fa fa-file-excel-o"></i> Simpan Perubahan</button>
-		<button class="btn btn-success" onclick="get()"><i class="fa fa-file-excel-o"></i> Selesai kirim ke SDM</button>                                                   				                     
+		<button class="btn btn-success" onclick="get()"><i class="fa fa-file-excel-o"></i> Unit Kerja Pengirim</button>                                                   				                     
    <button class="btn btn-danger" onclick="hapus()"><i class="fa fa-file-excel-o"></i> Delete</button>                                                   				                     
  </div>
  <div class="col-sm-4 table-toolbar-right">
@@ -328,7 +328,7 @@ function getRowData() {
     rowData.push(node.data);
   });
     //console.log('Row Data:'); 
-    save(BASE_URL+'kpi/mpenilaian/savedetail',rowData,tektok);
+    save(BASE_URL+'kpi/mpenilaian/savedetail?id=17',rowData,tektok);
   }
   
   function tektok(){
