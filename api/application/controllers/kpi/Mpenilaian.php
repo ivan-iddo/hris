@@ -1978,6 +1978,8 @@ if(!empty($res)){
 		'nilai'=> NULL,
 		'keterangan'=> NULL,
 	);
+}else if(!empty($id)){
+	$arr[] ='';
 }else{
 	$arr['result'] ='empty';
 }
