@@ -189,6 +189,7 @@ require_once('../../connectdb.php');
 	var akhir=$('#akhir').val();
 	var uk=$('#txtdirektorat').val();
 	var user=$('#user').val();
+	var jenis=$('#jenis').val();
 	window.open(BASE_URL + 'laporan_cuti/cetak?awal='+awal+'&akhir='+akhir+'&id_uk='+uk+'&user='+user+'&jenis='+jenis);
 	}
   $('.judul-menu').html('Persetujuan Cuti SDM'); 
