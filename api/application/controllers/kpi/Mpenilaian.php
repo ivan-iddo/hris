@@ -79,7 +79,7 @@ public function savedetail_post(){
 							$max = 100;
 							if ($max < $tot_bob) {
 								$arr['hasil']='Maaf';
-								$arr['message'] = 'Bobot anda '. $tot_bob .' sudah melampaui batas! Bobot max 100';
+								$arr['message'] = 'Perhatian! Total Bobot Anda kurang atau lebih dari 100%. Total Bobot harus 100%';
 							}else{							
 								$array = array(
 									'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
@@ -105,7 +105,7 @@ public function savedetail_post(){
 						$max = 100;
 						if ($max < $bobot) {
 							$arr['hasil']='Maaf';
-							$arr['message'] = 'Bobot anda '. $bobot .' sudah melampaui batas! Bobot max 100';
+							$arr['message'] = 'Perhatian! Total Bobot Anda kurang atau lebih dari 100%. Total Bobot harus 100%';
 						}else{
 							$array = array(
 								'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
@@ -133,7 +133,7 @@ public function savedetail_post(){
 					$max = 100;
 					if ($max < $tot_bob) {
 						$arr['hasil']='Maaf';
-						$arr['message'] = 'Bobot anda  '. $tot_bob .' sudah melampaui batas! Bobot max 100';
+						$arr['message'] = 'Perhatian! Total Bobot Anda kurang atau lebih dari 100%. Total Bobot harus 100%';
 					}else{
 						$nama1=strtolower($dat['nama']);
 						$nama=ucwords($nama1);
@@ -175,7 +175,7 @@ public function savedetail_post(){
 							$max = 100;
 							if ($max < $bobot_awal) {
 								$arr['hasil']='Maaf';
-								$arr['message'] = 'Bobot anda '. $bobot_awal .' sudah melampaui batas! Bobot max 100';
+								$arr['message'] = 'Perhatian! Total Bobot Anda kurang atau lebih dari 100%. Total Bobot harus 100%';
 							}else{
 								$array = array(
 									'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
@@ -252,7 +252,7 @@ public function savedetailbaru_post(){
 							$max = 100;
 							if ($max < $tot_bob) {
 								$arr['hasil']='Maaf';
-								$arr['message'] = 'Bobot anda '. $tot_bob .' sudah melampaui batas! Bobot max 100';
+								$arr['message'] = 'Perhatian! Total Bobot Anda kurang atau lebih dari 100%. Total Bobot harus 100%';
 							}else{							
 								$array = array(
 									'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
@@ -278,7 +278,7 @@ public function savedetailbaru_post(){
 						$max = 100;
 						if ($max < $bobot) {
 							$arr['hasil']='Maaf';
-							$arr['message'] = 'Bobot anda '. $bobot .' sudah melampaui batas! Bobot max 100';
+							$arr['message'] = 'Perhatian! Total Bobot Anda kurang atau lebih dari 100%. Total Bobot harus 100%';
 						}else{
 							$array = array(
 								'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
@@ -306,7 +306,7 @@ public function savedetailbaru_post(){
 					$max = 100;
 					if ($max < $tot_bob) {
 						$arr['hasil']='Maaf';
-						$arr['message'] = 'Bobot anda  '. $tot_bob .' sudah melampaui batas! Bobot max 100';
+						$arr['message'] = 'Perhatian! Total Bobot Anda kurang atau lebih dari 100%. Total Bobot harus 100%';
 					}else{
 						$nama1=strtolower($dat['nama']);
 						$nama=ucwords($nama1);
@@ -321,7 +321,7 @@ public function savedetailbaru_post(){
 							$max1=$dat['max'];
 							if($max1 < $b){
 								$arr['hasil']='Maaf';
-								$arr['message'] = 'Parameter anda sudah melampaui batas! Parameter max '. $max1;
+								$arr['message'] = 'Perhatian! Total Bobot Anda kurang atau lebih dari 100%. Total Bobot harus 100%';
 							}else{		
 								$array = array(
 									'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
@@ -346,7 +346,7 @@ public function savedetailbaru_post(){
 							$max = 100;
 							if ($max < $bobot_awal) {
 								$arr['hasil']='Maaf';
-								$arr['message'] = 'Bobot anda '. $bobot_awal .' sudah melampaui batas! Bobot max 100';
+								$arr['message'] = 'Perhatian! Total Bobot Anda kurang atau lebih dari 100%. Total Bobot harus 100%';
 							}else{
 								$array = array(
 									'id_kpi'=>($dat['pid']?$dat['pid']:NULL),
