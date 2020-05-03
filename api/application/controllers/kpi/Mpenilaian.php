@@ -2559,14 +2559,6 @@ public function listiki_get()
 			$this->load->model('System_auth_model', 'm');
 			
 			//print_r($id_jenis);die();
-			if (($user_froup == '1') OR ($user_froup == '6') OR ($user_froup == '3') OR ($user_froup == '92') OR ($user_froup == '97') OR ($user_froup == '99')) {
-				if ((!empty($this->input->get('id_uk'))) AND ($this->input->get('id_uk') <> 'null')) {
-					$this->db->where('id_unitkerja', $this->input->get('id_uk'));
-				}
-
-			}else{
-				$this->db->where('id_unitkerja', $user_froup);
-			}
 
 
 			if (empty($this->input->get('tahun'))) {
@@ -2575,16 +2567,14 @@ public function listiki_get()
 				$thn = $this->input->get('tahun');
 			}
 
-			$this->db->select('his_kpi.*,m_index_jabatan_asn_detail.ds_jabatan, riwayat_kedinasan.jabatan_struktural as jabatan1,riwayat_kedinasan.jabatan2 as jabatan2,riwayat_kedinasan.jabatan3 as jabatan3,m_status_proses.nama as status_name, sys_grup_user.grup as nama_uk,sys_user.name, EXTRACT(MONTH FROM his_kpi.akhir) AS bulan, EXTRACT(YEAR FROM his_kpi.akhir) AS tahun');
+			$this->db->select('his_kpi.*,m_index_jabatan_asn_detail.ds_jabatan, m_status_proses.nama as status_name, sys_grup_user.grup as nama_uk,sys_user.name, EXTRACT(MONTH FROM his_kpi.akhir) AS bulan, EXTRACT(YEAR FROM his_kpi.akhir) AS tahun');
 			$this->db->join('sys_grup_user','his_kpi.id_unitkerja = sys_grup_user.id_grup','LEFT');  
 			$this->db->join('sys_user','sys_user.id_user = his_kpi.id_user','LEFT');
-			$this->db->join('riwayat_kedinasan','riwayat_kedinasan.id_user = sys_user.id_user','LEFT');
 			$this->db->join('m_index_jabatan_asn_detail','m_index_jabatan_asn_detail.migrasi_jabatan_detail_id = his_kpi.id_jab','LEFT');
 			$this->db->join('m_status_proses','m_status_proses.id = his_kpi.status','LEFT');
 			$this->db->where('his_kpi.id_jenis',$id_jenis);
 			$this->db->where('EXTRACT(YEAR FROM his_kpi.akhir) =',$thn);
 			$this->db->where('his_kpi.tampilkan','1');
-			$this->db->order_by('his_kpi.id','DESC');
 			if(!empty($this->input->get('nopeg'))){
 				$this->db->where('sys_user.id_user',$this->input->get('nopeg'));
 				$this->db->where('his_kpi.status',2);
@@ -2597,8 +2587,8 @@ public function listiki_get()
 					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',1);
 				}else if($jabatan == '3'){
 					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi =",'02');$this->db->where_in('his_kpi.status',1);
-				}else if($jabatan == '2701'){
-					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',1);
+				}else if($jabatan == '2701' || $jabatan == '2700'){
+					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',5);
 				}else{
 					$this->db->where_in('his_kpi.status',array('1','2','3','5'));
 			
@@ -2614,7 +2604,7 @@ public function listiki_get()
 				}else if($jabatan == '2642'){
 					$this->db->where_not_in("his_kpi.id_jab",$id_jab);
 					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',1);
-				}else if($jabatan == '2701'){
+				}else if($jabatan == '2701' || $jabatan == '2700'){
 					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',5);
 				}else{
 					$this->db->where_in('his_kpi.status',array('1','2','3','5'));
@@ -2627,6 +2617,8 @@ public function listiki_get()
 				}else if ($jabatan == '2553'){
 					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',1);
 				}else if ($jabatan == '2642'){
+					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',1);
+				}else if ($jabatan == '2701' OR $jabatan == '2700'){
 					$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',5);
 				}else{
 					$this->db->where_in('his_kpi.status',array('1','2','3','5'));
@@ -2642,6 +2634,7 @@ public function listiki_get()
 				foreach ($res as $d) {
 					$jabat1=$this->m->parent_get($d->id_jab);
 					$jab1=array($jabat1);
+					$jab1[]=$d->id_jab;
 					
 					$bulan=$d->bulan;
 					$this->db->select('his_kpi.*,his_kpi.nilai_akhir as iku');
@@ -2955,9 +2948,8 @@ public function listiku_get()
 						}else if ($jabatan == '2642'){
 							$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');
 							$this->db->where_in('his_kpi.status',1);
-						}else if ($jabatan == '2701'){
-							$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');
-							$this->db->where_in('his_kpi.status',5);
+						}else if($jabatan == '2701' || $jabatan == '2700'){
+							$this->db->where("m_index_jabatan_asn_detail.kd_grp_job_profesi !=",'02');$this->db->where_in('his_kpi.status',5);
 						}else if ($user_froup == '1'){
 							$this->db->where_in('his_kpi.status',array('1','2','3','5'));
 						}else{
